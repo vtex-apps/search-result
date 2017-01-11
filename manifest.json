@@ -1,0 +1,17 @@
+{
+  "name": "gallery",
+  "vendor": "vtex",
+  "version": "0.1.0",
+  "title": "Gallery",
+  "description": "",
+  "mustUpdateAt": "2017-09-26",
+  "categories": [],
+  "settingsSchema": {},
+  "dependencies": {
+    "vtex.render": "0.x",
+    "vtex.react-slick": "0.x"
+  },
+  "scripts": {
+    "postreleasy": "vtex publish"
+  }
+}
