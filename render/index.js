@@ -1,4 +1,4 @@
-import Img from 'vtex.render/Img'
+import Img from 'vtex.render-runtime/components/Img'
 import Slider from 'vtex.react-slick'
 import React, {Component, PropTypes} from 'react'
 
