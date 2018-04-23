@@ -1,0 +1,15 @@
+{
+  "pages": {
+    "gallery": {
+      "path": "/",
+      "theme": "theme"
+    }
+  },
+
+  "extensions": {
+    "gallery": {
+      "component": "Gallery",
+      "props": {}
+    }
+  }
+}
