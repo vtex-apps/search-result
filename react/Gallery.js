@@ -1,45 +1,87 @@
-import Img from 'vtex.render-runtime/components/Img'
-import Slider from 'vtex.react-slick'
-import React, {Component, PropTypes} from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { graphql } from 'react-apollo'
+import VTEXClasses from './utils/css-classes'
+import productsQuery from './graphql/products-query.gql'
+import GalleryContent from './components/GalleryContent'
+import Spinner from '@vtex/styleguide/lib/Spinner'
 
-// eslint-disable-next-line
-class Gallery extends Component {
+const DEFAULT_MAX_ITEMS = 10
+
+class Gallery extends React.Component {
   render() {
-    const {selectedSku} = this.props
-    const images = (selectedSku && selectedSku.images) || []
-    const thumbnails = images.map(({src}) => ({ src, width: 640, height: 640 }))
+    const { data } = this.props
+    const products = !data || data['error'] ? [] : data.products
+
+    console.log(data)
+
+    if (this.props.data.loading) {
+      return (
+        <div className="w-100 flex justify-center">
+          <div className="w3 ma0">
+            <Spinner />
+          </div>
+        </div>
+      )
+    }
+
     return (
-      <Slider
-        thumbs={!!thumbnails}
-        thumbsElements={thumbnails}
-        arrows
-        infinite
-        autoplay={false}
-        draggable
-        slidesToShow={1}
-        slidesToScroll={1}
-        className="mb5 center tc pb1"
-        >
-        {
-          images.map((img) => (
-            <div key={img.src}>
-              <Img
-                alt={img.title}
-                className="h-auto"
-                height={640}
-                src={img.src}
-                width={640}
-                />
-            </div>
-          ))
-        }
-      </Slider>
+      <GalleryContent
+        products={products}
+        {...this.props}
+        className={VTEXClasses.MAIN_CLASS}
+      />
     )
   }
 }
 
 Gallery.propTypes = {
-  selectedSku: PropTypes.object,
+  /** Quantity of columns when the viewport is large.*/
+  columnsQuantityLarge: GalleryContent.propTypes.columnsQuantityLarge,
+  /** Quantity of columns when the viewport is medium.*/
+  columnsQuantityMedium: GalleryContent.propTypes.columnsQuantityMedium,
+  /** Graphql data response. */
+  data: PropTypes.shape({
+    products: GalleryContent.propTypes.products,
+    loading: PropTypes.bool.isRequired,
+  }),
 }
 
-export default Gallery
+Gallery.schema = {
+  title: 'Gallery',
+  description: 'A product gallery',
+  type: 'object',
+  properties: {
+    columnsQuantityLarge: {
+      title: 'Columns quantity (Large Viewport)',
+      type: 'number',
+      enum: [3, 4, 5],
+    },
+    columnsQuantityMedium: {
+      title: 'Columns quantity (Medium Viewport)',
+      type: 'number',
+      enum: [2, 3],
+    },
+  },
+}
+
+const options = {
+  options: ({
+    category,
+    collection,
+    orderBy,
+    maxItems = DEFAULT_MAX_ITEMS,
+  }) => ({
+    variables: {
+      category,
+      collection,
+      specificationFilters: [],
+      orderBy,
+      from: 0,
+      to: maxItems - 1,
+    },
+    ssr: false,
+  }),
+}
+
+export default graphql(productsQuery, options)(Gallery)
