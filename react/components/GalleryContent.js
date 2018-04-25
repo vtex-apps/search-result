@@ -31,7 +31,7 @@ class GalleryContent extends React.Component {
     const columnSizeMedium = `${calculateColunmSize(columnsQuantityMedium)}-m`
     const columnSizeSmall = 'w-100-s'
 
-    return `outline ${columnSizeLarge} ${columnSizeMedium} ${columnSizeSmall} mt2`
+    return `${columnSizeLarge} ${columnSizeMedium} ${columnSizeSmall} mt2`
   }
 
   render() {
@@ -44,7 +44,7 @@ class GalleryContent extends React.Component {
             return (
               <div
                 key={item.productId}
-                className={`${columnClass} ${VTEXClasses.ITEM_CLASS} pa4`}
+                className={`${columnClass} ${VTEXClasses.ITEM_CLASS} pa1`}
               >
                 <GalleryItem item={item} />
               </div>
