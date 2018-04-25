@@ -1,19 +1,28 @@
 {
-  "vendor": "vtex",
   "name": "gallery",
+  "vendor": "vtex",
   "version": "1.0.0",
-  "title": "Gallery",
-  "description": "Gallery Component",
-  "defaultLocale": "pt-BR",
-  "builders": {
-    "pages": "0.x",
-    "react": "2.x"
-  },
-  "mustUpdateAt": "2019-04-02",
-  "categories": [],
+  "title": "VTEX Gallery",
+  "description": "A gallery component",
+  "mustUpdateAt": "2019-04-25",
   "registries": ["smartcheckout"],
-  "settingsSchema": {},
   "scripts": {
     "postreleasy": "vtex publish --public"
+  },
+  "builders": {
+    "react": "2.x",
+    "pages": "0.x"
+  },
+  "policies": [
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "{{account}}.vtexcommercestable.com.br",
+        "path": "/api/catalog_system/*"
+      }
+    }
+  ],
+  "dependencies": {
+    "vtex.store-graphql": "2.x"
   }
 }
