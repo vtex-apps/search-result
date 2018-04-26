@@ -1,0 +1,11 @@
+{
+  "products": "Productos",
+  "search.text": "Buscaste",
+  "sortBy.text": "Ordenar por",
+  "sortBy.relevance": "Pertinencia",
+  "sortBy.higherPrice": "Precios más alto",
+  "sortBy.lowerPrice": "Precios más bajo",
+  "sortBy.nameAZ": "Nombre(A-Z)",
+  "sortBy.nameZA": "Nombre(Z-A)",
+  "sortBy.bestSellers": "Más vendidos"
+}

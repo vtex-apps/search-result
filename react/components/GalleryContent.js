@@ -38,19 +38,17 @@ class GalleryContent extends React.Component {
     const columnClass = this.generateColunmCss()
 
     return (
-      <div className="w-100 pa2">
-        <div className="flex flex-wrap justify-between">
-          {this.props.products.map(item => {
-            return (
-              <div
-                key={item.productId}
-                className={`${columnClass} ${VTEXClasses.ITEM_CLASS} pa1`}
-              >
-                <GalleryItem item={item} />
-              </div>
-            )
-          })}
-        </div>
+      <div className="flex flex-wrap justify-between">
+        {this.props.products.map(item => {
+          return (
+            <div
+              key={item.productId}
+              className={`${columnClass} ${VTEXClasses.ITEM_CLASS} pa1`}
+            >
+              <GalleryItem item={item} />
+            </div>
+          )
+        })}
       </div>
     )
   }
