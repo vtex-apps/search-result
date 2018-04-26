@@ -7,6 +7,8 @@ import GalleryContent from './components/GalleryContent'
 import GalleryHeader from './components/GalleryHeader'
 import Spinner from '@vtex/styleguide/lib/Spinner'
 
+import './global.css'
+
 const DEFAULT_MAX_ITEMS = 10
 
 class Gallery extends React.Component {
@@ -26,7 +28,7 @@ class Gallery extends React.Component {
 
     return (
       <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3`}>
-        <GalleryHeader />
+        <GalleryHeader query={'celulares'} quantity={10} />
         <GalleryContent products={products} {...this.props} />
       </div>
     )

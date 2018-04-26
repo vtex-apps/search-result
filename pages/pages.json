@@ -1,8 +1,7 @@
 {
   "pages": {
     "gallery": {
-      "path": "/",
-      "theme": "theme"
+      "path": "/"
     }
   },
 
