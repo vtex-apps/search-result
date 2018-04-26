@@ -1,3 +1,7 @@
 body {
   background: #ffffff;
 }
+
+.vtex-gallery .vtex-gallery_item {
+  display: flex;
+}

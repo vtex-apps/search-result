@@ -4,6 +4,7 @@ import { graphql } from 'react-apollo'
 import VTEXClasses from './utils/css-classes'
 import productsQuery from './graphql/products-query.gql'
 import GalleryContent from './components/GalleryContent'
+import GalleryHeader from './components/GalleryHeader'
 import Spinner from '@vtex/styleguide/lib/Spinner'
 
 const DEFAULT_MAX_ITEMS = 10
@@ -13,11 +14,9 @@ class Gallery extends React.Component {
     const { data } = this.props
     const products = !data || data['error'] ? [] : data.products
 
-    console.log(data)
-
     if (this.props.data.loading) {
       return (
-        <div className="w-100 flex justify-center">
+        <div className={`w-100 flex justify-center ${VTEXClasses.MAIN_CLASS}`}>
           <div className="w3 ma0">
             <Spinner />
           </div>
@@ -26,11 +25,10 @@ class Gallery extends React.Component {
     }
 
     return (
-      <GalleryContent
-        products={products}
-        {...this.props}
-        className={VTEXClasses.MAIN_CLASS}
-      />
+      <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3`}>
+        <GalleryHeader />
+        <GalleryContent products={products} {...this.props} />
+      </div>
     )
   }
 }
@@ -47,6 +45,11 @@ Gallery.propTypes = {
   }),
 }
 
+Gallery.defaultProps = {
+  columnsQuantityLarge: 5,
+  columnsQuantityMedium: 3,
+}
+
 Gallery.schema = {
   title: 'Gallery',
   description: 'A product gallery',
@@ -56,11 +59,13 @@ Gallery.schema = {
       title: 'Columns quantity (Large Viewport)',
       type: 'number',
       enum: [3, 4, 5],
+      default: 5,
     },
     columnsQuantityMedium: {
       title: 'Columns quantity (Medium Viewport)',
       type: 'number',
       enum: [2, 3],
+      default: 3,
     },
   },
 }

@@ -69,8 +69,6 @@ GalleryItem.propTypes = {
       })
     ).isRequired,
   }),
-  /** Vtex component ID that will be used to render the item.
-   extentionId: PropTypes.string.isRequired,*/
 }
 
 export default GalleryItem
