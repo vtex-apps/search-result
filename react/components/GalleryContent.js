@@ -29,16 +29,15 @@ class GalleryContent extends React.Component {
 
     const columnSizeLarge = `${calculateColunmSize(columnsQuantityLarge)}-l`
     const columnSizeMedium = `${calculateColunmSize(columnsQuantityMedium)}-m`
-    const columnSizeSmall = 'w-100-s'
 
-    return `${columnSizeLarge} ${columnSizeMedium} ${columnSizeSmall} mt2`
+    return `${columnSizeLarge} ${columnSizeMedium} w-100-s mt2`
   }
 
   render() {
     const columnClass = this.generateColunmCss()
 
     return (
-      <div className="flex flex-wrap justify-between">
+      <div className="flex flex-wrap">
         {this.props.products.map(item => {
           return (
             <div
