@@ -1,35 +1,91 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { graphql } from 'react-apollo'
 import VTEXClasses from './utils/css-classes'
-import productsQuery from './graphql/products-query.gql'
 import GalleryContent from './components/GalleryContent'
 import GalleryHeader from './components/GalleryHeader'
-import Spinner from '@vtex/styleguide/lib/Spinner'
+import products from './resources/products.json'
+import { sortByPrice, sortByName } from './utils/sort'
 
 import './global.css'
 
-const DEFAULT_MAX_ITEMS = 10
+const sortingOptions = [
+  //  'sortBy.relevance',
+  'sortBy.higherPrice',
+  'sortBy.lowerPrice',
+  'sortBy.nameAZ',
+  'sortBy.nameZA',
+  //  'sortBy.bestSellers',
+]
 
 class Gallery extends React.Component {
-  render() {
-    const { data } = this.props
-    const products = !data || data['error'] ? [] : data.products
+  constructor(props) {
+    super(props)
 
-    if (this.props.data.loading) {
-      return (
-        <div className={`w-100 flex justify-center ${VTEXClasses.MAIN_CLASS}`}>
-          <div className="w3 ma0">
-            <Spinner />
-          </div>
-        </div>
-      )
+    this.state = {
+      selectedSort: 0,
+      products: props.products,
+    }
+  }
+
+  componentWillMount() {
+    console.log('will mount')
+    this.sortProducts()
+  }
+
+  sortProducts() {
+    let sortFunction
+    let asc
+
+    const value = sortingOptions[this.state.selectedSort]
+
+    switch (value) {
+      case 'sortBy.lowerPrice':
+        sortFunction = sortByPrice
+        asc = true
+        break
+      case 'sortBy.higherPrice':
+        sortFunction = sortByPrice
+        asc = false
+        break
+      case 'sortBy.nameAZ':
+        sortFunction = sortByName
+        asc = true
+        break
+      case 'sortBy.nameZA':
+        sortFunction = sortByName
+        asc = false
+        break
+      default:
+        sortFunction = sortByPrice
+        asc = false
+        break
     }
 
+    console.log('value asc', value, asc)
+
+    this.setState({
+      products: products.sort((a, b) => sortFunction(a, b, asc)),
+    })
+  }
+
+  handleSortChange = (e, value) => {
+    this.setState({
+      selectedSort: sortingOptions.indexOf(value),
+    })
+
+    this.sortProducts()
+  }
+
+  render() {
     return (
       <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3`}>
-        <GalleryHeader query={'celulares'} quantity={10} />
-        <GalleryContent products={products} {...this.props} />
+        <GalleryHeader
+          query={'celulares'}
+          selectedSort={this.state.selectedSort}
+          quantity={this.props.products.length}
+          onSortChange={this.handleSortChange}
+          sortingOptions={sortingOptions}
+        />
+        <GalleryContent productList={this.state.products} {...this.props} />
       </div>
     )
   }
@@ -40,16 +96,14 @@ Gallery.propTypes = {
   columnsQuantityLarge: GalleryContent.propTypes.columnsQuantityLarge,
   /** Quantity of columns when the viewport is medium.*/
   columnsQuantityMedium: GalleryContent.propTypes.columnsQuantityMedium,
-  /** Graphql data response. */
-  data: PropTypes.shape({
-    products: GalleryContent.propTypes.products,
-    loading: PropTypes.bool.isRequired,
-  }),
+  /** Products to be displayed */
+  products: GalleryContent.propTypes.products,
 }
 
 Gallery.defaultProps = {
   columnsQuantityLarge: 5,
   columnsQuantityMedium: 3,
+  products: products,
 }
 
 Gallery.schema = {
@@ -72,23 +126,4 @@ Gallery.schema = {
   },
 }
 
-const options = {
-  options: ({
-    category,
-    collection,
-    orderBy,
-    maxItems = DEFAULT_MAX_ITEMS,
-  }) => ({
-    variables: {
-      category,
-      collection,
-      specificationFilters: [],
-      orderBy,
-      from: 0,
-      to: maxItems - 1,
-    },
-    ssr: false,
-  }),
-}
-
-export default graphql(productsQuery, options)(Gallery)
+export default Gallery

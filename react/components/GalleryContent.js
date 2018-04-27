@@ -38,7 +38,7 @@ class GalleryContent extends React.Component {
 
     return (
       <div className="flex flex-wrap">
-        {this.props.products.map(item => {
+        {this.props.productList.map(item => {
           return (
             <div
               key={item.productId}
@@ -56,7 +56,7 @@ class GalleryContent extends React.Component {
 GalleryContent.propTypes = {
   columnsQuantityLarge: PropTypes.number.isRequired,
   columnsQuantityMedium: PropTypes.number.isRequired,
-  products: PropTypes.arrayOf(GalleryItem.propTypes.item),
+  productList: PropTypes.arrayOf(GalleryItem.propTypes.item),
 }
 
 export default GalleryContent

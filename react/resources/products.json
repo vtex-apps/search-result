@@ -1,0 +1,407 @@
+[
+  {
+    "productId": "2",
+    "productName": "Porsche 911",
+    "link": "https://storecomponents.vtexcommercestable.com.br/porsche-911/p",
+    "brand": "Porsche",
+    "items": [
+      {
+        "name": "Porsche 911",
+        "referenceId": [
+          {
+            "Value": "321",
+            "__typename": "vtex_storegraphql_2_2_1_Reference"
+          }
+        ],
+        "images": [
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155395/2017-porsche-911-carrera-s-coupe-angular-front.png?v=636583915191800000",
+            "imageTag": "<img src=\"~/arquivos/ids/155395-#width#-#height#/2017-porsche-911-carrera-s-coupe-angular-front.png?v=636583915191800000\" width=\"#width#\" height=\"#height#\" alt=\"Porsche-911\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          }
+        ],
+        "sellers": [
+          {
+            "commertialOffer": {
+              "Price": 220000,
+              "ListPrice": 390000,
+              "__typename": "vtex_storegraphql_2_2_1_Offer"
+            },
+            "__typename": "vtex_storegraphql_2_2_1_Seller"
+          }
+        ],
+        "__typename": "vtex_storegraphql_2_2_1_SKU"
+      }
+    ],
+    "__typename": "vtex_storegraphql_2_2_1_Product"
+  },
+  {
+    "productId": "1",
+    "productName": "Ninja 300 - Special Edition",
+    "link": "https://storecomponents.vtexcommercestable.com.br/ninja-300/p",
+    "brand": "Kawasaki",
+    "items": [
+      {
+        "name": "Special Edition",
+        "referenceId": [
+          {
+            "Value": "1235",
+            "__typename": "vtex_storegraphql_2_2_1_Reference"
+          }
+        ],
+        "images": [
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155394/17ninja300_wsb.jpg?v=636583737653170000",
+            "imageTag": "<img src=\"~/arquivos/ids/155394-#width#-#height#/17ninja300_wsb.jpg?v=636583737653170000\" width=\"#width#\" height=\"#height#\" alt=\"17ninja300_wsb\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          }
+        ],
+        "sellers": [
+          {
+            "commertialOffer": {
+              "Price": 24000,
+              "ListPrice": 28000,
+              "__typename": "vtex_storegraphql_2_2_1_Offer"
+            },
+            "__typename": "vtex_storegraphql_2_2_1_Seller"
+          }
+        ],
+        "__typename": "vtex_storegraphql_2_2_1_SKU"
+      }
+    ],
+    "__typename": "vtex_storegraphql_2_2_1_Product"
+  },
+  {
+    "productId": "13",
+    "productName": "Samsung S9 Plus",
+    "link": "https://storecomponents.vtexcommercestable.com.br/samsung-s9/p",
+    "brand": "Samsung",
+    "items": [
+      {
+        "name": "S9 Plus",
+        "referenceId": [
+          {
+            "Value": "87263191",
+            "__typename": "vtex_storegraphql_2_2_1_Reference"
+          }
+        ],
+        "images": [
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155408/samsung_galaxy_s9_plus_phone_template_2048x.jpg?v=636592276295770000",
+            "imageTag": "<img src=\"~/arquivos/ids/155408-#width#-#height#/samsung_galaxy_s9_plus_phone_template_2048x.jpg?v=636592276295770000\" width=\"#width#\" height=\"#height#\" alt=\"front\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          },
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155409/download--1-.jpg?v=636592276669400000",
+            "imageTag": "<img src=\"~/arquivos/ids/155409-#width#-#height#/download--1-.jpg?v=636592276669400000\" width=\"#width#\" height=\"#height#\" alt=\"back\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          }
+        ],
+        "sellers": [
+          {
+            "commertialOffer": {
+              "Price": 3600,
+              "ListPrice": 4000,
+              "__typename": "vtex_storegraphql_2_2_1_Offer"
+            },
+            "__typename": "vtex_storegraphql_2_2_1_Seller"
+          }
+        ],
+        "__typename": "vtex_storegraphql_2_2_1_SKU"
+      }
+    ],
+    "__typename": "vtex_storegraphql_2_2_1_Product"
+  },
+  {
+    "productId": "12",
+    "productName": "Google Pixel - 2 XL",
+    "link": "https://storecomponents.vtexcommercestable.com.br/google-pixel2/p",
+    "brand": "Google",
+    "items": [
+      {
+        "name": "2 XL",
+        "referenceId": [
+          {
+            "Value": "6666",
+            "__typename": "vtex_storegraphql_2_2_1_Reference"
+          }
+        ],
+        "images": [
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155406/download.jpg?v=636592257640700000",
+            "imageTag": "<img src=\"~/arquivos/ids/155406-#width#-#height#/download.jpg?v=636592257640700000\" width=\"#width#\" height=\"#height#\" alt=\"pixel-2\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          },
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155407/thumb_93290_default_big.jpg?v=636592257862070000",
+            "imageTag": "<img src=\"~/arquivos/ids/155407-#width#-#height#/thumb_93290_default_big.jpg?v=636592257862070000\" width=\"#width#\" height=\"#height#\" alt=\"pixel-2xl\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          }
+        ],
+        "sellers": [
+          {
+            "commertialOffer": {
+              "Price": 2200,
+              "ListPrice": 2900,
+              "__typename": "vtex_storegraphql_2_2_1_Offer"
+            },
+            "__typename": "vtex_storegraphql_2_2_1_Seller"
+          }
+        ],
+        "__typename": "vtex_storegraphql_2_2_1_SKU"
+      }
+    ],
+    "__typename": "vtex_storegraphql_2_2_1_Product"
+  },
+  {
+    "productId": "8",
+    "productName": "TV LG - 4K 3D",
+    "link": "https://storecomponents.vtexcommercestable.com.br/tv-lg/p",
+    "brand": "LG",
+    "items": [
+      {
+        "name": "4K 3D",
+        "referenceId": [
+          {
+            "Value": "6217361",
+            "__typename": "vtex_storegraphql_2_2_1_Reference"
+          }
+        ],
+        "images": [
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155401/tv-lg1.jpg?v=636592149449670000",
+            "imageTag": "<img src=\"~/arquivos/ids/155401-#width#-#height#/tv-lg1.jpg?v=636592149449670000\" width=\"#width#\" height=\"#height#\" alt=\"lg-tv1\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          },
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155402/tv-lg2.jpg?v=636592149454870000",
+            "imageTag": "<img src=\"~/arquivos/ids/155402-#width#-#height#/tv-lg2.jpg?v=636592149454870000\" width=\"#width#\" height=\"#height#\" alt=\"lg-tv2\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          }
+        ],
+        "sellers": [
+          {
+            "commertialOffer": {
+              "Price": 2000,
+              "ListPrice": 2000,
+              "__typename": "vtex_storegraphql_2_2_1_Offer"
+            },
+            "__typename": "vtex_storegraphql_2_2_1_Seller"
+          }
+        ],
+        "__typename": "vtex_storegraphql_2_2_1_SKU"
+      }
+    ],
+    "__typename": "vtex_storegraphql_2_2_1_Product"
+  },
+  {
+    "productId": "11",
+    "productName": "Microsystem Sony - 100 RMS",
+    "link": "https://storecomponents.vtexcommercestable.com.br/microsystem-sony/p",
+    "brand": "Samsung",
+    "items": [
+      {
+        "name": "100 RMS",
+        "referenceId": [
+          {
+            "Value": "1293711",
+            "__typename": "vtex_storegraphql_2_2_1_Reference"
+          }
+        ],
+        "images": [
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155405/som-sony1.jpg?v=636592149480230000",
+            "imageTag": "<img src=\"~/arquivos/ids/155405-#width#-#height#/som-sony1.jpg?v=636592149480230000\" width=\"#width#\" height=\"#height#\" alt=\"sony-som\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          }
+        ],
+        "sellers": [
+          {
+            "commertialOffer": {
+              "Price": 1760,
+              "ListPrice": 2000,
+              "__typename": "vtex_storegraphql_2_2_1_Offer"
+            },
+            "__typename": "vtex_storegraphql_2_2_1_Seller"
+          }
+        ],
+        "__typename": "vtex_storegraphql_2_2_1_SKU"
+      }
+    ],
+    "__typename": "vtex_storegraphql_2_2_1_Product"
+  },
+  {
+    "productId": "9",
+    "productName": "Som LG - 100 RMS",
+    "link": "https://storecomponents.vtexcommercestable.com.br/som-lg/p",
+    "brand": "LG",
+    "items": [
+      {
+        "name": "100 RMS",
+        "referenceId": [
+          {
+            "Value": "9812983",
+            "__typename": "vtex_storegraphql_2_2_1_Reference"
+          }
+        ],
+        "images": [
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155400/som-lg1.jpg?v=636592149442230000",
+            "imageTag": "<img src=\"~/arquivos/ids/155400-#width#-#height#/som-lg1.jpg?v=636592149442230000\" width=\"#width#\" height=\"#height#\" alt=\"som-samsung\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          }
+        ],
+        "sellers": [
+          {
+            "commertialOffer": {
+              "Price": 1600,
+              "ListPrice": 2000,
+              "__typename": "vtex_storegraphql_2_2_1_Offer"
+            },
+            "__typename": "vtex_storegraphql_2_2_1_Seller"
+          }
+        ],
+        "__typename": "vtex_storegraphql_2_2_1_SKU"
+      }
+    ],
+    "__typename": "vtex_storegraphql_2_2_1_Product"
+  },
+  {
+    "productId": "14",
+    "productName": "Motorola Celular - Moto X4",
+    "link": "https://storecomponents.vtexcommercestable.com.br/motorola-moto-x4/p",
+    "brand": "Motorola",
+    "items": [
+      {
+        "name": "Moto X4",
+        "referenceId": [
+          {
+            "Value": "2863153",
+            "__typename": "vtex_storegraphql_2_2_1_Reference"
+          }
+        ],
+        "images": [
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155410/34324-5-smartphone-motorola-moto-x4-xt1900-32gb-tela-de-5-2-dual-chip-12-mp-8-mp-octa-core-e-3gb-ram-preto.jpg?v=636592277942030000",
+            "imageTag": "<img src=\"~/arquivos/ids/155410-#width#-#height#/34324-5-smartphone-motorola-moto-x4-xt1900-32gb-tela-de-5-2-dual-chip-12-mp-8-mp-octa-core-e-3gb-ram-preto.jpg?v=636592277942030000\" width=\"#width#\" height=\"#height#\" alt=\"34324-5-smartphone-motorola-moto-x4-xt1900-32gb-tela-de-5-2-dual-chip-12-mp-8-mp-octa-core-e-3gb-ram-preto\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          },
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155411/detalhe-motorola-moto-x4-xt1900-azul-topazio.jpg?v=636592278294370000",
+            "imageTag": "<img src=\"~/arquivos/ids/155411-#width#-#height#/detalhe-motorola-moto-x4-xt1900-azul-topazio.jpg?v=636592278294370000\" width=\"#width#\" height=\"#height#\" alt=\"detalhe-motorola-moto-x4-xt1900-azul-topazio\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          },
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155412/download.jpg?v=636592278711800000",
+            "imageTag": "<img src=\"~/arquivos/ids/155412-#width#-#height#/download.jpg?v=636592278711800000\" width=\"#width#\" height=\"#height#\" alt=\"download\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          },
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155413/images.jpg?v=636592278890530000",
+            "imageTag": "<img src=\"~/arquivos/ids/155413-#width#-#height#/images.jpg?v=636592278890530000\" width=\"#width#\" height=\"#height#\" alt=\"images\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          },
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155414/moto-x4-both-colors-2.jpg?v=636592279074070000",
+            "imageTag": "<img src=\"~/arquivos/ids/155414-#width#-#height#/moto-x4-both-colors-2.jpg?v=636592279074070000\" width=\"#width#\" height=\"#height#\" alt=\"moto-x4-both-colors-2\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          },
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155415/smartphone-motorola-moto-x-x4-xt1900-32gb-12-0-mp-2-chips-android-7-1-nougat-3g-4g-wi-fi-photo196948602-12-20-3d.jpg?v=636592279477730000",
+            "imageTag": "<img src=\"~/arquivos/ids/155415-#width#-#height#/smartphone-motorola-moto-x-x4-xt1900-32gb-12-0-mp-2-chips-android-7-1-nougat-3g-4g-wi-fi-photo196948602-12-20-3d.jpg?v=636592279477730000\" width=\"#width#\" height=\"#height#\" alt=\"smartphone-motorola-moto-x-x4-xt1900-32gb-12-0-mp-2-chips-android-7-1-nougat-3g-4g-wi-fi-photo196948602-12-20-3d\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          }
+        ],
+        "sellers": [
+          {
+            "commertialOffer": {
+              "Price": 1540,
+              "ListPrice": 1900,
+              "__typename": "vtex_storegraphql_2_2_1_Offer"
+            },
+            "__typename": "vtex_storegraphql_2_2_1_Seller"
+          }
+        ],
+        "__typename": "vtex_storegraphql_2_2_1_SKU"
+      }
+    ],
+    "__typename": "vtex_storegraphql_2_2_1_Product"
+  },
+  {
+    "productId": "10",
+    "productName": "TV Sony - 4K 3D",
+    "link": "https://storecomponents.vtexcommercestable.com.br/tv-sony/p",
+    "brand": "Google",
+    "items": [
+      {
+        "name": "4K 3D",
+        "referenceId": [
+          {
+            "Value": "210399183",
+            "__typename": "vtex_storegraphql_2_2_1_Reference"
+          }
+        ],
+        "images": [
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155403/tv-sony.jpg?v=636592149473930000",
+            "imageTag": "<img src=\"~/arquivos/ids/155403-#width#-#height#/tv-sony.jpg?v=636592149473930000\" width=\"#width#\" height=\"#height#\" alt=\"sony-tv1\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          },
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155404/tv-sony2.jpg?v=636592149477570000",
+            "imageTag": "<img src=\"~/arquivos/ids/155404-#width#-#height#/tv-sony2.jpg?v=636592149477570000\" width=\"#width#\" height=\"#height#\" alt=\"sony-tv2\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          }
+        ],
+        "sellers": [
+          {
+            "commertialOffer": {
+              "Price": 1330,
+              "ListPrice": 1330,
+              "__typename": "vtex_storegraphql_2_2_1_Offer"
+            },
+            "__typename": "vtex_storegraphql_2_2_1_Seller"
+          }
+        ],
+        "__typename": "vtex_storegraphql_2_2_1_SKU"
+      }
+    ],
+    "__typename": "vtex_storegraphql_2_2_1_Product"
+  },
+  {
+    "productId": "7",
+    "productName": "Som Bluetooth Samsung - 100 RMS",
+    "link": "https://storecomponents.vtexcommercestable.com.br/som-samsung/p",
+    "brand": "Samsung",
+    "items": [
+      {
+        "name": "100 RMS",
+        "referenceId": [
+          {
+            "Value": "9831831",
+            "__typename": "vtex_storegraphql_2_2_1_Reference"
+          }
+        ],
+        "images": [
+          {
+            "imageUrl": "http://storecomponents.vteximg.com.br/arquivos/ids/155397/som-samsung.jpg?v=636592103297600000",
+            "imageTag": "<img src=\"~/arquivos/ids/155397-#width#-#height#/som-samsung.jpg?v=636592103297600000\" width=\"#width#\" height=\"#height#\" alt=\"som-samsung\" id=\"\" />",
+            "__typename": "vtex_storegraphql_2_2_1_Image"
+          }
+        ],
+        "sellers": [
+          {
+            "commertialOffer": {
+              "Price": 936,
+              "ListPrice": 1200,
+              "__typename": "vtex_storegraphql_2_2_1_Offer"
+            },
+            "__typename": "vtex_storegraphql_2_2_1_Seller"
+          }
+        ],
+        "__typename": "vtex_storegraphql_2_2_1_SKU"
+      }
+    ],
+    "__typename": "vtex_storegraphql_2_2_1_Product"
+  }
+]
