@@ -1,10 +1,9 @@
 {
   "pages": {
     "gallery": {
-      "path": "/"
+      "path": "/gallery"
     }
   },
-
   "extensions": {
     "gallery": {
       "component": "Gallery",

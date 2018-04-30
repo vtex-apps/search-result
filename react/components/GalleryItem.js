@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 import { ExtensionPoint } from 'render'
 
 /**
- * GallertItem Component. Normalizes the item received in the props
- * to adapt to the extension point prop.
+ * Normalizes the item received in the props to adapt to the extension point prop.
  */
 class GalleryItem extends React.Component {
   normalizeProductSummary(product) {
@@ -50,13 +49,13 @@ GalleryItem.propTypes = {
         referenceId: PropTypes.arrayOf(
           PropTypes.shape({
             Value: PropTypes.string.isRequired,
-          })
+          }),
         ),
         images: PropTypes.arrayOf(
           PropTypes.shape({
             imageUrl: PropTypes.string.isRequired,
             imageTag: PropTypes.string.isRequired,
-          })
+          }),
         ).isRequired,
         sellers: PropTypes.arrayOf(
           PropTypes.shape({
@@ -64,9 +63,9 @@ GalleryItem.propTypes = {
               Price: PropTypes.number.isRequired,
               ListPrice: PropTypes.number.isRequired,
             }),
-          })
+          }),
         ).isRequired,
-      })
+      }),
     ).isRequired,
   }),
 }

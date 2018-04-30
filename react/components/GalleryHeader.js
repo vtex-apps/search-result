@@ -5,6 +5,9 @@ import VTEXClasses from '../utils/css-classes'
 
 import { FormattedMessage, injectIntl } from 'react-intl'
 
+/**
+ * Displays the header information of the Gallery: the query used to find the products and a selector to choose the sorting type.
+ */
 class GalleryHeader extends React.Component {
   sortingOptions() {
     const context = this.context
@@ -15,17 +18,21 @@ class GalleryHeader extends React.Component {
   }
 
   render() {
-    const { quantity, query, selectedSort, onSortChange } = this.props
+    const { quantity, search, selectedSort, onSortChange } = this.props
     const options = this.sortingOptions()
 
     return (
-      <div className="flex flex-wrap justify-between mb7">
+      <div
+        className={`${
+          VTEXClasses.HEADER_CLASS
+        } flex flex-wrap justify-between mb7`}
+      >
         <div
           className={`${
             VTEXClasses.HEADER_SEARCH_CLASS
           } w-third-l w-third-m w-100-s pa3 pt5`}
         >
-          <FormattedMessage id="search.text" values={{ query }} />
+          <FormattedMessage id="search.text" values={{ search }} />
         </div>
         <div
           className={`${
@@ -57,17 +64,15 @@ GalleryHeader.contextTypes = {
 }
 
 GalleryHeader.propTypes = {
-  /** Amount of products displayed by the gallery */
+  /** Amount of products displayed by the gallery. */
   quantity: PropTypes.number.isRequired,
-  /** Graphql data response. */
-  query: PropTypes.shape({
-    search: PropTypes.string.isRequired,
-  }),
-  /** Function that will be called when the user change the sort method */
+  /** Query used to find the products. */
+  search: PropTypes.string.isRequired,
+  /** Function that will be called when the user change the sorting method. */
   onSortChange: PropTypes.func.isRequired,
-  /** Wich sorting method is selected */
+  /** Wich sorting method is selected. */
   selectedSort: PropTypes.number.isRequired,
-  /** List of sorting methods*/
+  /** List of sorting methods. */
   sortingOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
