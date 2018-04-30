@@ -6,7 +6,7 @@ Gallery is a canonical component that any VTEX store can install.
 
 ### Travis CI
 
-TODO
+[![Build Status](https://travis-ci.org/vtex-apps/gallery.svg?branch=master)](https://travis-ci.org/vtex-apps/gallery)
 
 ## Usage
 
