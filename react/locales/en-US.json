@@ -1,6 +1,6 @@
 {
-  "search.text": "You searched for: {search}",
-  "sortBy.text": "{quantity} product(s) sorted by:",
+  "search.text": "You searched for {search}",
+  "sortBy.text": "{quantity} product(s) sorted by",
   "sortBy.relevance": "Relevance",
   "sortBy.higherPrice": "Price: High to Low",
   "sortBy.lowerPrice": "Price: Low to High",

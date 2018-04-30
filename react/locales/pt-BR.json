@@ -1,6 +1,6 @@
 {
-  "search.text": "Você buscou por: {query}",
-  "sortBy.text": "{quantity} produto(s) ordenados por:",
+  "search.text": "Você buscou por {search}",
+  "sortBy.text": "{quantity} produto(s) ordenados por",
   "sortBy.relevance": "Relevância",
   "sortBy.higherPrice": "Maior preço",
   "sortBy.lowerPrice": "Menor preço",

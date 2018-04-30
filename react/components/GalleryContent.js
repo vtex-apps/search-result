@@ -23,6 +23,9 @@ function calculateColunmSize(nColumns) {
   return result
 }
 
+/**
+ * Displays the products of the Gallery and handle the correct layout disposition.
+ */
 class GalleryContent extends React.Component {
   generateColunmCss() {
     const { columnsQuantityLarge, columnsQuantityMedium } = this.props
@@ -54,8 +57,11 @@ class GalleryContent extends React.Component {
 }
 
 GalleryContent.propTypes = {
+  /** Quantity of columns when the viewport is large.*/
   columnsQuantityLarge: PropTypes.number.isRequired,
+  /** Quantity of columns when the viewport is medium.*/
   columnsQuantityMedium: PropTypes.number.isRequired,
+  /** Products to be displayed */
   productList: PropTypes.arrayOf(GalleryItem.propTypes.item),
 }
 
