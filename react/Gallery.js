@@ -19,6 +19,21 @@ const sortingOptions = [
  * Canonical gallery that displays a list of given products.
  */
 class Gallery extends React.Component {
+  static uiSchema = {
+    columnsQuantityLarge: {
+      'ui:widget': 'radio',
+      'ui:options': {
+        inline: true,
+      },
+    },
+    columnsQuantityMedium: {
+      'ui:widget': 'radio',
+      'ui:options': {
+        inline: true,
+      },
+    },
+  }
+
   componentWillMount() {
     this.setState({
       products: sortProducts(this.props.products, sortingOptions[0]),
@@ -64,7 +79,6 @@ Gallery.defaultProps = {
   columnsQuantityLarge: 5,
   columnsQuantityMedium: 3,
   products: products,
-  search: 'Celulares',
 }
 
 Gallery.schema = {
