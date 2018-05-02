@@ -44,18 +44,35 @@ export default class GalleryItem extends Component {
   }
 
   normalizeProductSummary(product) {
-    return {
-      listPrice: product.items[0].sellers[0].commertialOffer.ListPrice,
-      sellingPrice: product.items[0].sellers[0].commertialOffer.Price,
-      imageUrl: product.items[0].images[0].imageUrl.replace('http:', ''),
-      imageTag: product.items[0].images[0].imageTag,
-      url: product.link,
-      name: product.productName,
-      skuName: product.items[0].name,
-      brandName: product.brand,
-      referenceCode:
-        product.items[0].referenceId && product.items[0].referenceId[0].Value,
+    if (!product) return null
+    const newProduct = { ...product }
+    if (newProduct.items && newProduct.items.length) {
+      newProduct.sku = { ...newProduct.items[0] }
+      if (newProduct.sku.sellers && newProduct.sku.sellers.length) {
+        newProduct.sku.seller = newProduct.sku.sellers[0]
+      } else {
+        newProduct.sku.seller = {
+          commertialOffer: {
+            Price: 0,
+            ListPrice: 0,
+          },
+        }
+      }
+      if (newProduct.sku.images && newProduct.sku.images.length) {
+        newProduct.sku.image = { ...newProduct.sku.images[0] }
+        newProduct.sku.image.imageUrl = newProduct.sku.image.imageUrl
+          .replace('http:', '')
+          .replace('https:', '')
+      }
+      newProduct.sku.referenceId = (newProduct.sku.referenceId &&
+        newProduct.sku.referenceId[0]) || {
+        Value: '',
+      }
+      delete newProduct.sku.sellers
+      delete newProduct.sku.images
+      delete newProduct.items
     }
+    return newProduct
   }
 
   render() {

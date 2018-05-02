@@ -1,7 +1,7 @@
 {
   "pages": {
     "gallery": {
-      "path": "_v/gallery"
+      "path": "/_v/gallery"
     }
   },
   "extensions": {
