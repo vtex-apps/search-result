@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import GalleryItem from './GalleryItem'
 
@@ -26,7 +26,16 @@ function calculateColunmSize(nColumns) {
 /**
  * Displays the products of the Gallery and handle the correct layout disposition.
  */
-class GalleryContent extends React.Component {
+export default class GalleryContent extends Component {
+  static propTypes = {
+    /** Quantity of columns when the viewport is large.*/
+    columnsQuantityLarge: PropTypes.number.isRequired,
+    /** Quantity of columns when the viewport is medium.*/
+    columnsQuantityMedium: PropTypes.number.isRequired,
+    /** Products to be displayed */
+    productList: PropTypes.arrayOf(GalleryItem.propTypes.item),
+  }
+
   generateColunmCss() {
     const { columnsQuantityLarge, columnsQuantityMedium } = this.props
 
@@ -55,14 +64,3 @@ class GalleryContent extends React.Component {
     )
   }
 }
-
-GalleryContent.propTypes = {
-  /** Quantity of columns when the viewport is large.*/
-  columnsQuantityLarge: PropTypes.number.isRequired,
-  /** Quantity of columns when the viewport is medium.*/
-  columnsQuantityMedium: PropTypes.number.isRequired,
-  /** Products to be displayed */
-  productList: PropTypes.arrayOf(GalleryItem.propTypes.item),
-}
-
-export default GalleryContent
