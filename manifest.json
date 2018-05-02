@@ -1,11 +1,13 @@
 {
   "name": "gallery",
   "vendor": "vtex",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "title": "VTEX Gallery",
   "description": "A gallery component",
   "mustUpdateAt": "2019-04-25",
-  "registries": ["smartcheckout"],
+  "registries": [
+    "smartcheckout"
+  ],
   "scripts": {
     "postreleasy": "vtex publish --public"
   },

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Dropdown from '@vtex/styleguide/lib/Dropdown'
 import VTEXClasses from '../utils/css-classes'
@@ -8,7 +8,24 @@ import { FormattedMessage, injectIntl } from 'react-intl'
 /**
  * Displays the header information of the Gallery: the query used to find the products and a selector to choose the sorting type.
  */
-class GalleryHeader extends React.Component {
+class GalleryHeader extends Component {
+  static contextTypes = {
+    intl: PropTypes.object.isRequired,
+  }
+
+  static propTypes = {
+    /** Amount of products displayed by the gallery. */
+    quantity: PropTypes.number.isRequired,
+    /** Query used to find the products. */
+    search: PropTypes.string.isRequired,
+    /** Function that will be called when the user change the sorting method. */
+    onSortChange: PropTypes.func.isRequired,
+    /** Wich sorting method is selected. */
+    selectedSort: PropTypes.number.isRequired,
+    /** List of sorting methods. */
+    sortingOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }
+
   sortingOptions() {
     const context = this.context
 
@@ -57,23 +74,6 @@ class GalleryHeader extends React.Component {
       </div>
     )
   }
-}
-
-GalleryHeader.contextTypes = {
-  intl: PropTypes.object.isRequired,
-}
-
-GalleryHeader.propTypes = {
-  /** Amount of products displayed by the gallery. */
-  quantity: PropTypes.number.isRequired,
-  /** Query used to find the products. */
-  search: PropTypes.string.isRequired,
-  /** Function that will be called when the user change the sorting method. */
-  onSortChange: PropTypes.func.isRequired,
-  /** Wich sorting method is selected. */
-  selectedSort: PropTypes.number.isRequired,
-  /** List of sorting methods. */
-  sortingOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 export default injectIntl(GalleryHeader)

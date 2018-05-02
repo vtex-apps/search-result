@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { ExtensionPoint } from 'render'
@@ -6,7 +6,43 @@ import { ExtensionPoint } from 'render'
 /**
  * Normalizes the item received in the props to adapt to the extension point prop.
  */
-class GalleryItem extends React.Component {
+export default class GalleryItem extends Component {
+  static propTypes = {
+    /**
+     * Item info that will be rendered.
+     */
+    item: PropTypes.shape({
+      productId: PropTypes.string.isRequired,
+      productName: PropTypes.string.isRequired,
+      link: PropTypes.string.isRequired,
+      brand: PropTypes.string.isRequired,
+      items: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          referenceId: PropTypes.arrayOf(
+            PropTypes.shape({
+              Value: PropTypes.string.isRequired,
+            }),
+          ),
+          images: PropTypes.arrayOf(
+            PropTypes.shape({
+              imageUrl: PropTypes.string.isRequired,
+              imageTag: PropTypes.string.isRequired,
+            }),
+          ).isRequired,
+          sellers: PropTypes.arrayOf(
+            PropTypes.shape({
+              commertialOffer: PropTypes.shape({
+                Price: PropTypes.number.isRequired,
+                ListPrice: PropTypes.number.isRequired,
+              }),
+            }),
+          ).isRequired,
+        }),
+      ).isRequired,
+    }),
+  }
+
   normalizeProductSummary(product) {
     return {
       listPrice: product.items[0].sellers[0].commertialOffer.ListPrice,
@@ -33,41 +69,3 @@ class GalleryItem extends React.Component {
     )
   }
 }
-
-GalleryItem.propTypes = {
-  /**
-   * Item info that will be rendered.
-   */
-  item: PropTypes.shape({
-    productId: PropTypes.string.isRequired,
-    productName: PropTypes.string.isRequired,
-    link: PropTypes.string.isRequired,
-    brand: PropTypes.string.isRequired,
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        referenceId: PropTypes.arrayOf(
-          PropTypes.shape({
-            Value: PropTypes.string.isRequired,
-          }),
-        ),
-        images: PropTypes.arrayOf(
-          PropTypes.shape({
-            imageUrl: PropTypes.string.isRequired,
-            imageTag: PropTypes.string.isRequired,
-          }),
-        ).isRequired,
-        sellers: PropTypes.arrayOf(
-          PropTypes.shape({
-            commertialOffer: PropTypes.shape({
-              Price: PropTypes.number.isRequired,
-              ListPrice: PropTypes.number.isRequired,
-            }),
-          }),
-        ).isRequired,
-      }),
-    ).isRequired,
-  }),
-}
-
-export default GalleryItem
