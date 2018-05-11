@@ -14,5 +14,8 @@
   "builders": {
     "react": "2.x",
     "pages": "0.x"
+  },
+  "dependencies": {
+    "vtex.product-summary": "0.x"
   }
 }
