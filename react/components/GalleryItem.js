@@ -77,6 +77,15 @@ export default class GalleryItem extends Component {
   render() {
     const { item } = this.props
 
+<<<<<<< HEAD
     return <ProductSummary product={this.normalizeProductSummary(item)} />
+=======
+    return (
+      <ExtensionPoint
+        id="product-summary"
+        product={this.normalizeProductSummary(item)}
+      />
+    )
+>>>>>>> master
   }
 }
