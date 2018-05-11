@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
-import { ExtensionPoint } from 'render'
+import ProductSummary from 'vtex.product-summary/ProductSummary'
 
 /**
  * Normalizes the item received in the props to adapt to the extension point prop.
@@ -78,11 +77,6 @@ export default class GalleryItem extends Component {
   render() {
     const { item } = this.props
 
-    return (
-      <ExtensionPoint
-        id="product-summary"
-        product={this.normalizeProductSummary(item)}
-      />
-    )
+    return <ProductSummary product={this.normalizeProductSummary(item)} />
   }
 }

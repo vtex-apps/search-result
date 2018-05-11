@@ -49,7 +49,7 @@ export default class Gallery extends Component {
     columnsQuantityLarge: 5,
     columnsQuantityMedium: 3,
     products: products,
-    search: 'test',
+    search: '',
   }
 
   static schema = {
