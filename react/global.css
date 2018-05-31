@@ -1,9 +1,3 @@
-.vtex-gallery .vtex-gallery__item {
-  display: flex;
-}
-
-.vtex-gallery .vtex-gallery__header-order-results {
-  text-align: right;
-  display: table;
-  color: red;
+.vtex-gallery {
+  
 }

@@ -1,10 +1,11 @@
 {
   "search.text": "Você buscou por {search}",
   "sortBy.text": "{quantity} produto(s) ordenados por",
-  "sortBy.relevance": "Relevância",
-  "sortBy.higherPrice": "Maior preço",
-  "sortBy.lowerPrice": "Menor preço",
-  "sortBy.nameAZ": "Nome(A-Z)",
-  "sortBy.nameZA": "Nome(Z-A)",
-  "sortBy.bestSellers": "Mais vendidos"
+  "Sales": "Vendas",
+  "Release Date": "Mais recentes",
+  "Discount": "Desconto",
+  "Price, descending": "Mais Caro",
+  "Price, ascending": "Mais Barato",
+  "Name, ascending": "Nome, crescente",
+  "Name, descending": "Nome, decrescente"
 }

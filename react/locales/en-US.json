@@ -1,10 +1,11 @@
 {
   "search.text": "You searched for {search}",
   "sortBy.text": "{quantity} product(s) sorted by",
-  "sortBy.relevance": "Relevance",
-  "sortBy.higherPrice": "Price: High to Low",
-  "sortBy.lowerPrice": "Price: Low to High",
-  "sortBy.nameAZ": "Name(A-Z)",
-  "sortBy.nameZA": "Name(Z-A)",
-  "sortBy.bestSellers": "Best sellers"
+  "Sales": "Sales",
+  "Release Date": "Release Date",
+  "Discount": "Discount",
+  "Price, descending": "Price: High to Low",
+  "Price, ascending": "Price: Low to High",
+  "Name, ascending": "Name, ascending",
+  "Name, descending": "Name, descending"
 }

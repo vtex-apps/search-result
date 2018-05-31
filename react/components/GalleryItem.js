@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+
 import ProductSummary from 'vtex.product-summary/ProductSummary'
 
 /**
@@ -75,8 +76,6 @@ export default class GalleryItem extends Component {
   }
 
   render() {
-    const { item } = this.props
-
-    return <ProductSummary product={this.normalizeProductSummary(item)} />
+    return <ProductSummary product={this.normalizeProductSummary(this.props.item)} />
   }
 }
