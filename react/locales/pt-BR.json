@@ -1,5 +1,5 @@
 {
-  "search.text": "Você buscou por {search}",
+  "search.text": "Exibindo {from}-{to} de {recordsFiltered} resultados",
   "sortBy.text": "{quantity} produto(s) ordenados por",
   "Sales": "Vendas",
   "Release Date": "Mais recentes",

@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { graphql, compose, ApolloConsumer } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import { equals } from 'ramda'
-import QueryString from 'query-string'
 
 import Spinner from '@vtex/styleguide/lib/Spinner'
 import Gallery from './components/Gallery'
 import SearchHeader from './components/SearchHeader'
 import SearchFilter from './components/SearchFilter'
+import SelectedFilters from './components/SelectedFilters'
 
 import searchQuery from './graphql/searchQuery.gql'
 import facetsQuery from './graphql/facetsQuery.gql'
 
-import { getFacetsFromURL, getSearchParamsFromURL } from './constants/graphqlHelpers'
+import { getFacetsFromURL, getSearchParamsFromURL, getSelecteds, countSelecteds } from './constants/SearchHelpers'
 import SortOptions from './constants/SortOptions'
 import VTEXClasses from './constants/CSSClasses'
 import './global.css'
@@ -25,60 +25,18 @@ class SearchResult extends Component {
     super(props)
     const query = props.query || props.searchQuery && props.searchQuery.variables.query
     const map = props.map || props.searchQuery.variables.map
+    const orderBy = props.orderBy || props.searchQuery.variables.orderBy
 
     this.state = {
       loading: false,
-      sortSelected: props.defaultOrderBy,
+      sortSelected: props.orderBy,
       query,
       map,
+      orderBy,
       facets: (props.facetsQuery && props.facetsQuery.facets) || {},
       products: (props.searchQuery && props.searchQuery.products) || [],
-      selecteds: this.getSelecteds(query, map),
+      selecteds: getSelecteds(query, map),
     }
-  }
-
-  countSelecteds() {
-    let count = 0
-    for (const key in this.state.selecteds) {
-      console.log(this.state.selecteds[key])
-      if (this.state.selecteds[key]) {
-        count += this.state.selecteds[key].length
-      }
-    }
-    console.log(count)
-    return count
-  }
-
-  getSelecteds(query, map) {
-    const selecteds = {
-      SpecificationFilters: [],
-      Departments: [],
-      Brands: [],
-      FullText: [],
-    }
-
-    if (!query && !map) return selecteds
-
-    const pathValues = query.split('/')
-    const queryValues = map.split(',')
-
-    pathValues.map((val, i) => {
-      if (i > queryValues.length - 1) {
-        selecteds.Departments.push(val)
-      } else {
-        if (queryValues[i] === 'c') {
-          selecteds.Departments.push(val.toUpperCase())
-        } else if (queryValues[i] === 'b') {
-          selecteds.Brands.push(val.toUpperCase())
-        } else if (queryValues[i].indexOf('specificationFilter') !== -1) {
-          selecteds.SpecificationFilters.push(val.toUpperCase())
-        } else if (queryValues[i] === 'ft') {
-          selecteds.FullText = [val]
-        }
-      }
-    })
-
-    return selecteds
   }
 
   handleSortChange = (sortSelected) => {
@@ -86,67 +44,32 @@ class SearchResult extends Component {
       query: this.state.query,
       map: this.state.map,
       orderBy: sortSelected,
-    }).then(() => {
-      this.setState({ sortSelected })
-    })
-  }
-
-  handleFilterSelected = (link) => {
-    const query = QueryString.parseUrl(link).url
-    const map = QueryString.parseUrl(link).query.map
-    const searchPromise = this.c.query({
-      query: searchQuery,
-      variables: {
-        query,
-        map,
-        orderBy: this.state.sortSelected,
-      },
-    })
-    const facetsPromise = this.c.query({
-      query: facetsQuery,
-      variables: {
-        facets: link,
-      },
-    })
-    this.setState({ loading: true })
-    searchPromise.then((res) => {
-      const products = res.data.products
-      facetsPromise.then((res) => {
-        this.setState({
-          query,
-          map,
-          facets: res.data.facets,
-          products,
-          selecteds: this.getSelecteds(query, map),
-          loading: false,
-        })
-      }, this.callbackFilterError)
-    }, this.callbackFilterError)
-  }
-
-  callbackFilterError = () => {
-    this.setState({
-      loading: false,
     })
   }
 
   componentWillReceiveProps(props) {
-    const { searchQuery, facetsQuery } = props
-    const { products, facets, selectedSort } = this.state
-    if (facetsQuery && facetsQuery.facets && !facetsQuery.loading && !equals(facetsQuery.facets, facets)) {
+    const { searchQuery, facetsQuery, pathName, map: propsMap, orderBy } = props
+    const { facets, selectedSort, query, map } = this.state
+    if (facetsQuery && facetsQuery.facets && !equals(facetsQuery.facets, facets)) {
       this.setState({
         facets: facetsQuery.facets,
       })
     }
-    if (searchQuery && searchQuery.products && !searchQuery.loading && (!equals(searchQuery.products, products) || !equals(searchQuery.variables.orderBy, selectedSort))) {
+    if (searchQuery && !searchQuery.loading &&
+      (!equals(pathName, query) || !equals(orderBy, selectedSort) || !equals(propsMap, map))
+    ) {
       this.setState({
         products: searchQuery.products,
+        query: pathName,
+        map: propsMap,
+        orderBy: searchQuery.variables.orderBy,
+        selecteds: getSelecteds(searchQuery.variables.query, searchQuery.variables.map),
       })
     }
   }
 
   renderSearchFilters() {
-    const { facets, selecteds, query, map } = this.state
+    const { facets, selecteds, query, map, orderBy } = this.state
     const keys = Object.keys(facets)
     keys.splice(keys.indexOf('__typename'), 1)
     return keys.map(key => {
@@ -154,47 +77,19 @@ class SearchResult extends Component {
         return facets[key].map(filter => {
           return (
             <SearchFilter key={filter.name} title={filter.name} options={filter.facets}
-              type={key} onSelected={this.handleFilterSelected} selecteds={selecteds[key]}
-              query={query} map={map} disabled={this.countSelecteds() === 1} />)
+              type={key} selecteds={selecteds[key]}
+              query={query} map={map} orderBy={orderBy} disabled={countSelecteds(selecteds) === 1} />)
         })
       }
       return (
         <SearchFilter key={key} title={key} options={facets[key]} type={key}
-          query={query} map={map} disabled={this.countSelecteds() === 1}
-          onSelected={this.handleFilterSelected} selecteds={selecteds[key]} />)
+          query={query} map={map} orderBy={orderBy} disabled={countSelecteds(selecteds) === 1}
+          selecteds={selecteds[key]} />)
     })
   }
 
-  renderSelectedFilters() {
-    const selectedsFilters = []
-    const keys = Object.keys(this.state.selecteds)
-    keys.map(key => {
-      this.state.selecteds[key].map(val => {
-        selectedsFilters.push(
-          `${key}: ${val}`
-        )
-      })
-    })
-    return (
-      <div className="flex flex-column pa4 bb b--light-gray pb7">
-        <div className="f4 pv4">
-          Selected Filters
-        </div>
-        <div>
-          {selectedsFilters.map(selected => (
-            <div className="bg-silver pa4 br3 mb2 mr2 fl" key={selected}>
-              {selected}
-              {this.countSelecteds() > 1 && <span className="fr red pl4 pointer">x</span>}
-            </div>
-          ))}
-        </div>
-      </div>
-    )
-  }
-
-  render() {
-    const { searchQuery, facetsQuery } = this.props
-    const { products, facets, loading, query, map } = this.state
+  getRecordsFiltered() {
+    const { products, facets } = this.state
     let recordsFiltered = products.length
     if (facets && facets.Departments) {
       let count = 0
@@ -203,44 +98,46 @@ class SearchResult extends Component {
       })
       recordsFiltered = count
     }
+    return recordsFiltered || 0
+  }
 
-    const isLoading = searchQuery && searchQuery.loading || facetsQuery && facetsQuery.loading || loading
-    const headerText = `${query}?map=${map}`
+  render() {
+    const { searchQuery, facetsQuery } = this.props
+    const { products, selecteds, query, map, orderBy } = this.state
+    const isLoading = searchQuery && searchQuery.loading || facetsQuery && facetsQuery.loading
 
     return (
-      <ApolloConsumer>
-        {client =>
-          (<div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3 flex`}>
-            {(() => { this.c = client })()}
-            <div className="w-20 fl">
-              {this.renderSelectedFilters()}
-              {this.renderSearchFilters()}
-            </div>
-            <div className="w-80 fl">
-              <SearchHeader
-                from={products.length ? 1 : 0}
-                to={products.length}
-                recordsFiltered={recordsFiltered || 0}
-                onSortChange={this.handleSortChange}
-                selectedSort={this.state.sortSelected}
-                sortingOptions={SortOptions}
-                headerText={headerText}
-              />
-              {
-                isLoading ? (
-                  <div className="w-100 flex justify-center">
-                    <div className="w3 ma0">
-                      <Spinner />
-                    </div>
-                  </div>
-                ) : (
-                  <Gallery products={products} />
-                )
-              }
-            </div>
-          </div>)
-        }
-      </ApolloConsumer>
+      <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3`}>
+        <div className="w-100 w-40-m w-20-xl fl">
+          <SelectedFilters selecteds={selecteds}
+            query={query || this.props.query}
+            map={map || this.props.map}
+            orderBy={orderBy || this.props.orderBy}
+            disabled={countSelecteds(selecteds) === 1} />
+          {this.renderSearchFilters()}
+        </div>
+        <div className="w-100 w-60-m w-80-xl fl">
+          <SearchHeader
+            from={products.length ? 1 : 0}
+            to={products.length}
+            recordsFiltered={this.getRecordsFiltered()}
+            onSortChange={this.handleSortChange}
+            selectedSort={orderBy}
+            sortingOptions={SortOptions}
+          />
+          {
+            isLoading ? (
+              <div className="w-100 flex justify-center">
+                <div className="w3 ma0">
+                  <Spinner />
+                </div>
+              </div>
+            ) : (
+              <Gallery products={products} />
+            )
+          }
+        </div>
+      </div>
     )
   }
 }
@@ -248,8 +145,8 @@ class SearchResult extends Component {
 const SearchResultWithData = compose(
   graphql(facetsQuery, { name: 'facetsQuery',
     options: (props) => {
-      const propsFacets = props.query && props.map && `${props.query}?map=${props.map}`
-      const facets = propsFacets || window.location && getFacetsFromURL(window.location.pathname, QueryString.parse(window.location.search))
+      const propsFacets = props.map && `${props.pathName}?map=${props.map}`
+      const facets = propsFacets || (props.pathName && getFacetsFromURL(props.pathName))
       return ({
         variables: { facets },
         ssr: !!facets,
@@ -258,10 +155,9 @@ const SearchResultWithData = compose(
   }),
   graphql(searchQuery, { name: 'searchQuery',
     options: (props) => {
-      const searchParams = (window.location && getSearchParamsFromURL(window.location.pathname, QueryString.parse(window.location.search))) || {}
-      const query = props.search || searchParams.query
-      const map = props.map || searchParams.map
-      const orderBy = props.defaultOrderBy
+      const query = props.pathName
+      const map = props.map || (query && getSearchParamsFromURL(query).map)
+      const orderBy = props.orderBy
       return {
         variables: { query, map, orderBy },
         ssr: !!query,
@@ -313,9 +209,9 @@ SearchResult.propTypes = SearchResultWithData.propTypes = {
   /** Products to be displayed */
   products: PropTypes.array,
   /** Query used to find the products */
-  query: PropTypes.string,
+  pathName: PropTypes.string,
   map: PropTypes.string,
-  defaultOrderBy: PropTypes.string,
+  orderBy: PropTypes.string,
   facetsQuery: PropTypes.shape({
     Departments: PropTypes.arrayOf(PropTypes.shape({
       Quantity: PropTypes.number.isRequired,
@@ -380,7 +276,7 @@ SearchResult.defaultProps = SearchResultWithData.defaultProps = {
   columnsQuantityLarge: 5,
   columnsQuantityMedium: 3,
   products: [],
-  defaultOrderBy: SortOptions[0].value,
+  orderBy: SortOptions[0].value,
   query: '',
   map: '',
 }

@@ -18,7 +18,6 @@ class SearchHeader extends Component {
     recordsFiltered: PropTypes.number.isRequired,
     from: PropTypes.number,
     to: PropTypes.number,
-    headerText: PropTypes.string.isRequired,
     /** Function that will be called when the user change the sorting method. */
     onSortChange: PropTypes.func.isRequired,
     /** Wich sorting method is selected. */
@@ -35,7 +34,7 @@ class SearchHeader extends Component {
   }
 
   render() {
-    const { recordsFiltered, headerText, selectedSort, onSortChange, from, to } = this.props
+    const { recordsFiltered, selectedSort, onSortChange, from, to } = this.props
     const options = this.sortingOptions()
 
     return (
@@ -47,10 +46,9 @@ class SearchHeader extends Component {
         <div
           className={`${
             VTEXClasses.HEADER_SEARCH_CLASS
-          } w-third-l w-third-m w-100-s flex items-center pa3 ml5`}
+          } w-100 w-50-ns flex items-center justify-start pa3 ml5`}
         >
-          Showing {from}-{to} from {recordsFiltered} records
-          {/* <FormattedMessage id="search.text" values={{ search: headerText }} /> */}
+          <FormattedMessage id="search.text" values={{ from, to, recordsFiltered }} />
         </div>
 
         <div className="w-20-l w-20-m w-100-s pa3">

@@ -23,43 +23,15 @@ export default class Gallery extends Component {
     products: [],
   }
 
-  calculateColunmSize(nColumns) {
-    let result
-    switch (nColumns) {
-      case 3:
-        result = 'w-third'
-        break
-      case 4:
-        result = 'w-25'
-        break
-      case 5:
-        result = 'w-20'
-        break
-      default:
-        result = 'w-25'
-    }
-    return result
-  }
-
-  generateColunmCss() {
-    const { columnsQuantityLarge, columnsQuantityMedium } = this.props
-
-    const columnSizeLarge = `${this.calculateColunmSize(columnsQuantityLarge)}-l`
-    const columnSizeMedium = `${this.calculateColunmSize(columnsQuantityMedium)}-m`
-
-    return `${columnSizeLarge} ${columnSizeMedium} w-100-s mt2`
-  }
-
   render() {
-    const columnClass = this.generateColunmCss()
     return (
-      <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3`}>
-        <div className="flex flex-wrap">
+      <div className={`${VTEXClasses.GALLERY_CLASS} w-100 pa3`}>
+        <div className="flex flex-wrap justify-center justify-start-ns">
           {this.props.products.map(item => {
             return (
               <div
                 key={item.productId}
-                className={`${columnClass} ${VTEXClasses.ITEM_CLASS} pa1`}
+                className={`${VTEXClasses.GALLERY_ITEM_CLASS} mt2 pa1`}
               >
                 <GalleryItem item={item} />
               </div>
