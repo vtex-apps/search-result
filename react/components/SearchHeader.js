@@ -4,12 +4,14 @@ import { FormattedMessage, injectIntl } from 'react-intl'
 
 import Dropdown from '@vtex/styleguide/lib/Dropdown'
 import VTEXClasses from '../constants/CSSClasses'
+import { getPagesArgs } from '../constants/SearchHelpers'
 
 /**
  * Displays the header information of the Gallery: the query used to find the products and a selector to choose the sorting type.
  */
 class SearchHeader extends Component {
   static contextTypes = {
+    navigate: PropTypes.func,
     intl: PropTypes.object.isRequired,
   }
 
@@ -18,8 +20,8 @@ class SearchHeader extends Component {
     recordsFiltered: PropTypes.number.isRequired,
     from: PropTypes.number,
     to: PropTypes.number,
-    /** Function that will be called when the user change the sorting method. */
-    onSortChange: PropTypes.func.isRequired,
+    map: PropTypes.string,
+    query: PropTypes.string,
     /** Wich sorting method is selected. */
     selectedSort: PropTypes.string.isRequired,
     /** List of sorting methods. */
@@ -34,7 +36,7 @@ class SearchHeader extends Component {
   }
 
   render() {
-    const { recordsFiltered, selectedSort, onSortChange, from, to } = this.props
+    const { recordsFiltered, selectedSort, from, to, map, query } = this.props
     const options = this.sortingOptions()
 
     return (
@@ -57,7 +59,13 @@ class SearchHeader extends Component {
             options={options}
             value={selectedSort}
             onChange={(a, b) => {
-              onSortChange(b)
+              const pagesArgs = getPagesArgs(null, query, map, b)
+              this.context.navigate({
+                page: pagesArgs.page,
+                params: pagesArgs.params,
+                query: pagesArgs.queryString,
+                fallbackToWindowLocation: false,
+              })
             }}
           />
         </div>

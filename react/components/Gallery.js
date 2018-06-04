@@ -31,7 +31,7 @@ export default class Gallery extends Component {
             return (
               <div
                 key={item.productId}
-                className={`${VTEXClasses.GALLERY_ITEM_CLASS} mt2 pa1`}
+                className={`${VTEXClasses.GALLERY_ITEM_CLASS} mt2 w-20 pa1`}
               >
                 <GalleryItem item={item} />
               </div>

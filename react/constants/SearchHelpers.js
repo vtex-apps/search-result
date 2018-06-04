@@ -33,19 +33,20 @@ export function getSelecteds(query, map) {
   if (!query && !map) return selecteds
 
   const pathValues = query.split('/')
-  const queryValues = map.split(',')
+  const mapValues = map.split(',')
   pathValues.map((val, i) => {
-    if (i > queryValues.length - 1) {
-      selecteds.Departments.push(val.toUpperCase())
+    const valDecoded = decodeURI(val.toUpperCase())
+    if (i > mapValues.length - 1) {
+      selecteds.Departments.push(valDecoded)
     } else {
-      if (queryValues[i] === 'c') {
-        selecteds.Departments.push(val.toUpperCase())
-      } else if (queryValues[i] === 'b') {
-        selecteds.Brands.push(val.toUpperCase())
-      } else if (queryValues[i].indexOf('specificationFilter') !== -1) {
-        selecteds.SpecificationFilters.push(val.toUpperCase())
-      } else if (queryValues[i] === 'ft') {
-        selecteds.FullText = [val]
+      if (mapValues[i] === 'c') {
+        selecteds.Departments.push(valDecoded)
+      } else if (mapValues[i] === 'b') {
+        selecteds.Brands.push(valDecoded)
+      } else if (mapValues[i].indexOf('specificationFilter') !== -1) {
+        selecteds.SpecificationFilters.push(valDecoded)
+      } else if (mapValues[i] === 'ft') {
+        selecteds.FullText = [valDecoded]
       }
     }
   })
@@ -67,12 +68,13 @@ export function getUnselectedLink(optName, query, map) {
   const pathValues = query.split('/')
   const mapValues = map.split(',')
   for (let i = 0; i < pathValues.length; i++) {
-    if (pathValues[i].toUpperCase() === optName.toUpperCase()) {
+    if (decodeURI(pathValues[i].toUpperCase()) === optName.toUpperCase()) {
       pathValues.splice(i, 1)
       mapValues.splice(i, 1)
       return `${pathValues.join('/')}?map=${mapValues.join(',')}`
     }
   }
+  return `${pathValues.join('/')}?map=${mapValues.join(',')}`
 }
 
 export function getLink(link, type) {
@@ -81,12 +83,15 @@ export function getLink(link, type) {
 }
 
 export function getPagesArgs(opt, queryArg, mapArg, orderBy, isUnselectLink, type) {
-  const newLink = isUnselectLink ? getUnselectedLink(opt.Name, queryArg, mapArg) : getLink(opt.Link.slice(1), type)
-  const query = QueryString.parseUrl(newLink).url
-  const map = QueryString.parseUrl(newLink).query.map
+  let query = queryArg
+  let map = mapArg
+  if (opt) {
+    const newLink = isUnselectLink ? getUnselectedLink(opt.Name, queryArg, mapArg) : getLink(opt.Link.slice(1), type)
+    query = QueryString.parseUrl(newLink).url
+    map = QueryString.parseUrl(newLink).query.map
+  }
 
   const pathValues = query.split('/')
-
   const page = `store/search${pathValues.length > 1 ? `/${pathValues.length}` : ''}`
   const params = {}
   const queryString = `map=${map}${orderBy ? `&O=${orderBy}` : ''}`

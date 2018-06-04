@@ -82,10 +82,10 @@ export default class SearchFilter extends Component {
 
                 <div className="w-90 flex items-center justify-between pa3">
                   <div className="flex items-center justify-center">
-                    <input className={`${!this.isDisabled(opt) ? 'pointer' : ''} mr4`} type="checkbox" disabled={this.isDisabled(opt)} onChange={(evt) => {
+                    {/* <input className={`${!this.isDisabled(opt) ? 'pointer' : ''} mr4`} type="checkbox" disabled={this.isDisabled(opt)} onChange={(evt) => {
                       evt.preventDefault()
-                    }} checked={this.isSelected(opt.Name)} />
-                    <span>
+                    }} checked={this.isSelected(opt.Name)} /> */}
+                    <span style={{ textDecoration: this.isSelected(opt.Name) ? 'underline' : '' }}>
                       {opt.Name}
                     </span>
                   </div>

@@ -21,57 +21,16 @@ import './global.css'
  * Search Result Component.
  */
 class SearchResult extends Component {
-  constructor(props) {
-    super(props)
-    const query = props.query || props.searchQuery && props.searchQuery.variables.query
-    const map = props.map || props.searchQuery.variables.map
-    const orderBy = props.orderBy || props.searchQuery.variables.orderBy
-
-    this.state = {
-      loading: false,
-      sortSelected: props.orderBy,
-      query,
-      map,
-      orderBy,
-      facets: (props.facetsQuery && props.facetsQuery.facets) || {},
-      products: (props.searchQuery && props.searchQuery.products) || [],
-      selecteds: getSelecteds(query, map),
-    }
-  }
-
-  handleSortChange = (sortSelected) => {
-    this.props.searchQuery.refetch({
-      query: this.state.query,
-      map: this.state.map,
-      orderBy: sortSelected,
-    })
-  }
-
-  componentWillReceiveProps(props) {
-    const { searchQuery, facetsQuery, pathName, map: propsMap, orderBy } = props
-    const { facets, selectedSort, query, map } = this.state
-    if (facetsQuery && facetsQuery.facets && !equals(facetsQuery.facets, facets)) {
-      this.setState({
-        facets: facetsQuery.facets,
-      })
-    }
-    if (searchQuery && !searchQuery.loading &&
-      (!equals(pathName, query) || !equals(orderBy, selectedSort) || !equals(propsMap, map))
-    ) {
-      this.setState({
-        products: searchQuery.products,
-        query: pathName,
-        map: propsMap,
-        orderBy: searchQuery.variables.orderBy,
-        selecteds: getSelecteds(searchQuery.variables.query, searchQuery.variables.map),
-      })
-    }
-  }
-
   renderSearchFilters() {
-    const { facets, selecteds, query, map, orderBy } = this.state
+    const { facetsQuery, searchQuery } = this.props
+    const facets = facetsQuery.facets || {}
+    const query = searchQuery.variables.query
+    const map = searchQuery.variables.map
+    const orderBy = searchQuery.variables.orderBy
+    const selecteds = getSelecteds(query, map)
     const keys = Object.keys(facets)
     keys.splice(keys.indexOf('__typename'), 1)
+
     return keys.map(key => {
       if (key === 'SpecificationFilters') {
         return facets[key].map(filter => {
@@ -89,39 +48,44 @@ class SearchResult extends Component {
   }
 
   getRecordsFiltered() {
-    const { products, facets } = this.state
-    let recordsFiltered = products.length
-    if (facets && facets.Departments) {
-      let count = 0
-      facets.Departments.map(dep => {
-        count += dep.Quantity
-      })
-      recordsFiltered = count
+    const { searchQuery, facetsQuery } = this.props
+    if (facetsQuery && facetsQuery.facets) {
+      const facets = facetsQuery.facets
+      if (facets && facets.Departments) {
+        let count = 0
+        facets.Departments.map(dep => {
+          count += dep.Quantity
+        })
+        return count
+      }
+    } else {
+      return (searchQuery.products && searchQuery.products.length) || 0
     }
-    return recordsFiltered || 0
   }
 
   render() {
-    const { searchQuery, facetsQuery } = this.props
-    const { products, selecteds, query, map, orderBy } = this.state
+    const { facetsQuery, searchQuery } = this.props
+    const query = searchQuery && searchQuery.variables.query
+    const map = searchQuery && searchQuery.variables.map
+    const orderBy = searchQuery && searchQuery.variables.orderBy
+    const selecteds = getSelecteds(query, map)
     const isLoading = searchQuery && searchQuery.loading || facetsQuery && facetsQuery.loading
+    const products = (searchQuery && searchQuery.products) || []
 
     return (
-      <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3`}>
+      <div className={`${VTEXClasses.MAIN_CLASS} w-100 flex pa3`}>
         <div className="w-100 w-40-m w-20-xl fl">
-          <SelectedFilters selecteds={selecteds}
-            query={query || this.props.query}
-            map={map || this.props.map}
-            orderBy={orderBy || this.props.orderBy}
-            disabled={countSelecteds(selecteds) === 1} />
+          <SelectedFilters selecteds={selecteds} query={query} map={map}
+            orderBy={orderBy} disabled={countSelecteds(selecteds) === 1} />
           {this.renderSearchFilters()}
         </div>
         <div className="w-100 w-60-m w-80-xl fl">
           <SearchHeader
             from={products.length ? 1 : 0}
             to={products.length}
+            query={query}
+            map={map}
             recordsFiltered={this.getRecordsFiltered()}
-            onSortChange={this.handleSortChange}
             selectedSort={orderBy}
             sortingOptions={SortOptions}
           />
@@ -145,7 +109,7 @@ class SearchResult extends Component {
 const SearchResultWithData = compose(
   graphql(facetsQuery, { name: 'facetsQuery',
     options: (props) => {
-      const propsFacets = props.map && `${props.pathName}?map=${props.map}`
+      const propsFacets = props.map && props.pathName && `${props.pathName}?map=${props.map}`
       const facets = propsFacets || (props.pathName && getFacetsFromURL(props.pathName))
       return ({
         variables: { facets },
@@ -208,7 +172,7 @@ SearchResult.propTypes = SearchResultWithData.propTypes = {
   columnsQuantityMedium: PropTypes.number,
   /** Products to be displayed */
   products: PropTypes.array,
-  /** Query used to find the products */
+  /** Pathname used to find the products */
   pathName: PropTypes.string,
   map: PropTypes.string,
   orderBy: PropTypes.string,

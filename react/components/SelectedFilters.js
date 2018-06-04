@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { FormattedMessage, injectIntl } from 'react-intl'
 import { Collapse } from 'react-collapse'
 
 import ArrowDown from '../images/arrow-down.svg'
@@ -12,7 +13,11 @@ import { Link } from 'render'
 /**
  * Search Filter Component.
  */
-export default class SearchFilter extends Component {
+class SelectedFilters extends Component {
+  static contextTypes = {
+    intl: PropTypes.object.isRequired,
+  }
+
   static propTypes = {
     opened: PropTypes.bool,
     selecteds: PropTypes.object.isRequired,
@@ -60,7 +65,7 @@ export default class SearchFilter extends Component {
 
         <div className="pointer mb5" onClick={() => { this.setState({ opened: !opened }) }}>
           <div className="f4">
-            Selected Filters
+            <FormattedMessage id="search.selected-filters" />
             <span className={`${VTEXClasses.SEARCH_FILTER_HEADER_ICON} fr`}>
               <img src={opened ? ArrowUp : ArrowDown} width={20} />
             </span>
@@ -71,24 +76,21 @@ export default class SearchFilter extends Component {
           <div className="w-90 dib pa3">
             {selectedFilters.map(selected => {
               const pagesArgs = getPagesArgs({ Name: selected.value }, query, map, orderBy, true)
-              return !disabled
-                ? <Link
+              return (
+                <Link
                   key={selected.value}
                   className="clear-link"
                   page={pagesArgs.page}
                   params={pagesArgs.params}
                   query={pagesArgs.queryString}>
-                  <div key={selected.label} className="w-100">
-                    <div className="bg-silver pa4 br3 mb2 mr2 fl">
+                  <div key={selected.label} className="w-100 flex dim pv3">
+                    <span className="f4 mr4"> {disabled ? '' : 'X'}</span>
+                    <div className="fl self-center">
                       {selected.label}
                     </div>
                   </div>
                 </Link>
-                : <div key={selected.label} className="w-100">
-                  <div className="bg-silver pa4 br3 mb2 mr2 fl">
-                    {selected.label}
-                  </div>
-                </div>
+              )
             })}
           </div>
         </Collapse>
@@ -96,3 +98,5 @@ export default class SearchFilter extends Component {
     )
   }
 }
+
+export default injectIntl(SelectedFilters)

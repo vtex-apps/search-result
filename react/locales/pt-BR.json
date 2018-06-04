@@ -1,6 +1,6 @@
 {
   "search.text": "Exibindo {from}-{to} de {recordsFiltered} resultados",
-  "sortBy.text": "{quantity} produto(s) ordenados por",
+  "search.selected-filters": "Filtros Selecionados",
   "Sales": "Vendas",
   "Release Date": "Mais recentes",
   "Discount": "Desconto",

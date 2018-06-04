@@ -1,6 +1,6 @@
 {
   "search.text": "Showing {from}-{to} from {recordsFiltered} records",
-  "sortBy.text": "{quantity} product(s) sorted by",
+  "search.selected-filters": "Selected Filters",
   "Sales": "Sales",
   "Release Date": "Release Date",
   "Discount": "Discount",
