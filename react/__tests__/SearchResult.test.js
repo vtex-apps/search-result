@@ -1,32 +1,29 @@
 import React from 'react'
+import { IntlProvider } from 'react-intl'
+import { render } from 'react-testing-library'
+import { MockedProvider } from 'react-apollo/test-utils'
+
 import SearchResult from '../SearchResult'
 
-import products from '../__mocks__/products.json'
-import { mountWithIntl, loadTranslation } from 'enzyme-react-intl'
-
-// import { getIntlContextInfo } from '../utils/intlHelpers'
-
 describe('<SearchResult /> component', () => {
-  function renderComponent(props = {}) {
-    // const { context, childContextTypes, locale } = getIntlContextInfo()
+  let wrapper = null
 
-    // loadTranslation(`../locales/${locale}.json`)
-
-    const component = mountWithIntl(
-      <SearchResult products={products} {...props} />,
-      {
-        context,
-        // childContextTypes,
-      },
+  beforeEach(() => {
+    const messages = require('../locales/en-US')
+    wrapper = render(
+      <MockedProvider >
+        <IntlProvider locale="en-US" messages={messages}>
+          <SearchResult />
+        </IntlProvider>
+      </MockedProvider>
     )
+  })
 
-    return { component }
-  }
+  it('should be rendered', () => {
+    expect(wrapper).toBeDefined()
+  })
 
-  /* eslint-disable */
-  it('should render the correct component', () => {
-    const { component } = renderComponent()
-
-    expect(component).toBeTruthy()
+  it('should match snapshot', () => {
+    expect(wrapper.container).toMatchSnapshot()
   })
 })

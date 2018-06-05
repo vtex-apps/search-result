@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { graphql, compose } from 'react-apollo'
-import { equals } from 'ramda'
 
 import Spinner from '@vtex/styleguide/lib/Spinner'
 import Gallery from './components/Gallery'

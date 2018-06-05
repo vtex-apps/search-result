@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchResult /> component should match snapshot 1`] = `
+<div>
+  <div
+    class="vtex-search-result w-100 pa3 dib"
+  >
+    <div
+      class="w-100 w-30-m w-20-l fl"
+    >
+      <div
+        class="vtex-search-result__filter pa4 bb b--light-gray"
+      >
+        <div
+          class="pointer mb5"
+        >
+          <div
+            class="f4"
+          >
+            <span>
+              Selected Filters
+            </span>
+            <span
+              class="vtex-search-result__filter-icon fr"
+            >
+              <img
+                src="[object Object]"
+                width="20"
+              />
+            </span>
+          </div>
+        </div>
+        <div
+          class="ReactCollapse--collapse"
+          style="overflow: hidden; height: 0px; overflow-y: auto; max-height: 200px;"
+        >
+          <div
+            class="ReactCollapse--content"
+          >
+            <div
+              class="w-90 dib pa3"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="w-100 w-70-m w-80-l fl"
+    >
+      <div
+        class="vtex-search-result__header flex flex-wrap justify-between"
+      >
+        <div
+          class="vtex-search-result__header-search w-100 w-50-ns flex items-center justify-start pa3 ml7-l"
+        >
+          <span>
+            Showing 1-0 from 0 records
+          </span>
+        </div>
+        <div
+          class="w-100 w-50-m w-20-l pa3"
+        >
+          <div
+            class="vtex-dropdown"
+          >
+            <label>
+              <div
+                class="br2 bw1 relative bg-white ba b--light-gray hover-b--silver "
+              >
+                <div
+                  class="vtex-dropdown__button bg-transparent bn w-100 pointer near-black f5 pv4 pl6 pr5 "
+                >
+                  <div
+                    class="flex"
+                  >
+                    <div
+                      class="vtex-dropdown__caption flex-auto tl truncate"
+                    >
+                      Sales
+                    </div>
+                    <div
+                      class="vtex-dropdown__arrow flex-none flex items-center pl2"
+                    >
+                      <svg
+                        height="18"
+                        viewBox="0 0 24 24"
+                        width="18"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g
+                          fill="#368DF7"
+                        >
+                          <path
+                            d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"
+                          />
+                        </g>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <select
+                  class="o-0 absolute top-0 left-0 w-100 bottom-0 pointer f5 "
+                >
+                  <option
+                    value="OrderByTopSaleDESC"
+                  >
+                    Sales
+                  </option>
+                  <option
+                    value="OrderByReleaseDateDESC"
+                  >
+                    Release Date
+                  </option>
+                  <option
+                    value="OrderByBestDiscountDESC"
+                  >
+                    Discount
+                  </option>
+                  <option
+                    value="OrderByPriceDESC"
+                  >
+                    Price: High to Low
+                  </option>
+                  <option
+                    value="OrderByPriceASC"
+                  >
+                    Price: Low to High
+                  </option>
+                  <option
+                    value="OrderByNameASC"
+                  >
+                    Name, ascending
+                  </option>
+                  <option
+                    value="OrderByNameDESC"
+                  >
+                    Name, descending
+                  </option>
+                </select>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div
+        class="vtex-gallery pa3 w-100 flex flex-wrap justify-start"
+      />
+    </div>
+  </div>
+</div>
+`;
