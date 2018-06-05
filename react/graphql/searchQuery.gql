@@ -1,5 +1,5 @@
-query search($query: String, $map: String, $orderBy: String) {
-  products(query:$query, map: $map, orderBy: $orderBy) {
+query search($query: String, $map: String, $orderBy: String, $from: Int, $to: Int) {
+  products(query:$query, map: $map, orderBy: $orderBy, from: $from, to: $to) {
     productId
     productName
     linkText

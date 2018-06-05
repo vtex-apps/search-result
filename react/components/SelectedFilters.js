@@ -84,7 +84,7 @@ class SelectedFilters extends Component {
                   params={pagesArgs.params}
                   query={pagesArgs.queryString}>
                   <div key={selected.label} className={`w-100 flex ${!disabled ? 'dim' : 'search-result__filter-blocked'} pv3`}>
-                    <span className="f4 mr4"> {disabled ? '' : 'x'}</span>
+                    <span className="f4 mr4">x</span>
                     <div className="fl self-center">
                       {selected.label}
                     </div>

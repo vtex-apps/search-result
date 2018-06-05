@@ -9,34 +9,34 @@ import GalleryItem from './GalleryItem'
  */
 export default class Gallery extends Component {
   static propTypes = {
-    /** Quantity of columns when the viewport is large.*/
-    columnsQuantityLarge: PropTypes.number,
-    /** Quantity of columns when the viewport is medium.*/
-    columnsQuantityMedium: PropTypes.number,
+    /** Maximum number of items per line. */
+    maxItemsPerLine: PropTypes.number.isRequired,
+    /** Maximum number of items per page. */
+    maxItemsPerPage: PropTypes.number.isRequired,
     /** Products to be displayed */
     products: PropTypes.arrayOf(GalleryItem.propTypes.item),
   }
 
   static defaultProps = {
-    columnsQuantityLarge: 5,
-    columnsQuantityMedium: 3,
+    maxItemsPerLine: 5,
+    maxItemsPerPage: 10,
     products: [],
   }
 
   getWidthClass() {
-    switch(this.props.columnsQuantityLarge) {
+    switch (this.props.maxItemsPerLine) {
       case 5:
-        return "w-100 w-40-m w-20-l"
+        return 'w-100 w-50-m w-20-l'
       case 4:
-        return "w-100 w-40-m w-25-l"
+        return 'w-100 w-50-m w-25-l'
       case 3:
-        return "w-100 w-40-m w-third-l"
+        return 'w-100 w-50-m w-third-l'
     }
   }
 
   render() {
     return (
-      <div className={`${VTEXClasses.GALLERY_CLASS} pa3 w-100 flex flex-wrap justify-around`}>
+      <div className={`${VTEXClasses.GALLERY_CLASS} pa3 w-100 flex flex-wrap justify-start`}>
         {this.props.products.map(item => {
           return (
             <div

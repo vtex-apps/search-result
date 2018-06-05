@@ -94,7 +94,7 @@ export function getPagesArgs(opt, queryArg, mapArg, orderBy, isUnselectLink, typ
   const pathValues = query.split('/')
   const page = `store/search${pathValues.length > 1 ? `/${pathValues.length}` : ''}`
   const params = {}
-  const queryString = `map=${map}${orderBy ? `&O=${orderBy}` : ''}`
+  const queryString = `map=${map}&page=1${orderBy ? `&O=${orderBy}` : ''}`
 
   pathValues.map((val, i) => {
     if (i === 0) {

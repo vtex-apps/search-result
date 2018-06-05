@@ -48,12 +48,12 @@ class SearchHeader extends Component {
         <div
           className={`${
             VTEXClasses.HEADER_SEARCH_CLASS
-          } w-100 w-50-ns flex items-center justify-start pa3 ml5`}
+          } w-100 w-50-ns flex items-center justify-start pa3 ml7-l`}
         >
           <FormattedMessage id="search.text" values={{ from, to, recordsFiltered }} />
         </div>
 
-        <div className="w-20-l w-20-m w-100-s pa3">
+        <div className="w-100 w-50-m w-20-l pa3">
           <Dropdown
             size="large"
             options={options}

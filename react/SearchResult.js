@@ -64,7 +64,7 @@ class SearchResult extends Component {
   }
 
   render() {
-    const { facetsQuery, searchQuery } = this.props
+    const { facetsQuery, searchQuery, maxItemsPerLine, maxItemsPerPage, page } = this.props
     const query = searchQuery && searchQuery.variables.query
     const map = searchQuery && searchQuery.variables.map
     const orderBy = searchQuery && searchQuery.variables.orderBy
@@ -74,15 +74,15 @@ class SearchResult extends Component {
 
     return (
       <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3 dib`}>
-        <div className="w-100 w-20-m w-20-l fl">
+        <div className="w-100 w-30-m w-20-l fl">
           <SelectedFilters selecteds={selecteds} query={query} map={map}
             orderBy={orderBy} disabled={countSelecteds(selecteds) === 1} />
           {this.renderSearchFilters()}
         </div>
         <div className="w-100 w-70-m w-80-l fl">
           <SearchHeader
-            from={products.length ? 1 : 0}
-            to={products.length}
+            from={((page - 1) * maxItemsPerPage) + 1}
+            to={((page - 1) * maxItemsPerPage) + products.length}
             query={query}
             map={map}
             recordsFiltered={this.getRecordsFiltered()}
@@ -97,7 +97,7 @@ class SearchResult extends Component {
                 </div>
               </div>
             ) : (
-              <Gallery products={products} />
+              <Gallery products={products} maxItemsPerLine={maxItemsPerLine} />
             )
           }
         </div>
@@ -122,8 +122,16 @@ const SearchResultWithData = compose(
       const query = props.pathName
       const map = props.map || (query && getSearchParamsFromURL(query).map)
       const orderBy = props.orderBy
+      const from = (props.page - 1) * props.maxItemsPerPage
+      const to = from + props.maxItemsPerPage - 1
       return {
-        variables: { query, map, orderBy },
+        variables: {
+          query,
+          map,
+          orderBy,
+          from,
+          to,
+        },
         ssr: !!query,
       }
     },
@@ -131,13 +139,7 @@ const SearchResultWithData = compose(
 )(SearchResult)
 
 SearchResult.uiSchema = SearchResultWithData.uiSchema = {
-  columnsQuantityLarge: {
-    'ui:widget': 'radio',
-    'ui:options': {
-      inline: true,
-    },
-  },
-  columnsQuantityMedium: {
+  maxItemsPerLine: {
     'ui:widget': 'radio',
     'ui:options': {
       inline: true,
@@ -150,31 +152,32 @@ SearchResult.schema = SearchResultWithData.schema = {
   description: 'Search Result Wrapper',
   type: 'object',
   properties: {
-    columnsQuantityLarge: {
-      title: 'Columns quantity (Large Viewport)',
+    maxItemsPerLine: {
+      title: 'Maximum number of items per line',
       type: 'number',
       enum: [3, 4, 5],
       default: 5,
     },
-    columnsQuantityMedium: {
-      title: 'Columns quantity (Medium Viewport)',
+    maxItemsPerPage: {
+      title: 'Maximum number of items per page',
       type: 'number',
-      enum: [2, 3],
-      default: 3,
+      default: 10,
     },
   },
 }
 
 SearchResult.propTypes = SearchResultWithData.propTypes = {
-  /** Quantity of columns when the viewport is large.*/
-  columnsQuantityLarge: PropTypes.number,
-  /** Quantity of columns when the viewport is medium.*/
-  columnsQuantityMedium: PropTypes.number,
-  /** Products to be displayed */
+  /** Maximum number of items per line. */
+  maxItemsPerLine: PropTypes.number.isRequired,
+  /** Maximum number of items per page. */
+  maxItemsPerPage: PropTypes.number.isRequired,
+  /** Products to be displayed. */
   products: PropTypes.array,
-  /** Pathname used to find the products */
+  /** Pathname used to find the products. */
   pathName: PropTypes.string,
   map: PropTypes.string,
+  /** Search result page. */
+  page: PropTypes.number.isRequired,
   orderBy: PropTypes.string,
   facetsQuery: PropTypes.shape({
     Departments: PropTypes.arrayOf(PropTypes.shape({
@@ -237,12 +240,13 @@ SearchResult.propTypes = SearchResultWithData.propTypes = {
 }
 
 SearchResult.defaultProps = SearchResultWithData.defaultProps = {
-  columnsQuantityLarge: 5,
-  columnsQuantityMedium: 3,
+  maxItemsPerLine: 5,
+  maxItemsPerPage: 10,
   products: [],
   orderBy: SortOptions[0].value,
-  query: '',
+  pathName: '',
   map: '',
+  page: 1,
 }
 
 export default SearchResultWithData
