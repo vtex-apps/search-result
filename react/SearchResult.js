@@ -73,13 +73,13 @@ class SearchResult extends Component {
     const products = (searchQuery && searchQuery.products) || []
 
     return (
-      <div className={`${VTEXClasses.MAIN_CLASS} w-100 flex pa3`}>
-        <div className="w-100 w-40-m w-20-xl fl">
+      <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3 dib`}>
+        <div className="w-100 w-20-m w-20-l fl">
           <SelectedFilters selecteds={selecteds} query={query} map={map}
             orderBy={orderBy} disabled={countSelecteds(selecteds) === 1} />
           {this.renderSearchFilters()}
         </div>
-        <div className="w-100 w-60-m w-80-xl fl">
+        <div className="w-100 w-70-m w-80-l fl">
           <SearchHeader
             from={products.length ? 1 : 0}
             to={products.length}

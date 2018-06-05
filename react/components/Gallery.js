@@ -23,21 +23,30 @@ export default class Gallery extends Component {
     products: [],
   }
 
+  getWidthClass() {
+    switch(this.props.columnsQuantityLarge) {
+      case 5:
+        return "w-100 w-40-m w-20-l"
+      case 4:
+        return "w-100 w-40-m w-25-l"
+      case 3:
+        return "w-100 w-40-m w-third-l"
+    }
+  }
+
   render() {
     return (
-      <div className={`${VTEXClasses.GALLERY_CLASS} w-100 pa3`}>
-        <div className="flex flex-wrap justify-center justify-start-ns">
-          {this.props.products.map(item => {
-            return (
-              <div
-                key={item.productId}
-                className={`${VTEXClasses.GALLERY_ITEM_CLASS} mt2 w-20 pa1`}
-              >
-                <GalleryItem item={item} />
-              </div>
-            )
-          })}
-        </div>
+      <div className={`${VTEXClasses.GALLERY_CLASS} pa3 w-100 flex flex-wrap justify-around`}>
+        {this.props.products.map(item => {
+          return (
+            <div
+              key={item.productId}
+              className={`${VTEXClasses.GALLERY_ITEM_CLASS} ${this.getWidthClass()} flex mt2 pa1 fl`}
+            >
+              <GalleryItem item={item} />
+            </div>
+          )
+        })}
       </div>
     )
   }

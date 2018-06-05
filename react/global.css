@@ -1,2 +1,13 @@
-.vtex-search-result {
+
+.search-result__filter-blocked {
+    cursor: default;
+    opacity: 0.8;
 }
+
+@media only screen and (min-width: 60em) and (max-width: 70em) {
+    .vtex-gallery__item {
+        max-width: 33%;
+        width: auto;
+    }
+}
+
