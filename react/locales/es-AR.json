@@ -12,5 +12,10 @@
   "Price, descending": "Precios más alto",
   "Price, ascending": "Precios más bajo",
   "Name, ascending": "Nombre, creciente",
-  "Name, descending": "Nombre, decreciente"
+  "Name, descending": "Nombre, decreciente",
+  "editor.search-result.title" : "Resultado de búsqueda",
+  "editor.search-result.description" : "Contenedor de resultados de búsqueda",
+  "editor.search-result.maxItemsPerLine.title" : "Número máximo de elementos por línea",
+  "editor.search-result.maxItemsPerPage.title" : "Número máximo de elementos por página",
+  "editor.search-result.summary.title" : "Resumen del producto"
 }

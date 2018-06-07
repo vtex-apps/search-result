@@ -212,23 +212,23 @@ SearchResult.uiSchema = SearchResultWithData.uiSchema = {
 
 SearchResult.getSchema = SearchResultWithData.getSchema = (props) => {
   return {
-    title: 'Search Result',
-    description: 'Search Result Wrapper',
+    title: 'editor.search-result.title',
+    description: 'editor.search-result.description',
     type: 'object',
     properties: {
       maxItemsPerLine: {
-        title: 'Maximum number of items per line',
+        title: 'editor.search-result.maxItemsPerLine.title',
         type: 'number',
         enum: [3, 4, 5],
         default: 5,
       },
       maxItemsPerPage: {
-        title: 'Maximum number of items per page',
+        title: 'editor.search-result.maxItemsPerPage.title',
         type: 'number',
         default: 10,
       },
       summary: {
-        title: 'Product Summary',
+        title: 'editor.search-result.summary.title',
         type: 'object',
         properties: ProductSummary.getSchema(props).properties,
       },
