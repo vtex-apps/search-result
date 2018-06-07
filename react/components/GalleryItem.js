@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import ProductSummary from 'vtex.product-summary/ProductSummary'
 import { productShape } from '../constants/PropTypes'
+import { PropTypes } from 'prop-types'
 
 /**
  * Normalizes the item received in the props to adapt to the extension point prop.
@@ -10,6 +11,8 @@ export default class GalleryItem extends Component {
   static propTypes = {
     /** Item info that will be rendered. */
     item: productShape,
+    /** ProductSummary props.  */
+    summary: PropTypes.any,
   }
 
   normalizeProductSummary(product) {
@@ -45,6 +48,6 @@ export default class GalleryItem extends Component {
   }
 
   render() {
-    return <ProductSummary product={this.normalizeProductSummary(this.props.item)} />
+    return <ProductSummary product={this.normalizeProductSummary(this.props.item)} {...this.props.summary} />
   }
 }

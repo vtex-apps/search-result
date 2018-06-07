@@ -14,8 +14,10 @@ export default class Gallery extends Component {
     maxItemsPerLine: PropTypes.number.isRequired,
     /** Maximum number of items per page. */
     maxItemsPerPage: PropTypes.number.isRequired,
-    /** Products to be displayed */
+    /** Products to be displayed. */
     products: PropTypes.arrayOf(productShape),
+    /** ProductSummary props. */
+    summary: PropTypes.any,
   }
 
   static defaultProps = {
@@ -44,7 +46,7 @@ export default class Gallery extends Component {
               key={item.productId}
               className={`${VTEXClasses.GALLERY_ITEM_CLASS} ${this.getWidthClass()} flex mv2 pa1 fl`}
             >
-              <GalleryItem item={item} />
+              <GalleryItem item={item} summary={this.props.summary} />
             </div>
           )
         })}

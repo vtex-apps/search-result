@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { graphql, compose } from 'react-apollo'
 
+import ProductSummary from 'vtex.product-summary/ProductSummary'
 import Spinner from '@vtex/styleguide/lib/Spinner'
 import Gallery from './components/Gallery'
 import SearchHeader from './components/SearchHeader'
@@ -144,7 +145,7 @@ class SearchResult extends Component {
   }
 
   render() {
-    const { facetsQuery, searchQuery, maxItemsPerLine, maxItemsPerPage, page } = this.props
+    const { facetsQuery, searchQuery, maxItemsPerLine, maxItemsPerPage, page, summary } = this.props
     const products = (searchQuery && searchQuery.products) || []
     const query = searchQuery && searchQuery.variables.query
     const map = searchQuery && searchQuery.variables.map
@@ -166,7 +167,7 @@ class SearchResult extends Component {
           <SearchHeader {...{ from, to, query, map, orderBy, recordsFiltered }}
             getLinkProps={this.getLinkProps} />
           { isLoading ? this.renderSpinner()
-            : <Gallery products={products} maxItemsPerLine={maxItemsPerLine} /> }
+            : <Gallery {...{ products, maxItemsPerLine, summary }} /> }
         </div>
       </div>
     )
@@ -179,7 +180,6 @@ const SearchResultWithData = compose(
       const query = props.pathName
       const propsFacets = props.map && query && `${query}?map=${props.map}`
       const facets = propsFacets || (query && getFacetsFromURL(query))
-      console.log(facets, 'f')
       return ({
         variables: { facets },
         ssr: !!facets,
@@ -210,23 +210,30 @@ SearchResult.uiSchema = SearchResultWithData.uiSchema = {
   },
 }
 
-SearchResult.schema = SearchResultWithData.schema = {
-  title: 'Search Result',
-  description: 'Search Result Wrapper',
-  type: 'object',
-  properties: {
-    maxItemsPerLine: {
-      title: 'Maximum number of items per line',
-      type: 'number',
-      enum: [3, 4, 5],
-      default: 5,
+SearchResult.getSchema = SearchResultWithData.getSchema = (props) => {
+  return {
+    title: 'Search Result',
+    description: 'Search Result Wrapper',
+    type: 'object',
+    properties: {
+      maxItemsPerLine: {
+        title: 'Maximum number of items per line',
+        type: 'number',
+        enum: [3, 4, 5],
+        default: 5,
+      },
+      maxItemsPerPage: {
+        title: 'Maximum number of items per page',
+        type: 'number',
+        default: 10,
+      },
+      summary: {
+        title: 'Product Summary',
+        type: 'object',
+        properties: ProductSummary.getSchema(props).properties,
+      },
     },
-    maxItemsPerPage: {
-      title: 'Maximum number of items per page',
-      type: 'number',
-      default: 10,
-    },
-  },
+  }
 }
 
 SearchResult.propTypes = SearchResultWithData.propTypes = {
