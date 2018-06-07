@@ -8,7 +8,7 @@
   "author": "VTEX",
   "license": "ISC",
   "dependencies": {
-    "@vtex/styleguide": "~2.0.0-rc.39",
+    "@vtex/styleguide": "4.1.0",
     "query-string": "^6.1.0",
     "react-collapse": "^4.0.3",
     "react-motion": "^0.5.2"

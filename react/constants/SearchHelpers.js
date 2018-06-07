@@ -22,48 +22,6 @@ export function getSearchParamsFromURL(pathName, queryParams, isBrand) {
   return { query: pathName, map }
 }
 
-export function getSelecteds(query, map) {
-  const selecteds = {
-    SpecificationFilters: [],
-    Departments: [],
-    Brands: [],
-    FullText: [],
-  }
-
-  if (!query && !map) return selecteds
-
-  const pathValues = query.split('/')
-  const mapValues = map.split(',')
-  pathValues.map((val, i) => {
-    const valDecoded = decodeURI(val.toUpperCase())
-    if (i > mapValues.length - 1) {
-      selecteds.Departments.push(valDecoded)
-    } else {
-      if (mapValues[i] === 'c') {
-        selecteds.Departments.push(valDecoded)
-      } else if (mapValues[i] === 'b') {
-        selecteds.Brands.push(valDecoded)
-      } else if (mapValues[i].indexOf('specificationFilter') !== -1) {
-        selecteds.SpecificationFilters.push(valDecoded)
-      } else if (mapValues[i] === 'ft') {
-        selecteds.FullText = [valDecoded]
-      }
-    }
-  })
-
-  return selecteds
-}
-
-export function countSelecteds(selecteds) {
-  let count = 0
-  for (const key in selecteds) {
-    if (selecteds[key]) {
-      count += selecteds[key].length
-    }
-  }
-  return count
-}
-
 export function getUnselectedLink(optName, query, map) {
   const pathValues = query.split('/')
   const mapValues = map.split(',')

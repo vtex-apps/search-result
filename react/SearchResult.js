@@ -11,39 +11,110 @@ import SelectedFilters from './components/SelectedFilters'
 import searchQuery from './graphql/searchQuery.gql'
 import facetsQuery from './graphql/facetsQuery.gql'
 
-import { getFacetsFromURL, getSearchParamsFromURL, getSelecteds, countSelecteds } from './constants/SearchHelpers'
+import {
+  getFacetsFromURL,
+  getSearchParamsFromURL,
+  getPagesArgs,
+} from './constants/SearchHelpers'
 import SortOptions from './constants/SortOptions'
 import VTEXClasses from './constants/CSSClasses'
+import { facetsQueryShape, searchQueryShape } from './constants/PropTypes'
 import './global.css'
+
+const FACETS_KEYS = ['Departments', 'CategoriesTrees', 'Brands', 'SpecificationFilters']
 
 /**
  * Search Result Component.
  */
 class SearchResult extends Component {
+  getLinkProps = (opt, variables, isSelected, type) => {
+    let { query, map, orderBy } = this.props.searchQuery.variables
+    if (variables) {
+      query = variables.query || query
+      map = variables.map || map
+      orderBy = variables.orderBy || orderBy
+    }
+    return getPagesArgs(opt, query, map, orderBy, isSelected, type)
+  }
+
   renderSearchFilters() {
-    const { facetsQuery, searchQuery } = this.props
-    const facets = facetsQuery.facets || {}
+    if (!this.props.facetsQuery || !this.props.facetsQuery.facets) return
+
+    const { facetsQuery: { facets }, searchQuery } = this.props
     const query = searchQuery.variables.query
     const map = searchQuery.variables.map
-    const orderBy = searchQuery.variables.orderBy
-    const selecteds = getSelecteds(query, map)
-    const keys = Object.keys(facets)
-    keys.splice(keys.indexOf('__typename'), 1)
+    const selecteds = this.getSelecteds(query, map)
+    const isDisabled = this.countSelecteds(selecteds) === 1
 
-    return keys.map(key => {
-      if (key === 'SpecificationFilters') {
-        return facets[key].map(filter => {
+    return FACETS_KEYS.map(key => {
+      if (facets[key]) {
+        if (key === 'SpecificationFilters') {
+          return facets[key].map(filter => {
+            return (
+              <SearchFilter key={filter.name} title={filter.name}
+                options={filter.facets} type={key} selecteds={selecteds[key]}
+                getLinkProps={this.getLinkProps} disabled={isDisabled} />)
+          })
+        } else if (key === 'CategoriesTrees') {
+          let categories = []
+          facets[key].map(filter => {
+            if (selecteds.Departments.indexOf(filter.Name.toUpperCase()) !== -1) {
+              categories = categories.concat(filter.Children)
+            }
+          })
           return (
-            <SearchFilter key={filter.name} title={filter.name} options={filter.facets}
-              type={key} selecteds={selecteds[key]}
-              query={query} map={map} orderBy={orderBy} disabled={countSelecteds(selecteds) === 1} />)
-        })
+            <SearchFilter key={key} title="Categories" options={categories}
+              type="Departments" selecteds={selecteds.Departments}
+              getLinkProps={this.getLinkProps} disabled={isDisabled} />)
+        }
+        return (
+          <SearchFilter key={key} title={key} options={facets[key]}
+            type={key} getLinkProps={this.getLinkProps}
+            disabled={isDisabled} selecteds={selecteds[key]} />)
       }
-      return (
-        <SearchFilter key={key} title={key} options={facets[key]} type={key}
-          query={query} map={map} orderBy={orderBy} disabled={countSelecteds(selecteds) === 1}
-          selecteds={selecteds[key]} />)
     })
+  }
+
+  getSelecteds(query, map) {
+    const selecteds = {
+      SpecificationFilters: [],
+      Departments: [],
+      Brands: [],
+      FullText: [],
+    }
+
+    if (!query && !map) return selecteds
+
+    const pathValues = query.split('/')
+    const mapValues = map.split(',')
+    pathValues.map((val, i) => {
+      const valDecoded = decodeURI(val.toUpperCase())
+      if (i > mapValues.length - 1) {
+        selecteds.Departments.push(valDecoded)
+      } else {
+        if (mapValues[i] === 'c') {
+          selecteds.Departments.push(valDecoded)
+        } else if (mapValues[i] === 'b') {
+          selecteds.Brands.push(valDecoded)
+        } else if (mapValues[i].indexOf('specificationFilter') !== -1) {
+          selecteds.SpecificationFilters.push(valDecoded)
+        } else if (mapValues[i] === 'ft') {
+          selecteds.FullText = [valDecoded]
+        }
+      }
+    })
+
+    return selecteds
+  }
+
+  countSelecteds(selecteds) {
+    let count = 0
+    for (const key in selecteds) {
+      if (selecteds[key]) {
+        count += selecteds[key].length
+      }
+    }
+    return count
   }
 
   getRecordsFiltered() {
@@ -62,43 +133,40 @@ class SearchResult extends Component {
     }
   }
 
+  renderSpinner() {
+    return (
+      <div className="w-100 flex justify-center">
+        <div className="w3 ma0">
+          <Spinner />
+        </div>
+      </div>
+    )
+  }
+
   render() {
     const { facetsQuery, searchQuery, maxItemsPerLine, maxItemsPerPage, page } = this.props
+    const products = (searchQuery && searchQuery.products) || []
     const query = searchQuery && searchQuery.variables.query
     const map = searchQuery && searchQuery.variables.map
     const orderBy = searchQuery && searchQuery.variables.orderBy
-    const selecteds = getSelecteds(query, map)
+    const from = ((page - 1) * maxItemsPerPage) + 1
+    const to = ((page - 1) * maxItemsPerPage) + products.length
+    const selecteds = this.getSelecteds(query, map)
     const isLoading = searchQuery && searchQuery.loading || facetsQuery && facetsQuery.loading
-    const products = (searchQuery && searchQuery.products) || []
+    const disabled = this.countSelecteds(selecteds) === 1
+    const recordsFiltered = this.getRecordsFiltered()
 
     return (
       <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3 dib`}>
-        <div className="w-100 w-30-m w-20-l fl">
-          <SelectedFilters selecteds={selecteds} query={query} map={map}
-            orderBy={orderBy} disabled={countSelecteds(selecteds) === 1} />
+        <div className="w-100 w-30-m w-20-l fl pa3">
+          <SelectedFilters {...{ selecteds, disabled }} getLinkProps={this.getLinkProps} />
           {this.renderSearchFilters()}
         </div>
         <div className="w-100 w-70-m w-80-l fl">
-          <SearchHeader
-            from={((page - 1) * maxItemsPerPage) + 1}
-            to={((page - 1) * maxItemsPerPage) + products.length}
-            query={query}
-            map={map}
-            recordsFiltered={this.getRecordsFiltered()}
-            selectedSort={orderBy}
-            sortingOptions={SortOptions}
-          />
-          {
-            isLoading ? (
-              <div className="w-100 flex justify-center">
-                <div className="w3 ma0">
-                  <Spinner />
-                </div>
-              </div>
-            ) : (
-              <Gallery products={products} maxItemsPerLine={maxItemsPerLine} />
-            )
-          }
+          <SearchHeader {...{ from, to, query, map, orderBy, recordsFiltered }}
+            getLinkProps={this.getLinkProps} />
+          { isLoading ? this.renderSpinner()
+            : <Gallery products={products} maxItemsPerLine={maxItemsPerLine} /> }
         </div>
       </div>
     )
@@ -108,8 +176,10 @@ class SearchResult extends Component {
 const SearchResultWithData = compose(
   graphql(facetsQuery, { name: 'facetsQuery',
     options: (props) => {
-      const propsFacets = props.map && props.pathName && `${props.pathName}?map=${props.map}`
-      const facets = propsFacets || (props.pathName && getFacetsFromURL(props.pathName))
+      const query = props.pathName
+      const propsFacets = props.map && query && `${query}?map=${props.map}`
+      const facets = propsFacets || (query && getFacetsFromURL(query))
+      console.log(facets, 'f')
       return ({
         variables: { facets },
         ssr: !!facets,
@@ -124,13 +194,7 @@ const SearchResultWithData = compose(
       const from = (props.page - 1) * props.maxItemsPerPage
       const to = from + props.maxItemsPerPage - 1
       return {
-        variables: {
-          query,
-          map,
-          orderBy,
-          from,
-          to,
-        },
+        variables: { query, map, orderBy, from, to },
         ssr: !!query,
       }
     },
@@ -170,78 +234,23 @@ SearchResult.propTypes = SearchResultWithData.propTypes = {
   maxItemsPerLine: PropTypes.number.isRequired,
   /** Maximum number of items per page. */
   maxItemsPerPage: PropTypes.number.isRequired,
-  /** Products to be displayed. */
-  products: PropTypes.array,
-  /** Pathname used to find the products. */
-  pathName: PropTypes.string,
+  /** Query param. e.g: eletronics/smartphones */
+  query: PropTypes.string,
+  /** Map param. e.g: c,c */
   map: PropTypes.string,
   /** Search result page. */
   page: PropTypes.number.isRequired,
+  /** Search result ordernation. */
   orderBy: PropTypes.string,
-  facetsQuery: PropTypes.shape({
-    Departments: PropTypes.arrayOf(PropTypes.shape({
-      Quantity: PropTypes.number.isRequired,
-      Link: PropTypes.string.isRequired,
-      Name: PropTypes.string.isRequired,
-    })),
-    Brands: PropTypes.arrayOf(PropTypes.shape({
-      Quantity: PropTypes.number.isRequired,
-      Link: PropTypes.string.isRequired,
-      Name: PropTypes.string.isRequired,
-    })),
-    SpecificationFilters: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      facets: PropTypes.shape({
-        Quantity: PropTypes.number.isRequired,
-        Link: PropTypes.string.isRequired,
-        Name: PropTypes.string.isRequired,
-      }),
-    })),
-  }),
-  searchQuery: PropTypes.shape({
-    products: PropTypes.arrayOf(
-      PropTypes.shape({
-        productId: PropTypes.string.isRequired,
-        productName: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        categories: PropTypes.array,
-        link: PropTypes.string,
-        linkText: PropTypes.string.isRequired,
-        brand: PropTypes.string,
-        items: PropTypes.arrayOf(
-          PropTypes.shape({
-            itemId: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired,
-            referenceId: PropTypes.arrayOf(
-              PropTypes.shape({
-                Value: PropTypes.string.isRequired,
-              })
-            ),
-            images: PropTypes.arrayOf(
-              PropTypes.shape({
-                imageUrl: PropTypes.string.isRequired,
-                imageTag: PropTypes.string.isRequired,
-              })
-            ).isRequired,
-            sellers: PropTypes.arrayOf(
-              PropTypes.shape({
-                commertialOffer: PropTypes.shape({
-                  Price: PropTypes.number.isRequired,
-                  ListPrice: PropTypes.number.isRequired,
-                }).isRequired,
-              })
-            ).isRequired,
-          })
-        ).isRequired,
-      })
-    ),
-  }),
+  /** Facets graphql query. */
+  facetsQuery: facetsQueryShape,
+  /** Search graphql query. */
+  searchQuery: searchQueryShape,
 }
 
 SearchResult.defaultProps = SearchResultWithData.defaultProps = {
   maxItemsPerLine: 5,
   maxItemsPerPage: 10,
-  products: [],
   orderBy: SortOptions[0].value,
   pathName: '',
   map: '',

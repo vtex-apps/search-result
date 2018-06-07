@@ -18,5 +18,14 @@ query facets($facets: String) {
         Link
       }
     }
+    CategoriesTrees {
+      Quantity
+      Name
+      Children {
+        Quantity
+        Name
+        Link
+      }
+    }
   }
 }

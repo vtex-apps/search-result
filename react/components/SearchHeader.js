@@ -4,47 +4,43 @@ import { FormattedMessage, injectIntl } from 'react-intl'
 
 import Dropdown from '@vtex/styleguide/lib/Dropdown'
 import VTEXClasses from '../constants/CSSClasses'
-import { getPagesArgs } from '../constants/SearchHelpers'
+import SortOptions from '../constants/SortOptions'
 
 /**
  * Displays the header information of the Gallery: the query used to find the products and a selector to choose the sorting type.
  */
 class SearchHeader extends Component {
   static contextTypes = {
-    navigate: PropTypes.func,
+    navigate: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
   }
 
   static propTypes = {
-    /** Amount of products filtered. */
+    /** Amount of products matched with the filters. */
     recordsFiltered: PropTypes.number.isRequired,
+    /** Initial index position of records filtered. */
     from: PropTypes.number,
+    /** Final index position of records filtered. */
     to: PropTypes.number,
-    map: PropTypes.string,
-    query: PropTypes.string,
-    /** Wich sorting method is selected. */
-    selectedSort: PropTypes.string.isRequired,
-    /** List of sorting methods. */
-    sortingOptions: PropTypes.array.isRequired,
+    /** Wich sorting option is selected. */
+    orderBy: PropTypes.string.isRequired,
+    /** Returns the link props. */
+    getLinkProps: PropTypes.func,
   }
 
   sortingOptions() {
     const context = this.context
-    return this.props.sortingOptions.map(opt => {
+    return SortOptions.map(opt => {
       return { value: opt.value, label: context.intl.formatMessage({ id: opt.label }) }
     })
   }
 
   render() {
-    const { recordsFiltered, selectedSort, from, to, map, query } = this.props
+    const { recordsFiltered, orderBy, from, to, getLinkProps } = this.props
     const options = this.sortingOptions()
 
     return (
-      <div
-        className={`${
-          VTEXClasses.HEADER_CLASS
-        } flex flex-wrap justify-between`}
-      >
+      <div className={`${VTEXClasses.HEADER_CLASS} flex flex-wrap justify-between`}>
         <div
           className={`${
             VTEXClasses.HEADER_SEARCH_CLASS
@@ -57,9 +53,9 @@ class SearchHeader extends Component {
           <Dropdown
             size="large"
             options={options}
-            value={selectedSort}
-            onChange={(a, b) => {
-              const pagesArgs = getPagesArgs(null, query, map, b)
+            value={orderBy}
+            onChange={(_, ordenation) => {
+              const pagesArgs = getLinkProps(null, { orderBy: ordenation })
               this.context.navigate({
                 page: pagesArgs.page,
                 params: pagesArgs.params,

@@ -1,13 +1,12 @@
-
-.search-result__filter-blocked {
-    cursor: default;
-    opacity: 0.8;
+.vtex-search-result {
+    z-index: -1;
 }
-
 @media only screen and (min-width: 60em) and (max-width: 70em) {
     .vtex-gallery__item {
         max-width: 33%;
         width: auto;
     }
 }
-
+.vtex-search-result__filter span:hover {
+    color: #368DF7
+}

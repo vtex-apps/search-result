@@ -1,4 +1,9 @@
 {
+  "Departments": "Departamentos",
+  "Categories": "Categorías",
+  "Brands": "Marcas",
+  "Operational System": "Sistema Operativo",
+  "Memory (RAM)": "Memoria (Ram)",
   "search.text": "Mostrar {from}-{to} de {recordsFiltered} resultados",
   "search.selected-filters": "Filtros Seleccionados",
   "Sales": "Vendas",

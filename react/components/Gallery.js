@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 
 import VTEXClasses from '../constants/CSSClasses'
+import { productShape } from '../constants/PropTypes'
 import GalleryItem from './GalleryItem'
 
 /**
@@ -14,7 +15,7 @@ export default class Gallery extends Component {
     /** Maximum number of items per page. */
     maxItemsPerPage: PropTypes.number.isRequired,
     /** Products to be displayed */
-    products: PropTypes.arrayOf(GalleryItem.propTypes.item),
+    products: PropTypes.arrayOf(productShape),
   }
 
   static defaultProps = {
@@ -41,7 +42,7 @@ export default class Gallery extends Component {
           return (
             <div
               key={item.productId}
-              className={`${VTEXClasses.GALLERY_ITEM_CLASS} ${this.getWidthClass()} flex mt2 pa1 fl`}
+              className={`${VTEXClasses.GALLERY_ITEM_CLASS} ${this.getWidthClass()} flex mv2 pa1 fl`}
             >
               <GalleryItem item={item} />
             </div>

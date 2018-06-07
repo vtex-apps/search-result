@@ -1,4 +1,9 @@
 {
+  "Departments": "Departments",
+  "Categories": "Categories",
+  "Brands": "Brands",
+  "Operational System": "Operational System",
+  "Memory (RAM)": "Memory (Ram)",
   "search.text": "Showing {from}-{to} from {recordsFiltered} records",
   "search.selected-filters": "Selected Filters",
   "Sales": "Sales",

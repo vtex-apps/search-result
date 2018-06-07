@@ -5,28 +5,24 @@ import { Collapse } from 'react-collapse'
 import ArrowDown from '../images/arrow-down.svg'
 import ArrowUp from '../images/arrow-up.svg'
 import VTEXClasses from '../constants/CSSClasses'
-import { getPagesArgs } from '../constants/SearchHelpers'
+import { facetOptionShape } from '../constants/PropTypes'
 
 import { Link } from 'render'
+import { intlShape, injectIntl } from 'react-intl'
 
 /**
  * Search Filter Component.
  */
-export default class SearchFilter extends Component {
+class SearchFilter extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     opened: PropTypes.bool,
-    options: PropTypes.arrayOf(PropTypes.shape({
-      Quantity: PropTypes.number.isRequired,
-      Link: PropTypes.string.isRequired,
-      Name: PropTypes.string.isRequired,
-    })),
-    selecteds: PropTypes.array.isRequired,
+    options: PropTypes.arrayOf(facetOptionShape),
+    selecteds: PropTypes.arrayOf(PropTypes.string).isRequired,
     type: PropTypes.string,
     disabled: PropTypes.bool,
-    query: PropTypes.string,
-    map: PropTypes.string,
-    orderBy: PropTypes.string,
+    getLinkProps: PropTypes.func,
+    intl: intlShape.isRequired,
   }
 
   static defaultProps = {
@@ -52,50 +48,55 @@ export default class SearchFilter extends Component {
     return this.isSelected(opt.Name) && this.props.disabled
   }
 
+  getFilterTitle() {
+    const title = this.props.title
+    return this.props.intl.formatMessage({ id: title })
+  }
+
   render() {
     const { opened } = this.state
-    const { query, map, orderBy, type, options } = this.props
+    const { type, options, getLinkProps } = this.props
     return (
-      <div className={`${VTEXClasses.SEARCH_FILTER_MAIN_CLASS} pa4 bb b--light-gray`}>
+      <div className={`${VTEXClasses.SEARCH_FILTER_MAIN_CLASS} ph4 pt4 pb2 bb b--light-gray`}>
 
-        <div className="pointer mb5" onClick={() => { this.setState({ opened: !opened }) }}>
+        <div className="pointer mb4" onClick={() => { this.setState({ opened: !opened }) }}>
           <div>
             <div className="f4">
-              {this.props.title}
+              {this.getFilterTitle()}
               <span className={`${VTEXClasses.SEARCH_FILTER_HEADER_ICON} fr`}>
                 <img src={opened ? ArrowUp : ArrowDown} width={20} />
               </span>
             </div>
           </div>
         </div>
+        <div style={{ overflowY: 'auto', maxHeight: '200px' }}>
+          <Collapse isOpened={opened}>
+            {options && options.map(opt => {
+              const pagesArgs = getLinkProps(opt, null, this.isSelected(opt.Name), type)
+              return (
+                <Link
+                  key={opt.Name}
+                  className="clear-link"
+                  page={pagesArgs.page}
+                  params={pagesArgs.params}
+                  query={pagesArgs.queryString}>
 
-        <Collapse isOpened={opened} style={{ overflowY: 'auto', maxHeight: '200px' }}>
-          {options && options.map(opt => {
-            const pagesArgs = getPagesArgs(opt, query, map, orderBy, this.isSelected(opt.Name), type)
-            return (
-              <Link
-                key={opt.Name}
-                className="clear-link"
-                page={pagesArgs.page}
-                params={pagesArgs.params}
-                query={pagesArgs.queryString}>
-
-                <div className="w-90 flex items-center justify-between pa3">
-                  <div className="flex items-center justify-center">
-                    {/* <input className={`${!this.isDisabled(opt) ? 'pointer' : ''} mr4`} type="checkbox" disabled={this.isDisabled(opt)} onChange={(evt) => {
-                      evt.preventDefault()
-                    }} checked={this.isSelected(opt.Name)} /> */}
-                    <span style={{ textDecoration: this.isSelected(opt.Name) ? 'underline' : '' }}>
-                      {opt.Name}
-                    </span>
+                  <div className="w-90 flex items-center justify-between pa3">
+                    <div className="flex items-center justify-center">
+                      <span className="bb" style={{ borderColor: `${this.isSelected(opt.Name) ? '#368DF7' : 'transparent'}`, borderWidth: '3px' }}>
+                        {opt.Name}
+                      </span>
+                    </div>
+                    <span className="flex items-center f5">( {opt.Quantity} )</span>
                   </div>
-                  <span className="flex items-center f5">( {opt.Quantity} )</span>
-                </div>
-              </Link>
-            )
-          })}
-        </Collapse>
+                </Link>
+              )
+            })}
+          </Collapse>
+        </div>
       </div>
     )
   }
 }
+
+export default injectIntl(SearchFilter)
