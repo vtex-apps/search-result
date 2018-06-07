@@ -1,5 +1,5 @@
-.vtex-search-result {
-    z-index: -1;
+.vtex-search-result a {
+    outline: 0;
 }
 @media only screen and (min-width: 60em) and (max-width: 70em) {
     .vtex-gallery__item {
