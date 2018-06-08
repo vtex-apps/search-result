@@ -1,6 +1,5 @@
 {
   "name": "vtex.search-result",
-  "version": "0.3.0",
   "description": "A Search Result.",
   "scripts": {
     "test": "jest"
