@@ -138,8 +138,6 @@ class SearchResult extends Component {
   }
 
   countSelecteds(selecteds) {
-    // return 0
-    if (!selecteds) return 0
     return reduce(concat, [])(values(selecteds)).length
   }
 
