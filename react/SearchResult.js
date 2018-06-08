@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { graphql, compose } from 'react-apollo'
+import { reduce, contains, concat, values } from 'ramda'
 
 import ProductSummary from 'vtex.product-summary/ProductSummary'
 import Spinner from '@vtex/styleguide/lib/Spinner'
@@ -22,7 +23,21 @@ import VTEXClasses from './constants/CSSClasses'
 import { facetsQueryShape, searchQueryShape } from './constants/PropTypes'
 import './global.css'
 
-const FACETS_KEYS = ['Departments', 'CategoriesTrees', 'Brands', 'SpecificationFilters']
+const FACETS_KEYS = {
+  Departments: 'Departments',
+  Categories: 'CategoriesTrees',
+  Brands: 'Brands',
+  Specifications: 'SpecificationFilters',
+}
+
+const LIMIT_SELECTEDS_TO_DISABLE = 1
+const CATEGORIES_FILTER_TITLE = 'Categories'
+const CATEGORIES_FILTER_TYPE = 'Departments'
+const KEY_MAP_CATEGORY = 'c'
+const KEY_MAP_BRAND = 'b'
+const KEY_MAP_TEXT = 'ft'
+const PATH_SEPARATOR = '/'
+const MAP_SEPARATOR = ','
 
 /**
  * Search Result Component.
@@ -45,33 +60,38 @@ class SearchResult extends Component {
     const query = searchQuery.variables.query
     const map = searchQuery.variables.map
     const selecteds = this.getSelecteds(query, map)
-    const isDisabled = this.countSelecteds(selecteds) === 1
+    const isDisabled = this.countSelecteds(selecteds) === LIMIT_SELECTEDS_TO_DISABLE
 
-    return FACETS_KEYS.map(key => {
+    return Object.values(FACETS_KEYS).map(key => {
       if (facets[key]) {
-        if (key === 'SpecificationFilters') {
-          return facets[key].map(filter => {
+        switch (key) {
+          case FACETS_KEYS.Specifications: {
+            return facets[key].map(filter => {
+              return (
+                <SearchFilter key={filter.name} title={filter.name}
+                  options={filter.facets} type={key} selecteds={selecteds[key]}
+                  getLinkProps={this.getLinkProps} disabled={isDisabled} />)
+            })
+          }
+          case FACETS_KEYS.Categories: {
+            let categories = []
+            facets[key].map(filter => {
+              if (contains(filter.Name.toUpperCase(), selecteds.Departments)) {
+                categories = categories.concat(filter.Children)
+              }
+            })
             return (
-              <SearchFilter key={filter.name} title={filter.name}
-                options={filter.facets} type={key} selecteds={selecteds[key]}
+              <SearchFilter key={key} title={CATEGORIES_FILTER_TITLE} options={categories}
+                type={CATEGORIES_FILTER_TYPE} selecteds={selecteds.Departments}
                 getLinkProps={this.getLinkProps} disabled={isDisabled} />)
-          })
-        } else if (key === 'CategoriesTrees') {
-          let categories = []
-          facets[key].map(filter => {
-            if (selecteds.Departments.indexOf(filter.Name.toUpperCase()) !== -1) {
-              categories = categories.concat(filter.Children)
-            }
-          })
-          return (
-            <SearchFilter key={key} title="Categories" options={categories}
-              type="Departments" selecteds={selecteds.Departments}
-              getLinkProps={this.getLinkProps} disabled={isDisabled} />)
+          }
+          default: {
+            return (
+              <SearchFilter key={key} title={key} options={facets[key]}
+                type={key} getLinkProps={this.getLinkProps}
+                disabled={isDisabled} selecteds={selecteds[key]} />)
+          }
         }
-        return (
-          <SearchFilter key={key} title={key} options={facets[key]}
-            type={key} getLinkProps={this.getLinkProps}
-            disabled={isDisabled} selecteds={selecteds[key]} />)
       }
     })
   }
@@ -86,21 +106,30 @@ class SearchResult extends Component {
 
     if (!query && !map) return selecteds
 
-    const pathValues = query.split('/')
-    const mapValues = map.split(',')
-    pathValues.map((val, i) => {
-      const valDecoded = decodeURI(val.toUpperCase())
-      if (i > mapValues.length - 1) {
-        selecteds.Departments.push(valDecoded)
+    const pathValues = query.split(PATH_SEPARATOR)
+    const mapValues = map.split(MAP_SEPARATOR)
+    pathValues.map((term, index) => {
+      const termDecoded = decodeURI(term.toUpperCase())
+      if (index >= mapValues.length) {
+        selecteds.Departments.push(termDecoded)
       } else {
-        if (mapValues[i] === 'c') {
-          selecteds.Departments.push(valDecoded)
-        } else if (mapValues[i] === 'b') {
-          selecteds.Brands.push(valDecoded)
-        } else if (mapValues[i].indexOf('specificationFilter') !== -1) {
-          selecteds.SpecificationFilters.push(valDecoded)
-        } else if (mapValues[i] === 'ft') {
-          selecteds.FullText = [valDecoded]
+        switch (mapValues[index]) {
+          case KEY_MAP_CATEGORY: {
+            selecteds.Departments.push(termDecoded)
+            break
+          }
+          case KEY_MAP_BRAND: {
+            selecteds.Brands.push(termDecoded)
+            break
+          }
+          case KEY_MAP_TEXT: {
+            selecteds.FullText = [termDecoded]
+            break
+          }
+          default: {
+            selecteds.SpecificationFilters.push(termDecoded)
+            break
+          }
         }
       }
     })
@@ -109,16 +138,12 @@ class SearchResult extends Component {
   }
 
   countSelecteds(selecteds) {
-    let count = 0
-    for (const key in selecteds) {
-      if (selecteds[key]) {
-        count += selecteds[key].length
-      }
-    }
-    return count
+    // return 0
+    if (!selecteds) return 0
+    return reduce(concat, [])(values(selecteds)).length
   }
 
-  getRecordsFiltered() {
+  getRecordsFiltered = () => {
     const { searchQuery, facetsQuery } = this.props
     if (facetsQuery && facetsQuery.facets) {
       const facets = facetsQuery.facets

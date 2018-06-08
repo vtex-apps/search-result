@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, injectIntl } from 'react-intl'
 import { Collapse } from 'react-collapse'
+import { reduce, concat, map, keys } from 'ramda'
 
 import Checkbox from '@vtex/styleguide/lib/Checkbox'
 import { Link } from 'render'
@@ -47,18 +48,10 @@ class SelectedFilters extends Component {
   }
 
   getSelectedFilters() {
-    const selectedsFilters = []
-    const keys = Object.keys(this.props.selecteds)
-
-    keys.map(key => {
-      this.props.selecteds[key].map(val => {
-        selectedsFilters.push({
-          key: `${key}:${val}`,
-          value: val,
-        })
-      })
-    })
-    return selectedsFilters
+    const selecteds = this.props.selecteds
+    return reduce((a, filterName) => concat(a, map(term => {
+      return ({ key: `${filterName}:${term}`, value: term })
+    }, selecteds[filterName])), [], keys(selecteds))
   }
 
   render() {

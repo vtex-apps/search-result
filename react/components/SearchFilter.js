@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Collapse } from 'react-collapse'
+import { contains } from 'ramda'
 
 import ArrowDown from '../images/arrow-down.svg'
 import ArrowUp from '../images/arrow-up.svg'
@@ -41,7 +42,7 @@ class SearchFilter extends Component {
   }
 
   isSelected(optName) {
-    return this.props.selecteds.indexOf(optName.toUpperCase()) !== -1
+    return contains(optName.toUpperCase(), this.props.selecteds)
   }
 
   isDisabled(opt) {
