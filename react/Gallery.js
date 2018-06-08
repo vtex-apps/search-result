@@ -53,18 +53,18 @@ export default class Gallery extends Component {
   }
 
   static schema = {
-    title: 'Gallery',
-    description: 'A product gallery',
+    title: 'editor.gallery.title',
+    description: 'editor.gallery.description',
     type: 'object',
     properties: {
       columnsQuantityLarge: {
-        title: 'Columns quantity (Large Viewport)',
+        title: 'editor.gallery.columnsQuantityLarge.title',
         type: 'number',
         enum: [3, 4, 5],
         default: 5,
       },
       columnsQuantityMedium: {
-        title: 'Columns quantity (Medium Viewport)',
+        title: 'editor.gallery.columnsQuantityMedium.title',
         type: 'number',
         enum: [2, 3],
         default: 3,
@@ -72,6 +72,7 @@ export default class Gallery extends Component {
     },
   }
 
+  // TODO: @felipesales convert to Gallery.getDerivedStateFromProps
   componentWillMount() {
     this.setState({
       products: sortProducts(this.props.products, sortingOptions[0]),

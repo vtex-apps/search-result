@@ -6,5 +6,9 @@
   "sortBy.lowerPrice": "Precios más bajo",
   "sortBy.nameAZ": "Nombre(A-Z)",
   "sortBy.nameZA": "Nombre(Z-A)",
-  "sortBy.bestSellers": "Más vendidos"
+  "sortBy.bestSellers": "Más vendidos",
+  "editor.gallery.title": "Galería",
+  "editor.gallery.description": "Una galería de produtos",
+  "editor.gallery.columnsQuantityLarge.title": "Cantidad de columnas (amplia ventana de visualización)",
+  "editor.gallery.columnsQuantityMedium.title": "Cantidad de columnas (media ventana de visualización)"
 }
