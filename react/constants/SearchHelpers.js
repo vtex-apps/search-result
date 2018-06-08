@@ -53,6 +53,6 @@ export function getPagesArgs(opt, queryArg, mapArg, orderBy, isUnselectLink, typ
   const page = 'store/search'
   const params = { term: pathValues[0] }
   const Q = pathValues.splice(1).join(',') || undefined
-  const queryString = QueryString.stringify({ map, page: 1, orderBy, Q })
+  const queryString = QueryString.stringify({ map, page: 1, O: orderBy, Q })
   return { page, params, queryString }
 }
