@@ -11,7 +11,7 @@ import SortOptions from '../constants/SortOptions'
  */
 class SearchHeader extends Component {
   static contextTypes = {
-    navigate: PropTypes.func.isRequired,
+    navigate: PropTypes.func,
     intl: PropTypes.object.isRequired,
   }
 

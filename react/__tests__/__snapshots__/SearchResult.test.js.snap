@@ -6,13 +6,13 @@ exports[`<SearchResult /> component should match snapshot 1`] = `
     class="vtex-search-result w-100 pa3 dib"
   >
     <div
-      class="w-100 w-30-m w-20-l fl"
+      class="w-100 w-30-m w-20-l fl pa3"
     >
       <div
-        class="vtex-search-result__filter pa4 bb b--light-gray"
+        class="vtex-search-result__filter ph4 pt4 pb2 bb b--light-gray"
       >
         <div
-          class="pointer mb5"
+          class="pointer mb4"
         >
           <div
             class="f4"
@@ -38,7 +38,7 @@ exports[`<SearchResult /> component should match snapshot 1`] = `
             class="ReactCollapse--content"
           >
             <div
-              class="w-90 dib pa3"
+              class="w-90 db"
             />
           </div>
         </div>
