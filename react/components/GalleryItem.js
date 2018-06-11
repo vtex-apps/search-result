@@ -1,45 +1,18 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import ProductSummary from 'vtex.product-summary/ProductSummary'
+
+import { ProductSummary } from 'vtex.product-summary'
+import { productShape } from '../constants/propTypes'
+import { PropTypes } from 'prop-types'
 
 /**
  * Normalizes the item received in the props to adapt to the extension point prop.
  */
 export default class GalleryItem extends Component {
   static propTypes = {
-    /**
-     * Item info that will be rendered.
-     */
-    item: PropTypes.shape({
-      productId: PropTypes.string.isRequired,
-      productName: PropTypes.string.isRequired,
-      link: PropTypes.string.isRequired,
-      brand: PropTypes.string.isRequired,
-      items: PropTypes.arrayOf(
-        PropTypes.shape({
-          name: PropTypes.string.isRequired,
-          referenceId: PropTypes.arrayOf(
-            PropTypes.shape({
-              Value: PropTypes.string.isRequired,
-            }),
-          ),
-          images: PropTypes.arrayOf(
-            PropTypes.shape({
-              imageUrl: PropTypes.string.isRequired,
-              imageTag: PropTypes.string.isRequired,
-            }),
-          ).isRequired,
-          sellers: PropTypes.arrayOf(
-            PropTypes.shape({
-              commertialOffer: PropTypes.shape({
-                Price: PropTypes.number.isRequired,
-                ListPrice: PropTypes.number.isRequired,
-              }),
-            }),
-          ).isRequired,
-        }),
-      ).isRequired,
-    }),
+    /** Item info that will be rendered. */
+    item: productShape,
+    /** ProductSummary props.  */
+    summary: PropTypes.any,
   }
 
   normalizeProductSummary(product) {
@@ -75,8 +48,6 @@ export default class GalleryItem extends Component {
   }
 
   render() {
-    const { item } = this.props
-
-    return <ProductSummary product={this.normalizeProductSummary(item)} />
+    return <ProductSummary product={this.normalizeProductSummary(this.props.item)} {...this.props.summary} />
   }
 }

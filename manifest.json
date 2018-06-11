@@ -1,9 +1,9 @@
 {
-  "name": "gallery",
+  "name": "search-result",
   "vendor": "vtex",
   "version": "0.2.0",
-  "title": "VTEX Gallery",
-  "description": "A gallery component",
+  "title": "VTEX Search Result",
+  "description": "A search result wrapper component",
   "mustUpdateAt": "2019-04-25",
   "registries": [
     "smartcheckout"
@@ -15,7 +15,18 @@
     "react": "2.x",
     "pages": "0.x"
   },
+  "policies": [
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "{{account}}.vtexcommercestable.com.br",
+        "path": "/api/catalog_system/*"
+      }
+    }
+  ],
   "dependencies": {
-    "vtex.product-summary": "0.x"
+    "vtex.styleguide": "4.x",
+    "vtex.product-summary": "0.x",
+    "vtex.store-graphql": "2.x"
   }
 }

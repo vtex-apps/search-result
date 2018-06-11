@@ -1,13 +1,12 @@
 {
   "pages": {
-    "gallery": {
-      "path": "/_v/gallery"
+    "search-result": {
+      "path": "/_v/search-result"
     }
   },
   "extensions": {
-    "gallery": {
-      "component": "Gallery",
-      "props": {}
+    "search-result": {
+      "component": "SearchResult"
     }
   }
 }

@@ -1,9 +1,12 @@
-.vtex-gallery .vtex-gallery__item {
-  display: flex;
+.vtex-search-result a {
+    outline: 0;
 }
-
-.vtex-gallery .vtex-gallery__header-order-results {
-  text-align: right;
-  display: table;
-  color: red;
+@media only screen and (min-width: 60em) and (max-width: 70em) {
+    .vtex-gallery__item {
+        max-width: 33%;
+        width: auto;
+    }
+}
+.vtex-search-result__filter span:hover {
+    color: #368DF7
 }

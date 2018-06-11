@@ -1,6 +1,6 @@
-# Gallery
+# Search Result
 
-Gallery is a canonical component that any VTEX store can install.
+Search Result is a canonical component that any VTEX store can install.
 
 ## Continuous Integrations
 
@@ -10,7 +10,7 @@ Gallery is a canonical component that any VTEX store can install.
 
 ## Usage
 
-Add "vtex.gallery" as your app dependency.
+Add "vtex.search-result" as your app dependency.
 
 ## Schema Properties
 

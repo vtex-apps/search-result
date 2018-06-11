@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchResult /> component should match snapshot 1`] = `
+<div>
+  <div
+    class="vtex-search-result w-100 pa3 dib"
+  >
+    <div
+      class="w-100 w-30-m w-20-l fl pa3"
+    >
+      <div
+        class="vtex-search-result__filter ph4 pt4 pb2 bb b--light-gray"
+      >
+        <div
+          class="pointer mb4"
+        >
+          <div
+            class="f4"
+          >
+            <span>
+              Selected Filters
+            </span>
+            <span
+              class="vtex-search-result__filter-icon fr"
+            >
+              <img
+                src="[object Object]"
+                width="20"
+              />
+            </span>
+          </div>
+        </div>
+        <div
+          class="ReactCollapse--collapse"
+          style="overflow: hidden; height: 0px; overflow-y: auto; max-height: 200px;"
+        >
+          <div
+            class="ReactCollapse--content"
+          >
+            <div
+              class="w-90 db"
+            >
+              <a
+                href="#"
+              >
+                <div
+                  class="flex items-center mb3 relative"
+                >
+                  <div
+                    class="h1 w1 relative ba bw1 br1 mr3 flex justify-center items-center b--silver bg-silver"
+                  />
+                  <div
+                    class="absolute flex o-100 left-0"
+                  >
+                    <svg
+                      class="vtex-icon__boxcheck"
+                      height="16"
+                      viewBox="0 0 14 14"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g
+                        fill="gray"
+                      >
+                        <path
+                          d="M6.125 9.987L3.138 7l1.237-1.237 1.75 1.75 3.5-3.5 1.237 1.237z"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                  <input
+                    class="h1 w1 absolute o-0"
+                    disabled=""
+                    name="default-checkbox-group"
+                    type="checkbox"
+                    value=""
+                  />
+                  <label
+                    class="near-black gray"
+                  >
+                    LANK
+                  </label>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="w-100 w-70-m w-80-l fl"
+    >
+      <div
+        class="vtex-search-result__header flex flex-wrap justify-between"
+      >
+        <div
+          class="vtex-search-result__header-search w-100 w-50-ns flex items-center justify-start pa3 ml7-l"
+        >
+          <span>
+            Showing 1-0 from 0 records
+          </span>
+        </div>
+        <div
+          class="w-100 w-50-m w-20-l pa3"
+        >
+          <div>
+            Dropdown
+          </div>
+        </div>
+      </div>
+      <div
+        class="vtex-gallery pa3 w-100 flex flex-wrap justify-start"
+      />
+    </div>
+  </div>
+</div>
+`;
