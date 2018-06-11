@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage, injectIntl } from 'react-intl'
 
-import Dropdown from '@vtex/styleguide/lib/Dropdown'
+import { Dropdown } from 'vtex.styleguide'
 import VTEXClasses from '../constants/CSSClasses'
 import SortOptions from '../constants/SortOptions'
 

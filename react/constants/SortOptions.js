@@ -1,30 +1,30 @@
 export default [
   {
     value: 'OrderByTopSaleDESC',
-    label: 'Sales',
+    label: 'ordenation.sales',
   },
   {
     value: 'OrderByReleaseDateDESC',
-    label: 'Release Date',
+    label: 'ordenation.release.date',
   },
   {
     value: 'OrderByBestDiscountDESC',
-    label: 'Discount',
+    label: 'ordenation.discount',
   },
   {
     value: 'OrderByPriceDESC',
-    label: 'Price, descending',
+    label: 'ordenation.price.descending',
   },
   {
     value: 'OrderByPriceASC',
-    label: 'Price, ascending',
+    label: 'ordenation.price.ascending',
   },
   {
     value: 'OrderByNameASC',
-    label: 'Name, ascending',
+    label: 'ordenation.name.ascending',
   },
   {
     value: 'OrderByNameDESC',
-    label: 'Name, descending',
+    label: 'ordenation.name.descending',
   },
 ]

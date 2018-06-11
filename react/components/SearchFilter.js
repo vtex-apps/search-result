@@ -6,7 +6,7 @@ import { contains } from 'ramda'
 import ArrowDown from '../images/arrow-down.svg'
 import ArrowUp from '../images/arrow-up.svg'
 import VTEXClasses from '../constants/CSSClasses'
-import { facetOptionShape } from '../constants/PropTypes'
+import { facetOptionShape } from '../constants/propTypes'
 
 import { Link } from 'render'
 import { intlShape, injectIntl } from 'react-intl'
@@ -49,21 +49,19 @@ class SearchFilter extends Component {
     return this.isSelected(opt.Name) && this.props.disabled
   }
 
-  getFilterTitle() {
-    const title = this.props.title
-    return this.props.intl.formatMessage({ id: title })
-  }
-
   render() {
     const { opened } = this.state
-    const { type, options, getLinkProps } = this.props
+    let { type, options, getLinkProps, title } = this.props
+    if (title === 'categories') {
+      title = this.props.intl.formatMessage({ id: title })
+    }
     return (
       <div className={`${VTEXClasses.SEARCH_FILTER_MAIN_CLASS} ph4 pt4 pb2 bb b--light-gray`}>
 
         <div className="pointer mb4" onClick={() => { this.setState({ opened: !opened }) }}>
           <div>
             <div className="f4">
-              {this.getFilterTitle()}
+              {title}
               <span className={`${VTEXClasses.SEARCH_FILTER_HEADER_ICON} fr`}>
                 <img src={opened ? ArrowUp : ArrowDown} width={20} />
               </span>

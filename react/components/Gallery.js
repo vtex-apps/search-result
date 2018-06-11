@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 
 import VTEXClasses from '../constants/CSSClasses'
-import { productShape } from '../constants/PropTypes'
+import { productShape } from '../constants/propTypes'
 import GalleryItem from './GalleryItem'
 
 /**

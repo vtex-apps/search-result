@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { graphql, compose } from 'react-apollo'
 import { reduce, contains, concat, values } from 'ramda'
 
-import ProductSummary from 'vtex.product-summary/ProductSummary'
-import Spinner from '@vtex/styleguide/lib/Spinner'
+import { ProductSummary } from 'vtex.product-summary'
+import { Spinner } from 'vtex.styleguide'
 import Gallery from './Gallery'
 import SearchHeader from './SearchHeader'
 import SearchFilter from './SearchFilter'
@@ -20,7 +20,7 @@ import {
 } from '../constants/SearchHelpers'
 import SortOptions from '../constants/SortOptions'
 import VTEXClasses from '../constants/CSSClasses'
-import { facetsQueryShape, searchQueryShape } from '../constants/PropTypes'
+import { facetsQueryShape, searchQueryShape } from '../constants/propTypes'
 import '../global.css'
 
 const FACETS_KEYS = {
@@ -31,7 +31,7 @@ const FACETS_KEYS = {
 }
 
 const LIMIT_SELECTEDS_TO_DISABLE = 1
-const CATEGORIES_FILTER_TITLE = 'Categories'
+const CATEGORIES_FILTER_TITLE = 'search.filter.title.categories'
 const CATEGORIES_FILTER_TYPE = 'Departments'
 const KEY_MAP_CATEGORY = 'c'
 const KEY_MAP_BRAND = 'b'
