@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 /**
- * ProductSummary Mocked Component.
+ * Link Mocked Component.
  */
 export class Link extends Component {
   render() {
