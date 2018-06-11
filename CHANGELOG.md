@@ -7,4 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Add initial files
+- Internationalization to the schema.
+- `SearchResult` component
+- `SearchFilter` compoenent
+- `SelectedFilters` component
+- Graphql queries of `search` and `facets`
+
+## [0.2.0] - 2018-05-11
+### Added
+- Refactor app to import as default the product-summary app. 
+- **Orderable gallery** Displays a list of products that can be ordered.
+- **Update to the new Pages** Update to new version of Pages.
