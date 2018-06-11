@@ -11,6 +11,8 @@ import { facetOptionShape } from '../constants/propTypes'
 import { Link } from 'render'
 import { intlShape, injectIntl } from 'react-intl'
 
+const CATEGORIES_FILTER_TITLE = 'search.filter.title.categories'
+
 /**
  * Search Filter Component.
  */
@@ -52,7 +54,7 @@ class SearchFilter extends Component {
   render() {
     const { opened } = this.state
     let { type, options, getLinkProps, title } = this.props
-    if (title === 'categories') {
+    if (title === CATEGORIES_FILTER_TITLE) {
       title = this.props.intl.formatMessage({ id: title })
     }
     return (

@@ -1,5 +1,5 @@
 {
-  "search.filter.title": "Categories",
+  "search.filter.title.categories": "Categories",
   "search.text": "Showing {from}-{to} from {recordsFiltered} records",
   "search.selected-filters": "Selected Filters",
   "ordenation.sales": "Sales",

@@ -1,5 +1,5 @@
 {
-  "search.filter.title": "Categorías",
+  "search.filter.title.categories": "Categorías",
   "search.text": "Mostrar {from}-{to} de {recordsFiltered} resultados",
   "search.selected-filters": "Filtros Seleccionados",
   "ordenation.sales": "Vendas",
