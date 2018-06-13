@@ -35,4 +35,3 @@ npm-debug.log
 lib
 .eslintrc
 package-lock.json
-yarn.lock
