@@ -7,7 +7,6 @@
   "author": "VTEX",
   "license": "ISC",
   "dependencies": {
-    "@vtex/styleguide": "4.1.0",
     "query-string": "^6.1.0",
     "ramda": "^0.25.0",
     "react-collapse": "^4.0.3",
