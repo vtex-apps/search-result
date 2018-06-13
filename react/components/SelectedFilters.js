@@ -4,7 +4,7 @@ import { FormattedMessage, injectIntl } from 'react-intl'
 import { Collapse } from 'react-collapse'
 import { reduce, concat, map, keys } from 'ramda'
 
-import Checkbox from '@vtex/styleguide/lib/Checkbox'
+import { Checkbox } from 'vtex.styleguide'
 import { Link } from 'render'
 
 import ArrowDown from '../images/arrow-down.svg'
