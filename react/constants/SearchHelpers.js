@@ -1,19 +1,5 @@
 import QueryString from 'query-string'
 
-export function getSearchParamsFromUrl() {
-  let query = window.location && window.location.pathname.slice(1)
-  const queryParams = window.location && QueryString.parse(window.location.search)
-  if (queryParams && queryParams.Q) {
-    query = [query].concat(queryParams.Q.split(',')).join('/')
-  }
-  return {
-    query,
-    map: queryParams && queryParams.map,
-    orderBy: queryParams && queryParams.O,
-    page: parseInt((queryParams && queryParams.page) || 1),
-  }
-}
-
 /**
  * Returns a string representing the facets param based in the location pathName and queryString.
  * e.g: smartphones?map=c

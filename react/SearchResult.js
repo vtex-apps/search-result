@@ -1,19 +1,18 @@
 import React, { Component } from 'react'
 
-import { getSearchParamsFromUrl } from './constants/SearchHelpers'
+import { getQueryAndMap } from './constants/SearchHelpers'
 import SearchResultContainer from './components/SearchResultContainer'
 
-export default class SearchResult extends Component {
-  constructor(props) {
-    super(props)
-    this.state = getSearchParamsFromUrl()
-  }
+const DEFAULT_PAGE = 1
 
-  componentWillReceiveProps() {
-    this.setState(getSearchParamsFromUrl())
-  }
+export default class SearchResult extends Component {
 
   render() {
-    return (<SearchResultContainer {...this.state} />)
+    const {query: { O: orderBy, page: pageProps, Q, map: mapProps }, params: { term }} = this.props
+    const query = [term].concat( Q && Q.split(',') || []).join('/')
+    const map = mapProps || getQueryAndMap(query).map
+    const page = (pageProps ? parseInt(pageProps) : DEFAULT_PAGE)
+    const containerProps = { query, map, orderBy, page }
+    return (<SearchResultContainer {...containerProps} />)
   }
 }

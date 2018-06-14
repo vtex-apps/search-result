@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `SearchFilter` compoenent
 - `SelectedFilters` component
 - Graphql queries of `search` and `facets`
+- Implementataion of SSR
 
 ## [0.2.0] - 2018-05-11
 ### Added

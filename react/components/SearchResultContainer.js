@@ -200,25 +200,21 @@ class SearchResult extends Component {
 const SearchResultWithData = compose(
   graphql(facetsQuery, { name: 'facetsQuery',
     options: (props) => {
-      const query = props.query
-      const propsFacets = props.map && query && `${query}?map=${props.map}`
-      const facets = propsFacets || (query && getFacetsFromURL(query))
+      const { query, map } = props
+      const facets = `${query}?map=${map}`
       return ({
-        variables: { facets },
-        ssr: !!facets,
+        variables: { facets }
       })
     },
   }),
   graphql(searchQuery, { name: 'searchQuery',
     options: (props) => {
-      const query = props.query
-      const map = props.map || (query && getQueryAndMap(query).map)
+      const { query, map } = props
       const orderBy = props.orderBy
       const from = (props.page - 1) * props.maxItemsPerPage
       const to = from + props.maxItemsPerPage - 1
       return {
-        variables: { query, map, orderBy, from, to },
-        ssr: !!query,
+        variables: { query, map, orderBy, from, to }
       }
     },
   }),
@@ -265,7 +261,7 @@ SearchResult.propTypes = SearchResultWithData.propTypes = {
   /** Maximum number of items per page. */
   maxItemsPerPage: PropTypes.number.isRequired,
   /** Query param. e.g: eletronics/smartphones */
-  query: PropTypes.string,
+  query: PropTypes.string.isRequired,
   /** Map param. e.g: c,c */
   map: PropTypes.string,
   /** Search result page. */
