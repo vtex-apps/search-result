@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Graphql queries of `search` and `facets`
 - Implementataion of SSR
 
+### Changed
+- Update `Checkbox` dependency to `vtex.styleguide` app.
+
 ## [0.2.0] - 2018-05-11
 ### Added
 - Refactor app to import as default the product-summary app. 

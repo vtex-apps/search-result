@@ -11,3 +11,10 @@ export class Spinner extends Component {
     return (<div>Spinner</div>)
   }
 }
+
+
+export class Checkbox extends Component {
+  render() {
+    return (<div>Checkbox</div>)
+  }
+}

@@ -43,43 +43,8 @@ exports[`<SearchResult /> component should match snapshot 1`] = `
               <a
                 href="#"
               >
-                <div
-                  class="flex items-center mb3 relative"
-                >
-                  <div
-                    class="h1 w1 relative ba bw1 br1 mr3 flex justify-center items-center b--silver bg-silver"
-                  />
-                  <div
-                    class="absolute flex o-100 left-0"
-                  >
-                    <svg
-                      class="vtex-icon__boxcheck"
-                      height="16"
-                      viewBox="0 0 14 14"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g
-                        fill="gray"
-                      >
-                        <path
-                          d="M6.125 9.987L3.138 7l1.237-1.237 1.75 1.75 3.5-3.5 1.237 1.237z"
-                        />
-                      </g>
-                    </svg>
-                  </div>
-                  <input
-                    class="h1 w1 absolute o-0"
-                    disabled=""
-                    name="default-checkbox-group"
-                    type="checkbox"
-                    value=""
-                  />
-                  <label
-                    class="near-black gray"
-                  >
-                    ELETRONICS
-                  </label>
+                <div>
+                  Checkbox
                 </div>
               </a>
             </div>
