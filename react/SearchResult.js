@@ -15,7 +15,7 @@ export default class SearchResult extends Component {
     query: PropTypes.shape({
       /**
        * Rest of the search term, e.g: eletronics/smartphones/samsung implies that
-       * Q will be equal to "smartphones,samsung".
+       * rest will be equal to "smartphones,samsung".
        * */
       rest: PropTypes.string,
       /** Determines the types of the terms, e.g: "c,c,b" (category, category, brand). */
