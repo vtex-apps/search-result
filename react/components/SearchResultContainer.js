@@ -261,7 +261,7 @@ SearchResult.propTypes = SearchResultWithData.propTypes = {
   /** Query param. e.g: eletronics/smartphones */
   query: PropTypes.string.isRequired,
   /** Map param. e.g: c,c */
-  map: PropTypes.string,
+  map: PropTypes.string.isRequired,
   /** Search result page. */
   page: PropTypes.number.isRequired,
   /** Search result ordernation. */
@@ -276,9 +276,6 @@ SearchResult.defaultProps = SearchResultWithData.defaultProps = {
   maxItemsPerLine: 5,
   maxItemsPerPage: 10,
   orderBy: SortOptions[0].value,
-  query: '',
-  map: '',
-  page: 1,
 }
 
 export default SearchResultWithData
