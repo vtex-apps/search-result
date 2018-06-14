@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import { FormattedMessage, injectIntl } from 'react-intl'
-
 import { Dropdown } from 'vtex.styleguide'
+
 import VTEXClasses from '../constants/CSSClasses'
 import SortOptions from '../constants/SortOptions'
 
@@ -31,7 +31,10 @@ class SearchHeader extends Component {
   sortingOptions() {
     const context = this.context
     return SortOptions.map(opt => {
-      return { value: opt.value, label: context.intl.formatMessage({ id: opt.label }) }
+      return {
+        value: opt.value,
+        label: context.intl.formatMessage({ id: opt.label }),
+      }
     })
   }
 
@@ -40,13 +43,18 @@ class SearchHeader extends Component {
     const options = this.sortingOptions()
 
     return (
-      <div className={`${VTEXClasses.HEADER_CLASS} flex flex-wrap justify-between`}>
+      <div
+        className={`${
+          VTEXClasses.HEADER_CLASS
+        } flex flex-wrap justify-between`}>
         <div
           className={`${
             VTEXClasses.HEADER_SEARCH_CLASS
-          } w-100 w-50-ns flex items-center justify-start pa3 ml7-l`}
-        >
-          <FormattedMessage id="search.text" values={{ from, to, recordsFiltered }} />
+          } w-100 w-50-ns flex items-center justify-start pa3 ml7-l`}>
+          <FormattedMessage
+            id="search.text"
+            values={{ from, to, recordsFiltered }}
+          />
         </div>
 
         <div className="w-100 w-50-m w-20-l pa3">
@@ -55,7 +63,9 @@ class SearchHeader extends Component {
             options={options}
             value={orderBy}
             onChange={(_, ordenation) => {
-              const pagesArgs = getLinkProps(null, { orderBy: ordenation })
+              const pagesArgs = getLinkProps({
+                variables: { orderBy: ordenation },
+              })
               this.context.navigate({
                 page: pagesArgs.page,
                 params: pagesArgs.params,

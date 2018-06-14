@@ -2,7 +2,8 @@ import QueryString from 'query-string'
 
 export function getSearchParamsFromUrl() {
   let query = window.location && window.location.pathname.slice(1)
-  const queryParams = window.location && QueryString.parse(window.location.search)
+  const queryParams =
+    window.location && QueryString.parse(window.location.search)
   if (queryParams && queryParams.Q) {
     query = [query].concat(queryParams.Q.split(',')).join('/')
   }
@@ -30,7 +31,12 @@ export function getQueryAndMap(pathName, queryParams, isBrand) {
     map = queryParams.map
   } else {
     const pathValues = pathName.split('/')
-    map = Array(pathValues.length - 1).fill('c').join(',') + (pathValues.length > 1 ? ',' : '') + (isBrand ? 'b' : 'c')
+    map =
+      Array(pathValues.length - 1)
+        .fill('c')
+        .join(',') +
+      (pathValues.length > 1 ? ',' : '') +
+      (isBrand ? 'b' : 'c')
   }
 
   return { query: pathName, map }
@@ -54,11 +60,21 @@ export function getLink(link, type) {
   return getFacetsFromURL(pathName, queryParams, type === 'Brands')
 }
 
-export function getPagesArgs(opt, queryArg, mapArg, orderBy, isUnselectLink, type) {
+export function getPagesArgs(
+  opt,
+  queryArg,
+  mapArg,
+  orderBy,
+  isUnselectLink,
+  type,
+  pageNumber = 1
+) {
   let query = queryArg
   let map = mapArg
   if (opt) {
-    const newLink = isUnselectLink ? getUnselectedLink(opt.Name, queryArg, mapArg) : getLink(opt.Link.slice(1), type)
+    const newLink = isUnselectLink
+      ? getUnselectedLink(opt.Name, queryArg, mapArg)
+      : getLink(opt.Link.slice(1), type)
     query = QueryString.parseUrl(newLink).url
     map = QueryString.parseUrl(newLink).query.map
   }
@@ -67,6 +83,11 @@ export function getPagesArgs(opt, queryArg, mapArg, orderBy, isUnselectLink, typ
   const page = 'store/search'
   const params = { term: pathValues[0] }
   const Q = pathValues.splice(1).join(',') || undefined
-  const queryString = QueryString.stringify({ map, page: 1, O: orderBy, Q })
+  const queryString = QueryString.stringify({
+    map,
+    page: pageNumber,
+    O: orderBy,
+    Q,
+  })
   return { page, params, queryString }
 }
