@@ -1,4 +1,5 @@
 import QueryString from 'query-string'
+import SortOptions from './SortOptions'
 
 /**
  * Returns a string representing the facets param based in the location pathName and queryString.
@@ -52,7 +53,11 @@ export function getPagesArgs(opt, queryArg, mapArg, orderBy, isUnselectLink, typ
   const pathValues = query.split('/')
   const page = 'store/search'
   const params = { term: pathValues[0] }
-  const Q = pathValues.splice(1).join(',') || undefined
-  const queryString = QueryString.stringify({ map, page: 1, O: orderBy, Q })
+  const rest = pathValues.splice(1).join(',') || undefined
+  const queryString = QueryString.stringify({
+    map,
+    order: (orderBy === SortOptions[0].value ? undefined : orderBy),
+    rest,
+  })
   return { page, params, queryString }
 }

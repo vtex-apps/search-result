@@ -14,8 +14,6 @@ import searchQuery from '../graphql/searchQuery.gql'
 import facetsQuery from '../graphql/facetsQuery.gql'
 
 import {
-  getFacetsFromURL,
-  getQueryAndMap,
   getPagesArgs,
 } from '../constants/SearchHelpers'
 import SortOptions from '../constants/SortOptions'
@@ -203,7 +201,7 @@ const SearchResultWithData = compose(
       const { query, map } = props
       const facets = `${query}?map=${map}`
       return ({
-        variables: { facets }
+        variables: { facets },
       })
     },
   }),
@@ -214,7 +212,7 @@ const SearchResultWithData = compose(
       const from = (props.page - 1) * props.maxItemsPerPage
       const to = from + props.maxItemsPerPage - 1
       return {
-        variables: { query, map, orderBy, from, to }
+        variables: { query, map, orderBy, from, to },
       }
     },
   }),
