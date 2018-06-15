@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `SearchFilter` compoenent
 - `SelectedFilters` component
 - Graphql queries of `search` and `facets`
-- Implementataion of SSR
+- Implement SSR
 
 ### Changed
 - Update `Checkbox` dependency to `vtex.styleguide` app.
