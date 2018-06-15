@@ -92,7 +92,8 @@ export default class SearchFooter extends Component {
           <Fragment>
             {this.getNumberButtonsFromRange(1, Math.min(lastPage + 1, 6))}
             {lastPage > 5 && <div className="ph2 gray">&hellip;</div>}
-            {page !== lastPage && (
+            {page !== lastPage &&
+              lastPage > 5 && (
               <div
                 className="ph2 pointer gray"
                 onClick={() => this.handleClick(lastPage)}>
