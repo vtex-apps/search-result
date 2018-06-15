@@ -47,6 +47,7 @@ export default class SearchFooter extends Component {
   render() {
     const { recordsFiltered, page, maxItemsPerPage } = this.props
     const lastPage = Math.ceil(recordsFiltered / maxItemsPerPage)
+    const maxNumberButtons = 5
     return (
       <div className="flex justify-center b">
         {page > 1 && (
@@ -56,11 +57,11 @@ export default class SearchFooter extends Component {
             <IconCaretLeft />
           </div>
         )}
-        {page > 5 ? (
+        {page > maxNumberButtons ? (
           <Fragment>
             <div className="ph2 gray pointer">1</div>
             <div className="ph2 gray">&hellip;</div>
-            {page < lastPage - 4 ? (
+            {page <= lastPage - maxNumberButtons ? (
               <Fragment>
                 <div
                   className="ph2 pointer gray"
@@ -85,15 +86,23 @@ export default class SearchFooter extends Component {
                 </div>
               </Fragment>
             ) : (
-              this.getNumberButtonsFromRange(lastPage - 4, lastPage + 1)
+              this.getNumberButtonsFromRange(
+                lastPage - maxNumberButtons + 1,
+                lastPage + 1
+              )
             )}
           </Fragment>
         ) : (
           <Fragment>
-            {this.getNumberButtonsFromRange(1, Math.min(lastPage + 1, 6))}
-            {lastPage > 5 && <div className="ph2 gray">&hellip;</div>}
+            {this.getNumberButtonsFromRange(
+              1,
+              Math.min(lastPage, maxNumberButtons) + 1
+            )}
+            {lastPage > maxNumberButtons && (
+              <div className="ph2 gray">&hellip;</div>
+            )}
             {page !== lastPage &&
-              lastPage > 5 && (
+              lastPage > maxNumberButtons && (
               <div
                 className="ph2 pointer gray"
                 onClick={() => this.handleClick(lastPage)}>
