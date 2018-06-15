@@ -78,13 +78,7 @@ exports[`<SearchResult /> component should match snapshot 1`] = `
       />
       <div
         class="flex justify-center b"
-      >
-        <div
-          class="ph2 pointer gray"
-        >
-          0
-        </div>
-      </div>
+      />
     </div>
   </div>
 </div>
