@@ -77,10 +77,13 @@ exports[`<SearchResult /> component should match snapshot 1`] = `
         class="vtex-gallery pa3 w-100 flex flex-wrap justify-start"
       />
       <div
-        class="flex justify-center"
+        class="flex justify-center b"
       >
-        <div />
-        <div />
+        <div
+          class="ph2 pointer gray"
+        >
+          0
+        </div>
       </div>
     </div>
   </div>
