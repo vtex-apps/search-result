@@ -11,6 +11,7 @@ import ArrowDown from '../images/arrow-down.svg'
 import ArrowUp from '../images/arrow-up.svg'
 
 const CATEGORIES_FILTER_TITLE = 'search.filter.title.categories'
+const SELECTED_FILTER_COLOR = '#368DF7'
 
 /**
  * Search Filter Component.
@@ -98,7 +99,7 @@ class SearchFilter extends Component {
                           style={{
                             borderColor: `${
                               this.isSelected(opt.Name)
-                                ? '#368DF7'
+                                ? SELECTED_FILTER_COLOR
                                 : 'transparent'
                             }`,
                             borderWidth: '3px',

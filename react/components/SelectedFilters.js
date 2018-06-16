@@ -49,9 +49,9 @@ class SelectedFilters extends Component {
   getSelectedFilters() {
     const selecteds = this.props.selecteds
     return reduce(
-      (a, filterName) =>
+      (accumulator, filterName) =>
         concat(
-          a,
+          accumulator,
           map(term => {
             return { key: `${filterName}:${term}`, value: term }
           }, selecteds[filterName])
