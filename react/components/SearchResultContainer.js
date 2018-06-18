@@ -14,13 +14,16 @@ import searchQuery from '../graphql/searchQuery.gql'
 import facetsQuery from '../graphql/facetsQuery.gql'
 
 import {
-  getFacetsFromURL,
-  getQueryAndMap,
   getPagesArgs,
 } from '../constants/SearchHelpers'
 import SortOptions from '../constants/SortOptions'
 import VTEXClasses from '../constants/CSSClasses'
-import { facetsQueryShape, searchQueryShape } from '../constants/propTypes'
+import {
+  facetsQueryShape,
+  searchQueryShape,
+  orderType,
+  mapType,
+} from '../constants/propTypes'
 import '../global.css'
 
 const FACETS_KEYS = {
@@ -200,25 +203,21 @@ class SearchResult extends Component {
 const SearchResultWithData = compose(
   graphql(facetsQuery, { name: 'facetsQuery',
     options: (props) => {
-      const query = props.query
-      const propsFacets = props.map && query && `${query}?map=${props.map}`
-      const facets = propsFacets || (query && getFacetsFromURL(query))
+      const { path, map } = props
+      const facets = `${path}?map=${map}`
       return ({
         variables: { facets },
-        ssr: !!facets,
       })
     },
   }),
   graphql(searchQuery, { name: 'searchQuery',
     options: (props) => {
-      const query = props.query
-      const map = props.map || (query && getQueryAndMap(query).map)
+      const { path, map } = props
       const orderBy = props.orderBy
       const from = (props.page - 1) * props.maxItemsPerPage
       const to = from + props.maxItemsPerPage - 1
       return {
-        variables: { query, map, orderBy, from, to },
-        ssr: !!query,
+        variables: { query: path, map, orderBy, from, to },
       }
     },
   }),
@@ -264,15 +263,15 @@ SearchResult.propTypes = SearchResultWithData.propTypes = {
   maxItemsPerLine: PropTypes.number.isRequired,
   /** Maximum number of items per page. */
   maxItemsPerPage: PropTypes.number.isRequired,
-  /** Query param. e.g: eletronics/smartphones */
-  query: PropTypes.string,
+  /** Path param. e.g: eletronics/smartphones */
+  path: PropTypes.string.isRequired,
   /** Map param. e.g: c,c */
-  map: PropTypes.string,
+  map: mapType.isRequired,
   /** Search result page. */
+  orderBy: orderType,
+  /** Facets graphql query. */
   page: PropTypes.number.isRequired,
   /** Search result ordernation. */
-  orderBy: PropTypes.string,
-  /** Facets graphql query. */
   facetsQuery: facetsQueryShape,
   /** Search graphql query. */
   searchQuery: searchQueryShape,
@@ -282,9 +281,6 @@ SearchResult.defaultProps = SearchResultWithData.defaultProps = {
   maxItemsPerLine: 5,
   maxItemsPerPage: 10,
   orderBy: SortOptions[0].value,
-  query: '',
-  map: '',
-  page: 1,
 }
 
 export default SearchResultWithData

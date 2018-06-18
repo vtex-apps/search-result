@@ -1,18 +1,5 @@
 import QueryString from 'query-string'
-
-export function getSearchParamsFromUrl() {
-  let query = window.location && window.location.pathname.slice(1)
-  const queryParams = window.location && QueryString.parse(window.location.search)
-  if (queryParams && queryParams.Q) {
-    query = [query].concat(queryParams.Q.split(',')).join('/')
-  }
-  return {
-    query,
-    map: queryParams && queryParams.map,
-    orderBy: queryParams && queryParams.O,
-    page: parseInt((queryParams && queryParams.page) || 1),
-  }
-}
+import SortOptions from './SortOptions'
 
 /**
  * Returns a string representing the facets param based in the location pathName and queryString.
@@ -66,7 +53,11 @@ export function getPagesArgs(opt, queryArg, mapArg, orderBy, isUnselectLink, typ
   const pathValues = query.split('/')
   const page = 'store/search'
   const params = { term: pathValues[0] }
-  const Q = pathValues.splice(1).join(',') || undefined
-  const queryString = QueryString.stringify({ map, page: 1, O: orderBy, Q })
+  const rest = pathValues.splice(1).join(',') || undefined
+  const queryString = QueryString.stringify({
+    map,
+    order: (orderBy === SortOptions[0].value ? undefined : orderBy),
+    rest,
+  })
   return { page, params, queryString }
 }

@@ -1,19 +1,29 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-import { getSearchParamsFromUrl } from './constants/SearchHelpers'
+import { queryShape } from './constants/propTypes'
+import { getQueryAndMap } from './constants/SearchHelpers'
 import SearchResultContainer from './components/SearchResultContainer'
 
-export default class SearchResult extends Component {
-  constructor(props) {
-    super(props)
-    this.state = getSearchParamsFromUrl()
-  }
+const DEFAULT_PAGE = 1
 
-  componentWillReceiveProps() {
-    this.setState(getSearchParamsFromUrl())
+export default class SearchResult extends Component {
+  static propTypes = {
+    params: PropTypes.shape({
+      /** Search's term, e.g: eletronics. */
+      term: PropTypes.string.isRequired,
+    }),
+    query: queryShape,
   }
 
   render() {
-    return (<SearchResultContainer {...this.state} />)
+    const { query: {
+      order: orderBy, page: pageProps, rest, map: mapProps,
+    }, params: { term } } = this.props
+    const query = [term].concat(rest && rest.split(',') || []).join('/')
+    const map = mapProps || getQueryAndMap(query).map
+    const page = (pageProps ? parseInt(pageProps) : DEFAULT_PAGE)
+    const containerProps = { path: query, map, orderBy, page }
+    return (<SearchResultContainer {...containerProps} />)
   }
 }

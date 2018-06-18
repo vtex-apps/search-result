@@ -90,3 +90,21 @@ export const searchQueryShape = PropTypes.shape({
   /** Products resulting by the search.  */
   products: PropTypes.arrayOf(productShape),
 })
+
+export const queryShape = PropTypes.shape({
+  /**
+   * Rest of the search term, e.g: eletronics/smartphones/samsung implies that
+   * rest will be equal to "smartphones,samsung".
+   */
+  rest: PropTypes.string,
+  /** Determines the types of the terms, e.g: "c,c,b" (category, category, brand). */
+  map: mapType,
+  /** Search's ordenation. */
+  order: orderType,
+  /** Search's pagination. */
+  page: PropTypes.string,
+})
+
+export const mapType = PropTypes.string
+
+export const orderType = PropTypes.string
