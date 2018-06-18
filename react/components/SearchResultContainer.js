@@ -18,7 +18,12 @@ import {
 } from '../constants/SearchHelpers'
 import SortOptions from '../constants/SortOptions'
 import VTEXClasses from '../constants/CSSClasses'
-import { facetsQueryShape, searchQueryShape } from '../constants/propTypes'
+import {
+  facetsQueryShape,
+  searchQueryShape,
+  orderType,
+  mapType,
+} from '../constants/propTypes'
 import '../global.css'
 
 const FACETS_KEYS = {
@@ -198,8 +203,8 @@ class SearchResult extends Component {
 const SearchResultWithData = compose(
   graphql(facetsQuery, { name: 'facetsQuery',
     options: (props) => {
-      const { query, map } = props
-      const facets = `${query}?map=${map}`
+      const { path, map } = props
+      const facets = `${path}?map=${map}`
       return ({
         variables: { facets },
       })
@@ -207,12 +212,12 @@ const SearchResultWithData = compose(
   }),
   graphql(searchQuery, { name: 'searchQuery',
     options: (props) => {
-      const { query, map } = props
+      const { path, map } = props
       const orderBy = props.orderBy
       const from = (props.page - 1) * props.maxItemsPerPage
       const to = from + props.maxItemsPerPage - 1
       return {
-        variables: { query, map, orderBy, from, to },
+        variables: { query: path, map, orderBy, from, to },
       }
     },
   }),
@@ -258,15 +263,15 @@ SearchResult.propTypes = SearchResultWithData.propTypes = {
   maxItemsPerLine: PropTypes.number.isRequired,
   /** Maximum number of items per page. */
   maxItemsPerPage: PropTypes.number.isRequired,
-  /** Query param. e.g: eletronics/smartphones */
-  query: PropTypes.string.isRequired,
+  /** Path param. e.g: eletronics/smartphones */
+  path: PropTypes.string.isRequired,
   /** Map param. e.g: c,c */
-  map: PropTypes.string.isRequired,
+  map: mapType.isRequired,
   /** Search result page. */
+  orderBy: orderType,
+  /** Facets graphql query. */
   page: PropTypes.number.isRequired,
   /** Search result ordernation. */
-  orderBy: PropTypes.string,
-  /** Facets graphql query. */
   facetsQuery: facetsQueryShape,
   /** Search graphql query. */
   searchQuery: searchQueryShape,
