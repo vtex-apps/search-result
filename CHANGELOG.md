@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `SelectedFilters` component
 - Graphql queries of `search` and `facets`
 - Navigation buttons to paginated search.
+- Implement SSR
 
 ### Changed
 - Update `Checkbox` dependency to `vtex.styleguide` app.

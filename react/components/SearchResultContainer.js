@@ -4,12 +4,17 @@ import PropTypes from 'prop-types'
 import { concat, contains, reduce, values } from 'ramda'
 import React, { Component } from 'react'
 import { compose, graphql } from 'react-apollo'
-import { ProductSummary } from 'vtex.product-summary'
 import { Spinner } from 'vtex.styleguide'
 
 import VTEXClasses from '../constants/CSSClasses'
-import { facetsQueryShape, searchQueryShape } from '../constants/propTypes'
-import { getFacetsFromURL, getPagesArgs, getQueryAndMap } from '../constants/SearchHelpers'
+import {
+  facetsQueryShape,
+  searchQueryShape,
+  mapType,
+  orderType,
+  schemaPropsTypes,
+} from '../constants/propTypes'
+import { getPagesArgs } from '../constants/SearchHelpers'
 import SortOptions from '../constants/SortOptions'
 import facetsQuery from '../graphql/facetsQuery.gql'
 import searchQuery from '../graphql/searchQuery.gql'
@@ -38,7 +43,7 @@ const MAP_SEPARATOR = ','
 /**
  * Search Result Component.
  */
-class SearchResult extends Component {
+class SearchResultContainer extends Component {
   getLinkProps = ({ opt, variables, isSelected, type, pageNumber }) => {
     let { query, map, orderBy } = this.props.searchQuery.variables
     if (variables) {
@@ -239,96 +244,47 @@ class SearchResult extends Component {
   }
 }
 
-const SearchResultWithData = compose(
-  graphql(facetsQuery, {
-    name: 'facetsQuery',
-    options: props => {
-      const query = props.query
-      const propsFacets = props.map && query && `${query}?map=${props.map}`
-      const facets = propsFacets || (query && getFacetsFromURL(query))
-      return {
+const SearchResultContainerWithData = compose(
+  graphql(facetsQuery, { name: 'facetsQuery',
+    options: (props) => {
+      const { path, map } = props
+      const facets = `${path}?map=${map}`
+      return ({
         variables: { facets },
-        ssr: !!facets,
-      }
+      })
     },
   }),
-  graphql(searchQuery, {
-    name: 'searchQuery',
-    options: props => {
-      const query = props.query
-      const map = props.map || (query && getQueryAndMap(query).map)
+  graphql(searchQuery, { name: 'searchQuery',
+    options: (props) => {
+      const { path, map } = props
       const orderBy = props.orderBy
       const from = (props.page - 1) * props.maxItemsPerPage
       const to = from + props.maxItemsPerPage - 1
       return {
-        variables: { query, map, orderBy, from, to },
-        ssr: !!query,
+        variables: { query: path, map, orderBy, from, to },
       }
     },
-  })
-)(SearchResult)
+  }),
+)(SearchResultContainer)
 
-SearchResult.uiSchema = SearchResultWithData.uiSchema = {
-  maxItemsPerLine: {
-    'ui:widget': 'radio',
-    'ui:options': {
-      inline: true,
-    },
-  },
-}
-
-SearchResult.getSchema = SearchResultWithData.getSchema = props => {
-  return {
-    title: 'editor.search-result.title',
-    description: 'editor.search-result.description',
-    type: 'object',
-    properties: {
-      maxItemsPerLine: {
-        title: 'editor.search-result.maxItemsPerLine.title',
-        type: 'number',
-        enum: [3, 4, 5],
-        default: 5,
-      },
-      maxItemsPerPage: {
-        title: 'editor.search-result.maxItemsPerPage.title',
-        type: 'number',
-        default: 10,
-      },
-      summary: {
-        title: 'editor.search-result.summary.title',
-        type: 'object',
-        properties: ProductSummary.getSchema(props).properties,
-      },
-    },
-  }
-}
-
-SearchResult.propTypes = SearchResultWithData.propTypes = {
-  /** Maximum number of items per line. */
-  maxItemsPerLine: PropTypes.number.isRequired,
-  /** Maximum number of items per page. */
-  maxItemsPerPage: PropTypes.number.isRequired,
-  /** Query param. e.g: eletronics/smartphones */
-  query: PropTypes.string,
+SearchResultContainer.propTypes = SearchResultContainerWithData.propTypes = {
+  /** Path param. e.g: eletronics/smartphones */
+  path: PropTypes.string,
   /** Map param. e.g: c,c */
-  map: PropTypes.string,
+  map: mapType.isRequired,
   /** Search result page. */
   page: PropTypes.number.isRequired,
   /** Search result ordernation. */
-  orderBy: PropTypes.string,
+  orderBy: orderType,
   /** Facets graphql query. */
   facetsQuery: facetsQueryShape,
   /** Search graphql query. */
   searchQuery: searchQueryShape,
+  ...schemaPropsTypes,
 }
 
-SearchResult.defaultProps = SearchResultWithData.defaultProps = {
-  maxItemsPerLine: 5,
-  maxItemsPerPage: 10,
+SearchResultContainer.defaultProps = SearchResultContainerWithData.defaultProps = {
   orderBy: SortOptions[0].value,
-  query: '',
-  map: '',
-  page: 1,
 }
 
-export default SearchResultWithData
+export default SearchResultContainerWithData

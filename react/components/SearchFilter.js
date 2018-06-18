@@ -53,7 +53,8 @@ class SearchFilter extends Component {
 
   render() {
     const { opened } = this.state
-    let { type, options, getLinkProps, title } = this.props
+    const { type, options, getLinkProps } = this.props
+    let { title } = this.props
     if (title === CATEGORIES_FILTER_TITLE) {
       title = this.props.intl.formatMessage({ id: title })
     }

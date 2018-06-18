@@ -14,7 +14,10 @@ describe('<SearchResult /> component', () => {
     wrapper = render(
       <MockedProvider >
         <IntlProvider locale="en-US" messages={messages}>
-          <SearchResult />
+          <SearchResult
+            params={{ term: 'eletronics' }}
+            query={{ map: 'c' }}
+          />
         </IntlProvider>
       </MockedProvider>
     )

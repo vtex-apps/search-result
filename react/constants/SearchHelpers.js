@@ -1,4 +1,5 @@
 import QueryString from 'query-string'
+import SortOptions from './SortOptions'
 
 export function getSearchParamsFromUrl() {
   let query = window.location && window.location.pathname.slice(1)
@@ -82,12 +83,12 @@ export function getPagesArgs(
   const pathValues = query.split('/')
   const page = 'store/search'
   const params = { term: pathValues[0] }
-  const Q = pathValues.splice(1).join(',') || undefined
+  const rest = pathValues.splice(1).join(',') || undefined
   const queryString = QueryString.stringify({
     map,
     page: pageNumber,
-    O: orderBy,
-    Q,
+    order: (orderBy === SortOptions[0].value ? undefined : orderBy),
+    rest,
   })
   return { page, params, queryString }
 }
