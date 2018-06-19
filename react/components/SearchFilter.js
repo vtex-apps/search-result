@@ -56,7 +56,7 @@ class SearchFilter extends Component {
     const { type, options, getLinkProps } = this.props
     const title =
       this.props.title === CATEGORIES_FILTER_TITLE
-        ? this.props.intl.formatMessage({ id: title })
+        ? this.props.intl.formatMessage({ id: this.props.title })
         : this.props.title
     return (
       <div
