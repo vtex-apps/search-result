@@ -1,30 +1,28 @@
-import React, { Component } from 'react'
+import '../global.css'
+
 import PropTypes from 'prop-types'
-import { graphql, compose } from 'react-apollo'
-import { reduce, contains, concat, values } from 'ramda'
-
-import { ProductSummary } from 'vtex.product-summary'
+import { concat, contains, reduce, values } from 'ramda'
+import React, { Component } from 'react'
+import { compose, graphql } from 'react-apollo'
 import { Spinner } from 'vtex.styleguide'
-import Gallery from './Gallery'
-import SearchHeader from './SearchHeader'
-import SearchFilter from './SearchFilter'
-import SelectedFilters from './SelectedFilters'
 
-import searchQuery from '../graphql/searchQuery.gql'
-import facetsQuery from '../graphql/facetsQuery.gql'
-
-import {
-  getPagesArgs,
-} from '../constants/SearchHelpers'
-import SortOptions from '../constants/SortOptions'
 import VTEXClasses from '../constants/CSSClasses'
 import {
   facetsQueryShape,
   searchQueryShape,
-  orderType,
   mapType,
+  orderType,
+  schemaPropsTypes,
 } from '../constants/propTypes'
-import '../global.css'
+import { getPagesArgs } from '../constants/SearchHelpers'
+import SortOptions from '../constants/SortOptions'
+import facetsQuery from '../graphql/facetsQuery.gql'
+import searchQuery from '../graphql/searchQuery.gql'
+import Gallery from './Gallery'
+import SearchFilter from './SearchFilter'
+import SearchFooter from './SearchFooter'
+import SearchHeader from './SearchHeader'
+import SelectedFilters from './SelectedFilters'
 
 const FACETS_KEYS = {
   Departments: 'Departments',
@@ -45,25 +43,29 @@ const MAP_SEPARATOR = ','
 /**
  * Search Result Component.
  */
-class SearchResult extends Component {
-  getLinkProps = (opt, variables, isSelected, type) => {
+class SearchResultContainer extends Component {
+  getLinkProps = ({ opt, variables, isSelected, type, pageNumber }) => {
     let { query, map, orderBy } = this.props.searchQuery.variables
     if (variables) {
       query = variables.query || query
       map = variables.map || map
       orderBy = variables.orderBy || orderBy
     }
-    return getPagesArgs(opt, query, map, orderBy, isSelected, type)
+    return getPagesArgs(opt, query, map, orderBy, isSelected, type, pageNumber)
   }
 
   renderSearchFilters() {
     if (!this.props.facetsQuery || !this.props.facetsQuery.facets) return
 
-    const { facetsQuery: { facets }, searchQuery } = this.props
+    const {
+      facetsQuery: { facets },
+      searchQuery,
+    } = this.props
     const query = searchQuery.variables.query
     const map = searchQuery.variables.map
     const selecteds = this.getSelecteds(query, map)
-    const isDisabled = this.countSelecteds(selecteds) === LIMIT_SELECTEDS_TO_DISABLE
+    const isDisabled =
+      this.countSelecteds(selecteds) === LIMIT_SELECTEDS_TO_DISABLE
 
     return Object.values(FACETS_KEYS).map(key => {
       if (facets[key]) {
@@ -71,9 +73,16 @@ class SearchResult extends Component {
           case FACETS_KEYS.Specifications: {
             return facets[key].map(filter => {
               return (
-                <SearchFilter key={filter.name} title={filter.name}
-                  options={filter.facets} type={key} selecteds={selecteds[key]}
-                  getLinkProps={this.getLinkProps} disabled={isDisabled} />)
+                <SearchFilter
+                  key={filter.name}
+                  title={filter.name}
+                  options={filter.facets}
+                  type={key}
+                  selecteds={selecteds[key]}
+                  getLinkProps={this.getLinkProps}
+                  disabled={isDisabled}
+                />
+              )
             })
           }
           case FACETS_KEYS.Categories: {
@@ -84,15 +93,29 @@ class SearchResult extends Component {
               }
             })
             return (
-              <SearchFilter key={key} title={CATEGORIES_FILTER_TITLE} options={categories}
-                type={CATEGORIES_FILTER_TYPE} selecteds={selecteds.Departments}
-                getLinkProps={this.getLinkProps} disabled={isDisabled} />)
+              <SearchFilter
+                key={key}
+                title={CATEGORIES_FILTER_TITLE}
+                options={categories}
+                type={CATEGORIES_FILTER_TYPE}
+                selecteds={selecteds.Departments}
+                getLinkProps={this.getLinkProps}
+                disabled={isDisabled}
+              />
+            )
           }
           default: {
             return (
-              <SearchFilter key={key} title={key} options={facets[key]}
-                type={key} getLinkProps={this.getLinkProps}
-                disabled={isDisabled} selecteds={selecteds[key]} />)
+              <SearchFilter
+                key={key}
+                title={key}
+                options={facets[key]}
+                type={key}
+                getLinkProps={this.getLinkProps}
+                disabled={isDisabled}
+                selecteds={selecteds[key]}
+              />
+            )
           }
         }
       }
@@ -171,36 +194,57 @@ class SearchResult extends Component {
   }
 
   render() {
-    const { facetsQuery, searchQuery, maxItemsPerLine, maxItemsPerPage, page, summary } = this.props
+    const {
+      facetsQuery,
+      searchQuery,
+      maxItemsPerLine,
+      maxItemsPerPage,
+      page,
+      summary,
+    } = this.props
     const products = (searchQuery && searchQuery.products) || []
     const query = searchQuery && searchQuery.variables.query
     const map = searchQuery && searchQuery.variables.map
     const orderBy = searchQuery && searchQuery.variables.orderBy
-    const from = ((page - 1) * maxItemsPerPage) + 1
-    const to = ((page - 1) * maxItemsPerPage) + products.length
+    const from = (page - 1) * maxItemsPerPage + 1
+    const to = (page - 1) * maxItemsPerPage + products.length
     const selecteds = this.getSelecteds(query, map)
-    const isLoading = searchQuery && searchQuery.loading || facetsQuery && facetsQuery.loading
+    const isLoading =
+      (searchQuery && searchQuery.loading) ||
+      (facetsQuery && facetsQuery.loading)
     const disabled = this.countSelecteds(selecteds) === 1
     const recordsFiltered = this.getRecordsFiltered()
 
     return (
       <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3 dib`}>
         <div className="w-100 w-30-m w-20-l fl pa3">
-          <SelectedFilters {...{ selecteds, disabled }} getLinkProps={this.getLinkProps} />
+          <SelectedFilters
+            {...{ selecteds, disabled }}
+            getLinkProps={this.getLinkProps}
+          />
           {this.renderSearchFilters()}
         </div>
         <div className="w-100 w-70-m w-80-l fl">
-          <SearchHeader {...{ from, to, query, map, orderBy, recordsFiltered }}
-            getLinkProps={this.getLinkProps} />
-          { isLoading ? this.renderSpinner()
-            : <Gallery {...{ products, maxItemsPerLine, summary }} /> }
+          <SearchHeader
+            {...{ from, to, query, map, orderBy, recordsFiltered }}
+            getLinkProps={this.getLinkProps}
+          />
+          {isLoading ? (
+            this.renderSpinner()
+          ) : (
+            <Gallery {...{ products, maxItemsPerLine, summary }} />
+          )}
+          <SearchFooter
+            {...{ recordsFiltered, page, maxItemsPerPage }}
+            getLinkProps={this.getLinkProps}
+          />
         </div>
       </div>
     )
   }
 }
 
-const SearchResultWithData = compose(
+const SearchResultContainerWithData = compose(
   graphql(facetsQuery, { name: 'facetsQuery',
     options: (props) => {
       const { path, map } = props
@@ -221,66 +265,26 @@ const SearchResultWithData = compose(
       }
     },
   }),
-)(SearchResult)
+)(SearchResultContainer)
 
-SearchResult.uiSchema = SearchResultWithData.uiSchema = {
-  maxItemsPerLine: {
-    'ui:widget': 'radio',
-    'ui:options': {
-      inline: true,
-    },
-  },
-}
-
-SearchResult.getSchema = SearchResultWithData.getSchema = (props) => {
-  return {
-    title: 'editor.search-result.title',
-    description: 'editor.search-result.description',
-    type: 'object',
-    properties: {
-      maxItemsPerLine: {
-        title: 'editor.search-result.maxItemsPerLine.title',
-        type: 'number',
-        enum: [3, 4, 5],
-        default: 5,
-      },
-      maxItemsPerPage: {
-        title: 'editor.search-result.maxItemsPerPage.title',
-        type: 'number',
-        default: 10,
-      },
-      summary: {
-        title: 'editor.search-result.summary.title',
-        type: 'object',
-        properties: ProductSummary.getSchema(props).properties,
-      },
-    },
-  }
-}
-
-SearchResult.propTypes = SearchResultWithData.propTypes = {
-  /** Maximum number of items per line. */
-  maxItemsPerLine: PropTypes.number.isRequired,
-  /** Maximum number of items per page. */
-  maxItemsPerPage: PropTypes.number.isRequired,
+SearchResultContainer.propTypes = SearchResultContainerWithData.propTypes = {
   /** Path param. e.g: eletronics/smartphones */
-  path: PropTypes.string.isRequired,
+  path: PropTypes.string,
   /** Map param. e.g: c,c */
   map: mapType.isRequired,
   /** Search result page. */
-  orderBy: orderType,
-  /** Facets graphql query. */
   page: PropTypes.number.isRequired,
   /** Search result ordernation. */
+  orderBy: orderType,
+  /** Facets graphql query. */
   facetsQuery: facetsQueryShape,
   /** Search graphql query. */
   searchQuery: searchQueryShape,
+  ...schemaPropsTypes,
 }
 
-SearchResult.defaultProps = SearchResultWithData.defaultProps = {
-  maxItemsPerLine: 5,
-  maxItemsPerPage: 10,
+SearchResultContainer.defaultProps = SearchResultContainerWithData.defaultProps = {
   orderBy: SortOptions[0].value,
 }
 
-export default SearchResultWithData
+export default SearchResultContainerWithData

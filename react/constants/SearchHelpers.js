@@ -1,6 +1,21 @@
 import QueryString from 'query-string'
 import SortOptions from './SortOptions'
 
+export function getSearchParamsFromUrl() {
+  let query = window.location && window.location.pathname.slice(1)
+  const queryParams =
+    window.location && QueryString.parse(window.location.search)
+  if (queryParams && queryParams.Q) {
+    query = [query].concat(queryParams.Q.split(',')).join('/')
+  }
+  return {
+    query,
+    map: queryParams && queryParams.map,
+    orderBy: queryParams && queryParams.O,
+    page: parseInt((queryParams && queryParams.page) || 1),
+  }
+}
+
 /**
  * Returns a string representing the facets param based in the location pathName and queryString.
  * e.g: smartphones?map=c
@@ -17,7 +32,12 @@ export function getQueryAndMap(pathName, queryParams, isBrand) {
     map = queryParams.map
   } else {
     const pathValues = pathName.split('/')
-    map = Array(pathValues.length - 1).fill('c').join(',') + (pathValues.length > 1 ? ',' : '') + (isBrand ? 'b' : 'c')
+    map =
+      Array(pathValues.length - 1)
+        .fill('c')
+        .join(',') +
+      (pathValues.length > 1 ? ',' : '') +
+      (isBrand ? 'b' : 'c')
   }
 
   return { query: pathName, map }
@@ -41,11 +61,21 @@ export function getLink(link, type) {
   return getFacetsFromURL(pathName, queryParams, type === 'Brands')
 }
 
-export function getPagesArgs(opt, queryArg, mapArg, orderBy, isUnselectLink, type) {
+export function getPagesArgs(
+  opt,
+  queryArg,
+  mapArg,
+  orderBy,
+  isUnselectLink,
+  type,
+  pageNumber = 1
+) {
   let query = queryArg
   let map = mapArg
   if (opt) {
-    const newLink = isUnselectLink ? getUnselectedLink(opt.Name, queryArg, mapArg) : getLink(opt.Link.slice(1), type)
+    const newLink = isUnselectLink
+      ? getUnselectedLink(opt.Name, queryArg, mapArg)
+      : getLink(opt.Link.slice(1), type)
     query = QueryString.parseUrl(newLink).url
     map = QueryString.parseUrl(newLink).query.map
   }
@@ -56,6 +86,7 @@ export function getPagesArgs(opt, queryArg, mapArg, orderBy, isUnselectLink, typ
   const rest = pathValues.splice(1).join(',') || undefined
   const queryString = QueryString.stringify({
     map,
+    page: pageNumber,
     order: (orderBy === SortOptions[0].value ? undefined : orderBy),
     rest,
   })

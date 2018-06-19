@@ -1,17 +1,17 @@
-import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Collapse } from 'react-collapse'
 import { contains } from 'ramda'
+import React, { Component } from 'react'
+import { Collapse } from 'react-collapse'
+import { injectIntl, intlShape } from 'react-intl'
+import { Link } from 'render'
 
-import ArrowDown from '../images/arrow-down.svg'
-import ArrowUp from '../images/arrow-up.svg'
 import VTEXClasses from '../constants/CSSClasses'
 import { facetOptionShape } from '../constants/propTypes'
-
-import { Link } from 'render'
-import { intlShape, injectIntl } from 'react-intl'
+import ArrowDown from '../images/arrow-down.svg'
+import ArrowUp from '../images/arrow-up.svg'
 
 const CATEGORIES_FILTER_TITLE = 'search.filter.title.categories'
+const SELECTED_FILTER_COLOR = '#368DF7'
 
 /**
  * Search Filter Component.
@@ -53,14 +53,21 @@ class SearchFilter extends Component {
 
   render() {
     const { opened } = this.state
-    let { type, options, getLinkProps, title } = this.props
-    if (title === CATEGORIES_FILTER_TITLE) {
-      title = this.props.intl.formatMessage({ id: title })
-    }
+    const { type, options, getLinkProps } = this.props
+    const title =
+      this.props.title === CATEGORIES_FILTER_TITLE
+        ? this.props.intl.formatMessage({ id: title })
+        : this.props.title
     return (
-      <div className={`${VTEXClasses.SEARCH_FILTER_MAIN_CLASS} ph4 pt4 pb2 bb b--light-gray`}>
-
-        <div className="pointer mb4" onClick={() => { this.setState({ opened: !opened }) }}>
+      <div
+        className={`${
+          VTEXClasses.SEARCH_FILTER_MAIN_CLASS
+        } ph4 pt4 pb2 bb b--light-gray`}>
+        <div
+          className="pointer mb4"
+          onClick={() => {
+            this.setState({ opened: !opened })
+          }}>
           <div>
             <div className="f4">
               {title}
@@ -72,27 +79,42 @@ class SearchFilter extends Component {
         </div>
         <div style={{ overflowY: 'auto', maxHeight: '200px' }}>
           <Collapse isOpened={opened}>
-            {options && options.map(opt => {
-              const pagesArgs = getLinkProps(opt, null, this.isSelected(opt.Name), type)
-              return (
-                <Link
-                  key={opt.Name}
-                  className="clear-link"
-                  page={pagesArgs.page}
-                  params={pagesArgs.params}
-                  query={pagesArgs.queryString}>
-
-                  <div className="w-90 flex items-center justify-between pa3">
-                    <div className="flex items-center justify-center">
-                      <span className="bb" style={{ borderColor: `${this.isSelected(opt.Name) ? '#368DF7' : 'transparent'}`, borderWidth: '3px' }}>
-                        {opt.Name}
+            {options &&
+              options.map(opt => {
+                const pagesArgs = getLinkProps({
+                  opt,
+                  isSelected: this.isSelected(opt.Name),
+                  type,
+                })
+                return (
+                  <Link
+                    key={opt.Name}
+                    className="clear-link"
+                    page={pagesArgs.page}
+                    params={pagesArgs.params}
+                    query={pagesArgs.queryString}>
+                    <div className="w-90 flex items-center justify-between pa3">
+                      <div className="flex items-center justify-center">
+                        <span
+                          className="bb"
+                          style={{
+                            borderColor: `${
+                              this.isSelected(opt.Name)
+                                ? SELECTED_FILTER_COLOR
+                                : 'transparent'
+                            }`,
+                            borderWidth: '3px',
+                          }}>
+                          {opt.Name}
+                        </span>
+                      </div>
+                      <span className="flex items-center f5">
+                        ( {opt.Quantity} )
                       </span>
                     </div>
-                    <span className="flex items-center f5">( {opt.Quantity} )</span>
-                  </div>
-                </Link>
-              )
-            })}
+                  </Link>
+                )
+              })}
           </Collapse>
         </div>
       </div>
