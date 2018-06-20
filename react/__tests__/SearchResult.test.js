@@ -1,8 +1,8 @@
 /* eslint-env jest */
+import { mount } from 'enzyme'
 import React from 'react'
 import { MockedProvider } from 'react-apollo/test-utils'
 import { IntlProvider } from 'react-intl'
-import { render } from 'react-testing-library'
 
 import SearchResult from '../SearchResult'
 
@@ -11,7 +11,7 @@ describe('<SearchResult /> component', () => {
 
   beforeEach(() => {
     const messages = require('../locales/en-US')
-    wrapper = render(
+    wrapper = mount(
       <MockedProvider>
         <IntlProvider locale="en-US" messages={messages}>
           <SearchResult params={{ term: 'eletronics' }} query={{ map: 'c' }} />
