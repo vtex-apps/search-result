@@ -2,6 +2,7 @@
   "name": "vtex.search-result",
   "description": "A Search Result.",
   "scripts": {
+    "pretest": "yarn",
     "test": "jest"
   },
   "author": "VTEX",
