@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
+import React, { Component } from 'react'
 import { ProductSummary } from 'vtex.product-summary'
+
+import SearchResultInfiniteScroll from './components/SearchResultInfiniteScroll'
 import { queryShape, schemaPropsTypes } from './constants/propTypes'
 import { getQueryAndMap } from './constants/SearchHelpers'
-import SearchResultContainer from './components/SearchResultContainer'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_MAX_ITEMS_PER_LINE = 5
@@ -65,16 +65,12 @@ export default class SearchResult extends Component {
       maxItemsPerLine,
       maxItemsPerPage,
       summary,
-      query: {
-        order: orderBy,
-        page: pageProps,
-        rest,
-        map: mapProps,
-      }, params: { term },
+      query: { order: orderBy, page: pageProps, rest, map: mapProps },
+      params: { term },
     } = this.props
-    const query = [term].concat(rest && rest.split(',') || []).join('/')
+    const query = [term].concat((rest && rest.split(',')) || []).join('/')
     const map = mapProps || getQueryAndMap(query).map
-    const page = (pageProps ? parseInt(pageProps) : DEFAULT_PAGE)
+    const page = pageProps ? parseInt(pageProps) : DEFAULT_PAGE
     const containerProps = {
       path: query,
       map,
@@ -84,6 +80,6 @@ export default class SearchResult extends Component {
       maxItemsPerPage,
       summary,
     }
-    return (<SearchResultContainer {...containerProps} />)
+    return <SearchResultInfiniteScroll {...containerProps} />
   }
 }

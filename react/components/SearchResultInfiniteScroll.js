@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { concat, contains, reduce, values } from 'ramda'
 import React, { Component } from 'react'
 import { compose, graphql } from 'react-apollo'
+import InfiniteScroll from 'react-infinite-scroll-component'
 import { Spinner } from 'vtex.styleguide'
 
 import VTEXClasses from '../constants/CSSClasses'
@@ -14,7 +15,6 @@ import facetsQuery from '../graphql/facetsQuery.gql'
 import searchQuery from '../graphql/searchQuery.gql'
 import Gallery from './Gallery'
 import SearchFilter from './SearchFilter'
-import SearchFooter from './SearchFooter'
 import SearchHeader from './SearchHeader'
 import SelectedFilters from './SelectedFilters'
 
@@ -37,7 +37,14 @@ const MAP_SEPARATOR = ','
 /**
  * Search Result Component.
  */
-class SearchResultContainer extends Component {
+class SearchResultInfiniteScroll extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentPage: props.page,
+    }
+  }
+
   getLinkProps = ({ opt, variables, isSelected, type, pageNumber }) => {
     let { query, map, orderBy } = this.props.searchQuery.variables
     if (variables) {
@@ -177,6 +184,14 @@ class SearchResultContainer extends Component {
     }
   }
 
+  handleFetchMoreProducts = (prev, { fetchMoreResult }) => {
+    if (!fetchMoreResult) return prev
+    return {
+      ...prev,
+      products: [...prev.products, ...fetchMoreResult.products],
+    }
+  }
+
   renderSpinner() {
     return (
       <div className="w-100 flex justify-center">
@@ -193,15 +208,14 @@ class SearchResultContainer extends Component {
       searchQuery,
       maxItemsPerLine,
       maxItemsPerPage,
-      page,
       summary,
     } = this.props
     const products = (searchQuery && searchQuery.products) || []
     const query = searchQuery && searchQuery.variables.query
     const map = searchQuery && searchQuery.variables.map
     const orderBy = searchQuery && searchQuery.variables.orderBy
-    const from = (page - 1) * maxItemsPerPage + 1
-    const to = (page - 1) * maxItemsPerPage + products.length
+    const from = (this.state.currentPage - 1) * maxItemsPerPage + 1
+    const to = (this.state.currentPage - 1) * maxItemsPerPage + products.length
     const selecteds = this.getSelecteds(query, map)
     const isLoading =
       (searchQuery && searchQuery.loading) ||
@@ -210,35 +224,44 @@ class SearchResultContainer extends Component {
     const recordsFiltered = this.getRecordsFiltered()
 
     return (
-      <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3 dib`}>
-        <div className="w-100 w-30-m w-20-l fl pa3">
-          <SelectedFilters
-            {...{ selecteds, disabled }}
-            getLinkProps={this.getLinkProps}
-          />
-          {this.renderSearchFilters()}
+      <InfiniteScroll
+        dataLength={products.length}
+        next={() =>
+          searchQuery.fetchMore({
+            variables: {
+              from: to,
+              to: to + maxItemsPerPage,
+            },
+            updateQuery: this.handleFetchMoreProducts,
+          })
+        }
+        hasMore={products.length < recordsFiltered}>
+        <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3 dib`}>
+          <div className="w-100 w-30-m w-20-l fl pa3">
+            <SelectedFilters
+              {...{ selecteds, disabled }}
+              getLinkProps={this.getLinkProps}
+            />
+            {this.renderSearchFilters()}
+          </div>
+          <div className="w-100 w-70-m w-80-l fl">
+            <SearchHeader
+              {...{ from, to, query, map, orderBy, recordsFiltered }}
+              getLinkProps={this.getLinkProps}
+            />
+            {isLoading ? (
+              this.renderSpinner()
+            ) : (
+              <Gallery {...{ products, maxItemsPerLine, summary }} />
+            )}
+          </div>
         </div>
-        <div className="w-100 w-70-m w-80-l fl">
-          <SearchHeader
-            {...{ from, to, query, map, orderBy, recordsFiltered }}
-            getLinkProps={this.getLinkProps}
-          />
-          {isLoading ? (
-            this.renderSpinner()
-          ) : (
-            <Gallery {...{ products, maxItemsPerLine, summary }} />
-          )}
-          <SearchFooter
-            {...{ recordsFiltered, page, maxItemsPerPage }}
-            getLinkProps={this.getLinkProps}
-          />
-        </div>
-      </div>
+      </InfiniteScroll>
     )
   }
 }
 
-const SearchResultContainerWithData = compose(
+const SearchResultInfiniteScrollWithData = compose(
   graphql(facetsQuery, {
     name: 'facetsQuery',
     options: props => {
@@ -261,9 +284,9 @@ const SearchResultContainerWithData = compose(
       }
     },
   })
-)(SearchResultContainer)
+)(SearchResultInfiniteScroll)
 
-SearchResultContainer.propTypes = SearchResultContainerWithData.propTypes = {
+SearchResultInfiniteScroll.propTypes = SearchResultInfiniteScrollWithData.propTypes = {
   /** Path param. e.g: eletronics/smartphones */
   path: PropTypes.string,
   /** Map param. e.g: c,c */
@@ -279,8 +302,8 @@ SearchResultContainer.propTypes = SearchResultContainerWithData.propTypes = {
   ...schemaPropsTypes,
 }
 
-SearchResultContainer.defaultProps = SearchResultContainerWithData.defaultProps = {
+SearchResultInfiniteScroll.defaultProps = SearchResultInfiniteScrollWithData.defaultProps = {
   orderBy: SortOptions[0].value,
 }
 
-export default SearchResultContainerWithData
+export default SearchResultInfiniteScrollWithData
