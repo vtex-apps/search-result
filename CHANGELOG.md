@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Add the Infinite Scroll feature to the page.
+- Add a spinner to be shown when fetching more products.
 
 ### Fixed
 - Fix `SearchFilter` title internationalization.
