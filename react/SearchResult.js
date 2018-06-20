@@ -8,7 +8,7 @@ import { getQueryAndMap } from './constants/SearchHelpers'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_MAX_ITEMS_PER_LINE = 5
-const DEFAULT_MAX_ITEMS_PER_PAGE = 10
+const DEFAULT_MAX_ITEMS_PER_PAGE = 3
 
 export default class SearchResult extends Component {
   static propTypes = {

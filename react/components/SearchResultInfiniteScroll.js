@@ -186,6 +186,7 @@ class SearchResultInfiniteScroll extends Component {
 
   handleFetchMoreProducts = (prev, { fetchMoreResult }) => {
     if (!fetchMoreResult) return prev
+    this.setState({ currentPage: this.state.currentPage + 1 })
     return {
       ...prev,
       products: [...prev.products, ...fetchMoreResult.products],
@@ -208,18 +209,21 @@ class SearchResultInfiniteScroll extends Component {
       searchQuery,
       maxItemsPerLine,
       maxItemsPerPage,
+      page,
       summary,
     } = this.props
     const products = (searchQuery && searchQuery.products) || []
     const query = searchQuery && searchQuery.variables.query
     const map = searchQuery && searchQuery.variables.map
     const orderBy = searchQuery && searchQuery.variables.orderBy
-    const from = (this.state.currentPage - 1) * maxItemsPerPage + 1
-    const to = (this.state.currentPage - 1) * maxItemsPerPage + products.length
+    const from = (page - 1) * maxItemsPerPage + 1
+    const to = (page - 1) * maxItemsPerPage + products.length
     const selecteds = this.getSelecteds(query, map)
     const isLoading =
-      (searchQuery && searchQuery.loading) ||
+      (searchQuery && !searchQuery.products) ||
       (facetsQuery && facetsQuery.loading)
+    const isFetchingMore =
+      searchQuery && searchQuery.products && searchQuery.loading
     const disabled = this.countSelecteds(selecteds) === 1
     const recordsFiltered = this.getRecordsFiltered()
 
@@ -230,7 +234,7 @@ class SearchResultInfiniteScroll extends Component {
           searchQuery.fetchMore({
             variables: {
               from: to,
-              to: to + maxItemsPerPage,
+              to: to + maxItemsPerPage - 1,
             },
             updateQuery: this.handleFetchMoreProducts,
           })
@@ -254,6 +258,7 @@ class SearchResultInfiniteScroll extends Component {
             ) : (
               <Gallery {...{ products, maxItemsPerLine, summary }} />
             )}
+            {isFetchingMore && this.renderSpinner()}
           </div>
         </div>
       </InfiniteScroll>
@@ -281,6 +286,7 @@ const SearchResultInfiniteScrollWithData = compose(
       const to = from + props.maxItemsPerPage - 1
       return {
         variables: { query: path, map, orderBy, from, to },
+        notifyOnNetworkStatusChange: true,
       }
     },
   })
