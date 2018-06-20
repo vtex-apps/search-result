@@ -38,13 +38,6 @@ const MAP_SEPARATOR = ','
  * Search Result Component.
  */
 class SearchResultInfiniteScroll extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      currentPage: props.page,
-    }
-  }
-
   getLinkProps = ({ opt, variables, isSelected, type, pageNumber }) => {
     let { query, map, orderBy } = this.props.searchQuery.variables
     if (variables) {
@@ -186,7 +179,6 @@ class SearchResultInfiniteScroll extends Component {
 
   handleFetchMoreProducts = (prev, { fetchMoreResult }) => {
     if (!fetchMoreResult) return prev
-    this.setState({ currentPage: this.state.currentPage + 1 })
     return {
       ...prev,
       products: [...prev.products, ...fetchMoreResult.products],
