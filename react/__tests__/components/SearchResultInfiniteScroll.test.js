@@ -40,6 +40,6 @@ describe('<SearchResultInfiniteScroll /> component', () => {
 
   it('should use the InfiniteScroll component', () => {
     const component = renderComponent()
-    expect(component.find(InfiniteScroll)).toBeTruthy()
+    expect(component.find(InfiniteScroll).exists()).toBe(true)
   })
 })
