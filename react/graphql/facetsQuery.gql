@@ -25,6 +25,11 @@ query facets($facets: String) {
         Quantity
         Name
         Link
+        Children {
+          Quantity
+          Name
+          Link
+        }
       }
     }
   }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { ProductSummary } from 'vtex.product-summary'
 import { queryShape, schemaPropsTypes } from './constants/propTypes'
-import { getQueryAndMap } from './constants/SearchHelpers'
+import { createMap, reversePagesPath } from './constants/SearchHelpers'
 import SearchResultContainer from './components/SearchResultContainer'
 
 const DEFAULT_PAGE = 1
@@ -14,9 +14,13 @@ export default class SearchResult extends Component {
   static propTypes = {
     params: PropTypes.shape({
       /** Search's term, e.g: eletronics. */
-      term: PropTypes.string.isRequired,
+      term: PropTypes.string,
+      department: PropTypes.string,
+      category: PropTypes.string,
+      subcategory: PropTypes.string,
     }),
     query: queryShape,
+    treePath: PropTypes.string.isRequired,
     ...schemaPropsTypes,
   }
 
@@ -65,24 +69,27 @@ export default class SearchResult extends Component {
       maxItemsPerLine,
       maxItemsPerPage,
       summary,
+      pagesPath,
       query: {
         order: orderBy,
         page: pageProps,
-        rest,
         map: mapProps,
-      }, params: { term },
+        rest,
+      },
     } = this.props
-    const query = [term].concat(rest && rest.split(',') || []).join('/')
-    const map = mapProps || getQueryAndMap(query).map
+    const pathName = reversePagesPath(pagesPath, this.props.params)
+    const map = mapProps || createMap(pathName, rest)
     const page = (pageProps ? parseInt(pageProps) : DEFAULT_PAGE)
     const containerProps = {
-      path: query,
+      path: pathName,
       map,
-      orderBy,
+      rest,
       page,
+      orderBy,
       maxItemsPerLine,
       maxItemsPerPage,
       summary,
+      pagesPath,
     }
     return (<SearchResultContainer {...containerProps} />)
   }

@@ -1,7 +1,6 @@
 import '../global.css'
 
 import PropTypes from 'prop-types'
-import { concat, contains, reduce, values } from 'ramda'
 import React, { Component } from 'react'
 import { compose, graphql } from 'react-apollo'
 import { Spinner } from 'vtex.styleguide'
@@ -14,7 +13,14 @@ import {
   orderType,
   schemaPropsTypes,
 } from '../constants/propTypes'
-import { getPagesArgs } from '../constants/SearchHelpers'
+import {
+  getPagesArgs,
+  stripPath,
+  joinPathWithRest,
+  getCategoriesFromQuery,
+  findInTree,
+
+} from '../constants/SearchHelpers'
 import SortOptions from '../constants/SortOptions'
 import facetsQuery from '../graphql/facetsQuery.gql'
 import searchQuery from '../graphql/searchQuery.gql'
@@ -31,9 +37,8 @@ const FACETS_KEYS = {
   Specifications: 'SpecificationFilters',
 }
 
-const LIMIT_SELECTEDS_TO_DISABLE = 1
 const CATEGORIES_FILTER_TITLE = 'search.filter.title.categories'
-const CATEGORIES_FILTER_TYPE = 'Departments'
+const CATEGORIES_FILTER_TYPE = 'Categories'
 const KEY_MAP_CATEGORY = 'c'
 const KEY_MAP_BRAND = 'b'
 const KEY_MAP_TEXT = 'ft'
@@ -44,28 +49,46 @@ const MAP_SEPARATOR = ','
  * Search Result Component.
  */
 class SearchResultContainer extends Component {
-  getLinkProps = ({ opt, variables, isSelected, type, pageNumber }) => {
-    let { query, map, orderBy } = this.props.searchQuery.variables
-    if (variables) {
-      query = variables.query || query
-      map = variables.map || map
-      orderBy = variables.orderBy || orderBy
+  getLinkProps = ({ opt, type, isSelected, ordenation, pageNumber }) => {
+    const { path, rest, map, pagesPath } = this.props
+    let { variables: { orderBy } } = this.props.searchQuery
+    orderBy = ordenation || ordenation
+    return getPagesArgs(
+      opt.Name,
+      type,
+      opt.Link,
+      path,
+      rest,
+      { map, orderBy, pageNumber },
+      pagesPath,
+      isSelected
+    )
+  }
+
+  getCategories() {
+    const {
+      facetsQuery,
+      searchQuery: { variables: { query, map } },
+      pagesPath,
+    } = this.props
+    const { CategoriesTrees: tree } = facetsQuery.facets
+    const categories = getCategoriesFromQuery(query, map)
+    const category = findInTree(tree, categories, 0)
+    if (pagesPath === 'store/department') {
+      return tree[0].Children
+    } else if (category) {
+      return category.Children || tree[0].Children
     }
-    return getPagesArgs(opt, query, map, orderBy, isSelected, type, pageNumber)
+    return null
   }
 
   renderSearchFilters() {
     if (!this.props.facetsQuery || !this.props.facetsQuery.facets) return
 
-    const {
-      facetsQuery: { facets },
-      searchQuery,
-    } = this.props
-    const query = searchQuery.variables.query
-    const map = searchQuery.variables.map
-    const selecteds = this.getSelecteds(query, map)
-    const isDisabled =
-      this.countSelecteds(selecteds) === LIMIT_SELECTEDS_TO_DISABLE
+    let { facetsQuery: { facets } } = this.props
+    facets = { ...facets }
+    const selecteds = this.getSelecteds()
+    delete facets[FACETS_KEYS.Departments]
 
     return Object.values(FACETS_KEYS).map(key => {
       if (facets[key]) {
@@ -80,29 +103,26 @@ class SearchResultContainer extends Component {
                   type={key}
                   selecteds={selecteds[key]}
                   getLinkProps={this.getLinkProps}
-                  disabled={isDisabled}
                 />
               )
             })
           }
           case FACETS_KEYS.Categories: {
-            let categories = []
-            facets[key].map(filter => {
-              if (contains(filter.Name.toUpperCase(), selecteds.Departments)) {
-                categories = categories.concat(filter.Children)
-              }
-            })
-            return (
-              <SearchFilter
-                key={key}
-                title={CATEGORIES_FILTER_TITLE}
-                options={categories}
-                type={CATEGORIES_FILTER_TYPE}
-                selecteds={selecteds.Departments}
-                getLinkProps={this.getLinkProps}
-                disabled={isDisabled}
-              />
-            )
+            const categories = this.getCategories()
+            if (categories && categories.length) {
+              return (
+                <SearchFilter
+                  key={CATEGORIES_FILTER_TITLE}
+                  oneSelectedCollapse
+                  title={CATEGORIES_FILTER_TITLE}
+                  options={categories}
+                  type={CATEGORIES_FILTER_TYPE}
+                  selecteds={selecteds.Categories}
+                  getLinkProps={this.getLinkProps}
+                />
+              )
+            }
+            break
           }
           default: {
             return (
@@ -112,7 +132,6 @@ class SearchResultContainer extends Component {
                 options={facets[key]}
                 type={key}
                 getLinkProps={this.getLinkProps}
-                disabled={isDisabled}
                 selecteds={selecteds[key]}
               />
             )
@@ -122,40 +141,37 @@ class SearchResultContainer extends Component {
     })
   }
 
-  getSelecteds(query, map) {
+  getSelecteds() {
+    const { rest, path, map } = this.props
+    const restValues = (rest && rest.split(MAP_SEPARATOR)) || []
+    const pathValues = stripPath(path).split(PATH_SEPARATOR)
+    const mapValues = map.split(MAP_SEPARATOR)
     const selecteds = {
-      SpecificationFilters: [],
-      Departments: [],
+      Categories: [],
       Brands: [],
       FullText: [],
+      SpecificationFilters: [],
     }
-
-    if (!query && !map) return selecteds
-
-    const pathValues = query.split(PATH_SEPARATOR)
-    const mapValues = map.split(MAP_SEPARATOR)
-    pathValues.map((term, index) => {
+    restValues.map((term, index) => {
       const termDecoded = decodeURI(term.toUpperCase())
-      if (index >= mapValues.length) {
-        selecteds.Departments.push(termDecoded)
-      } else {
-        switch (mapValues[index]) {
-          case KEY_MAP_CATEGORY: {
-            selecteds.Departments.push(termDecoded)
-            break
-          }
-          case KEY_MAP_BRAND: {
-            selecteds.Brands.push(termDecoded)
-            break
-          }
-          case KEY_MAP_TEXT: {
-            selecteds.FullText = [termDecoded]
-            break
-          }
-          default: {
-            selecteds.SpecificationFilters.push(termDecoded)
-            break
-          }
+      const mapValue = mapValues[pathValues.length + index]
+
+      switch (mapValue) {
+        case KEY_MAP_CATEGORY: {
+          selecteds.Categories.push(termDecoded)
+          break
+        }
+        case KEY_MAP_BRAND: {
+          selecteds.Brands.push(termDecoded)
+          break
+        }
+        case KEY_MAP_TEXT: {
+          selecteds.FullText = [termDecoded]
+          break
+        }
+        default: {
+          selecteds.SpecificationFilters.push(termDecoded)
+          break
         }
       }
     })
@@ -163,24 +179,12 @@ class SearchResultContainer extends Component {
     return selecteds
   }
 
-  countSelecteds(selecteds) {
-    return reduce(concat, [])(values(selecteds)).length
-  }
-
-  getRecordsFiltered = () => {
+  getRecordsFiltered() {
     const { searchQuery, facetsQuery } = this.props
     if (facetsQuery && facetsQuery.facets) {
-      const facets = facetsQuery.facets
-      if (facets && facets.Departments) {
-        let count = 0
-        facets.Departments.map(dep => {
-          count += dep.Quantity
-        })
-        return count
-      }
-    } else {
-      return (searchQuery.products && searchQuery.products.length) || 0
+      return facetsQuery.facets.Departments[0].Quantity
     }
+    return (searchQuery.products && searchQuery.products.length) || 0
   }
 
   renderSpinner() {
@@ -195,33 +199,28 @@ class SearchResultContainer extends Component {
 
   render() {
     const {
-      facetsQuery,
-      searchQuery,
+      facetsQuery: { loading: facetsLoading },
+      searchQuery: {
+        products: searchedProducts,
+        variables: { query, map, orderBy },
+        loading: searchLoading,
+      },
       maxItemsPerLine,
       maxItemsPerPage,
       page,
       summary,
     } = this.props
-    const products = (searchQuery && searchQuery.products) || []
-    const query = searchQuery && searchQuery.variables.query
-    const map = searchQuery && searchQuery.variables.map
-    const orderBy = searchQuery && searchQuery.variables.orderBy
+    const products = searchedProducts || []
     const from = (page - 1) * maxItemsPerPage + 1
     const to = (page - 1) * maxItemsPerPage + products.length
-    const selecteds = this.getSelecteds(query, map)
-    const isLoading =
-      (searchQuery && searchQuery.loading) ||
-      (facetsQuery && facetsQuery.loading)
-    const disabled = this.countSelecteds(selecteds) === 1
+    const selecteds = this.getSelecteds()
+    const isLoading = searchLoading || facetsLoading
     const recordsFiltered = this.getRecordsFiltered()
 
     return (
       <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3 dib`}>
         <div className="w-100 w-30-m w-20-l fl pa3">
-          <SelectedFilters
-            {...{ selecteds, disabled }}
-            getLinkProps={this.getLinkProps}
-          />
+          <SelectedFilters selecteds={selecteds} getLinkProps={this.getLinkProps} />
           {this.renderSearchFilters()}
         </div>
         <div className="w-100 w-70-m w-80-l fl">
@@ -247,8 +246,9 @@ class SearchResultContainer extends Component {
 const SearchResultContainerWithData = compose(
   graphql(facetsQuery, { name: 'facetsQuery',
     options: (props) => {
-      const { path, map } = props
-      const facets = `${path}?map=${map}`
+      const { path, rest, map } = props
+      const query = joinPathWithRest(path, rest)
+      const facets = `${query}?map=${map}`
       return ({
         variables: { facets },
       })
@@ -256,22 +256,27 @@ const SearchResultContainerWithData = compose(
   }),
   graphql(searchQuery, { name: 'searchQuery',
     options: (props) => {
-      const { path, map } = props
+      const { path, rest, map } = props
+      const query = joinPathWithRest(path, rest)
       const orderBy = props.orderBy
       const from = (props.page - 1) * props.maxItemsPerPage
       const to = from + props.maxItemsPerPage - 1
       return {
-        variables: { query: path, map, orderBy, from, to },
+        variables: { query, map, orderBy, from, to },
       }
     },
   }),
 )(SearchResultContainer)
 
 SearchResultContainer.propTypes = SearchResultContainerWithData.propTypes = {
+  /** Internal route path. e.g: 'store/search' */
+  pagesPath: PropTypes.string,
   /** Path param. e.g: eletronics/smartphones */
   path: PropTypes.string,
   /** Map param. e.g: c,c */
   map: mapType.isRequired,
+  /** Rest param. e.g: Android,Samsung */
+  rest: mapType.isRequired,
   /** Search result page. */
   page: PropTypes.number.isRequired,
   /** Search result ordernation. */
@@ -285,6 +290,7 @@ SearchResultContainer.propTypes = SearchResultContainerWithData.propTypes = {
 
 SearchResultContainer.defaultProps = SearchResultContainerWithData.defaultProps = {
   orderBy: SortOptions[0].value,
+  rest: '',
 }
 
 export default SearchResultContainerWithData

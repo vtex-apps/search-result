@@ -28,14 +28,11 @@ class SelectedFilters extends Component {
       SpecificationFilters: PropTypes.arrayOf(PropTypes.string),
       FullText: PropTypes.arrayOf(PropTypes.string),
     }).isRequired,
-    /** If the selected filters must be disabled or not. */
-    disabled: PropTypes.bool,
     getLinkProps: PropTypes.func,
   }
 
   static defaultProps = {
     opened: true,
-    disabled: false,
     selecteds: [],
   }
 
@@ -101,7 +98,6 @@ class SelectedFilters extends Component {
                   query={pagesArgs.queryString}>
                   <Checkbox
                     checked
-                    disabled={this.props.disabled}
                     label={selected.value}
                     name="default-checkbox-group"
                     value=""

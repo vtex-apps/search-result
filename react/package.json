@@ -10,7 +10,8 @@
     "query-string": "^6.1.0",
     "ramda": "^0.25.0",
     "react-collapse": "^4.0.3",
-    "react-motion": "^0.5.2"
+    "react-motion": "^0.5.2",
+    "route-parser": "^0.0.5"
   },
   "devDependencies": {
     "apollo-cache-inmemory": "^1.2.2",
