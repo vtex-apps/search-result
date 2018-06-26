@@ -2,6 +2,7 @@
   "name": "vtex.search-result",
   "description": "A Search Result.",
   "scripts": {
+    "pretest": "yarn",
     "test": "jest"
   },
   "author": "VTEX",
@@ -10,6 +11,7 @@
     "query-string": "^6.1.0",
     "ramda": "^0.25.0",
     "react-collapse": "^4.0.3",
+    "react-infinite-scroll-component": "^4.1.0",
     "react-motion": "^0.5.2",
     "route-parser": "^0.0.5"
   },
@@ -21,16 +23,18 @@
     "babel-jest": "^22.4.3",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react-app": "^3.1.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.8.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^22.4.3",
     "jest-transform-graphql": "^2.1.0",
+    "jsdom": "^11.11.0",
     "react": "^16.3.1",
     "react-apollo": "^2.1.3",
     "react-dom": "^16.3.1",
-    "react-intl": "^2.4.0",
-    "react-testing-library": "^2.5.2"
+    "react-intl": "^2.4.0"
   },
   "jest": {
     "verbose": true,

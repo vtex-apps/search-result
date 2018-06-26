@@ -1,8 +1,8 @@
 /* eslint-env jest */
+import { mount } from 'enzyme'
 import React from 'react'
-import { IntlProvider } from 'react-intl'
-import { render } from 'react-testing-library'
 import { MockedProvider } from 'react-apollo/test-utils'
+import { IntlProvider } from 'react-intl'
 
 import SearchResult from '../SearchResult'
 
@@ -11,13 +11,10 @@ describe('<SearchResult /> component', () => {
 
   beforeEach(() => {
     const messages = require('../locales/en-US')
-    wrapper = render(
-      <MockedProvider >
+    wrapper = mount(
+      <MockedProvider>
         <IntlProvider locale="en-US" messages={messages}>
-          <SearchResult
-            params={{ term: 'eletronics' }}
-            query={{ map: 'c' }}
-          />
+          <SearchResult params={{ term: 'eletronics' }} query={{ map: 'c' }} />
         </IntlProvider>
       </MockedProvider>
     )
@@ -25,9 +22,5 @@ describe('<SearchResult /> component', () => {
 
   it('should be rendered', () => {
     expect(wrapper).toBeDefined()
-  })
-
-  it('should match snapshot', () => {
-    expect(wrapper.container).toMatchSnapshot()
   })
 })

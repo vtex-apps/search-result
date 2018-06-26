@@ -61,11 +61,14 @@ function getPathOfPage(pagesPath) {
 }
 
 export function reversePagesPath(pagesPath, params) {
-  return new RouteParser(getPathOfPage(pagesPath)).reverse(params)
+  console.log(RouteParser, 'alksdlsak')
+  return ''
+  // return new RouteParser(getPathOfPage(pagesPath)).reverse(params)
 }
 
 function matchPagesPath(pagesPath, pathName) {
-  return new RouteParser(pagesPath).match(pathName)
+  return ''
+  // return new RouteParser(pagesPath).match(pathName)
 }
 
 function getSpecificationFilterFromLink(link) {

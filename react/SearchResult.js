@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
+import React, { Component } from 'react'
 import { ProductSummary } from 'vtex.product-summary'
+
+import SearchResultInfiniteScroll from './components/SearchResultInfiniteScroll'
 import { queryShape, schemaPropsTypes } from './constants/propTypes'
 import { createMap, reversePagesPath } from './constants/SearchHelpers'
-import SearchResultContainer from './components/SearchResultContainer'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_MAX_ITEMS_PER_LINE = 5
@@ -20,13 +20,14 @@ export default class SearchResult extends Component {
       subcategory: PropTypes.string,
     }),
     query: queryShape,
-    treePath: PropTypes.string.isRequired,
+    pagesPath: PropTypes.string,
     ...schemaPropsTypes,
   }
 
   static defaultProps = {
     maxItemsPerLine: DEFAULT_MAX_ITEMS_PER_LINE,
     maxItemsPerPage: DEFAULT_MAX_ITEMS_PER_PAGE,
+    pagesPath: 'store/search',
   }
 
   static uiSchema = {
@@ -91,6 +92,6 @@ export default class SearchResult extends Component {
       summary,
       pagesPath,
     }
-    return (<SearchResultContainer {...containerProps} />)
+    return <SearchResultInfiniteScroll {...containerProps} />
   }
 }
