@@ -39,11 +39,9 @@ class SearchResultContainer extends Component {
   getLinkProps = ({ opt, type, isSelected, ordenation, pageNumber }) => {
     const { path, rest, map, pagesPath } = this.props
     let { variables: { orderBy } } = this.props.searchQuery
-    orderBy = ordenation || ordenation
+    orderBy = ordenation || orderBy
     return getPagesArgs(
-      opt.Name,
-      type,
-      opt.Link,
+      { name: opt && opt.Name, type, link: opt && opt.Link },
       path,
       rest,
       { map, orderBy, pageNumber },
@@ -59,21 +57,21 @@ class SearchResultContainer extends Component {
       pagesPath,
     } = this.props
     const { CategoriesTrees: tree } = facetsQuery.facets
+    const [{ Children: children }] =  tree
     const categories = getCategoriesFromQuery(query, map)
     const category = findInTree(tree, categories, 0)
     if (pagesPath === 'store/department') {
-      return tree[0].Children
+      return children
     } else if (category) {
-      return category.Children || tree[0].Children
+      return category.Children || children
     }
-    return null
   }
 
   renderSearchFilters() {
     if (!this.props.facetsQuery || !this.props.facetsQuery.facets) return
 
-    let { facetsQuery: { facets } } = this.props
-    facets = { ...facets }
+    const { facetsQuery: { facets: facetsProps } } = this.props
+    const facets = { ...facetsProps }
     const selecteds = this.getSelecteds()
     delete facets[FACETS_KEYS.Departments]
 
@@ -169,7 +167,8 @@ class SearchResultContainer extends Component {
   getRecordsFiltered() {
     const { searchQuery, facetsQuery } = this.props
     if (facetsQuery && facetsQuery.facets) {
-      return facetsQuery.facets.Departments[0].Quantity
+      const [{ Quantity: quantity }] = facetsQuery.facets.Departments
+      return quantity
     }
     return (searchQuery.products && searchQuery.products.length) || 0
   }

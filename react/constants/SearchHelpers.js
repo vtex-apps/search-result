@@ -75,9 +75,7 @@ function getSpecificationFilterFromLink(link) {
 }
 
 export function getPagesArgs(
-  optName,
-  optType,
-  optLink,
+  { name, type, link },
   pathName,
   rest,
   {
@@ -90,30 +88,32 @@ export function getPagesArgs(
 ) {
   const restValues = (rest && rest.split(',')) || []
   const mapValues = (map && map.split(',')) || []
-  if (isUnselectLink) {
-    const pathValuesLength = stripPath(pathName).split('/').length
-    const index = restValues.findIndex(
-      item => optName.toLowerCase() === item.toLowerCase()
-    )
-    if (index !== -1) {
-      restValues.splice(index, 1)
-      mapValues.splice(pathValuesLength + index, 1)
+  if (name) {
+    if (isUnselectLink) {
+      const pathValuesLength = stripPath(pathName).split('/').length
+      const index = restValues.findIndex(
+        item => name.toLowerCase() === item.toLowerCase()
+      )
+      if (index !== -1) {
+        restValues.splice(index, 1)
+        mapValues.splice(pathValuesLength + index, 1)
+      }
+    } else {
+      switch (type) {
+        case 'Brands': {
+          mapValues.push('b')
+          break
+        }
+        case 'SpecificationFilters': {
+          mapValues.push(`${getSpecificationFilterFromLink(link)}`)
+          break
+        }
+        default: {
+          mapValues.push('c')
+        }
+      }
+      restValues.push(name)
     }
-  } else {
-    switch (optType) {
-      case 'Brands': {
-        mapValues.push('b')
-        break
-      }
-      case 'SpecificationFilters': {
-        mapValues.push(`${getSpecificationFilterFromLink(optLink)}`)
-        break
-      }
-      default: {
-        mapValues.push('c')
-      }
-    }
-    restValues.push(optName)
   }
 
   const queryString = QueryString.stringify({

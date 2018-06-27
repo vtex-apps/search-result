@@ -18,13 +18,21 @@ const SELECTED_FILTER_COLOR = '#368DF7'
  */
 class SearchFilter extends Component {
   static propTypes = {
+    /** SearchFilter's title. */
     title: PropTypes.string.isRequired,
+    /** If filter is collapsable or not. */
     opened: PropTypes.bool,
+    /** SearchFilter's options. */
     options: PropTypes.arrayOf(facetOptionShape),
+    /** SearchFilter's options selecteds. */
     selecteds: PropTypes.arrayOf(PropTypes.string).isRequired,
+    /** SearchFilter's type. */
     type: PropTypes.string,
+    /** If the SearchFilter must collapse when just one is selected. */
     oneSelectedCollapse: PropTypes.bool,
+    /** Returns the link props. */
     getLinkProps: PropTypes.func,
+    /** Intl instance. */
     intl: intlShape.isRequired,
   }
 

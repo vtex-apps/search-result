@@ -15,11 +15,15 @@ export default class SearchResult extends Component {
     params: PropTypes.shape({
       /** Search's term, e.g: eletronics. */
       term: PropTypes.string,
+      /** Department param. */
       department: PropTypes.string,
+      /** Category param. */
       category: PropTypes.string,
+      /** Subcategory param. */
       subcategory: PropTypes.string,
     }),
     query: queryShape,
+    /** Internal route path. e.g: 'store/search' */
     pagesPath: PropTypes.string,
     ...schemaPropsTypes,
   }
