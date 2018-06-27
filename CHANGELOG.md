@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Add `SearchFooter` and `SearchResultInfiniteScroll` tests.
 
+### Changed
+- Link redirect working based on the `pagesPath` prop
+
 ## [0.4.0] - 2018-6-20
 ### Added
 - Add the Infinite Scroll feature to the page.

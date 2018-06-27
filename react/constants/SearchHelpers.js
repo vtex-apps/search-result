@@ -1,94 +1,127 @@
 import QueryString from 'query-string'
 import SortOptions from './SortOptions'
+import * as RouteParser from 'route-parser'
 
-export function getSearchParamsFromUrl() {
-  let query = window.location && window.location.pathname.slice(1)
-  const queryParams =
-    window.location && QueryString.parse(window.location.search)
-  if (queryParams && queryParams.Q) {
-    query = [query].concat(queryParams.Q.split(',')).join('/')
-  }
-  return {
-    query,
-    map: queryParams && queryParams.map,
-    orderBy: queryParams && queryParams.O,
-    page: parseInt((queryParams && queryParams.page) || 1),
-  }
+export function joinPathWithRest(path, rest) {
+  let pathValues = stripPath(path).split('/')
+  pathValues = pathValues.concat((rest && rest.split(',')) || [])
+  return pathValues.join('/')
 }
 
-/**
- * Returns a string representing the facets param based in the location pathName and queryString.
- * e.g: smartphones?map=c
- * e.g2: eletronics/smartphones?map=c,c
- */
-export function getFacetsFromURL(pathName, queryParams, isBrand) {
-  const { query, map } = getQueryAndMap(pathName, queryParams, isBrand)
-  return `${query}${map ? `?map=${map}` : ''}`
+export function getCategoriesFromQuery(query, map) {
+  return getValuesByMap(query, map, 'c')
 }
 
-export function getQueryAndMap(pathName, queryParams, isBrand) {
-  let map = ''
-  if (queryParams && queryParams.map) {
-    map = queryParams.map
-  } else {
-    const pathValues = pathName.split('/')
-    map =
-      Array(pathValues.length - 1)
-        .fill('c')
-        .join(',') +
-      (pathValues.length > 1 ? ',' : '') +
-      (isBrand ? 'b' : 'c')
-  }
-
-  return { query: pathName, map }
-}
-
-export function getUnselectedLink(optName, query, map) {
-  const pathValues = query.split('/')
+function getValuesByMap(query, map, mapValue) {
+  const values = query.split('/')
   const mapValues = map.split(',')
-  for (let i = 0; i < pathValues.length; i++) {
-    if (decodeURI(pathValues[i].toUpperCase()) === optName.toUpperCase()) {
-      pathValues.splice(i, 1)
-      mapValues.splice(i, 1)
-      return `${pathValues.join('/')}?map=${mapValues.join(',')}`
+  const brands = []
+  mapValues.map((value, index) => {
+    if (value === mapValue) {
+      brands.push(values[index])
+    }
+  })
+  return brands
+}
+
+export function findInTree(tree, values, index) {
+  for (let i = 0; i < tree.length; i++) {
+    if (tree[i].Name.toUpperCase() === values[index].toUpperCase()) {
+      if (index === values.length - 1) {
+        return tree[i]
+      }
+      return findInTree(tree[i].Children, values, index + 1)
     }
   }
-  return `${pathValues.join('/')}?map=${mapValues.join(',')}`
+  return tree[0]
 }
 
-export function getLink(link, type) {
-  const { url: pathName, query: queryParams } = QueryString.parseUrl(link)
-  return getFacetsFromURL(pathName, queryParams, type === 'Brands')
+export function createMap(pathName, rest, isBrand) {
+  let pathValues = stripPath(pathName).split('/')
+  if (rest) pathValues = pathValues.concat(rest.split(','))
+  const map =
+  Array(pathValues.length - 1)
+    .fill('c')
+    .join(',') +
+  (pathValues.length > 1 ? ',' : '') +
+  (isBrand ? 'b' : 'c')
+  return map
+}
+
+export function stripPath(pathName) {
+  return pathName
+    .replace(/^\//i, '')
+    .replace(/\/s$/i, '')
+    .replace(/\/d$/i, '')
+    .replace(/\/b$/i, '')
+}
+
+function getPathOfPage(pagesPath) {
+  return global.__RUNTIME__.pages[pagesPath].path
+}
+
+export function reversePagesPath(pagesPath, params) {
+  const Parser = RouteParser.default ? RouteParser.default : RouteParser
+  return new Parser(getPathOfPage(pagesPath)).reverse(params)
+}
+
+function matchPagesPath(pagesPath, pathName) {
+  const Parser = RouteParser.default ? RouteParser.default : RouteParser
+  return new Parser(pagesPath).match(pathName)
+}
+
+function getSpecificationFilterFromLink(link) {
+  return `specificationFilter_${link.split('specificationFilter_')[1]}`
 }
 
 export function getPagesArgs(
-  opt,
-  queryArg,
-  mapArg,
-  orderBy,
-  isUnselectLink,
-  type,
-  pageNumber = 1
+  { name, type, link },
+  pathName,
+  rest,
+  {
+    map,
+    orderBy,
+    pageNumber = 1,
+  },
+  pagesPath,
+  isUnselectLink
 ) {
-  let query = queryArg
-  let map = mapArg
-  if (opt) {
-    const newLink = isUnselectLink
-      ? getUnselectedLink(opt.Name, queryArg, mapArg)
-      : getLink(opt.Link.slice(1), type)
-    query = QueryString.parseUrl(newLink).url
-    map = QueryString.parseUrl(newLink).query.map
+  const restValues = (rest && rest.split(',')) || []
+  const mapValues = (map && map.split(',')) || []
+  if (name) {
+    if (isUnselectLink) {
+      const pathValuesLength = stripPath(pathName).split('/').length
+      const index = restValues.findIndex(
+        item => name.toLowerCase() === item.toLowerCase()
+      )
+      if (index !== -1) {
+        restValues.splice(index, 1)
+        mapValues.splice(pathValuesLength + index, 1)
+      }
+    } else {
+      switch (type) {
+        case 'Brands': {
+          mapValues.push('b')
+          break
+        }
+        case 'SpecificationFilters': {
+          mapValues.push(`${getSpecificationFilterFromLink(link)}`)
+          break
+        }
+        default: {
+          mapValues.push('c')
+        }
+      }
+      restValues.push(name)
+    }
   }
 
-  const pathValues = query.split('/')
-  const page = 'store/search'
-  const params = { term: pathValues[0] }
-  const rest = pathValues.splice(1).join(',') || undefined
   const queryString = QueryString.stringify({
-    map,
-    page: pageNumber,
+    map: mapValues.join(','),
+    page: (pageNumber !== 1 ? pageNumber : undefined),
     order: (orderBy === SortOptions[0].value ? undefined : orderBy),
-    rest,
+    rest: restValues.join(',') || undefined,
   })
-  return { page, params, queryString }
+  const params = matchPagesPath(getPathOfPage(pagesPath), pathName)
+  return { page: pagesPath, params, queryString }
 }

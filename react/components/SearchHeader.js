@@ -63,9 +63,7 @@ class SearchHeader extends Component {
             options={options}
             value={orderBy}
             onChange={(_, ordenation) => {
-              const pagesArgs = getLinkProps({
-                variables: { orderBy: ordenation },
-              })
+              const pagesArgs = getLinkProps({ ordenation })
               this.context.navigate({
                 page: pagesArgs.page,
                 params: pagesArgs.params,

@@ -18,19 +18,26 @@ const SELECTED_FILTER_COLOR = '#368DF7'
  */
 class SearchFilter extends Component {
   static propTypes = {
+    /** SearchFilter's title. */
     title: PropTypes.string.isRequired,
+    /** If filter is collapsable or not. */
     opened: PropTypes.bool,
+    /** SearchFilter's options. */
     options: PropTypes.arrayOf(facetOptionShape),
+    /** SearchFilter's options selecteds. */
     selecteds: PropTypes.arrayOf(PropTypes.string).isRequired,
+    /** SearchFilter's type. */
     type: PropTypes.string,
-    disabled: PropTypes.bool,
+    /** If the SearchFilter must collapse when just one is selected. */
+    oneSelectedCollapse: PropTypes.bool,
+    /** Returns the link props. */
     getLinkProps: PropTypes.func,
+    /** Intl instance. */
     intl: intlShape.isRequired,
   }
 
   static defaultProps = {
     title: 'Default Title',
-    disabled: false,
     opened: true,
     options: [],
     selecteds: [],
@@ -47,13 +54,58 @@ class SearchFilter extends Component {
     return contains(optName.toUpperCase(), this.props.selecteds)
   }
 
-  isDisabled(opt) {
-    return this.isSelected(opt.Name) && this.props.disabled
+  renderOptions() {
+    const { type, options, getLinkProps, oneSelectedCollapse } = this.props
+    if (options) {
+      let opts = options
+      if (oneSelectedCollapse) {
+        const selecteds = opts.filter(option => {
+          return this.isSelected(option.Name)
+        })
+        if (selecteds.length) {
+          opts = selecteds
+        }
+      }
+      return opts.map(opt => {
+        const pagesArgs = getLinkProps({
+          opt,
+          type,
+          isSelected: this.isSelected(opt.Name),
+        })
+        return (
+          <Link
+            key={opt.Name}
+            className="clear-link"
+            page={pagesArgs.page}
+            params={pagesArgs.params}
+            query={pagesArgs.queryString}>
+            <div className="w-90 flex items-center justify-between pa3">
+              <div className="flex items-center justify-center">
+                <span
+                  className="bb"
+                  style={{
+                    borderColor: `${
+                      this.isSelected(opt.Name)
+                        ? SELECTED_FILTER_COLOR
+                        : 'transparent'
+                    }`,
+                    borderWidth: '3px',
+                  }}>
+                  {opt.Name}
+                </span>
+              </div>
+              <span className="flex items-center f5">
+                ( {opt.Quantity} )
+              </span>
+            </div>
+          </Link>
+        )
+      })
+    }
   }
 
   render() {
     const { opened } = this.state
-    const { type, options, getLinkProps } = this.props
     const title =
       this.props.title === CATEGORIES_FILTER_TITLE
         ? this.props.intl.formatMessage({ id: this.props.title })
@@ -79,42 +131,7 @@ class SearchFilter extends Component {
         </div>
         <div style={{ overflowY: 'auto', maxHeight: '200px' }}>
           <Collapse isOpened={opened}>
-            {options &&
-              options.map(opt => {
-                const pagesArgs = getLinkProps({
-                  opt,
-                  isSelected: this.isSelected(opt.Name),
-                  type,
-                })
-                return (
-                  <Link
-                    key={opt.Name}
-                    className="clear-link"
-                    page={pagesArgs.page}
-                    params={pagesArgs.params}
-                    query={pagesArgs.queryString}>
-                    <div className="w-90 flex items-center justify-between pa3">
-                      <div className="flex items-center justify-center">
-                        <span
-                          className="bb"
-                          style={{
-                            borderColor: `${
-                              this.isSelected(opt.Name)
-                                ? SELECTED_FILTER_COLOR
-                                : 'transparent'
-                            }`,
-                            borderWidth: '3px',
-                          }}>
-                          {opt.Name}
-                        </span>
-                      </div>
-                      <span className="flex items-center f5">
-                        ( {opt.Quantity} )
-                      </span>
-                    </div>
-                  </Link>
-                )
-              })}
+            {this.renderOptions()}
           </Collapse>
         </div>
       </div>

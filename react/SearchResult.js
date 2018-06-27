@@ -4,7 +4,7 @@ import { ProductSummary } from 'vtex.product-summary'
 
 import SearchResultInfiniteScroll from './components/SearchResultInfiniteScroll'
 import { queryShape, schemaPropsTypes } from './constants/propTypes'
-import { getQueryAndMap } from './constants/SearchHelpers'
+import { createMap, reversePagesPath } from './constants/SearchHelpers'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_MAX_ITEMS_PER_LINE = 5
@@ -14,15 +14,24 @@ export default class SearchResult extends Component {
   static propTypes = {
     params: PropTypes.shape({
       /** Search's term, e.g: eletronics. */
-      term: PropTypes.string.isRequired,
+      term: PropTypes.string,
+      /** Department param. */
+      department: PropTypes.string,
+      /** Category param. */
+      category: PropTypes.string,
+      /** Subcategory param. */
+      subcategory: PropTypes.string,
     }),
     query: queryShape,
+    /** Internal route path. e.g: 'store/search' */
+    pagesPath: PropTypes.string,
     ...schemaPropsTypes,
   }
 
   static defaultProps = {
     maxItemsPerLine: DEFAULT_MAX_ITEMS_PER_LINE,
     maxItemsPerPage: DEFAULT_MAX_ITEMS_PER_PAGE,
+    pagesPath: 'store/search',
   }
 
   static uiSchema = {
@@ -65,20 +74,27 @@ export default class SearchResult extends Component {
       maxItemsPerLine,
       maxItemsPerPage,
       summary,
-      query: { order: orderBy, page: pageProps, rest, map: mapProps },
-      params: { term },
+      pagesPath,
+      query: {
+        order: orderBy,
+        page: pageProps,
+        map: mapProps,
+        rest,
+      },
     } = this.props
-    const query = [term].concat((rest && rest.split(',')) || []).join('/')
-    const map = mapProps || getQueryAndMap(query).map
-    const page = pageProps ? parseInt(pageProps) : DEFAULT_PAGE
+    const pathName = reversePagesPath(pagesPath, this.props.params)
+    const map = mapProps || createMap(pathName, rest)
+    const page = (pageProps ? parseInt(pageProps) : DEFAULT_PAGE)
     const containerProps = {
-      path: query,
+      path: pathName,
       map,
-      orderBy,
+      rest,
       page,
+      orderBy,
       maxItemsPerLine,
       maxItemsPerPage,
       summary,
+      pagesPath,
     }
     return <SearchResultInfiniteScroll {...containerProps} />
   }
