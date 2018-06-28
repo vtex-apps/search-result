@@ -2,6 +2,7 @@ import './global.css'
 
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import { ApolloConsumer } from 'react-apollo'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { ProductSummary } from 'vtex.product-summary'
 import { Spinner } from 'vtex.styleguide'
@@ -281,41 +282,48 @@ export default class SearchResult extends Component {
     const recordsFiltered = this.getRecordsFiltered()
 
     return (
-      <InfiniteScroll
-        dataLength={products.length}
-        next={() => {
-          this.fetchMoreLoading = true
-          return fetchMore({
-            variables: {
-              from: to,
-              to: to + maxItemsPerPage - 1,
-            },
-            updateQuery: this.handleFetchMoreProducts,
-          })
+      <ApolloConsumer>
+        {client => {
+          client.writeData({ data: { maxItemsPerPage } })
+          return (
+            <InfiniteScroll
+              dataLength={products.length}
+              next={() => {
+                this.fetchMoreLoading = true
+                return fetchMore({
+                  variables: {
+                    from: to,
+                    to: to + maxItemsPerPage - 1,
+                  },
+                  updateQuery: this.handleFetchMoreProducts,
+                })
+              }}
+              hasMore={products.length < recordsFiltered}>
+              <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3 dib`}>
+                <div className="w-100 w-30-m w-20-l fl pa3">
+                  <SelectedFilters
+                    selecteds={selecteds}
+                    getLinkProps={this.getLinkProps}
+                  />
+                  {this.renderSearchFilters()}
+                </div>
+                <div className="w-100 w-70-m w-80-l fl">
+                  <SearchHeader
+                    {...{ from, to, query, map, orderBy, recordsFiltered }}
+                    getLinkProps={this.getLinkProps}
+                  />
+                  {isLoading && !this.fetchMoreLoading ? (
+                    this.renderSpinner()
+                  ) : (
+                    <Gallery {...{ products, maxItemsPerLine, summary }} />
+                  )}
+                  {this.fetchMoreLoading && this.renderSpinner()}
+                </div>
+              </div>
+            </InfiniteScroll>
+          )
         }}
-        hasMore={products.length < recordsFiltered}>
-        <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3 dib`}>
-          <div className="w-100 w-30-m w-20-l fl pa3">
-            <SelectedFilters
-              selecteds={selecteds}
-              getLinkProps={this.getLinkProps}
-            />
-            {this.renderSearchFilters()}
-          </div>
-          <div className="w-100 w-70-m w-80-l fl">
-            <SearchHeader
-              {...{ from, to, query, map, orderBy, recordsFiltered }}
-              getLinkProps={this.getLinkProps}
-            />
-            {isLoading && !this.fetchMoreLoading ? (
-              this.renderSpinner()
-            ) : (
-              <Gallery {...{ products, maxItemsPerLine, summary }} />
-            )}
-            {this.fetchMoreLoading && this.renderSpinner()}
-          </div>
-        </div>
-      </InfiniteScroll>
+      </ApolloConsumer>
     )
   }
 }
