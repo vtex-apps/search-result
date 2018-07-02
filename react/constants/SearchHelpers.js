@@ -1,6 +1,7 @@
 import QueryString from 'query-string'
-import SortOptions from './SortOptions'
 import * as RouteParser from 'route-parser'
+
+import SortOptions from './SortOptions'
 
 export function joinPathWithRest(path, rest) {
   let pathValues = stripPath(path).split('/')
@@ -40,11 +41,11 @@ export function createMap(pathName, rest, isBrand) {
   let pathValues = stripPath(pathName).split('/')
   if (rest) pathValues = pathValues.concat(rest.split(','))
   const map =
-  Array(pathValues.length - 1)
-    .fill('c')
-    .join(',') +
-  (pathValues.length > 1 ? ',' : '') +
-  (isBrand ? 'b' : 'c')
+    Array(pathValues.length - 1)
+      .fill('c')
+      .join(',') +
+    (pathValues.length > 1 ? ',' : '') +
+    (isBrand ? 'b' : 'c')
   return map
 }
 
@@ -78,11 +79,7 @@ export function getPagesArgs(
   { name, type, link },
   pathName,
   rest,
-  {
-    map,
-    orderBy,
-    pageNumber = 1,
-  },
+  { map, orderBy, pageNumber = 1 },
   pagesPath,
   isUnselectLink
 ) {
@@ -118,8 +115,8 @@ export function getPagesArgs(
 
   const queryString = QueryString.stringify({
     map: mapValues.join(','),
-    page: (pageNumber !== 1 ? pageNumber : undefined),
-    order: (orderBy === SortOptions[0].value ? undefined : orderBy),
+    page: pageNumber !== 1 ? pageNumber : undefined,
+    order: orderBy === SortOptions[0].value ? undefined : orderBy,
     rest: restValues.join(',') || undefined,
   })
   const params = matchPagesPath(getPathOfPage(pagesPath), pathName)
