@@ -69,21 +69,25 @@ export const facetsQueryShape = PropTypes.shape({
   /** Brands matched with the facets. */
   Brands: PropTypes.arrayOf(facetOptionShape),
   /** SpecificationFilters matched with the facets. */
-  SpecificationFilters: PropTypes.arrayOf(PropTypes.shape({
-    /** SpecificationFilter's name. */
-    name: PropTypes.string.isRequired,
-    /** SpecificationFilter's facets. */
-    facets: facetOptionShape,
-  })),
+  SpecificationFilters: PropTypes.arrayOf(
+    PropTypes.shape({
+      /** SpecificationFilter's name. */
+      name: PropTypes.string.isRequired,
+      /** SpecificationFilter's facets. */
+      facets: facetOptionShape,
+    })
+  ),
   /** Categories matched with the facets. */
-  CategoriesTrees: PropTypes.arrayOf(PropTypes.shape({
-    /** Category's name. */
-    Name: PropTypes.string.isRequired,
-    /** Category's quantity. */
-    Quantity: PropTypes.number.isRequired,
-    /** Array of SubCategories. */
-    Children: PropTypes.arrayOf(facetOptionShape),
-  })),
+  CategoriesTrees: PropTypes.arrayOf(
+    PropTypes.shape({
+      /** Category's name. */
+      Name: PropTypes.string.isRequired,
+      /** Category's quantity. */
+      Quantity: PropTypes.number.isRequired,
+      /** Array of SubCategories. */
+      Children: PropTypes.arrayOf(facetOptionShape),
+    })
+  ),
 })
 
 export const searchQueryShape = PropTypes.shape({
@@ -116,4 +120,24 @@ export const schemaPropsTypes = {
   maxItemsPerPage: PropTypes.number,
   /** Product Summary's props */
   summary: PropTypes.any,
+}
+
+export const searchResultPropTypes = {
+  /** Internal route path. e.g: 'store/search' */
+  pagesPath: PropTypes.string,
+  /** Path param. e.g: eletronics/smartphones */
+  path: PropTypes.string,
+  /** Map param. e.g: c,c */
+  map: mapType.isRequired,
+  /** Rest param. e.g: Android,Samsung */
+  rest: mapType.isRequired,
+  /** Search result page. */
+  page: PropTypes.number.isRequired,
+  /** Search result ordernation. */
+  orderBy: orderType,
+  /** Facets graphql query. */
+  facetsQuery: facetsQueryShape,
+  /** Search graphql query. */
+  searchQuery: searchQueryShape,
+  ...schemaPropsTypes,
 }

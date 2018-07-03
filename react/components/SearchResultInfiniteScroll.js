@@ -1,6 +1,5 @@
-import '../global.css'
-
 import React, { Component } from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
 import { Spinner } from 'vtex.styleguide'
 
 import VTEXClasses from '../constants/CSSClasses'
@@ -8,7 +7,6 @@ import { searchResultPropTypes } from '../constants/propTypes'
 import { findInTree, getCategoriesFromQuery, getPagesArgs, stripPath } from '../constants/SearchHelpers'
 import Gallery from './Gallery'
 import SearchFilter from './SearchFilter'
-import SearchFooter from './SearchFooter'
 import SearchHeader from './SearchHeader'
 import SelectedFilters from './SelectedFilters'
 
@@ -30,7 +28,7 @@ const MAP_SEPARATOR = ','
 /**
  * Search Result Component.
  */
-export default class SearchResultContainer extends Component {
+export default class SearchResultInfiniteScroll extends Component {
   static propTypes = searchResultPropTypes
 
   getLinkProps = ({ opt, type, isSelected, ordenation, pageNumber }) => {
@@ -176,6 +174,15 @@ export default class SearchResultContainer extends Component {
     return (searchQuery.products && searchQuery.products.length) || 0
   }
 
+  handleFetchMoreProducts = (prev, { fetchMoreResult }) => {
+    this.fetchMoreLoading = false
+    if (!fetchMoreResult) return prev
+    return {
+      ...prev,
+      products: [...prev.products, ...fetchMoreResult.products],
+    }
+  }
+
   renderSpinner() {
     return (
       <div className="w-100 flex justify-center">
@@ -193,44 +200,56 @@ export default class SearchResultContainer extends Component {
         products: searchedProducts,
         variables: { query, map, orderBy },
         loading: searchLoading,
+        fetchMore,
       },
       maxItemsPerLine,
       maxItemsPerPage,
       page,
       summary,
     } = this.props
+    const isLoading = searchLoading || facetsLoading
     const products = searchedProducts || []
     const from = (page - 1) * maxItemsPerPage + 1
     const to = (page - 1) * maxItemsPerPage + products.length
     const selecteds = this.getSelecteds()
-    const isLoading = searchLoading || facetsLoading
     const recordsFiltered = this.getRecordsFiltered()
 
     return (
-      <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3 dib`}>
-        <div className="w-100 w-30-m w-20-l fl pa3">
-          <SelectedFilters
-            selecteds={selecteds}
-            getLinkProps={this.getLinkProps}
-          />
-          {this.renderSearchFilters()}
+      <InfiniteScroll
+        dataLength={products.length}
+        next={() => {
+          this.fetchMoreLoading = true
+          return fetchMore({
+            variables: {
+              from: to,
+              to: to + maxItemsPerPage - 1,
+            },
+            updateQuery: this.handleFetchMoreProducts,
+          })
+        }}
+        hasMore={products.length < recordsFiltered}>
+        <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3 dib`}>
+          <div className="w-100 w-30-m w-20-l fl pa3">
+            <SelectedFilters
+              selecteds={selecteds}
+              getLinkProps={this.getLinkProps}
+            />
+            {this.renderSearchFilters()}
+          </div>
+          <div className="w-100 w-70-m w-80-l fl">
+            <SearchHeader
+              {...{ from, to, query, map, orderBy, recordsFiltered }}
+              getLinkProps={this.getLinkProps}
+            />
+            {isLoading && !this.fetchMoreLoading ? (
+              this.renderSpinner()
+            ) : (
+              <Gallery {...{ products, maxItemsPerLine, summary }} />
+            )}
+            {this.fetchMoreLoading && this.renderSpinner()}
+          </div>
         </div>
-        <div className="w-100 w-70-m w-80-l fl">
-          <SearchHeader
-            {...{ from, to, query, map, orderBy, recordsFiltered }}
-            getLinkProps={this.getLinkProps}
-          />
-          {isLoading ? (
-            this.renderSpinner()
-          ) : (
-            <Gallery {...{ products, maxItemsPerLine, summary }} />
-          )}
-          <SearchFooter
-            {...{ recordsFiltered, page, maxItemsPerPage }}
-            getLinkProps={this.getLinkProps}
-          />
-        </div>
-      </div>
+      </InfiniteScroll>
     )
   }
 }
