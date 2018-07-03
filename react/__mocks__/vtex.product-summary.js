@@ -1,7 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export class ProductSummary extends Component {
-  render() {
-    return this.props.children
-  }
+export function ProductSummary(props) {
+  return <div>{props.children}</div>
 }

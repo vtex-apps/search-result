@@ -1,22 +1,43 @@
 /* eslint-env jest */
 import { mount } from 'enzyme'
 import React from 'react'
-import { MockedProvider } from 'react-apollo/test-utils'
 import { IntlProvider } from 'react-intl'
 
 import SearchResult from '../SearchResult'
 
 describe('<SearchResult /> component', () => {
   let wrapper = null
+  let searchQueryMock = null
+  let facetsQueryMock = null
 
   beforeEach(() => {
     const messages = require('../locales/en-US')
+    searchQueryMock = {
+      loading: false,
+      variables: {
+        query: 'eletronics',
+        map: 'c',
+        orderBy: 'OrderByTopSaleDESC',
+      },
+      products: [],
+    }
+
+    facetsQueryMock = {
+      loading: false,
+    }
+
     wrapper = mount(
-      <MockedProvider>
-        <IntlProvider locale="en-US" messages={messages}>
-          <SearchResult params={{ term: 'eletronics' }} query={{ map: 'c' }} />
-        </IntlProvider>
-      </MockedProvider>
+      <IntlProvider locale="en-US" messages={messages}>
+        <SearchResult
+          setContextVariables={jest.fn()}
+          params={{ term: 'eletronics' }}
+          map="c"
+          path="eletronics/s"
+          page={1}
+          searchQuery={searchQueryMock}
+          facetsQuery={facetsQueryMock}
+        />
+      </IntlProvider>
     )
   })
 
