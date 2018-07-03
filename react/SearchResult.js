@@ -2,13 +2,11 @@ import './global.css'
 
 import React, { Component } from 'react'
 import { ProductSummary } from 'vtex.product-summary'
-import { Spinner } from 'vtex.styleguide'
 
 import SearchResultInfiniteScroll from './components/SearchResultInfiniteScroll'
 import { searchResultPropTypes } from './constants/propTypes'
 import SortOptions from './constants/SortOptions'
 
-const DEFAULT_PAGE = 1
 const DEFAULT_MAX_ITEMS_PER_LINE = 5
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
 
@@ -61,37 +59,11 @@ export default class SearchResult extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { loading: true }
-
-    const {
-      page: pageProps,
-      maxItemsPerPage = DEFAULT_MAX_ITEMS_PER_PAGE,
-    } = props
-    const page = pageProps ? parseInt(pageProps) : DEFAULT_PAGE
-    const from = (page - 1) * maxItemsPerPage
-    const to = from + maxItemsPerPage - 1
-
-    this.props.searchQuery.fetchMore({
-      variables: {
-        from,
-        to,
-      },
-      updateQuery: (_, { fetchMoreResult }) => {
-        this.setState({ loading: false })
-        return fetchMoreResult
-      },
-    })
+    const { maxItemsPerPage = DEFAULT_MAX_ITEMS_PER_PAGE } = props
+    props.setVariables({ maxItemsPerPage })
   }
 
   render() {
-    return this.state.loading ? (
-      <div className="w-100 flex justify-center">
-        <div className="w3 ma0">
-          <Spinner />
-        </div>
-      </div>
-    ) : (
-      <SearchResultInfiniteScroll {...this.props} />
-    )
+    return <SearchResultInfiniteScroll {...this.props} />
   }
 }
