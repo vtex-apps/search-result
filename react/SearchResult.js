@@ -14,6 +14,12 @@ const DEFAULT_MAX_ITEMS_PER_PAGE = 10
  * Search Result Component.
  */
 export default class SearchResult extends Component {
+  constructor(props) {
+    super(props)
+    const { maxItemsPerPage = DEFAULT_MAX_ITEMS_PER_PAGE } = props
+    props.setContextVariables({ maxItemsPerPage })
+  }
+
   static propTypes = searchResultPropTypes
 
   static defaultProps = {
@@ -55,12 +61,6 @@ export default class SearchResult extends Component {
         },
       },
     }
-  }
-
-  constructor(props) {
-    super(props)
-    const { maxItemsPerPage = DEFAULT_MAX_ITEMS_PER_PAGE } = props
-    props.setContextVariables({ maxItemsPerPage })
   }
 
   render() {
