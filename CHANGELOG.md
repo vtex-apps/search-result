@@ -10,8 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add `SearchFooter` and `SearchResultInfiniteScroll` tests.
 
 ### Changed
-- Link redirect working based on the `pagesPath` prop
+- Link redirect working based on the `pagesPath` prop.
 - Remove GraphQL queries that will be at the [vtex-apps/store](https://github.com/vtex-apps/store/pull/18) project.
+
+### Fixed
+- Fix `setContextVariables` function call.
 
 ## [0.4.0] - 2018-6-20
 ### Added
