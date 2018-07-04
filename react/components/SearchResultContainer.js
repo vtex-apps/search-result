@@ -1,16 +1,11 @@
 import '../global.css'
 
-import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { compose, graphql } from 'react-apollo'
 import { Spinner } from 'vtex.styleguide'
 
 import VTEXClasses from '../constants/CSSClasses'
-import { facetsQueryShape, searchQueryShape, mapType, orderType, schemaPropsTypes } from '../constants/propTypes'
-import { getPagesArgs, stripPath, joinPathWithRest, getCategoriesFromQuery, findInTree } from '../constants/SearchHelpers'
-import SortOptions from '../constants/SortOptions'
-import facetsQuery from '../graphql/facetsQuery.gql'
-import searchQuery from '../graphql/searchQuery.gql'
+import { searchResultPropTypes } from '../constants/propTypes'
+import { findInTree, getCategoriesFromQuery, getPagesArgs, stripPath } from '../constants/SearchHelpers'
 import Gallery from './Gallery'
 import SearchFilter from './SearchFilter'
 import SearchFooter from './SearchFooter'
@@ -35,10 +30,14 @@ const MAP_SEPARATOR = ','
 /**
  * Search Result Component.
  */
-class SearchResultContainer extends Component {
+export default class SearchResultContainer extends Component {
+  static propTypes = searchResultPropTypes
+
   getLinkProps = ({ opt, type, isSelected, ordenation, pageNumber }) => {
     const { path, rest, map, pagesPath } = this.props
-    let { variables: { orderBy } } = this.props.searchQuery
+    let {
+      variables: { orderBy },
+    } = this.props.searchQuery
     orderBy = ordenation || orderBy
     return getPagesArgs(
       { name: opt && opt.Name, type, link: opt && opt.Link },
@@ -53,11 +52,13 @@ class SearchResultContainer extends Component {
   getCategories() {
     const {
       facetsQuery,
-      searchQuery: { variables: { query, map } },
+      searchQuery: {
+        variables: { query, map },
+      },
       pagesPath,
     } = this.props
     const { CategoriesTrees: tree } = facetsQuery.facets
-    const [{ Children: children }] =  tree
+    const [{ Children: children }] = tree
     const categories = getCategoriesFromQuery(query, map)
     const category = findInTree(tree, categories, 0)
     if (pagesPath === 'store/department') {
@@ -70,7 +71,9 @@ class SearchResultContainer extends Component {
   renderSearchFilters() {
     if (!this.props.facetsQuery || !this.props.facetsQuery.facets) return
 
-    const { facetsQuery: { facets: facetsProps } } = this.props
+    const {
+      facetsQuery: { facets: facetsProps },
+    } = this.props
     const facets = { ...facetsProps }
     const selecteds = this.getSelecteds()
     delete facets[FACETS_KEYS.Departments]
@@ -206,7 +209,10 @@ class SearchResultContainer extends Component {
     return (
       <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3 dib`}>
         <div className="w-100 w-30-m w-20-l fl pa3">
-          <SelectedFilters selecteds={selecteds} getLinkProps={this.getLinkProps} />
+          <SelectedFilters
+            selecteds={selecteds}
+            getLinkProps={this.getLinkProps}
+          />
           {this.renderSearchFilters()}
         </div>
         <div className="w-100 w-70-m w-80-l fl">
@@ -228,55 +234,3 @@ class SearchResultContainer extends Component {
     )
   }
 }
-
-const SearchResultContainerWithData = compose(
-  graphql(facetsQuery, { name: 'facetsQuery',
-    options: (props) => {
-      const { path, rest, map } = props
-      const query = joinPathWithRest(path, rest)
-      const facets = `${query}?map=${map}`
-      return ({
-        variables: { facets },
-      })
-    },
-  }),
-  graphql(searchQuery, { name: 'searchQuery',
-    options: (props) => {
-      const { path, rest, map } = props
-      const query = joinPathWithRest(path, rest)
-      const orderBy = props.orderBy
-      const from = (props.page - 1) * props.maxItemsPerPage
-      const to = from + props.maxItemsPerPage - 1
-      return {
-        variables: { query, map, orderBy, from, to },
-      }
-    },
-  }),
-)(SearchResultContainer)
-
-SearchResultContainer.propTypes = SearchResultContainerWithData.propTypes = {
-  /** Internal route path. e.g: 'store/search' */
-  pagesPath: PropTypes.string,
-  /** Path param. e.g: eletronics/smartphones */
-  path: PropTypes.string,
-  /** Map param. e.g: c,c */
-  map: mapType.isRequired,
-  /** Rest param. e.g: Android,Samsung */
-  rest: mapType.isRequired,
-  /** Search result page. */
-  page: PropTypes.number.isRequired,
-  /** Search result ordernation. */
-  orderBy: orderType,
-  /** Facets graphql query. */
-  facetsQuery: facetsQueryShape,
-  /** Search graphql query. */
-  searchQuery: searchQueryShape,
-  ...schemaPropsTypes,
-}
-
-SearchResultContainer.defaultProps = SearchResultContainerWithData.defaultProps = {
-  orderBy: SortOptions[0].value,
-  rest: '',
-}
-
-export default SearchResultContainerWithData
