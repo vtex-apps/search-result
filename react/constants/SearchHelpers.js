@@ -26,6 +26,7 @@ function getValuesByMap(query, map, mapValue) {
 }
 
 export function findInTree(tree, values, index) {
+  if (!(tree.length && values.length)) return
   for (let i = 0; i < tree.length; i++) {
     if (tree[i].Name.toUpperCase() === values[index].toUpperCase()) {
       if (index === values.length - 1) {
