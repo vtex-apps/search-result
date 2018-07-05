@@ -37,6 +37,9 @@ describe('<SearchResultInfiniteScroll /> component', () => {
         maxItemsPerPage: 10,
         searchQuery: searchQueryMock,
         facetsQuery: facetsQueryMock,
+        state: {
+          loading: false,
+        },
       }
     ) =>
       mount(
