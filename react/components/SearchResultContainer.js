@@ -203,7 +203,7 @@ export default class SearchResultContainer extends Component {
     const from = (page - 1) * maxItemsPerPage + 1
     const to = (page - 1) * maxItemsPerPage + products.length
     const selecteds = this.getSelecteds()
-    const isLoading = searchLoading || facetsLoading
+    const isLoading = searchLoading || facetsLoading || this.state.loading
     const recordsFiltered = this.getRecordsFiltered()
 
     return (

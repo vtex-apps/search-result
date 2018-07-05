@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - Fix `setContextVariables` function call.
+- Fix SearchResult loading state to not trigger the `fetchMore` function in the first query.
 
 ## [0.4.0] - 2018-6-20
 ### Added
