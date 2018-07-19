@@ -32,7 +32,7 @@ export default class SearchResultInfiniteScroll extends Component {
   static propTypes = searchResultPropTypes
 
   getLinkProps = ({ opt, type, isSelected, ordenation, pageNumber }) => {
-    const { path, rest, map, pagesPath } = this.props
+    const { path, rest, map, pagesPath, params } = this.props
     let {
       variables: { orderBy },
     } = this.props.searchQuery
@@ -43,6 +43,7 @@ export default class SearchResultInfiniteScroll extends Component {
       rest,
       { map, orderBy, pageNumber },
       pagesPath,
+      params,
       isSelected
     )
   }

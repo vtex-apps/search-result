@@ -1,5 +1,4 @@
 import QueryString from 'query-string'
-import * as RouteParser from 'route-parser'
 
 import SortOptions from './SortOptions'
 
@@ -58,37 +57,24 @@ export function stripPath(pathName) {
     .replace(/\/b$/i, '')
 }
 
-function getPathOfPage(pagesPath) {
-  return global.__RUNTIME__.pages[pagesPath].path
-}
-
-export function reversePagesPath(pagesPath, params) {
-  const Parser = RouteParser.default ? RouteParser.default : RouteParser
-  return new Parser(getPathOfPage(pagesPath)).reverse(params)
-}
-
-function matchPagesPath(pagesPath, pathName) {
-  const Parser = RouteParser.default ? RouteParser.default : RouteParser
-  return new Parser(pagesPath).match(pathName)
-}
-
 function getSpecificationFilterFromLink(link) {
   return `specificationFilter_${link.split('specificationFilter_')[1]}`
 }
 
 export function getPagesArgs(
   { name, type, link },
-  pathName,
+  path,
   rest,
   { map, orderBy, pageNumber = 1 },
   pagesPath,
+  params,
   isUnselectLink
 ) {
   const restValues = (rest && rest.split(',')) || []
   const mapValues = (map && map.split(',')) || []
   if (name) {
     if (isUnselectLink) {
-      const pathValuesLength = stripPath(pathName).split('/').length
+      const pathValuesLength = stripPath(path).split('/').length
       const index = restValues.findIndex(
         item => name.toLowerCase() === item.toLowerCase()
       )
@@ -120,6 +106,5 @@ export function getPagesArgs(
     order: orderBy === SortOptions[0].value ? undefined : orderBy,
     rest: restValues.join(',') || undefined,
   })
-  const params = matchPagesPath(getPathOfPage(pagesPath), pathName)
   return { page: pagesPath, params, queryString }
 }
