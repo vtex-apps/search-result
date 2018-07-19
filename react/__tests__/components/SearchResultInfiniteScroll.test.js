@@ -33,7 +33,9 @@ describe('<SearchResultInfiniteScroll /> component', () => {
         page: 1,
         map: 'c',
         rest: '',
-        path: 'eletronics',
+        params: {
+          department: 'eletronics',
+        },
         maxItemsPerPage: 10,
         searchQuery: searchQueryMock,
         facetsQuery: facetsQueryMock,
