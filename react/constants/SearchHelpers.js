@@ -2,12 +2,6 @@ import QueryString from 'query-string'
 
 import SortOptions from './SortOptions'
 
-export function joinPathWithRest(path, rest) {
-  let pathValues = stripPath(path).split('/')
-  pathValues = pathValues.concat((rest && rest.split(',')) || [])
-  return pathValues.join('/')
-}
-
 export function getCategoriesFromQuery(query, map) {
   return getValuesByMap(query, map, 'c')
 }
@@ -37,33 +31,12 @@ export function findInTree(tree, values, index) {
   return tree[0]
 }
 
-export function createMap(pathName, rest, isBrand) {
-  let pathValues = stripPath(pathName).split('/')
-  if (rest) pathValues = pathValues.concat(rest.split(','))
-  const map =
-    Array(pathValues.length - 1)
-      .fill('c')
-      .join(',') +
-    (pathValues.length > 1 ? ',' : '') +
-    (isBrand ? 'b' : 'c')
-  return map
-}
-
-export function stripPath(pathName) {
-  return pathName
-    .replace(/^\//i, '')
-    .replace(/\/s$/i, '')
-    .replace(/\/d$/i, '')
-    .replace(/\/b$/i, '')
-}
-
 function getSpecificationFilterFromLink(link) {
   return `specificationFilter_${link.split('specificationFilter_')[1]}`
 }
 
 export function getPagesArgs(
   { name, type, link },
-  path,
   rest,
   { map, orderBy, pageNumber = 1 },
   pagesPath,
@@ -74,13 +47,15 @@ export function getPagesArgs(
   const mapValues = (map && map.split(',')) || []
   if (name) {
     if (isUnselectLink) {
-      const pathValuesLength = stripPath(path).split('/').length
+      const paramsLength = Object.keys(params).filter(
+        param => !param.startsWith('_')
+      ).length
       const index = restValues.findIndex(
         item => name.toLowerCase() === item.toLowerCase()
       )
       if (index !== -1) {
         restValues.splice(index, 1)
-        mapValues.splice(pathValuesLength + index, 1)
+        mapValues.splice(paramsLength + index, 1)
       }
     } else {
       switch (type) {
