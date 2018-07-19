@@ -46,7 +46,6 @@ function getSpecificationFilterFromLink(link) {
 
 export function getPagesArgs(
   { name, type, link },
-  path,
   rest,
   { map, orderBy, pageNumber = 1 },
   pagesPath,
@@ -57,13 +56,15 @@ export function getPagesArgs(
   const mapValues = (map && map.split(',')) || []
   if (name) {
     if (isUnselectLink) {
-      const pathValuesLength = stripPath(path).split('/').length
+      const paramsLength = Object.keys(params).filter(
+        param => !param.startsWith('_')
+      ).length
       const index = restValues.findIndex(
         item => name.toLowerCase() === item.toLowerCase()
       )
       if (index !== -1) {
         restValues.splice(index, 1)
-        mapValues.splice(pathValuesLength + index, 1)
+        mapValues.splice(paramsLength + index, 1)
       }
     } else {
       switch (type) {

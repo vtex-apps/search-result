@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.5.2] - 2018-07-19
+### Fixed
+- Remove code dependency with the resolved page path (e.g. `/eletronics/d`).
+
 ## [0.5.1] - 2018-07-19
 ### Fixed
 - Remove code dependency with the global runtime.

@@ -5,7 +5,7 @@ import { Spinner } from 'vtex.styleguide'
 
 import VTEXClasses from '../constants/CSSClasses'
 import { searchResultPropTypes } from '../constants/propTypes'
-import { findInTree, getCategoriesFromQuery, getPagesArgs, stripPath } from '../constants/SearchHelpers'
+import { findInTree, getCategoriesFromQuery, getPagesArgs } from '../constants/SearchHelpers'
 import Gallery from './Gallery'
 import SearchFilter from './SearchFilter'
 import SearchFooter from './SearchFooter'
@@ -24,7 +24,6 @@ const CATEGORIES_FILTER_TYPE = 'Categories'
 const KEY_MAP_CATEGORY = 'c'
 const KEY_MAP_BRAND = 'b'
 const KEY_MAP_TEXT = 'ft'
-const PATH_SEPARATOR = '/'
 const MAP_SEPARATOR = ','
 
 /**
@@ -34,14 +33,13 @@ export default class SearchResultContainer extends Component {
   static propTypes = searchResultPropTypes
 
   getLinkProps = ({ opt, type, isSelected, ordenation, pageNumber }) => {
-    const { path, rest, map, pagesPath, params } = this.props
+    const { rest, map, pagesPath, params } = this.props
     let {
       variables: { orderBy },
     } = this.props.searchQuery
     orderBy = ordenation || orderBy
     return getPagesArgs(
       { name: opt && opt.Name, type, link: opt && opt.Link },
-      path,
       rest,
       { map, orderBy, pageNumber },
       pagesPath,
@@ -131,9 +129,11 @@ export default class SearchResultContainer extends Component {
   }
 
   getSelecteds() {
-    const { rest, path, map } = this.props
+    const { rest, params, map } = this.props
     const restValues = (rest && rest.split(MAP_SEPARATOR)) || []
-    const pathValues = stripPath(path).split(PATH_SEPARATOR)
+    const paramsValues = Object.keys(params).filter(
+      param => !param.startsWith('_')
+    )
     const mapValues = map.split(MAP_SEPARATOR)
     const selecteds = {
       Categories: [],
@@ -143,7 +143,7 @@ export default class SearchResultContainer extends Component {
     }
     restValues.map((term, index) => {
       const termDecoded = decodeURI(term.toUpperCase())
-      const mapValue = mapValues[pathValues.length + index]
+      const mapValue = mapValues[paramsValues.length + index]
 
       switch (mapValue) {
         case KEY_MAP_CATEGORY: {
