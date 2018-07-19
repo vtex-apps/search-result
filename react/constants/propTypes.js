@@ -63,7 +63,7 @@ export const productShape = PropTypes.shape({
   ).isRequired,
 })
 
-export const facetsQueryShape = PropTypes.shape({
+export const facetsShape = PropTypes.shape({
   /** Departments matched with the facets. */
   Departments: PropTypes.arrayOf(facetOptionShape),
   /** Brands matched with the facets. */
@@ -91,8 +91,12 @@ export const facetsQueryShape = PropTypes.shape({
 })
 
 export const searchQueryShape = PropTypes.shape({
+  /** Facets resulting by the search. */
+  facets: facetsShape,
   /** Products resulting by the search.  */
   products: PropTypes.arrayOf(productShape),
+  /** Records filtered by the search. */
+  recordsFiltered: PropTypes.number,
 })
 
 export const queryShape = PropTypes.shape({
@@ -135,8 +139,6 @@ export const searchResultPropTypes = {
   page: PropTypes.number.isRequired,
   /** Search result ordernation. */
   orderBy: orderType,
-  /** Facets graphql query. */
-  facetsQuery: facetsQueryShape,
   /** Search graphql query. */
   searchQuery: searchQueryShape,
   ...schemaPropsTypes,

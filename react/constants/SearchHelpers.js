@@ -3,29 +3,24 @@ import QueryString from 'query-string'
 import SortOptions from './SortOptions'
 
 export function joinPathWithRest(path, rest) {
-  let pathValues = stripPath(path).split('/')
-  pathValues = pathValues.concat((rest && rest.split(',')) || [])
-  return pathValues.join('/')
+  return stripPath(path) + ((rest && rest.replace(/,/g, '/')) || '')
 }
 
-export function getCategoriesFromQuery(query, map) {
-  return getValuesByMap(query, map, 'c')
+export function getCategoriesFromQuery(query, rest, map) {
+  return getValuesByMap(joinPathWithRest(query, rest), map, 'c')
 }
 
 function getValuesByMap(query, map, mapValue) {
   const values = query.split('/')
   const mapValues = map.split(',')
-  const brands = []
-  mapValues.map((value, index) => {
-    if (value === mapValue) {
-      brands.push(values[index])
-    }
-  })
-  return brands
+  return mapValues.reduce((filteredValues, map, index) => {
+    if (map === mapValue) filteredValues.push(values[index])
+    return filteredValues
+  }, [])
 }
 
 export function findInTree(tree, values, index) {
-  if (!(tree.length && values.length)) return
+  if (!(tree && tree.length && values.length)) return
   for (let i = 0; i < tree.length; i++) {
     if (tree[i].Name.toUpperCase() === values[index].toUpperCase()) {
       if (index === values.length - 1) {
@@ -35,18 +30,6 @@ export function findInTree(tree, values, index) {
     }
   }
   return tree[0]
-}
-
-export function createMap(pathName, rest, isBrand) {
-  let pathValues = stripPath(pathName).split('/')
-  if (rest) pathValues = pathValues.concat(rest.split(','))
-  const map =
-    Array(pathValues.length - 1)
-      .fill('c')
-      .join(',') +
-    (pathValues.length > 1 ? ',' : '') +
-    (isBrand ? 'b' : 'c')
-  return map
 }
 
 export function stripPath(pathName) {
