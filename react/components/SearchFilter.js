@@ -94,9 +94,7 @@ class SearchFilter extends Component {
                   {opt.Name}
                 </span>
               </div>
-              <span className="flex items-center f5">
-                ( {opt.Quantity} )
-              </span>
+              <span className="flex items-center f5">( {opt.Quantity} )</span>
             </div>
           </Link>
         )
@@ -130,9 +128,7 @@ class SearchFilter extends Component {
           </div>
         </div>
         <div style={{ overflowY: 'auto', maxHeight: '200px' }}>
-          <Collapse isOpened={opened}>
-            {this.renderOptions()}
-          </Collapse>
+          <Collapse isOpened={opened}>{this.renderOptions()}</Collapse>
         </div>
       </div>
     )
