@@ -96,7 +96,6 @@ export default class SearchResultInfiniteScroll extends Component {
               return (
                 <SearchFilter
                   key={CATEGORIES_FILTER_TITLE}
-                  oneSelectedCollapse
                   title={CATEGORIES_FILTER_TITLE}
                   options={categories}
                   type={CATEGORIES_FILTER_TYPE}
@@ -168,8 +167,10 @@ export default class SearchResultInfiniteScroll extends Component {
     this.fetchMoreLoading = false
     if (!fetchMoreResult) return prev
     return {
-      ...prev,
-      products: [...prev.products, ...fetchMoreResult.products],
+      search: {
+        ...prev.search,
+        products: [...prev.search.products, ...fetchMoreResult.search.products],
+      },
     }
   }
 
