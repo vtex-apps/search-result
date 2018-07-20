@@ -96,6 +96,7 @@ export default class SearchResultInfiniteScroll extends Component {
               return (
                 <SearchFilter
                   key={CATEGORIES_FILTER_TITLE}
+                  oneSelectedCollapse
                   title={CATEGORIES_FILTER_TITLE}
                   options={categories}
                   type={CATEGORIES_FILTER_TYPE}
