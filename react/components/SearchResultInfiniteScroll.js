@@ -48,14 +48,14 @@ export default class SearchResultInfiniteScroll extends Component {
 
   getCategories() {
     const {
-      facetsQuery,
       searchQuery: {
-        variables: { query, map },
+        facets,
+        variables: { query, map, rest },
       },
     } = this.props
-    const { CategoriesTrees: tree } = facetsQuery.facets
+    const { CategoriesTrees: tree } = facets
     const [{ Children: children }] = tree
-    const categories = getCategoriesFromQuery(query, map)
+    const categories = getCategoriesFromQuery(query, rest, map)
     const category = findInTree(tree, categories, 0)
     if (category) {
       return category.Children || children
@@ -64,10 +64,10 @@ export default class SearchResultInfiniteScroll extends Component {
   }
 
   renderSearchFilters() {
-    if (!this.props.facetsQuery || !this.props.facetsQuery.facets) return
+    if (!this.props.searchQuery || !this.props.searchQuery.facets) return null
 
     const {
-      facetsQuery: { facets: facetsProps },
+      searchQuery: { facets: facetsProps },
     } = this.props
     const facets = { ...facetsProps }
     const selecteds = this.getSelecteds()
@@ -164,21 +164,14 @@ export default class SearchResultInfiniteScroll extends Component {
     return selecteds
   }
 
-  getRecordsFiltered() {
-    const { searchQuery, facetsQuery } = this.props
-    if (facetsQuery && facetsQuery.facets) {
-      const [{ Quantity: quantity }] = facetsQuery.facets.Departments
-      return quantity
-    }
-    return (searchQuery.products && searchQuery.products.length) || 0
-  }
-
   handleFetchMoreProducts = (prev, { fetchMoreResult }) => {
     this.fetchMoreLoading = false
     if (!fetchMoreResult) return prev
     return {
-      ...prev,
-      products: [...prev.products, ...fetchMoreResult.products],
+      search: {
+        ...prev.search,
+        products: [...prev.search.products, ...fetchMoreResult.search.products],
+      },
     }
   }
 
@@ -194,9 +187,9 @@ export default class SearchResultInfiniteScroll extends Component {
 
   render() {
     const {
-      facetsQuery: { loading: facetsLoading },
       searchQuery: {
-        products: searchedProducts,
+        products = [],
+        recordsFiltered = 0,
         variables: { query, map, orderBy },
         loading: searchLoading,
         fetchMore,
@@ -207,12 +200,10 @@ export default class SearchResultInfiniteScroll extends Component {
       summary,
     } = this.props
 
-    const isLoading = searchLoading || facetsLoading || this.props.state.loading
-    const products = searchedProducts || []
+    const isLoading = searchLoading || this.props.state.loading
     const from = (page - 1) * maxItemsPerPage + 1
     const to = (page - 1) * maxItemsPerPage + products.length
     const selecteds = this.getSelecteds()
-    const recordsFiltered = this.getRecordsFiltered()
 
     return (
       <InfiniteScroll

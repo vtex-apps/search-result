@@ -2,26 +2,28 @@ import QueryString from 'query-string'
 
 import SortOptions from './SortOptions'
 
-export function getCategoriesFromQuery(query, map) {
-  return getValuesByMap(query, map, 'c')
+export function joinPathWithRest(path, rest) {
+  return stripPath(path) + ((rest && `/${rest.replace(/,/g, '/')}`) || '')
+}
+
+export function getCategoriesFromQuery(query, rest, map) {
+  return getValuesByMap(joinPathWithRest(query, rest), map, 'c')
 }
 
 function getValuesByMap(query, map, mapValue) {
   const values = query.split('/')
   const mapValues = map.split(',')
-  const brands = []
-  mapValues.map((value, index) => {
-    if (value === mapValue) {
-      brands.push(values[index])
-    }
-  })
-  return brands
+  return mapValues.reduce((filteredValues, map, index) => {
+    if (map === mapValue) filteredValues.push(values[index])
+    return filteredValues
+  }, [])
 }
 
 export function findInTree(tree, values, index) {
-  if (!(tree.length && values.length)) return
+  if (!(tree && tree.length && values.length)) return
   for (let i = 0; i < tree.length; i++) {
-    if (tree[i].Name.toUpperCase() === values[index].toUpperCase()) {
+    const categorySlug = stripPath(tree[i].Link).split('/')[index]
+    if (categorySlug.toUpperCase() === values[index].toUpperCase()) {
       if (index === values.length - 1) {
         return tree[i]
       }
@@ -29,6 +31,14 @@ export function findInTree(tree, values, index) {
     }
   }
   return tree[0]
+}
+
+export function stripPath(pathName) {
+  return pathName
+    .replace(/^\//i, '')
+    .replace(/\/s$/i, '')
+    .replace(/\/d$/i, '')
+    .replace(/\/b$/i, '')
 }
 
 function getSpecificationFilterFromLink(link) {

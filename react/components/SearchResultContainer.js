@@ -1,5 +1,3 @@
-import '../global.css'
-
 import React, { Component } from 'react'
 import { Spinner } from 'vtex.styleguide'
 
@@ -50,28 +48,26 @@ export default class SearchResultContainer extends Component {
 
   getCategories() {
     const {
-      facetsQuery,
       searchQuery: {
-        variables: { query, map },
+        facets,
+        variables: { query, map, rest },
       },
-      pagesPath,
     } = this.props
-    const { CategoriesTrees: tree } = facetsQuery.facets
+    const { CategoriesTrees: tree } = facets
     const [{ Children: children }] = tree
-    const categories = getCategoriesFromQuery(query, map)
+    const categories = getCategoriesFromQuery(query, rest, map)
     const category = findInTree(tree, categories, 0)
-    if (pagesPath === 'store/department') {
-      return children
-    } else if (category) {
+    if (category) {
       return category.Children || children
     }
+    return children
   }
 
   renderSearchFilters() {
-    if (!this.props.facetsQuery || !this.props.facetsQuery.facets) return
+    if (!this.props.searchQuery || !this.props.searchQuery.facets) return null
 
     const {
-      facetsQuery: { facets: facetsProps },
+      searchQuery: { facets: facetsProps },
     } = this.props
     const facets = { ...facetsProps }
     const selecteds = this.getSelecteds()
@@ -168,15 +164,6 @@ export default class SearchResultContainer extends Component {
     return selecteds
   }
 
-  getRecordsFiltered() {
-    const { searchQuery, facetsQuery } = this.props
-    if (facetsQuery && facetsQuery.facets) {
-      const [{ Quantity: quantity }] = facetsQuery.facets.Departments
-      return quantity
-    }
-    return (searchQuery.products && searchQuery.products.length) || 0
-  }
-
   renderSpinner() {
     return (
       <div className="w-100 flex justify-center">
@@ -189,9 +176,9 @@ export default class SearchResultContainer extends Component {
 
   render() {
     const {
-      facetsQuery: { loading: facetsLoading },
       searchQuery: {
-        products: searchedProducts,
+        products = [],
+        recordsFiltered = 0,
         variables: { query, map, orderBy },
         loading: searchLoading,
       },
@@ -200,12 +187,11 @@ export default class SearchResultContainer extends Component {
       page,
       summary,
     } = this.props
-    const products = searchedProducts || []
+
+    const isLoading = searchLoading || this.state.loading
     const from = (page - 1) * maxItemsPerPage + 1
     const to = (page - 1) * maxItemsPerPage + products.length
     const selecteds = this.getSelecteds()
-    const isLoading = searchLoading || facetsLoading || this.state.loading
-    const recordsFiltered = this.getRecordsFiltered()
 
     return (
       <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3 dib`}>
