@@ -54,6 +54,11 @@ export default class SearchResultInfiniteScroll extends Component {
       },
     } = this.props
     const { CategoriesTrees: tree } = facets
+
+    if (!tree || tree.length === 0) {
+      return []
+    }
+
     const [{ Children: children }] = tree
     const categories = getCategoriesFromQuery(query, rest, map)
     const category = findInTree(tree, categories, 0)
