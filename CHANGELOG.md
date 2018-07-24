@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.6.1] - 2018-07-24
+### Fixed
+- Error when trying to access empty array.
+
 ## [0.6.0] - 2018-07-24
 ### Removed
 - `facetsQuery` reference.
