@@ -13,7 +13,7 @@ export default class FiltersContainer extends Component {
   }
 
   state = {
-    open: false,
+    open: true,
   }
 
   render() {
