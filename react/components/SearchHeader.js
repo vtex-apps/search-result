@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { FormattedMessage, injectIntl } from 'react-intl'
 import { Dropdown } from 'vtex.styleguide'
 
-import VTEXClasses from '../constants/CSSClasses'
 import SortOptions from '../constants/SortOptions'
 
 /**
@@ -43,14 +42,8 @@ class SearchHeader extends Component {
     const options = this.sortingOptions()
 
     return (
-      <div
-        className={`${
-          VTEXClasses.HEADER_CLASS
-        } flex flex-wrap justify-between`}>
-        <div
-          className={`${
-            VTEXClasses.HEADER_SEARCH_CLASS
-          } w-100 w-50-ns flex items-center justify-start pa3 ml7-l`}>
+      <div className="vtex-search-result__header flex flex-wrap justify-between">
+        <div className="vtex-search-result__header-search w-100 w-50-ns flex items-center justify-start pa3 ml7-l">
           <FormattedMessage
             id="search.text"
             values={{ from, to, recordsFiltered }}
