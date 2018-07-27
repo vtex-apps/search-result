@@ -54,18 +54,10 @@ class SearchFilter extends Component {
         ? this.props.intl.formatMessage({ id: this.props.title })
         : this.props.title
 
-    let filters
-
-    if (!options) {
-      filters = []
-    }
-
-    filters = options
+    let filters = options || []
 
     if (oneSelectedCollapse) {
-      const selecteds = filters.filter(option => {
-        return this.isSelected(option.Name)
-      })
+      const selecteds = filters.filter(option => this.isSelected(option.Name))
 
       if (selecteds.length) {
         filters = selecteds
