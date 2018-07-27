@@ -9,7 +9,7 @@ import GalleryItem from './GalleryItem'
  * Canonical gallery that displays a list of given products.
  */
 const Gallery = props => {
-  const { maxItemsPerLine } = props
+  const { maxItemsPerLine, products, summary } = props
 
   const itemClassName = classNames('vtex-gallery__item flex mv2 pa1 fl', {
     'w-100 w-50-m w-20-l': maxItemsPerLine === 5,
@@ -19,13 +19,13 @@ const Gallery = props => {
 
   return (
     <div className="vtex-gallery pa3 w-100 flex flex-wrap justify-start">
-      {props.products.map(item => {
+      {products.map(item => {
         return (
           <div
             key={item.productId}
             className={itemClassName}
           >
-            <GalleryItem item={item} summary={props.summary} />
+            <GalleryItem item={item} summary={summary} />
           </div>
         )
       })}
