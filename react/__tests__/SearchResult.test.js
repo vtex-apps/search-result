@@ -29,9 +29,7 @@ describe('<SearchResult /> component', () => {
     wrapper = mount(
       <IntlProvider locale="en-US" messages={messages}>
         <SearchResult
-          state={{
-            setContextVariables: jest.fn(),
-          }}
+          setContextVariables={jest.fn()}
           params={{ term: 'eletronics' }}
           map="c"
           path="eletronics/s"
