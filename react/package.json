@@ -8,6 +8,7 @@
   "author": "VTEX",
   "license": "ISC",
   "dependencies": {
+    "classnames": "^2.2.6",
     "query-string": "^6.1.0",
     "ramda": "^0.25.0",
     "react-collapse": "^4.0.3",
