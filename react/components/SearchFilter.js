@@ -1,14 +1,11 @@
 import PropTypes from 'prop-types'
 import { contains } from 'ramda'
 import React, { Component } from 'react'
-import { Collapse } from 'react-collapse'
 import { injectIntl, intlShape } from 'react-intl'
 import { Link } from 'render'
 
-import VTEXClasses from '../constants/CSSClasses'
+import FiltersContainer from './FiltersContainer'
 import { facetOptionShape } from '../constants/propTypes'
-import ArrowDown from '../images/arrow-down.svg'
-import ArrowUp from '../images/arrow-up.svg'
 
 const CATEGORIES_FILTER_TITLE = 'search.filter.title.categories'
 const SELECTED_FILTER_COLOR = '#368DF7'
@@ -43,94 +40,78 @@ class SearchFilter extends Component {
     selecteds: [],
   }
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      opened: props.opened,
-    }
-  }
-
   isSelected(optName) {
     return contains(optName.toUpperCase(), this.props.selecteds)
   }
 
   renderOptions() {
-    const { type, options, getLinkProps, oneSelectedCollapse } = this.props
-    if (options) {
-      let opts = options
-      if (oneSelectedCollapse) {
-        const selecteds = opts.filter(option => {
-          return this.isSelected(option.Name)
-        })
-        if (selecteds.length) {
-          opts = selecteds
-        }
-      }
-      return opts.map(opt => {
-        const pagesArgs = getLinkProps({
-          opt,
-          type,
-          isSelected: this.isSelected(opt.Name),
-        })
-        return (
-          <Link
-            key={opt.Name}
-            className="clear-link"
-            page={pagesArgs.page}
-            params={pagesArgs.params}
-            query={pagesArgs.queryString}>
-            <div className="w-90 flex items-center justify-between pa3">
-              <div className="flex items-center justify-center">
-                <span
-                  className="bb"
-                  style={{
-                    borderColor: `${
-                      this.isSelected(opt.Name)
-                        ? SELECTED_FILTER_COLOR
-                        : 'transparent'
-                    }`,
-                    borderWidth: '3px',
-                  }}>
-                  {opt.Name}
-                </span>
-              </div>
-              <span className="flex items-center f5">( {opt.Quantity} )</span>
-            </div>
-          </Link>
-        )
-      })
-    }
   }
 
   render() {
-    const { opened } = this.state
+    const { type, options, getLinkProps, oneSelectedCollapse } = this.props
     const title =
       this.props.title === CATEGORIES_FILTER_TITLE
         ? this.props.intl.formatMessage({ id: this.props.title })
         : this.props.title
+
+    let filters
+
+    if (!options) {
+      filters = []
+    }
+
+    filters = options
+
+    if (oneSelectedCollapse) {
+      const selecteds = filters.filter(option => {
+        return this.isSelected(option.Name)
+      })
+
+      if (selecteds.length) {
+        filters = selecteds
+      }
+    }
+
     return (
-      <div
-        className={`${
-          VTEXClasses.SEARCH_FILTER_MAIN_CLASS
-        } ph4 pt4 pb2 bb b--light-gray`}>
-        <div
-          className="pointer mb4"
-          onClick={() => {
-            this.setState({ opened: !opened })
-          }}>
-          <div>
-            <div className="f4">
-              {title}
-              <span className={`${VTEXClasses.SEARCH_FILTER_HEADER_ICON} fr`}>
-                <img src={opened ? ArrowUp : ArrowDown} width={20} />
-              </span>
-            </div>
-          </div>
-        </div>
-        <div style={{ overflowY: 'auto', maxHeight: '200px' }}>
-          <Collapse isOpened={opened}>{this.renderOptions()}</Collapse>
-        </div>
-      </div>
+      <FiltersContainer
+        title={title}
+        filters={filters}
+      >
+        {opt => {
+          const pagesArgs = getLinkProps({
+            opt,
+            type,
+            isSelected: this.isSelected(opt.Name),
+          })
+          return (
+            <Link
+              key={opt.Name}
+              className="clear-link"
+              page={pagesArgs.page}
+              params={pagesArgs.params}
+              query={pagesArgs.queryString}
+            >
+              <div className="w-90 flex items-center justify-between pa3">
+                <div className="flex items-center justify-center">
+                  <span
+                    className="bb"
+                    style={{
+                      borderColor:
+                      this.isSelected(opt.Name)
+                        ? SELECTED_FILTER_COLOR
+                        : 'transparent',
+                      borderWidth: '3px',
+                    }}
+                  >
+                    {opt.Name}
+                  </span>
+                </div>
+                <span className="flex items-center f5">( {opt.Quantity} )</span>
+              </div>
+            </Link>
+          )
+        }}
+      </FiltersContainer>
     )
   }
 }

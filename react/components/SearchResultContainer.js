@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Spinner } from 'vtex.styleguide'
 
-import VTEXClasses from '../constants/CSSClasses'
 import { searchResultPropTypes } from '../constants/propTypes'
 import { findInTree, getCategoriesFromQuery, getPagesArgs } from '../constants/SearchHelpers'
 import Gallery from './Gallery'
@@ -194,7 +193,7 @@ export default class SearchResultContainer extends Component {
     const selecteds = this.getSelecteds()
 
     return (
-      <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3 dib`}>
+      <div className="vtex-search-result w-100 pa3 dib">
         <div className="w-100 w-30-m w-20-l fl pa3">
           <SelectedFilters
             selecteds={selecteds}

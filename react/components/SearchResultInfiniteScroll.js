@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Spinner } from 'vtex.styleguide'
 
-import VTEXClasses from '../constants/CSSClasses'
 import { searchResultPropTypes } from '../constants/propTypes'
 import { findInTree, getCategoriesFromQuery, getPagesArgs } from '../constants/SearchHelpers'
 import Gallery from './Gallery'
@@ -205,7 +204,7 @@ export default class SearchResultInfiniteScroll extends Component {
       summary,
     } = this.props
 
-    const isLoading = searchLoading || this.props.state.loading
+    const isLoading = searchLoading || this.props.loading
     const from = (page - 1) * maxItemsPerPage + 1
     const to = (page - 1) * maxItemsPerPage + products.length
     const selecteds = this.getSelecteds()
@@ -223,8 +222,9 @@ export default class SearchResultInfiniteScroll extends Component {
             updateQuery: this.handleFetchMoreProducts,
           })
         }}
-        hasMore={products.length < recordsFiltered}>
-        <div className={`${VTEXClasses.MAIN_CLASS} w-100 pa3 dib`}>
+        hasMore={products.length < recordsFiltered}
+      >
+        <div className="vtex-search-result w-100 pa3 dib">
           <div className="w-100 w-30-m w-20-l fl pa3">
             <SelectedFilters
               selecteds={selecteds}

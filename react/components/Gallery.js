@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
+import classNames from 'classnames'
 
-import VTEXClasses from '../constants/CSSClasses'
 import { productShape } from '../constants/propTypes'
 import GalleryItem from './GalleryItem'
 
@@ -27,24 +27,24 @@ export default class Gallery extends Component {
   }
 
   getWidthClass() {
-    switch (this.props.maxItemsPerLine) {
-      case 5:
-        return 'w-100 w-50-m w-20-l'
-      case 4:
-        return 'w-100 w-50-m w-25-l'
-      case 3:
-        return 'w-100 w-50-m w-third-l'
-    }
   }
 
   render() {
+    const { maxItemsPerLine } = this.props
+
+    const itemClassName = classNames('vtex-gallery__item flex mv2 pa1 fl', {
+      'w-100 w-50-m w-20-l': maxItemsPerLine === 5,
+      'w-100 w-50-m w-25-l': maxItemsPerLine === 4,
+      'w-100 w-50-m w-third-l': maxItemsPerLine === 3,
+    })
+
     return (
-      <div className={`${VTEXClasses.GALLERY_CLASS} pa3 w-100 flex flex-wrap justify-start`}>
+      <div className="vtex-gallery pa3 w-100 flex flex-wrap justify-start">
         {this.props.products.map(item => {
           return (
             <div
               key={item.productId}
-              className={`${VTEXClasses.GALLERY_ITEM_CLASS} ${this.getWidthClass()} flex mv2 pa1 fl`}
+              className={itemClassName}
             >
               <GalleryItem item={item} summary={this.props.summary} />
             </div>
