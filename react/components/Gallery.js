@@ -19,7 +19,7 @@ const Gallery = props => {
 
   return (
     <div className="vtex-gallery pa3 w-100 flex flex-wrap justify-start">
-      {this.props.products.map(item => {
+      {props.products.map(item => {
         return (
           <div
             key={item.productId}
