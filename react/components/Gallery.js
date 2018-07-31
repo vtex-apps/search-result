@@ -11,19 +11,19 @@ import GalleryItem from './GalleryItem'
 const Gallery = props => {
   const { maxItemsPerLine, products, summary } = props
 
-  const itemClassName = classNames('vtex-gallery__item flex mv2 pa1 fl', {
-    'w-100 w-50-m w-20-l': maxItemsPerLine === 5,
-    'w-100 w-50-m w-25-l': maxItemsPerLine === 4,
-    'w-100 w-50-m w-third-l': maxItemsPerLine === 3,
+  const className = classNames('vtex-gallery pa3 w-100', {
+    'vtex-gallery--max-5': maxItemsPerLine === 5,
+    'vtex-gallery--max-4': maxItemsPerLine === 4,
+    'vtex-gallery--max-3': maxItemsPerLine === 3,
   })
 
   return (
-    <div className="vtex-gallery pa3 w-100 flex flex-wrap justify-start">
+    <div className={className}>
       {products.map(item => {
         return (
           <div
             key={item.productId}
-            className={itemClassName}
+            className="vtex-gallery__item mv2 pa1"
           >
             <GalleryItem item={item} summary={summary} />
           </div>

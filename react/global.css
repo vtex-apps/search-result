@@ -1,12 +1,27 @@
 .vtex-search-result a {
-    outline: 0;
+  outline: 0;
 }
-@media only screen and (min-width: 60em) and (max-width: 70em) {
-    .vtex-gallery__item {
-        max-width: 33%;
-        width: auto;
-    }
-}
+
 .vtex-search-result__filter span:hover {
-    color: #368DF7
+  color: #368DF7
 }
+
+.vtex-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-gap: 5px;
+  margin: 0 auto;
+}
+
+.vtex-gallery--max-5 {
+  max-width: 1450px;
+}
+
+.vtex-gallery--max-4 {
+  max-width: 1160px;
+}
+
+.vtex-gallery--max-3 {
+  max-width: 870px;
+}
+
