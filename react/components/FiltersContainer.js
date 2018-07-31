@@ -2,8 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Collapse } from 'react-collapse'
 
-import ArrowDown from '../images/arrow-down.svg'
-import ArrowUp from '../images/arrow-up.svg'
+import Arrow from '../images/Arrow'
 
 export default class FiltersContainer extends Component {
   static propTypes = {
@@ -31,7 +30,7 @@ export default class FiltersContainer extends Component {
           <div className="f4">
             {title}
             <span className="vtex-search-result__filter-icon fr">
-              <img src={open ? ArrowUp : ArrowDown} width={20} />
+              <Arrow up={open} />
             </span>
           </div>
         </div>
