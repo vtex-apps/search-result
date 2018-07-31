@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Collapse } from 'react-collapse'
+import classNames from 'classnames'
 
 import Arrow from '../images/Arrow'
 
@@ -9,6 +10,11 @@ export default class FiltersContainer extends Component {
     filters: PropTypes.arrayOf(PropTypes.object).isRequired,
     children: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
+    collapsable: PropTypes.bool,
+  }
+
+  static defaultProps = {
+    collapsable: true,
   }
 
   state = {
@@ -16,8 +22,14 @@ export default class FiltersContainer extends Component {
   }
 
   render() {
-    const { children, filters, title } = this.props
+    const { children, filters, title, collapsable } = this.props
     const { open } = this.state
+
+    const CollapseComponent = collapsable ? Collapse : Fragment
+
+    const titleClassName = classNames('f6', {
+      'ttu': !collapsable,
+    })
 
     return (
       <div className="vtex-search-result__filter ph4 pt4 pb2 bb b--light-gray">
@@ -27,20 +39,20 @@ export default class FiltersContainer extends Component {
             this.setState({ open: !open })
           }}
         >
-          <div className="f4">
+          <div className={titleClassName}>
             {title}
-            <span className="vtex-search-result__filter-icon fr">
+            {collapsable && <span className="vtex-search-result__filter-icon fr">
               <Arrow up={open} />
-            </span>
+            </span>}
           </div>
         </div>
 
         <div style={{ overflowY: 'auto', maxHeight: '200px' }}>
-          <Collapse isOpened={open}>
+          <CollapseComponent isOpened={open}>
             <div className="w-90 db">
               {filters.map(children)}
             </div>
-          </Collapse>
+          </CollapseComponent>
         </div>
       </div>
     )
