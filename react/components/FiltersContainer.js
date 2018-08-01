@@ -25,27 +25,28 @@ export default class FiltersContainer extends Component {
     const { children, filters, title, collapsable } = this.props
     const { open } = this.state
 
-    const titleClassName = classNames('f6', {
+    const titleClassName = classNames('f6 flex items-center justify-between', {
       'ttu': !collapsable,
     })
 
     return (
       <div className="vtex-search-result__filter pv3 bb b--light-gray">
         <div
-          className="pointer mb2"
+          className="pointer"
           onClick={() => {
             this.setState({ open: !open })
           }}
         >
           <div className={titleClassName}>
             {title}
-            {collapsable && <span className="vtex-search-result__filter-icon fr">
-              <Arrow up={open} />
-            </span>}
+            {collapsable && (
+              <span className="vtex-search-result__filter-icon" style={{ height: 10 }}>
+                <Arrow up={open} />
+              </span>
+            )}
           </div>
         </div>
-
-        <div style={{ overflowY: 'auto', maxHeight: '200px' }}>
+        <div className="pt2" style={{ overflowY: 'auto', maxHeight: '200px' }}>
           {collapsable ? (
             <Collapse isOpened={open}>
               {filters.map(children)}
