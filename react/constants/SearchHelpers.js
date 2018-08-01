@@ -1,19 +1,18 @@
 import QueryString from 'query-string'
-
 import SortOptions from './SortOptions'
 
 export function joinPathWithRest(path, rest) {
   return stripPath(path) + ((rest && `/${rest.replace(/,/g, '/')}`) || '')
 }
 
-export function getCategoriesFromQuery(query, rest, map) {
-  return getValuesByMap(joinPathWithRest(query, rest), map, 'c')
+export function getCategoriesFromQuery(query, map) {
+  return getValuesByMap(stripPath(query), map, 'c')
 }
 
 function getValuesByMap(query, map, mapValue) {
   const values = query.split('/')
   const mapValues = map.split(',')
-  return mapValues.reduce((filteredValues, map, index) => {
+  return mapValues.slice(0, values.length).reduce((filteredValues, map, index) => {
     if (map === mapValue) filteredValues.push(values[index])
     return filteredValues
   }, [])
@@ -41,12 +40,42 @@ export function stripPath(pathName) {
     .replace(/\/b$/i, '')
 }
 
-function getSpecificationFilterFromLink(link) {
+export function getSpecificationFilterFromLink(link) {
   return `specificationFilter_${link.split('specificationFilter_')[1]}`
 }
 
+export function getMapByType(type) {
+  switch (type) {
+    case 'PriceRanges':
+      return 'priceFrom'
+    case 'Categories':
+      return 'c'
+    case 'Brands':
+      return 'b'
+  }
+}
+
+/**
+ * Returns an object mapped by restValue and your mapValue.
+ */
+export function restMapped(query, rest, map) {
+  const queryLength = query.split('/').length
+  const restValues = (rest && rest.split(',')) || []
+  const mapValues = (map && map.split(',')) || []
+  const mapValuesSliced = mapValues.slice(queryLength)
+  return restValues.reduce((acc, value, index) => {
+    acc[value.toUpperCase()] = mapValuesSliced[index]
+    return acc
+  }, {})
+}
+
+export function getSlugFromLink(link) {
+  const { url } = QueryString.parseUrl(link)
+  return stripPath(url).split('/').pop()
+}
+
 export function getPagesArgs(
-  { name, type, link },
+  { type, link },
   rest,
   { map, orderBy, pageNumber = 1 },
   pagesPath,
@@ -55,34 +84,26 @@ export function getPagesArgs(
 ) {
   const restValues = (rest && rest.split(',')) || []
   const mapValues = (map && map.split(',')) || []
-  if (name) {
-    if (isUnselectLink) {
-      const paramsLength = Object.keys(params).filter(
-        param => !param.startsWith('_')
-      ).length
-      const index = restValues.findIndex(
-        item => name.toLowerCase() === item.toLowerCase()
-      )
-      if (index !== -1) {
-        restValues.splice(index, 1)
-        mapValues.splice(paramsLength + index, 1)
-      }
-    } else {
-      switch (type) {
-        case 'Brands': {
-          mapValues.push('b')
-          break
-        }
-        case 'SpecificationFilters': {
-          mapValues.push(`${getSpecificationFilterFromLink(link)}`)
-          break
-        }
-        default: {
-          mapValues.push('c')
-        }
-      }
-      restValues.push(name)
+  const slug = getSlugFromLink(link, type)
+  if (isUnselectLink) {
+    const paramsLength = Object.keys(params).filter(
+      param => !param.startsWith('_')
+    ).length
+
+    const index = restValues.findIndex(
+      item => slug.toLowerCase() === item.toLowerCase()
+    )
+    if (index !== -1) {
+      restValues.splice(index, 1)
+      mapValues.splice(paramsLength + index, 1)
     }
+  } else {
+    let map = getMapByType(type)
+    if (type === 'SpecificationFilters') {
+      map = getSpecificationFilterFromLink(link)
+    }
+    restValues.push(slug)
+    mapValues.push(map)
   }
 
   const queryString = QueryString.stringify({
@@ -92,4 +113,24 @@ export function getPagesArgs(
     rest: restValues.join(',') || undefined,
   })
   return { page: pagesPath, params, queryString }
+}
+
+export function mountOptions(options, type) {
+  const { searchQuery: { variables: { query, map, rest } } } = this.props
+  const restMap = restMapped(query, rest, map)
+  return options.reduce((acc, opt) => {
+    const slug = getSlugFromLink(opt.Link)
+    let optMap = getMapByType(type)
+    if (type === 'SpecificationFilters') {
+      optMap = getSpecificationFilterFromLink(opt.Link)
+    }
+    const selected = restMap[slug && slug.toUpperCase()] === optMap
+    acc.push({
+      ...opt,
+      selected,
+      type,
+      slug,
+    })
+    return acc
+  }, [])
 }

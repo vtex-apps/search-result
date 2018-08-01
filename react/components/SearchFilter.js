@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import { contains } from 'ramda'
 import React, { Component } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
 import { Link } from 'render'
@@ -21,8 +20,6 @@ class SearchFilter extends Component {
     opened: PropTypes.bool,
     /** SearchFilter's options. */
     options: PropTypes.arrayOf(facetOptionShape),
-    /** SearchFilter's options selecteds. */
-    selecteds: PropTypes.arrayOf(PropTypes.string).isRequired,
     /** SearchFilter's type. */
     type: PropTypes.string,
     /** If the SearchFilter must collapse when just one is selected. */
@@ -37,14 +34,6 @@ class SearchFilter extends Component {
     title: 'Default Title',
     opened: true,
     options: [],
-    selecteds: [],
-  }
-
-  isSelected(optName) {
-    return contains(optName.toUpperCase(), this.props.selecteds)
-  }
-
-  renderOptions() {
   }
 
   render() {
@@ -57,7 +46,7 @@ class SearchFilter extends Component {
     let filters = options || []
 
     if (oneSelectedCollapse) {
-      const selecteds = filters.filter(option => this.isSelected(option.Name))
+      const selecteds = filters.filter(option => option.selected)
 
       if (selecteds.length) {
         filters = selecteds
@@ -73,7 +62,7 @@ class SearchFilter extends Component {
           const pagesArgs = getLinkProps({
             opt,
             type,
-            isSelected: this.isSelected(opt.Name),
+            isSelected: opt.selected,
           })
           return (
             <Link
@@ -89,7 +78,7 @@ class SearchFilter extends Component {
                     className="bb"
                     style={{
                       borderColor:
-                      this.isSelected(opt.Name)
+                      opt.selected
                         ? SELECTED_FILTER_COLOR
                         : 'transparent',
                       borderWidth: '3px',

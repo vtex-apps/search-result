@@ -3,25 +3,14 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { Spinner } from 'vtex.styleguide'
 
 import { searchResultPropTypes } from '../constants/propTypes'
-import { findInTree, getCategoriesFromQuery, getPagesArgs } from '../constants/SearchHelpers'
+import { findInTree, getCategoriesFromQuery, getPagesArgs, mountOptions } from '../constants/SearchHelpers'
 import Gallery from './Gallery'
 import SearchFilter from './SearchFilter'
 import SearchHeader from './SearchHeader'
 import SelectedFilters from './SelectedFilters'
 
-const FACETS_KEYS = {
-  Departments: 'Departments',
-  Categories: 'CategoriesTrees',
-  Brands: 'Brands',
-  Specifications: 'SpecificationFilters',
-}
-
 const CATEGORIES_FILTER_TITLE = 'search.filter.title.categories'
 const CATEGORIES_FILTER_TYPE = 'Categories'
-const KEY_MAP_CATEGORY = 'c'
-const KEY_MAP_BRAND = 'b'
-const KEY_MAP_TEXT = 'ft'
-const MAP_SEPARATOR = ','
 
 /**
  * Search Result Component.
@@ -49,7 +38,7 @@ export default class SearchResultInfiniteScroll extends Component {
     const {
       searchQuery: {
         facets,
-        variables: { query, map, rest },
+        variables: { query, map },
       },
     } = this.props
     const { CategoriesTrees: tree } = facets
@@ -59,113 +48,68 @@ export default class SearchResultInfiniteScroll extends Component {
     }
 
     const [{ Children: children }] = tree
-    const categories = getCategoriesFromQuery(query, rest, map)
+    const categories = getCategoriesFromQuery(query, map)
     const category = findInTree(tree, categories, 0)
     if (category) {
       return category.Children || children
     }
-    return children
-  }
-
-  renderSearchFilters() {
-    if (!this.props.searchQuery || !this.props.searchQuery.facets) return null
-
-    const {
-      searchQuery: { facets: facetsProps },
-    } = this.props
-    const facets = { ...facetsProps }
-    const selecteds = this.getSelecteds()
-    delete facets[FACETS_KEYS.Departments]
-
-    return Object.values(FACETS_KEYS).map(key => {
-      if (facets[key]) {
-        switch (key) {
-          case FACETS_KEYS.Specifications: {
-            return facets[key].map(filter => {
-              return (
-                <SearchFilter
-                  key={filter.name}
-                  title={filter.name}
-                  options={filter.facets}
-                  type={key}
-                  selecteds={selecteds[key]}
-                  getLinkProps={this.getLinkProps}
-                />
-              )
-            })
-          }
-          case FACETS_KEYS.Categories: {
-            const categories = this.getCategories()
-            if (categories && categories.length) {
-              return (
-                <SearchFilter
-                  key={CATEGORIES_FILTER_TITLE}
-                  oneSelectedCollapse
-                  title={CATEGORIES_FILTER_TITLE}
-                  options={categories}
-                  type={CATEGORIES_FILTER_TYPE}
-                  selecteds={selecteds.Categories}
-                  getLinkProps={this.getLinkProps}
-                />
-              )
-            }
-            break
-          }
-          default: {
-            return (
-              <SearchFilter
-                key={key}
-                title={key}
-                options={facets[key]}
-                type={key}
-                getLinkProps={this.getLinkProps}
-                selecteds={selecteds[key]}
-              />
-            )
-          }
-        }
-      }
-    })
+    return children || []
   }
 
   getSelecteds() {
-    const { rest, params, map } = this.props
-    const restValues = (rest && rest.split(MAP_SEPARATOR)) || []
-    const paramsValues = Object.keys(params).filter(
-      param => !param.startsWith('_')
-    )
-    const mapValues = map.split(MAP_SEPARATOR)
-    const selecteds = {
-      Categories: [],
-      Brands: [],
-      FullText: [],
-      SpecificationFilters: [],
-    }
-    restValues.map((term, index) => {
-      const termDecoded = decodeURI(term.toUpperCase())
-      const mapValue = mapValues[paramsValues.length + index]
-
-      switch (mapValue) {
-        case KEY_MAP_CATEGORY: {
-          selecteds.Categories.push(termDecoded)
-          break
-        }
-        case KEY_MAP_BRAND: {
-          selecteds.Brands.push(termDecoded)
-          break
-        }
-        case KEY_MAP_TEXT: {
-          selecteds.FullText = [termDecoded]
-          break
-        }
-        default: {
-          selecteds.SpecificationFilters.push(termDecoded)
-          break
-        }
-      }
+    const {
+      searchQuery: {
+        facets: {
+          Brands = [],
+          SpecificationFilters = [],
+          PriceRanges = [],
+        },
+      },
+    } = this.props
+    const categories = this.getCategories()
+    let options = []
+    options = options.concat(mountOptions(categories, CATEGORIES_FILTER_TYPE))
+    SpecificationFilters.map(spec => {
+      options = options.concat(mountOptions(spec.facets, 'SpecificationFilters'))
     })
+    options = options.concat(mountOptions(Brands, 'Brands'))
+    options = options.concat(mountOptions(PriceRanges, 'PriceRanges'))
+    return options.filter(opt => opt.selected)
+  }
 
-    return selecteds
+  renderSearchFilters() {
+    const {
+      searchQuery: {
+        facets: {
+          Brands = [],
+          SpecificationFilters = [],
+          PriceRanges = [],
+        },
+      },
+    } = this.props
+    const categories = this.getCategories()
+    const filtersFallback = (type, title, options, oneSelectedCollapse = false) => {
+      return (
+        <SearchFilter
+          key={title}
+          title={title}
+          options={mountOptions(options, type)}
+          oneSelectedCollapse={oneSelectedCollapse}
+          type={type}
+          getLinkProps={this.getLinkProps}
+        />
+      )
+    }
+    const filters = []
+    if (categories.length) {
+      filters.push(filtersFallback(CATEGORIES_FILTER_TYPE, CATEGORIES_FILTER_TITLE, categories, true))
+    }
+    SpecificationFilters.map(spec => {
+      filters.push(filtersFallback('SpecificationFilters', spec.name, spec.facets))
+    })
+    filters.push(filtersFallback('Brands', 'Brands', Brands))
+    filters.push(filtersFallback('PriceRanges', 'Price Ranges', PriceRanges))
+    return filters
   }
 
   handleFetchMoreProducts = (prev, { fetchMoreResult }) => {
@@ -227,7 +171,7 @@ export default class SearchResultInfiniteScroll extends Component {
         <div className="vtex-search-result w-100 pa3 dib">
           <div className="w-100 w-30-m w-20-l fl pa3">
             <SelectedFilters
-              selecteds={selecteds}
+              selecteds={selecteds || []}
               getLinkProps={this.getLinkProps}
             />
             {this.renderSearchFilters()}

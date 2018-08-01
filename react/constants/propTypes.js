@@ -74,7 +74,7 @@ export const facetsShape = PropTypes.shape({
       /** SpecificationFilter's name. */
       name: PropTypes.string.isRequired,
       /** SpecificationFilter's facets. */
-      facets: facetOptionShape,
+      facets: PropTypes.arrayOf(facetOptionShape),
     })
   ),
   /** Categories matched with the facets. */
