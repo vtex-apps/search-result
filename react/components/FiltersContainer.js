@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
 
@@ -25,14 +25,12 @@ export default class FiltersContainer extends Component {
     const { children, filters, title, collapsable } = this.props
     const { open } = this.state
 
-    const CollapseComponent = collapsable ? Collapse : Fragment
-
     const titleClassName = classNames('f6', {
       'ttu': !collapsable,
     })
 
     return (
-      <div className="vtex-search-result__filter ph4 pt4 pb2 bb b--light-gray">
+      <div className="vtex-search-result__filter ph4 pv3 bb b--light-gray">
         <div
           className="pointer mb4"
           onClick={() => {
@@ -48,11 +46,11 @@ export default class FiltersContainer extends Component {
         </div>
 
         <div style={{ overflowY: 'auto', maxHeight: '200px' }}>
-          <CollapseComponent isOpened={open}>
-            <div className="w-90 db">
+          {collapsable ? (
+            <Collapse isOpened={open}>
               {filters.map(children)}
-            </div>
-          </CollapseComponent>
+            </Collapse>
+          ) : filters.map(children)}
         </div>
       </div>
     )

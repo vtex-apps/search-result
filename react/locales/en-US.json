@@ -3,7 +3,7 @@
   "search.filter.title.brands": "Brands",
   "search.filter.title.price-ranges": "Price Ranges",
   "search.text": "Showing {from}-{to} from {recordsFiltered} records",
-  "search.selected-filters": "Selected Filters",
+  "search.selected-filters": "Filter by:",
   "ordenation.sales": "Sales",
   "ordenation.release.date": "Release Date",
   "ordenation.discount": "Discount",

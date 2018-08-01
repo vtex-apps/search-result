@@ -3,7 +3,7 @@
   "search.filter.title.brands": "Marcas",
   "search.filter.title.price-ranges": "Faixa de Preço",
   "search.text": "Exibindo {from}-{to} de {recordsFiltered} resultados",
-  "search.selected-filters": "Filtros Selecionados",
+  "search.selected-filters": "Filtrar por:",
   "ordenation.sales": "Vendas",
   "ordenation.release.date": "Mais recentes",
   "ordenation.discount": "Desconto",

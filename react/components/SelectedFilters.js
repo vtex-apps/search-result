@@ -48,11 +48,11 @@ class SelectedFilters extends Component {
               className="w-100 flex clear-link"
               page={pagesArgs.page}
               params={pagesArgs.params}
-              query={pagesArgs.queryString}>
+              query={pagesArgs.queryString}
+            >
               <Checkbox
                 checked
                 label={name}
-                name="default-checkbox-group"
                 value=""
                 onChange={evt => {
                   evt.preventDefault()
