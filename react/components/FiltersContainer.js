@@ -30,9 +30,9 @@ export default class FiltersContainer extends Component {
     })
 
     return (
-      <div className="vtex-search-result__filter ph4 pv3 bb b--light-gray">
+      <div className="vtex-search-result__filter pv3 bb b--light-gray">
         <div
-          className="pointer mb4"
+          className="pointer mb2"
           onClick={() => {
             this.setState({ open: !open })
           }}
