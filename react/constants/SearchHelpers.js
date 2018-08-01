@@ -115,8 +115,7 @@ export function getPagesArgs(
   return { page: pagesPath, params, queryString }
 }
 
-export function mountOptions(options, type) {
-  const { searchQuery: { variables: { query, map, rest } } } = this.props
+export function mountOptions(options, type, query, map, rest) {
   const restMap = restMapped(query, rest, map)
   return options.reduce((acc, opt) => {
     const slug = getSlugFromLink(opt.Link)

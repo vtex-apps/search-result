@@ -64,16 +64,17 @@ export default class SearchResultInfiniteScroll extends Component {
           SpecificationFilters = [],
           PriceRanges = [],
         },
+        variables: { query, map, rest },
       },
     } = this.props
     const categories = this.getCategories()
     let options = []
-    options = options.concat(mountOptions(categories, CATEGORIES_FILTER_TYPE))
+    options = options.concat(mountOptions(categories, CATEGORIES_FILTER_TYPE, query, map, rest))
     SpecificationFilters.map(spec => {
-      options = options.concat(mountOptions(spec.facets, 'SpecificationFilters'))
+      options = options.concat(mountOptions(spec.facets, 'SpecificationFilters', query, map, rest))
     })
-    options = options.concat(mountOptions(Brands, 'Brands'))
-    options = options.concat(mountOptions(PriceRanges, 'PriceRanges'))
+    options = options.concat(mountOptions(Brands, 'Brands', query, map, rest))
+    options = options.concat(mountOptions(PriceRanges, 'PriceRanges', query, map, rest))
     return options.filter(opt => opt.selected)
   }
 
@@ -85,6 +86,7 @@ export default class SearchResultInfiniteScroll extends Component {
           SpecificationFilters = [],
           PriceRanges = [],
         },
+        variables: { query, map, rest },
       },
     } = this.props
     const categories = this.getCategories()
@@ -93,7 +95,7 @@ export default class SearchResultInfiniteScroll extends Component {
         <SearchFilter
           key={title}
           title={title}
-          options={mountOptions(options, type)}
+          options={mountOptions(options, type, query, map, rest)}
           oneSelectedCollapse={oneSelectedCollapse}
           type={type}
           getLinkProps={this.getLinkProps}
