@@ -50,7 +50,7 @@ class SelectedFilters extends Component {
               params={pagesArgs.params}
               query={pagesArgs.queryString}
             >
-              <label className="w-100 flex items-center relative f7 fw3 mb2">
+              <label className="w-100 flex items-center relative f7 fw3 mb2 pointer">
                 <div className="absolute top-0 left-0 bottom-0">
                   <Check size={16} />
                 </div>
