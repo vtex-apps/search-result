@@ -4,6 +4,7 @@
   "search.filter.title.price-ranges": "Price Ranges",
   "search.text": "Showing {from}-{to} from {recordsFiltered} records",
   "search.selected-filters": "Filter by:",
+  "search.total-products": "{recordsFiltered} Products",
   "ordenation.sales": "Sales",
   "ordenation.release.date": "Release Date",
   "ordenation.discount": "Discount",

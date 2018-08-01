@@ -143,7 +143,6 @@ export default class SearchResultInfiniteScroll extends Component {
         fetchMore,
       },
       orderBy,
-      maxItemsPerLine,
       maxItemsPerPage,
       page,
       summary,
@@ -169,23 +168,28 @@ export default class SearchResultInfiniteScroll extends Component {
         }}
         hasMore={products.length < recordsFiltered}
       >
-        <div className="vtex-search-result w-100 pa3 dib">
-          <div className="w-100 w-30-m w-20-l fl pa3">
+        <div className="vtex-search-result pa3">
+          <SearchHeader
+            from={from}
+            to={to}
+            query={query}
+            map={map}
+            orderBy={orderBy}
+            recordsFiltered={recordsFiltered}
+            getLinkProps={this.getLinkProps}
+          />
+          <div className="vtex-search-result__filters pa3">
             <SelectedFilters
               selecteds={selecteds}
               getLinkProps={this.getLinkProps}
             />
             {this.renderSearchFilters()}
           </div>
-          <div className="w-100 w-70-m w-80-l fl">
-            <SearchHeader
-              {...{ from, to, orderBy, recordsFiltered }}
-              getLinkProps={this.getLinkProps}
-            />
+          <div className="vtex-search-result__gallery">
             {isLoading && !this.fetchMoreLoading ? (
               this.renderSpinner()
             ) : (
-              <Gallery {...{ products, maxItemsPerLine, summary }} />
+              <Gallery products={products} summary={summary} />
             )}
             {this.fetchMoreLoading && this.renderSpinner()}
           </div>

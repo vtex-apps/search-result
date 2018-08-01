@@ -4,6 +4,7 @@
   "search.filter.title.price-ranges": "Faixa de Preço",
   "search.text": "Exibindo {from}-{to} de {recordsFiltered} resultados",
   "search.selected-filters": "Filtrar por:",
+  "search.total-products": "{recordsFiltered} Produtos",
   "ordenation.sales": "Vendas",
   "ordenation.release.date": "Mais recentes",
   "ordenation.discount": "Desconto",

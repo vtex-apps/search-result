@@ -118,8 +118,6 @@ export const mapType = PropTypes.string
 export const orderType = PropTypes.string
 
 export const schemaPropsTypes = {
-  /** Maximum number of items per line. */
-  maxItemsPerLine: PropTypes.number,
   /** Maximum number of items per page. */
   maxItemsPerPage: PropTypes.number,
   /** Product Summary's props */

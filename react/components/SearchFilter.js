@@ -71,20 +71,17 @@ class SearchFilter extends Component {
               params={pagesArgs.params}
               query={pagesArgs.queryString}
             >
-              <div className="flex items-center justify-between">
-                <span
-                  className="f6 fw3 bb"
-                  style={{
-                    borderColor: opt.selected
-                      ? SELECTED_FILTER_COLOR
-                      : 'transparent',
-                    borderWidth: '1px',
-                  }}
-                >
-                  {opt.Name}
-                </span>
-                <span className="f6 fw3">({opt.Quantity})</span>
-              </div>
+              <span
+                className="f6 fw3 bb db"
+                style={{
+                  borderColor: opt.selected
+                    ? SELECTED_FILTER_COLOR
+                    : 'transparent',
+                  borderWidth: '1px',
+                }}
+              >
+                {opt.Name}
+              </span>
             </Link>
           )
         }}

@@ -1,3 +1,24 @@
+.vtex-search-result {
+  display: grid;
+  grid-template-columns: 267px auto;
+  grid-template-areas:
+    ". header"
+    "filters gallery";
+}
+
+.vtex-search-result__header {
+  grid-column: header;
+}
+
+.vtex-search-result__filters {
+  grid-row: filters;
+}
+
+.vtex-search-result__gallery {
+  grid-column: gallery;
+  grid-row: gallery;
+}
+
 .vtex-search-result a {
   outline: 0;
 }
@@ -11,17 +32,5 @@
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   grid-gap: 5px;
   margin: 0 auto;
-}
-
-.vtex-gallery--max-5 {
-  max-width: 1450px;
-}
-
-.vtex-gallery--max-4 {
-  max-width: 1160px;
-}
-
-.vtex-gallery--max-3 {
-  max-width: 870px;
 }
 

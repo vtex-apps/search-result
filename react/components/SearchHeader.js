@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { FormattedMessage, injectIntl } from 'react-intl'
 import { Dropdown } from 'vtex.styleguide'
+import { ExtensionPoint } from 'render'
 
 import SortOptions from '../constants/SortOptions'
 
@@ -38,19 +39,22 @@ class SearchHeader extends Component {
   }
 
   render() {
-    const { recordsFiltered, orderBy, from, to, getLinkProps } = this.props
+    const { recordsFiltered, orderBy, from, to, getLinkProps } = this.props // eslint-disable-line no-unused-vars
     const options = this.sortingOptions()
 
     return (
       <div className="vtex-search-result__header flex flex-wrap justify-between">
-        <div className="vtex-search-result__header-search w-100 w-50-ns flex items-center justify-start pa3 ml7-l">
-          <FormattedMessage
-            id="search.text"
-            values={{ from, to, recordsFiltered }}
-          />
+        <div className="vtex-search-result__header-search">
+          {/* <ExtensionPoint id="breadcrumb" /> */}
         </div>
 
-        <div className="w-100 w-50-m w-20-l pa3">
+        <div className="flex items-center">
+          <FormattedMessage
+            id="search.total-products"
+            values={{ recordsFiltered }}
+          >
+            {txt => <span className="ph4 black-50">{txt}</span>}
+          </FormattedMessage>
           <Dropdown
             size="large"
             options={options}

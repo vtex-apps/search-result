@@ -7,7 +7,6 @@ import SearchResultInfiniteScroll from './components/SearchResultInfiniteScroll'
 import { searchResultPropTypes } from './constants/propTypes'
 import SortOptions from './constants/SortOptions'
 
-const DEFAULT_MAX_ITEMS_PER_LINE = 5
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
 
 /**
@@ -43,12 +42,6 @@ export default class SearchResult extends Component {
       description: 'editor.search-result.description',
       type: 'object',
       properties: {
-        maxItemsPerLine: {
-          title: 'editor.search-result.maxItemsPerLine.title',
-          type: 'number',
-          enum: [3, 4, 5],
-          default: DEFAULT_MAX_ITEMS_PER_LINE,
-        },
         maxItemsPerPage: {
           title: 'editor.search-result.maxItemsPerPage.title',
           type: 'number',
