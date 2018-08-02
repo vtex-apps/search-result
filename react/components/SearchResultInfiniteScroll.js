@@ -45,7 +45,7 @@ export default class SearchResultInfiniteScroll extends Component {
       return []
     }
     const [{ Children: children }] = tree
-    const categories = Object.values(params).filter(category => !!category)
+    const categories = Object.values(params).filter(category => category)
     const category = findInTree(tree, categories, 0)
     if (category) {
       return category.Children || children
