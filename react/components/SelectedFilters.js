@@ -55,6 +55,7 @@ class SelectedFilters extends Component {
                 checked
                 label={name}
                 name="default-checkbox-group"
+                value=""
                 onChange={evt => {
                   evt.preventDefault()
                 }}

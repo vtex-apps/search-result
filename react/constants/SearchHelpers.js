@@ -38,6 +38,7 @@ function restMapped(rest, map) {
 }
 
 function getSlugFromLink(link) {
+  if (!link) return null
   const { url } = QueryString.parseUrl(link)
   return stripPath(url).split('/').pop()
 }
@@ -56,21 +57,24 @@ export function getPagesArgs({
   const restValues = (rest && rest.split(',')) || []
   const mapValues = (map && map.split(',')) || []
   const slug = getSlugFromLink(link, type)
-  if (isUnselectLink) {
-    const index = restValues.findIndex(
-      item => slug.toLowerCase() === item.toLowerCase()
-    )
-    if (index !== -1) {
-      restValues.splice(index, 1)
-      mapValues.splice((restValues.length * -1) + index, 1)
+
+  if (link) {
+    if (isUnselectLink) {
+      const index = restValues.findIndex(
+        item => slug.toLowerCase() === item.toLowerCase()
+      )
+      if (index !== -1) {
+        restValues.splice(index, 1)
+        mapValues.splice((restValues.length * -1) + index - 1, 1)
+      }
+    } else {
+      let map = getMapByType(type)
+      if (type === 'SpecificationFilters') {
+        map = getSpecificationFilterFromLink(link)
+      }
+      restValues.push(slug)
+      mapValues.push(map)
     }
-  } else {
-    let map = getMapByType(type)
-    if (type === 'SpecificationFilters') {
-      map = getSpecificationFilterFromLink(link)
-    }
-    restValues.push(slug)
-    mapValues.push(map)
   }
 
   const queryString = QueryString.stringify({

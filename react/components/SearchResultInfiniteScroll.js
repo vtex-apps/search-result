@@ -33,7 +33,7 @@ export default class SearchResultInfiniteScroll extends Component {
       map,
       orderBy,
       pageNumber,
-      isSelected,
+      isUnselectLink: isSelected,
       pagesPath,
       params,
     })
@@ -45,12 +45,26 @@ export default class SearchResultInfiniteScroll extends Component {
       return []
     }
     const [{ Children: children }] = tree
-    const categories = Object.values(params)
+    const categories = Object.values(params).filter(category => !!category)
     const category = findInTree(tree, categories, 0)
     if (category) {
       return category.Children || children
     }
     return children || []
+  }
+
+  filtersFallback = (type, title, options, oneSelectedCollapse = false) => {
+    const { map, rest } = this.props
+    return (
+      <SearchFilter
+        key={title}
+        title={title}
+        options={mountOptions(options, type, map, rest)}
+        oneSelectedCollapse={oneSelectedCollapse}
+        type={type}
+        getLinkProps={this.getLinkProps}
+      />
+    )
   }
 
   getSelecteds() {
@@ -85,31 +99,17 @@ export default class SearchResultInfiniteScroll extends Component {
           PriceRanges = [],
         },
       },
-      map,
-      rest,
     } = this.props
     const categories = this.getCategories()
-    const filtersFallback = (type, title, options, oneSelectedCollapse = false) => {
-      return (
-        <SearchFilter
-          key={title}
-          title={title}
-          options={mountOptions(options, type, map, rest)}
-          oneSelectedCollapse={oneSelectedCollapse}
-          type={type}
-          getLinkProps={this.getLinkProps}
-        />
-      )
-    }
     const filters = []
     if (categories.length) {
-      filters.push(filtersFallback(CATEGORIES_TYPE, CATEGORIES_TITLE, categories, true))
+      filters.push(this.filtersFallback(CATEGORIES_TYPE, CATEGORIES_TITLE, categories, true))
     }
     SpecificationFilters.map(spec => {
-      filters.push(filtersFallback(SPECIFICATION_FILTERS_TYPE, spec.name, spec.facets))
+      filters.push(this.filtersFallback(SPECIFICATION_FILTERS_TYPE, spec.name, spec.facets))
     })
-    filters.push(filtersFallback(BRANDS_TYPE, BRANDS_TITLE, Brands))
-    filters.push(filtersFallback(PRICE_RANGES_TYPE, PRICE_RANGES_TITLE, PriceRanges))
+    filters.push(this.filtersFallback(BRANDS_TYPE, BRANDS_TITLE, Brands))
+    filters.push(this.filtersFallback(PRICE_RANGES_TYPE, PRICE_RANGES_TITLE, PriceRanges))
     return filters
   }
 
