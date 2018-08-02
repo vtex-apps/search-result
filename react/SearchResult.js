@@ -4,8 +4,8 @@ import React, { Component } from 'react'
 import { ProductSummary } from 'vtex.product-summary'
 
 import SearchResultInfiniteScroll from './components/SearchResultInfiniteScroll'
+import { SORT_OPTIONS } from './components/OrderBy'
 import { searchResultPropTypes } from './constants/propTypes'
-import SortOptions from './constants/SortOptions'
 
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
 
@@ -22,7 +22,7 @@ export default class SearchResult extends Component {
   static propTypes = searchResultPropTypes
 
   static defaultProps = {
-    orderBy: SortOptions[0].value,
+    orderBy: SORT_OPTIONS[0].value,
     rest: '',
     maxItemsPerPage: DEFAULT_MAX_ITEMS_PER_PAGE,
   }

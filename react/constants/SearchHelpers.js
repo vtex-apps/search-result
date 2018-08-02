@@ -1,6 +1,6 @@
 import QueryString from 'query-string'
 
-import SortOptions from './SortOptions'
+import { SORT_OPTIONS } from '../components/OrderBy'
 
 function stripPath(pathName) {
   return pathName
@@ -123,7 +123,7 @@ export function getPagesArgs({
   const queryString = QueryString.stringify({
     map: mapValues.join(','),
     page: pageNumber !== 1 ? pageNumber : undefined,
-    order: orderBy !== SortOptions[0].value ? orderBy : undefined,
+    order: orderBy !== SORT_OPTIONS[0].value ? orderBy : undefined,
     rest: restValues.join(',') || undefined,
   })
   return { page: pagesPath, params, queryString }
