@@ -33,8 +33,7 @@ function restMapped(rest, map) {
   const mapValues = (map && map.split(',')) || []
   const mapValuesSliced = mapValues.slice(restValues.length * -1)
   return restValues.reduce((acc, value, index) => {
-    acc[value.toUpperCase()] = mapValuesSliced[index]
-    return acc
+    return { ...acc, [value.toUpperCase()]: mapValuesSliced[index] }
   }, {})
 }
 
@@ -102,25 +101,24 @@ export function mountOptions(options, type, map, rest) {
       optMap = getSpecificationFilterFromLink(opt.Link)
     }
     const selected = restMap[slug && slug.toUpperCase()] === optMap
-    acc.push({
+    return [...acc, {
       ...opt,
       selected,
       type,
       slug,
-    })
-    return acc
+    }]
   }, [])
 }
 
 export function findInTree(tree, values, index) {
   if (!(tree && tree.length && values.length)) return
-  for (let i = 0; i < tree.length; i++) {
-    const categorySlug = stripPath(tree[i].Link).split('/')[index]
+  for (const node of tree) {
+    const categorySlug = stripPath(node.Link).split('/')[index]
     if (categorySlug.toUpperCase() === values[index].toUpperCase()) {
       if (index === values.length - 1) {
-        return tree[i]
+        return node
       }
-      return findInTree(tree[i].Children, values, index + 1)
+      return findInTree(node.Children, values, index + 1)
     }
   }
   return tree[0]
