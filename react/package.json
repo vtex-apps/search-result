@@ -13,8 +13,7 @@
     "ramda": "^0.25.0",
     "react-collapse": "^4.0.3",
     "react-infinite-scroll-component": "^4.1.0",
-    "react-motion": "^0.5.2",
-    "route-parser": "^0.0.5"
+    "react-motion": "^0.5.2"
   },
   "devDependencies": {
     "apollo-cache-inmemory": "^1.2.2",

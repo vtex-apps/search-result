@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import { contains } from 'ramda'
 import React, { Component } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
 import { Link } from 'render'
@@ -7,7 +6,6 @@ import { Link } from 'render'
 import FiltersContainer from './FiltersContainer'
 import { facetOptionShape } from '../constants/propTypes'
 
-const CATEGORIES_FILTER_TITLE = 'search.filter.title.categories'
 const SELECTED_FILTER_COLOR = '#368DF7'
 
 /**
@@ -21,8 +19,6 @@ class SearchFilter extends Component {
     opened: PropTypes.bool,
     /** SearchFilter's options. */
     options: PropTypes.arrayOf(facetOptionShape),
-    /** SearchFilter's options selecteds. */
-    selecteds: PropTypes.arrayOf(PropTypes.string).isRequired,
     /** SearchFilter's type. */
     type: PropTypes.string,
     /** If the SearchFilter must collapse when just one is selected. */
@@ -37,27 +33,19 @@ class SearchFilter extends Component {
     title: 'Default Title',
     opened: true,
     options: [],
-    selecteds: [],
-  }
-
-  isSelected(optName) {
-    return contains(optName.toUpperCase(), this.props.selecteds)
-  }
-
-  renderOptions() {
   }
 
   render() {
     const { type, options, getLinkProps, oneSelectedCollapse } = this.props
     const title =
-      this.props.title === CATEGORIES_FILTER_TITLE
+      this.props.title.startsWith('search.filter.title.')
         ? this.props.intl.formatMessage({ id: this.props.title })
         : this.props.title
 
     let filters = options || []
 
     if (oneSelectedCollapse) {
-      const selecteds = filters.filter(option => this.isSelected(option.Name))
+      const selecteds = filters.filter(option => option.selected)
 
       if (selecteds.length) {
         filters = selecteds
@@ -71,9 +59,9 @@ class SearchFilter extends Component {
       >
         {opt => {
           const pagesArgs = getLinkProps({
-            opt,
+            link: opt.Link,
             type,
-            isSelected: this.isSelected(opt.Name),
+            isSelected: opt.selected,
           })
           return (
             <Link
@@ -89,7 +77,7 @@ class SearchFilter extends Component {
                     className="bb"
                     style={{
                       borderColor:
-                      this.isSelected(opt.Name)
+                      opt.selected
                         ? SELECTED_FILTER_COLOR
                         : 'transparent',
                       borderWidth: '3px',

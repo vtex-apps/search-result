@@ -74,7 +74,7 @@ export const facetsShape = PropTypes.shape({
       /** SpecificationFilter's name. */
       name: PropTypes.string.isRequired,
       /** SpecificationFilter's facets. */
-      facets: facetOptionShape,
+      facets: PropTypes.arrayOf(facetOptionShape),
     })
   ),
   /** Categories matched with the facets. */
@@ -129,6 +129,10 @@ export const schemaPropsTypes = {
 export const searchResultPropTypes = {
   /** Internal route path. e.g: 'store/search' */
   pagesPath: PropTypes.string,
+  /** Internal route params.
+   * e.g: { department: 'eletronics', category: 'smartphones' }
+   */
+  params: PropTypes.object,
   /** Map param. e.g: c,c */
   map: mapType.isRequired,
   /** Rest param. e.g: Android,Samsung */

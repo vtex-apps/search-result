@@ -3,25 +3,19 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { Spinner } from 'vtex.styleguide'
 
 import { searchResultPropTypes } from '../constants/propTypes'
-import { findInTree, getCategoriesFromQuery, getPagesArgs } from '../constants/SearchHelpers'
+import { findInTree, getPagesArgs, mountOptions } from '../constants/SearchHelpers'
 import Gallery from './Gallery'
 import SearchFilter from './SearchFilter'
 import SearchHeader from './SearchHeader'
 import SelectedFilters from './SelectedFilters'
 
-const FACETS_KEYS = {
-  Departments: 'Departments',
-  Categories: 'CategoriesTrees',
-  Brands: 'Brands',
-  Specifications: 'SpecificationFilters',
-}
-
-const CATEGORIES_FILTER_TITLE = 'search.filter.title.categories'
-const CATEGORIES_FILTER_TYPE = 'Categories'
-const KEY_MAP_CATEGORY = 'c'
-const KEY_MAP_BRAND = 'b'
-const KEY_MAP_TEXT = 'ft'
-const MAP_SEPARATOR = ','
+const CATEGORIES_TITLE = 'search.filter.title.categories'
+const CATEGORIES_TYPE = 'Categories'
+const BRANDS_TITLE = 'search.filter.title.brands'
+const BRANDS_TYPE = 'Brands'
+const PRICE_RANGES_TITLE = 'search.filter.title.price-ranges'
+const PRICE_RANGES_TYPE = 'PriceRanges'
+const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
 
 /**
  * Search Result Component.
@@ -29,143 +23,94 @@ const MAP_SEPARATOR = ','
 export default class SearchResultInfiniteScroll extends Component {
   static propTypes = searchResultPropTypes
 
-  getLinkProps = ({ opt, type, isSelected, ordenation, pageNumber }) => {
+  getLinkProps = ({ link, type, ordenation, pageNumber, isSelected }) => {
     const { rest, map, pagesPath, params } = this.props
-    let {
-      variables: { orderBy },
-    } = this.props.searchQuery
-    orderBy = ordenation || orderBy
-    return getPagesArgs(
-      { name: opt && opt.Name, type, link: opt && opt.Link },
+    const orderBy = ordenation || this.props.orderBy
+    return getPagesArgs({
+      type,
+      link,
       rest,
-      { map, orderBy, pageNumber },
+      map,
+      orderBy,
+      pageNumber,
+      isUnselectLink: isSelected,
       pagesPath,
       params,
-      isSelected
-    )
+    })
   }
 
   getCategories() {
-    const {
-      searchQuery: {
-        facets,
-        variables: { query, map, rest },
-      },
-    } = this.props
-    const { CategoriesTrees: tree } = facets
-
+    const { searchQuery: { facets: { CategoriesTrees: tree } }, params } = this.props
     if (!tree || tree.length === 0) {
       return []
     }
-
     const [{ Children: children }] = tree
-    const categories = getCategoriesFromQuery(query, rest, map)
+    const categories = Object.values(params).filter(category => category)
     const category = findInTree(tree, categories, 0)
     if (category) {
       return category.Children || children
     }
-    return children
+    return children || []
   }
 
-  renderSearchFilters() {
-    if (!this.props.searchQuery || !this.props.searchQuery.facets) return null
-
-    const {
-      searchQuery: { facets: facetsProps },
-    } = this.props
-    const facets = { ...facetsProps }
-    const selecteds = this.getSelecteds()
-    delete facets[FACETS_KEYS.Departments]
-
-    return Object.values(FACETS_KEYS).map(key => {
-      if (facets[key]) {
-        switch (key) {
-          case FACETS_KEYS.Specifications: {
-            return facets[key].map(filter => {
-              return (
-                <SearchFilter
-                  key={filter.name}
-                  title={filter.name}
-                  options={filter.facets}
-                  type={key}
-                  selecteds={selecteds[key]}
-                  getLinkProps={this.getLinkProps}
-                />
-              )
-            })
-          }
-          case FACETS_KEYS.Categories: {
-            const categories = this.getCategories()
-            if (categories && categories.length) {
-              return (
-                <SearchFilter
-                  key={CATEGORIES_FILTER_TITLE}
-                  oneSelectedCollapse
-                  title={CATEGORIES_FILTER_TITLE}
-                  options={categories}
-                  type={CATEGORIES_FILTER_TYPE}
-                  selecteds={selecteds.Categories}
-                  getLinkProps={this.getLinkProps}
-                />
-              )
-            }
-            break
-          }
-          default: {
-            return (
-              <SearchFilter
-                key={key}
-                title={key}
-                options={facets[key]}
-                type={key}
-                getLinkProps={this.getLinkProps}
-                selecteds={selecteds[key]}
-              />
-            )
-          }
-        }
-      }
-    })
+  filtersFallback = (type, title, options, oneSelectedCollapse = false) => {
+    const { map, rest } = this.props
+    return (
+      <SearchFilter
+        key={title}
+        title={title}
+        options={mountOptions(options, type, map, rest)}
+        oneSelectedCollapse={oneSelectedCollapse}
+        type={type}
+        getLinkProps={this.getLinkProps}
+      />
+    )
   }
 
   getSelecteds() {
-    const { rest, params, map } = this.props
-    const restValues = (rest && rest.split(MAP_SEPARATOR)) || []
-    const paramsValues = Object.keys(params).filter(
-      param => !param.startsWith('_')
-    )
-    const mapValues = map.split(MAP_SEPARATOR)
-    const selecteds = {
-      Categories: [],
-      Brands: [],
-      FullText: [],
-      SpecificationFilters: [],
-    }
-    restValues.map((term, index) => {
-      const termDecoded = decodeURI(term.toUpperCase())
-      const mapValue = mapValues[paramsValues.length + index]
-
-      switch (mapValue) {
-        case KEY_MAP_CATEGORY: {
-          selecteds.Categories.push(termDecoded)
-          break
-        }
-        case KEY_MAP_BRAND: {
-          selecteds.Brands.push(termDecoded)
-          break
-        }
-        case KEY_MAP_TEXT: {
-          selecteds.FullText = [termDecoded]
-          break
-        }
-        default: {
-          selecteds.SpecificationFilters.push(termDecoded)
-          break
-        }
-      }
+    const {
+      searchQuery: {
+        facets: {
+          Brands = [],
+          SpecificationFilters = [],
+          PriceRanges = [],
+        },
+      },
+      map,
+      rest,
+    } = this.props
+    const categories = this.getCategories()
+    let options = []
+    options = options.concat(mountOptions(categories, CATEGORIES_TYPE, map, rest))
+    SpecificationFilters.map(spec => {
+      options = options.concat(mountOptions(spec.facets, SPECIFICATION_FILTERS_TYPE, map, rest))
     })
+    options = options.concat(mountOptions(Brands, BRANDS_TYPE, map, rest))
+    options = options.concat(mountOptions(PriceRanges, PRICE_RANGES_TYPE, map, rest))
+    return options.filter(opt => opt.selected)
+  }
 
-    return selecteds
+  renderSearchFilters() {
+    const {
+      searchQuery: {
+        facets: {
+          Brands = [],
+          SpecificationFilters = [],
+          PriceRanges = [],
+        },
+      },
+    } = this.props
+    const categories = this.getCategories()
+    const filters = []
+    if (categories.length) {
+      filters.push(this.filtersFallback(CATEGORIES_TYPE, CATEGORIES_TITLE, categories, true))
+    }
+    SpecificationFilters.map(spec => {
+      filters.push(this.filtersFallback(SPECIFICATION_FILTERS_TYPE, spec.name, spec.facets))
+    })
+    filters.push(this.filtersFallback(BRANDS_TYPE, BRANDS_TITLE, Brands))
+    filters.push(this.filtersFallback(PRICE_RANGES_TYPE, PRICE_RANGES_TITLE, PriceRanges))
+    return filters
   }
 
   handleFetchMoreProducts = (prev, { fetchMoreResult }) => {
@@ -194,10 +139,10 @@ export default class SearchResultInfiniteScroll extends Component {
       searchQuery: {
         products = [],
         recordsFiltered = 0,
-        variables: { query, map, orderBy },
         loading: searchLoading,
         fetchMore,
       },
+      orderBy,
       maxItemsPerLine,
       maxItemsPerPage,
       page,
@@ -234,7 +179,7 @@ export default class SearchResultInfiniteScroll extends Component {
           </div>
           <div className="w-100 w-70-m w-80-l fl">
             <SearchHeader
-              {...{ from, to, query, map, orderBy, recordsFiltered }}
+              {...{ from, to, orderBy, recordsFiltered }}
               getLinkProps={this.getLinkProps}
             />
             {isLoading && !this.fetchMoreLoading ? (

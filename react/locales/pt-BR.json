@@ -1,5 +1,7 @@
 {
   "search.filter.title.categories": "Categorias",
+  "search.filter.title.brands": "Marcas",
+  "search.filter.title.price-ranges": "Faixa de Preço",
   "search.text": "Exibindo {from}-{to} de {recordsFiltered} resultados",
   "search.selected-filters": "Filtros Selecionados",
   "ordenation.sales": "Vendas",

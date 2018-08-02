@@ -9,7 +9,6 @@ import SearchResultInfiniteScroll from '../../components/SearchResultInfiniteScr
 describe('<SearchResultInfiniteScroll /> component', () => {
   let renderComponent = null
   let searchQueryMock = null
-  let facetsQueryMock = null
   const productsMock = require('../../__mocks__/products.json')
 
   beforeEach(() => {
@@ -21,11 +20,12 @@ describe('<SearchResultInfiniteScroll /> component', () => {
         map: 'c',
         orderBy: 'OrderByTopSaleDESC',
       },
+      facets: {
+        Departments: [],
+        Brands: [],
+        PriceRanges: [],
+      },
       products: productsMock,
-    }
-
-    facetsQueryMock = {
-      loading: false,
     }
 
     renderComponent = (
@@ -36,9 +36,9 @@ describe('<SearchResultInfiniteScroll /> component', () => {
         params: {
           department: 'eletronics',
         },
+        orderBy: 'OrderByTopSaleDESC',
         maxItemsPerPage: 10,
         searchQuery: searchQueryMock,
-        facetsQuery: facetsQueryMock,
         state: {
           loading: false,
         },
