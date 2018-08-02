@@ -18,7 +18,6 @@ describe('<SearchResult /> component', () => {
         map: 'c',
         orderBy: 'OrderByTopSaleDESC',
       },
-      orderBy: 'OrderByTopSaleDESC',
       facets: {
         Departments: [],
         Brands: [],
@@ -35,6 +34,7 @@ describe('<SearchResult /> component', () => {
           map="c"
           path="eletronics/s"
           page={1}
+          orderBy="OrderByTopSaleDESC"
           searchQuery={searchQueryMock}
         />
       </IntlProvider>

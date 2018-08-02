@@ -11,8 +11,6 @@ import FiltersContainer from './FiltersContainer'
  */
 class SelectedFilters extends Component {
   static propTypes = {
-    /** If the filter is collapsed or not. */
-    opened: PropTypes.bool,
     /** Selected filters. */
     selecteds: PropTypes.arrayOf(PropTypes.shape({
       Name: PropTypes.string,
@@ -25,7 +23,6 @@ class SelectedFilters extends Component {
   }
 
   static defaultProps = {
-    opened: true,
     selecteds: [],
   }
 
