@@ -23,6 +23,10 @@ const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
 export default class SearchResultInfiniteScroll extends Component {
   static propTypes = searchResultPropTypes
 
+  state = {
+    fetchMoreLoading: false,
+  }
+
   getLinkProps = ({ link, type, ordenation, pageNumber, isSelected }) => {
     const { rest, map, pagesPath, params } = this.props
     const orderBy = ordenation || this.props.orderBy
@@ -114,7 +118,10 @@ export default class SearchResultInfiniteScroll extends Component {
   }
 
   handleFetchMoreProducts = (prev, { fetchMoreResult }) => {
-    this.fetchMoreLoading = false
+    this.setState({
+      fetchMoreLoading: false,
+    })
+
     if (!fetchMoreResult) return prev
     return {
       search: {
@@ -157,7 +164,10 @@ export default class SearchResultInfiniteScroll extends Component {
       <InfiniteScroll
         dataLength={products.length}
         next={() => {
-          this.fetchMoreLoading = true
+          this.setState({
+            fetchMoreLoading: true,
+          })
+
           return fetchMore({
             variables: {
               from: to,
@@ -186,12 +196,12 @@ export default class SearchResultInfiniteScroll extends Component {
             {this.renderSearchFilters()}
           </div>
           <div className="vtex-search-result__gallery">
-            {isLoading && !this.fetchMoreLoading ? (
+            {isLoading && !this.state.fetchMoreLoading ? (
               this.renderSpinner()
             ) : (
               <Gallery products={products} summary={summary} />
             )}
-            {this.fetchMoreLoading && this.renderSpinner()}
+            {this.state.fetchMoreLoading && this.renderSpinner()}
           </div>
         </div>
       </InfiniteScroll>
