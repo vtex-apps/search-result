@@ -1,7 +1,7 @@
 {
   "name": "search-result",
   "vendor": "vtex",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "title": "VTEX Search Result",
   "description": "A search result wrapper component",
   "mustUpdateAt": "2019-04-25",
@@ -25,7 +25,7 @@
     }
   ],
   "dependencies": {
-    "vtex.styleguide": "4.x",
+    "vtex.styleguide": "5.x",
     "vtex.product-summary": "0.x",
     "vtex.store-graphql": "2.x"
   }

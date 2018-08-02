@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.6.3] - 2018-08-02
+### Changed
+- Bump `vtex.styleguide` major version.
+
 ## [0.6.2] - 2018-07-31
+### Changed
+- Refactor filter and update API usage.
 
 ## [0.6.1] - 2018-07-24
 ### Fixed
