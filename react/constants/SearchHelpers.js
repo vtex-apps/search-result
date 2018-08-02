@@ -26,6 +26,7 @@ function getMapByType(type) {
 
 /**
  * Returns an object mapped by restValue and your mapValue.
+ * E.g.: rest='smartphones,lg' map='c,b' => { smartphones : 'c', lg: 'b' }
  */
 function restMapped(rest, map) {
   const restValues = (rest && rest.split(',')) || []
@@ -37,12 +38,18 @@ function restMapped(rest, map) {
   }, {})
 }
 
+/**
+ * Returns the last slug of link.
+ * E.g.: 'smartphones/Android 7?map=c,specificationFilter_30' => Android 7
+ */
 function getSlugFromLink(link) {
-  if (!link) return null
+  if (!link) return ''
   const { url } = QueryString.parseUrl(link)
   return stripPath(url).split('/').pop()
 }
-
+/**
+ * Returns the props to Link component.
+ */
 export function getPagesArgs({
   type,
   link,
