@@ -6,7 +6,6 @@ import { Link } from 'render'
 import FiltersContainer from './FiltersContainer'
 import { facetOptionShape } from '../constants/propTypes'
 
-const CATEGORIES_FILTER_TITLE = 'search.filter.title.categories'
 const SELECTED_FILTER_COLOR = '#368DF7'
 
 /**
@@ -39,7 +38,7 @@ class SearchFilter extends Component {
   render() {
     const { type, options, getLinkProps, oneSelectedCollapse } = this.props
     const title =
-      this.props.title === CATEGORIES_FILTER_TITLE
+      this.props.title.startsWith('search.filter.title.')
         ? this.props.intl.formatMessage({ id: this.props.title })
         : this.props.title
 
@@ -60,7 +59,7 @@ class SearchFilter extends Component {
       >
         {opt => {
           const pagesArgs = getLinkProps({
-            opt,
+            link: opt.Link,
             type,
             isSelected: opt.selected,
           })

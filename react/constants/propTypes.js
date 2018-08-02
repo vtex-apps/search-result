@@ -129,6 +129,10 @@ export const schemaPropsTypes = {
 export const searchResultPropTypes = {
   /** Internal route path. e.g: 'store/search' */
   pagesPath: PropTypes.string,
+  /** Internal route params.
+   * e.g: { department: 'eletronics', category: 'smartphones' }
+   */
+  params: PropTypes.object,
   /** Map param. e.g: c,c */
   map: mapType.isRequired,
   /** Rest param. e.g: Android,Samsung */

@@ -3,14 +3,19 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { Spinner } from 'vtex.styleguide'
 
 import { searchResultPropTypes } from '../constants/propTypes'
-import { findInTree, getCategoriesFromQuery, getPagesArgs, mountOptions } from '../constants/SearchHelpers'
+import { findInTree, getPagesArgs, mountOptions } from '../constants/SearchHelpers'
 import Gallery from './Gallery'
 import SearchFilter from './SearchFilter'
 import SearchHeader from './SearchHeader'
 import SelectedFilters from './SelectedFilters'
 
-const CATEGORIES_FILTER_TITLE = 'search.filter.title.categories'
-const CATEGORIES_FILTER_TYPE = 'Categories'
+const CATEGORIES_TITLE = 'search.filter.title.categories'
+const CATEGORIES_TYPE = 'Categories'
+const BRANDS_TITLE = 'search.filter.title.brands'
+const BRANDS_TYPE = 'Brands'
+const PRICE_RANGES_TITLE = 'search.filter.title.price-ranges'
+const PRICE_RANGES_TYPE = 'PriceRanges'
+const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
 
 /**
  * Search Result Component.
@@ -18,37 +23,29 @@ const CATEGORIES_FILTER_TYPE = 'Categories'
 export default class SearchResultInfiniteScroll extends Component {
   static propTypes = searchResultPropTypes
 
-  getLinkProps = ({ opt, type, isSelected, ordenation, pageNumber }) => {
+  getLinkProps = ({ link, type, ordenation, pageNumber, isSelected }) => {
     const { rest, map, pagesPath, params } = this.props
-    let {
-      variables: { orderBy },
-    } = this.props.searchQuery
-    orderBy = ordenation || orderBy
-    return getPagesArgs(
-      { name: opt && opt.Name, type, link: opt && opt.Link },
+    const orderBy = ordenation || this.props.orderBy
+    return getPagesArgs({
+      type,
+      link,
       rest,
-      { map, orderBy, pageNumber },
+      map,
+      orderBy,
+      pageNumber,
+      isSelected,
       pagesPath,
       params,
-      isSelected
-    )
+    })
   }
 
   getCategories() {
-    const {
-      searchQuery: {
-        facets,
-        variables: { query, map },
-      },
-    } = this.props
-    const { CategoriesTrees: tree } = facets
-
+    const { searchQuery: { facets: { CategoriesTrees: tree } }, params } = this.props
     if (!tree || tree.length === 0) {
       return []
     }
-
     const [{ Children: children }] = tree
-    const categories = getCategoriesFromQuery(query, map)
+    const categories = Object.values(params)
     const category = findInTree(tree, categories, 0)
     if (category) {
       return category.Children || children
@@ -64,17 +61,18 @@ export default class SearchResultInfiniteScroll extends Component {
           SpecificationFilters = [],
           PriceRanges = [],
         },
-        variables: { query, map, rest },
       },
+      map,
+      rest,
     } = this.props
     const categories = this.getCategories()
     let options = []
-    options = options.concat(mountOptions(categories, CATEGORIES_FILTER_TYPE, query, map, rest))
+    options = options.concat(mountOptions(categories, CATEGORIES_TYPE, map, rest))
     SpecificationFilters.map(spec => {
-      options = options.concat(mountOptions(spec.facets, 'SpecificationFilters', query, map, rest))
+      options = options.concat(mountOptions(spec.facets, SPECIFICATION_FILTERS_TYPE, map, rest))
     })
-    options = options.concat(mountOptions(Brands, 'Brands', query, map, rest))
-    options = options.concat(mountOptions(PriceRanges, 'PriceRanges', query, map, rest))
+    options = options.concat(mountOptions(Brands, BRANDS_TYPE, map, rest))
+    options = options.concat(mountOptions(PriceRanges, PRICE_RANGES_TYPE, map, rest))
     return options.filter(opt => opt.selected)
   }
 
@@ -86,8 +84,9 @@ export default class SearchResultInfiniteScroll extends Component {
           SpecificationFilters = [],
           PriceRanges = [],
         },
-        variables: { query, map, rest },
       },
+      map,
+      rest,
     } = this.props
     const categories = this.getCategories()
     const filtersFallback = (type, title, options, oneSelectedCollapse = false) => {
@@ -95,7 +94,7 @@ export default class SearchResultInfiniteScroll extends Component {
         <SearchFilter
           key={title}
           title={title}
-          options={mountOptions(options, type, query, map, rest)}
+          options={mountOptions(options, type, map, rest)}
           oneSelectedCollapse={oneSelectedCollapse}
           type={type}
           getLinkProps={this.getLinkProps}
@@ -104,13 +103,13 @@ export default class SearchResultInfiniteScroll extends Component {
     }
     const filters = []
     if (categories.length) {
-      filters.push(filtersFallback(CATEGORIES_FILTER_TYPE, CATEGORIES_FILTER_TITLE, categories, true))
+      filters.push(filtersFallback(CATEGORIES_TYPE, CATEGORIES_TITLE, categories, true))
     }
     SpecificationFilters.map(spec => {
-      filters.push(filtersFallback('SpecificationFilters', spec.name, spec.facets))
+      filters.push(filtersFallback(SPECIFICATION_FILTERS_TYPE, spec.name, spec.facets))
     })
-    filters.push(filtersFallback('Brands', 'Brands', Brands))
-    filters.push(filtersFallback('PriceRanges', 'Price Ranges', PriceRanges))
+    filters.push(filtersFallback(BRANDS_TYPE, BRANDS_TITLE, Brands))
+    filters.push(filtersFallback(PRICE_RANGES_TYPE, PRICE_RANGES_TITLE, PriceRanges))
     return filters
   }
 
@@ -140,10 +139,10 @@ export default class SearchResultInfiniteScroll extends Component {
       searchQuery: {
         products = [],
         recordsFiltered = 0,
-        variables: { query, map, orderBy },
         loading: searchLoading,
         fetchMore,
       },
+      orderBy,
       maxItemsPerLine,
       maxItemsPerPage,
       page,
@@ -173,14 +172,14 @@ export default class SearchResultInfiniteScroll extends Component {
         <div className="vtex-search-result w-100 pa3 dib">
           <div className="w-100 w-30-m w-20-l fl pa3">
             <SelectedFilters
-              selecteds={selecteds || []}
+              selecteds={selecteds}
               getLinkProps={this.getLinkProps}
             />
             {this.renderSearchFilters()}
           </div>
           <div className="w-100 w-70-m w-80-l fl">
             <SearchHeader
-              {...{ from, to, query, map, orderBy, recordsFiltered }}
+              {...{ from, to, orderBy, recordsFiltered }}
               getLinkProps={this.getLinkProps}
             />
             {isLoading && !this.fetchMoreLoading ? (

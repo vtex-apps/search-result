@@ -15,9 +15,9 @@ class SelectedFilters extends Component {
     opened: PropTypes.bool,
     /** Selected filters. */
     selecteds: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string,
+      Name: PropTypes.string,
+      Link: PropTypes.string,
       slug: PropTypes.string,
-      link: PropTypes.string,
       type: PropTypes.string,
     })).isRequired,
     getLinkProps: PropTypes.func,
@@ -37,9 +37,10 @@ class SelectedFilters extends Component {
         title={title}
         filters={this.props.selecteds}
       >
-        {({ Name, Link: link, type, slug }) => {
+        {({ Name: name, Link: link, type, slug }) => {
           const pagesArgs = this.props.getLinkProps({
-            opt: { Name, Link: link },
+            name,
+            link,
             type,
             isSelected: true,
           })
@@ -52,9 +53,8 @@ class SelectedFilters extends Component {
               query={pagesArgs.queryString}>
               <Checkbox
                 checked
-                label={Name}
+                label={name}
                 name="default-checkbox-group"
-                value=""
                 onChange={evt => {
                   evt.preventDefault()
                 }}
