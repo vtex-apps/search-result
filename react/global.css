@@ -1,16 +1,47 @@
 .vtex-search-result {
   display: grid;
-  grid-template-columns: 267px auto;
+  grid-template-columns: 267px repeat(5, auto);
   grid-template-areas:
-    ". header"
-    "filters gallery";
+    ". breadcrumb . quantity orderby limit"
+    "filters gallery gallery gallery gallery gallery";
 }
 
-.vtex-search-result__header {
-  grid-column: header;
+.vtex-search-result--infinite-scroll {
+  grid-template-areas:
+    ". breadcrumb . . quantity orderby"
+    "filters gallery gallery gallery gallery gallery";
+}
+
+@media only screen and (max-width: 40em) {
+  .vtex-search-result {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "breadcrumb breadcrumb"
+      "quantity quantity"
+      "filters orderby"
+      "gallery gallery";
+  }
+}
+
+.vtex-search-result__total-products {
+  grid-column: quantity;
+  grid-row: quantity;
+  justify-self: end;
+  align-self: center;
+}
+
+.vtex-search-result__order-by {
+  grid-column: orderby;
+  grid-row: orderby;
+}
+
+.vtex-search-result__breadcrumb {
+  grid-column: breadcrumb;
+  grid-row: breadcrumb;
 }
 
 .vtex-search-result__filters {
+  grid-column: filters;
   grid-row: filters;
 }
 

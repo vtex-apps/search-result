@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Spinner } from 'vtex.styleguide'
+import { FormattedMessage } from 'react-intl'
 
 import { searchResultPropTypes } from '../constants/propTypes'
 import { findInTree, getPagesArgs, mountOptions } from '../constants/SearchHelpers'
 import Gallery from './Gallery'
+import OrderBy from './OrderBy'
 import SearchFilter from './SearchFilter'
-import SearchHeader from './SearchHeader'
 import SelectedFilters from './SelectedFilters'
 
 const CATEGORIES_TITLE = 'search.filter.title.categories'
@@ -156,7 +157,7 @@ export default class SearchResultInfiniteScroll extends Component {
     } = this.props
 
     const isLoading = searchLoading || this.props.loading
-    const from = (page - 1) * maxItemsPerPage + 1
+    // const from = (page - 1) * maxItemsPerPage + 1
     const to = (page - 1) * maxItemsPerPage + products.length
     const selecteds = this.getSelecteds()
 
@@ -178,16 +179,24 @@ export default class SearchResultInfiniteScroll extends Component {
         }}
         hasMore={products.length < recordsFiltered}
       >
-        <div className="vtex-search-result pa3">
-          <SearchHeader
-            from={from}
-            to={to}
-            query={query}
-            map={map}
-            orderBy={orderBy}
-            recordsFiltered={recordsFiltered}
-            getLinkProps={this.getLinkProps}
-          />
+        <div className="vtex-search-result vtex-search-result--infinite-scroll pv3 ph9-l ph7-m ph5-s">
+          <div className="vtex-search-result__breadcrumb">
+            {/* <ExtensionPoint id="breadcrumb" /> */}
+          </div>
+          <div className="vtex-search-result__total-products">
+            <FormattedMessage
+              id="search.total-products"
+              values={{ recordsFiltered }}
+            >
+              {txt => <span className="ph4 black-50">{txt}</span>}
+            </FormattedMessage>
+          </div>
+          <div className="vtex-search-result__order-by">
+            <OrderBy
+              orderBy={orderBy}
+              getLinkProps={this.getLinkProps}
+            />
+          </div>
           <div className="vtex-search-result__filters pa3">
             <SelectedFilters
               selecteds={selecteds}
