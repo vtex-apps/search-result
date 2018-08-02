@@ -8,7 +8,6 @@ import SearchResult from '../SearchResult'
 describe('<SearchResult /> component', () => {
   let wrapper = null
   let searchQueryMock = null
-  let facetsQueryMock = null
 
   beforeEach(() => {
     const messages = require('../locales/en-US')
@@ -19,11 +18,13 @@ describe('<SearchResult /> component', () => {
         map: 'c',
         orderBy: 'OrderByTopSaleDESC',
       },
+      orderBy: 'OrderByTopSaleDESC',
+      facets: {
+        Departments: [],
+        Brands: [],
+        PriceRanges: [],
+      },
       products: [],
-    }
-
-    facetsQueryMock = {
-      loading: false,
     }
 
     wrapper = mount(
@@ -35,7 +36,6 @@ describe('<SearchResult /> component', () => {
           path="eletronics/s"
           page={1}
           searchQuery={searchQueryMock}
-          facetsQuery={facetsQueryMock}
         />
       </IntlProvider>
     )

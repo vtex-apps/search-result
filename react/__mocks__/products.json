@@ -3,9 +3,12 @@
     "productId": "2",
     "productName": "Porsche 911",
     "link": "https://storecomponents.vtexcommercestable.com.br/porsche-911/p",
+    "linkText": "http://link.com",
     "brand": "Porsche",
+    "description": "Description",
     "items": [
       {
+        "itemId": "1",
         "name": "Porsche 911",
         "referenceId": [
           {
@@ -39,9 +42,12 @@
     "productId": "1",
     "productName": "Ninja 300 - Special Edition",
     "link": "https://storecomponents.vtexcommercestable.com.br/ninja-300/p",
+    "linkText": "http://link.com",
     "brand": "Kawasaki",
+    "description": "Description",
     "items": [
       {
+        "itemId": "1",
         "name": "Special Edition",
         "referenceId": [
           {
@@ -75,9 +81,12 @@
     "productId": "13",
     "productName": "Samsung S9 Plus",
     "link": "https://storecomponents.vtexcommercestable.com.br/samsung-s9/p",
+    "linkText": "http://link.com",
     "brand": "Samsung",
+    "description": "Description",
     "items": [
       {
+        "itemId": "1",
         "name": "S9 Plus",
         "referenceId": [
           {
@@ -116,9 +125,12 @@
     "productId": "12",
     "productName": "Google Pixel - 2 XL",
     "link": "https://storecomponents.vtexcommercestable.com.br/google-pixel2/p",
+    "linkText": "http://link.com",
     "brand": "Google",
+    "description": "Description",
     "items": [
       {
+        "itemId": "1",
         "name": "2 XL",
         "referenceId": [
           {
@@ -157,9 +169,12 @@
     "productId": "8",
     "productName": "TV LG - 4K 3D",
     "link": "https://storecomponents.vtexcommercestable.com.br/tv-lg/p",
+    "linkText": "http://link.com",
     "brand": "LG",
+    "description": "Description",
     "items": [
       {
+        "itemId": "1",
         "name": "4K 3D",
         "referenceId": [
           {
@@ -198,9 +213,12 @@
     "productId": "11",
     "productName": "Microsystem Sony - 100 RMS",
     "link": "https://storecomponents.vtexcommercestable.com.br/microsystem-sony/p",
+    "linkText": "http://link.com",
     "brand": "Samsung",
+    "description": "Description",
     "items": [
       {
+        "itemId": "1",
         "name": "100 RMS",
         "referenceId": [
           {
@@ -234,9 +252,12 @@
     "productId": "9",
     "productName": "Som LG - 100 RMS",
     "link": "https://storecomponents.vtexcommercestable.com.br/som-lg/p",
+    "linkText": "http://link.com",
     "brand": "LG",
+    "description": "Description",
     "items": [
       {
+        "itemId": "1",
         "name": "100 RMS",
         "referenceId": [
           {
@@ -270,9 +291,12 @@
     "productId": "14",
     "productName": "Motorola Celular - Moto X4",
     "link": "https://storecomponents.vtexcommercestable.com.br/motorola-moto-x4/p",
+    "linkText": "http://link.com",
     "brand": "Motorola",
+    "description": "Description",
     "items": [
       {
+        "itemId": "1",
         "name": "Moto X4",
         "referenceId": [
           {
@@ -331,9 +355,12 @@
     "productId": "10",
     "productName": "TV Sony - 4K 3D",
     "link": "https://storecomponents.vtexcommercestable.com.br/tv-sony/p",
+    "linkText": "http://link.com",
     "brand": "Google",
+    "description": "Description",
     "items": [
       {
+        "itemId": "1",
         "name": "4K 3D",
         "referenceId": [
           {
@@ -372,9 +399,12 @@
     "productId": "7",
     "productName": "Som Bluetooth Samsung - 100 RMS",
     "link": "https://storecomponents.vtexcommercestable.com.br/som-samsung/p",
+    "linkText": "http://link.com",
     "brand": "Samsung",
+    "description": "Description",
     "items": [
       {
+        "itemId": "1",
         "name": "100 RMS",
         "referenceId": [
           {
