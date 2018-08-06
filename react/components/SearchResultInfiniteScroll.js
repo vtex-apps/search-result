@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl'
 import { searchResultPropTypes } from '../constants/propTypes'
 import Gallery from './Gallery'
 import OrderBy from './OrderBy'
-import SearchFilterContainer from './SearchFilterContainer'
+import FiltersContainer from './FiltersContainer'
 
 /**
  * Search Result Component.
@@ -107,7 +107,7 @@ export default class SearchResultInfiniteScroll extends Component {
             />
           </div>
           <div className="vtex-search-result__filters pa3">
-            <SearchFilterContainer
+            <FiltersContainer
               brands={Brands}
               map={map}
               orderBy={orderBy}

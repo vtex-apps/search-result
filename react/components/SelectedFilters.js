@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { intlShape, injectIntl } from 'react-intl'
 import { Link } from 'render'
 
-import FiltersContainer from './FiltersContainer'
+import FilterOptionTemplate from './FilterOptionTemplate'
 import Check from '../images/Check'
 
 /**
@@ -30,7 +30,7 @@ class SelectedFilters extends Component {
     const { intl } = this.props
     const title = intl.formatMessage({ id: 'search.selected-filters' })
     return (
-      <FiltersContainer
+      <FilterOptionTemplate
         title={title}
         filters={this.props.selecteds}
         collapsable={false}
@@ -66,7 +66,7 @@ class SelectedFilters extends Component {
             </Link>
           )
         }}
-      </FiltersContainer>
+      </FilterOptionTemplate>
     )
   }
 }

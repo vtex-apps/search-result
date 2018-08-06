@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
 import { Link } from 'render'
 
-import FiltersContainer from './FiltersContainer'
+import FilterOptionTemplate from './FilterOptionTemplate'
 import { facetOptionShape } from '../constants/propTypes'
 
 const SELECTED_FILTER_COLOR = '#368DF7'
@@ -53,7 +53,7 @@ class SearchFilter extends Component {
     }
 
     return (
-      <FiltersContainer
+      <FilterOptionTemplate
         title={title}
         filters={filters}
       >
@@ -85,7 +85,7 @@ class SearchFilter extends Component {
             </Link>
           )
         }}
-      </FiltersContainer>
+      </FilterOptionTemplate>
     )
   }
 }
