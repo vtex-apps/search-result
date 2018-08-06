@@ -1,5 +1,10 @@
 import PropTypes from 'prop-types'
 
+export const paramShape = PropTypes.shape({
+  _rest: PropTypes.string,
+  department: PropTypes.string,
+})
+
 export const facetOptionShape = PropTypes.shape({
   /** Quantity of products matched with the facet option. */
   Quantity: PropTypes.number.isRequired,
