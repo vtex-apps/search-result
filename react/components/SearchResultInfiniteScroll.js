@@ -3,6 +3,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { Spinner } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
 
+import { getPagesArgs } from '../constants/SearchHelpers'
 import { searchResultPropTypes } from '../constants/propTypes'
 import Gallery from './Gallery'
 import OrderBy from './OrderBy'
@@ -16,6 +17,22 @@ export default class SearchResultInfiniteScroll extends Component {
 
   state = {
     fetchMoreLoading: false,
+  }
+
+  getLinkProps = ({ link, type, ordenation, pageNumber, isSelected }) => {
+    const { rest, map, pagesPath, params } = this.props
+    const orderBy = ordenation || this.props.orderBy
+    return getPagesArgs({
+      type,
+      link,
+      rest,
+      map,
+      orderBy,
+      pageNumber,
+      isUnselectLink: isSelected,
+      pagesPath,
+      params,
+    })
   }
 
   handleFetchMoreProducts = (prev, { fetchMoreResult }) => {
@@ -62,7 +79,6 @@ export default class SearchResultInfiniteScroll extends Component {
       summary,
       map,
       rest,
-      pagesPath,
       params,
     } = this.props
 
@@ -100,23 +116,23 @@ export default class SearchResultInfiniteScroll extends Component {
               {txt => <span className="ph4 black-50">{txt}</span>}
             </FormattedMessage>
           </div>
-          <div className="vtex-search-result__order-by">
-            <OrderBy
-              orderBy={orderBy}
-              getLinkProps={this.getLinkProps}
-            />
-          </div>
-          <div className="vtex-search-result__filters pa3">
+          <div className="vtex-search-result__filters">
             <FiltersContainer
               brands={Brands}
+              getLinkProps={this.getLinkProps}
               map={map}
-              orderBy={orderBy}
-              pagesPath={pagesPath}
               params={params}
               priceRanges={PriceRanges}
               rest={rest}
               specificationFilters={SpecificationFilters}
               tree={CategoriesTrees}
+            />
+          </div>
+          <div className="vtex-search-result__border" />
+          <div className="vtex-search-result__order-by">
+            <OrderBy
+              orderBy={orderBy}
+              getLinkProps={this.getLinkProps}
             />
           </div>
           <div className="vtex-search-result__gallery">

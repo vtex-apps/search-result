@@ -7,7 +7,7 @@ import { injectIntl, intlShape } from 'react-intl'
 import SelectedFilters from './SelectedFilters'
 import AvailableFilters from './AvailableFilters'
 import MaybeRenderPopup from './MaybeRenderPopup'
-import { getPagesArgs, findInTree, mountOptions } from '../constants/SearchHelpers'
+import { findInTree, mountOptions } from '../constants/SearchHelpers'
 import { facetOptionShape, paramShape } from '../constants/propTypes'
 
 const CATEGORIES_TYPE = 'Categories'
@@ -20,6 +20,7 @@ const PRICE_RANGES_TITLE = 'search.filter.title.price-ranges'
 
 class FiltersContainer extends Component {
   static propTypes = {
+    getLinkProps: PropTypes.func.isRequired,
     tree: PropTypes.arrayOf(facetOptionShape),
     params: paramShape,
     brands: PropTypes.arrayOf(facetOptionShape),
@@ -27,25 +28,7 @@ class FiltersContainer extends Component {
     priceRanges: PropTypes.arrayOf(facetOptionShape),
     map: PropTypes.string,
     rest: PropTypes.string,
-    pagesPath: PropTypes.string,
-    orderBy: PropTypes.string,
     intl: intlShape,
-  }
-
-  getLinkProps = ({ link, type, ordenation, pageNumber, isSelected }) => {
-    const { rest, map, pagesPath, params } = this.props
-    const orderBy = ordenation || this.props.orderBy
-    return getPagesArgs({
-      type,
-      link,
-      rest,
-      map,
-      orderBy,
-      pageNumber,
-      isUnselectLink: isSelected,
-      pagesPath,
-      params,
-    })
   }
 
   get categories() {
@@ -93,6 +76,7 @@ class FiltersContainer extends Component {
       map,
       rest,
       intl,
+      getLinkProps,
     } = this.props
     const categories = this.categories
 
@@ -133,10 +117,10 @@ class FiltersContainer extends Component {
         >
           <SelectedFilters
             selecteds={this.selectedFilters}
-            getLinkProps={this.getLinkProps}
+            getLinkProps={getLinkProps}
           />
           <AvailableFilters
-            getLinkProps={this.getLinkProps}
+            getLinkProps={getLinkProps}
             filters={filters}
             map={map}
             rest={rest}
