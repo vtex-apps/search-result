@@ -11,10 +11,12 @@ export default class FilterOptionTemplate extends Component {
     children: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
     collapsable: PropTypes.bool,
+    selected: PropTypes.bool,
   }
 
   static defaultProps = {
     collapsable: true,
+    selected: false,
   }
 
   state = {
@@ -22,15 +24,20 @@ export default class FilterOptionTemplate extends Component {
   }
 
   render() {
-    const { children, filters, title, collapsable } = this.props
+    const { selected, children, filters, title, collapsable } = this.props
     const { open } = this.state
 
-    const titleClassName = classNames('f6 flex items-center justify-between', {
+    const className = classNames('vtex-search-result__filter pv3 bb b--light-gray', {
+      'vtex-search-result__filter--selected': selected,
+      'vtex-search-result__filter--available': !selected,
+    })
+
+    const titleClassName = classNames('vtex-search-result__filter-title f6 flex items-center justify-between', {
       'ttu': !collapsable,
     })
 
     return (
-      <div className="vtex-search-result__filter pv3 bb b--light-gray">
+      <div className={className}>
         <div
           className="pointer"
           onClick={() => {
