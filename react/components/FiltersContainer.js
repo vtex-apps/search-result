@@ -1,8 +1,12 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { NoSSR } from 'render'
+import { isMobile } from 'react-device-detect'
+import { injectIntl, intlShape } from 'react-intl'
 
 import SelectedFilters from './SelectedFilters'
 import AvailableFilters from './AvailableFilters'
+import MaybeRenderPopup from './MaybeRenderPopup'
 import { getPagesArgs, findInTree, mountOptions } from '../constants/SearchHelpers'
 import { facetOptionShape, paramShape } from '../constants/propTypes'
 
@@ -14,7 +18,7 @@ const CATEGORIES_TITLE = 'search.filter.title.categories'
 const BRANDS_TITLE = 'search.filter.title.brands'
 const PRICE_RANGES_TITLE = 'search.filter.title.price-ranges'
 
-export default class FiltersContainer extends Component {
+class FiltersContainer extends Component {
   static propTypes = {
     tree: PropTypes.arrayOf(facetOptionShape),
     params: paramShape,
@@ -25,6 +29,7 @@ export default class FiltersContainer extends Component {
     rest: PropTypes.string,
     pagesPath: PropTypes.string,
     orderBy: PropTypes.string,
+    intl: intlShape,
   }
 
   getLinkProps = ({ link, type, ordenation, pageNumber, isSelected }) => {
@@ -87,6 +92,7 @@ export default class FiltersContainer extends Component {
       priceRanges,
       map,
       rest,
+      intl,
     } = this.props
     const categories = this.categories
 
@@ -120,18 +126,25 @@ export default class FiltersContainer extends Component {
     })
 
     return (
-      <Fragment>
-        <SelectedFilters
-          selected={this.selectedFilters}
-          getLinkProps={this.getLinkProps}
-        />
-        <AvailableFilters
-          getLinkProps={this.getLinkProps}
-          filters={filters}
-          map={map}
-          rest={rest}
-        />
-      </Fragment>
+      <NoSSR onSSR={null}>
+        <MaybeRenderPopup
+          isMobile={isMobile || window.innerWidth <= 600}
+          title={intl.formatMessage({ id: 'search-result.filter-button.title' })}
+        >
+          <SelectedFilters
+            selected={this.selectedFilters}
+            getLinkProps={this.getLinkProps}
+          />
+          <AvailableFilters
+            getLinkProps={this.getLinkProps}
+            filters={filters}
+            map={map}
+            rest={rest}
+          />
+        </MaybeRenderPopup>
+      </NoSSR>
     )
   }
 }
+
+export default injectIntl(FiltersContainer)
