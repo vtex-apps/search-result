@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
 import { Dropdown } from 'vtex.styleguide'
 
+import MaybeRenderPopup from './MaybeRenderPopup'
+
 export const SORT_OPTIONS = [
   {
     value: 'OrderByTopSaleDESC',
@@ -64,20 +66,26 @@ class OrderBy extends Component {
     const { orderBy, getLinkProps } = this.props
 
     return (
-      <Dropdown
-        size="large"
-        options={this.sortingOptions}
-        value={orderBy}
-        onChange={(_, ordenation) => {
-          const pagesArgs = getLinkProps({ ordenation })
-          this.context.navigate({
-            page: pagesArgs.page,
-            params: pagesArgs.params,
-            query: pagesArgs.queryString,
-            fallbackToWindowLocation: false,
-          })
-        }}
-      />
+      <MaybeRenderPopup
+        title="Ordernar"
+        isMobile={false}
+        id="orderby"
+      >
+        <Dropdown
+          size="large"
+          options={this.sortingOptions}
+          value={orderBy}
+          onChange={(_, ordenation) => {
+            const pagesArgs = getLinkProps({ ordenation })
+            this.context.navigate({
+              page: pagesArgs.page,
+              params: pagesArgs.params,
+              query: pagesArgs.queryString,
+              fallbackToWindowLocation: false,
+            })
+          }}
+        />
+      </MaybeRenderPopup>
     )
   }
 }

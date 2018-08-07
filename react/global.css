@@ -39,6 +39,14 @@
   grid-row: gallery;
 }
 
+.vtex-search-result__border {
+  grid-column: border;
+  grid-row: border;
+  height: 80%;
+  background-color: #c4c4c4;
+  align-self: center;
+}
+
 .vtex-search-result a {
   outline: 0;
 }
@@ -57,11 +65,16 @@
 .vtex-filter-popup__button {
   background: none;
   border: none;
-  height: 47px;
+  height: 3rem;
+  padding: 1rem;
+  margin: 0 1rem;
+  width: calc(100% - 2rem);
 }
 
 .vtex-filter-popup__title {
   margin-left: auto;
+  font-size: 1.125rem;
+  color: #828282;
 }
 
 .vtex-filter-popup__arrow-icon {
@@ -82,16 +95,20 @@
   .vtex-filter-popup__footer {
     display: none;
   }
+
+  .vtex-search-result__border {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 40em) {
   .vtex-search-result {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1px 1fr;
     grid-template-areas:
-      "breadcrumb breadcrumb"
-      "quantity quantity"
-      "filters orderby"
-      "gallery gallery";
+      "breadcrumb breadcrumb breadcrumb"
+      "quantity quantity quantity"
+      "filters border orderby"
+      "gallery gallery gallery";
   }
 
   .vtex-search-result__total-products {
@@ -128,6 +145,14 @@
 
   .vtex-filter-popup__content-container--open {
     display: flex;
+  }
+
+  .vtex-filter-popup--open .vtex-filter-popup__button {
+    border-bottom: 1px solid #4F4F4F;
+  }
+
+  .vtex-gallery {
+    border-top: 1px solid #c4c4c4;
   }
 
   .vtex-filter-popup__footer {

@@ -114,6 +114,7 @@ class FiltersContainer extends Component {
         <MaybeRenderPopup
           isMobile={isMobile || window.innerWidth <= 600}
           title={intl.formatMessage({ id: 'search-result.filter-button.title' })}
+          id="filters"
         >
           <SelectedFilters
             selecteds={this.selectedFilters}
