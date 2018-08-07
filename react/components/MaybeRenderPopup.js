@@ -37,7 +37,7 @@ export default class MaybeRenderPopup extends Component {
   }
 
   render() {
-    const { isMobile, children, footer, title } = this.props
+    const { children, footer, title } = this.props
 
     const contentClassName = classNames('vtex-filter-popup__content-container bg-white', {
       'vtex-filter-popup__content-container--open': this.state.open,
@@ -49,26 +49,22 @@ export default class MaybeRenderPopup extends Component {
 
     return (
       <div className="vtex-filter-popup relative" ref={this.contentRef}>
-        {isMobile && (
-          <button
-            className="vtex-filter-popup__button w-100 pointer flex justify-center items-center"
-            onClick={this.handleClick}
-          >
-            <span className="vtex-filter-popup__title">{title}</span>
-            <span className="vtex-filter-popup__arrow-icon">
-              <Arrow />
-            </span>
-          </button>
-        )}
+        <button
+          className="vtex-filter-popup__button w-100 pointer flex justify-center items-center"
+          onClick={this.handleClick}
+        >
+          <span className="vtex-filter-popup__title">{title}</span>
+          <span className="vtex-filter-popup__arrow-icon">
+            <Arrow />
+          </span>
+        </button>
         <div className={contentClassName} style={{ top: contentTop }}>
           <div className="vtex-filter-popup__content">
             {children}
           </div>
-          {isMobile && (
-            <div className="vtex-filter-popup__footer">
-              {footer}
-            </div>
-          )}
+          <div className="vtex-filter-popup__footer">
+            {footer}
+          </div>
         </div>
       </div>
     )

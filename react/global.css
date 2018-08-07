@@ -74,6 +74,16 @@
   }
 }
 
+@media only screen and (min-width: calc(40em + 1px)) {
+  .vtex-filter-popup__button {
+    display: none;
+  }
+
+  .vtex-filter-popup__footer {
+    display: none;
+  }
+}
+
 @media only screen and (max-width: 40em) {
   .vtex-search-result {
     grid-template-columns: 1fr 1fr;
@@ -113,6 +123,7 @@
     z-index: 999;
     padding: 0.5rem;
     flex-direction: column;
+    overflow-y: auto;
   }
 
   .vtex-filter-popup__content-container--open {
