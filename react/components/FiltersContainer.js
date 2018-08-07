@@ -132,7 +132,7 @@ class FiltersContainer extends Component {
           title={intl.formatMessage({ id: 'search-result.filter-button.title' })}
         >
           <SelectedFilters
-            selected={this.selectedFilters}
+            selecteds={this.selectedFilters}
             getLinkProps={this.getLinkProps}
           />
           <AvailableFilters
