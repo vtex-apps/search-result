@@ -3415,6 +3415,10 @@ react-collapse@^4.0.3:
   dependencies:
     prop-types "^15.5.8"
 
+react-device-detect@^1.5.9:
+  version "1.5.9"
+  resolved "https://registry.yarnpkg.com/react-device-detect/-/react-device-detect-1.5.9.tgz#e2e6438d5a5b9e97134fa9da6829369742c997d9"
+
 react-dom@^16.3.1:
   version "16.4.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.4.0.tgz#099f067dd5827ce36a29eaf9a6cdc7cbf6216b1e"
