@@ -118,14 +118,6 @@
     border-bottom: 1px solid #c4c4c4;
   }
 
-  .vtex-search-result__filter--selected {
-    display: none;
-  }
-
-  .vtex-search-result__filter-icon {
-    transform: rotate(270deg);
-  }
-
   .vtex-search-result__filter-title {
     font-weight: 300;
   }
@@ -156,8 +148,9 @@
   }
 
   .vtex-filter-popup__footer {
-    margin-top: auto;
-    margin-bottom: -0.5rem;
+    margin: auto -0.5rem -0.5rem;
+    background-color: #4F4F4F;
+    min-height: 1rem;
   }
 
   body.vtex-filter-popup-open {
