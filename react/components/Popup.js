@@ -72,7 +72,7 @@ export default class Popup extends Component {
           })
 
           const contentClassName = classNames(
-            'vtex-filter-popup__content-container h-auto bg-white fixed dn w-100 left-0 bottom-0 z-999 pa3 overflow-y-auto flex-column',
+            'vtex-filter-popup__content-container h-auto bg-white fixed dn w-100 left-0 bottom-0 z-999 ph3 overflow-y-auto flex-column',
             {
               'vtex-filter-popup__content-container--open flex': open,
             }
@@ -88,16 +88,16 @@ export default class Popup extends Component {
                 className="vtex-filter-popup__button pa5 mv0 mh5 pointer flex justify-center items-center"
                 onClick={e => onClick(e, id)}
               >
-                <span className="vtex-filter-popup__title f4 ml-auto">{title}</span>
+                <span className="vtex-filter-popup__title f5 ml-auto">{title}</span>
                 <span className="vtex-filter-popup__arrow-icon ml-auto">
-                  <Arrow />
+                  <Arrow size={8} />
                 </span>
               </button>
               <div className={contentClassName} style={{ top: contentTop }}>
                 <div className="vtex-filter-popup__content">
                   {children}
                 </div>
-                <div className="vtex-filter-popup__footer na3">
+                <div className="vtex-filter-popup__footer nh3 bg-dark-gray">
                   {footer}
                 </div>
               </div>

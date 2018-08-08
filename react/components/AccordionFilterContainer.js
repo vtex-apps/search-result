@@ -7,6 +7,7 @@ import { facetOptionShape } from '../constants/propTypes'
 export default class AccordionFilterContainer extends Component {
   static propTypes = {
     filters: PropTypes.arrayOf(facetOptionShape),
+    onOptionsChange: PropTypes.func,
   }
 
   state = {
@@ -41,11 +42,15 @@ export default class AccordionFilterContainer extends Component {
           ...this.state.selectedOptions,
           option,
         ],
+      }, () => {
+        this.props.onOptionsChange(this.state.selectedOptions)
       })
     } else {
       this.setState({
         selectedOptions:
           this.state.selectedOptions.filter(opt => opt.Name !== option.Name),
+      }, () => {
+        this.props.onOptionsChange(this.state.selectedOptions)
       })
     }
   }

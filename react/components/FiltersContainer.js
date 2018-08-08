@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { NoSSR } from 'render'
+import { NoSSR, Link } from 'render'
 import { isMobile } from 'react-device-detect'
 import { injectIntl, intlShape } from 'react-intl'
 
@@ -8,6 +8,7 @@ import SelectedFilters from './SelectedFilters'
 import AvailableFilters from './AvailableFilters'
 import Popup from './Popup'
 import AccordionFilterContainer from './AccordionFilterContainer'
+import FooterButton from './FooterButton'
 import { findInTree, mountOptions } from '../constants/SearchHelpers'
 import { facetOptionShape, paramShape } from '../constants/propTypes'
 
@@ -30,6 +31,10 @@ class FiltersContainer extends Component {
     map: PropTypes.string,
     rest: PropTypes.string,
     intl: intlShape,
+  }
+
+  state = {
+    selectedOptions: [],
   }
 
   get categories() {
@@ -67,6 +72,12 @@ class FiltersContainer extends Component {
     options = options.concat(mountOptions(priceRanges, PRICE_RANGES_TYPE, map, rest))
 
     return options.filter(opt => opt.selected)
+  }
+
+  handleOptionsChange = options => {
+    this.setState({
+      selectedOptions: options,
+    })
   }
 
   render() {
@@ -117,10 +128,19 @@ class FiltersContainer extends Component {
             isMobile={isMobile}
             title={intl.formatMessage({ id: 'search-result.filter-button.title' })}
             id="filters"
+            footer={
+              <div className="flex justify-between pv3 ph6">
+                <FooterButton onClick={this.handleClean}>Limpar</FooterButton>
+                <vr className="bg-white" style={{ width: 1 }} />
+                <Link>
+                  <FooterButton onClick={e => e.preventDefault()}>Filtrar</FooterButton>
+                </Link>
+              </div>
+            }
           >
             <AccordionFilterContainer
               filters={filters}
-              getLinkProps={getLinkProps}
+              onOptionsChange={this.handleOptionsChange}
             />
           </Popup>
         </NoSSR>
