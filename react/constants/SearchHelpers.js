@@ -135,7 +135,7 @@ export function getPagesArgs({
 
 export function getBaseMap(map, rest) {
   const mapArray = map.split(',')
-  const restArray = rest.split(',')
+  const restArray = rest.split(',').filter(s => s.length > 0)
 
   return mapArray.splice(0, Math.max(mapArray.length - restArray.length, 0)).join(',')
 }
