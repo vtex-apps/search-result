@@ -7,7 +7,7 @@ export const paramShape = PropTypes.shape({
 
 export const facetOptionShape = PropTypes.shape({
   /** Quantity of products matched with the facet option. */
-  Quantity: PropTypes.number.isRequired,
+  Quantity: PropTypes.number,
   /** Link of the facets option. */
   Link: PropTypes.string.isRequired,
   /** Name of the facet option. */

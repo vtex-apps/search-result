@@ -1,5 +1,7 @@
 {
   "search-result.filter-button.title": "Filters",
+  "search-result.clear-filters.title": "Clear",
+  "search-result.filter-action.title": "Filter",
   "search.filter.title.categories": "Categories",
   "search.filter.title.brands": "Brands",
   "search.filter.title.price-ranges": "Price Ranges",

@@ -73,10 +73,14 @@ class AccordionFilterContainer extends Component {
         id="filters"
         footer={
           <div className="flex justify-between pv3 ph6">
-            <FooterButton onClick={this.handleClean}>Limpar</FooterButton>
-            <vr className="bg-white" style={{ width: 1 }} />
+            <FooterButton onClick={this.handleClean}>
+              {intl.formatMessage({ id: 'search-result.clear-filters.title' })}
+            </FooterButton>
+            <div className="bg-white self-stretch" style={{ width: 1 }} />
             <Link>
-              <FooterButton onClick={e => e.preventDefault()}>Filtrar</FooterButton>
+              <FooterButton onClick={e => e.preventDefault()}>
+                {intl.formatMessage({ id: 'search-result.filter-action.title' })}
+              </FooterButton>
             </Link>
           </div>
         }
