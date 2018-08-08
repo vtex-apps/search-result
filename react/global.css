@@ -65,6 +65,9 @@
 .vtex-filter-popup__button {
   background: none;
   height: 3rem;
+  border-top: none;
+  border-left: none;
+  border-right: none;
   width: calc(100% - 2rem);
 }
 

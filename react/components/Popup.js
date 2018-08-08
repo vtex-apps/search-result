@@ -111,6 +111,7 @@ export default class Popup extends Component {
               <button
                 className={classNames('vtex-filter-popup__button pa5 mv0 mh5 pointer flex justify-center items-center', {
                   'bb b--dark-gray': open,
+                  'bn': !open,
                 })}
                 onClick={onToggle(id)}
               >
