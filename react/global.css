@@ -73,10 +73,6 @@
   color: #828282;
 }
 
-.vtex-filter-popup--open .vtex-filter-popup__button {
-  border-bottom: 1px solid #4F4F4F;
-}
-
 .vtex-filter-popup__footer {
   margin-top: auto;
   min-height: 1rem;
@@ -86,13 +82,8 @@ body.vtex-filter-popup-open {
   overflow: hidden;
 }
 
-.vtex-accordion-filter {
+.vtex-accordion-filter, .vtex-orderby-popup {
   color: #828282;
-}
-
-.vtex-accordion-filter__item,
-.vtex-accordion-filter__item-opt {
-  border-bottom: 1px solid #bdbdbd;
 }
 
 .vtex-accordion-filter__item--active svg path {

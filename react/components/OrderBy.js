@@ -5,7 +5,7 @@ import { isMobile } from 'react-device-detect'
 import { Dropdown } from 'vtex.styleguide'
 import { NoSSR } from 'render'
 
-import Popup from './Popup'
+import MobileOrderBy from './MobileOrderBy'
 
 export const SORT_OPTIONS = [
   {
@@ -67,14 +67,11 @@ class OrderBy extends Component {
     if (isMobile) {
       return (
         <NoSSR onSSR={null}>
-          <Popup
-            title="Ordernar"
-            id="orderby"
-          >
-            {this.sortingOptions.map(opt => (
-              <div key={opt.label}>{opt.label}</div>
-            ))}
-          </Popup>
+          <MobileOrderBy
+            selected={orderBy}
+            getLinkProps={getLinkProps}
+            options={this.sortingOptions}
+          />
         </NoSSR>
       )
     }

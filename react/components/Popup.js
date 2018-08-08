@@ -68,7 +68,7 @@ export default class Popup extends Component {
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     children: PropTypes.node,
-    renderFooter: PropTypes.fund,
+    renderFooter: PropTypes.func,
   }
 
   static defaultProps = {
@@ -109,7 +109,9 @@ export default class Popup extends Component {
           return (
             <div className={className} ref={this.contentRef}>
               <button
-                className="vtex-filter-popup__button pa5 mv0 mh5 pointer flex justify-center items-center"
+                className={classNames('vtex-filter-popup__button pa5 mv0 mh5 pointer flex justify-center items-center', {
+                  'bb b--dark-gray': open,
+                })}
                 onClick={onToggle(id)}
               >
                 <span className="vtex-filter-popup__title f5 ml-auto">{title}</span>

@@ -37,7 +37,7 @@ class AccordionFilterItem extends Component {
     return (
       <Fragment>
         <div
-          className={classNames('vtex-accordion-filter__item fw3 pv3 ph7 pointer', {
+          className={classNames('vtex-accordion-filter__item fw3 pv3 ph7 pointer bb b--light-gray', {
             'vtex-accordion-filter__item--active': open,
             'vtex-accordion-filter__item--hidden dn': !show,
           })}
@@ -60,7 +60,7 @@ class AccordionFilterItem extends Component {
             {options.map(opt => {
               const isActive = isOptionActive(opt)
 
-              const optionClassName = classNames('vtex-accordion-filter__item-opt pv3 ph7 pointer', {
+              const optionClassName = classNames('vtex-accordion-filter__item-opt pv3 ph7 pointer bb b--light-gray', {
                 'vtex-accordion-filter__item-opt--active dark-gray normal': isActive,
                 'fw3': !isActive,
               })

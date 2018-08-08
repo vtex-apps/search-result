@@ -8,6 +8,7 @@
   "search.text": "Showing {from}-{to} from {recordsFiltered} records",
   "search.selected-filters": "Filter by:",
   "search.total-products": "{recordsFiltered} Products",
+  "ordenation.button": "Sort",
   "ordenation.sales": "Sales",
   "ordenation.release.date": "Release Date",
   "ordenation.discount": "Discount",
