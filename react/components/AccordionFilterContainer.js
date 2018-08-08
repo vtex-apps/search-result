@@ -11,9 +11,10 @@ export default class AccordionFilterContainer extends Component {
 
   state = {
     openedItem: null,
+    selectedOptions: [],
   }
 
-  handleClick = id => e => {
+  handleOpen = id => e => {
     e.preventDefault()
 
     if (this.state.openedItem === id) {
@@ -23,6 +24,28 @@ export default class AccordionFilterContainer extends Component {
     } else {
       this.setState({
         openedItem: id,
+      })
+    }
+  }
+
+  isOptionActive = opt => (
+    !!this.state.selectedOptions.find(e => e.Name === opt.Name)
+  )
+
+  handleSelectOption = (e, option) => {
+    e.preventDefault()
+
+    if (!this.isOptionActive(option)) {
+      this.setState({
+        selectedOptions: [
+          ...this.state.selectedOptions,
+          option,
+        ],
+      })
+    } else {
+      this.setState({
+        selectedOptions:
+          this.state.selectedOptions.filter(opt => opt.Name !== option.Name),
       })
     }
   }
@@ -42,7 +65,9 @@ export default class AccordionFilterContainer extends Component {
               filter={filter}
               open={isOpen}
               show={openedItem === null ? true : isOpen}
-              onClick={this.handleClick(filter.title)}
+              onOpen={this.handleOpen(filter.title)}
+              onSelectOption={this.handleSelectOption}
+              isOptionActive={this.isOptionActive}
             />
           )
         })}

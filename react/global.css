@@ -87,6 +87,15 @@ body.vtex-filter-popup-open {
   overflow: hidden;
 }
 
+.vtex-accordion-filter__item,
+.vtex-accordion-filter__item-opt {
+  border-bottom: 1px solid #bdbdbd;
+}
+
+.vtex-accordion-filter__item-icon svg {
+  transform: rotate(270deg);
+}
+
 @media only screen and (max-width: 60em) {
   .vtex-search-result {
     grid-template-columns: 180px repeat(5, auto);
