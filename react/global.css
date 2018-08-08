@@ -87,9 +87,22 @@ body.vtex-filter-popup-open {
   overflow: hidden;
 }
 
+.vtex-accordion-filter {
+  color: #828282;
+}
+
 .vtex-accordion-filter__item,
 .vtex-accordion-filter__item-opt {
   border-bottom: 1px solid #bdbdbd;
+}
+
+.vtex-accordion-filter__item--active svg path {
+  fill: #4f4f4f;
+}
+
+.vtex-accordion-filter__item--active,
+.vtex-accordion-filter__item-opt--active {
+  border-bottom-color: #4F4F4F;
 }
 
 .vtex-accordion-filter__item-icon svg {

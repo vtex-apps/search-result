@@ -12,7 +12,7 @@ export default class CheckTick extends Component {
       >
         <path
           d="M11 1.85294L9.25 0L4.25 5.29412L1.75 2.64706L0 4.5L4.25 9L11 1.85294Z"
-          fill="#F71963"
+          fill="#4F4F4F"
         />
       </svg>
     )

@@ -41,7 +41,7 @@ class AccordionFilterItem extends Component {
         >
           <div
             className={classNames('vtex-accordion-filter__item-title', {
-              'normal': open,
+              'normal dark-gray': open,
             })}
           >
             {getFilterTitle(title, intl)}
@@ -57,7 +57,7 @@ class AccordionFilterItem extends Component {
               const isActive = isOptionActive(opt)
 
               const optionClassName = classNames('vtex-accordion-filter__item-opt pv3 ph7 pointer', {
-                'vtex-accordion-filter__item-opt--active rebel-pink normal': isActive,
+                'vtex-accordion-filter__item-opt--active dark-gray normal': isActive,
                 'fw3': !isActive,
               })
 
