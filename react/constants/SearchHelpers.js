@@ -160,3 +160,9 @@ export function findInTree(tree, values, index) {
   }
   return tree[0]
 }
+
+export function getFilterTitle(title = '', intl) {
+  return intl.messages[title]
+    ? intl.formatMessage({ id: title })
+    : title
+}

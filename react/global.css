@@ -66,19 +66,25 @@
   background: none;
   border: none;
   height: 3rem;
-  padding: 1rem;
-  margin: 0 1rem;
   width: calc(100% - 2rem);
 }
 
 .vtex-filter-popup__title {
-  margin-left: auto;
-  font-size: 1.125rem;
   color: #828282;
 }
 
-.vtex-filter-popup__arrow-icon {
-  margin-left: auto;
+.vtex-filter-popup--open .vtex-filter-popup__button {
+  border-bottom: 1px solid #4F4F4F;
+}
+
+.vtex-filter-popup__footer {
+  margin-top: auto;
+  background-color: #4F4F4F;
+  min-height: 1rem;
+}
+
+body.vtex-filter-popup-open {
+  overflow: hidden;
 }
 
 @media only screen and (max-width: 60em) {
@@ -88,14 +94,6 @@
 }
 
 @media only screen and (min-width: calc(40em + 1px)) {
-  .vtex-filter-popup__button {
-    display: none;
-  }
-
-  .vtex-filter-popup__footer {
-    display: none;
-  }
-
   .vtex-search-result__border {
     display: none;
   }
@@ -122,39 +120,8 @@
     font-weight: 300;
   }
 
-  .vtex-filter-popup__content-container {
-    display: none;
-    position: fixed;
-    height: auto;
-    width: 100%;
-    left: 0;
-    bottom: 0;
-    z-index: 999;
-    padding: 0.5rem;
-    flex-direction: column;
-    overflow-y: auto;
-  }
-
-  .vtex-filter-popup__content-container--open {
-    display: flex;
-  }
-
-  .vtex-filter-popup--open .vtex-filter-popup__button {
-    border-bottom: 1px solid #4F4F4F;
-  }
-
   .vtex-gallery {
     border-top: 1px solid #c4c4c4;
-  }
-
-  .vtex-filter-popup__footer {
-    margin: auto -0.5rem -0.5rem;
-    background-color: #4F4F4F;
-    min-height: 1rem;
-  }
-
-  body.vtex-filter-popup-open {
-    overflow: hidden;
   }
 
   #sidebar-vtex {

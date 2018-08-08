@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { NoSSR } from 'render'
 import { isMobile } from 'react-device-detect'
@@ -7,6 +7,7 @@ import { injectIntl, intlShape } from 'react-intl'
 import SelectedFilters from './SelectedFilters'
 import AvailableFilters from './AvailableFilters'
 import MaybeRenderPopup from './MaybeRenderPopup'
+import AccordionFilterContainer from './AccordionFilterContainer'
 import { findInTree, mountOptions } from '../constants/SearchHelpers'
 import { facetOptionShape, paramShape } from '../constants/propTypes'
 
@@ -112,20 +113,29 @@ class FiltersContainer extends Component {
     return (
       <NoSSR onSSR={null}>
         <MaybeRenderPopup
-          isMobile={isMobile || window.innerWidth <= 600}
+          isMobile={isMobile}
           title={intl.formatMessage({ id: 'search-result.filter-button.title' })}
           id="filters"
         >
-          <SelectedFilters
-            selecteds={this.selectedFilters}
-            getLinkProps={getLinkProps}
-          />
-          <AvailableFilters
-            getLinkProps={getLinkProps}
-            filters={filters}
-            map={map}
-            rest={rest}
-          />
+          {!isMobile ? (
+            <Fragment>
+              <SelectedFilters
+                selecteds={this.selectedFilters}
+                getLinkProps={getLinkProps}
+              />
+              <AvailableFilters
+                getLinkProps={getLinkProps}
+                filters={filters}
+                map={map}
+                rest={rest}
+              />
+            </Fragment>
+          ) : (
+            <AccordionFilterContainer
+              filters={filters}
+              getLinkProps={getLinkProps}
+            />
+          )}
         </MaybeRenderPopup>
       </NoSSR>
     )

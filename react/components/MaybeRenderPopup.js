@@ -61,7 +61,11 @@ export default class MaybeRenderPopup extends Component {
   contentRef = React.createRef()
 
   render() {
-    const { children, footer, title, id } = this.props
+    const { children, footer, title, id, isMobile } = this.props
+
+    if (!isMobile) {
+      return children
+    }
 
     return (
       <Consumer>
@@ -72,9 +76,12 @@ export default class MaybeRenderPopup extends Component {
             'vtex-filter-popup--open': open,
           })
 
-          const contentClassName = classNames('vtex-filter-popup__content-container bg-white', {
-            'vtex-filter-popup__content-container--open': open,
-          })
+          const contentClassName = classNames(
+            'vtex-filter-popup__content-container h-auto bg-white fixed dn w-100 left-0 bottom-0 z-999 pa3 overflow-y-auto flex-column',
+            {
+              'vtex-filter-popup__content-container--open flex': open,
+            }
+          )
 
           const contentTop = this.contentRef.current
             ? this.contentRef.current.getBoundingClientRect().bottom + 1
@@ -83,11 +90,11 @@ export default class MaybeRenderPopup extends Component {
           return (
             <div className={className} ref={this.contentRef}>
               <button
-                className="vtex-filter-popup__button pointer flex justify-center items-center"
+                className="vtex-filter-popup__button pa5 mv0 mh5 pointer flex justify-center items-center"
                 onClick={e => onClick(e, id)}
               >
-                <span className="vtex-filter-popup__title">{title}</span>
-                <span className="vtex-filter-popup__arrow-icon">
+                <span className="vtex-filter-popup__title f4 ml-auto">{title}</span>
+                <span className="vtex-filter-popup__arrow-icon ml-auto">
                   <Arrow />
                 </span>
               </button>
@@ -95,7 +102,7 @@ export default class MaybeRenderPopup extends Component {
                 <div className="vtex-filter-popup__content">
                   {children}
                 </div>
-                <div className="vtex-filter-popup__footer">
+                <div className="vtex-filter-popup__footer na3">
                   {footer}
                 </div>
               </div>

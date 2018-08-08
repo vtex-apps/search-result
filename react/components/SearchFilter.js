@@ -5,6 +5,7 @@ import { Link } from 'render'
 
 import FilterOptionTemplate from './FilterOptionTemplate'
 import { facetOptionShape } from '../constants/propTypes'
+import { getFilterTitle } from '../constants/SearchHelpers'
 
 const SELECTED_FILTER_COLOR = '#368DF7'
 
@@ -37,10 +38,7 @@ class SearchFilter extends Component {
 
   render() {
     const { type, options, getLinkProps, oneSelectedCollapse } = this.props
-    const title =
-      this.props.title.startsWith('search.filter.title.')
-        ? this.props.intl.formatMessage({ id: this.props.title })
-        : this.props.title
+    const title = getFilterTitle(this.props.title, this.props.intl)
 
     let filters = options || []
 
