@@ -10,7 +10,9 @@ import { getFilterTitle } from '../constants/SearchHelpers'
 
 class AccordionFilterItem extends Component {
   static propTypes = {
-    filter: facetOptionShape,
+    title: PropTypes.string,
+    options: PropTypes.arrayOf(facetOptionShape),
+    type: PropTypes.string,
     show: PropTypes.bool,
     open: PropTypes.bool,
     onOpen: PropTypes.func,
@@ -21,7 +23,9 @@ class AccordionFilterItem extends Component {
 
   render() {
     const {
-      filter: { title, options },
+      title,
+      options,
+      type,
       show,
       open,
       onOpen,
@@ -61,11 +65,16 @@ class AccordionFilterItem extends Component {
                 'fw3': !isActive,
               })
 
+              const filterOption = {
+                type,
+                ...opt,
+              }
+
               return (
                 <div
                   key={opt.Name}
                   className={optionClassName}
-                  onClick={e => onSelectOption(e, opt)}
+                  onClick={e => onSelectOption(e, filterOption)}
                 >
                   {opt.Name}
 

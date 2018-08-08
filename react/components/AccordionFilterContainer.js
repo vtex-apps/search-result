@@ -2,21 +2,35 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'render'
 import { injectIntl, intlShape } from 'react-intl'
+import { flatten, map, filter, pipe } from 'ramda'
 
 import Popup from './Popup'
 import FooterButton from './FooterButton'
 import AccordionFilterItem from './AccordionFilterItem'
-import { facetOptionShape } from '../constants/propTypes'
+import { mountOptions } from '../constants/SearchHelpers'
 
 class AccordionFilterContainer extends Component {
   static propTypes = {
-    filters: PropTypes.arrayOf(facetOptionShape),
+    filters: PropTypes.arrayOf(PropTypes.object),
+    getLinkProps: PropTypes.func,
+    rest: PropTypes.string,
+    map: PropTypes.string,
     intl: intlShape,
   }
 
   state = {
     openedItem: null,
-    selectedOptions: [],
+    selectedOptions: pipe(
+      map(filter =>
+        mountOptions(filter.options, filter.type, this.props.map, this.props.rest),
+      ),
+      flatten,
+      filter(option => option.selected),
+      map(option => ({
+        ...option,
+        link: option.Link,
+      }))
+    )(this.props.filters || []),
   }
 
   handleOpen = id => e => {
@@ -52,7 +66,10 @@ class AccordionFilterContainer extends Component {
       this.setState({
         selectedOptions: [
           ...this.state.selectedOptions,
-          option,
+          {
+            ...option,
+            link: option.Link,
+          },
         ],
       })
     } else {
@@ -64,8 +81,10 @@ class AccordionFilterContainer extends Component {
   }
 
   render() {
-    const { filters, intl } = this.props
-    const { openedItem } = this.state
+    const { filters, intl, getLinkProps, map, rest } = this.props
+    const { openedItem, selectedOptions } = this.state
+
+    const linkProps = getLinkProps(selectedOptions, true)
 
     return (
       <Popup
@@ -77,22 +96,28 @@ class AccordionFilterContainer extends Component {
               {intl.formatMessage({ id: 'search-result.clear-filters.title' })}
             </FooterButton>
             <div className="bg-white self-stretch" style={{ width: 1 }} />
-            <Link>
-              <FooterButton onClick={e => e.preventDefault()}>
-                {intl.formatMessage({ id: 'search-result.filter-action.title' })}
-              </FooterButton>
-            </Link>
+            <FooterButton
+              tag={Link}
+              page={linkProps.page}
+              params={linkProps.params}
+              query={linkProps.queryString}
+            >
+              {intl.formatMessage({ id: 'search-result.filter-action.title' })}
+            </FooterButton>
           </div>
         }
       >
         <div className="vtex-accordion-filter">
           {filters.map(filter => {
+            const { type, title, options } = filter
             const isOpen = openedItem === filter.title
 
             return (
               <AccordionFilterItem
                 key={filter.title}
-                filter={filter}
+                type={type}
+                title={title}
+                options={mountOptions(options, type, map, rest)}
                 open={isOpen}
                 show={openedItem === null ? true : isOpen}
                 onOpen={this.handleOpen(filter.title)}

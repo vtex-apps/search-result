@@ -109,7 +109,12 @@ export default class FiltersContainer extends Component {
     if (isMobile) {
       return (
         <NoSSR onSSR={null}>
-          <AccordionFilterContainer filters={filters} />
+          <AccordionFilterContainer
+            filters={filters}
+            getLinkProps={getLinkProps}
+            map={map}
+            rest={rest}
+          />
         </NoSSR>
       )
     }

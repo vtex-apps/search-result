@@ -1,5 +1,3 @@
-import QueryString from 'query-string'
-
 import { SORT_OPTIONS } from '../components/OrderBy'
 
 function stripPath(pathName) {
@@ -80,9 +78,13 @@ function restMapped(rest, map) {
  */
 function getSlugFromLink(link) {
   if (!link) return ''
-  const { url } = QueryString.parseUrl(link)
+
+  const qIndex = link.indexOf('?')
+
+  const url = link.substr(0, qIndex !== -1 ? qIndex : link.length)
   return stripPath(url).split('/').pop()
 }
+
 /**
  * Returns the props to Link component.
  */
@@ -90,16 +92,16 @@ export function getPagesArgs({
   type,
   link,
   rest,
+  params,
   map,
   orderBy,
   pageNumber = 1,
   pagesPath,
-  params,
   isUnselectLink,
 }) {
-  const restValues = (rest && rest.split(',')) || []
-  const mapValues = (map && map.split(',')) || []
-  const slug = getSlugFromLink(link, type)
+  const restValues = rest || []
+  const mapValues = map || []
+  const slug = getSlugFromLink(link)
 
   if (link) {
     if (isUnselectLink) {
@@ -111,22 +113,31 @@ export function getPagesArgs({
         mapValues.splice((restValues.length * -1) + index - 1, 1)
       }
     } else {
-      let mapParam = getMapByType(type)
-      if (type === 'SpecificationFilters') {
-        mapParam = getSpecificationFilterFromLink(link, mapValues)
-      }
+      const mapParam = type === 'SpecificationFilters'
+        ? getSpecificationFilterFromLink(link, mapValues)
+        : getMapByType(type)
       restValues.push(slug)
       mapValues.push(mapParam)
     }
   }
 
-  const queryString = QueryString.stringify({
-    map: mapValues.join(','),
-    page: pageNumber !== 1 ? pageNumber : undefined,
-    order: orderBy !== SORT_OPTIONS[0].value ? orderBy : undefined,
-    rest: restValues.join(',') || undefined,
-  })
-  return { page: pagesPath, params, queryString }
+  return {
+    page: pagesPath,
+    params,
+    query: {
+      map: mapValues,
+      page: pageNumber !== 1 ? pageNumber : undefined,
+      order: orderBy !== SORT_OPTIONS[0].value ? orderBy : undefined,
+      rest: restValues,
+    },
+  }
+}
+
+export function getBaseMap(map, rest) {
+  const mapArray = map.split(',')
+  const restArray = rest.split(',')
+
+  return mapArray.splice(0, Math.max(mapArray.length - restArray.length, 0)).join(',')
 }
 
 export function mountOptions(options, type, map, rest) {

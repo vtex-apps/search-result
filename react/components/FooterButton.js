@@ -1,14 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export default function FooterButton({ children, ...props }) {
+export default function FooterButton({ children, tag, ...props }) {
+  const Tag = tag || 'button'
+
   return (
-    <button {...props} className="vtex-footer-button pointer f5 bg-dark-gray br1 white ba b--white pv2 ph7">
+    <Tag {...props} className="vtex-footer-button link pointer f5 bg-dark-gray br1 white ba b--white pv2 ph7">
       {children}
-    </button>
+    </Tag>
   )
 }
 
 FooterButton.propTypes = {
   children: PropTypes.node,
+  tag: PropTypes.any,
 }

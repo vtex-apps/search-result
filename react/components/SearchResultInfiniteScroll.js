@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Spinner } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
+import QueryString from 'query-string'
 
-import { getPagesArgs } from '../constants/SearchHelpers'
+import { getPagesArgs, getBaseMap } from '../constants/SearchHelpers'
 import { searchResultPropTypes } from '../constants/propTypes'
 import Gallery from './Gallery'
 import OrderBy from './OrderBy'
@@ -20,20 +21,57 @@ export default class SearchResultInfiniteScroll extends Component {
     fetchMoreLoading: false,
   }
 
-  getLinkProps = ({ link, type, ordenation, pageNumber, isSelected }) => {
+  getLinkProps = (spec, useEmptyMapAndRest = false) => {
     const { rest, map, pagesPath, params } = this.props
-    const orderBy = ordenation || this.props.orderBy
-    return getPagesArgs({
-      type,
-      link,
-      rest,
-      map,
-      orderBy,
-      pageNumber,
-      isUnselectLink: isSelected,
-      pagesPath,
-      params,
+    const filters = Array.isArray(spec) ? spec : [spec]
+
+    if (filters.length === 0) {
+      return {
+        page: pagesPath,
+        params,
+      }
+    }
+
+    const pageProps = filters.reduce(
+      (linkProps, filter) => {
+        const { link, type, ordenation, pageNumber, isSelected } = filter
+        const orderBy = ordenation || this.props.orderBy
+
+        return getPagesArgs({
+          rest: linkProps.query.rest,
+          map: linkProps.query.map,
+          pagesPath: linkProps.page,
+          params: linkProps.params,
+          type,
+          link,
+          orderBy,
+          pageNumber,
+          isUnselectLink: isSelected,
+        })
+      },
+      {
+        page: pagesPath,
+        params,
+        query: {
+          map: useEmptyMapAndRest
+            ? getBaseMap(map, rest).split(',').filter(x => x)
+            : map.split(','),
+          rest: useEmptyMapAndRest ? [] : rest.split(','),
+        },
+      }
+    )
+
+    const queryString = QueryString.stringify({
+      ...pageProps.query,
+      map: pageProps.query.map.join(','),
+      rest: pageProps.query.rest.join(',') || undefined,
     })
+
+    return {
+      page: pageProps.page,
+      queryString: queryString,
+      params: pageProps.params,
+    }
   }
 
   handleFetchMoreProducts = (prev, { fetchMoreResult }) => {
