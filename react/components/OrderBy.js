@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
+import { isMobile } from 'react-device-detect'
 import { Dropdown } from 'vtex.styleguide'
 
 import MaybeRenderPopup from './MaybeRenderPopup'
@@ -68,23 +69,27 @@ class OrderBy extends Component {
     return (
       <MaybeRenderPopup
         title="Ordernar"
-        isMobile={false}
+        isMobile={isMobile}
         id="orderby"
       >
-        <Dropdown
-          size="large"
-          options={this.sortingOptions}
-          value={orderBy}
-          onChange={(_, ordenation) => {
-            const pagesArgs = getLinkProps({ ordenation })
-            this.context.navigate({
-              page: pagesArgs.page,
-              params: pagesArgs.params,
-              query: pagesArgs.queryString,
-              fallbackToWindowLocation: false,
-            })
-          }}
-        />
+        {isMobile ? this.sortingOptions.map(opt => (
+          <div key={opt.label}>{opt.label}</div>
+        )) : (
+          <Dropdown
+            size="large"
+            options={this.sortingOptions}
+            value={orderBy}
+            onChange={(_, ordenation) => {
+              const pagesArgs = getLinkProps({ ordenation })
+              this.context.navigate({
+                page: pagesArgs.page,
+                params: pagesArgs.params,
+                query: pagesArgs.queryString,
+                fallbackToWindowLocation: false,
+              })
+            }}
+          />
+        )}
       </MaybeRenderPopup>
     )
   }
