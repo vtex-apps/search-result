@@ -99,11 +99,6 @@ body.vtex-filter-popup-open {
   fill: #4f4f4f;
 }
 
-.vtex-accordion-filter__item--active,
-.vtex-accordion-filter__item-opt--active {
-  border-bottom-color: #4F4F4F;
-}
-
 .vtex-accordion-filter__item-icon svg {
   transform: rotate(270deg);
 }
