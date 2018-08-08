@@ -64,7 +64,6 @@
 
 .vtex-filter-popup__button {
   background: none;
-  border: none;
   height: 3rem;
   width: calc(100% - 2rem);
 }
@@ -129,10 +128,6 @@ body.vtex-filter-popup-open {
 
   .vtex-gallery {
     border-top: 1px solid #c4c4c4;
-  }
-
-  #sidebar-vtex {
-    display: none;
   }
 }
 
