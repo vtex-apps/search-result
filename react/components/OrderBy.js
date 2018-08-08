@@ -68,7 +68,7 @@ class OrderBy extends Component {
       return (
         <NoSSR onSSR={null}>
           <MobileOrderBy
-            selected={orderBy}
+            orderBy={orderBy}
             getLinkProps={getLinkProps}
             options={this.sortingOptions}
           />

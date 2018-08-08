@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
-import { Link } from 'render'
 import classNames from 'classnames'
 
 import CheckTick from '../images/CheckTick'
@@ -17,6 +16,10 @@ class MobileOrderBy extends Component {
       value: PropTypes.string,
     })),
     intl: intlShape,
+  }
+
+  static contextTypes = {
+    navigate: PropTypes.func,
   }
 
   state = {
@@ -35,8 +38,6 @@ class MobileOrderBy extends Component {
     const { intl, options, getLinkProps } = this.props
     const { selectedOption } = this.state
 
-    const linkProps = getLinkProps({ ordenation: selectedOption })
-
     return (
       <Popup
         title="Ordernar"
@@ -44,11 +45,18 @@ class MobileOrderBy extends Component {
         renderFooter={({ onClose }) => (
           <div className="flex justify-end pv3 ph6">
             <FooterButton
-              tag={Link}
-              params={linkProps.param}
-              page={linkProps.page}
-              query={linkProps.queryString}
-              onClick={onClose}
+              onClick={e => {
+                onClose(e)
+
+                const linkProps = getLinkProps({ ordenation: selectedOption })
+
+                this.context.navigate({
+                  page: linkProps.page,
+                  params: linkProps.params,
+                  query: linkProps.queryString,
+                  fallbackToWindowLocation: false,
+                })
+              }}
             >
               {intl.formatMessage({ id: 'ordenation.button' })}
             </FooterButton>

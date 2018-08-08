@@ -35,7 +35,7 @@ export default class SearchResultInfiniteScroll extends Component {
     const pageProps = filters.reduce(
       (linkProps, filter) => {
         const { link, type, ordenation, pageNumber, isSelected } = filter
-        const orderBy = ordenation || this.props.orderBy
+        const orderBy = ordenation || linkProps.query.order
 
         return getPagesArgs({
           rest: linkProps.query.rest,
@@ -53,6 +53,7 @@ export default class SearchResultInfiniteScroll extends Component {
         page: pagesPath,
         params,
         query: {
+          order: this.props.orderBy,
           map: useEmptyMapAndRest
             ? getBaseMap(map, rest).split(',').filter(x => x)
             : map.split(','),

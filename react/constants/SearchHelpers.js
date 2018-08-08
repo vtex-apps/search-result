@@ -124,6 +124,7 @@ export function getPagesArgs({
   return {
     page: pagesPath,
     params,
+    orderBy,
     query: {
       map: mapValues,
       page: pageNumber !== 1 ? pageNumber : undefined,
