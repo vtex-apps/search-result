@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'render'
+import { injectIntl, intlShape } from 'react-intl'
 
+import Popup from './Popup'
+import FooterButton from './FooterButton'
 import AccordionFilterItem from './AccordionFilterItem'
 import { facetOptionShape } from '../constants/propTypes'
 
-export default class AccordionFilterContainer extends Component {
+class AccordionFilterContainer extends Component {
   static propTypes = {
     filters: PropTypes.arrayOf(facetOptionShape),
-    onOptionsChange: PropTypes.func,
+    intl: intlShape,
   }
 
   state = {
@@ -29,6 +33,14 @@ export default class AccordionFilterContainer extends Component {
     }
   }
 
+  handleClean = e => {
+    e.preventDefault()
+
+    this.setState({
+      selectedOptions: [],
+    })
+  }
+
   isOptionActive = opt => (
     !!this.state.selectedOptions.find(e => e.Name === opt.Name)
   )
@@ -42,41 +54,53 @@ export default class AccordionFilterContainer extends Component {
           ...this.state.selectedOptions,
           option,
         ],
-      }, () => {
-        this.props.onOptionsChange(this.state.selectedOptions)
       })
     } else {
       this.setState({
         selectedOptions:
           this.state.selectedOptions.filter(opt => opt.Name !== option.Name),
-      }, () => {
-        this.props.onOptionsChange(this.state.selectedOptions)
       })
     }
   }
 
   render() {
-    const { filters } = this.props
+    const { filters, intl } = this.props
     const { openedItem } = this.state
 
     return (
-      <div className="vtex-accordion-filter">
-        {filters.map(filter => {
-          const isOpen = openedItem === filter.title
+      <Popup
+        title={intl.formatMessage({ id: 'search-result.filter-button.title' })}
+        id="filters"
+        footer={
+          <div className="flex justify-between pv3 ph6">
+            <FooterButton onClick={this.handleClean}>Limpar</FooterButton>
+            <vr className="bg-white" style={{ width: 1 }} />
+            <Link>
+              <FooterButton onClick={e => e.preventDefault()}>Filtrar</FooterButton>
+            </Link>
+          </div>
+        }
+      >
+        <div className="vtex-accordion-filter">
+          {filters.map(filter => {
+            const isOpen = openedItem === filter.title
 
-          return (
-            <AccordionFilterItem
-              key={filter.title}
-              filter={filter}
-              open={isOpen}
-              show={openedItem === null ? true : isOpen}
-              onOpen={this.handleOpen(filter.title)}
-              onSelectOption={this.handleSelectOption}
-              isOptionActive={this.isOptionActive}
-            />
-          )
-        })}
-      </div>
+            return (
+              <AccordionFilterItem
+                key={filter.title}
+                filter={filter}
+                open={isOpen}
+                show={openedItem === null ? true : isOpen}
+                onOpen={this.handleOpen(filter.title)}
+                onSelectOption={this.handleSelectOption}
+                isOptionActive={this.isOptionActive}
+              />
+            )
+          })}
+        </div>
+      </Popup>
     )
   }
 }
+
+export default injectIntl(AccordionFilterContainer)

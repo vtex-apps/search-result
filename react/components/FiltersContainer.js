@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { NoSSR, Link } from 'render'
+import { NoSSR } from 'render'
 import { isMobile } from 'react-device-detect'
-import { injectIntl, intlShape } from 'react-intl'
 
 import SelectedFilters from './SelectedFilters'
 import AvailableFilters from './AvailableFilters'
-import Popup from './Popup'
 import AccordionFilterContainer from './AccordionFilterContainer'
-import FooterButton from './FooterButton'
 import { findInTree, mountOptions } from '../constants/SearchHelpers'
 import { facetOptionShape, paramShape } from '../constants/propTypes'
 
@@ -20,7 +17,7 @@ const CATEGORIES_TITLE = 'search.filter.title.categories'
 const BRANDS_TITLE = 'search.filter.title.brands'
 const PRICE_RANGES_TITLE = 'search.filter.title.price-ranges'
 
-class FiltersContainer extends Component {
+export default class FiltersContainer extends Component {
   static propTypes = {
     getLinkProps: PropTypes.func.isRequired,
     tree: PropTypes.arrayOf(facetOptionShape),
@@ -30,11 +27,6 @@ class FiltersContainer extends Component {
     priceRanges: PropTypes.arrayOf(facetOptionShape),
     map: PropTypes.string,
     rest: PropTypes.string,
-    intl: intlShape,
-  }
-
-  state = {
-    selectedOptions: [],
   }
 
   get categories() {
@@ -74,12 +66,6 @@ class FiltersContainer extends Component {
     return options.filter(opt => opt.selected)
   }
 
-  handleOptionsChange = options => {
-    this.setState({
-      selectedOptions: options,
-    })
-  }
-
   render() {
     const {
       specificationFilters,
@@ -87,7 +73,6 @@ class FiltersContainer extends Component {
       priceRanges,
       map,
       rest,
-      intl,
       getLinkProps,
     } = this.props
     const categories = this.categories
@@ -124,25 +109,7 @@ class FiltersContainer extends Component {
     if (isMobile) {
       return (
         <NoSSR onSSR={null}>
-          <Popup
-            isMobile={isMobile}
-            title={intl.formatMessage({ id: 'search-result.filter-button.title' })}
-            id="filters"
-            footer={
-              <div className="flex justify-between pv3 ph6">
-                <FooterButton onClick={this.handleClean}>Limpar</FooterButton>
-                <vr className="bg-white" style={{ width: 1 }} />
-                <Link>
-                  <FooterButton onClick={e => e.preventDefault()}>Filtrar</FooterButton>
-                </Link>
-              </div>
-            }
-          >
-            <AccordionFilterContainer
-              filters={filters}
-              onOptionsChange={this.handleOptionsChange}
-            />
-          </Popup>
+          <AccordionFilterContainer filters={filters} />
         </NoSSR>
       )
     }
@@ -165,5 +132,3 @@ class FiltersContainer extends Component {
     )
   }
 }
-
-export default injectIntl(FiltersContainer)

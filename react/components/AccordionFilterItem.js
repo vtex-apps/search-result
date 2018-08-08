@@ -47,7 +47,7 @@ class AccordionFilterItem extends Component {
             {getFilterTitle(title, intl)}
 
             <span className="vtex-accordion-filter__item-icon fr">
-              <Arrow up={open} />
+              <Arrow up={open} size={10} />
             </span>
           </div>
         </div>
