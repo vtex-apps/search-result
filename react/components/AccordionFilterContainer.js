@@ -90,7 +90,7 @@ class AccordionFilterContainer extends Component {
       <Popup
         title={intl.formatMessage({ id: 'search-result.filter-button.title' })}
         id="filters"
-        footer={
+        renderFooter={({ onClose }) => (
           <div className="flex justify-between pv3 ph6">
             <FooterButton onClick={this.handleClean}>
               {intl.formatMessage({ id: 'search-result.clear-filters.title' })}
@@ -101,11 +101,12 @@ class AccordionFilterContainer extends Component {
               page={linkProps.page}
               params={linkProps.params}
               query={linkProps.queryString}
+              onClick={onClose}
             >
               {intl.formatMessage({ id: 'search-result.filter-action.title' })}
             </FooterButton>
           </div>
-        }
+        )}
       >
         <div className="vtex-accordion-filter">
           {filters.map(filter => {

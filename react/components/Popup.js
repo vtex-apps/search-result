@@ -15,7 +15,19 @@ export class PopupProvider extends Component {
     openedItem: null,
   }
 
-  handleClick = (e, id) => {
+  handleClose = id => e => {
+    e.preventDefault()
+
+    if (id === this.state.openedItem) {
+      this.setState({
+        openedItem: null,
+      })
+
+      document.body.classList.remove('vtex-filter-popup-open')
+    }
+  }
+
+  handleClick = id => e => {
     e.preventDefault()
 
     if (id === this.state.openedItem) {
@@ -38,7 +50,13 @@ export class PopupProvider extends Component {
 
   render() {
     return (
-      <Provider value={{ onClick: this.handleClick, isOpen: this.checkOpen }}>
+      <Provider
+        value={{
+          onToggle: this.handleClick,
+          isOpen: this.checkOpen,
+          onClose: this.handleClose,
+        }}
+      >
         {this.props.children}
       </Provider>
     )
@@ -50,21 +68,22 @@ export default class Popup extends Component {
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     children: PropTypes.node,
-    footer: PropTypes.node,
+    renderFooter: PropTypes.fund,
   }
 
   static defaultProps = {
-    footer: null,
+    renderFooter: () => null,
   }
 
   contentRef = React.createRef()
 
   render() {
-    const { children, footer, title, id } = this.props
+    const { children, renderFooter, title, id } = this.props
 
     return (
       <Consumer>
-        {({ onClick, isOpen }) => {
+        {contextProps => {
+          const { isOpen, onToggle } = contextProps
           const open = isOpen(id)
 
           const className = classNames('vtex-filter-popup relative', {
@@ -82,11 +101,16 @@ export default class Popup extends Component {
             ? this.contentRef.current.getBoundingClientRect().bottom + 1
             : 0
 
+          const renderProps = {
+            onClose: contextProps.onClose(id),
+            onToggle: contextProps.onToggle(id),
+          }
+
           return (
             <div className={className} ref={this.contentRef}>
               <button
                 className="vtex-filter-popup__button pa5 mv0 mh5 pointer flex justify-center items-center"
-                onClick={e => onClick(e, id)}
+                onClick={onToggle(id)}
               >
                 <span className="vtex-filter-popup__title f5 ml-auto">{title}</span>
                 <span className="vtex-filter-popup__arrow-icon ml-auto">
@@ -98,7 +122,7 @@ export default class Popup extends Component {
                   {children}
                 </div>
                 <div className="vtex-filter-popup__footer nh3 bg-dark-gray">
-                  {footer}
+                  {renderFooter(renderProps)}
                 </div>
               </div>
             </div>
