@@ -3,8 +3,9 @@ import React, { Component } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
 import { isMobile } from 'react-device-detect'
 import { Dropdown } from 'vtex.styleguide'
+import { NoSSR } from 'render'
 
-import MaybeRenderPopup from './MaybeRenderPopup'
+import Popup from './Popup'
 
 export const SORT_OPTIONS = [
   {
@@ -37,9 +38,6 @@ export const SORT_OPTIONS = [
   },
 ]
 
-/**
- * Displays the header information of the Gallery: the query used to find the products and a selector to choose the sorting type.
- */
 class OrderBy extends Component {
   static contextTypes = {
     navigate: PropTypes.func,
@@ -66,31 +64,38 @@ class OrderBy extends Component {
   render() {
     const { orderBy, getLinkProps } = this.props
 
+    if (isMobile) {
+      return (
+        <NoSSR onSSR={null}>
+          <Popup
+            title="Ordernar"
+            id="orderby"
+          >
+            {this.sortingOptions.map(opt => (
+              <div key={opt.label}>{opt.label}</div>
+            ))}
+          </Popup>
+        </NoSSR>
+      )
+    }
+
     return (
-      <MaybeRenderPopup
-        title="Ordernar"
-        isMobile={isMobile}
-        id="orderby"
-      >
-        {isMobile ? this.sortingOptions.map(opt => (
-          <div key={opt.label}>{opt.label}</div>
-        )) : (
-          <Dropdown
-            size="large"
-            options={this.sortingOptions}
-            value={orderBy}
-            onChange={(_, ordenation) => {
-              const pagesArgs = getLinkProps({ ordenation })
-              this.context.navigate({
-                page: pagesArgs.page,
-                params: pagesArgs.params,
-                query: pagesArgs.queryString,
-                fallbackToWindowLocation: false,
-              })
-            }}
-          />
-        )}
-      </MaybeRenderPopup>
+      <NoSSR onSSR={null}>
+        <Dropdown
+          size="large"
+          options={this.sortingOptions}
+          value={orderBy}
+          onChange={(_, ordenation) => {
+            const pagesArgs = getLinkProps({ ordenation })
+            this.context.navigate({
+              page: pagesArgs.page,
+              params: pagesArgs.params,
+              query: pagesArgs.queryString,
+              fallbackToWindowLocation: false,
+            })
+          }}
+        />
+      </NoSSR>
     )
   }
 }

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { NoSSR } from 'render'
 import { isMobile } from 'react-device-detect'
@@ -6,7 +6,7 @@ import { injectIntl, intlShape } from 'react-intl'
 
 import SelectedFilters from './SelectedFilters'
 import AvailableFilters from './AvailableFilters'
-import MaybeRenderPopup from './MaybeRenderPopup'
+import Popup from './Popup'
 import AccordionFilterContainer from './AccordionFilterContainer'
 import { findInTree, mountOptions } from '../constants/SearchHelpers'
 import { facetOptionShape, paramShape } from '../constants/propTypes'
@@ -110,33 +110,37 @@ class FiltersContainer extends Component {
       options: priceRanges,
     })
 
-    return (
-      <NoSSR onSSR={null}>
-        <MaybeRenderPopup
-          isMobile={isMobile}
-          title={intl.formatMessage({ id: 'search-result.filter-button.title' })}
-          id="filters"
-        >
-          {!isMobile ? (
-            <Fragment>
-              <SelectedFilters
-                selecteds={this.selectedFilters}
-                getLinkProps={getLinkProps}
-              />
-              <AvailableFilters
-                getLinkProps={getLinkProps}
-                filters={filters}
-                map={map}
-                rest={rest}
-              />
-            </Fragment>
-          ) : (
+    if (isMobile) {
+      return (
+        <NoSSR onSSR={null}>
+          <Popup
+            isMobile={isMobile}
+            title={intl.formatMessage({ id: 'search-result.filter-button.title' })}
+            id="filters"
+          >
             <AccordionFilterContainer
               filters={filters}
               getLinkProps={getLinkProps}
             />
-          )}
-        </MaybeRenderPopup>
+          </Popup>
+        </NoSSR>
+      )
+    }
+
+    // The NoSSR component is needed because we don't have the user-agent
+    // string while doing server-side rendering
+    return (
+      <NoSSR onSSR={null}>
+        <SelectedFilters
+          selecteds={this.selectedFilters}
+          getLinkProps={getLinkProps}
+        />
+        <AvailableFilters
+          getLinkProps={getLinkProps}
+          filters={filters}
+          map={map}
+          rest={rest}
+        />
       </NoSSR>
     )
   }

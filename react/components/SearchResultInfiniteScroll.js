@@ -8,7 +8,7 @@ import { searchResultPropTypes } from '../constants/propTypes'
 import Gallery from './Gallery'
 import OrderBy from './OrderBy'
 import FiltersContainer from './FiltersContainer'
-import { PopupAccordionContainer } from './MaybeRenderPopup'
+import { PopupProvider } from './Popup'
 
 /**
  * Search Result Component.
@@ -88,7 +88,7 @@ export default class SearchResultInfiniteScroll extends Component {
     const to = (page - 1) * maxItemsPerPage + products.length
 
     return (
-      <PopupAccordionContainer>
+      <PopupProvider>
         <InfiniteScroll
           dataLength={products.length}
           next={() => {
@@ -147,7 +147,7 @@ export default class SearchResultInfiniteScroll extends Component {
             </div>
           </div>
         </InfiniteScroll>
-      </PopupAccordionContainer>
+      </PopupProvider>
     )
   }
 }

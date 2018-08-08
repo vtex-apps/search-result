@@ -6,7 +6,7 @@ import Arrow from '../images/Arrow'
 
 const { Provider, Consumer } = React.createContext()
 
-export class PopupAccordionContainer extends Component {
+export class PopupProvider extends Component {
   static propTypes = {
     children: PropTypes.node,
   }
@@ -45,9 +45,8 @@ export class PopupAccordionContainer extends Component {
   }
 }
 
-export default class MaybeRenderPopup extends Component {
+export default class Popup extends Component {
   static propTypes = {
-    isMobile: PropTypes.bool.isRequired,
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     children: PropTypes.node,
@@ -61,11 +60,7 @@ export default class MaybeRenderPopup extends Component {
   contentRef = React.createRef()
 
   render() {
-    const { children, footer, title, id, isMobile } = this.props
-
-    if (!isMobile) {
-      return children
-    }
+    const { children, footer, title, id } = this.props
 
     return (
       <Consumer>
