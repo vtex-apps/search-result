@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
 import { isMobile } from 'react-device-detect'
 import { Dropdown } from 'vtex.styleguide'
-import { NoSSR } from 'render'
+import { NoSSR, withRuntimeContext } from 'render'
 
 import MobileOrderBy from './MobileOrderBy'
 
@@ -39,10 +39,6 @@ export const SORT_OPTIONS = [
 ]
 
 class OrderBy extends Component {
-  static contextTypes = {
-    navigate: PropTypes.func,
-  }
-
   static propTypes = {
     /** Wich sorting option is selected. */
     orderBy: PropTypes.string.isRequired,
@@ -50,6 +46,10 @@ class OrderBy extends Component {
     getLinkProps: PropTypes.func,
     /** Intl instance. */
     intl: intlShape,
+    /** Render Runtime context */
+    runtime: PropTypes.shape({
+      navigate: PropTypes.func.isRequired,
+    }).isRequired,
   }
 
   get sortingOptions() {
@@ -62,7 +62,7 @@ class OrderBy extends Component {
   }
 
   render() {
-    const { orderBy, getLinkProps } = this.props
+    const { orderBy, getLinkProps, runtime } = this.props
 
     if (isMobile) {
       return (
@@ -84,7 +84,7 @@ class OrderBy extends Component {
           value={orderBy}
           onChange={(_, ordenation) => {
             const pagesArgs = getLinkProps({ ordenation })
-            this.context.navigate({
+            runtime.navigate({
               page: pagesArgs.page,
               params: pagesArgs.params,
               query: pagesArgs.queryString,
@@ -97,4 +97,4 @@ class OrderBy extends Component {
   }
 }
 
-export default injectIntl(OrderBy)
+export default withRuntimeContext(injectIntl(OrderBy))

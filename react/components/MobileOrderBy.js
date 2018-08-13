@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
+import { withRuntimeContext } from 'render'
 
 import CheckTick from '../images/CheckTick'
 import Popup from './Popup'
@@ -16,6 +17,9 @@ class MobileOrderBy extends Component {
       value: PropTypes.string,
     })),
     intl: intlShape,
+    runtime: PropTypes.shape({
+      navigate: PropTypes.func.isRequired,
+    }).isRequired,
   }
 
   static contextTypes = {
@@ -35,7 +39,7 @@ class MobileOrderBy extends Component {
   }
 
   render() {
-    const { intl, options, getLinkProps } = this.props
+    const { intl, options, getLinkProps, runtime } = this.props
     const { selectedOption } = this.state
 
     return (
@@ -50,7 +54,7 @@ class MobileOrderBy extends Component {
 
                 const linkProps = getLinkProps({ ordenation: selectedOption })
 
-                this.context.navigate({
+                runtime.navigate({
                   page: linkProps.page,
                   params: linkProps.params,
                   query: linkProps.queryString,
@@ -92,4 +96,4 @@ class MobileOrderBy extends Component {
   }
 }
 
-export default injectIntl(MobileOrderBy)
+export default withRuntimeContext(injectIntl(MobileOrderBy))
