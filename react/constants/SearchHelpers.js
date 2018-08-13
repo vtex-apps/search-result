@@ -143,19 +143,23 @@ export function getBaseMap(map, rest) {
 
 export function mountOptions(options, type, map, rest) {
   const restMap = restMapped(rest, map)
+
   return options.reduce((acc, opt) => {
     const slug = getSlugFromLink(opt.Link)
-    let optMap = getMapByType(type)
-    if (type === 'SpecificationFilters') {
-      optMap = getSpecificationFilterFromLink(opt.Link, map.split(','))
-    }
+    const optMap = type === 'SpecificationFilters'
+      ? getSpecificationFilterFromLink(opt.Link, map.split(','))
+      : getMapByType(type)
     const selected = restMap[slug && slug.toUpperCase()] === optMap && optMap !== undefined
-    return [...acc, {
-      ...opt,
-      selected,
-      type,
-      slug,
-    }]
+
+    return [
+      ...acc,
+      {
+        ...opt,
+        selected,
+        type,
+        slug,
+      },
+    ]
   }, [])
 }
 
