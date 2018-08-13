@@ -6,7 +6,7 @@ import { isMobile } from 'react-device-detect'
 import SelectedFilters from './SelectedFilters'
 import AvailableFilters from './AvailableFilters'
 import AccordionFilterContainer from './AccordionFilterContainer'
-import { findInTree, mountOptions } from '../constants/SearchHelpers'
+import { formatCategoriesTree, mountOptions } from '../constants/SearchHelpers'
 import { facetOptionShape, paramShape } from '../constants/propTypes'
 
 const CATEGORIES_TYPE = 'Categories'
@@ -30,17 +30,13 @@ export default class FiltersContainer extends Component {
   }
 
   get categories() {
-    const { tree, params } = this.props
+    const { tree } = this.props
+
     if (!tree || tree.length === 0) {
       return []
     }
-    const [{ Children: children }] = tree
-    const categories = Object.values(params).filter(category => category)
-    const category = findInTree(tree, categories, 0)
-    if (category) {
-      return category.Children || children
-    }
-    return children || []
+
+    return formatCategoriesTree(tree)
   }
 
   get selectedFilters() {

@@ -159,18 +159,31 @@ export function mountOptions(options, type, map, rest) {
   }, [])
 }
 
-export function findInTree(tree, values, index) {
-  if (!(tree && tree.length && values.length)) return
-  for (const node of tree) {
-    const categorySlug = stripPath(node.Link).split('/')[index]
-    if (categorySlug.toUpperCase() === values[index].toUpperCase()) {
-      if (index === values.length - 1) {
-        return node
-      }
-      return findInTree(node.Children, values, index + 1)
+// TODO: move this logic to facets resolver
+export function formatCategoriesTree(tree) {
+  const format = (tree, parentPath) => {
+    if (tree.length === 0) {
+      return []
     }
+
+    return tree.reduce((categories, node) => {
+      // Remove the accents and diacritics of the string
+      const normalizedName = node.Name.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      const nodePath = parentPath ? `${parentPath}/${normalizedName}` : normalizedName
+      return [
+        ...categories,
+        {
+          quantity: node.Quantity,
+          name: node.Name,
+          link: node.Link,
+          path: nodePath,
+        },
+        ...format(node.Children, nodePath),
+      ]
+    }, [])
   }
-  return tree[0]
+
+  return format(tree, '')
 }
 
 export function getFilterTitle(title = '', intl) {
