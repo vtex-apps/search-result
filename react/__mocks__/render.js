@@ -25,3 +25,7 @@ export class NoSSR extends Component {
     return this.props.children
   }
 }
+
+export function withRuntimeContext(Comp) {
+  return Comp
+}
