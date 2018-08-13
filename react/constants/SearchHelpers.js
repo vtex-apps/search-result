@@ -173,10 +173,10 @@ export function formatCategoriesTree(tree) {
       return [
         ...categories,
         {
-          quantity: node.Quantity,
-          name: node.Name,
-          link: node.Link,
-          path: nodePath,
+          Quantity: node.Quantity,
+          Name: node.Name,
+          Link: node.Link,
+          Path: nodePath,
         },
         ...format(node.Children, nodePath),
       ]
