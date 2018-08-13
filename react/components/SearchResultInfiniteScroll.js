@@ -57,7 +57,7 @@ export default class SearchResultInfiniteScroll extends Component {
           map: useEmptyMapAndRest
             ? getBaseMap(map, rest).split(',').filter(x => x)
             : map.split(','),
-          rest: useEmptyMapAndRest ? [] : rest.split(','),
+          rest: useEmptyMapAndRest ? [] : rest.split(',').filter(x => x),
         },
       }
     )
