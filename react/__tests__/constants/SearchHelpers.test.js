@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { getSpecificationFilterFromLink } from '../../constants/SearchHelpers'
+import { getSpecificationFilterFromLink, getPagesArgs } from '../../constants/SearchHelpers'
 
 describe('getSpecificationFilterFromLink', () => {
   it('should return the only specification in link', () => {
@@ -48,5 +48,68 @@ describe('getSpecificationFilterFromLink', () => {
     const filterMap = getSpecificationFilterFromLink(link, map)
 
     expect(filterMap).toBe('specificationFilter_20')
+  })
+})
+
+describe('getPagesArgs', () => {
+  it('should stay in the search page', () => {
+    const filterSpec = {
+      type: 'Brand',
+      Name: 'Samsung',
+      rest: [],
+      map: 'ft',
+      pagesPath: 'store/search',
+      params: {
+        term: 'samsung',
+        _rest: '',
+      },
+    }
+
+    const { page, query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['ft', 'b'])
+    expect(rest).toEqual(['Samsung'])
+    expect(page).toEqual('store/search')
+  })
+
+  it('should add single category on department page', () => {
+    const filterSpec = {
+      type: 'Category',
+      Name: 'Smartphones',
+      path: 'Eletronicos/Smartphones',
+      rest: [],
+      map: 'c',
+      pagesPath: 'store/search',
+      params: {
+        department: 'eletronicos',
+        _rest: '',
+      },
+    }
+
+    const { query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['c'])
+    expect(rest).toEqual(['Smartphones'])
+  })
+
+  it('should add multiple categories on search page', () => {
+    const filterSpec = {
+      type: 'Category',
+      Name: 'Smartphones',
+      path: 'Eletronicos/Smartphones',
+      rest: [],
+      map: 'ft',
+      pagesPath: 'store/search',
+      params: {
+        term: 'samsung',
+        _rest: '',
+      },
+    }
+
+    const { page, query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(page).toEqual('store/search')
+    expect(map).toEqual(['c', 'c'])
+    expect(rest).toEqual(['Eletronicos', 'Smartphones'])
   })
 })
