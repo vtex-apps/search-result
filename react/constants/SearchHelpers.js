@@ -255,8 +255,8 @@ export function formatCategoriesTree(tree) {
           Quantity: node.Quantity,
           Name: node.Name,
           Link: node.Link,
-          Path: nodePath,
-          Level: level,
+          path: nodePath,
+          level,
         },
         ...format(node.Children, nodePath, level + 1),
       ]
