@@ -22,7 +22,12 @@ export default class SearchResultInfiniteScroll extends Component {
   }
 
   getLinkProps = (spec, useEmptyMapAndRest = false) => {
-    const { rest, map, pagesPath, params } = this.props
+    const {
+      rest,
+      map,
+      pagesPath,
+      params,
+    } = this.props
     const filters = Array.isArray(spec) ? spec : [spec]
 
     if (filters.length === 0) {
@@ -34,7 +39,7 @@ export default class SearchResultInfiniteScroll extends Component {
 
     const pageProps = filters.reduce(
       (linkProps, filter) => {
-        const { link, type, ordenation, pageNumber, isSelected } = filter
+        const { type, ordenation, pageNumber, isSelected, path } = filter
         const orderBy = ordenation || linkProps.query.order
 
         return getPagesArgs({
@@ -42,8 +47,8 @@ export default class SearchResultInfiniteScroll extends Component {
           map: linkProps.query.map,
           pagesPath: linkProps.page,
           params: linkProps.params,
+          path,
           type,
-          link,
           orderBy,
           pageNumber,
           isUnselectLink: isSelected,

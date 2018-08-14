@@ -36,9 +36,10 @@ class SelectedFilters extends Component {
         collapsable={false}
         selected
       >
-        {({ Name: name, Link: link, type, slug }) => {
+        {({ Name: name, Link: link, Path: path, type, slug }) => {
           const pagesArgs = this.props.getLinkProps({
             name,
+            path,
             link,
             type,
             isSelected: true,
