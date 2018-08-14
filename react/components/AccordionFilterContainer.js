@@ -28,6 +28,7 @@ class AccordionFilterContainer extends Component {
       filter(option => option.selected),
       map(option => ({
         ...option,
+        name: option.Name,
         link: option.Link,
       }))
     )(this.props.filters || []),
@@ -69,6 +70,7 @@ class AccordionFilterContainer extends Component {
           {
             ...option,
             link: option.Link,
+            name: option.Name,
           },
         ],
       })

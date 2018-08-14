@@ -186,15 +186,15 @@ export function getPagesArgs({
   params,
   orderBy,
   path,
-  Name,
+  name,
   link,
   pageNumber = 1,
   pagesPath,
   isUnselectLink,
 }) {
   const { map: mapValues, rest: restValues } = isUnselectLink
-    ? removeFilter(map, rest, { type, slug: Name, pagesPath })
-    : addFilter(map, rest, { type, link, path, slug: Name, pagesPath })
+    ? removeFilter(map, rest, { type, slug: name, pagesPath })
+    : addFilter(map, rest, { type, link, path, slug: name, pagesPath })
 
   return {
     page: pagesPath,

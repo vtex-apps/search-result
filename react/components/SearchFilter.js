@@ -57,6 +57,7 @@ class SearchFilter extends Component {
       >
         {opt => {
           const pagesArgs = getLinkProps({
+            name: opt.Name,
             link: opt.Link,
             path: opt.path,
             type,
