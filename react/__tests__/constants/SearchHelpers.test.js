@@ -79,7 +79,7 @@ describe('getPagesArgs', () => {
       path: 'Eletronicos/Smartphones',
       rest: [],
       map: ['c'],
-      pagesPath: 'store/search',
+      pagesPath: 'store/department',
       params: {
         department: 'eletronicos',
         _rest: '',
@@ -88,7 +88,7 @@ describe('getPagesArgs', () => {
 
     const { query: { map, rest } } = getPagesArgs(filterSpec)
 
-    expect(map).toEqual(['ft', 'c'])
+    expect(map).toEqual(['c', 'c'])
     expect(rest).toEqual(['Smartphones'])
   })
 
