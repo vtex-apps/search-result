@@ -54,10 +54,10 @@ describe('getSpecificationFilterFromLink', () => {
 describe('getPagesArgs', () => {
   it('should stay in the search page', () => {
     const filterSpec = {
-      type: 'Brand',
+      type: 'Brands',
       Name: 'Samsung',
       rest: [],
-      map: 'ft',
+      map: ['ft'],
       pagesPath: 'store/search',
       params: {
         term: 'samsung',
@@ -78,7 +78,7 @@ describe('getPagesArgs', () => {
       Name: 'Smartphones',
       path: 'Eletronicos/Smartphones',
       rest: [],
-      map: 'c',
+      map: ['c'],
       pagesPath: 'store/search',
       params: {
         department: 'eletronicos',
@@ -88,7 +88,7 @@ describe('getPagesArgs', () => {
 
     const { query: { map, rest } } = getPagesArgs(filterSpec)
 
-    expect(map).toEqual(['c'])
+    expect(map).toEqual(['ft', 'c'])
     expect(rest).toEqual(['Smartphones'])
   })
 
@@ -98,7 +98,7 @@ describe('getPagesArgs', () => {
       Name: 'Smartphones',
       path: 'Eletronicos/Smartphones',
       rest: [],
-      map: 'ft',
+      map: ['ft'],
       pagesPath: 'store/search',
       params: {
         term: 'samsung',
@@ -109,7 +109,7 @@ describe('getPagesArgs', () => {
     const { page, query: { map, rest } } = getPagesArgs(filterSpec)
 
     expect(page).toEqual('store/search')
-    expect(map).toEqual(['c', 'c'])
+    expect(map).toEqual(['ft', 'c', 'c'])
     expect(rest).toEqual(['Eletronicos', 'Smartphones'])
   })
 })
