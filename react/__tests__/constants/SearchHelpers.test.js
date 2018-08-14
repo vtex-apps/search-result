@@ -92,7 +92,7 @@ describe('getPagesArgs', () => {
     expect(rest).toEqual(['Smartphones'])
   })
 
-  it('should add multiple categories on search page', () => {
+  it('should add single category on search page', () => {
     const filterSpec = {
       type: 'Categories',
       Name: 'Smartphones',
@@ -111,5 +111,50 @@ describe('getPagesArgs', () => {
     expect(page).toEqual('store/search')
     expect(map).toEqual(['ft', 'c', 'c'])
     expect(rest).toEqual(['Eletronicos', 'Smartphones'])
+  })
+
+  it('should only remove subcategory on category page', () => {
+    const filterSpec = {
+      type: 'Categories',
+      isUnselectLink: true,
+      Name: 'Acessórios',
+      path: 'Eletronicos/Smartphones/Acessorios',
+      rest: ['Acessorios'],
+      map: ['c', 'c', 'c'],
+      pagesPath: 'store/category',
+      params: {
+        department: 'Eletronicos',
+        category: 'Smartphones',
+        _rest: '',
+      },
+    }
+
+    const { query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['c', 'c'])
+    expect(rest).toEqual([])
+  })
+
+  it('should remove one sub-subcategory on subcategory page', () => {
+    const filterSpec = {
+      type: 'Categories',
+      isUnselectLink: true,
+      Name: 'foo',
+      path: 'Eletronicos/Smartphones/Acessorios/foo',
+      rest: ['Samsung', 'foo'],
+      map: ['c', 'b', 'c', 'c', 'c'],
+      pagesPath: 'store/subcategory',
+      params: {
+        department: 'Eletronicos',
+        category: 'Smartphones',
+        subcategory: 'Acessorios',
+        _rest: '',
+      },
+    }
+
+    const { query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['c', 'b', 'c', 'c'])
+    expect(rest).toEqual(['Samsung'])
   })
 })
