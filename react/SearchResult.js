@@ -56,7 +56,32 @@ export default class SearchResult extends Component {
     }
   }
 
+  get breadcrumbsProps() {
+    const {
+      params: { category, department, term },
+    } = this.props
+
+    const categories = []
+
+    if (department) {
+      categories.push(department)
+    }
+
+    if (category) {
+      categories.push(`${department}/${category}/`)
+    }
+
+    return {
+      term,
+      categories,
+    }
+  }
+
   render() {
-    return <SearchResultInfiniteScroll {...this.props} />
+    return (
+      <SearchResultInfiniteScroll
+        {...this.props}
+      />
+    )
   }
 }
