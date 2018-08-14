@@ -74,7 +74,7 @@ describe('getPagesArgs', () => {
 
   it('should add single category on department page', () => {
     const filterSpec = {
-      type: 'Category',
+      type: 'Categories',
       Name: 'Smartphones',
       path: 'Eletronicos/Smartphones',
       rest: [],
@@ -94,7 +94,7 @@ describe('getPagesArgs', () => {
 
   it('should add multiple categories on search page', () => {
     const filterSpec = {
-      type: 'Category',
+      type: 'Categories',
       Name: 'Smartphones',
       path: 'Eletronicos/Smartphones',
       rest: [],
