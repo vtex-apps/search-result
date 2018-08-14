@@ -165,7 +165,7 @@ export function mountOptions(options, type, map, rest) {
 
 // TODO: move this logic to facets resolver
 export function formatCategoriesTree(tree) {
-  const format = (tree, parentPath) => {
+  const format = (tree, parentPath, level) => {
     if (tree.length === 0) {
       return []
     }
@@ -181,13 +181,14 @@ export function formatCategoriesTree(tree) {
           Name: node.Name,
           Link: node.Link,
           Path: nodePath,
+          Level: level,
         },
-        ...format(node.Children, nodePath),
+        ...format(node.Children, nodePath, level + 1),
       ]
     }, [])
   }
 
-  return format(tree, '')
+  return format(tree, '', 0)
 }
 
 export function getFilterTitle(title = '', intl) {
