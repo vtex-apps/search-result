@@ -1,9 +1,9 @@
+/* global __RUNTIME__ */
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
-import { isMobile } from 'react-device-detect'
 import { Dropdown } from 'vtex.styleguide'
-import { NoSSR, withRuntimeContext } from 'render'
+import { withRuntimeContext } from 'render'
 
 import MobileOrderBy from './MobileOrderBy'
 
@@ -64,35 +64,31 @@ class OrderBy extends Component {
   render() {
     const { orderBy, getLinkProps, runtime } = this.props
 
-    if (isMobile) {
+    if (__RUNTIME__.hints.mobile) {
       return (
-        <NoSSR onSSR={null}>
-          <MobileOrderBy
-            orderBy={orderBy}
-            getLinkProps={getLinkProps}
-            options={this.sortingOptions}
-          />
-        </NoSSR>
+        <MobileOrderBy
+          orderBy={orderBy}
+          getLinkProps={getLinkProps}
+          options={this.sortingOptions}
+        />
       )
     }
 
     return (
-      <NoSSR onSSR={null}>
-        <Dropdown
-          size="large"
-          options={this.sortingOptions}
-          value={orderBy}
-          onChange={(_, ordenation) => {
-            const pagesArgs = getLinkProps({ ordenation })
-            runtime.navigate({
-              page: pagesArgs.page,
-              params: pagesArgs.params,
-              query: pagesArgs.queryString,
-              fallbackToWindowLocation: false,
-            })
-          }}
-        />
-      </NoSSR>
+      <Dropdown
+        size="large"
+        options={this.sortingOptions}
+        value={orderBy}
+        onChange={(_, ordenation) => {
+          const pagesArgs = getLinkProps({ ordenation })
+          runtime.navigate({
+            page: pagesArgs.page,
+            params: pagesArgs.params,
+            query: pagesArgs.queryString,
+            fallbackToWindowLocation: false,
+          })
+        }}
+      />
     )
   }
 }

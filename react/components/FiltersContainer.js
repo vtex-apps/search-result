@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+/* global __RUNTIME__ */
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { NoSSR } from 'render'
-import { isMobile } from 'react-device-detect'
 
 import SelectedFilters from './SelectedFilters'
 import AvailableFilters from './AvailableFilters'
@@ -102,23 +101,19 @@ export default class FiltersContainer extends Component {
       options: priceRanges,
     })
 
-    if (isMobile) {
+    if (__RUNTIME__.hints.mobile) {
       return (
-        <NoSSR onSSR={null}>
-          <AccordionFilterContainer
-            filters={filters}
-            getLinkProps={getLinkProps}
-            map={map}
-            rest={rest}
-          />
-        </NoSSR>
+        <AccordionFilterContainer
+          filters={filters}
+          getLinkProps={getLinkProps}
+          map={map}
+          rest={rest}
+        />
       )
     }
 
-    // The NoSSR component is needed because we don't have the user-agent
-    // string while doing server-side rendering
     return (
-      <NoSSR onSSR={null}>
+      <Fragment>
         <SelectedFilters
           selecteds={this.selectedFilters}
           getLinkProps={getLinkProps}
@@ -129,7 +124,7 @@ export default class FiltersContainer extends Component {
           map={map}
           rest={rest}
         />
-      </NoSSR>
+      </Fragment>
     )
   }
 }
