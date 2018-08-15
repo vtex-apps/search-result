@@ -103,7 +103,13 @@ class AccordionFilterContainer extends Component {
               page={linkProps.page}
               params={linkProps.params}
               query={linkProps.queryString}
-              onClick={onClose}
+              onClick={e => {
+                onClose(e)
+
+                this.setState({
+                  openedItem: null,
+                })
+              }}
             >
               {intl.formatMessage({ id: 'search-result.filter-action.title' })}
             </FooterButton>
