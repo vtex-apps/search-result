@@ -157,4 +157,25 @@ describe('getPagesArgs', () => {
     expect(map).toEqual(['c', 'b', 'c', 'c'])
     expect(rest).toEqual(['Samsung'])
   })
+
+  it('should remove brand from filters', () => {
+    const filterSpec = {
+      type: 'Brands',
+      isUnselectLink: true,
+      name: 'Samsung',
+      rest: ['Samsung'],
+      map: ['c', 'c', 'b'],
+      pagesPath: 'store/category',
+      params: {
+        department: 'Eletronicos',
+        category: 'Computadores',
+        _rest: '',
+      },
+    }
+
+    const { query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['c', 'c'])
+    expect(rest).toEqual([])
+  })
 })
