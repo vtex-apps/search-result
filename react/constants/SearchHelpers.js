@@ -56,7 +56,7 @@ export function getSpecificationFilterFromLink(link, map) {
   return specificationFilterMap
 }
 
-function getMapByType(type) {
+export function getMapByType(type) {
   switch (type) {
     case PRICE_RANGES_TYPE:
       return 'priceFrom'

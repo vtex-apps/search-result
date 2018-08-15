@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import SelectedFilters from './SelectedFilters'
 import AvailableFilters from './AvailableFilters'
 import AccordionFilterContainer from './AccordionFilterContainer'
-import { formatCategoriesTree, mountOptions } from '../constants/SearchHelpers'
+import { formatCategoriesTree, mountOptions, getMapByType } from '../constants/SearchHelpers'
 import { facetOptionShape, paramShape } from '../constants/propTypes'
 
 export const CATEGORIES_TYPE = 'Categories'
@@ -27,6 +27,17 @@ export default class FiltersContainer extends Component {
     priceRanges: PropTypes.arrayOf(facetOptionShape),
     map: PropTypes.string,
     rest: PropTypes.string,
+  }
+
+  get availableCategories() {
+    const categories = this.categories
+
+    const categoriesCount = this.props.map
+      .split(',')
+      .filter(m => m === getMapByType(CATEGORIES_TYPE))
+      .length
+
+    return categories.filter(c => c.level === categoriesCount)
   }
 
   get categories() {
@@ -71,7 +82,7 @@ export default class FiltersContainer extends Component {
       rest,
       getLinkProps,
     } = this.props
-    const categories = this.categories
+    const categories = this.availableCategories
 
     const filters = []
 
