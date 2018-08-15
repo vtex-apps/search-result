@@ -101,7 +101,7 @@ describe('getPagesArgs', () => {
       slug: 'Smartphones',
       path: 'Eletronicos/Smartphones',
       rest: [],
-      map: ['ft'],
+      map: ['ft', 'c'],
       pagesPath: 'store/search',
       params: {
         term: 'samsung',
