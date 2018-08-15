@@ -1,6 +1,12 @@
 import { repeat, findLastIndex } from 'ramda'
 
 import { SORT_OPTIONS } from '../components/OrderBy'
+import {
+  CATEGORIES_TYPE,
+  BRANDS_TYPE,
+  PRICE_RANGES_TYPE,
+  SPECIFICATION_FILTERS_TYPE,
+} from '../components/FiltersContainer'
 
 function stripPath(pathName) {
   return pathName
@@ -52,11 +58,11 @@ export function getSpecificationFilterFromLink(link, map) {
 
 function getMapByType(type) {
   switch (type) {
-    case 'PriceRanges':
+    case PRICE_RANGES_TYPE:
       return 'priceFrom'
-    case 'Categories':
+    case CATEGORIES_TYPE:
       return 'c'
-    case 'Brands':
+    case BRANDS_TYPE:
       return 'b'
   }
 }
@@ -88,22 +94,6 @@ function getSlugFromLink(link) {
 }
 
 function removeFilter(map, rest, { type, slug, pagesPath }) {
-  if (type !== 'Categories') {
-    const index = rest.findIndex(
-      item => slug.toLowerCase() === item.toLowerCase()
-    )
-
-    if (index !== -1) {
-      return {
-        rest: rest.filter((_, i) => i !== index),
-        map: map.filter((_, i) => i !== ((rest.length * -1) + index - 1)),
-      }
-    }
-
-    return { map, rest }
-  }
-
-  const mapSymbol = getMapByType(type)
   let skip = 0
 
   if (pagesPath === 'store/department') {
@@ -112,6 +102,38 @@ function removeFilter(map, rest, { type, slug, pagesPath }) {
     skip = 2
   } else if (pagesPath === 'store/subcategory') {
     skip = 3
+  }
+
+  const mapSymbol = getMapByType(CATEGORIES_TYPE)
+
+  if (type !== CATEGORIES_TYPE) {
+    const index = rest.findIndex(
+      item => slug.toLowerCase() === item.toLowerCase()
+    )
+
+    if (index !== -1) {
+      let mapIndex = -1
+      let count = -1
+
+      for (const symbol of map) {
+        mapIndex++
+
+        if (symbol === mapSymbol && skip > 0) {
+          skip--
+        } else if (count === index) {
+          break
+        } else {
+          count++
+        }
+      }
+
+      return {
+        rest: rest.filter((_, i) => i !== index),
+        map: map.filter((_, i) => i !== mapIndex),
+      }
+    }
+
+    return { map, rest }
   }
 
   let restIndex = -1
@@ -136,11 +158,11 @@ function removeFilter(map, rest, { type, slug, pagesPath }) {
 }
 
 function addFilter(map, rest, { path, type, link, pagesPath, slug }) {
-  const mapSymbol = type === 'SpecificationFilters'
+  const mapSymbol = type === SPECIFICATION_FILTERS_TYPE
     ? getSpecificationFilterFromLink(link, map)
     : getMapByType(type)
 
-  if (type !== 'Categories') {
+  if (type !== CATEGORIES_TYPE) {
     return {
       rest: [...rest, slug],
       map: [...map, mapSymbol],
@@ -221,7 +243,7 @@ export function mountOptions(options, type, map, rest) {
 
   return options.reduce((acc, opt) => {
     const slug = getSlugFromLink(opt.Link)
-    const optMap = type === 'SpecificationFilters'
+    const optMap = type === SPECIFICATION_FILTERS_TYPE
       ? getSpecificationFilterFromLink(opt.Link, map.split(','))
       : getMapByType(type)
     const selected = restMap[slug && slug.toUpperCase()] === optMap && optMap !== undefined
