@@ -55,7 +55,7 @@ describe('getPagesArgs', () => {
   it('should stay in the search page', () => {
     const filterSpec = {
       type: 'Brands',
-      Name: 'Samsung',
+      name: 'Samsung',
       rest: [],
       map: ['ft'],
       pagesPath: 'store/search',
@@ -75,7 +75,7 @@ describe('getPagesArgs', () => {
   it('should add single category on department page', () => {
     const filterSpec = {
       type: 'Categories',
-      Name: 'Smartphones',
+      name: 'Smartphones',
       path: 'Eletronicos/Smartphones',
       rest: [],
       map: ['c'],
@@ -95,7 +95,7 @@ describe('getPagesArgs', () => {
   it('should add single category on search page', () => {
     const filterSpec = {
       type: 'Categories',
-      Name: 'Smartphones',
+      name: 'Smartphones',
       path: 'Eletronicos/Smartphones',
       rest: [],
       map: ['ft'],
@@ -117,7 +117,7 @@ describe('getPagesArgs', () => {
     const filterSpec = {
       type: 'Categories',
       isUnselectLink: true,
-      Name: 'Acessórios',
+      name: 'Acessórios',
       path: 'Eletronicos/Smartphones/Acessorios',
       rest: ['Acessorios'],
       map: ['c', 'c', 'c'],
@@ -139,7 +139,7 @@ describe('getPagesArgs', () => {
     const filterSpec = {
       type: 'Categories',
       isUnselectLink: true,
-      Name: 'foo',
+      name: 'foo',
       path: 'Eletronicos/Smartphones/Acessorios/foo',
       rest: ['Samsung', 'foo'],
       map: ['c', 'b', 'c', 'c', 'c'],
