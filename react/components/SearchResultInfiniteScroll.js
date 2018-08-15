@@ -3,6 +3,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { Spinner } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
 import QueryString from 'query-string'
+import { ExtensionPoint } from 'render'
 
 import { getPagesArgs, getBaseMap } from '../constants/SearchHelpers'
 import { searchResultPropTypes } from '../constants/propTypes'
@@ -19,6 +20,27 @@ export default class SearchResultInfiniteScroll extends Component {
 
   state = {
     fetchMoreLoading: false,
+  }
+
+  get breadcrumbsProps() {
+    const {
+      params: { category, department, term },
+    } = this.props
+
+    const categories = []
+
+    if (department) {
+      categories.push(department)
+    }
+
+    if (category) {
+      categories.push(`${department}/${category}/`)
+    }
+
+    return {
+      term,
+      categories,
+    }
   }
 
   getLinkProps = (spec, useEmptyMapAndRest = false) => {
@@ -153,7 +175,7 @@ export default class SearchResultInfiniteScroll extends Component {
         >
           <div className="vtex-search-result vtex-search-result--infinite-scroll pv3 ph9-l ph7-m ph5-s">
             <div className="vtex-search-result__breadcrumb">
-              {/* <ExtensionPoint id="breadcrumb" /> */}
+              <ExtensionPoint id="breadcrumb" {...this.breadcrumbsProps} />
             </div>
             <div className="vtex-search-result__total-products">
               <FormattedMessage
