@@ -39,7 +39,7 @@ export default class FilterOptionTemplate extends Component {
     return (
       <div className={className}>
         <div
-          className="pointer"
+          className={collapsable ? 'pointer' : ''}
           onClick={() => {
             this.setState({ open: !open })
           }}
