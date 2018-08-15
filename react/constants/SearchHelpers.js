@@ -8,14 +8,6 @@ import {
   SPECIFICATION_FILTERS_TYPE,
 } from '../components/FiltersContainer'
 
-function stripPath(pathName) {
-  return pathName
-    .replace(/^\//i, '')
-    .replace(/\/s$/i, '')
-    .replace(/\/d$/i, '')
-    .replace(/\/b$/i, '')
-}
-
 /**
  * Returns the parameter name to be used in the map
  */
@@ -78,19 +70,6 @@ function restMapped(rest, map) {
   return restValues.reduce((acc, value, index) => {
     return { ...acc, [value.toUpperCase()]: mapValuesSliced[index] }
   }, {})
-}
-
-/**
- * Returns the last slug of link.
- * E.g.: 'smartphones/Android 7?map=c,specificationFilter_30' => Android 7
- */
-function getSlugFromLink(link) {
-  if (!link) return ''
-
-  const qIndex = link.indexOf('?')
-
-  const url = link.substr(0, qIndex !== -1 ? qIndex : link.length)
-  return stripPath(url).split('/').pop()
 }
 
 function removeFilter(map, rest, { type, slug, pagesPath }) {
@@ -235,7 +214,8 @@ export function mountOptions(options, type, map, rest) {
   const restMap = restMapped(rest, map)
 
   return options.reduce((acc, opt) => {
-    const slug = getSlugFromLink(opt.Link)
+    // FIXME @lucasecdb: change to slug when the API is ready
+    const slug = opt.Name
     const optMap = type === SPECIFICATION_FILTERS_TYPE
       ? getSpecificationFilterFromLink(opt.Link, map.split(','))
       : getMapByType(type)
