@@ -70,6 +70,8 @@ export default class SearchResultInfiniteScroll extends Component {
           pagesPath: linkProps.page,
           params: linkProps.params,
           name,
+          // FIXME @lucasecdb: use actual slug when the API is ready
+          slug: name,
           path,
           type,
           orderBy,

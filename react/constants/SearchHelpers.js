@@ -104,57 +104,41 @@ function removeFilter(map, rest, { type, slug, pagesPath }) {
     skip = 3
   }
 
-  const mapSymbol = getMapByType(CATEGORIES_TYPE)
+  const categoryMapSymbol = getMapByType(CATEGORIES_TYPE)
 
-  if (type !== CATEGORIES_TYPE) {
-    const index = rest.findIndex(
-      item => slug.toLowerCase() === item.toLowerCase()
-    )
+  const restIndex = rest.findIndex(
+    item => slug.toLowerCase() === item.toLowerCase()
+  )
 
-    if (index !== -1) {
-      let mapIndex = -1
-      let count = -1
-
-      for (const symbol of map) {
-        mapIndex++
-
-        if (symbol === mapSymbol && skip > 0) {
-          skip--
-        } else if (count === index) {
-          break
-        } else {
-          count++
-        }
-      }
-
-      return {
-        rest: rest.filter((_, i) => i !== index),
-        map: map.filter((_, i) => i !== mapIndex),
-      }
-    }
-
+  if (restIndex === -1) {
     return { map, rest }
   }
 
-  let restIndex = -1
+  let mapIndex
 
-  for (const symbol of map) {
-    if (symbol === mapSymbol && skip > 0) {
-      skip--
-    } else {
-      restIndex++
+  if (type !== CATEGORIES_TYPE) {
+    mapIndex = -1
+    let count = -1
+
+    for (const symbol of map) {
+      mapIndex++
+
+      if (symbol === categoryMapSymbol && skip > 0) {
+        skip--
+      } else if (count === restIndex) {
+        break
+      } else {
+        count++
+      }
     }
+  } else {
+    mapIndex = findLastIndex(m => m === categoryMapSymbol)(map)
   }
 
-  if (restIndex !== -1) {
-    const lastMapSymbolIndex = findLastIndex(m => m === mapSymbol)(map)
-    return {
-      map: map.filter((_, i) => i !== lastMapSymbolIndex),
-      rest: rest.filter((_, i) => i !== restIndex),
-    }
+  return {
+    map: map.filter((_, i) => i !== mapIndex),
+    rest: rest.filter((_, i) => i !== restIndex),
   }
-
-  return { map, rest }
 }
 
 function addFilter(map, rest, { path, type, link, pagesPath, slug }) {
@@ -208,7 +192,7 @@ export function getPagesArgs({
   params,
   orderBy,
   path,
-  name,
+  slug,
   link,
   pageNumber = 1,
   pagesPath,
@@ -220,8 +204,8 @@ export function getPagesArgs({
   // We won't have the type if only the orderBy has been changed
   if (type) {
     const filters = isUnselectLink
-      ? removeFilter(map, rest, { type, slug: name, pagesPath })
-      : addFilter(map, rest, { type, link, path, slug: name, pagesPath })
+      ? removeFilter(map, rest, { type, slug, pagesPath })
+      : addFilter(map, rest, { type, link, path, slug, pagesPath })
 
     mapValues = filters.map
     restValues = filters.rest
