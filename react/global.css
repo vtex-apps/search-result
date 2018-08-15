@@ -22,11 +22,15 @@
 .vtex-search-result__order-by {
   grid-column: orderby;
   grid-row: orderby;
+  align-self: center;
+  justify-self: stretch;
 }
 
 .vtex-search-result__breadcrumb {
   grid-column: breadcrumb;
   grid-row: breadcrumb;
+  align-self: center;
+  justify-self: stretch;
 }
 
 .vtex-search-result__filters {
