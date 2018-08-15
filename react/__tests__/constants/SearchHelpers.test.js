@@ -196,4 +196,24 @@ describe('getPagesArgs', () => {
     expect(rest).toEqual(filterSpec.rest)
     expect(order).toBe(filterSpec.orderBy)
   })
+
+  it('should remove category from rest', () => {
+    const filterSpec = {
+      type: 'Categories',
+      isUnselectLink: true,
+      name: 'Smartphones',
+      map: ['c', 'c', 'b'],
+      rest: ['Smartphones', 'Google'],
+      pagesPath: 'store/department',
+      params: {
+        department: 'Eletronicos',
+        _rest: '',
+      },
+    }
+
+    const { query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['c', 'b'])
+    expect(rest).toEqual(['Google'])
+  })
 })
