@@ -150,7 +150,7 @@ export default class SearchResultInfiniteScroll extends Component {
       params,
     } = this.props
 
-    const isLoading = products.length === 0 && (searchLoading || this.props.loading)
+    const isLoading = searchLoading || this.props.loading
     const to = (page - 1) * maxItemsPerPage + products.length
 
     return (
