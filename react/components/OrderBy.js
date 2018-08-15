@@ -5,7 +5,7 @@ import { injectIntl, intlShape } from 'react-intl'
 import { Dropdown } from 'vtex.styleguide'
 import { withRuntimeContext } from 'render'
 
-import MobileOrderBy from './MobileOrderBy'
+import SelectionListOrderBy from './SelectionListOrderBy'
 
 export const SORT_OPTIONS = [
   {
@@ -66,7 +66,7 @@ class OrderBy extends Component {
 
     if (__RUNTIME__.hints.mobile) {
       return (
-        <MobileOrderBy
+        <SelectionListOrderBy
           orderBy={orderBy}
           getLinkProps={getLinkProps}
           options={this.sortingOptions}

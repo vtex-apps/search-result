@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
-import { withRuntimeContext } from 'render'
+import { Link } from 'render'
 
 import CheckTick from '../images/CheckTick'
 import Popup from './Popup'
 import FooterButton from './FooterButton'
 
-class MobileOrderBy extends Component {
+class SelectionListOrderBy extends Component {
   static propTypes = {
     orderBy: PropTypes.string,
     getLinkProps: PropTypes.func,
@@ -17,9 +17,6 @@ class MobileOrderBy extends Component {
       value: PropTypes.string,
     })),
     intl: intlShape,
-    runtime: PropTypes.shape({
-      navigate: PropTypes.func.isRequired,
-    }).isRequired,
   }
 
   static contextTypes = {
@@ -39,8 +36,10 @@ class MobileOrderBy extends Component {
   }
 
   render() {
-    const { intl, options, getLinkProps, runtime } = this.props
+    const { intl, options, getLinkProps } = this.props
     const { selectedOption } = this.state
+
+    const linkProps = getLinkProps({ ordenation: selectedOption })
 
     return (
       <Popup
@@ -49,18 +48,11 @@ class MobileOrderBy extends Component {
         renderFooter={({ onClose }) => (
           <div className="flex justify-end pv3 ph6">
             <FooterButton
-              onClick={e => {
-                onClose(e)
-
-                const linkProps = getLinkProps({ ordenation: selectedOption })
-
-                runtime.navigate({
-                  page: linkProps.page,
-                  params: linkProps.params,
-                  query: linkProps.queryString,
-                  fallbackToWindowLocation: false,
-                })
-              }}
+              tag={Link}
+              page={linkProps.page}
+              params={linkProps.params}
+              query={linkProps.queryString}
+              onClick={onClose}
             >
               {intl.formatMessage({ id: 'ordenation.button' })}
             </FooterButton>
@@ -96,4 +88,4 @@ class MobileOrderBy extends Component {
   }
 }
 
-export default withRuntimeContext(injectIntl(MobileOrderBy))
+export default injectIntl(SelectionListOrderBy)
