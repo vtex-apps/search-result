@@ -15,6 +15,7 @@ class AccordionFilterItem extends Component {
     type: PropTypes.string,
     show: PropTypes.bool,
     open: PropTypes.bool,
+    oneSelectedCollapse: PropTypes.bool,
     onOpen: PropTypes.func,
     onSelectOption: PropTypes.func,
     isOptionActive: PropTypes.func,
@@ -32,6 +33,7 @@ class AccordionFilterItem extends Component {
       onSelectOption,
       isOptionActive,
       intl,
+      oneSelectedCollapse,
     } = this.props
 
     return (
@@ -67,6 +69,7 @@ class AccordionFilterItem extends Component {
 
               const filterOption = {
                 type,
+                oneSelectedCollapse,
                 ...opt,
               }
 

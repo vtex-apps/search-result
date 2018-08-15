@@ -56,6 +56,10 @@ class AccordionFilterContainer extends Component {
     })
   }
 
+  isTypeActive = opt => (
+    !!this.state.selectedOptions.find(e => e.type === opt.type)
+  )
+
   isOptionActive = opt => (
     !!this.state.selectedOptions.find(e => e.Name === opt.Name)
   )
@@ -63,7 +67,8 @@ class AccordionFilterContainer extends Component {
   handleSelectOption = (e, option) => {
     e.preventDefault()
 
-    if (!this.isOptionActive(option)) {
+    if ((option.oneSelectedCollapse && !this.isTypeActive(option)) ||
+       (!option.oneSelectedCollapse && !this.isOptionActive(option))) {
       this.setState({
         selectedOptions: [
           ...this.state.selectedOptions,
@@ -73,6 +78,16 @@ class AccordionFilterContainer extends Component {
             name: option.Name,
           },
         ],
+      })
+    } else if (
+      option.oneSelectedCollapse &&
+      this.isTypeActive(option) &&
+      !this.isOptionActive(option)
+    ) {
+      this.setState({
+        selectedOptions: this.state.selectedOptions.map(
+          e => e.type === option.type ? option : e
+        ),
       })
     } else {
       this.setState({
@@ -118,7 +133,7 @@ class AccordionFilterContainer extends Component {
       >
         <div className="vtex-accordion-filter">
           {filters.map(filter => {
-            const { type, title, options } = filter
+            const { type, title, options, oneSelectedCollapse } = filter
             const isOpen = openedItem === filter.title
 
             return (
@@ -132,6 +147,7 @@ class AccordionFilterContainer extends Component {
                 onOpen={this.handleOpen(filter.title)}
                 onSelectOption={this.handleSelectOption}
                 isOptionActive={this.isOptionActive}
+                oneSelectedCollapse={oneSelectedCollapse}
               />
             )
           })}
