@@ -122,6 +122,10 @@ body.vtex-filter-popup-open {
       "gallery gallery gallery";
   }
 
+  .vtex-search-result__breadcrumb {
+    justify-self: center;
+  }
+
   .vtex-search-result__total-products {
     justify-self: stretch;
     text-align: center;
