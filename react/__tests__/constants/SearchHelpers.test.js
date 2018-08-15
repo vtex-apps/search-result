@@ -178,4 +178,22 @@ describe('getPagesArgs', () => {
     expect(map).toEqual(['c', 'c'])
     expect(rest).toEqual([])
   })
+
+  it('should only add order to query', () => {
+    const filterSpec = {
+      orderBy: 'OrderByPriceASC',
+      rest: ['Smartphones'],
+      map: ['c', 'c'],
+      params: {
+        department: 'Eletronicos',
+        _rest: '',
+      },
+    }
+
+    const { query: { order, map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(filterSpec.map)
+    expect(rest).toEqual(filterSpec.rest)
+    expect(order).toBe(filterSpec.orderBy)
+  })
 })
