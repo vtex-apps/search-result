@@ -75,7 +75,7 @@ export default class FiltersContainer extends Component {
 
   render() {
     const {
-      specificationFilters,
+      specificationFilters = [],
       brands,
       priceRanges,
       map,
@@ -84,7 +84,23 @@ export default class FiltersContainer extends Component {
     } = this.props
     const categories = this.availableCategories
 
-    const filters = []
+    const filters = [
+      ...specificationFilters.map(spec => ({
+        type: SPECIFICATION_FILTERS_TYPE,
+        title: spec.name,
+        options: spec.facets,
+      })),
+      {
+        type: BRANDS_TYPE,
+        title: BRANDS_TITLE,
+        options: brands,
+      },
+      {
+        type: PRICE_RANGES_TYPE,
+        title: PRICE_RANGES_TITLE,
+        options: priceRanges,
+      },
+    ]
 
     if (categories.length) {
       filters.push({
@@ -94,24 +110,6 @@ export default class FiltersContainer extends Component {
         oneSelectedCollapse: true,
       })
     }
-
-    filters.concat(specificationFilters.map(spec => ({
-      type: SPECIFICATION_FILTERS_TYPE,
-      title: spec.name,
-      options: spec.facets,
-    })))
-
-    filters.push({
-      type: BRANDS_TYPE,
-      title: BRANDS_TITLE,
-      options: brands,
-    })
-
-    filters.push({
-      type: PRICE_RANGES_TYPE,
-      title: PRICE_RANGES_TITLE,
-      options: priceRanges,
-    })
 
     if (__RUNTIME__.hints.mobile) {
       return (
