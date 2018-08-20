@@ -1,4 +1,4 @@
-import { repeat, findLastIndex } from 'ramda'
+import { repeat } from 'ramda'
 
 import { SORT_OPTIONS } from '../components/OrderBy'
 import {
@@ -93,30 +93,49 @@ function removeFilter(map, rest, { type, slug, pagesPath }) {
     return { map, rest }
   }
 
-  let mapIndex
+  let mapIndex = -1
+  let count = skip - 1
 
-  if (type !== CATEGORIES_TYPE) {
-    mapIndex = -1
-    let count = -1
+  for (const symbol of map) {
+    mapIndex++
 
-    for (const symbol of map) {
-      mapIndex++
-
-      if (symbol === categoryMapSymbol && skip > 0) {
-        skip--
-      } else if (count === restIndex) {
-        break
-      } else {
-        count++
-      }
+    if (symbol === categoryMapSymbol && skip > 0) {
+      skip--
+    } else if (count === restIndex) {
+      break
+    } else {
+      count++
     }
-  } else {
-    mapIndex = findLastIndex(m => m === categoryMapSymbol)(map)
   }
 
+  if (type !== CATEGORIES_TYPE) {
+    return {
+      map: map.filter((_, i) => i !== mapIndex),
+      rest: rest.filter((_, i) => i !== restIndex),
+    }
+  }
+
+  console.log(mapIndex, restIndex)
+
   return {
-    map: map.filter((_, i) => i !== mapIndex),
-    rest: rest.filter((_, i) => i !== restIndex),
+    rest: rest
+      .filter((_, i) => {
+        if (i < restIndex) {
+          return true
+        } else if (i === restIndex) {
+          return false
+        }
+        return map[i + mapIndex] !== categoryMapSymbol
+      }),
+    map: map
+      .filter((mapValue, i) => {
+        if (i < mapIndex) {
+          return true
+        } else if (i === mapIndex) {
+          return false
+        }
+        return mapValue !== categoryMapSymbol
+      }),
   }
 }
 
@@ -204,7 +223,7 @@ export function mountOptions(options, type, map, rest) {
 
   return options.reduce((acc, opt) => {
     // FIXME @lucasecdb: change to slug when the API is ready
-    const slug = opt.Name
+    const slug = opt.normalizedName
     const optMap = type === SPECIFICATION_FILTERS_TYPE
       ? getSpecificationFilterFromLink(opt.Link, map.split(','))
       : getMapByType(type)
@@ -239,6 +258,7 @@ export function formatCategoriesTree(tree) {
           Quantity: node.Quantity,
           Name: node.Name,
           Link: node.Link,
+          normalizedName,
           path: nodePath,
           level,
         },

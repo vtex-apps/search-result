@@ -183,6 +183,49 @@ describe('getPagesArgs', () => {
     expect(rest).toEqual(['Samsung'])
   })
 
+  it('should remove category from rest', () => {
+    const filterSpec = {
+      type: 'Categories',
+      isUnselectLink: true,
+      name: 'Smartphones',
+      slug: 'Smartphones',
+      path: 'Eletronicos/Smartphones',
+      map: ['c', 'c', 'b'],
+      rest: ['Smartphones', 'Google'],
+      pagesPath: 'store/department',
+      params: {
+        department: 'Eletronicos',
+        _rest: '',
+      },
+    }
+
+    const { query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['c', 'b'])
+    expect(rest).toEqual(['Google'])
+  })
+
+  it('should remove all categories on search page', () => {
+    const filterSpec = {
+      type: 'Categories',
+      isUnselectLink: true,
+      name: 'Eletrônicos',
+      slug: 'Eletronicos',
+      path: 'Eletronicos',
+      map: ['ft', 'c', 'c'],
+      rest: ['Eletronicos', 'Smartphones'],
+      pagesPath: 'store/search',
+      params: {
+        term: 'samsun',
+      },
+    }
+
+    const { query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['ft'])
+    expect(rest).toEqual([])
+  })
+
   it('should remove brand from filters', () => {
     const filterSpec = {
       type: 'Brands',
@@ -221,26 +264,5 @@ describe('getPagesArgs', () => {
     expect(map).toEqual(filterSpec.map)
     expect(rest).toEqual(filterSpec.rest)
     expect(order).toBe(filterSpec.orderBy)
-  })
-
-  it('should remove category from rest', () => {
-    const filterSpec = {
-      type: 'Categories',
-      isUnselectLink: true,
-      name: 'Smartphones',
-      slug: 'Smartphones',
-      map: ['c', 'c', 'b'],
-      rest: ['Smartphones', 'Google'],
-      pagesPath: 'store/department',
-      params: {
-        department: 'Eletronicos',
-        _rest: '',
-      },
-    }
-
-    const { query: { map, rest } } = getPagesArgs(filterSpec)
-
-    expect(map).toEqual(['c', 'b'])
-    expect(rest).toEqual(['Google'])
   })
 })
