@@ -125,7 +125,7 @@ export default class FiltersContainer extends Component {
     return (
       <Fragment>
         <SelectedFilters
-          selecteds={this.selectedFilters}
+          filters={this.selectedFilters}
           getLinkProps={getLinkProps}
         />
         <AvailableFilters

@@ -12,7 +12,7 @@ import Check from '../images/Check'
 class SelectedFilters extends Component {
   static propTypes = {
     /** Selected filters. */
-    selecteds: PropTypes.arrayOf(PropTypes.shape({
+    filters: PropTypes.arrayOf(PropTypes.shape({
       Name: PropTypes.string,
       Link: PropTypes.string,
       slug: PropTypes.string,
@@ -32,7 +32,7 @@ class SelectedFilters extends Component {
     return (
       <FilterOptionTemplate
         title={title}
-        filters={this.props.selecteds}
+        filters={this.props.filters}
         collapsable={false}
         selected
       >
