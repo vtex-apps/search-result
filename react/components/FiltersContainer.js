@@ -23,7 +23,10 @@ export default class FiltersContainer extends Component {
     tree: PropTypes.arrayOf(facetOptionShape),
     params: paramShape,
     brands: PropTypes.arrayOf(facetOptionShape),
-    specificationFilters: PropTypes.arrayOf(facetOptionShape),
+    specificationFilters: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      facets: PropTypes.arrayOf(facetOptionShape),
+    })),
     priceRanges: PropTypes.arrayOf(facetOptionShape),
     map: PropTypes.string,
     rest: PropTypes.string,
