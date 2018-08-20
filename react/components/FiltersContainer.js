@@ -1,6 +1,7 @@
 /* global __RUNTIME__ */
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
+import { flatten } from 'ramda'
 
 import SelectedFilters from './SelectedFilters'
 import AvailableFilters from './AvailableFilters'
@@ -64,16 +65,16 @@ export default class FiltersContainer extends Component {
 
     const categories = this.categories
 
-    let options = []
+    const options = [
+      ...mountOptions(categories, CATEGORIES_TYPE, map, rest),
+      ...specificationFilters.map(spec =>
+        mountOptions(spec.facets, SPECIFICATION_FILTERS_TYPE, map, rest)
+      ),
+      ...mountOptions(brands, BRANDS_TYPE, map, rest),
+      ...mountOptions(priceRanges, PRICE_RANGES_TYPE, map, rest),
+    ]
 
-    options = options.concat(mountOptions(categories, CATEGORIES_TYPE, map, rest))
-    options = options.concat(specificationFilters.map(spec =>
-      mountOptions(spec.facets, SPECIFICATION_FILTERS_TYPE, map, rest)
-    ))
-    options = options.concat(mountOptions(brands, BRANDS_TYPE, map, rest))
-    options = options.concat(mountOptions(priceRanges, PRICE_RANGES_TYPE, map, rest))
-
-    return options.filter(opt => opt.selected)
+    return flatten(options).filter(opt => opt.selected)
   }
 
   render() {
