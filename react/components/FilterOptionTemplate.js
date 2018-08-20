@@ -27,6 +27,10 @@ export default class FilterOptionTemplate extends Component {
     const { selected, children, filters, title, collapsable } = this.props
     const { open } = this.state
 
+    if (!filters.length) {
+      return null
+    }
+
     const className = classNames('vtex-search-result__filter pv3 bb b--light-gray', {
       'vtex-search-result__filter--selected': selected,
       'vtex-search-result__filter--available': !selected,
