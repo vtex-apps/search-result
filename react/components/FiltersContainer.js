@@ -85,6 +85,12 @@ export default class FiltersContainer extends Component {
     const categories = this.availableCategories
 
     const filters = [
+      {
+        type: CATEGORIES_TYPE,
+        title: CATEGORIES_TITLE,
+        options: categories,
+        oneSelectedCollapse: true,
+      },
       ...specificationFilters.map(spec => ({
         type: SPECIFICATION_FILTERS_TYPE,
         title: spec.name,
@@ -101,15 +107,6 @@ export default class FiltersContainer extends Component {
         options: priceRanges,
       },
     ]
-
-    if (categories.length) {
-      filters.push({
-        type: CATEGORIES_TYPE,
-        title: CATEGORIES_TITLE,
-        options: categories,
-        oneSelectedCollapse: true,
-      })
-    }
 
     if (__RUNTIME__.hints.mobile) {
       return (
