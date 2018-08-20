@@ -134,23 +134,12 @@ function addFilter(map, rest, { path, type, link, pagesPath, slug }) {
 
   const args = path.split('/')
 
-  let categoryIndex = 0
+  let categoryIndex = map.filter(m => m === mapSymbol).length
 
   if (pagesPath === 'store/department') {
-    categoryIndex = 1
+    categoryIndex = Math.max(1, categoryIndex)
   } else if (pagesPath === 'store/category') {
-    categoryIndex = 2
-  } else if (pagesPath === 'store/subcategory') {
-    // For a subcategory route, we need to support any arbitrary
-    // number of subcategories, so the route will look like:
-    //
-    //   vtexstore.com/eletronics/pc/motherboards/?map=c,c,c,c&rest=ATX
-    //
-    // In this case, if we have another subcategory filter, it will
-    // have a path like "eletronics/pc/motherboards/atx/foo"
-    // and we need to only append the "foo" in our map and
-    // rest array, which is in the 5th position (4th index)
-    categoryIndex = map.filter(m => m === mapSymbol).length
+    categoryIndex = Math.max(2, categoryIndex)
   }
 
   const count = Math.max(args.length - categoryIndex, 0)
