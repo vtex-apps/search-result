@@ -1,4 +1,6 @@
+import { difference } from 'ramda'
 import QueryString from 'query-string'
+
 import SortOptions from './SortOptions'
 
 function stripPath(pathName) {
@@ -9,8 +11,24 @@ function stripPath(pathName) {
     .replace(/\/b$/i, '')
 }
 
-function getSpecificationFilterFromLink(link) {
-  return `specificationFilter_${link.split('specificationFilter_')[1]}`
+/**
+ * Returns the parameter name to be used in the map
+ */
+function getSpecificationFilterFromLink(link, map) {
+  const [_, linkQueryParams] = link.split('?') // eslint-disable-line no-unused-vars
+
+  const { map: linkMap } = linkQueryParams.split('&').reduce((acc, param) => {
+    const [name, values] = param.split('=')
+
+    return {
+      ...acc,
+      [name]: values.split(','),
+    }
+  }, {})
+
+  const [specificationFilterMap] = difference(linkMap, map)
+
+  return specificationFilterMap
 }
 
 function getMapByType(type) {
@@ -76,7 +94,7 @@ export function getPagesArgs({
     } else {
       let map = getMapByType(type)
       if (type === 'SpecificationFilters') {
-        map = getSpecificationFilterFromLink(link)
+        map = getSpecificationFilterFromLink(link, mapValues)
       }
       restValues.push(slug)
       mapValues.push(map)
@@ -98,7 +116,7 @@ export function mountOptions(options, type, map, rest) {
     const slug = getSlugFromLink(opt.Link)
     let optMap = getMapByType(type)
     if (type === 'SpecificationFilters') {
-      optMap = getSpecificationFilterFromLink(opt.Link)
+      optMap = getSpecificationFilterFromLink(opt.Link, map.split(','))
     }
     const selected = restMap[slug && slug.toUpperCase()] === optMap
     return [...acc, {
