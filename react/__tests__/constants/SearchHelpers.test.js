@@ -94,13 +94,33 @@ describe('getPagesArgs', () => {
     expect(rest).toEqual(['Smartphones'])
   })
 
+  it('should add subcategory on department page', () => {
+    const filterSpec = {
+      type: 'Categories',
+      name: 'Acessórios',
+      slug: 'Acessorios',
+      path: 'Eletronicos/Smartphones/Acessorios',
+      map: ['c', 'c'],
+      rest: ['Smartphones'],
+      pagesPath: 'store/department',
+      params: {
+        department: 'Eletronicos',
+      },
+    }
+
+    const { query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['c', 'c', 'c'])
+    expect(rest).toEqual(['Smartphones', 'Acessorios'])
+  })
+
   it('should add single category on search page', () => {
     const filterSpec = {
       type: 'Categories',
       name: 'Smartphones',
       slug: 'Smartphones',
       path: 'Eletronicos/Smartphones',
-      rest: [],
+      rest: ['Eletronicos'],
       map: ['ft', 'c'],
       pagesPath: 'store/search',
       params: {
