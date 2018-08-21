@@ -223,7 +223,7 @@ export function mountOptions(options, type, map, rest) {
 
   return options.reduce((acc, opt) => {
     // FIXME @lucasecdb: change to slug when the API is ready
-    const slug = opt.normalizedName
+    const slug = opt.normalizedName || opt.Name
     const optMap = type === SPECIFICATION_FILTERS_TYPE
       ? getSpecificationFilterFromLink(opt.Link, map.split(','))
       : getMapByType(type)
