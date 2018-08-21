@@ -6,7 +6,7 @@ Search Result is a canonical component that any VTEX store can install.
 
 ### Travis CI
 
-[![Build Status](https://travis-ci.org/vtex-apps/gallery.svg?branch=master)](https://travis-ci.org/vtex-apps/gallery)
+[![Build Status](https://travis-ci.org/vtex-apps/search-result.svg?branch=master)](https://travis-ci.org/vtex-apps/search-result)
 
 ## Usage
 
@@ -28,4 +28,4 @@ $ npm test  # or
 
 ## Troubleshooting
 
-You can check if others are experiencing similar issues [here](https://github.com/vtex-apps/gallery/issues). Also feel free to [open issues](https://github.com/vtex-apps/gallery/issues/new).
+You can check if others are experiencing similar issues [here](https://github.com/vtex-apps/search-result/issues). Also feel free to [open issues](https://github.com/vtex-apps/search-result/issues/new).
