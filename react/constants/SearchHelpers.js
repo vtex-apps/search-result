@@ -1,4 +1,5 @@
 import QueryString from 'query-string'
+
 import SortOptions from './SortOptions'
 
 function stripPath(pathName) {
@@ -9,8 +10,44 @@ function stripPath(pathName) {
     .replace(/\/b$/i, '')
 }
 
-function getSpecificationFilterFromLink(link) {
-  return `specificationFilter_${link.split('specificationFilter_')[1]}`
+/**
+ * Returns the parameter name to be used in the map
+ */
+export function getSpecificationFilterFromLink(link, map) {
+  const [_, linkQueryParams] = link.split('?') // eslint-disable-line no-unused-vars
+
+  const { map: linkMap } = linkQueryParams.split('&').reduce((acc, param) => {
+    const [name, values] = param.split('=')
+
+    return {
+      ...acc,
+      [name]: values.split(','),
+    }
+  }, {})
+
+  const filterMapParams = (currentMap, currentLinkMap, index = 0) => {
+    if (currentMap.length === 0 || index >= currentLinkMap.length) {
+      return currentLinkMap
+    }
+
+    if (currentMap[0] !== currentLinkMap[index]) {
+      return filterMapParams(currentMap, currentLinkMap, index + 1)
+    }
+
+    return filterMapParams(
+      currentMap.slice(1, currentMap.length),
+      currentLinkMap
+        .slice(0, index)
+        .concat(currentLinkMap.slice(index + 1, currentLinkMap.length)),
+      index
+    )
+  }
+
+  const filteredLinks = filterMapParams(map, linkMap)
+
+  const [specificationFilterMap] = filteredLinks
+
+  return specificationFilterMap
 }
 
 function getMapByType(type) {
@@ -74,12 +111,12 @@ export function getPagesArgs({
         mapValues.splice((restValues.length * -1) + index - 1, 1)
       }
     } else {
-      let map = getMapByType(type)
+      let mapParam = getMapByType(type)
       if (type === 'SpecificationFilters') {
-        map = getSpecificationFilterFromLink(link)
+        mapParam = getSpecificationFilterFromLink(link, mapValues)
       }
       restValues.push(slug)
-      mapValues.push(map)
+      mapValues.push(mapParam)
     }
   }
 
@@ -98,9 +135,9 @@ export function mountOptions(options, type, map, rest) {
     const slug = getSlugFromLink(opt.Link)
     let optMap = getMapByType(type)
     if (type === 'SpecificationFilters') {
-      optMap = getSpecificationFilterFromLink(opt.Link)
+      optMap = getSpecificationFilterFromLink(opt.Link, map.split(','))
     }
-    const selected = restMap[slug && slug.toUpperCase()] === optMap
+    const selected = restMap[slug && slug.toUpperCase()] === optMap && optMap !== undefined
     return [...acc, {
       ...opt,
       selected,

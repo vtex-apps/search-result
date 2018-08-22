@@ -16,20 +16,30 @@ export default class GalleryItem extends Component {
   }
 
   normalizeProductSummary(product) {
-    if (!product) return null
+    if (!product) {
+      return null
+    }
+
     const normalizedProduct = { ...product }
-    const [sku] = normalizedProduct.items
+    const [sku] = normalizedProduct.items || []
+
     if (sku) {
-      const [seller = { commertialOffer: { Price: 0, ListPrice: 0 } }] = sku.sellers
-      const [referenceId = { Value: '' }] = sku.referenceId
-      const [image = { imageUrl: '' }] = sku.images
+      const [seller = { commertialOffer: { Price: 0, ListPrice: 0 } }] = sku.sellers || []
+      const [referenceId = { Value: '' }] = sku.referenceId || []
+      const [image = { imageUrl: '' }] = sku.images || []
       const unmixedImage = { ...image, imageUrl: image.imageUrl.replace(/^https?:/, '') }
       normalizedProduct.sku = { ...sku, seller, referenceId, image: unmixedImage }
     }
+
     return normalizedProduct
   }
 
   render() {
-    return <ProductSummary product={this.normalizeProductSummary(this.props.item)} {...this.props.summary} />
+    return (
+      <ProductSummary
+        {...this.props.summary}
+        product={this.normalizeProductSummary(this.props.item)}
+      />
+    )
   }
 }
