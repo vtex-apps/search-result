@@ -115,8 +115,6 @@ function removeFilter(map, rest, { type, slug, pagesPath }) {
     }
   }
 
-  console.log(mapIndex, restIndex)
-
   return {
     rest: rest
       .filter((_, i) => {
