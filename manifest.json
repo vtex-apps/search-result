@@ -1,8 +1,8 @@
 {
   "name": "search-result",
-  "vendor": "vtex",
-  "version": "0.6.4",
-  "title": "VTEX Search Result",
+  "vendor": "brastemp",
+  "version": "0.1.1",
+  "title": "Brastemp Search Result",
   "description": "A search result wrapper component",
   "mustUpdateAt": "2019-04-25",
   "registries": [
