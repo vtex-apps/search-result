@@ -19,6 +19,14 @@ class AccordionFilterContainer extends Component {
     openedItem: null,
   }
 
+  handleItemSelected = onClose => e => {
+    onClose(e)
+
+    this.setState({
+      openedItem: null,
+    })
+  }
+
   handleOpen = id => e => {
     e.preventDefault()
 
@@ -59,7 +67,7 @@ class AccordionFilterContainer extends Component {
                   open={isOpen}
                   show={openedItem === null ? true : isOpen}
                   onOpen={this.handleOpen(filter.title)}
-                  onItemSelected={onClose}
+                  onItemSelected={this.handleItemSelected(onClose)}
                   oneSelectedCollapse={oneSelectedCollapse}
                   getLinkProps={getLinkProps}
                 />
