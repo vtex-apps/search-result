@@ -124,7 +124,7 @@ export default class Popup extends Component {
                 <div className="vtex-filter-popup__content">
                   {children}
                 </div>
-                <div className="vtex-filter-popup__footer nh3 bg-dark-gray">
+                <div className="vtex-filter-popup__footer">
                   {renderFooter(renderProps)}
                 </div>
               </div>

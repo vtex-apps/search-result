@@ -81,6 +81,9 @@
 
 .vtex-filter-popup__footer {
   margin-top: auto;
+}
+
+.vtex-orderby-popup__footer {
   min-height: 1rem;
 }
 

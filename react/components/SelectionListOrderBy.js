@@ -43,10 +43,10 @@ class SelectionListOrderBy extends Component {
 
     return (
       <Popup
-        title="Ordernar"
+        title={intl.formatMessage({ id: 'search-result.orderby.title' })}
         id="orderby"
         renderFooter={({ onClose }) => (
-          <div className="flex justify-end pv3 ph6">
+          <div className="vtex-orderby-popup__footer flex justify-end pv3 ph6 nh3 bg-dark-gray">
             <FooterButton
               tag={Link}
               page={linkProps.page}
