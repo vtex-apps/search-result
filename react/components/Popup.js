@@ -67,7 +67,10 @@ export default class Popup extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    children: PropTypes.node,
+    children: PropTypes.oneOfType([
+      PropTypes.node,
+      PropTypes.func,
+    ]),
     renderFooter: PropTypes.func,
   }
 
@@ -106,6 +109,8 @@ export default class Popup extends Component {
             onToggle: contextProps.onToggle(id),
           }
 
+          const childrenFn = typeof children === 'function' ? children : () => children
+
           return (
             <div className={className} ref={this.contentRef}>
               <button
@@ -122,7 +127,7 @@ export default class Popup extends Component {
               </button>
               <div className={contentClassName} style={{ top: contentTop }}>
                 <div className="vtex-filter-popup__content">
-                  {children}
+                  {childrenFn(renderProps)}
                 </div>
                 <div className="vtex-filter-popup__footer">
                   {renderFooter(renderProps)}
