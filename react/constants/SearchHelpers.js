@@ -10,7 +10,7 @@ function stripPath(pathName) {
 }
 
 function getSpecificationFilterFromLink(link) {
-  return `specificationFilter_${link.split('specificationFilter_')[1]}`
+  return `specificationFilter_${link.split('specificationFilter_')[1]}`.replace(',','')
 }
 
 function getMapByType(type) {
@@ -100,6 +100,7 @@ export function mountOptions(options, type, map, rest) {
     if (type === 'SpecificationFilters') {
       optMap = getSpecificationFilterFromLink(opt.Link)
     }
+    
     const selected = restMap[slug && slug.toUpperCase()] === optMap
     return [...acc, {
       ...opt,

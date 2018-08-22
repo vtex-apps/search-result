@@ -4,10 +4,10 @@ import { Spinner } from 'vtex.styleguide'
 
 import { searchResultPropTypes } from '../constants/propTypes'
 import { findInTree, getPagesArgs, mountOptions } from '../constants/SearchHelpers'
-import Gallery from './Gallery'
-import SearchFilter from './SearchFilter'
-import SearchHeader from './SearchHeader'
-import SelectedFilters from './SelectedFilters'
+import GalleryDefault from './Gallery'
+import SearchFilterDefault from './SearchFilter'
+import SearchHeaderDefault from './SearchHeader'
+import SelectedFiltersDefault from './SelectedFilters'
 
 const CATEGORIES_TITLE = 'search.filter.title.categories'
 const CATEGORIES_TYPE = 'Categories'
@@ -54,7 +54,7 @@ export default class SearchResultInfiniteScroll extends Component {
   }
 
   filtersFallback = (type, title, options, oneSelectedCollapse = false) => {
-    const { map, rest } = this.props
+    const { map, rest ,SearchFilter} = {SearchFilter:SearchFilterDefault,...this.props }
     return (
       <SearchFilter
         key={title}
@@ -66,7 +66,6 @@ export default class SearchResultInfiniteScroll extends Component {
       />
     )
   }
-
   getSelecteds() {
     const {
       searchQuery: {
@@ -79,14 +78,17 @@ export default class SearchResultInfiniteScroll extends Component {
       map,
       rest,
     } = this.props
+    
     const categories = this.getCategories()
     let options = []
     options = options.concat(mountOptions(categories, CATEGORIES_TYPE, map, rest))
     SpecificationFilters.map(spec => {
       options = options.concat(mountOptions(spec.facets, SPECIFICATION_FILTERS_TYPE, map, rest))
+    
     })
     options = options.concat(mountOptions(Brands, BRANDS_TYPE, map, rest))
     options = options.concat(mountOptions(PriceRanges, PRICE_RANGES_TYPE, map, rest))
+    
     return options.filter(opt => opt.selected)
   }
 
@@ -125,10 +127,11 @@ export default class SearchResultInfiniteScroll extends Component {
   }
 
   renderSpinner() {
+    const SpinnerCustom = this.props.Spinner || Spinner 
     return (
       <div className="w-100 flex justify-center">
         <div className="w3 ma0">
-          <Spinner />
+          <SpinnerCustom />
         </div>
       </div>
     )
@@ -147,13 +150,21 @@ export default class SearchResultInfiniteScroll extends Component {
       maxItemsPerPage,
       page,
       summary,
-    } = this.props
+      Gallery,
+      GalleryItem,
+      SelectedFilters,
+      SearchHeader
+    }={
+        Gallery:GalleryDefault, 
+        SelectedFilters: SelectedFiltersDefault,
+        SearchHeader: SearchHeaderDefault,
+        ...this.props
+      }
 
     const isLoading = searchLoading || this.props.loading
     const from = (page - 1) * maxItemsPerPage + 1
     const to = (page - 1) * maxItemsPerPage + products.length
     const selecteds = this.getSelecteds()
-
     return (
       <InfiniteScroll
         dataLength={products.length}
@@ -185,7 +196,7 @@ export default class SearchResultInfiniteScroll extends Component {
             {isLoading && !this.fetchMoreLoading ? (
               this.renderSpinner()
             ) : (
-              <Gallery {...{ products, maxItemsPerLine, summary }} />
+              <Gallery {...{ products, maxItemsPerLine, summary, GalleryItem }} />
             )}
             {this.fetchMoreLoading && this.renderSpinner()}
           </div>

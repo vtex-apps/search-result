@@ -64,6 +64,7 @@ export default class SearchResult extends Component {
   }
 
   render() {
+    
     return <SearchResultInfiniteScroll {...this.props} />
   }
 }

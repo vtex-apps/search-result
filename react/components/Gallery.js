@@ -3,14 +3,14 @@ import { PropTypes } from 'prop-types'
 import classNames from 'classnames'
 
 import { productShape } from '../constants/propTypes'
-import GalleryItem from './GalleryItem'
+import GalleryItemDefault from './GalleryItem'
 
 /**
  * Canonical gallery that displays a list of given products.
  */
 const Gallery = props => {
   const { maxItemsPerLine, products, summary } = props
-
+  const GalleryItem = props.GalleryItem || GalleryItemDefault
   const itemClassName = classNames('vtex-gallery__item flex mv2 pa1 fl', {
     'w-100 w-50-m w-20-l': maxItemsPerLine === 5,
     'w-100 w-50-m w-25-l': maxItemsPerLine === 4,

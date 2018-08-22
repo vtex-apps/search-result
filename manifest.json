@@ -3,7 +3,7 @@
   "vendor": "brastemp",
   "version": "0.1.1",
   "title": "Brastemp Search Result",
-  "description": "A search result wrapper component",
+  "description": "A Search Interface component",
   "mustUpdateAt": "2019-04-25",
   "registries": [
     "smartcheckout"
