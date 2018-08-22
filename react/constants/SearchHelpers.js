@@ -111,12 +111,12 @@ export function getPagesArgs({
         mapValues.splice((restValues.length * -1) + index - 1, 1)
       }
     } else {
-      let map = getMapByType(type)
+      let mapParam = getMapByType(type)
       if (type === 'SpecificationFilters') {
-        map = getSpecificationFilterFromLink(link, mapValues)
+        mapParam = getSpecificationFilterFromLink(link, mapValues)
       }
       restValues.push(slug)
-      mapValues.push(map)
+      mapValues.push(mapParam)
     }
   }
 
