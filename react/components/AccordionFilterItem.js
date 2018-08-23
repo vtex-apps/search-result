@@ -7,7 +7,7 @@ import { Link } from 'render'
 import Arrow from '../images/Arrow'
 import CheckTick from '../images/CheckTick'
 import { facetOptionShape } from '../constants/propTypes'
-import { getFilterTitle } from '../constants/SearchHelpers'
+import { getFilterTitle, formatFacetToLinkPropsParam } from '../constants/SearchHelpers'
 
 const AccordionFilterItem = ({
   title,
@@ -44,14 +44,7 @@ const AccordionFilterItem = ({
     {open && (
       <div className="vtex-accordion-filter__item-options">
         {options.map(opt => {
-          const pagesArgs = getLinkProps({
-            ...opt,
-            name: opt.Name,
-            link: opt.Link,
-            path: opt.path,
-            type,
-            oneSelectedCollapse,
-          })
+          const pagesArgs = getLinkProps(formatFacetToLinkPropsParam(type, opt))
 
           return (
             <Link

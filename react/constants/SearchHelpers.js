@@ -220,8 +220,7 @@ export function mountOptions(options, type, map, rest) {
   const restMap = restMapped(rest, map)
 
   return options.reduce((acc, opt) => {
-    // FIXME @lucasecdb: change to slug when the API is ready
-    const slug = opt.normalizedName || opt.Name
+    const slug = opt.Slug || opt.normalizedName || opt.Name
     const optMap = type === SPECIFICATION_FILTERS_TYPE
       ? getSpecificationFilterFromLink(opt.Link, map.split(','))
       : getMapByType(type)
@@ -253,6 +252,8 @@ export function formatCategoriesTree(root) {
       return [
         ...categories,
         {
+          Id: node.Id,
+          Slug: node.Slug && node.Slug.replace(',', ''),
           Quantity: node.Quantity,
           Name: node.Name,
           Link: node.Link,
@@ -272,4 +273,16 @@ export function getFilterTitle(title = '', intl) {
   return intl.messages[title]
     ? intl.formatMessage({ id: title })
     : title
+}
+
+export function formatFacetToLinkPropsParam(type, option, oneSelectedCollapse = false) {
+  return {
+    name: option.Name,
+    link: option.Link,
+    path: option.path,
+    slug: option.Slug,
+    isSelected: option.selected,
+    oneSelectedCollapse,
+    type,
+  }
 }

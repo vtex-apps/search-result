@@ -61,7 +61,7 @@ export default class SearchResultInfiniteScroll extends Component {
 
     const pageProps = filters.reduce(
       (linkProps, filter) => {
-        const { type, ordenation, pageNumber, isSelected, path, name, link } = filter
+        const { type, ordenation, pageNumber, isSelected, path, name, link, slug } = filter
         const orderBy = ordenation || linkProps.query.order
 
         return getPagesArgs({
@@ -70,8 +70,7 @@ export default class SearchResultInfiniteScroll extends Component {
           pagesPath: linkProps.page,
           params: linkProps.params,
           name,
-          // FIXME @lucasecdb: use actual slug when the API is ready
-          slug: name,
+          slug: slug || name,
           link,
           path,
           type,

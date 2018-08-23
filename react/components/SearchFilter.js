@@ -5,7 +5,7 @@ import { Link } from 'render'
 
 import FilterOptionTemplate from './FilterOptionTemplate'
 import { facetOptionShape } from '../constants/propTypes'
-import { getFilterTitle } from '../constants/SearchHelpers'
+import { getFilterTitle, formatFacetToLinkPropsParam } from '../constants/SearchHelpers'
 
 const SELECTED_FILTER_COLOR = '#368DF7'
 
@@ -56,13 +56,7 @@ class SearchFilter extends Component {
         filters={filters}
       >
         {opt => {
-          const pagesArgs = getLinkProps({
-            name: opt.Name,
-            link: opt.Link,
-            path: opt.path,
-            type,
-            isSelected: opt.selected,
-          })
+          const pagesArgs = getLinkProps(formatFacetToLinkPropsParam(type, opt, oneSelectedCollapse))
           return (
             <Link
               key={opt.Name}
