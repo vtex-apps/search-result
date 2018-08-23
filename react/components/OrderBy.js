@@ -40,7 +40,7 @@ export const SORT_OPTIONS = [
 
 class OrderBy extends Component {
   static propTypes = {
-    /** Wich sorting option is selected. */
+    /** Which sorting option is selected. */
     orderBy: PropTypes.string.isRequired,
     /** Returns the link props. */
     getLinkProps: PropTypes.func,
