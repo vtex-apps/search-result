@@ -22,18 +22,26 @@ export default class FiltersContainer extends Component {
   static propTypes = {
     getLinkProps: PropTypes.func.isRequired,
     tree: PropTypes.arrayOf(facetOptionShape),
-    params: paramShape,
+    params: paramShape.isRequired,
     brands: PropTypes.arrayOf(facetOptionShape),
     specificationFilters: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
       facets: PropTypes.arrayOf(facetOptionShape),
     })),
     priceRanges: PropTypes.arrayOf(facetOptionShape),
-    map: PropTypes.string,
-    rest: PropTypes.string,
+    map: PropTypes.string.isRequired,
+    rest: PropTypes.string.isRequired,
+  }
+
+  static defaultProps = {
+    tree: [],
+    specificationFilters: [],
+    priceRanges: [],
+    brands: [],
   }
 
   get availableCategories() {
+    const params = this.props.params
     const categories = this.categories
 
     const categoriesCount = this.props.map
@@ -41,7 +49,13 @@ export default class FiltersContainer extends Component {
       .filter(m => m === getMapByType(CATEGORIES_TYPE))
       .length
 
-    return categories.filter(c => c.level === categoriesCount)
+    const currentPath = [params.department, params.category, params.subcategory]
+      .filter(v => v)
+      .join('/')
+
+    return categories
+      .filter(c => c.level === categoriesCount)
+      .filter(c => c.path.toLowerCase().startsWith(currentPath.toLowerCase()))
   }
 
   get categories() {
