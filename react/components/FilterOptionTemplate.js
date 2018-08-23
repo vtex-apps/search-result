@@ -5,12 +5,20 @@ import classNames from 'classnames'
 
 import Arrow from '../images/Arrow'
 
+/**
+ * Collapsable filters container
+ */
 export default class FilterOptionTemplate extends Component {
   static propTypes = {
+    /** Filters to be shown */
     filters: PropTypes.arrayOf(PropTypes.object).isRequired,
+    /** Function to handle filter rendering */
     children: PropTypes.func.isRequired,
+    /** Title */
     title: PropTypes.string.isRequired,
+    /** Whether collapsing is enabled */
     collapsable: PropTypes.bool,
+    /** Whether it represents the selected filters */
     selected: PropTypes.bool,
   }
 

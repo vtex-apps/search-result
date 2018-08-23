@@ -8,10 +8,15 @@ import { mountOptions } from '../constants/SearchHelpers'
 
 class AccordionFilterContainer extends Component {
   static propTypes = {
+    /** Current available filters */
     filters: PropTypes.arrayOf(PropTypes.object),
-    getLinkProps: PropTypes.func,
+    /** Rest query parameter */
     rest: PropTypes.string,
+    /** Map query parameter */
     map: PropTypes.string,
+    /** Get the props to pass to render's Link */
+    getLinkProps: PropTypes.func,
+    /** Intl instance */
     intl: intlShape,
   }
 

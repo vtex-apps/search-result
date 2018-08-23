@@ -22,14 +22,18 @@ const AvailableFilters = ({ filters, map, rest, getLinkProps }) => (
 )
 
 AvailableFilters.propTypes = {
+  /** Filters to be displayed */
   filters: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string,
     type: PropTypes.string,
     rest: PropTypes.string,
     oneSelectedCollapse: PropTypes.bool,
   })),
+  /** Map query parameter */
   map: PropTypes.string,
+  /** Rest query parameter */
   rest: PropTypes.string,
+  /** Get the props to pass to render's Link */
   getLinkProps: PropTypes.func,
 }
 

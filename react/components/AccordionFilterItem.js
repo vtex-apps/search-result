@@ -71,15 +71,25 @@ const AccordionFilterItem = ({
 )
 
 AccordionFilterItem.propTypes = {
+  /** Title */
   title: PropTypes.string,
+  /** Available filter options */
   options: PropTypes.arrayOf(facetOptionShape),
+  /** Filter type (e.g. CATEGORIES_TYPE, BRANDS_TYPE) */
   type: PropTypes.string,
+  /** Whether to show any of the content */
   show: PropTypes.bool,
+  /** Whether to show the filter options */
   open: PropTypes.bool,
+  /** Whether to hide other filters options when one is selected */
   oneSelectedCollapse: PropTypes.bool,
+  /** Callback to open event */
   onOpen: PropTypes.func,
+  /** Callback to filter option selected event */
   onItemSelected: PropTypes.func,
+  /** Get the props to pass to render's Link */
   getLinkProps: PropTypes.func,
+  /** Intl instance */
   intl: intlShape,
 }
 
