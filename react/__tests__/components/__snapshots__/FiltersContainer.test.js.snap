@@ -1,0 +1,208 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FiltersContainer /> should match snapshot 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <FiltersContainer
+    brands={Array []}
+    getLinkProps={[MockFunction]}
+    map="c"
+    params={
+      Object {
+        "department": "Eletronicos",
+      }
+    }
+    priceRanges={Array []}
+    rest=""
+    specificationFilters={Array []}
+    tree={Array []}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "children": Array [
+        <InjectIntl(SelectedFilters)
+          filters={Array []}
+          getLinkProps={[MockFunction]}
+        />,
+        <AvailableFilters
+          filters={
+            Array [
+              Object {
+                "oneSelectedCollapse": true,
+                "options": Array [],
+                "title": "search.filter.title.categories",
+                "type": "Categories",
+              },
+              Object {
+                "options": Array [],
+                "title": "search.filter.title.brands",
+                "type": "Brands",
+              },
+              Object {
+                "options": Array [],
+                "title": "search.filter.title.price-ranges",
+                "type": "PriceRanges",
+              },
+            ]
+          }
+          getLinkProps={[MockFunction]}
+          map="c"
+          rest=""
+        />,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "filters": Array [],
+          "getLinkProps": [MockFunction],
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "filters": Array [
+            Object {
+              "oneSelectedCollapse": true,
+              "options": Array [],
+              "title": "search.filter.title.categories",
+              "type": "Categories",
+            },
+            Object {
+              "options": Array [],
+              "title": "search.filter.title.brands",
+              "type": "Brands",
+            },
+            Object {
+              "options": Array [],
+              "title": "search.filter.title.price-ranges",
+              "type": "PriceRanges",
+            },
+          ],
+          "getLinkProps": [MockFunction],
+          "map": "c",
+          "rest": "",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": Symbol(react.fragment),
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <InjectIntl(SelectedFilters)
+            filters={Array []}
+            getLinkProps={[MockFunction]}
+          />,
+          <AvailableFilters
+            filters={
+              Array [
+                Object {
+                  "oneSelectedCollapse": true,
+                  "options": Array [],
+                  "title": "search.filter.title.categories",
+                  "type": "Categories",
+                },
+                Object {
+                  "options": Array [],
+                  "title": "search.filter.title.brands",
+                  "type": "Brands",
+                },
+                Object {
+                  "options": Array [],
+                  "title": "search.filter.title.price-ranges",
+                  "type": "PriceRanges",
+                },
+              ]
+            }
+            getLinkProps={[MockFunction]}
+            map="c"
+            rest=""
+          />,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "filters": Array [],
+            "getLinkProps": [MockFunction],
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "filters": Array [
+              Object {
+                "oneSelectedCollapse": true,
+                "options": Array [],
+                "title": "search.filter.title.categories",
+                "type": "Categories",
+              },
+              Object {
+                "options": Array [],
+                "title": "search.filter.title.brands",
+                "type": "Brands",
+              },
+              Object {
+                "options": Array [],
+                "title": "search.filter.title.price-ranges",
+                "type": "PriceRanges",
+              },
+            ],
+            "getLinkProps": [MockFunction],
+            "map": "c",
+            "rest": "",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": Symbol(react.fragment),
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
