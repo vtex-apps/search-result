@@ -1,5 +1,10 @@
 /* eslint-env jest */
 import { getSpecificationFilterFromLink, getPagesArgs } from '../../constants/SearchHelpers'
+import {
+  CATEGORIES_TYPE,
+  BRANDS_TYPE,
+  PRICE_RANGES_TYPE,
+} from '../../components/FiltersContainer'
 
 describe('getSpecificationFilterFromLink', () => {
   it('should return the only specification in link', () => {
@@ -52,14 +57,21 @@ describe('getSpecificationFilterFromLink', () => {
 })
 
 describe('getPagesArgs', () => {
+  const DEPARTMENT_PAGE = 'store/department'
+  const CATEGORY_PAGE = 'store/category'
+  const SUBCATEGORY_PAGE = 'store/subcategory'
+  const SEARCH_PAGE = 'store/search'
+
   it('should stay in the search page', () => {
     const filterSpec = {
-      type: 'Brands',
+      type: BRANDS_TYPE,
       name: 'Samsung',
       slug: 'Samsung',
-      rest: [],
-      map: ['ft'],
-      pagesPath: 'store/search',
+      pagesPath: SEARCH_PAGE,
+      query: {
+        rest: [],
+        map: ['ft'],
+      },
       params: {
         term: 'samsung',
         _rest: '',
@@ -70,18 +82,20 @@ describe('getPagesArgs', () => {
 
     expect(map).toEqual(['ft', 'b'])
     expect(rest).toEqual(['Samsung'])
-    expect(page).toEqual('store/search')
+    expect(page).toEqual(SEARCH_PAGE)
   })
 
   it('should add single category on department page', () => {
     const filterSpec = {
-      type: 'Categories',
+      type: CATEGORIES_TYPE,
       name: 'Smartphones',
       slug: 'Smartphones',
       path: 'Eletronicos/Smartphones',
-      rest: [],
-      map: ['c'],
-      pagesPath: 'store/department',
+      pagesPath: DEPARTMENT_PAGE,
+      query: {
+        rest: [],
+        map: ['c'],
+      },
       params: {
         department: 'eletronicos',
         _rest: '',
@@ -96,13 +110,15 @@ describe('getPagesArgs', () => {
 
   it('should add subcategory on department page', () => {
     const filterSpec = {
-      type: 'Categories',
+      type: CATEGORIES_TYPE,
       name: 'Acessórios',
       slug: 'Acessorios',
       path: 'Eletronicos/Smartphones/Acessorios',
-      map: ['c', 'c'],
-      rest: ['Smartphones'],
-      pagesPath: 'store/department',
+      pagesPath: DEPARTMENT_PAGE,
+      query: {
+        map: ['c', 'c'],
+        rest: ['Smartphones'],
+      },
       params: {
         department: 'Eletronicos',
       },
@@ -116,13 +132,15 @@ describe('getPagesArgs', () => {
 
   it('should add single category on search page', () => {
     const filterSpec = {
-      type: 'Categories',
+      type: CATEGORIES_TYPE,
       name: 'Smartphones',
       slug: 'Smartphones',
       path: 'Eletronicos/Smartphones',
-      rest: ['Eletronicos'],
-      map: ['ft', 'c'],
-      pagesPath: 'store/search',
+      pagesPath: SEARCH_PAGE,
+      query: {
+        rest: ['Eletronicos'],
+        map: ['ft', 'c'],
+      },
       params: {
         term: 'samsung',
         _rest: '',
@@ -131,21 +149,23 @@ describe('getPagesArgs', () => {
 
     const { page, query: { map, rest } } = getPagesArgs(filterSpec)
 
-    expect(page).toEqual('store/search')
+    expect(page).toEqual(SEARCH_PAGE)
     expect(map).toEqual(['ft', 'c', 'c'])
     expect(rest).toEqual(['Eletronicos', 'Smartphones'])
   })
 
   it('should only remove subcategory on category page', () => {
     const filterSpec = {
-      type: 'Categories',
+      type: CATEGORIES_TYPE,
       isUnselectLink: true,
       name: 'Acessórios',
       slug: 'Acessorios',
       path: 'Eletronicos/Smartphones/Acessorios',
-      rest: ['Acessorios'],
-      map: ['c', 'c', 'c'],
-      pagesPath: 'store/category',
+      pagesPath: CATEGORY_PAGE,
+      query: {
+        rest: ['Acessorios'],
+        map: ['c', 'c', 'c'],
+      },
       params: {
         department: 'Eletronicos',
         category: 'Smartphones',
@@ -161,14 +181,16 @@ describe('getPagesArgs', () => {
 
   it('should remove one sub-subcategory on subcategory page', () => {
     const filterSpec = {
-      type: 'Categories',
+      type: CATEGORIES_TYPE,
       isUnselectLink: true,
       name: 'foo',
       slug: 'foo',
       path: 'Eletronicos/Smartphones/Acessorios/foo',
-      rest: ['Samsung', 'foo'],
-      map: ['c', 'b', 'c', 'c', 'c'],
-      pagesPath: 'store/subcategory',
+      pagesPath: SUBCATEGORY_PAGE,
+      query: {
+        rest: ['Samsung', 'foo'],
+        map: ['c', 'b', 'c', 'c', 'c'],
+      },
       params: {
         department: 'Eletronicos',
         category: 'Smartphones',
@@ -185,14 +207,16 @@ describe('getPagesArgs', () => {
 
   it('should remove category from rest', () => {
     const filterSpec = {
-      type: 'Categories',
+      type: CATEGORIES_TYPE,
       isUnselectLink: true,
       name: 'Smartphones',
       slug: 'Smartphones',
       path: 'Eletronicos/Smartphones',
-      map: ['c', 'c', 'b'],
-      rest: ['Smartphones', 'Google'],
-      pagesPath: 'store/department',
+      pagesPath: DEPARTMENT_PAGE,
+      query: {
+        map: ['c', 'c', 'b'],
+        rest: ['Smartphones', 'Google'],
+      },
       params: {
         department: 'Eletronicos',
         _rest: '',
@@ -207,14 +231,16 @@ describe('getPagesArgs', () => {
 
   it('should remove all categories on search page', () => {
     const filterSpec = {
-      type: 'Categories',
+      type: CATEGORIES_TYPE,
       isUnselectLink: true,
       name: 'Eletrônicos',
       slug: 'Eletronicos',
       path: 'Eletronicos',
-      map: ['ft', 'c', 'c'],
-      rest: ['Eletronicos', 'Smartphones'],
-      pagesPath: 'store/search',
+      pagesPath: SEARCH_PAGE,
+      query: {
+        map: ['ft', 'c', 'c'],
+        rest: ['Eletronicos', 'Smartphones'],
+      },
       params: {
         term: 'samsun',
       },
@@ -228,13 +254,15 @@ describe('getPagesArgs', () => {
 
   it('should remove brand from filters', () => {
     const filterSpec = {
-      type: 'Brands',
+      type: BRANDS_TYPE,
       isUnselectLink: true,
       name: 'Samsung',
       slug: 'Samsung',
-      rest: ['Samsung'],
-      map: ['c', 'c', 'b'],
-      pagesPath: 'store/category',
+      pagesPath: CATEGORY_PAGE,
+      query: {
+        rest: ['Samsung'],
+        map: ['c', 'c', 'b'],
+      },
       params: {
         department: 'Eletronicos',
         category: 'Computadores',
@@ -250,9 +278,11 @@ describe('getPagesArgs', () => {
 
   it('should only add order to query', () => {
     const filterSpec = {
-      orderBy: 'OrderByPriceASC',
-      rest: ['Smartphones'],
-      map: ['c', 'c'],
+      query: {
+        rest: ['Smartphones'],
+        map: ['c', 'c'],
+        order: 'OrderByPriceASC',
+      },
       params: {
         department: 'Eletronicos',
         _rest: '',
@@ -261,8 +291,46 @@ describe('getPagesArgs', () => {
 
     const { query: { order, map, rest } } = getPagesArgs(filterSpec)
 
-    expect(map).toEqual(filterSpec.map)
-    expect(rest).toEqual(filterSpec.rest)
-    expect(order).toBe(filterSpec.orderBy)
+    expect(map).toEqual(['c', 'c'])
+    expect(rest).toEqual(['Smartphones'])
+    expect(order).toBe('OrderByPriceASC')
+  })
+
+  it('should return the priceRange query parameter', () => {
+    const filterSpec = {
+      type: PRICE_RANGES_TYPE,
+      slug: 'de-1000-a-1999,99',
+      pagesPath: DEPARTMENT_PAGE,
+      query: {
+        rest: [],
+        map: ['c'],
+      },
+      params: {
+        department: 'Eletronicos',
+      },
+    }
+
+    const { query: { priceRange } } = getPagesArgs(filterSpec)
+
+    expect(priceRange).toBeDefined()
+  })
+
+  it('should update priceRange filter accordingly', () => {
+    const filterSpec = {
+      type: PRICE_RANGES_TYPE,
+      slug: 'de-1000-a-1999,99',
+      pagesPath: DEPARTMENT_PAGE,
+      query: {
+        rest: [],
+        map: ['c'],
+      },
+      params: {
+        department: 'Eletronicos',
+      },
+    }
+
+    const { query: { priceRange } } = getPagesArgs(filterSpec)
+
+    expect(priceRange).toBe(filterSpec.slug)
   })
 })
