@@ -65,7 +65,7 @@ export default class FilterOptionTemplate extends Component {
             )}
           </div>
         </div>
-        <div className="pt2" style={{ overflowY: 'auto', maxHeight: '200px' }}>
+        <div className="pt2 overflow-y-auto" style={{ maxHeight: '200px' }}>
           {collapsable ? (
             <Collapse isOpened={open}>
               {filters.map(children)}
