@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FiltersContainer /> should match snapshot 1`] = `
+<React.Fragment>
+  <InjectIntl(SelectedFilters)
+    filters={Array []}
+    getLinkProps={[MockFunction]}
+  />
+  <AvailableFilters
+    filters={
+      Array [
+        Object {
+          "oneSelectedCollapse": true,
+          "options": Array [],
+          "title": "search.filter.title.categories",
+          "type": "Categories",
+        },
+        Object {
+          "options": Array [],
+          "title": "search.filter.title.brands",
+          "type": "Brands",
+        },
+        Object {
+          "options": Array [],
+          "title": "search.filter.title.price-ranges",
+          "type": "PriceRanges",
+        },
+      ]
+    }
+    getLinkProps={[MockFunction]}
+    map="c"
+    rest=""
+  />
+</React.Fragment>
+`;

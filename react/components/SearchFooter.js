@@ -2,12 +2,9 @@ import PropTypes from 'prop-types'
 import { range } from 'ramda'
 import React, { Component, Fragment } from 'react'
 import { IconCaretLeft, IconCaretRight } from 'vtex.styleguide'
+import { withRuntimeContext } from 'render'
 
-export default class SearchFooter extends Component {
-  static contextTypes = {
-    navigate: PropTypes.func,
-  }
-
+class SearchFooter extends Component {
   static propTypes = {
     /** Amount of products matched with the filters. */
     recordsFiltered: PropTypes.number.isRequired,
@@ -17,6 +14,10 @@ export default class SearchFooter extends Component {
     maxItemsPerPage: PropTypes.number.isRequired,
     /** Returns the link props. */
     getLinkProps: PropTypes.func.isRequired,
+    /** Render Runtime Context */
+    runtime: PropTypes.shape({
+      navigate: PropTypes.func.isRequired,
+    }).isRequired,
   }
 
   handleClick = pageNumber => this.navigateTo(pageNumber)
@@ -25,7 +26,7 @@ export default class SearchFooter extends Component {
     const { page, params, queryString: query } = this.props.getLinkProps({
       pageNumber,
     })
-    return this.context.navigate({
+    return this.props.runtime.navigate({
       page,
       params,
       query,
@@ -122,3 +123,5 @@ export default class SearchFooter extends Component {
     )
   }
 }
+
+export default withRuntimeContext(SearchFooter)

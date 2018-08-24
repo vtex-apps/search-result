@@ -4,10 +4,9 @@ import React, { Component } from 'react'
 import { ProductSummary } from 'vtex.product-summary'
 
 import SearchResultInfiniteScroll from './components/SearchResultInfiniteScroll'
+import { SORT_OPTIONS } from './components/OrderBy'
 import { searchResultPropTypes } from './constants/propTypes'
-import SortOptions from './constants/SortOptions'
 
-const DEFAULT_MAX_ITEMS_PER_LINE = 5
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
 
 /**
@@ -23,7 +22,7 @@ export default class SearchResult extends Component {
   static propTypes = searchResultPropTypes
 
   static defaultProps = {
-    orderBy: SortOptions[0].value,
+    orderBy: SORT_OPTIONS[0].value,
     rest: '',
     maxItemsPerPage: DEFAULT_MAX_ITEMS_PER_PAGE,
   }
@@ -43,12 +42,6 @@ export default class SearchResult extends Component {
       description: 'editor.search-result.description',
       type: 'object',
       properties: {
-        maxItemsPerLine: {
-          title: 'editor.search-result.maxItemsPerLine.title',
-          type: 'number',
-          enum: [3, 4, 5],
-          default: DEFAULT_MAX_ITEMS_PER_LINE,
-        },
         maxItemsPerPage: {
           title: 'editor.search-result.maxItemsPerPage.title',
           type: 'number',
@@ -64,6 +57,10 @@ export default class SearchResult extends Component {
   }
 
   render() {
-    return <SearchResultInfiniteScroll {...this.props} />
+    return (
+      <SearchResultInfiniteScroll
+        {...this.props}
+      />
+    )
   }
 }

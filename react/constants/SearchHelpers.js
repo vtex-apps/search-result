@@ -1,14 +1,12 @@
-import QueryString from 'query-string'
+import { repeat } from 'ramda'
 
-import SortOptions from './SortOptions'
-
-function stripPath(pathName) {
-  return pathName
-    .replace(/^\//i, '')
-    .replace(/\/s$/i, '')
-    .replace(/\/d$/i, '')
-    .replace(/\/b$/i, '')
-}
+import { SORT_OPTIONS } from '../components/OrderBy'
+import {
+  CATEGORIES_TYPE,
+  BRANDS_TYPE,
+  PRICE_RANGES_TYPE,
+  SPECIFICATION_FILTERS_TYPE,
+} from '../components/FiltersContainer'
 
 /**
  * Returns the parameter name to be used in the map
@@ -50,13 +48,13 @@ export function getSpecificationFilterFromLink(link, map) {
   return specificationFilterMap
 }
 
-function getMapByType(type) {
+export function getMapByType(type) {
   switch (type) {
-    case 'PriceRanges':
+    case PRICE_RANGES_TYPE:
       return 'priceFrom'
-    case 'Categories':
+    case CATEGORIES_TYPE:
       return 'c'
-    case 'Brands':
+    case BRANDS_TYPE:
       return 'b'
   }
 }
@@ -74,89 +72,217 @@ function restMapped(rest, map) {
   }, {})
 }
 
-/**
- * Returns the last slug of link.
- * E.g.: 'smartphones/Android 7?map=c,specificationFilter_30' => Android 7
- */
-function getSlugFromLink(link) {
-  if (!link) return ''
-  const { url } = QueryString.parseUrl(link)
-  return stripPath(url).split('/').pop()
+function removeFilter(map, rest, { type, slug, pagesPath }) {
+  let skip = 0
+
+  if (pagesPath === 'store/department') {
+    skip = 1
+  } else if (pagesPath === 'store/category') {
+    skip = 2
+  } else if (pagesPath === 'store/subcategory') {
+    skip = 3
+  }
+
+  const categoryMapSymbol = getMapByType(CATEGORIES_TYPE)
+
+  const restIndex = rest.findIndex(
+    item => slug.toLowerCase() === item.toLowerCase()
+  )
+
+  if (restIndex === -1) {
+    return { map, rest }
+  }
+
+  let mapIndex = -1
+  let count = skip - 1
+
+  for (const symbol of map) {
+    mapIndex++
+
+    if (symbol === categoryMapSymbol && skip > 0) {
+      skip--
+    } else if (count === restIndex) {
+      break
+    } else {
+      count++
+    }
+  }
+
+  if (type !== CATEGORIES_TYPE) {
+    return {
+      map: map.filter((_, i) => i !== mapIndex),
+      rest: rest.filter((_, i) => i !== restIndex),
+    }
+  }
+
+  return {
+    rest: rest
+      .filter((_, i) => {
+        if (i < restIndex) {
+          return true
+        } else if (i === restIndex) {
+          return false
+        }
+        return map[i + mapIndex] !== categoryMapSymbol
+      }),
+    map: map
+      .filter((mapValue, i) => {
+        if (i < mapIndex) {
+          return true
+        } else if (i === mapIndex) {
+          return false
+        }
+        return mapValue !== categoryMapSymbol
+      }),
+  }
 }
+
+function addFilter(map, rest, { path, type, link, pagesPath, slug }) {
+  const mapSymbol = type === SPECIFICATION_FILTERS_TYPE
+    ? getSpecificationFilterFromLink(link, map)
+    : getMapByType(type)
+
+  if (type !== CATEGORIES_TYPE) {
+    return {
+      rest: [...rest, slug],
+      map: [...map, mapSymbol],
+    }
+  }
+
+  const args = path.split('/')
+
+  let categoryIndex = map.filter(m => m === mapSymbol).length
+
+  if (pagesPath === 'store/department') {
+    categoryIndex = Math.max(1, categoryIndex)
+  } else if (pagesPath === 'store/category') {
+    categoryIndex = Math.max(2, categoryIndex)
+  }
+
+  const count = Math.max(args.length - categoryIndex, 0)
+
+  return {
+    map: [...map, ...repeat(mapSymbol, count)],
+    rest: rest.concat(args.splice(categoryIndex)),
+  }
+}
+
 /**
  * Returns the props to Link component.
  */
 export function getPagesArgs({
   type,
-  link,
-  rest,
-  map,
+  rest = [],
+  map = [],
+  params,
   orderBy,
+  path,
+  slug,
+  link,
   pageNumber = 1,
   pagesPath,
-  params,
   isUnselectLink,
 }) {
-  const restValues = (rest && rest.split(',')) || []
-  const mapValues = (map && map.split(',')) || []
-  const slug = getSlugFromLink(link, type)
+  let mapValues = map
+  let restValues = rest
 
-  if (link) {
-    if (isUnselectLink) {
-      const index = restValues.findIndex(
-        item => slug.toLowerCase() === item.toLowerCase()
-      )
-      if (index !== -1) {
-        restValues.splice(index, 1)
-        mapValues.splice((restValues.length * -1) + index - 1, 1)
-      }
-    } else {
-      let mapParam = getMapByType(type)
-      if (type === 'SpecificationFilters') {
-        mapParam = getSpecificationFilterFromLink(link, mapValues)
-      }
-      restValues.push(slug)
-      mapValues.push(mapParam)
-    }
+  // We won't have the type if only the orderBy has been changed
+  if (type) {
+    const filters = isUnselectLink
+      ? removeFilter(map, rest, { type, slug, pagesPath })
+      : addFilter(map, rest, { type, link, path, slug, pagesPath })
+
+    mapValues = filters.map
+    restValues = filters.rest
   }
 
-  const queryString = QueryString.stringify({
-    map: mapValues.join(','),
-    page: pageNumber !== 1 ? pageNumber : undefined,
-    order: orderBy !== SortOptions[0].value ? orderBy : undefined,
-    rest: restValues.join(',') || undefined,
-  })
-  return { page: pagesPath, params, queryString }
+  return {
+    page: pagesPath,
+    params,
+    orderBy,
+    query: {
+      map: mapValues,
+      page: pageNumber !== 1 ? pageNumber : undefined,
+      order: orderBy !== SORT_OPTIONS[0].value ? orderBy : undefined,
+      rest: restValues,
+    },
+  }
+}
+
+export function getBaseMap(map, rest) {
+  const mapArray = map.split(',')
+  const restArray = rest.split(',').filter(s => s.length > 0)
+
+  return mapArray.splice(0, Math.max(mapArray.length - restArray.length, 0)).join(',')
 }
 
 export function mountOptions(options, type, map, rest) {
   const restMap = restMapped(rest, map)
+
   return options.reduce((acc, opt) => {
-    const slug = getSlugFromLink(opt.Link)
-    let optMap = getMapByType(type)
-    if (type === 'SpecificationFilters') {
-      optMap = getSpecificationFilterFromLink(opt.Link, map.split(','))
-    }
+    const slug = opt.Slug || opt.normalizedName || opt.Name
+    const optMap = type === SPECIFICATION_FILTERS_TYPE
+      ? getSpecificationFilterFromLink(opt.Link, map.split(','))
+      : getMapByType(type)
     const selected = restMap[slug && slug.toUpperCase()] === optMap && optMap !== undefined
-    return [...acc, {
-      ...opt,
-      selected,
-      type,
-      slug,
-    }]
+
+    return [
+      ...acc,
+      {
+        ...opt,
+        selected,
+        type,
+        slug,
+      },
+    ]
   }, [])
 }
 
-export function findInTree(tree, values, index) {
-  if (!(tree && tree.length && values.length)) return
-  for (const node of tree) {
-    const categorySlug = stripPath(node.Link).split('/')[index]
-    if (categorySlug.toUpperCase() === values[index].toUpperCase()) {
-      if (index === values.length - 1) {
-        return node
-      }
-      return findInTree(node.Children, values, index + 1)
+// TODO: move this logic to facets resolver
+export function formatCategoriesTree(root) {
+  const format = (tree = [], parentPath = '', level = 0) => {
+    if (tree.length === 0) {
+      return []
     }
+
+    return tree.reduce((categories, node) => {
+      // Remove the accents and diacritics of the string
+      const normalizedName = node.Name.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      const nodePath = parentPath ? `${parentPath}/${normalizedName}` : normalizedName
+      return [
+        ...categories,
+        {
+          Id: node.Id,
+          Slug: node.Slug && node.Slug.replace(',', ''),
+          Quantity: node.Quantity,
+          Name: node.Name,
+          Link: node.Link,
+          normalizedName,
+          path: nodePath,
+          level,
+        },
+        ...format(node.Children, nodePath, level + 1),
+      ]
+    }, [])
   }
-  return tree[0]
+
+  return format(root)
+}
+
+export function getFilterTitle(title = '', intl) {
+  return intl.messages[title]
+    ? intl.formatMessage({ id: title })
+    : title
+}
+
+export function formatFacetToLinkPropsParam(type, option, oneSelectedCollapse = false) {
+  return {
+    name: option.Name,
+    link: option.Link,
+    path: option.path,
+    slug: option.Slug,
+    isSelected: option.selected,
+    oneSelectedCollapse,
+    type,
+  }
 }

@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { getSpecificationFilterFromLink } from '../../constants/SearchHelpers'
+import { getSpecificationFilterFromLink, getPagesArgs } from '../../constants/SearchHelpers'
 
 describe('getSpecificationFilterFromLink', () => {
   it('should return the only specification in link', () => {
@@ -48,5 +48,221 @@ describe('getSpecificationFilterFromLink', () => {
     const filterMap = getSpecificationFilterFromLink(link, map)
 
     expect(filterMap).toBe('specificationFilter_20')
+  })
+})
+
+describe('getPagesArgs', () => {
+  it('should stay in the search page', () => {
+    const filterSpec = {
+      type: 'Brands',
+      name: 'Samsung',
+      slug: 'Samsung',
+      rest: [],
+      map: ['ft'],
+      pagesPath: 'store/search',
+      params: {
+        term: 'samsung',
+        _rest: '',
+      },
+    }
+
+    const { page, query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['ft', 'b'])
+    expect(rest).toEqual(['Samsung'])
+    expect(page).toEqual('store/search')
+  })
+
+  it('should add single category on department page', () => {
+    const filterSpec = {
+      type: 'Categories',
+      name: 'Smartphones',
+      slug: 'Smartphones',
+      path: 'Eletronicos/Smartphones',
+      rest: [],
+      map: ['c'],
+      pagesPath: 'store/department',
+      params: {
+        department: 'eletronicos',
+        _rest: '',
+      },
+    }
+
+    const { query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['c', 'c'])
+    expect(rest).toEqual(['Smartphones'])
+  })
+
+  it('should add subcategory on department page', () => {
+    const filterSpec = {
+      type: 'Categories',
+      name: 'Acessórios',
+      slug: 'Acessorios',
+      path: 'Eletronicos/Smartphones/Acessorios',
+      map: ['c', 'c'],
+      rest: ['Smartphones'],
+      pagesPath: 'store/department',
+      params: {
+        department: 'Eletronicos',
+      },
+    }
+
+    const { query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['c', 'c', 'c'])
+    expect(rest).toEqual(['Smartphones', 'Acessorios'])
+  })
+
+  it('should add single category on search page', () => {
+    const filterSpec = {
+      type: 'Categories',
+      name: 'Smartphones',
+      slug: 'Smartphones',
+      path: 'Eletronicos/Smartphones',
+      rest: ['Eletronicos'],
+      map: ['ft', 'c'],
+      pagesPath: 'store/search',
+      params: {
+        term: 'samsung',
+        _rest: '',
+      },
+    }
+
+    const { page, query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(page).toEqual('store/search')
+    expect(map).toEqual(['ft', 'c', 'c'])
+    expect(rest).toEqual(['Eletronicos', 'Smartphones'])
+  })
+
+  it('should only remove subcategory on category page', () => {
+    const filterSpec = {
+      type: 'Categories',
+      isUnselectLink: true,
+      name: 'Acessórios',
+      slug: 'Acessorios',
+      path: 'Eletronicos/Smartphones/Acessorios',
+      rest: ['Acessorios'],
+      map: ['c', 'c', 'c'],
+      pagesPath: 'store/category',
+      params: {
+        department: 'Eletronicos',
+        category: 'Smartphones',
+        _rest: '',
+      },
+    }
+
+    const { query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['c', 'c'])
+    expect(rest).toEqual([])
+  })
+
+  it('should remove one sub-subcategory on subcategory page', () => {
+    const filterSpec = {
+      type: 'Categories',
+      isUnselectLink: true,
+      name: 'foo',
+      slug: 'foo',
+      path: 'Eletronicos/Smartphones/Acessorios/foo',
+      rest: ['Samsung', 'foo'],
+      map: ['c', 'b', 'c', 'c', 'c'],
+      pagesPath: 'store/subcategory',
+      params: {
+        department: 'Eletronicos',
+        category: 'Smartphones',
+        subcategory: 'Acessorios',
+        _rest: '',
+      },
+    }
+
+    const { query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['c', 'b', 'c', 'c'])
+    expect(rest).toEqual(['Samsung'])
+  })
+
+  it('should remove category from rest', () => {
+    const filterSpec = {
+      type: 'Categories',
+      isUnselectLink: true,
+      name: 'Smartphones',
+      slug: 'Smartphones',
+      path: 'Eletronicos/Smartphones',
+      map: ['c', 'c', 'b'],
+      rest: ['Smartphones', 'Google'],
+      pagesPath: 'store/department',
+      params: {
+        department: 'Eletronicos',
+        _rest: '',
+      },
+    }
+
+    const { query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['c', 'b'])
+    expect(rest).toEqual(['Google'])
+  })
+
+  it('should remove all categories on search page', () => {
+    const filterSpec = {
+      type: 'Categories',
+      isUnselectLink: true,
+      name: 'Eletrônicos',
+      slug: 'Eletronicos',
+      path: 'Eletronicos',
+      map: ['ft', 'c', 'c'],
+      rest: ['Eletronicos', 'Smartphones'],
+      pagesPath: 'store/search',
+      params: {
+        term: 'samsun',
+      },
+    }
+
+    const { query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['ft'])
+    expect(rest).toEqual([])
+  })
+
+  it('should remove brand from filters', () => {
+    const filterSpec = {
+      type: 'Brands',
+      isUnselectLink: true,
+      name: 'Samsung',
+      slug: 'Samsung',
+      rest: ['Samsung'],
+      map: ['c', 'c', 'b'],
+      pagesPath: 'store/category',
+      params: {
+        department: 'Eletronicos',
+        category: 'Computadores',
+        _rest: '',
+      },
+    }
+
+    const { query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['c', 'c'])
+    expect(rest).toEqual([])
+  })
+
+  it('should only add order to query', () => {
+    const filterSpec = {
+      orderBy: 'OrderByPriceASC',
+      rest: ['Smartphones'],
+      map: ['c', 'c'],
+      params: {
+        department: 'Eletronicos',
+        _rest: '',
+      },
+    }
+
+    const { query: { order, map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(filterSpec.map)
+    expect(rest).toEqual(filterSpec.rest)
+    expect(order).toBe(filterSpec.orderBy)
   })
 })
