@@ -8,5 +8,74 @@
     }
 }
 .vtex-search-result__filter span:hover {
-    color: #368DF7
+    color: var(--theme-color-secundary);
+}
+
+.vtex-search-result .f4{
+    color: var(--theme-color-primary);
+}
+
+.vtex-product-summary__buy-button{
+    width: 90%;
+}
+
+.vtex-product-summary__buy-button button{
+    display: inline-block;
+    text-decoration: none;
+    height: 50px;
+    border-radius: 50px;
+    outline: none;
+    cursor: pointer;
+    object-fit: contain;
+    font-family: Soleto;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: auto;
+    letter-spacing: normal;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 28px);
+    position: relative;
+    transition: 0.15s ease-in-out;
+    cursor: pointer;
+    width: 100%;
+    background-image: url(https://img.imageboss.me/cdn/http://bimg.visie.com.br/2018/07/iconArrowBt.svg);
+    background-color: var(--white);
+    border: 1px solid var(--theme-color-primary);
+    color: var(--theme-color-primary);
+}
+
+.vtex-product-summary__buy-button button:hover{
+    border: 1px solid var(--theme-color-primary);
+    background-color: var(--theme-color-primary);
+    color: var(--white);
+    background-image: url(https://img.imageboss.me/cdn/http://bimg.visie.com.br/2018/07/iconArrowBt_white.svg);
+    background-position: calc(100% - 15px);
+}
+
+.hover-b--heavy-blue:hover,
+.hover-bg-heavy-blue:hover{
+    
+}
+
+.b--blue{
+    border-color: var(--theme-color-primary);
+}
+
+.bg-blue{
+    background-color : var(--theme-color-primary);
+}
+
+.vtex-dropdown__arrow.flex-none.flex.items-center.pl2 svg g{
+    fill: var(--theme-color-primary);
+}
+
+.vtex-dropdown{
+    font-weight: 600;
+}
+
+.hover-b--silver:hover{
+    border-color: var(--theme-color-primary);
 }

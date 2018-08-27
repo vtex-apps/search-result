@@ -6,7 +6,7 @@ import { Link } from 'render'
 import FiltersContainer from './FiltersContainer'
 import { facetOptionShape } from '../constants/propTypes'
 
-const SELECTED_FILTER_COLOR = '#368DF7'
+const SELECTED_FILTER_COLOR = 'var(--orange)'
 
 /**
  * Search Filter Component.

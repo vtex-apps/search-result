@@ -1,7 +1,7 @@
 {
   "name": "search-result",
   "vendor": "brastemp",
-  "version": "0.1.1",
+  "version": "0.1.12",
   "title": "Brastemp Search Result",
   "description": "A Search Interface component",
   "mustUpdateAt": "2019-04-25",
@@ -12,8 +12,8 @@
     "postreleasy": "vtex publish --verbose"
   },
   "builders": {
-    "react": "2.x",
-    "pages": "0.x"
+    "react": "2.x"
+
   },
   "policies": [
     {
