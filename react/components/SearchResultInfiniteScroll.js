@@ -70,6 +70,7 @@ export default class SearchResultInfiniteScroll extends Component {
             ...linkProps.query,
             order,
           },
+          pagesPath: linkProps.page,
           name,
           slug: slug || name,
           link,
