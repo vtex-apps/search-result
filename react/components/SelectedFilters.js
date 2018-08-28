@@ -57,7 +57,7 @@ class SelectedFilters extends Component {
                   <Check size={16} />
                 </div>
                 <input
-                  className="mr2 o-0"
+                  className="mr2 o-0 vtex-selected-filter__checkbox"
                   type="checkbox"
                   value=""
                   onChange={e => e.preventDefault()}

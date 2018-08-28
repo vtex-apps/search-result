@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Upgraded `vtex.styleguide` to version 6.x.
 
+### Fixed
+- Checkbox position in chrome.
+
 ## [1.0.0] - 2018-08-24
 ### Changed
 - Add mobile design and refactor components.
