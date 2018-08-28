@@ -318,7 +318,7 @@ describe('getPagesArgs', () => {
   it('should update priceRange filter accordingly', () => {
     const filterSpec = {
       type: PRICE_RANGES_TYPE,
-      slug: 'de-1000-a-1999,99',
+      slug: '1000 TO 1999,99',
       pagesPath: DEPARTMENT_PAGE,
       query: {
         rest: [],
@@ -331,6 +331,6 @@ describe('getPagesArgs', () => {
 
     const { query: { priceRange } } = getPagesArgs(filterSpec)
 
-    expect(priceRange).toBe(filterSpec.slug)
+    expect(priceRange).toBe('1000 TO 1999,99')
   })
 })
