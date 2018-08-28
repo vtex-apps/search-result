@@ -1,8 +1,14 @@
 import PropTypes from 'prop-types'
 
 export const paramShape = PropTypes.shape({
-  _rest: PropTypes.string,
+  /** Department of the page */
   department: PropTypes.string,
+  /** Category of the page */
+  category: PropTypes.string,
+  /** Subcategory of the page */
+  subcategory: PropTypes.string,
+  /** Search term */
+  term: PropTypes.string,
 })
 
 export const facetOptionShape = PropTypes.shape({
@@ -112,10 +118,15 @@ export const queryShape = PropTypes.shape({
   rest: PropTypes.string,
   /** Determines the types of the terms, e.g: "c,c,b" (category, category, brand). */
   map: mapType,
-  /** Search's ordenation. */
+  /** Current ordenation. */
   order: orderType,
-  /** Search's pagination. */
+  /** Current page number. */
   page: PropTypes.string,
+  /**
+   * Current price range filtering, e.g. "0 TO 1000" (meaning the result
+   * is filtered with the price starting at 0 and ending at 1000)
+   */
+  priceRange: PropTypes.string,
 })
 
 export const mapType = PropTypes.string
@@ -144,6 +155,8 @@ export const searchResultPropTypes = {
   page: PropTypes.number.isRequired,
   /** Search result ordernation. */
   orderBy: orderType,
+  /** Price range filter */
+  priceRange: PropTypes.string,
   /** Search graphql query. */
   searchQuery: searchQueryShape,
   ...schemaPropsTypes,
