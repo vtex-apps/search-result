@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.1] - 2018-08-28
+### Changed
+- Upgraded `vtex.styleguide` to version 6.x.
+
+### Fixed
+- Checkbox position in chrome.
+
+## [1.0.0] - 2018-08-24
+### Changed
+- Add mobile design and refactor components.
+
+## [0.6.5] - 2018-08-22
+### Changed
+- Update specification filter to get slug from link.
+
+### Fixed
+- Error on normalize function of the product summary.
+
 ## [0.6.4] - 2018-08-08
 ### Added
 - PriceRange filter.

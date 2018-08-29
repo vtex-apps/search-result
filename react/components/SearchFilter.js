@@ -3,8 +3,9 @@ import React, { Component } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
 import { Link } from 'render'
 
-import FiltersContainer from './FiltersContainer'
+import FilterOptionTemplate from './FilterOptionTemplate'
 import { facetOptionShape } from '../constants/propTypes'
+import { getFilterTitle, formatFacetToLinkPropsParam } from '../constants/SearchHelpers'
 
 const SELECTED_FILTER_COLOR = 'var(--orange)'
 
@@ -37,10 +38,7 @@ class SearchFilter extends Component {
 
   render() {
     const { type, options, getLinkProps, oneSelectedCollapse } = this.props
-    const title =
-      this.props.title.startsWith('search.filter.title.')
-        ? this.props.intl.formatMessage({ id: this.props.title })
-        : this.props.title
+    const title = getFilterTitle(this.props.title, this.props.intl)
 
     let filters = options || []
 
@@ -53,45 +51,35 @@ class SearchFilter extends Component {
     }
 
     return (
-      <FiltersContainer
+      <FilterOptionTemplate
         title={title}
         filters={filters}
       >
         {opt => {
-          const pagesArgs = getLinkProps({
-            link: opt.Link,
-            type,
-            isSelected: opt.selected,
-          })
+          const pagesArgs = getLinkProps(formatFacetToLinkPropsParam(type, opt, oneSelectedCollapse))
           return (
             <Link
               key={opt.Name}
-              className="clear-link"
+              className="clear-link w-100"
               page={pagesArgs.page}
               params={pagesArgs.params}
               query={pagesArgs.queryString}
             >
-              <div className="w-90 flex items-center justify-between pa3">
-                <div className="flex items-center justify-center">
-                  <span
-                    className="bb"
-                    style={{
-                      borderColor:
-                      opt.selected
-                        ? SELECTED_FILTER_COLOR
-                        : 'transparent',
-                      borderWidth: '3px',
-                    }}
-                  >
-                    {opt.Name}
-                  </span>
-                </div>
-                <span className="flex items-center f5">( {opt.Quantity} )</span>
-              </div>
+              <span
+                className="f6 fw3 bb db"
+                style={{
+                  borderColor: opt.selected
+                    ? SELECTED_FILTER_COLOR
+                    : 'transparent',
+                  borderWidth: '1px',
+                }}
+              >
+                {opt.Name}
+              </span>
             </Link>
           )
         }}
-      </FiltersContainer>
+      </FilterOptionTemplate>
     )
   }
 }

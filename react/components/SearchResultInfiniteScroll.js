@@ -1,13 +1,20 @@
 import React, { Component } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Spinner } from 'vtex.styleguide'
+import { FormattedMessage } from 'react-intl'
+import QueryString from 'query-string'
+import { ExtensionPoint } from 'render'
 
+import { getPagesArgs, getBaseMap } from '../constants/SearchHelpers'
 import { searchResultPropTypes } from '../constants/propTypes'
-import { findInTree, getPagesArgs, mountOptions } from '../constants/SearchHelpers'
+
 import GalleryDefault from './Gallery'
-import SearchFilterDefault from './SearchFilter'
-import SearchHeaderDefault from './SearchHeader'
-import SelectedFiltersDefault from './SelectedFilters'
+
+import OrderBy from './OrderBy'
+import FiltersContainer from './FiltersContainer'
+import { PopupProvider } from './Popup'
+
+
 
 const CATEGORIES_TITLE = 'search.filter.title.categories'
 const CATEGORIES_TYPE = 'Categories'
@@ -17,114 +24,105 @@ const PRICE_RANGES_TITLE = 'search.filter.title.price-ranges'
 const PRICE_RANGES_TYPE = 'PriceRanges'
 const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
 
+
 /**
  * Search Result Component.
  */
 export default class SearchResultInfiniteScroll extends Component {
   static propTypes = searchResultPropTypes
 
-  getLinkProps = ({ link, type, ordenation, pageNumber, isSelected }) => {
-    const { rest, map, pagesPath, params } = this.props
-    const orderBy = ordenation || this.props.orderBy
-    return getPagesArgs({
-      type,
-      link,
+  state = {
+    fetchMoreLoading: false,
+  }
+
+  get breadcrumbsProps() {
+    const {
+      params: { category, department, term },
+    } = this.props
+
+    const categories = []
+
+    if (department) {
+      categories.push(department)
+    }
+
+    if (category) {
+      categories.push(`${department}/${category}/`)
+    }
+
+    return {
+      term,
+      categories,
+    }
+  }
+
+  getLinkProps = (spec, useEmptyMapAndRest = false) => {
+    const {
       rest,
       map,
-      orderBy,
-      pageNumber,
-      isUnselectLink: isSelected,
       pagesPath,
       params,
-    })
-  }
-
-  getCategories() {
-    const { searchQuery: { facets: { CategoriesTrees: tree } }, params } = this.props
-    if (!tree || tree.length === 0) {
-      return []
-    }
-    const [{ Children: children }] = tree
-    const categories = Object.values(params).filter(category => category)
-    const category = findInTree(tree, categories, 0)
-    if (category) {
-      return category.Children || children
-    }
-    return children || []
-  }
-
-  filtersFallback = (type, title, options, oneSelectedCollapse = false) => {
-    const { map, rest ,SearchFilter} = {SearchFilter:SearchFilterDefault,...this.props }
-    return (
-      <SearchFilter
-        key={title}
-        title={title}
-        options={mountOptions(options, type, map, rest)}
-        oneSelectedCollapse={oneSelectedCollapse}
-        type={type}
-        getLinkProps={this.getLinkProps}
-      />
-    )
-  }
-  getSelecteds() {
-    const {
-      searchQuery: {
-        facets: {
-          Brands = [],
-          SpecificationFilters = [],
-          PriceRanges = [],
-        },
-      },
-      map,
-      rest,
-    } = { searchQuery: {
-      facets: {
-        Brands: [],
-        SpecificationFilters:[],
-        PriceRanges: [],
-      },
-    },
-    map:null,
-    rest:null,...this.props }
-    
-    const categories = this.getCategories()
-    let options = []
-    options = options.concat(mountOptions(categories, CATEGORIES_TYPE, map, rest))
-    SpecificationFilters.map(spec => {
-      options = options.concat(mountOptions(spec.facets, SPECIFICATION_FILTERS_TYPE, map, rest))
-    
-    })
-    options = options.concat(mountOptions(Brands, BRANDS_TYPE, map, rest))
-    options = options.concat(mountOptions(PriceRanges, PRICE_RANGES_TYPE, map, rest))
-    
-    return options.filter(opt => opt.selected)
-  }
-
-  renderSearchFilters() {
-    const {
-      searchQuery: {
-        facets: {
-          Brands = [],
-          SpecificationFilters = [],
-          PriceRanges = [],
-        },
-      },
     } = this.props
-    const categories = this.getCategories()
-    const filters = []
-    if (categories.length) {
-      filters.push(this.filtersFallback(CATEGORIES_TYPE, CATEGORIES_TITLE, categories, true))
+    const filters = Array.isArray(spec) ? spec : [spec]
+
+    if (filters.length === 0) {
+      return {
+        page: pagesPath,
+        params,
+      }
     }
-    SpecificationFilters.map(spec => {
-      filters.push(this.filtersFallback(SPECIFICATION_FILTERS_TYPE, spec.name, spec.facets))
+
+    const pageProps = filters.reduce(
+      (linkProps, filter) => {
+        const { type, ordenation, pageNumber, isSelected, path, name, link, slug } = filter
+        const orderBy = ordenation || linkProps.query.order
+
+        return getPagesArgs({
+          rest: linkProps.query.rest,
+          map: linkProps.query.map,
+          pagesPath: linkProps.page,
+          params: linkProps.params,
+          name,
+          slug: slug || name,
+          link,
+          path,
+          type,
+          orderBy,
+          pageNumber,
+          isUnselectLink: isSelected,
+        })
+      },
+      {
+        page: pagesPath,
+        params,
+        query: {
+          order: this.props.orderBy,
+          map: useEmptyMapAndRest
+            ? getBaseMap(map, rest).split(',').filter(x => x)
+            : map.split(','),
+          rest: useEmptyMapAndRest ? [] : rest.split(',').filter(x => x),
+        },
+      }
+    )
+
+    const queryString = QueryString.stringify({
+      ...pageProps.query,
+      map: pageProps.query.map.join(','),
+      rest: pageProps.query.rest.join(',') || undefined,
     })
-    filters.push(this.filtersFallback(BRANDS_TYPE, BRANDS_TITLE, Brands))
-    filters.push(this.filtersFallback(PRICE_RANGES_TYPE, PRICE_RANGES_TITLE, PriceRanges))
-    return filters
+
+    return {
+      page: pageProps.page,
+      queryString: queryString,
+      params: pageProps.params,
+    }
   }
 
   handleFetchMoreProducts = (prev, { fetchMoreResult }) => {
-    this.fetchMoreLoading = false
+    this.setState({
+      fetchMoreLoading: false,
+    })
+
     if (!fetchMoreResult) return prev
     return {
       search: {
@@ -148,68 +146,95 @@ export default class SearchResultInfiniteScroll extends Component {
   render() {
     const {
       searchQuery: {
+        facets: {
+          Brands = [],
+          SpecificationFilters = [],
+          PriceRanges = [],
+          CategoriesTrees,
+        } = {},
         products = [],
         recordsFiltered = 0,
         loading: searchLoading,
         fetchMore,
       },
       orderBy,
-      maxItemsPerLine,
       maxItemsPerPage,
       page,
       summary,
       Gallery,
-      GalleryItem,
-      SelectedFilters,
-      SearchHeader
+      map,
+      rest,
+      params,
     }={
         Gallery:GalleryDefault, 
-        SelectedFilters: SelectedFiltersDefault,
-        SearchHeader: SearchHeaderDefault,
         ...this.props
-      }
+    }
+    
 
     const isLoading = searchLoading || this.props.loading
-    const from = (page - 1) * maxItemsPerPage + 1
     const to = (page - 1) * maxItemsPerPage + products.length
-    const selecteds = this.getSelecteds()
+
     return (
-      <InfiniteScroll
-        dataLength={products.length}
-        next={() => {
-          this.fetchMoreLoading = true
-          return fetchMore({
-            variables: {
-              from: to,
-              to: to + maxItemsPerPage - 1,
-            },
-            updateQuery: this.handleFetchMoreProducts,
-          })
-        }}
-        hasMore={products.length < recordsFiltered}
-      >
-        <div className="vtex-search-result w-100 pa3 dib">
-          <div className="w-100 w-30-m w-20-l fl pa3">
-            <SelectedFilters
-              selecteds={selecteds}
-              getLinkProps={this.getLinkProps}
-            />
-            {this.renderSearchFilters()}
+      <PopupProvider>
+        <InfiniteScroll
+          dataLength={products.length}
+          next={() => {
+            this.setState({
+              fetchMoreLoading: true,
+            })
+
+            return fetchMore({
+              variables: {
+                from: to,
+                to: to + maxItemsPerPage - 1,
+              },
+              updateQuery: this.handleFetchMoreProducts,
+            })
+          }}
+          hasMore={products.length < recordsFiltered}
+        >
+          <div className="vtex-search-result vtex-search-result--infinite-scroll pv5 ph9-l ph7-m ph5-s">
+            <div className="vtex-search-result__breadcrumb">
+              <ExtensionPoint id="breadcrumb" {...this.breadcrumbsProps} />
+            </div>
+            <div className="vtex-search-result__total-products">
+              <FormattedMessage
+                id="search.total-products"
+                values={{ recordsFiltered }}
+              >
+                {txt => <span className="ph4 black-50">{txt}</span>}
+              </FormattedMessage>
+            </div>
+            <div className="vtex-search-result__filters">
+              <FiltersContainer
+                brands={Brands}
+                getLinkProps={this.getLinkProps}
+                map={map}
+                params={params}
+                priceRanges={PriceRanges}
+                rest={rest}
+                specificationFilters={SpecificationFilters}
+                tree={CategoriesTrees}
+              />
+            </div>
+            <div className="vtex-search-result__border" />
+            <div className="vtex-search-result__order-by">
+              <OrderBy
+                orderBy={orderBy}
+                getLinkProps={this.getLinkProps}
+              />
+            </div>
+            <div className="vtex-search-result__gallery">
+              {isLoading && !this.state.fetchMoreLoading ? (
+                this.renderSpinner()
+              ) : (
+                <Gallery products={products} summary={summary} />
+              )}
+              {this.state.fetchMoreLoading && this.renderSpinner()}
+            </div>
           </div>
-          <div className="w-100 w-70-m w-80-l fl">
-            <SearchHeader
-              {...{ from, to, orderBy, recordsFiltered }}
-              getLinkProps={this.getLinkProps}
-            />
-            {isLoading && !this.fetchMoreLoading ? (
-              this.renderSpinner()
-            ) : (
-              <Gallery {...{ products, maxItemsPerLine, summary, GalleryItem }} />
-            )}
-            {this.fetchMoreLoading && this.renderSpinner()}
-          </div>
-        </div>
-      </InfiniteScroll>
+        </InfiniteScroll>
+      </PopupProvider>
     )
   }
 }
