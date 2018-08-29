@@ -18,6 +18,14 @@ function quantize(value, step) {
   return quantizedVal
 }
 
+function getPageX(evt) {
+  if (evt.targetTouches && evt.targetTouches.length > 0) {
+    return evt.targetTouches[0].pageX
+  }
+
+  return evt.pageX
+}
+
 export default class Range extends Component {
   static propTypes = {
     min: PropTypes.number,
@@ -47,6 +55,34 @@ export default class Range extends Component {
     },
   }
 
+  getValueForPercent = (percentageComplete, position) => {
+    const { min, max, step } = this.props
+
+    const rawValue = min + percentageComplete * (max - min)
+
+    let value
+
+    if (rawValue !== min && rawValue !== max) {
+      value = quantize(rawValue, step)
+    } else {
+      value = rawValue
+    }
+
+    if (value < min) {
+      value = min
+    } else if (value > max) {
+      value = max
+    }
+
+    if (position === 'left' && value >= this.state.values.right) {
+      value = this.state.values.right
+    } else if (position === 'right' && value <= this.state.values.left) {
+      value = this.state.values.left
+    }
+
+    return value
+  }
+
   handleDragStart = position => e => {
     this.setState({
       dragging: position,
@@ -70,17 +106,18 @@ export default class Range extends Component {
   handleDrag = position => e => {
     e.preventDefault()
 
-    console.log(this.state)
-
-    const { min, max, step } = this.props
+    const { min, max } = this.props
     const slider = this.sliderRef.current
     const rect = slider.getBoundingClientRect()
 
-    const xPos = e.pageX - rect.left
+    const xPos = getPageX(e) - rect.left
 
-    const percentageComplete = xPos / rect.width
+    let percentageComplete = xPos / rect.width
 
-    const value = quantize(min + percentageComplete * (max - min), step)
+    const value = this.getValueForPercent(percentageComplete, position)
+
+    percentageComplete = (value - min) / (max - min)
+
     let translatePx = percentageComplete * rect.width
 
     if (position === 'right') {
@@ -111,7 +148,7 @@ export default class Range extends Component {
     const { left, right } = this.state.translate
 
     return (
-      <div className="vtex-range w-100 relative pv3">
+      <div className="vtex-range w-100 relative pv3 overflow-x-visible">
         <div
           ref={this.sliderRef}
           className="vtex-range__base w-100 bg-light-gray"
@@ -119,7 +156,7 @@ export default class Range extends Component {
         />
         <RangeCircle
           style={{
-            transform: `translateX(${left}px)`,
+            transform: `translateX(${left}px) translateX(-50%)`,
             left: 0,
           }}
           onDragStart={this.handleDragStart}
@@ -127,7 +164,7 @@ export default class Range extends Component {
         />
         <RangeCircle
           style={{
-            transform: `translateX(-${right}px)`,
+            transform: `translateX(-${right}px) translateX(50%)`,
             right: 0,
           }}
           onDragStart={this.handleDragStart}
