@@ -11,6 +11,7 @@ export default function RangeCircle({ style, onDragStart, position, active }) {
         width: '1.25rem',
         top: 3,
         borderWidth: 3,
+        willChange: 'transform',
       }}
       onMouseDown={onDragStart(position)}
       onTouchStart={onDragStart(position)}
