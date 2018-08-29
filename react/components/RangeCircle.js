@@ -1,14 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export default function RangeCircle({ style, onDragStart, position }) {
+export default function RangeCircle({ style, onDragStart, position, active }) {
   return (
     <div
-      className="vtex-range__circle ba b--muted-4 hover-b--muted-3 br-100 pointer absolute top-0 bottom-0 bg-white"
+      className={`vtex-range__circle ba ${active ? 'b--action-primary' : 'b--muted-4 hover-b--muted-3'} br-100 pointer absolute bg-white z-1`}
       style={{
         ...style,
         height: '1.25rem',
         width: '1.25rem',
+        top: 3,
         borderWidth: 3,
       }}
       onMouseDown={onDragStart(position)}
@@ -24,4 +25,5 @@ RangeCircle.propTypes = {
   ]).isRequired,
   style: PropTypes.object,
   onDragStart: PropTypes.func.isRequired,
+  active: PropTypes.bool,
 }
