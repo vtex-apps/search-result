@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 
 import RangeCircle from './RangeCircle'
 
@@ -32,6 +33,7 @@ export default class Range extends Component {
     max: PropTypes.number,
     onChange: PropTypes.func,
     step: PropTypes.number,
+    disabled: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -97,6 +99,10 @@ export default class Range extends Component {
   }
 
   handleDragStart = position => e => {
+    if (this.props.disabled) {
+      return
+    }
+
     this.setState({
       dragging: position,
     })
@@ -160,9 +166,12 @@ export default class Range extends Component {
     this.setState({
       dragging: null,
     })
+
+    this.props.onChange(this.state.values)
   }
 
   render() {
+    const { disabled } = this.props
     const { left, right } = this.state.translate
 
     return (
@@ -176,7 +185,10 @@ export default class Range extends Component {
           }}
         >
           <div
-            className="bg-action-primary absolute"
+            className={classNames('absolute', {
+              'bg-action-primary': !disabled,
+              'bg-marked-4': disabled,
+            })}
             style={{
               height: 3,
               left,

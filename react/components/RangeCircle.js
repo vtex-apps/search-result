@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export default function RangeCircle({ style, onDragStart, position, active }) {
+export default function RangeCircle({ style, onDragStart, position, active, disabled }) {
   return (
     <div
-      className={`vtex-range__circle ba ${active ? 'b--action-primary' : 'b--muted-4 hover-b--muted-3'} br-100 pointer absolute bg-white z-1`}
+      className={`vtex-range__circle ba ${active && !disabled ? 'b--action-primary' : 'b--muted-4 hover-b--muted-3'} br-100 pointer absolute bg-white z-1`}
       style={{
         ...style,
         height: '1.25rem',
@@ -19,6 +19,11 @@ export default function RangeCircle({ style, onDragStart, position, active }) {
   )
 }
 
+RangeCircle.defaultProps = {
+  active: false,
+  disabled: false,
+}
+
 RangeCircle.propTypes = {
   position: PropTypes.oneOf([
     'left',
@@ -27,4 +32,5 @@ RangeCircle.propTypes = {
   style: PropTypes.object,
   onDragStart: PropTypes.func.isRequired,
   active: PropTypes.bool,
+  disabled: PropTypes.bool,
 }
