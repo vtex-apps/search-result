@@ -55,6 +55,19 @@ export default class Range extends Component {
     },
   }
 
+  componendDidMount() {
+    window.addEventListener('resize', this.handleResize)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize)
+  }
+
+  handleResize = () => {
+    this.updatePositionForValue(this.state.values.left, 'left')
+    this.updatePositionForValue(this.state.values.right, 'right')
+  }
+
   getValueForPercent = (percentageComplete, position) => {
     const { min, max, step } = this.props
 
@@ -106,17 +119,22 @@ export default class Range extends Component {
   handleDrag = position => e => {
     e.preventDefault()
 
-    const { min, max } = this.props
     const slider = this.sliderRef.current
     const rect = slider.getBoundingClientRect()
 
     const xPos = getPageX(e) - rect.left
 
-    let percentageComplete = xPos / rect.width
+    const percentageComplete = xPos / rect.width
 
     const value = this.getValueForPercent(percentageComplete, position)
 
-    percentageComplete = (value - min) / (max - min)
+    this.updatePositionForValue(value, position)
+  }
+
+  updatePositionForValue = (value, position) => {
+    const { max, min } = this.props
+    const rect = this.sliderRef.current.getBoundingClientRect()
+    const percentageComplete = (value - min) / (max - min)
 
     let translatePx = percentageComplete * rect.width
 
