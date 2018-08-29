@@ -166,12 +166,24 @@ export default class Range extends Component {
     const { left, right } = this.state.translate
 
     return (
-      <div className="vtex-range w-100 relative pv3 overflow-x-visible">
+      <div className="vtex-range w-100 relative pv4">
         <div
           ref={this.sliderRef}
-          className="vtex-range__base w-100 bg-light-gray"
-          style={{ height: 3 }}
-        />
+          className="vtex-range__base w-100 bg-light-gray absolute"
+          style={{
+            height: 3,
+            top: '50%',
+          }}
+        >
+          <div
+            className="bg-action-primary absolute"
+            style={{
+              height: 3,
+              left,
+              right,
+            }}
+          />
+        </div>
         <RangeCircle
           style={{
             transform: `translateX(${left}px) translateX(-50%)`,
@@ -179,6 +191,7 @@ export default class Range extends Component {
           }}
           onDragStart={this.handleDragStart}
           position="left"
+          active={this.state.dragging === 'left'}
         />
         <RangeCircle
           style={{
@@ -187,6 +200,7 @@ export default class Range extends Component {
           }}
           onDragStart={this.handleDragStart}
           position="right"
+          active={this.state.dragging === 'right'}
         />
       </div>
     )

@@ -150,3 +150,7 @@ body.vtex-filter-popup-open {
   }
 }
 
+.vtex-range {
+  user-select: none;
+}
+
