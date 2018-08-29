@@ -55,7 +55,7 @@ export default class Range extends Component {
     },
   }
 
-  componendDidMount() {
+  componentDidMount() {
     window.addEventListener('resize', this.handleResize)
   }
 
