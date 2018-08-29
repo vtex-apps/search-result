@@ -18,8 +18,8 @@ class PriceRange extends Component {
     intl: intlShape,
   }
 
-  handleChange = (min, max) => {
-    console.log('min', min, 'max', max)
+  handleChange = ({ left, right }) => {
+    console.log('min', left, 'max', right)
   }
 
   render() {
