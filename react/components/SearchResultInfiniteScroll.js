@@ -77,7 +77,15 @@ export default class SearchResultInfiniteScroll extends Component {
       },
       map,
       rest,
-    } = this.props
+    } = { searchQuery: {
+      facets: {
+        Brands: [],
+        SpecificationFilters:[],
+        PriceRanges: [],
+      },
+    },
+    map:null,
+    rest:null,...this.props }
     
     const categories = this.getCategories()
     let options = []
