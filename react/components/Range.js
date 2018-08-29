@@ -27,6 +27,10 @@ function getPageX(evt) {
   return evt.pageX
 }
 
+function isEscKeyEvent(evt) {
+  return evt.key === 'Escape' || evt.keyCode === 27
+}
+
 export default class Range extends Component {
   static propTypes = {
     min: PropTypes.number,
@@ -58,14 +62,14 @@ export default class Range extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.handleResize)
+    window.addEventListener('resize', this.updateLayout)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener('resize', this.updateLayout)
   }
 
-  handleResize = () => {
+  updateLayout = () => {
     this.updatePositionForValue(this.state.values.left, 'left')
     this.updatePositionForValue(this.state.values.right, 'right')
   }
@@ -107,19 +111,28 @@ export default class Range extends Component {
       dragging: position,
     })
 
+    this.valuesBeforeDrag_ = this.state.values
+
     // https://reactjs.org/docs/events.html#event-pooling
     e.persist()
 
     const moveHandler = this.handleDrag(position)
 
-    const handleUpEvent = () => {
-      this.handleDragEnd()
+    this.cancelDragEvent_ = () => {
+      this.valuesBeforeDrag_ = undefined
       UP_EVENTS.forEach(evtName => document.body.removeEventListener(evtName, handleUpEvent))
       document.body.removeEventListener(MOVE_EVENT_MAP[e.type], moveHandler)
+      document.body.removeEventListener('keydown', this.handleKeyDown)
+    }
+
+    const handleUpEvent = () => {
+      this.cancelDragEvent_()
+      this.handleDragEnd()
     }
 
     UP_EVENTS.forEach(evtName => document.body.addEventListener(evtName, handleUpEvent))
     document.body.addEventListener(MOVE_EVENT_MAP[e.type], moveHandler)
+    document.body.addEventListener('keydown', this.handleKeyDown)
   }
 
   handleDrag = position => e => {
@@ -167,7 +180,25 @@ export default class Range extends Component {
       dragging: null,
     })
 
+    this.cancelDragEvent_ = undefined
+
     this.props.onChange(this.state.values)
+  }
+
+  handleKeyDown = evt => {
+    if (!isEscKeyEvent(evt) || !this.state.dragging) {
+      return
+    }
+
+    this.setState({
+      dragging: false,
+      values: this.valuesBeforeDrag_,
+    })
+
+    this.cancelDragEvent_()
+    this.cancelDragEvent = undefined
+
+    this.updateLayout()
   }
 
   render() {
