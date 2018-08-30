@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 export default function RangeCircle({ style, onDragStart, position, active, disabled, value }) {
   return (
     <div
-      className="vtex-range__circle-container absolute pointer z-1 ph2 pv4"
+      className="vtex-range__circle-container absolute pointer z-1 pv4"
       onMouseDown={onDragStart(position)}
       onTouchStart={onDragStart(position)}
       style={{
