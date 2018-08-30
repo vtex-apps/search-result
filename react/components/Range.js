@@ -94,9 +94,9 @@ export default class Range extends Component {
     }
 
     if (position === 'left' && value >= this.state.values.right) {
-      value = this.state.values.right
+      value = this.state.values.right - step
     } else if (position === 'right' && value <= this.state.values.left) {
-      value = this.state.values.left
+      value = this.state.values.left + step
     }
 
     return value
@@ -206,7 +206,7 @@ export default class Range extends Component {
     const { left, right } = this.state.translate
 
     return (
-      <div className="vtex-range w-100 relative pv4">
+      <div className="vtex-range w-100 relative pv4" style={{ height: 48 }}>
         <div
           ref={this.sliderRef}
           className="vtex-range__base w-100 bg-light-gray absolute"
@@ -235,6 +235,7 @@ export default class Range extends Component {
           onDragStart={this.handleDragStart}
           position="left"
           active={this.state.dragging === 'left'}
+          value={this.state.values.left}
         />
         <RangeCircle
           style={{
@@ -244,6 +245,7 @@ export default class Range extends Component {
           onDragStart={this.handleDragStart}
           position="right"
           active={this.state.dragging === 'right'}
+          value={this.state.values.right}
         />
       </div>
     )
