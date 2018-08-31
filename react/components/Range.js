@@ -38,6 +38,10 @@ export default class Range extends Component {
     onChange: PropTypes.func,
     step: PropTypes.number,
     disabled: PropTypes.bool,
+    initialValues: PropTypes.shape({
+      left: PropTypes.number,
+      right: PropTypes.number,
+    }),
   }
 
   static defaultProps = {
@@ -45,6 +49,24 @@ export default class Range extends Component {
     max: 10,
     step: 1,
     onChange: () => {},
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.getTranslateValueForInputValue = (value, position) => {
+      const { max, min } = this.props
+      const rect = this.sliderRef.current.getBoundingClientRect()
+      const percentageComplete = (value - min) / (max - min)
+
+      let translatePx = percentageComplete * rect.width
+
+      if (position === 'right') {
+        translatePx = rect.width - translatePx
+      }
+
+      return translatePx
+    }
   }
 
   sliderRef = React.createRef()
@@ -56,17 +78,44 @@ export default class Range extends Component {
       right: 0,
     },
     values: {
-      left: this.props.min,
-      right: this.props.max,
+      left: this.props.initialValues && this.props.initialValues.left
+        ? this.props.initialValues.left
+        : this.props.min,
+      right: this.props.initialValues && this.props.initialValues.right
+        ? this.props.initialValues.right
+        : this.props.max,
     },
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.min !== this.props.min || prevProps.max !== this.props.max) {
+      this.setState({
+        translate: {
+          left: 0,
+          right: 0,
+        },
+        values: {
+          left: this.props.min,
+          right: this.props.max,
+        },
+      }, this.updateLayout)
+    }
   }
 
   componentDidMount() {
     window.addEventListener('resize', this.updateLayout)
+
+    if (this.props.initialValues && (this.props.initialValues.left || this.props.initialValues.right)) {
+      this.updateLayout()
+    }
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateLayout)
+
+    if (this.cancelDragEvent_) {
+      this.cancelDragEvent_()
+    }
   }
 
   updateLayout = () => {
@@ -133,11 +182,11 @@ export default class Range extends Component {
     UP_EVENTS.forEach(evtName => document.body.addEventListener(evtName, handleUpEvent))
     document.body.addEventListener(MOVE_EVENT_MAP[e.type], moveHandler)
     document.body.addEventListener('keydown', this.handleKeyDown)
+
+    this.updatePositionFromEvent(e, position)
   }
 
-  handleDrag = position => e => {
-    e.preventDefault()
-
+  updatePositionFromEvent = (e, position) => {
     const slider = this.sliderRef.current
     const rect = slider.getBoundingClientRect()
 
@@ -150,16 +199,13 @@ export default class Range extends Component {
     this.updatePositionForValue(value, position)
   }
 
+  handleDrag = position => e => {
+    e.preventDefault()
+    this.updatePositionFromEvent(e, position)
+  }
+
   updatePositionForValue = (value, position) => {
-    const { max, min } = this.props
-    const rect = this.sliderRef.current.getBoundingClientRect()
-    const percentageComplete = (value - min) / (max - min)
-
-    let translatePx = percentageComplete * rect.width
-
-    if (position === 'right') {
-      translatePx = rect.width - translatePx
-    }
+    const translatePx = this.getTranslateValueForInputValue(value, position)
 
     requestAnimationFrame(() => {
       this.setState({
