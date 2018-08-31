@@ -205,33 +205,40 @@ export default class SearchResultInfiniteScroll extends Component {
                 {txt => <span className="ph4 black-50">{txt}</span>}
               </FormattedMessage>
             </div>
-            <div className="vtex-search-result__filters">
-              <FiltersContainer
-                brands={Brands}
-                getLinkProps={this.getLinkProps}
-                map={map}
-                params={params}
-                priceRanges={PriceRanges}
-                rest={rest}
-                specificationFilters={SpecificationFilters}
-                tree={CategoriesTrees}
-              />
-            </div>
-            <div className="vtex-search-result__border" />
-            <div className="vtex-search-result__order-by">
-              <OrderBy
-                orderBy={orderBy}
-                getLinkProps={this.getLinkProps}
-              />
-            </div>
-            <div className="vtex-search-result__gallery">
-              {isLoading && !this.state.fetchMoreLoading ? (
-                this.renderSpinner()
-              ) : (
-                <Gallery products={products} summary={summary} />
-              )}
-              {this.state.fetchMoreLoading && this.renderSpinner()}
-            </div>
+            <div className="container-search-result">
+                
+                <div className="vtex-search-result__filters">
+                  <FiltersContainer
+                    brands={Brands}
+                    getLinkProps={this.getLinkProps}
+                    map={map}
+                    params={params}
+                    priceRanges={PriceRanges}
+                    rest={rest}
+                    specificationFilters={SpecificationFilters}
+                    tree={CategoriesTrees}
+                  />
+                  <div className="vtex-search-result__border" />
+                 
+                </div>
+                
+                <div className="vtex-search-result__order-by">
+                    <OrderBy
+                      orderBy={orderBy}
+                      getLinkProps={this.getLinkProps}
+                    />
+                </div>
+                
+            
+                <div className="vtex-search-result__gallery">
+                    {isLoading && !this.state.fetchMoreLoading ? (
+                      this.renderSpinner()
+                    ) : (
+                      <Gallery products={products} summary={summary} />
+                    )}
+                    {this.state.fetchMoreLoading && this.renderSpinner()}
+                </div>
+              </div>
           </div>
         </InfiniteScroll>
       </PopupProvider>

@@ -1,0 +1,75 @@
+.container-search-result{
+    /* border: 1px solid var(--orange); */
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    column-gap: 50px;
+    row-gap: 30px;
+    grid-template-areas:
+		"filtro select"
+		"filtro galeria"
+    ;
+}
+
+.vtex-search-result__filters{
+    grid-area: filtro;
+}
+
+.vtex-search-result__order-by{
+    grid-area: select;
+}
+.vtex-search-result__gallery{
+    grid-area: galeria;
+}
+
+.vtex-search-result{
+    padding: 1rem;
+    width: 90%;
+    margin: auto;
+}
+.f6{
+    color: var(--orange);
+    font-size: 20px;
+    font-weight: 300;
+}
+.f7{    
+    font-size: 16px;
+    padding-left: 5px ;
+}
+span.f6{
+    color: var(--black);
+    padding: 5px 10px;
+    font-size: 16px;
+}
+
+.vtex-search-result__filter-icon svg path{
+    fill: var(--orange);
+}
+
+svg rect {
+    fill : var(--orange);
+}
+
+.pt2{
+    padding-top: 1.0rem;    
+}
+
+.vtex-dropdown{
+    width: 400px;
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1366px) {
+    .vtex-search-result{
+        width: auto;
+    }
+}
+
+@media screen and (min-width: 1700px){
+    .vtex-search-result__gallery, .vtex-dropdown{
+        padding-left: 200px;
+        justify-self: self-start;
+    }
+
+    .vtex-dropdown{
+        width: 600px
+    }
+}

@@ -79,3 +79,6 @@
 .hover-b--silver:hover{
     border-color: var(--theme-color-primary);
 }
+
+
+@import url(./search-result.global.css);
