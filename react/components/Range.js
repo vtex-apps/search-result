@@ -206,47 +206,49 @@ export default class Range extends Component {
     const { left, right } = this.state.translate
 
     return (
-      <div className="vtex-range w-100 relative pv4" style={{ height: 48 }}>
-        <div
-          ref={this.sliderRef}
-          className="vtex-range__base w-100 bg-light-gray absolute"
-          style={{
-            height: 3,
-            top: '50%',
-          }}
-        >
+      <div className="ph4">
+        <div className="vtex-range w-100 relative pv4" style={{ height: 48 }}>
           <div
-            className={classNames('absolute', {
-              'bg-action-primary': !disabled,
-              'bg-marked-4': disabled,
-            })}
+            ref={this.sliderRef}
+            className="vtex-range__base w-100 bg-light-gray absolute"
             style={{
               height: 3,
-              left,
-              right,
+              top: '50%',
             }}
+          >
+            <div
+              className={classNames('absolute', {
+                'bg-action-primary': !disabled,
+                'bg-marked-4': disabled,
+              })}
+              style={{
+                height: 3,
+                left,
+                right,
+              }}
+            />
+          </div>
+          <RangeCircle
+            style={{
+              transform: `translateX(${left}px) translateX(-100%)`,
+              left: 0,
+            }}
+            onDragStart={this.handleDragStart}
+            position="left"
+            active={this.state.dragging === 'left'}
+            value={this.state.values.left}
+          />
+          <RangeCircle
+            style={{
+              transform: `translateX(-${right}px) translateX(100%)`,
+              right: 0,
+            }}
+            onDragStart={this.handleDragStart}
+            position="right"
+            active={this.state.dragging === 'right'}
+            value={this.state.values.right}
           />
         </div>
-        <RangeCircle
-          style={{
-            transform: `translateX(${left}px) translateX(-50%)`,
-            left: 0,
-          }}
-          onDragStart={this.handleDragStart}
-          position="left"
-          active={this.state.dragging === 'left'}
-          value={this.state.values.left}
-        />
-        <RangeCircle
-          style={{
-            transform: `translateX(-${right}px) translateX(50%)`,
-            right: 0,
-          }}
-          onDragStart={this.handleDragStart}
-          position="right"
-          active={this.state.dragging === 'right'}
-          value={this.state.values.right}
-        />
       </div>
     )
   }
