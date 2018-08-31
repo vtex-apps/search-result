@@ -57,13 +57,17 @@ svg rect {
     width: 400px;
 }
 
-@media screen and (min-width: 1025px) and (max-width: 1366px) {
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
     .vtex-search-result{
-        width: auto;
+        width: 100%;
+    }
+
+    .vtex-dropdown{
+        width: 400px;
     }
 }
 
-@media screen and (min-width: 1700px){
+@media screen and (min-width:1700px){
     .vtex-search-result__gallery, .vtex-dropdown{
         padding-left: 200px;
         justify-self: self-start;
@@ -71,5 +75,42 @@ svg rect {
 
     .vtex-dropdown{
         width: 600px
+    }
+}
+
+@media screen and (max-width:1024px){
+    .vtex-search-result{
+        width: 100%
+    }
+
+    .container-search-result{
+        grid-template-columns: 300px 1fr;
+        column-gap: 50px;
+        row-gap: 30px;
+        grid-template-areas:
+            "filtro select"
+            "galeria galeria"
+        ;
+    }
+
+    .vtex-search-result__gallery{
+        padding: 0 20%;
+    }
+}
+
+@media screen and (max-width:767px){
+    .vtex-search-result__gallery{
+        padding: 0;
+    }
+
+    .container-search-result{
+        grid-template-columns: 1fr;
+        column-gap: 50px;
+        row-gap: 30px;
+        grid-template-areas:
+            "filtro filtro"
+            "select select"
+            "galeria galeria"
+        ;
     }
 }
