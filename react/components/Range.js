@@ -271,9 +271,9 @@ export default class Range extends Component {
             />
           </div>
           <RangeCircle
+            className="left-0"
             style={{
               transform: `translateX(${left}px) translateX(-100%)`,
-              left: 0,
             }}
             onDragStart={this.handleDragStart}
             position="left"
@@ -281,9 +281,9 @@ export default class Range extends Component {
             value={this.state.values.left}
           />
           <RangeCircle
+            className="right-0"
             style={{
               transform: `translateX(-${right}px) translateX(100%)`,
-              right: 0,
             }}
             onDragStart={this.handleDragStart}
             position="right"
