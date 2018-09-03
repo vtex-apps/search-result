@@ -23,6 +23,7 @@ class PriceRange extends Component {
     runtime: PropTypes.shape({
       navigate: PropTypes.func.isRequired,
     }).isRequired,
+    priceRange: PropTypes.string,
   }
 
   state = {
