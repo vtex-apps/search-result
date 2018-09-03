@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export default function RangeCircle({ className, style, onDragStart, position, active, disabled, value }) {
+export default function RangeSelector({ className, style, onDragStart, position, active, disabled, value }) {
   return (
     <div
       className={`vtex-range__circle-container absolute pointer z-1 pv4 ${className}`}
@@ -41,22 +41,29 @@ export default function RangeCircle({ className, style, onDragStart, position, a
   )
 }
 
-RangeCircle.defaultProps = {
+RangeSelector.defaultProps = {
   active: false,
   disabled: false,
   value: 0,
   className: '',
 }
 
-RangeCircle.propTypes = {
+RangeSelector.propTypes = {
+  /** CSS classes */
   className: PropTypes.string,
+  /** Position of the selector */
   position: PropTypes.oneOf([
     'left',
     'right',
   ]).isRequired,
+  /** Style */
   style: PropTypes.object,
+  /** onDragStart event */
   onDragStart: PropTypes.func.isRequired,
+  /** If the selector is active */
   active: PropTypes.bool,
+  /** If the selector is disabled */
   disabled: PropTypes.bool,
+  /** Current value of the selector */
   value: PropTypes.number,
 }

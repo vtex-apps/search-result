@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-import RangeCircle from './RangeCircle'
+import RangeSelector from './RangeSelector'
 
 const UP_EVENTS = ['mouseup', 'pointerup', 'touchend']
 
@@ -33,11 +33,17 @@ function isEscKeyEvent(evt) {
 
 export default class Range extends Component {
   static propTypes = {
+    /** Minimum supported value */
     min: PropTypes.number,
+    /** Maximum supported value */
     max: PropTypes.number,
+    /** onChange event */
     onChange: PropTypes.func,
+    /** Step value */
     step: PropTypes.number,
+    /** Whether the slider is disabled */
     disabled: PropTypes.bool,
+    /** Initial values */
     initialValues: PropTypes.shape({
       left: PropTypes.number,
       right: PropTypes.number,
@@ -270,7 +276,7 @@ export default class Range extends Component {
               }}
             />
           </div>
-          <RangeCircle
+          <RangeSelector
             className="left-0"
             style={{
               transform: `translateX(${left}px) translateX(-100%)`,
@@ -280,7 +286,7 @@ export default class Range extends Component {
             active={this.state.dragging === 'left'}
             value={this.state.values.left}
           />
-          <RangeCircle
+          <RangeSelector
             className="right-0"
             style={{
               transform: `translateX(-${right}px) translateX(100%)`,

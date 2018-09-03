@@ -18,11 +18,15 @@ class PriceRange extends Component {
     options: PropTypes.arrayOf(facetOptionShape).isRequired,
     /** Intl instance */
     intl: intlShape.isRequired,
+    /** Get the props to pass to render's Link */
     getLinkProps: PropTypes.func.isRequired,
+    /** Price range facet type */
     type: PropTypes.string.isRequired,
+    /** Runtime context */
     runtime: PropTypes.shape({
       navigate: PropTypes.func.isRequired,
     }).isRequired,
+    /** Current price range filter query parameter*/
     priceRange: PropTypes.string,
   }
 
