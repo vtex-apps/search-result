@@ -6,7 +6,7 @@ import { mountOptions } from '../constants/SearchHelpers'
 import SearchFilter from './SearchFilter'
 import PriceRange from './PriceRange'
 
-const AvailableFilters = ({ filters, map, rest, getLinkProps }) => (
+const AvailableFilters = ({ filters, map, rest, priceRange, getLinkProps }) => (
   filters.map(filter => {
     const { type, title, options, oneSelectedCollapse = false } = filter
 
@@ -19,6 +19,7 @@ const AvailableFilters = ({ filters, map, rest, getLinkProps }) => (
             options={options}
             getLinkProps={getLinkProps}
             type={type}
+            priceRange={priceRange}
           />
         )
       default:
@@ -50,6 +51,8 @@ AvailableFilters.propTypes = {
   rest: PropTypes.string,
   /** Get the props to pass to render's Link */
   getLinkProps: PropTypes.func,
+  /** Price range query parameter */
+  priceRange: PropTypes.string,
 }
 
 AvailableFilters.defaultProps = {

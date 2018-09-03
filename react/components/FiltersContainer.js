@@ -39,6 +39,8 @@ export default class FiltersContainer extends Component {
     })),
     /** List of price ranges filters (e.g. from-0-to-100) */
     priceRanges: PropTypes.arrayOf(facetOptionShape),
+    /** Current price range filter query parameter */
+    priceRange: PropTypes.string,
     /** Map query parameter */
     map: PropTypes.string.isRequired,
     /** Rest query parameter */
@@ -107,6 +109,7 @@ export default class FiltersContainer extends Component {
     const {
       specificationFilters = [],
       brands,
+      priceRange,
       priceRanges,
       map,
       rest,
@@ -160,6 +163,7 @@ export default class FiltersContainer extends Component {
           filters={filters}
           map={map}
           rest={rest}
+          priceRange={priceRange}
         />
       </Fragment>
     )

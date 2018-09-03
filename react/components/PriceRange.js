@@ -55,7 +55,7 @@ class PriceRange extends Component {
   }
 
   render() {
-    const { options, intl } = this.props
+    const { options, intl, priceRange } = this.props
     const title = getFilterTitle(this.props.title, intl)
 
     const slugRegex = /^de-(.*)-a-(.*)$/
@@ -82,6 +82,16 @@ class PriceRange extends Component {
       }
     })
 
+    const initialValues = { left: minValue, right: maxValue }
+    const currentValuesRegex = /^(.*) TO (.*)$/
+
+    if (priceRange && currentValuesRegex.test(priceRange)) {
+      const [_, currentMin, currentMax] = priceRange.match(currentValuesRegex) // eslint-disable-line no-unused-vars
+
+      initialValues.left = currentMin
+      initialValues.right = currentMax
+    }
+
     return (
       <FilterOptionTemplate title={title} collapsable={false}>
         <div className="flex flex-column">
@@ -89,6 +99,7 @@ class PriceRange extends Component {
             min={minValue}
             max={maxValue}
             onChange={this.handleChange}
+            initialValues={initialValues}
           />
 
           <div className="self-end">

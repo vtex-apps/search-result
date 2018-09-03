@@ -151,6 +151,7 @@ export default class SearchResultInfiniteScroll extends Component {
       map,
       rest,
       params,
+      priceRange,
     } = this.props
 
     const isLoading = searchLoading || this.props.loading
@@ -193,6 +194,7 @@ export default class SearchResultInfiniteScroll extends Component {
                 getLinkProps={this.getLinkProps}
                 map={map}
                 params={params}
+                priceRange={priceRange}
                 priceRanges={PriceRanges}
                 rest={rest}
                 specificationFilters={SpecificationFilters}
