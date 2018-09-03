@@ -51,24 +51,6 @@ export default class Range extends Component {
     onChange: () => {},
   }
 
-  constructor(props) {
-    super(props)
-
-    this.getTranslateValueForInputValue = (value, position) => {
-      const { max, min } = this.props
-      const rect = this.sliderRef.current.getBoundingClientRect()
-      const percentageComplete = (value - min) / (max - min)
-
-      let translatePx = percentageComplete * rect.width
-
-      if (position === 'right') {
-        translatePx = rect.width - translatePx
-      }
-
-      return translatePx
-    }
-  }
-
   sliderRef = React.createRef()
 
   state = {
@@ -149,6 +131,20 @@ export default class Range extends Component {
     }
 
     return value
+  }
+
+  getTranslateValueForInputValue = (value, position) => {
+    const { max, min } = this.props
+    const rect = this.sliderRef.current.getBoundingClientRect()
+    const percentageComplete = (value - min) / (max - min)
+
+    let translatePx = percentageComplete * rect.width
+
+    if (position === 'right') {
+      translatePx = rect.width - translatePx
+    }
+
+    return translatePx
   }
 
   handleDragStart = position => e => {

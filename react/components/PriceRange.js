@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { withRuntimeContext } from 'render'
 import { injectIntl, intlShape } from 'react-intl'
+import { Button } from 'vtex.styleguide'
 
 import { facetOptionShape } from '../constants/propTypes'
 import { getFilterTitle } from '../constants/SearchHelpers'
@@ -15,11 +17,41 @@ class PriceRange extends Component {
     /** Available price ranges */
     options: PropTypes.arrayOf(facetOptionShape).isRequired,
     /** Intl instance */
-    intl: intlShape,
+    intl: intlShape.isRequired,
+    getLinkProps: PropTypes.func.isRequired,
+    type: PropTypes.string.isRequired,
+    runtime: PropTypes.shape({
+      navigate: PropTypes.func.isRequired,
+    }).isRequired,
+  }
+
+  state = {
+    left: 0,
+    right: 0,
   }
 
   handleChange = ({ left, right }) => {
-    console.log('min', left, 'max', right)
+    this.setState({
+      left,
+      right,
+    })
+  }
+
+  handleFilter = e => {
+    e.preventDefault()
+
+    const { type, getLinkProps, runtime: { navigate } } = this.props
+
+    const linkProps = getLinkProps({
+      slug: `${this.state.left} TO ${this.state.right}`,
+      type,
+    })
+
+    navigate({
+      page: linkProps.page,
+      params: linkProps.params,
+      query: linkProps.queryString,
+    })
   }
 
   render() {
@@ -52,14 +84,22 @@ class PriceRange extends Component {
 
     return (
       <FilterOptionTemplate title={title} collapsable={false}>
-        <Range
-          min={minValue}
-          max={maxValue}
-          onChange={this.handleChange}
-        />
+        <div className="flex flex-column">
+          <Range
+            min={minValue}
+            max={maxValue}
+            onChange={this.handleChange}
+          />
+
+          <div className="self-end">
+            <Button variation="primary" size="small" onClick={this.handleFilter}>
+              Filtrar
+            </Button>
+          </div>
+        </div>
       </FilterOptionTemplate>
     )
   }
 }
 
-export default injectIntl(PriceRange)
+export default withRuntimeContext(injectIntl(PriceRange))

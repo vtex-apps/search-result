@@ -18,6 +18,7 @@ const AvailableFilters = ({ filters, map, rest, getLinkProps }) => (
             title={title}
             options={options}
             getLinkProps={getLinkProps}
+            type={type}
           />
         )
       default:
