@@ -48,7 +48,7 @@ export default class FilterOptionTemplate extends Component {
     const { selected, title, collapsable, children, filters } = this.props
     const { open } = this.state
 
-    // keep old behaviour
+    // Backward-compatible support
     if (typeof children === 'function' && !filters.length) {
       return null
     }
