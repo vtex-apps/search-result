@@ -16,6 +16,8 @@
 
 .vtex-search-result__order-by{
     grid-area: select;
+    display: flex;
+    align-items: center;
 }
 .vtex-search-result__gallery{
     grid-area: galeria;
@@ -63,18 +65,21 @@ svg rect {
     }
 
     .vtex-dropdown{
-        width: 400px;
+        width: 300px;
     }
 }
 
 @media screen and (min-width:1700px){
-    .vtex-search-result__gallery, .vtex-dropdown{
+    .vtex-search-result__gallery{
         padding-left: 200px;
         justify-self: self-start;
     }
+    .vtex-search-result__order-by{
+        padding-left: 200px;
+    }
 
     .vtex-dropdown{
-        width: 600px
+        width: 300px
     }
 }
 

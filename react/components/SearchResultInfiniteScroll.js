@@ -197,16 +197,9 @@ export default class SearchResultInfiniteScroll extends Component {
             <div className="vtex-search-result__breadcrumb">
               <ExtensionPoint id="breadcrumb" {...this.breadcrumbsProps} />
             </div>
-            <div className="vtex-search-result__total-products">
-              <FormattedMessage
-                id="search.total-products"
-                values={{ recordsFiltered }}
-              >
-                {txt => <span className="ph4 black-50">{txt}</span>}
-              </FormattedMessage>
-            </div>
+            
             <div className="container-search-result">
-                
+              
                 <div className="vtex-search-result__filters">
                   <FiltersContainer
                     brands={Brands}
@@ -222,11 +215,20 @@ export default class SearchResultInfiniteScroll extends Component {
                  
                 </div>
                 
-                <div className="vtex-search-result__order-by">
+                  <div className="vtex-search-result__order-by">
+                      
+
+                      <div className="vtex-search-result__total-products">
+                        <FormattedMessage
+                          id="search.total-products"
+                          values={{ recordsFiltered }}>
+                            {txt => <span className="ph4 black-50">{txt}</span>}
+                        </FormattedMessage>
+                    </div>
                     <OrderBy
-                      orderBy={orderBy}
-                      getLinkProps={this.getLinkProps}
-                    />
+                        orderBy={orderBy}
+                        getLinkProps={this.getLinkProps}/>
+
                 </div>
                 
             
