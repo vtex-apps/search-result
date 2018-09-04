@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+import { identity } from 'ramda'
 
 import RangeSelector from './RangeSelector'
 
@@ -48,6 +49,10 @@ export default class Range extends Component {
       left: PropTypes.number,
       right: PropTypes.number,
     }),
+    /** Whether to always display current value as a popup */
+    alwaysShowCurrentValue: PropTypes.bool,
+    /** Function to format the value shown in popup */
+    formatPopupValue: PropTypes.func,
   }
 
   static defaultProps = {
@@ -55,6 +60,8 @@ export default class Range extends Component {
     max: 10,
     step: 1,
     onChange: () => {},
+    alwaysShowCurrentValue: false,
+    formatPopupValue: identity,
   }
 
   sliderRef = React.createRef()
@@ -250,53 +257,54 @@ export default class Range extends Component {
   }
 
   render() {
-    const { disabled } = this.props
+    const { disabled, alwaysShowCurrentValue, formatPopupValue } = this.props
     const { left, right } = this.state.translate
 
     return (
-      <div className="ph4">
-        <div className="vtex-range w-100 relative pv4" style={{ height: 48 }}>
+      <div className="vtex-range w-100 relative pv4" style={{ height: 48 }}>
+        <div
+          ref={this.sliderRef}
+          className="vtex-range__base w-100 bg-silver absolute br-pill overflow-hidden"
+          style={{
+            height: 10,
+            top: 20,
+          }}
+        >
           <div
-            ref={this.sliderRef}
-            className="vtex-range__base w-100 bg-light-gray absolute"
+            className={classNames('absolute h-100', {
+              'bg-gray': !disabled,
+              'bg-marked-4': disabled,
+            })}
             style={{
-              height: 3,
-              top: '50%',
+              left,
+              right,
             }}
-          >
-            <div
-              className={classNames('absolute', {
-                'bg-action-primary': !disabled,
-                'bg-marked-4': disabled,
-              })}
-              style={{
-                height: 3,
-                left,
-                right,
-              }}
-            />
-          </div>
-          <RangeSelector
-            className="left-0"
-            style={{
-              transform: `translateX(${left}px) translateX(-100%)`,
-            }}
-            onDragStart={this.handleDragStart}
-            position="left"
-            active={this.state.dragging === 'left'}
-            value={this.state.values.left}
-          />
-          <RangeSelector
-            className="right-0"
-            style={{
-              transform: `translateX(-${right}px) translateX(100%)`,
-            }}
-            onDragStart={this.handleDragStart}
-            position="right"
-            active={this.state.dragging === 'right'}
-            value={this.state.values.right}
           />
         </div>
+        <RangeSelector
+          className="left-0"
+          style={{
+            transform: `translateX(${left}px) translateX(-100%)`,
+          }}
+          onDragStart={this.handleDragStart}
+          position="left"
+          active={this.state.dragging === 'left'}
+          displayPopup={alwaysShowCurrentValue}
+          value={this.state.values.left}
+          formatValue={formatPopupValue}
+        />
+        <RangeSelector
+          className="right-0"
+          style={{
+            transform: `translateX(-${right}px) translateX(100%)`,
+          }}
+          onDragStart={this.handleDragStart}
+          position="right"
+          active={this.state.dragging === 'right'}
+          displayPopup={alwaysShowCurrentValue}
+          value={this.state.values.right}
+          formatValue={formatPopupValue}
+        />
       </div>
     )
   }

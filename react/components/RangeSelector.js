@@ -1,9 +1,36 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 
 import RangeDragIcon from './RangeDragIcon'
 
-export default function RangeSelector({ className, style, onDragStart, position, active, disabled, value }) {
+export default function RangeSelector({
+  className,
+  style,
+  onDragStart,
+  position,
+  active,
+  disabled,
+  value,
+  displayPopup,
+  formatValue,
+}) {
+  const dragCircleClasses = classNames(
+    'vtex-range__circle ba br-100 bg-white flex justify-center items-center',
+    {
+      'b--action-primary bg-action-primary': active && !disabled,
+      'b--silver b--mid-silver': !active || disabled,
+    }
+  )
+
+  const popupClasses = classNames(
+    'vtex-range__tooltip flex justify-center items-center relative ph3 pv2 br1 f6',
+    {
+      'bg-action-primary white': active,
+      'bg-white ba b--silver gray': !active,
+    }
+  )
+
   return (
     <div
       className={`vtex-range__circle-container absolute pointer z-1 pv4 ${className}`}
@@ -15,7 +42,7 @@ export default function RangeSelector({ className, style, onDragStart, position,
         top: 3,
       }}
     >
-      {active && (
+      {(active || displayPopup) && (
         <div
           className="absolute"
           style={{
@@ -24,15 +51,15 @@ export default function RangeSelector({ className, style, onDragStart, position,
           }}
         >
           <div
-            className="vtex-range__tooltip flex justify-center items-center bg-action-primary white relative ph2 pv1 br1"
+            className={popupClasses}
             style={{ left: '-50%' }}
           >
-            {value}
+            {formatValue(value)}
           </div>
         </div>
       )}
       <div
-        className={`vtex-range__circle ba ${active && !disabled ? 'b--action-primary bg-action-primary' : 'b--muted-4 hover-b--muted-3'} br-100 bg-white flex justify-center items-center`}
+        className={dragCircleClasses}
         style={{
           height: '1.25rem',
           width: '1.25rem',
@@ -50,6 +77,7 @@ RangeSelector.defaultProps = {
   disabled: false,
   value: 0,
   className: '',
+  displayPopup: false,
 }
 
 RangeSelector.propTypes = {
@@ -70,4 +98,8 @@ RangeSelector.propTypes = {
   disabled: PropTypes.bool,
   /** Current value of the selector */
   value: PropTypes.number,
+  /** Whether the popup is displayed when inactive */
+  displayPopup: PropTypes.bool,
+  /** Function to format the value */
+  formatValue: PropTypes.func.isRequired,
 }

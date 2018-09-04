@@ -97,6 +97,7 @@ class PriceRange extends Component {
           max={maxValue}
           onChange={this.handleChange}
           initialValues={initialValues}
+          alwaysShowCurrentValue
         />
       </FilterOptionTemplate>
     )
