@@ -10,6 +10,8 @@ import Arrow from '../images/Arrow'
  */
 export default class FilterOptionTemplate extends Component {
   static propTypes = {
+    /** Content class names */
+    className: PropTypes.string,
     /** Filters to be shown, if no filter is provided, treat the children as simple node */
     filters: PropTypes.arrayOf(PropTypes.object),
     /** Function to handle filter rendering or node if no filter is provided */
@@ -80,9 +82,13 @@ export default class FilterOptionTemplate extends Component {
           </div>
         </div>
         <div
-          className={classNames('pt2', {
-            'overflow-y-auto': collapsable,
-          })}
+          className={classNames(
+            this.props.className,
+            'pt2',
+            {
+              'overflow-y-auto': collapsable,
+            }
+          )}
           style={{ maxHeight: '200px' }}
         >
           {collapsable ? (

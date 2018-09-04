@@ -91,7 +91,7 @@ class PriceRange extends Component {
     }
 
     return (
-      <FilterOptionTemplate title={title} collapsable={false}>
+      <FilterOptionTemplate title={title} collapsable={false} className="pt7">
         <Range
           min={minValue}
           max={maxValue}
