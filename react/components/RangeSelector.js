@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import RangeDragIcon from './RangeDragIcon'
+
 export default function RangeSelector({ className, style, onDragStart, position, active, disabled, value }) {
   return (
     <div
@@ -30,13 +32,15 @@ export default function RangeSelector({ className, style, onDragStart, position,
         </div>
       )}
       <div
-        className={`vtex-range__circle ba ${active && !disabled ? 'b--action-primary' : 'b--muted-4 hover-b--muted-3'} br-100 bg-white`}
+        className={`vtex-range__circle ba ${active && !disabled ? 'b--action-primary bg-action-primary' : 'b--muted-4 hover-b--muted-3'} br-100 bg-white flex justify-center items-center`}
         style={{
           height: '1.25rem',
           width: '1.25rem',
-          borderWidth: 3,
+          borderWidth: 1,
         }}
-      />
+      >
+        <RangeDragIcon />
+      </div>
     </div>
   )
 }
