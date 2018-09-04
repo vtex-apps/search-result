@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRuntimeContext } from 'render'
 import { injectIntl, intlShape } from 'react-intl'
-import { Button } from 'vtex.styleguide'
 
 import { facetOptionShape } from '../constants/propTypes'
 import { getFilterTitle } from '../constants/SearchHelpers'
 import FilterOptionTemplate from './FilterOptionTemplate'
 import Range from './Range'
+
+const DEBOUNCE_TIME = 500 // ms
 
 /** Price range slider component */
 class PriceRange extends Component {
@@ -30,33 +31,25 @@ class PriceRange extends Component {
     priceRange: PropTypes.string,
   }
 
-  state = {
-    left: 0,
-    right: 0,
-  }
-
   handleChange = ({ left, right }) => {
-    this.setState({
-      left,
-      right,
-    })
-  }
+    if (this.navigateTimeoutId) {
+      clearTimeout(this.navigateTimeoutId)
+    }
 
-  handleFilter = e => {
-    e.preventDefault()
+    this.navigateTimeoutId = setTimeout(() => {
+      const { type, getLinkProps, runtime: { navigate } } = this.props
 
-    const { type, getLinkProps, runtime: { navigate } } = this.props
+      const linkProps = getLinkProps({
+        slug: `${left} TO ${right}`,
+        type,
+      })
 
-    const linkProps = getLinkProps({
-      slug: `${this.state.left} TO ${this.state.right}`,
-      type,
-    })
-
-    navigate({
-      page: linkProps.page,
-      params: linkProps.params,
-      query: linkProps.queryString,
-    })
+      navigate({
+        page: linkProps.page,
+        params: linkProps.params,
+        query: linkProps.queryString,
+      })
+    }, DEBOUNCE_TIME)
   }
 
   render() {
@@ -99,20 +92,12 @@ class PriceRange extends Component {
 
     return (
       <FilterOptionTemplate title={title} collapsable={false}>
-        <div className="flex flex-column">
-          <Range
-            min={minValue}
-            max={maxValue}
-            onChange={this.handleChange}
-            initialValues={initialValues}
-          />
-
-          <div className="self-end">
-            <Button variation="primary" size="small" onClick={this.handleFilter}>
-              Filtrar
-            </Button>
-          </div>
-        </div>
+        <Range
+          min={minValue}
+          max={maxValue}
+          onChange={this.handleChange}
+          initialValues={initialValues}
+        />
       </FilterOptionTemplate>
     )
   }
