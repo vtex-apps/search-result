@@ -1,7 +1,7 @@
 {
   "name": "search-result",
   "vendor": "brastemp",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "title": "Brastemp Search Result",
   "description": "A Search Interface component",
   "mustUpdateAt": "2019-04-25",
