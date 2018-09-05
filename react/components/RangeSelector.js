@@ -16,7 +16,7 @@ export default function RangeSelector({
   formatValue,
 }) {
   const containerClasses = classNames(
-    'vtex-range__circle-container absolute pointer pt4',
+    'vtex-range__circle-container absolute pointer pt3',
     className,
     {
       'z-2': active,
@@ -48,7 +48,7 @@ export default function RangeSelector({
       style={{
         ...style,
         willChange: 'transform',
-        top: 3,
+        top: -5,
       }}
     >
       {(active || displayPopup) && (

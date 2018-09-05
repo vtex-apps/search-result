@@ -262,13 +262,13 @@ export default class Range extends Component {
 
     return (
       <div className="vtex-range-container">
-        <div className="vtex-range w-100 relative pt4" style={{ height: 36 }}>
+        <div className="vtex-range w-100 relative" style={{ height: 24 }}>
           <div
             ref={this.sliderRef}
             className="vtex-range__base w-100 bg-silver absolute br-pill overflow-hidden"
             style={{
               height: 10,
-              top: 20,
+              top: 8,
             }}
           >
             <div
