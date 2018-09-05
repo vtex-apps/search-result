@@ -261,52 +261,54 @@ export default class Range extends Component {
     const { left, right } = this.state.translate
 
     return (
-      <div className="vtex-range w-100 relative pv4" style={{ height: 48 }}>
-        <div
-          ref={this.sliderRef}
-          className="vtex-range__base w-100 bg-silver absolute br-pill overflow-hidden"
-          style={{
-            height: 10,
-            top: 20,
-          }}
-        >
+      <div className="vtex-range-container">
+        <div className="vtex-range w-100 relative pt4" style={{ height: 36 }}>
           <div
-            className={classNames('absolute h-100', {
-              'bg-gray': !disabled,
-              'bg-marked-4': disabled,
-            })}
+            ref={this.sliderRef}
+            className="vtex-range__base w-100 bg-silver absolute br-pill overflow-hidden"
             style={{
-              left,
-              right,
+              height: 10,
+              top: 20,
             }}
+          >
+            <div
+              className={classNames('absolute h-100', {
+                'bg-gray': !disabled,
+                'bg-marked-4': disabled,
+              })}
+              style={{
+                left,
+                right,
+              }}
+            />
+          </div>
+          <RangeSelector
+            className="left-0"
+            style={{
+              transform: `translateX(${left}px) translateX(-50%)`,
+            }}
+            onDragStart={this.handleDragStart}
+            position="left"
+            active={this.state.dragging === 'left'}
+            displayPopup={alwaysShowCurrentValue}
+            value={this.state.values.left}
+            formatValue={formatValue}
+          />
+          <RangeSelector
+            className="right-0"
+            style={{
+              transform: `translateX(-${right}px) translateX(50%)`,
+            }}
+            onDragStart={this.handleDragStart}
+            position="right"
+            active={this.state.dragging === 'right'}
+            displayPopup={alwaysShowCurrentValue}
+            value={this.state.values.right}
+            formatValue={formatValue}
           />
         </div>
-        <RangeSelector
-          className="left-0"
-          style={{
-            transform: `translateX(${left}px) translateX(-50%)`,
-          }}
-          onDragStart={this.handleDragStart}
-          position="left"
-          active={this.state.dragging === 'left'}
-          displayPopup={alwaysShowCurrentValue}
-          value={this.state.values.left}
-          formatValue={formatValue}
-        />
-        <RangeSelector
-          className="right-0"
-          style={{
-            transform: `translateX(-${right}px) translateX(50%)`,
-          }}
-          onDragStart={this.handleDragStart}
-          position="right"
-          active={this.state.dragging === 'right'}
-          displayPopup={alwaysShowCurrentValue}
-          value={this.state.values.right}
-          formatValue={formatValue}
-        />
 
-        <div className="flex justify-between absolute left-0 right-0 nt4" style={{ top: '100%' }}>
+        <div className="flex justify-between" style={{ top: '100%' }}>
           <span className="f6 gray">{formatValue(min)}</span>
           <span className="f6 gray">{formatValue(max)}</span>
         </div>

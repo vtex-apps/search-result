@@ -16,7 +16,7 @@ export default function RangeSelector({
   formatValue,
 }) {
   const containerClasses = classNames(
-    'vtex-range__circle-container absolute pointer pv4',
+    'vtex-range__circle-container absolute pointer pt4',
     className,
     {
       'z-2': active,
@@ -33,7 +33,7 @@ export default function RangeSelector({
   )
 
   const popupClasses = classNames(
-    'vtex-range__tooltip flex justify-center items-center relative ph3 pv2 br2 f6 ba',
+    'vtex-range__tooltip flex justify-center items-center relative ph3 pv3 br2 f6 ba',
     {
       'vtex-range__tooltip--active bg-action-primary white b--action-primary': active,
       'bg-white b--silver gray': !active,
@@ -52,17 +52,8 @@ export default function RangeSelector({
       }}
     >
       {(active || displayPopup) && (
-        <div
-          className="absolute"
-          style={{
-            left: '50%',
-            bottom: '100%',
-          }}
-        >
-          <div
-            className={popupClasses}
-            style={{ left: '-50%' }}
-          >
+        <div className="absolute" style={{ left: '50%', bottom: '100%' }}>
+          <div className={popupClasses} style={{ left: '-50%' }}>
             {formatValue(value)}
           </div>
         </div>
