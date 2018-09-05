@@ -98,8 +98,8 @@ class PriceRange extends Component {
     if (priceRange && currentValuesRegex.test(priceRange)) {
       const [_, currentMin, currentMax] = priceRange.match(currentValuesRegex) // eslint-disable-line no-unused-vars
 
-      initialValues.left = currentMin
-      initialValues.right = currentMax
+      initialValues.left = parseInt(currentMin)
+      initialValues.right = parseInt(currentMax)
     }
 
     return (
