@@ -103,13 +103,12 @@ class PriceRange extends Component {
     }
 
     return (
-      <FilterOptionTemplate title={title} collapsable={false} className="pt7">
+      <FilterOptionTemplate title={title} collapsable={false}>
         <Range
           min={minValue}
           max={maxValue}
           onChange={this.handleChange}
           initialValues={initialValues}
-          alwaysShowCurrentValue
           formatValue={value => intl.formatNumber(value, this.currencyOptions)}
         />
       </FilterOptionTemplate>
