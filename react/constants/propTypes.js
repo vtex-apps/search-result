@@ -22,7 +22,9 @@ export const productShape = PropTypes.shape({
   /** Product's description. */
   description: PropTypes.string.isRequired,
   /** Product's categories. */
-  categories: PropTypes.array,
+  categories: PropTypes.array.isRequired,
+  /** Product's categories Ids */
+  categoriesIds:PropTypes.array.isRequired,
   /** Product's link. */
   link: PropTypes.string,
   /** Product's link text. */
