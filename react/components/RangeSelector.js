@@ -15,6 +15,15 @@ export default function RangeSelector({
   displayPopup,
   formatValue,
 }) {
+  const containerClasses = classNames(
+    'vtex-range__circle-container absolute pointer pv4',
+    className,
+    {
+      'z-2': active,
+      'z-1': !active,
+    }
+  )
+
   const dragCircleClasses = classNames(
     'vtex-range__circle ba br-100 bg-white flex justify-center items-center',
     {
@@ -24,16 +33,16 @@ export default function RangeSelector({
   )
 
   const popupClasses = classNames(
-    'vtex-range__tooltip flex justify-center items-center relative ph3 pv2 br1 f6',
+    'vtex-range__tooltip flex justify-center items-center relative ph3 pv2 br2 f6 ba',
     {
-      'vtex-range__tooltip--active bg-action-primary white': active,
-      'bg-white ba b--silver gray': !active,
+      'vtex-range__tooltip--active bg-action-primary white b--action-primary': active,
+      'bg-white b--silver gray': !active,
     }
   )
 
   return (
     <div
-      className={`vtex-range__circle-container absolute pointer z-1 pv4 ${className}`}
+      className={containerClasses}
       onMouseDown={onDragStart(position)}
       onTouchStart={onDragStart(position)}
       style={{

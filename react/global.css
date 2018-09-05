@@ -162,7 +162,7 @@ body.vtex-filter-popup-open {
   background: #fff;
   left: 50%;
   margin-left: -5px;
-  bottom: -5px;
+  bottom: -6px;
   border-bottom: 1px solid #cacbcc;
   border-right: 1px solid #cacbcc;
   transform: rotate(45deg);
@@ -170,7 +170,6 @@ body.vtex-filter-popup-open {
 
 .vtex-range__tooltip--active:after {
   background: #134cd8;
-  border-bottom-color: #134cd8;
-  border-right-color: #134cd8;
+  border: none;
 }
 
