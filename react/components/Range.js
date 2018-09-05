@@ -273,7 +273,7 @@ export default class Range extends Component {
           >
             <div
               className={classNames('absolute h-100', {
-                'bg-gray': !disabled,
+                'bg-action-primary': !disabled,
                 'bg-marked-4': disabled,
               })}
               style={{
