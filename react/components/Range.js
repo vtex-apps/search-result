@@ -52,7 +52,7 @@ export default class Range extends Component {
     /** Whether to always display current value as a popup */
     alwaysShowCurrentValue: PropTypes.bool,
     /** Function to format the value shown in popup */
-    formatPopupValue: PropTypes.func,
+    formatValue: PropTypes.func,
   }
 
   static defaultProps = {
@@ -61,7 +61,7 @@ export default class Range extends Component {
     step: 1,
     onChange: () => {},
     alwaysShowCurrentValue: false,
-    formatPopupValue: identity,
+    formatValue: identity,
   }
 
   sliderRef = React.createRef()
@@ -257,7 +257,7 @@ export default class Range extends Component {
   }
 
   render() {
-    const { disabled, alwaysShowCurrentValue, formatPopupValue } = this.props
+    const { disabled, alwaysShowCurrentValue, formatValue, min, max } = this.props
     const { left, right } = this.state.translate
 
     return (
@@ -291,7 +291,7 @@ export default class Range extends Component {
           active={this.state.dragging === 'left'}
           displayPopup={alwaysShowCurrentValue}
           value={this.state.values.left}
-          formatValue={formatPopupValue}
+          formatValue={formatValue}
         />
         <RangeSelector
           className="right-0"
@@ -303,8 +303,13 @@ export default class Range extends Component {
           active={this.state.dragging === 'right'}
           displayPopup={alwaysShowCurrentValue}
           value={this.state.values.right}
-          formatValue={formatPopupValue}
+          formatValue={formatValue}
         />
+
+        <div className="flex justify-between absolute left-0 right-0 nt4" style={{ top: '100%' }}>
+          <span className="f6 gray">{formatValue(min)}</span>
+          <span className="f6 gray">{formatValue(max)}</span>
+        </div>
       </div>
     )
   }
