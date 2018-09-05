@@ -154,3 +154,23 @@ body.vtex-filter-popup-open {
   user-select: none;
 }
 
+.vtex-range__tooltip:after {
+  position: absolute;
+  content: '';
+  height: 10px;
+  width: 10px;
+  background: #fff;
+  left: 50%;
+  margin-left: -5px;
+  bottom: -5px;
+  border-bottom: 1px solid #cacbcc;
+  border-right: 1px solid #cacbcc;
+  transform: rotate(45deg);
+}
+
+.vtex-range__tooltip--active:after {
+  background: #134cd8;
+  border-bottom-color: #134cd8;
+  border-right-color: #134cd8;
+}
+

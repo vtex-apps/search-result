@@ -26,7 +26,7 @@ export default function RangeSelector({
   const popupClasses = classNames(
     'vtex-range__tooltip flex justify-center items-center relative ph3 pv2 br1 f6',
     {
-      'bg-action-primary white': active,
+      'vtex-range__tooltip--active bg-action-primary white': active,
       'bg-white ba b--silver gray': !active,
     }
   )
