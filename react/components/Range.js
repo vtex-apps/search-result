@@ -316,8 +316,8 @@ export default class Range extends Component {
         </div>
 
         <div className="flex justify-between" style={{ top: '100%' }}>
-          <span className="f6 gray">{formatValue(lastLeftValue)}</span>
-          <span className="f6 gray">{formatValue(lastRightValue)}</span>
+          <label className="f6 gray">{formatValue(lastLeftValue)}</label>
+          <label className="f6 gray">{formatValue(lastRightValue)}</label>
         </div>
       </div>
     )
