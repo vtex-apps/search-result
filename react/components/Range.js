@@ -284,7 +284,7 @@ export default class Range extends Component {
         <RangeSelector
           className="left-0"
           style={{
-            transform: `translateX(${left}px) translateX(-100%)`,
+            transform: `translateX(${left}px) translateX(-50%)`,
           }}
           onDragStart={this.handleDragStart}
           position="left"
@@ -296,7 +296,7 @@ export default class Range extends Component {
         <RangeSelector
           className="right-0"
           style={{
-            transform: `translateX(-${right}px) translateX(100%)`,
+            transform: `translateX(-${right}px) translateX(50%)`,
           }}
           onDragStart={this.handleDragStart}
           position="right"
