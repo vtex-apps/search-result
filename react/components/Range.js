@@ -257,8 +257,15 @@ export default class Range extends Component {
   }
 
   render() {
-    const { disabled, alwaysShowCurrentValue, formatValue, min, max } = this.props
+    const { disabled, alwaysShowCurrentValue, formatValue } = this.props
     const { left, right } = this.state.translate
+
+    const lastLeftValue = this.valuesBeforeDrag_
+      ? this.valuesBeforeDrag_.left
+      : this.state.values.left
+    const lastRightValue = this.valuesBeforeDrag_
+      ? this.valuesBeforeDrag_.right
+      : this.state.values.right
 
     return (
       <div className="vtex-range-container">
@@ -309,8 +316,8 @@ export default class Range extends Component {
         </div>
 
         <div className="flex justify-between" style={{ top: '100%' }}>
-          <span className="f6 gray">{formatValue(min)}</span>
-          <span className="f6 gray">{formatValue(max)}</span>
+          <span className="f6 gray">{formatValue(lastLeftValue)}</span>
+          <span className="f6 gray">{formatValue(lastRightValue)}</span>
         </div>
       </div>
     )
