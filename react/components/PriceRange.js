@@ -26,9 +26,21 @@ class PriceRange extends Component {
     /** Runtime context */
     runtime: PropTypes.shape({
       navigate: PropTypes.func.isRequired,
+      culture: PropTypes.shape({
+        currency: PropTypes.string,
+      }),
     }).isRequired,
     /** Current price range filter query parameter*/
     priceRange: PropTypes.string,
+  }
+
+  get currencyOptions() {
+    return {
+      style: 'currency',
+      currency: this.props.runtime.culture.currency,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }
   }
 
   handleChange = ({ left, right }) => {
@@ -98,6 +110,7 @@ class PriceRange extends Component {
           onChange={this.handleChange}
           initialValues={initialValues}
           alwaysShowCurrentValue
+          formatValue={value => intl.formatNumber(value, this.currencyOptions)}
         />
       </FilterOptionTemplate>
     )
