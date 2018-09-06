@@ -14,7 +14,7 @@ import OrderBy from './OrderBy'
 import FiltersContainer from './FiltersContainer'
 import { PopupProvider } from './Popup'
 
-
+import { InputRadio } from 'brastemp.next-io-components'
 
 const CATEGORIES_TITLE = 'search.filter.title.categories'
 const CATEGORIES_TYPE = 'Categories'
@@ -201,6 +201,32 @@ export default class SearchResultInfiniteScroll extends Component {
             <div className="container-search-result">
               
                 <div className="vtex-search-result__filters">
+                  
+                <h3 className="title-filtro">Filtrar por resultado</h3>
+                  <ul className="filter-desktop">
+                    
+                    <li>
+                      <InputRadio label="Produtos" onClick={o => this.props.FilterResult("produtos")} checked={this.props.radioActive === 'produtos'? true : false}/>
+                    </li>
+                    
+                    <li>
+                      <InputRadio label="Canal de atendimento" onClick={o => this.props.FilterResult("atendimento")} />
+                    </li>
+                    
+                    <li>
+                      <InputRadio label="Perguntas Frequentes" onClick={o => this.props.FilterResult("faq")} />
+                    </li>
+                    
+                    <li>
+                      <InputRadio label="Manual do Produto" onClick={o => this.props.FilterResult("manual")} />
+                    </li>
+                    
+                    <li>
+                      <InputRadio label="Peças e Acessórios" onClick={o => this.props.FilterResult("pecas")} />
+                    </li>
+
+                  </ul>
+                  
                   <FiltersContainer
                     brands={Brands}
                     getLinkProps={this.getLinkProps}
