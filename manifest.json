@@ -1,32 +1,31 @@
 {
-  "name": "search-result",
-  "vendor": "brastemp",
-  "version": "0.1.3",
-  "title": "Brastemp Search Result",
-  "description": "A Search Interface component",
-  "mustUpdateAt": "2019-04-25",
-  "registries": [
-    "smartcheckout"
-  ],
-  "scripts": {
-    "postreleasy": "vtex publish --verbose"
-  },
-  "builders": {
-    "react": "2.x"
-
-  },
-  "policies": [
-    {
-      "name": "outbound-access",
-      "attrs": {
-        "host": "{{account}}.vtexcommercestable.com.br",
-        "path": "/api/catalog_system/*"
+   "name": "search-result",
+   "vendor": "brastemp",
+   "version": "0.1.8",
+   "title": "Brastemp Search Result",
+   "description": "A Search Interface component",
+   "mustUpdateAt": "2019-04-25",
+   "registries": [
+      "smartcheckout"
+   ],
+   "scripts": {
+      "postreleasy": "vtex publish --verbose"
+   },
+   "builders": {
+      "react": "2.x"
+   },
+   "policies": [
+      {
+         "name": "outbound-access",
+         "attrs": {
+            "host": "{{account}}.vtexcommercestable.com.br",
+            "path": "/api/catalog_system/*"
+         }
       }
-    }
-  ],
-  "dependencies": {
-    "vtex.styleguide": "6.x",
-    "vtex.product-summary": "0.x",
-    "vtex.store-graphql": "2.x"
-  }
+   ],
+   "dependencies": {
+      "vtex.styleguide": "6.x",
+      "vtex.product-summary": "0.x",
+      "vtex.store-graphql": "2.x"
+   }
 }
