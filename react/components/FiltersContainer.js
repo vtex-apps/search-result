@@ -2,6 +2,7 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { flatten } from 'ramda'
+import ContentLoader from 'react-content-loader'
 
 import SelectedFilters from './SelectedFilters'
 import AvailableFilters from './AvailableFilters'
@@ -45,6 +46,7 @@ export default class FiltersContainer extends Component {
     map: PropTypes.string.isRequired,
     /** Rest query parameter */
     rest: PropTypes.string.isRequired,
+    loading: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -52,6 +54,7 @@ export default class FiltersContainer extends Component {
     specificationFilters: [],
     priceRanges: [],
     brands: [],
+    loading: false,
   }
 
   get availableCategories() {
@@ -114,7 +117,44 @@ export default class FiltersContainer extends Component {
       map,
       rest,
       getLinkProps,
+      loading,
     } = this.props
+
+    if (loading) {
+      return (
+        <ContentLoader
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+          width="100%"
+          height="100%"
+          y="0"
+          x="0"
+        >
+          <rect
+            width="100%"
+            height="1em"
+          />
+          <rect
+            width="100%"
+            height="8em"
+            y="1.5em"
+          />
+          <rect
+            width="100%"
+            height="1em"
+            y="10.5em"
+          />
+          <rect
+            width="100%"
+            height="8em"
+            y="12em"
+          />
+        </ContentLoader>
+      )
+    }
+
     const categories = this.availableCategories
 
     const filters = [
