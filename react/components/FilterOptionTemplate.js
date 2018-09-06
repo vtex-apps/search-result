@@ -10,10 +10,15 @@ import Arrow from '../images/Arrow'
  */
 export default class FilterOptionTemplate extends Component {
   static propTypes = {
-    /** Filters to be shown */
-    filters: PropTypes.arrayOf(PropTypes.object).isRequired,
-    /** Function to handle filter rendering */
-    children: PropTypes.func.isRequired,
+    /** Content class names */
+    className: PropTypes.string,
+    /** Filters to be shown, if no filter is provided, treat the children as simple node */
+    filters: PropTypes.arrayOf(PropTypes.object),
+    /** Function to handle filter rendering or node if no filter is provided */
+    children: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.node,
+    ]).isRequired,
     /** Title */
     title: PropTypes.string.isRequired,
     /** Whether collapsing is enabled */
@@ -31,11 +36,22 @@ export default class FilterOptionTemplate extends Component {
     open: true,
   }
 
+  renderChildren() {
+    const { filters, children } = this.props
+
+    if (typeof children !== 'function') {
+      return children
+    }
+
+    return filters.map(children)
+  }
+
   render() {
-    const { selected, children, filters, title, collapsable } = this.props
+    const { selected, title, collapsable, children, filters } = this.props
     const { open } = this.state
 
-    if (!filters.length) {
+    // Backward-compatible support
+    if (typeof children === 'function' && !filters.length) {
       return null
     }
 
@@ -45,7 +61,7 @@ export default class FilterOptionTemplate extends Component {
     })
 
     const titleClassName = classNames('vtex-search-result__filter-title f6 flex items-center justify-between', {
-      'ttu': !collapsable,
+      'ttu': selected,
     })
 
     return (
@@ -65,12 +81,21 @@ export default class FilterOptionTemplate extends Component {
             )}
           </div>
         </div>
-        <div className="pt2 overflow-y-auto" style={{ maxHeight: '200px' }}>
+        <div
+          className={classNames(
+            this.props.className,
+            'pt2',
+            {
+              'overflow-y-auto': collapsable,
+            }
+          )}
+          style={{ maxHeight: '200px' }}
+        >
           {collapsable ? (
             <Collapse isOpened={open}>
-              {filters.map(children)}
+              {this.renderChildren()}
             </Collapse>
-          ) : filters.map(children)}
+          ) : this.renderChildren()}
         </div>
       </div>
     )
