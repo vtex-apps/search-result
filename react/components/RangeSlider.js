@@ -32,7 +32,7 @@ function isEscKeyEvent(evt) {
   return evt.key === 'Escape' || evt.keyCode === 27
 }
 
-export default class Range extends Component {
+export default class RangeSlider extends Component {
   static propTypes = {
     /** Minimum supported value */
     min: PropTypes.number,
@@ -51,7 +51,7 @@ export default class Range extends Component {
     }),
     /** Whether to always display current value as a popup */
     alwaysShowCurrentValue: PropTypes.bool,
-    /** Function to format the value shown in popup */
+    /** Function to customize the format of the value */
     formatValue: PropTypes.func,
   }
 

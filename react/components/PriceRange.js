@@ -6,7 +6,7 @@ import { injectIntl, intlShape } from 'react-intl'
 import { facetOptionShape } from '../constants/propTypes'
 import { getFilterTitle } from '../constants/SearchHelpers'
 import FilterOptionTemplate from './FilterOptionTemplate'
-import Range from './Range'
+import RangeSlider from './RangeSlider'
 
 const DEBOUNCE_TIME = 500 // ms
 
@@ -104,7 +104,7 @@ class PriceRange extends Component {
 
     return (
       <FilterOptionTemplate title={title} collapsable={false}>
-        <Range
+        <RangeSlider
           min={minValue}
           max={maxValue}
           onChange={this.handleChange}
