@@ -59,6 +59,29 @@ svg rect {
     width: 400px;
 }
 
+.vtex-search-result__filters h3.title-filtro {
+    background: url(https://img.imageboss.me/cdn/http://bimg.visie.com.br/2018/07/icon-filter.svg) 0 3px no-repeat;
+    font-size: 20px;
+    color: var(--black);
+    padding-left: 32px;
+}
+.vtex-search-result__filters ul.filter-desktop {
+    padding: 0;
+    list-style: none;
+}
+.vtex-search-result__filters ul.filter-desktop li {
+    padding-bottom: 7px;
+    margin-left: -10px;
+}
+.vtex-search-result__filters ul.filter-desktop li label span {
+    font-size: 16px;
+    color: var(--slate-grey); 
+}
+.vtex-search-result__filters ul.filter-desktop li.selected label span {
+        color: var(--black);
+        font-weight: bold; 
+}
+
 @media screen and (min-width: 1025px) and (max-width: 1440px) {
     .vtex-search-result{
         width: 100%;
