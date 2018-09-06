@@ -141,7 +141,7 @@ export default class SearchResultInfiniteScroll extends Component {
         } = {},
         products = [],
         recordsFiltered = 0,
-        loading: searchLoading,
+        loading,
         fetchMore,
       },
       orderBy,
@@ -154,7 +154,7 @@ export default class SearchResultInfiniteScroll extends Component {
       priceRange,
     } = this.props
 
-    const isLoading = searchLoading || this.props.loading
+    const isLoading = loading || this.props.loading
     const to = (page - 1) * maxItemsPerPage + products.length
 
     return (
@@ -199,6 +199,7 @@ export default class SearchResultInfiniteScroll extends Component {
                 rest={rest}
                 specificationFilters={SpecificationFilters}
                 tree={CategoriesTrees}
+                loading={isLoading && !this.state.fetchMoreLoading}
               />
             </div>
             <div className="vtex-search-result__border" />
