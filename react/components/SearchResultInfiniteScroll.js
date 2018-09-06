@@ -75,19 +75,20 @@ export default class SearchResultInfiniteScroll extends Component {
     const pageProps = filters.reduce(
       (linkProps, filter) => {
         const { type, ordenation, pageNumber, isSelected, path, name, link, slug } = filter
-        const orderBy = ordenation || linkProps.query.order
+        const order = ordenation || linkProps.query.order
 
         return getPagesArgs({
-          rest: linkProps.query.rest,
-          map: linkProps.query.map,
+          ...linkProps,
+          query: {
+            ...linkProps.query,
+            order,
+          },
           pagesPath: linkProps.page,
-          params: linkProps.params,
           name,
           slug: slug || name,
           link,
           path,
           type,
-          orderBy,
           pageNumber,
           isUnselectLink: isSelected,
         })
@@ -154,7 +155,7 @@ export default class SearchResultInfiniteScroll extends Component {
         } = {},
         products = [],
         recordsFiltered = 0,
-        loading: searchLoading,
+        loading,
         fetchMore,
       },
       orderBy,
@@ -165,13 +166,14 @@ export default class SearchResultInfiniteScroll extends Component {
       map,
       rest,
       params,
+      priceRange,
     }={
         Gallery:GalleryDefault, 
         ...this.props
     }
     
 
-    const isLoading = searchLoading || this.props.loading
+    const isLoading = loading || this.props.loading
     const to = (page - 1) * maxItemsPerPage + products.length
 
     return (

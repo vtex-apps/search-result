@@ -171,11 +171,14 @@ function addFilter(map, rest, { path, type, link, pagesPath, slug }) {
  * Returns the props to Link component.
  */
 export function getPagesArgs({
+  query: {
+    rest = [],
+    map = [],
+    order,
+    priceRange,
+  } = {},
   type,
-  rest = [],
-  map = [],
   params,
-  orderBy,
   path,
   slug,
   link,
@@ -183,29 +186,39 @@ export function getPagesArgs({
   pagesPath,
   isUnselectLink,
 }) {
-  let mapValues = map
-  let restValues = rest
+  const query = {
+    map,
+    rest,
+    page: pageNumber !== 1 ? pageNumber : undefined,
+    order: order !== SORT_OPTIONS[0].value ? order : undefined,
+    priceRange,
+  }
 
-  // We won't have the type if only the orderBy has been changed
-  if (type) {
-    const filters = isUnselectLink
-      ? removeFilter(map, rest, { type, slug, pagesPath })
-      : addFilter(map, rest, { type, link, path, slug, pagesPath })
+  switch (type) {
+    case PRICE_RANGES_TYPE:
+      query.priceRange = slug
+      break
+    // TODO: Specification filters should also go on a separate parameter
+    case SPECIFICATION_FILTERS_TYPE:
+    case BRANDS_TYPE:
+    case CATEGORIES_TYPE: {
+      const filters = isUnselectLink
+        ? removeFilter(map, rest, { type, slug, pagesPath })
+        : addFilter(map, rest, { type, link, path, slug, pagesPath })
 
-    mapValues = filters.map
-    restValues = filters.rest
+      query.map = filters.map
+      query.rest = filters.rest
+      break
+    }
+    default:
+      break
   }
 
   return {
     page: pagesPath,
     params,
-    orderBy,
-    query: {
-      map: mapValues,
-      page: pageNumber !== 1 ? pageNumber : undefined,
-      order: orderBy !== SORT_OPTIONS[0].value ? orderBy : undefined,
-      rest: restValues,
-    },
+    order,
+    query,
   }
 }
 

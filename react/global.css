@@ -82,3 +82,6 @@
 
 
 @import url(./search-result.global.css);
+.vtex-range {
+  user-select: none;
+}

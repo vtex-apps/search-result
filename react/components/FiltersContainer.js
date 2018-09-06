@@ -2,6 +2,7 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { flatten } from 'ramda'
+import ContentLoader from 'react-content-loader'
 
 import SelectedFilters from './SelectedFilters'
 import AvailableFilters from './AvailableFilters'
@@ -18,19 +19,34 @@ const CATEGORIES_TITLE = 'search.filter.title.categories'
 const BRANDS_TITLE = 'search.filter.title.brands'
 const PRICE_RANGES_TITLE = 'search.filter.title.price-ranges'
 
+/**
+ * Wrapper around the filters (selected and available) as well
+ * as the popup filters that appear on mobile devices
+ */
 export default class FiltersContainer extends Component {
   static propTypes = {
+    /** Get the props to pass to render's Link */
     getLinkProps: PropTypes.func.isRequired,
+    /** Categories tree */
     tree: PropTypes.arrayOf(facetOptionShape),
+    /** Params from pages */
     params: paramShape.isRequired,
+    /** List of brand filters (e.g. Samsung) */
     brands: PropTypes.arrayOf(facetOptionShape),
+    /** List of specification filters (e.g. Android 7.0) */
     specificationFilters: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
       facets: PropTypes.arrayOf(facetOptionShape),
     })),
+    /** List of price ranges filters (e.g. from-0-to-100) */
     priceRanges: PropTypes.arrayOf(facetOptionShape),
+    /** Current price range filter query parameter */
+    priceRange: PropTypes.string,
+    /** Map query parameter */
     map: PropTypes.string.isRequired,
+    /** Rest query parameter */
     rest: PropTypes.string.isRequired,
+    loading: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -38,6 +54,7 @@ export default class FiltersContainer extends Component {
     specificationFilters: [],
     priceRanges: [],
     brands: [],
+    loading: false,
   }
 
   get availableCategories() {
@@ -95,11 +112,49 @@ export default class FiltersContainer extends Component {
     const {
       specificationFilters = [],
       brands,
+      priceRange,
       priceRanges,
       map,
       rest,
       getLinkProps,
+      loading,
     } = this.props
+
+    if (loading) {
+      return (
+        <ContentLoader
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+          width="100%"
+          height="100%"
+          y="0"
+          x="0"
+        >
+          <rect
+            width="100%"
+            height="1em"
+          />
+          <rect
+            width="100%"
+            height="8em"
+            y="1.5em"
+          />
+          <rect
+            width="100%"
+            height="1em"
+            y="10.5em"
+          />
+          <rect
+            width="100%"
+            height="8em"
+            y="12em"
+          />
+        </ContentLoader>
+      )
+    }
+
     const categories = this.availableCategories
 
     const filters = [
@@ -148,6 +203,7 @@ export default class FiltersContainer extends Component {
           filters={filters}
           map={map}
           rest={rest}
+          priceRange={priceRange}
         />
       </Fragment>
     )

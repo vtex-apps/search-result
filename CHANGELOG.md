@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.1.1] - 2018-09-06
+### Added
+- Content loader on filter facets app.
+
+## [1.1.0] - 2018-09-06
+### Added
+- `RangeSlider` component.
+
+### Changed
+- Updated price range facet to use range component.
+- Use `priceRange` query to track the price filter.
+
 ## [1.0.1] - 2018-08-28
 ### Changed
 - Upgraded `vtex.styleguide` to version 6.x.

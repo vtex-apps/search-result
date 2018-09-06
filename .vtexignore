@@ -1,3 +1,4 @@
 react/__mocks__/
 react/__tests__/
+react/node_modules/
 react/test-setup.js
