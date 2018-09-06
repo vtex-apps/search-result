@@ -1,12 +1,65 @@
 {
-  "pages": {
-    "search-result": {
-      "path": "/_v/search-result"
+  "routes": {
+    "store/category": {
+      "path": "/category_/:department/:category",
+      "context": "ProductSearchContextProvider"
     }
   },
-  "extensions": {
-    "search-result": {
-      "component": "SearchResult"
-    }
+
+  "templates": {
+      "store": {
+          "component": "vtex.render-runtime/LayoutContainer",
+          "context": "vtex.store@1.x/StoreContextProvider",
+          "props": {
+              "elements": [
+                  "header",
+                  "__children__",
+                  "footer"
+              ],
+              "title": "Brastemp | Sem dúvida, Brastemp.",
+              "description": "Eletrodomésticos e acessórios para sua cozinha e lavanderia. Conheça nossa linha de fogões, fornos, geladeiras, lavadoras, microondas e muito mais."
+          },
+          "extensions": {
+              "seo": {
+                  "component": "wSeo",
+                  "props": {
+                      "title": "",
+                      "description": ""
+                  }
+              },
+              "header": {
+                  "component": "wHeader"
+              },
+              "footer": {
+                  "component": "wFooter"
+              }
+          }
+      },
+      "categoria": {
+          "component": "vtex.render-runtime/LayoutContainer",
+          "context": "vtex.store@1.x/ProductSearchContextProvider",
+          "props": {
+            "title": "Categoria",
+            "description": "",
+            "elements": [
+              "results"
+              ]
+          },
+          "extensions": {
+              "results": {
+                  "component": "ExampleCustomElements"
+              }
+          }
+      }
+  },
+  "pages": {
+      "store/category": [
+          {
+            "name": "Default",
+            "template": "categoria"
+          }
+      ]
   }
 }
+
+

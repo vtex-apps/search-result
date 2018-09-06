@@ -7,7 +7,7 @@ import FilterOptionTemplate from './FilterOptionTemplate'
 import { facetOptionShape } from '../constants/propTypes'
 import { getFilterTitle, formatFacetToLinkPropsParam } from '../constants/SearchHelpers'
 
-const SELECTED_FILTER_COLOR = '#368DF7'
+const SELECTED_FILTER_COLOR = 'var(--orange)'
 
 /**
  * Search Filter Component.

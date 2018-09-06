@@ -2,14 +2,15 @@ import React from 'react'
 import { PropTypes } from 'prop-types'
 
 import { productShape } from '../constants/propTypes'
-import GalleryItem from './GalleryItem'
+import GalleryItemDefault from './GalleryItem'
 
 /**
  * Canonical gallery that displays a list of given products.
  */
 const Gallery = props => {
   const { products, summary } = props
-
+  const GalleryItem = props.GalleryItem || GalleryItemDefault
+  
   return (
     <div className="vtex-gallery pa3">
       {products.map(item => {

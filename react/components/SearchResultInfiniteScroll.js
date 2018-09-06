@@ -7,10 +7,23 @@ import { ExtensionPoint } from 'render'
 
 import { getPagesArgs, getBaseMap } from '../constants/SearchHelpers'
 import { searchResultPropTypes } from '../constants/propTypes'
-import Gallery from './Gallery'
+
+import GalleryDefault from './Gallery'
+
 import OrderBy from './OrderBy'
 import FiltersContainer from './FiltersContainer'
 import { PopupProvider } from './Popup'
+
+import { InputRadio } from 'brastemp.next-io-components'
+
+const CATEGORIES_TITLE = 'search.filter.title.categories'
+const CATEGORIES_TYPE = 'Categories'
+const BRANDS_TITLE = 'search.filter.title.brands'
+const BRANDS_TYPE = 'Brands'
+const PRICE_RANGES_TITLE = 'search.filter.title.price-ranges'
+const PRICE_RANGES_TYPE = 'PriceRanges'
+const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
+
 
 /**
  * Search Result Component.
@@ -121,10 +134,11 @@ export default class SearchResultInfiniteScroll extends Component {
   }
 
   renderSpinner() {
+    const SpinnerCustom = this.props.Spinner || Spinner 
     return (
       <div className="w-100 flex justify-center">
         <div className="w3 ma0">
-          <Spinner />
+          <SpinnerCustom />
         </div>
       </div>
     )
@@ -148,11 +162,16 @@ export default class SearchResultInfiniteScroll extends Component {
       maxItemsPerPage,
       page,
       summary,
+      Gallery,
       map,
       rest,
       params,
       priceRange,
-    } = this.props
+    }={
+        Gallery:GalleryDefault, 
+        ...this.props
+    }
+    
 
     const isLoading = loading || this.props.loading
     const to = (page - 1) * maxItemsPerPage + products.length
@@ -180,43 +199,76 @@ export default class SearchResultInfiniteScroll extends Component {
             <div className="vtex-search-result__breadcrumb">
               <ExtensionPoint id="breadcrumb" {...this.breadcrumbsProps} />
             </div>
-            <div className="vtex-search-result__total-products">
-              <FormattedMessage
-                id="search.total-products"
-                values={{ recordsFiltered }}
-              >
-                {txt => <span className="ph4 black-50">{txt}</span>}
-              </FormattedMessage>
-            </div>
-            <div className="vtex-search-result__filters">
-              <FiltersContainer
-                brands={Brands}
-                getLinkProps={this.getLinkProps}
-                map={map}
-                params={params}
-                priceRange={priceRange}
-                priceRanges={PriceRanges}
-                rest={rest}
-                specificationFilters={SpecificationFilters}
-                tree={CategoriesTrees}
-                loading={isLoading && !this.state.fetchMoreLoading}
-              />
-            </div>
-            <div className="vtex-search-result__border" />
-            <div className="vtex-search-result__order-by">
-              <OrderBy
-                orderBy={orderBy}
-                getLinkProps={this.getLinkProps}
-              />
-            </div>
-            <div className="vtex-search-result__gallery">
-              {isLoading && !this.state.fetchMoreLoading ? (
-                this.renderSpinner()
-              ) : (
-                <Gallery products={products} summary={summary} />
-              )}
-              {this.state.fetchMoreLoading && this.renderSpinner()}
-            </div>
+            
+            <div className="container-search-result">
+              
+                <div className="vtex-search-result__filters">
+                  
+                <h3 className="title-filtro">Filtrar por resultado</h3>
+                  <ul className="filter-desktop">
+                    
+                    <li>
+                      <InputRadio label="Produtos" onClick={o => this.props.FilterResult("produtos")} checked={this.props.radioActive === 'produtos'? true : false}/>
+                    </li>
+                    
+                    <li>
+                      <InputRadio label="Canal de atendimento" onClick={o => this.props.FilterResult("atendimento")} />
+                    </li>
+                    
+                    <li>
+                      <InputRadio label="Perguntas Frequentes" onClick={o => this.props.FilterResult("faq")} />
+                    </li>
+                    
+                    <li>
+                      <InputRadio label="Manual do Produto" onClick={o => this.props.FilterResult("manual")} />
+                    </li>
+                    
+                    <li>
+                      <InputRadio label="Peças e Acessórios" onClick={o => this.props.FilterResult("pecas")} />
+                    </li>
+
+                  </ul>
+                  
+                  <FiltersContainer
+                    brands={Brands}
+                    getLinkProps={this.getLinkProps}
+                    map={map}
+                    params={params}
+                    priceRanges={PriceRanges}
+                    rest={rest}
+                    specificationFilters={SpecificationFilters}
+                    tree={CategoriesTrees}
+                  />
+                  <div className="vtex-search-result__border" />
+                 
+                </div>
+                
+                  <div className="vtex-search-result__order-by">
+                      
+
+                      <div className="vtex-search-result__total-products">
+                        <FormattedMessage
+                          id="search.total-products"
+                          values={{ recordsFiltered }}>
+                            {txt => <span className="ph4 black-50">{txt}</span>}
+                        </FormattedMessage>
+                    </div>
+                    <OrderBy
+                        orderBy={orderBy}
+                        getLinkProps={this.getLinkProps}/>
+
+                </div>
+                
+            
+                <div className="vtex-search-result__gallery">
+                    {isLoading && !this.state.fetchMoreLoading ? (
+                      this.renderSpinner()
+                    ) : (
+                      <Gallery products={products} summary={summary} />
+                    )}
+                    {this.state.fetchMoreLoading && this.renderSpinner()}
+                </div>
+              </div>
           </div>
         </InfiniteScroll>
       </PopupProvider>
