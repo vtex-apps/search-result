@@ -1,7 +1,7 @@
 import './global.css'
 
 import React, { Component } from 'react'
-import { ProductSummary } from 'vtex.product-summary'
+import ProductSummary from 'vtex.product-summary/index'
 
 import SearchResultInfiniteScroll from './components/SearchResultInfiniteScroll'
 import { SORT_OPTIONS } from './components/OrderBy'
