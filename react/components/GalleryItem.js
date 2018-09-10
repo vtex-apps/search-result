@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { ProductSummary } from 'vtex.product-summary'
+import ProductSummary from 'vtex.product-summary/index'
 import { productShape } from '../constants/propTypes'
 import { PropTypes } from 'prop-types'
 
