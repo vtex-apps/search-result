@@ -127,8 +127,8 @@ export default class FiltersContainer extends Component {
             width: '100%',
             height: '100%',
           }}
-          width="100%"
-          height="100%"
+          width="267"
+          height="320"
           y="0"
           x="0"
         >

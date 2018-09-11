@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Update the `vtex.product-summary` version.
 
+### Fixed
+- Filter content loader height and width.
+
 ## [1.1.1] - 2018-09-06
 ### Added
 - Content loader on filter facets app.
