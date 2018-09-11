@@ -4,14 +4,11 @@ import React, { Component } from 'react'
 import QueryString from 'query-string'
 import ProductSummary from 'vtex.product-summary/index'
 
+import SearchResult from './components/SearchResult'
 import { SORT_OPTIONS } from './components/OrderBy'
-import { PopupProvider } from './components/Popup'
+import SearchResultInfiniteScroll from './components/SearchResultInfiniteScroll'
+import { searchResultPropTypes } from './constants/propTypes'
 import { getPagesArgs, getBaseMap } from './constants/SearchHelpers'
-
-import InfiniteScrollLoaderResult from './components/loaders/InfiniteScrollLoaderResult'
-import ShowMoreLoaderResult from './components/loaders/ShowMoreLoaderResult'
-
-import { searchResultContainerPropTypes } from './constants/propTypes'
 
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
 const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
@@ -134,77 +131,23 @@ export default class SearchResultContainer extends Component {
   }
 
   render() {
-    const {
-      searchQuery: {
-        facets: {
-          Brands = [],
-          SpecificationFilters = [],
-          PriceRanges = [],
-          CategoriesTrees,
-        } = {},
-        products = [],
-        recordsFiltered = 0,
-        loading,
-        fetchMore,
-      },
-      orderBy,
-      maxItemsPerPage,
-      page,
-      summary,
-      map,
-      rest,
-      params,
-      priceRange,
-      pagination,
-      hiddenFacets
-    } = this.props
-
     const breadcrumbsProps = this.breadcrumbsProps
-    const isLoading = loading || this.props.loading
-    const to = (page - 1) * maxItemsPerPage + products.length
-
-    const props = {
-      breadcrumbsProps,
-      onSetFetchMoreLoading: this.handleSetFetchMoreLoading,
-      onFetchMoreProducts: this.handleFetchMoreProducts,
-      getLinkProps: this.getLinkProps,
-      fetchMoreLoading: this.state.fetchMoreLoading,
-      orderBy,
-      maxItemsPerPage,
-      page,
-      summary,
-      map,
-      rest,
-      params,
-      fetchMore,
-      to,
-      loading: isLoading,
-      recordsFiltered,
-      products,
-      brands: Brands,
-      specificationFilters: SpecificationFilters,
-      priceRanges: PriceRanges,
-      priceRange: priceRange,
-      hiddenFacets,
-      tree: CategoriesTrees
-    }
 
     return (
-      <PopupProvider>
-        {pagination === PAGINATION_TYPES[0] ? (
-          <ShowMoreLoaderResult {...props} />
-        ) : (
-            <InfiniteScrollLoaderResult {...props} />
-          )}
-      </PopupProvider >
+      <SearchResult
+        breadcrumbsProps={breadcrumbsProps}
+        onSetFetchMoreLoading={this.handleSetFetchMoreLoading}
+        onFetchMoreProducts={this.handleFetchMoreProducts}
+        getLinkProps={this.getLinkProps}
+        {...this.props}
+      />
     )
   }
 }
 
-SearchResultContainer.propTypes = searchResultContainerPropTypes
+SearchResultContainer.propTypes = searchResultPropTypes
 
 SearchResultContainer.defaultProps = {
-  showMore: false,
   orderBy: SORT_OPTIONS[0].value,
   rest: '',
   maxItemsPerPage: DEFAULT_MAX_ITEMS_PER_PAGE,
@@ -230,71 +173,11 @@ SearchResultContainer.getSchema = props => {
         type: 'number',
         default: DEFAULT_MAX_ITEMS_PER_PAGE,
       },
-      hiddenFacets: {
-        title: 'editor.search-result.hiddenFacets',
-        type: 'object',
-        isLayout: true,
-        properties: {
-          brands: {
-            title: 'editor.search-result.hiddenFacets.brands',
-            type: 'boolean',
-            isLayout: true,
-          },
-          categories: {
-            title: 'editor.search-result.hiddenFacets.categories',
-            type: 'boolean',
-            isLayout: true,
-          },
-          priceRange: {
-            title: 'editor.search-result.hiddenFacets.priceRange',
-            type: 'boolean',
-            isLayout: true,
-          },
-          specificationFilters: {
-            title: 'editor.search-result.hiddenFacets.specificationFilters',
-            type: 'object',
-            isLayout: true,
-            properties: {
-              hideAll: {
-                title: 'editor.search-result.hiddenFacets.specificationFilters.hideAll',
-                type: 'boolean',
-                isLayout: true,
-              },
-              hiddenFilters: {
-                type: 'array',
-                isLayout: true,
-                items: {
-                  title: 'editor.search-result.hiddenFacets.specificationFilters.hiddenFilter',
-                  type: 'object',
-                  isLayout: true,
-                  properties: {
-                    name: {
-                      title: 'editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name',
-                      type: 'string',
-                      isLayout: true,
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
       summary: {
         title: 'editor.search-result.summary.title',
         type: 'object',
         properties: ProductSummary.getSchema(props).properties,
       },
-      pagination: {
-        type: 'string',
-        title: 'editor.search-result.pagination.title',
-        default: 'infinity-scroll',
-        enum: PAGINATION_TYPES,
-        enumNames: [
-          'editor.search-result.pagination.show-more',
-          'editor.search-result.pagination.infinite-scroll',
-        ],
-      }
     },
   }
 }

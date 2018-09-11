@@ -1,79 +1,84 @@
 import React, { Component } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint } from 'render'
-import { FormattedMessage } from 'react-intl'
 
-import FiltersContainer from './FiltersContainer'
 import { searchResultPropTypes } from '../constants/propTypes'
-import OrderBy from './OrderBy'
-import Gallery from './Gallery'
+import { PopupProvider } from './Popup'
+import InfiniteScrollLoaderResult from './loaders/InfiniteScrollLoaderResult'
 
 /**
  * Search Result Component.
  */
 export default class SearchResult extends Component {
-  render() {
-    const {
-      children, recordsFiltered, breadcrumbsProps,
-      brands, getLinkProps, map, params, priceRange,
-      priceRanges, rest, specificationFilters, tree,
-      loading, fetchMoreLoading, products, summary,
-      orderBy, hiddenFacets
-    } = this.props
+  static propTypes = searchResultPropTypes
 
+  renderSpinner() {
     return (
-      <div className="vtex-search-result vtex-search-result--show-more pv5 ph9-l ph7-m ph5-s">
-        <div className="vtex-search-result__breadcrumb">
-          <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
-        </div>
-        <div className="vtex-search-result__total-products">
-          <FormattedMessage
-            id="search.total-products"
-            values={{ recordsFiltered }}
-          >
-            {txt => <span className="ph4 black-50">{txt}</span>}
-          </FormattedMessage>
-        </div>
-        <div className="vtex-search-result__filters">
-          <FiltersContainer
-            brands={brands}
-            getLinkProps={getLinkProps}
-            map={map}
-            params={params}
-            priceRange={priceRange}
-            priceRanges={priceRanges}
-            rest={rest}
-            specificationFilters={specificationFilters}
-            tree={tree}
-            hiddenFacets={hiddenFacets}
-            loading={loading && !fetchMoreLoading}
-          />
-        </div>
-        <div className="vtex-search-result__border" />
-        <div className="vtex-search-result__order-by">
-          <OrderBy
-            orderBy={orderBy}
-            getLinkProps={getLinkProps}
-          />
-        </div>
-        <div className="vtex-search-result__gallery">
-          {loading && !fetchMoreLoading ? (
-            <div className="w-100 flex justify-center">
-              <div className="w3 ma0">
-                <Spinner />
-              </div>
-            </div>
-          ) : (
-              <Gallery
-                products={products}
-                summary={summary}
-              />
-            )}
-          {children}
+      <div className="w-100 flex justify-center">
+        <div className="w3 ma0">
+          <Spinner />
         </div>
       </div>
     )
   }
-}
 
-SearchResult.propTypes = searchResultPropTypes
+  render() {
+    const {
+      searchQuery: {
+        facets: {
+          Brands = [],
+          SpecificationFilters = [],
+          PriceRanges = [],
+          CategoriesTrees,
+        } = {},
+        products = [],
+        recordsFiltered = 0,
+        loading,
+        fetchMore,
+      },
+      orderBy,
+      maxItemsPerPage,
+      page,
+      summary,
+      map,
+      rest,
+      params,
+      priceRange,
+      onSetFetchMoreLoading,
+      breadcrumbsProps,
+      getLinkProps,
+      fetchMoreLoading,
+    } = this.props
+
+    const isLoading = loading || this.props.loading
+    const to = (page - 1) * maxItemsPerPage + products.length
+
+    return (
+      <PopupProvider>
+        <InfiniteScrollLoaderResult
+          loading={isLoading}
+          to={to}
+          renderSpinner={this.renderSpinner}
+          onSetFetchMoreLoading={onSetFetchMoreLoading}
+          maxItemsPerPage={maxItemsPerPage}
+          products={products}
+          fetchMore={fetchMore}
+          recordsFiltered={recordsFiltered}
+          breadcrumbsProps={breadcrumbsProps}
+          brands={Brands}
+          getLinkProps={getLinkProps}
+          map={map}
+          params={params}
+          priceRange={priceRange}
+          priceRanges={PriceRanges}
+          rest={rest}
+          specificationFilters={SpecificationFilters}
+          tree={CategoriesTrees}
+          fetchMoreLoading={fetchMoreLoading}
+          orderBy={orderBy}
+          summary={summary}
+        />
+      </PopupProvider>
+    )
+  }
+}
