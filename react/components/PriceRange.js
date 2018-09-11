@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRuntimeContext } from 'render'
 import { injectIntl, intlShape } from 'react-intl'
+import { RangeSlider } from 'vtex.styleguide'
 
 import { facetOptionShape } from '../constants/propTypes'
 import { getFilterTitle } from '../constants/SearchHelpers'
 import FilterOptionTemplate from './FilterOptionTemplate'
-import RangeSlider from './RangeSlider'
 
 const DEBOUNCE_TIME = 500 // ms
 
