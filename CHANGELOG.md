@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - Update the `vtex.product-summary` version.
+- Migrate to use range slider from `vtex.styleguide`.
 
 ## [1.1.1] - 2018-09-06
 ### Added
