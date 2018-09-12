@@ -6,8 +6,7 @@ import ProductSummary from 'vtex.product-summary/index'
 
 import SearchResult from './components/SearchResult'
 import { SORT_OPTIONS } from './components/OrderBy'
-import SearchResultInfiniteScroll from './components/SearchResultInfiniteScroll'
-import { searchResultPropTypes } from './constants/propTypes'
+import { searchResultContainerPropTypes } from './constants/propTypes'
 import { getPagesArgs, getBaseMap } from './constants/SearchHelpers'
 
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
@@ -131,7 +130,32 @@ export default class SearchResultContainer extends Component {
   }
 
   render() {
+    const {
+      searchQuery: {
+        facets: {
+          Brands = [],
+          SpecificationFilters = [],
+          PriceRanges = [],
+          CategoriesTrees,
+        } = {},
+        products = [],
+        recordsFiltered = 0,
+        loading,
+        fetchMore,
+      },
+      orderBy,
+      maxItemsPerPage,
+      page,
+      summary,
+      map,
+      rest,
+      params,
+      priceRange,
+    } = this.props
+
     const breadcrumbsProps = this.breadcrumbsProps
+    const isLoading = loading || this.props.loading
+    const to = (page - 1) * maxItemsPerPage + products.length
 
     return (
       <SearchResult
@@ -139,13 +163,30 @@ export default class SearchResultContainer extends Component {
         onSetFetchMoreLoading={this.handleSetFetchMoreLoading}
         onFetchMoreProducts={this.handleFetchMoreProducts}
         getLinkProps={this.getLinkProps}
-        {...this.props}
+        fetchMoreLoading={this.state.fetchMoreLoading}
+        orderBy={orderBy}
+        maxItemsPerPage={maxItemsPerPage}
+        page={page}
+        summary={summary}
+        map={map}
+        rest={rest}
+        params={params}
+        fetchMore={fetchMore}
+        to={to}
+        loading={isLoading}
+        recordsFiltered={recordsFiltered}
+        products={products}
+        brands={Brands}
+        specificationFilters={SpecificationFilters}
+        priceRanges={PriceRanges}
+        priceRange={priceRange}
+        tree={CategoriesTrees}
       />
     )
   }
 }
 
-SearchResultContainer.propTypes = searchResultPropTypes
+SearchResultContainer.propTypes = searchResultContainerPropTypes
 
 SearchResultContainer.defaultProps = {
   orderBy: SORT_OPTIONS[0].value,

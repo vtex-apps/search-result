@@ -189,49 +189,34 @@ export const searchResultContainerPropTypes = {
 
 export const searchResultPropTypes = {
   breadcrumbsProps: PropTypes.shape({
-    categories: PropTypes.array,
-    term: PropTypes.string
+    categories: PropTypes.array.isRequired,
+    term: PropTypes.string.isRequired
   }),
-  /** Number of items available according to the filters */
   recordsFiltered: PropTypes.number.isRequired,
-  /** List of brands available */
   brands: PropTypes.array.isRequired,
-  /** Retrieve link props */
   getLinkProps: PropTypes.func.isRequired,
-  /** Map param. e.g: c,c */
   map: mapType.isRequired,
   params: PropTypes.object,
-  /** Price range filter */
   priceRange: PropTypes.string,
-  /** List of price ranges filter */
   priceRanges: PropTypes.array.isRequired,
-  /** Rest param. e.g: Android,Samsung */
   rest: mapType.isRequired,
-  /** Hidden specification filters facets configuration */
   specificationFilters: PropTypes.array.isRequired,
-  /** Categories matched with the facets. */
   tree: PropTypes.array.isRequired,
-  /** Query loading status*/
   loading: PropTypes.bool.isRequired,
-  /** Loading status when the query is refetched */
   fetchMoreLoading: PropTypes.bool.isRequired,
 }
 
 export const loaderPropTypes = {
-  /** Right limit of numbers to be displayed */
+  renderFilters: PropTypes.func.isRequired,
+  renderBreadcrumb: PropTypes.func.isRequired,
+  renderTotalProducts: PropTypes.func.isRequired,
+  renderOrderBy: PropTypes.func.isRequired,
+  renderGallery: PropTypes.func.isRequired,
   to: PropTypes.number.isRequired,
-  /** Function to set the fetchMoreLoading status */
   onSetFetchMoreLoading: PropTypes.func.isRequired,
-  /** Max number of items retrieved each time */
   maxItemsPerPage: PropTypes.number.isRequired,
-  /** List of products */
-  products: PropTypes.arrayOf(productShape),
-  /** Function to refetch de data query */
+  productsLength: PropTypes.number.isRequired,
   fetchMore: PropTypes.func.isRequired,
-  /** Handle function to be called when the fetchMore is activated */
   onFetchMoreProducts: PropTypes.func.isRequired,
-  /** Number of items available according to the filters */
   recordsFiltered: PropTypes.number.isRequired,
-  /** Loading status when the query is refetched */
-  fetchMoreLoading: PropTypes.bool
 }
