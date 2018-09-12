@@ -165,7 +165,7 @@ export const schemaPropsTypes = {
   ...hiddenFacetsSchema,
 }
 
-export const searchResultPropTypes = {
+export const searchResultContainerPropTypes = {
   /** Internal route path. e.g: 'store/search' */
   pagesPath: PropTypes.string,
   /** Internal route params.
@@ -185,4 +185,38 @@ export const searchResultPropTypes = {
   /** Search graphql query. */
   searchQuery: searchQueryShape,
   ...schemaPropsTypes,
+}
+
+export const searchResultPropTypes = {
+  breadcrumbsProps: PropTypes.shape({
+    categories: PropTypes.array.isRequired,
+    term: PropTypes.string.isRequired
+  }),
+  recordsFiltered: PropTypes.number.isRequired,
+  brands: PropTypes.array.isRequired,
+  getLinkProps: PropTypes.func.isRequired,
+  map: mapType.isRequired,
+  params: PropTypes.object,
+  priceRange: PropTypes.string,
+  priceRanges: PropTypes.array.isRequired,
+  rest: mapType.isRequired,
+  specificationFilters: PropTypes.array.isRequired,
+  tree: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+  fetchMoreLoading: PropTypes.bool.isRequired,
+}
+
+export const loaderPropTypes = {
+  renderFilters: PropTypes.func.isRequired,
+  renderBreadcrumb: PropTypes.func.isRequired,
+  renderTotalProducts: PropTypes.func.isRequired,
+  renderOrderBy: PropTypes.func.isRequired,
+  renderGallery: PropTypes.func.isRequired,
+  to: PropTypes.number.isRequired,
+  onSetFetchMoreLoading: PropTypes.func.isRequired,
+  maxItemsPerPage: PropTypes.number.isRequired,
+  productsLength: PropTypes.number.isRequired,
+  fetchMore: PropTypes.func.isRequired,
+  onFetchMoreProducts: PropTypes.func.isRequired,
+  recordsFiltered: PropTypes.number.isRequired,
 }
