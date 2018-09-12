@@ -4,15 +4,9 @@ import React, { Component } from 'react'
 import QueryString from 'query-string'
 import ProductSummary from 'vtex.product-summary/index'
 
-import SearchResult from './components/SearchResult'
 import { SORT_OPTIONS } from './components/OrderBy'
-<<<<<<< HEAD
 import { PopupProvider } from './components/Popup'
-=======
-import SearchResultInfiniteScroll from './components/SearchResultInfiniteScroll'
-import { searchResultPropTypes } from './constants/propTypes'
 import { getPagesArgs, getBaseMap } from './constants/SearchHelpers'
->>>>>>> Splitting SearchResult using the Container/Component strategie
 
 import InfiniteScrollLoaderResult from './components/loaders/InfiniteScrollLoaderResult'
 import ShowMoreLoaderResult from './components/loaders/ShowMoreLoaderResult'
@@ -42,7 +36,6 @@ export default class SearchResultContainer extends Component {
     } = this.props
 
     const categories = []
-<<<<<<< HEAD
 
     if (department) {
       categories.push(department)
@@ -52,17 +45,6 @@ export default class SearchResultContainer extends Component {
       categories.push(`${department}/${category}/`)
     }
 
-=======
-
-    if (department) {
-      categories.push(department)
-    }
-
-    if (category) {
-      categories.push(`${department}/${category}/`)
-    }
-
->>>>>>> Splitting SearchResult using the Container/Component strategie
     return {
       term,
       categories,
