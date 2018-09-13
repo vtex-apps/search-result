@@ -344,8 +344,8 @@ describe('getPagesArgs', () => {
       link: '/eletrodomesticos/Geladeira---Refrigerador/Geladeira---Refrigerador/Branco?map=c,c,c,specificationFilter_14',
       pagesPath: 'store/subcategory',
       query: {
-        rest: ['Branco', '110V'],
-        map: ['c', 'c', 'c', 'specificationFilter_14', 'specificationFilter_692'],
+        rest: ['Outra categoria', 'Branco', '110V'],
+        map: ['c', 'c', 'c', 'c', 'specificationFilter_14', 'specificationFilter_692'],
       },
       params: {
         department: 'eletrodomesticos',
@@ -356,7 +356,7 @@ describe('getPagesArgs', () => {
 
     const { query: { map, rest } } = getPagesArgs(filterSpec)
 
-    expect(map).toEqual(['c', 'c', 'c', 'specificationFilter_692'])
-    expect(rest).toEqual(['110V'])
+    expect(map).toEqual(['c', 'c', 'c', 'c', 'specificationFilter_692'])
+    expect(rest).toEqual(['Outra categoria', '110V'])
   })
 })
