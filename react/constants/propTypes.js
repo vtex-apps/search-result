@@ -133,19 +133,35 @@ export const mapType = PropTypes.string
 
 export const orderType = PropTypes.string
 
+export const hiddenFacetsSchema = {
+  hiddenFacets: PropTypes.shape({
+    /** Determines if the brands facets will be hidden */
+    brands: PropTypes.bool,
+    /** Determines if the categories facets will be hidden */
+    categories: PropTypes.bool,
+    /** Determines if the price range will be hidden */
+    priceRange: PropTypes.bool,
+    /** Hidden specification filters facets configuration */
+    specificationFilters: PropTypes.shape({
+      /** Determines if all the specification filters facets will be hidden */
+      hideAll: PropTypes.bool,
+      /** Array of specific hidden filters */
+      hiddenFilters: PropTypes.arrayOf(
+        PropTypes.shape({
+          /** Name of the hidden filter */
+          name: PropTypes.string,
+        })
+      ),
+    }),
+  })
+}
+
 export const schemaPropsTypes = {
   /** Maximum number of items per page. */
   maxItemsPerPage: PropTypes.number,
   /** Product Summary's props */
   summary: PropTypes.any,
-  /** Determines if the brands facets will be hidden */
-  brands: PropTypes.bool,
-  /** Determines if the categories facets will be hidden */
-  categories: PropTypes.bool,
-  /** Determines if the price range will be hidden */
-  priceRange: PropTypes.bool,
-  /** Determines if the specification filters facets will be hidden */
-  specificationFilters: PropTypes.bool,
+  ...hiddenFacetsSchema,
 }
 
 export const schemaPropsTypes = {
