@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+<<<<<<< HEAD
 ## [1.3.1] - 2018-09-14
 ### Fixed
 - Fix incorrect specification filter being removed with more than 1 in map.
@@ -19,6 +20,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Migrate to use range slider from `vtex.styleguide`.
 
+=======
+>>>>>>> Release v1.1.2
 ## [1.1.2] - 2018-09-13
 ### Changed
 - Update the `vtex.product-summary` version.
