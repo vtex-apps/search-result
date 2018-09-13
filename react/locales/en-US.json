@@ -22,8 +22,9 @@
   "editor.search-result.maxItemsPerLine.title": "Maximum number of items per line",
   "editor.search-result.maxItemsPerPage.title": "Maximum number of items per page",
   "editor.search-result.summary.title": "Product Summary",
-  "editor.search-result.hideBrands": "Hide Brands filter",
-  "editor.search-result.hideCategories": "Hide Categories filter",
-  "editor.search-result.hideRange": "Hide Price filter",
-  "editor.search-result.hideSpecification": "Hide Specifications filter"
+  "editor.search-result.hiddenFacets": "Hidden Filters",
+  "editor.search-result.hiddenFacets.brands": "Hide Brands filter",
+  "editor.search-result.hiddenFacets.categories": "Hide Categories filter",
+  "editor.search-result.hiddenFacets.priceRange": "Hide Price filter",
+  "editor.search-result.hiddenFacets.specificationFilters": "Hide Specifications filters"
 }

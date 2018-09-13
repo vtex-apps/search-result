@@ -47,25 +47,32 @@ export default class SearchResult extends Component {
           type: 'number',
           default: DEFAULT_MAX_ITEMS_PER_PAGE,
         },
-        hideBrands: {
-          title: 'editor.search-result.hideBrands',
-          type: 'boolean',
+        hiddenFacets: {
+          title: 'editor.search-result.hiddenFacets',
+          type: 'object',
           isLayout: true,
-        },
-        hideCategories: {
-          title: 'editor.search-result.hideCategories',
-          type: 'boolean',
-          isLayout: true,
-        },
-        hideRange: {
-          title: 'editor.search-result.hideRange',
-          type: 'boolean',
-          isLayout: true,
-        },
-        hideSpecification: {
-          title: 'editor.search-result.hideSpecification',
-          type: 'boolean',
-          isLayout: true,
+          properties: {
+            brands: {
+              title: 'editor.search-result.hiddenFacets.brands',
+              type: 'boolean',
+              isLayout: true,
+            },
+            categories: {
+              title: 'editor.search-result.hiddenFacets.categories',
+              type: 'boolean',
+              isLayout: true,
+            },
+            priceRange: {
+              title: 'editor.search-result.hiddenFacets.priceRange',
+              type: 'boolean',
+              isLayout: true,
+            },
+            specificationFilters: {
+              title: 'editor.search-result.hiddenFacets.specificationFilters',
+              type: 'boolean',
+              isLayout: true,
+            },
+          },
         },
         summary: {
           title: 'editor.search-result.summary.title',
