@@ -3,8 +3,8 @@ import './global.css'
 import React, { Component } from 'react'
 import ProductSummary from 'vtex.product-summary/index'
 
-import SearchResultInfiniteScroll from './components/SearchResultInfiniteScroll'
 import { SORT_OPTIONS } from './components/OrderBy'
+import SearchResultInfiniteScroll from './components/SearchResultInfiniteScroll'
 import { searchResultPropTypes } from './constants/propTypes'
 
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
@@ -47,6 +47,26 @@ export default class SearchResult extends Component {
           type: 'number',
           default: DEFAULT_MAX_ITEMS_PER_PAGE,
         },
+        hideBrands: {
+          title: 'editor.search-result.hideBrands',
+          type: 'boolean',
+          isLayout: true,
+        },
+        hideCategories: {
+          title: 'editor.search-result.hideCategories',
+          type: 'boolean',
+          isLayout: true,
+        },
+        hideRange: {
+          title: 'editor.search-result.hideRange',
+          type: 'boolean',
+          isLayout: true,
+        },
+        hideSpecification: {
+          title: 'editor.search-result.hideSpecification',
+          type: 'boolean',
+          isLayout: true,
+        },
         summary: {
           title: 'editor.search-result.summary.title',
           type: 'object',
@@ -57,10 +77,6 @@ export default class SearchResult extends Component {
   }
 
   render() {
-    return (
-      <SearchResultInfiniteScroll
-        {...this.props}
-      />
-    )
+    return <SearchResultInfiniteScroll {...this.props} />
   }
 }

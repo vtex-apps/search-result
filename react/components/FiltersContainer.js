@@ -1,13 +1,17 @@
 /* global __RUNTIME__ */
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { flatten } from 'ramda'
+import { flatten, identity } from 'ramda'
 import ContentLoader from 'react-content-loader'
 
 import SelectedFilters from './SelectedFilters'
 import AvailableFilters from './AvailableFilters'
 import AccordionFilterContainer from './AccordionFilterContainer'
-import { formatCategoriesTree, mountOptions, getMapByType } from '../constants/SearchHelpers'
+import {
+  formatCategoriesTree,
+  mountOptions,
+  getMapByType,
+} from '../constants/SearchHelpers'
 import { facetOptionShape, paramShape } from '../constants/propTypes'
 
 export const CATEGORIES_TYPE = 'Categories'
@@ -34,10 +38,12 @@ export default class FiltersContainer extends Component {
     /** List of brand filters (e.g. Samsung) */
     brands: PropTypes.arrayOf(facetOptionShape),
     /** List of specification filters (e.g. Android 7.0) */
-    specificationFilters: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      facets: PropTypes.arrayOf(facetOptionShape),
-    })),
+    specificationFilters: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        facets: PropTypes.arrayOf(facetOptionShape),
+      })
+    ),
     /** List of price ranges filters (e.g. from-0-to-100) */
     priceRanges: PropTypes.arrayOf(facetOptionShape),
     /** Current price range filter query parameter */
@@ -46,7 +52,15 @@ export default class FiltersContainer extends Component {
     map: PropTypes.string.isRequired,
     /** Rest query parameter */
     rest: PropTypes.string.isRequired,
+    /** Loading indicator */
     loading: PropTypes.bool,
+    /** Indicates which facets will be hidden */
+    hiddenFacets: PropTypes.shape({
+      brands: PropTypes.bool,
+      priceRange: PropTypes.bool,
+      specificationFilters: PropTypes.bool,
+      categories: PropTypes.bool,
+    }),
   }
 
   static defaultProps = {
@@ -63,8 +77,7 @@ export default class FiltersContainer extends Component {
 
     const categoriesCount = this.props.map
       .split(',')
-      .filter(m => m === getMapByType(CATEGORIES_TYPE))
-      .length
+      .filter(m => m === getMapByType(CATEGORIES_TYPE)).length
 
     const currentPath = [params.department, params.category, params.subcategory]
       .filter(v => v)
@@ -86,13 +99,7 @@ export default class FiltersContainer extends Component {
   }
 
   get selectedFilters() {
-    const {
-      brands,
-      specificationFilters,
-      priceRanges,
-      map,
-      rest,
-    } = this.props
+    const { brands, specificationFilters, priceRanges, map, rest } = this.props
 
     const categories = this.categories
 
@@ -118,6 +125,7 @@ export default class FiltersContainer extends Component {
       rest,
       getLinkProps,
       loading,
+      hiddenFacets,
     } = this.props
 
     if (loading) {
@@ -130,56 +138,44 @@ export default class FiltersContainer extends Component {
           width="100%"
           height="100%"
           y="0"
-          x="0"
-        >
-          <rect
-            width="100%"
-            height="1em"
-          />
-          <rect
-            width="100%"
-            height="8em"
-            y="1.5em"
-          />
-          <rect
-            width="100%"
-            height="1em"
-            y="10.5em"
-          />
-          <rect
-            width="100%"
-            height="8em"
-            y="12em"
-          />
+          x="0">
+          <rect width="100%" height="1em" />
+          <rect width="100%" height="8em" y="1.5em" />
+          <rect width="100%" height="1em" y="10.5em" />
+          <rect width="100%" height="8em" y="12em" />
         </ContentLoader>
       )
     }
 
     const categories = this.availableCategories
 
+    const mappedSpecificationFilters = !hiddenFacets.specificationFilters
+      ? specificationFilters.map(spec => ({
+          type: SPECIFICATION_FILTERS_TYPE,
+          title: spec.name,
+          options: spec.facets,
+        }))
+      : []
+
     const filters = [
-      {
+      !hiddenFacets.categories && {
         type: CATEGORIES_TYPE,
         title: CATEGORIES_TITLE,
         options: categories,
         oneSelectedCollapse: true,
       },
-      ...specificationFilters.map(spec => ({
-        type: SPECIFICATION_FILTERS_TYPE,
-        title: spec.name,
-        options: spec.facets,
-      })),
-      {
+      ...mappedSpecificationFilters,
+      !hiddenFacets.brands && {
         type: BRANDS_TYPE,
         title: BRANDS_TITLE,
         options: brands,
       },
-      {
+      !hiddenFacets.priceRange && {
         type: PRICE_RANGES_TYPE,
         title: PRICE_RANGES_TITLE,
         options: priceRanges,
       },
-    ]
+    ].filter(identity)
 
     if (__RUNTIME__.hints.mobile) {
       return (

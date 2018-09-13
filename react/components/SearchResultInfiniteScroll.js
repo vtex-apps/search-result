@@ -44,12 +44,7 @@ export default class SearchResultInfiniteScroll extends Component {
   }
 
   getLinkProps = (spec, useEmptyMapAndRest = false) => {
-    const {
-      rest,
-      map,
-      pagesPath,
-      params,
-    } = this.props
+    const { rest, map, pagesPath, params } = this.props
     const filters = Array.isArray(spec) ? spec : [spec]
 
     if (filters.length === 0) {
@@ -61,7 +56,16 @@ export default class SearchResultInfiniteScroll extends Component {
 
     const pageProps = filters.reduce(
       (linkProps, filter) => {
-        const { type, ordenation, pageNumber, isSelected, path, name, link, slug } = filter
+        const {
+          type,
+          ordenation,
+          pageNumber,
+          isSelected,
+          path,
+          name,
+          link,
+          slug,
+        } = filter
         const order = ordenation || linkProps.query.order
 
         return getPagesArgs({
@@ -86,7 +90,9 @@ export default class SearchResultInfiniteScroll extends Component {
         query: {
           order: this.props.orderBy,
           map: useEmptyMapAndRest
-            ? getBaseMap(map, rest).split(',').filter(x => x)
+            ? getBaseMap(map, rest)
+                .split(',')
+                .filter(x => x)
             : map.split(','),
           rest: useEmptyMapAndRest ? [] : rest.split(',').filter(x => x),
         },
@@ -152,10 +158,20 @@ export default class SearchResultInfiniteScroll extends Component {
       rest,
       params,
       priceRange,
+      hideBrands,
+      hideCategories,
+      hideRange,
+      hideSpecification,
     } = this.props
 
     const isLoading = loading || this.props.loading
     const to = (page - 1) * maxItemsPerPage + products.length
+    const hiddenFacets = {
+      brands: hideBrands,
+      priceRange: hideRange,
+      specificationFilters: hideSpecification,
+      categories: hideCategories,
+    }
 
     return (
       <PopupProvider>
@@ -174,8 +190,7 @@ export default class SearchResultInfiniteScroll extends Component {
               updateQuery: this.handleFetchMoreProducts,
             })
           }}
-          hasMore={products.length < recordsFiltered}
-        >
+          hasMore={products.length < recordsFiltered}>
           <div className="vtex-search-result vtex-search-result--infinite-scroll pv5 ph9-l ph7-m ph5-s">
             <div className="vtex-search-result__breadcrumb">
               <ExtensionPoint id="breadcrumb" {...this.breadcrumbsProps} />
@@ -183,8 +198,7 @@ export default class SearchResultInfiniteScroll extends Component {
             <div className="vtex-search-result__total-products">
               <FormattedMessage
                 id="search.total-products"
-                values={{ recordsFiltered }}
-              >
+                values={{ recordsFiltered }}>
                 {txt => <span className="ph4 black-50">{txt}</span>}
               </FormattedMessage>
             </div>
@@ -199,15 +213,13 @@ export default class SearchResultInfiniteScroll extends Component {
                 rest={rest}
                 specificationFilters={SpecificationFilters}
                 tree={CategoriesTrees}
+                hiddenFacets={hiddenFacets}
                 loading={isLoading && !this.state.fetchMoreLoading}
               />
             </div>
             <div className="vtex-search-result__border" />
             <div className="vtex-search-result__order-by">
-              <OrderBy
-                orderBy={orderBy}
-                getLinkProps={this.getLinkProps}
-              />
+              <OrderBy orderBy={orderBy} getLinkProps={this.getLinkProps} />
             </div>
             <div className="vtex-search-result__gallery">
               {isLoading && !this.state.fetchMoreLoading ? (

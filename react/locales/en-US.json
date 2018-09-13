@@ -17,9 +17,13 @@
   "ordenation.price.ascending": "Price: Low to High",
   "ordenation.name.ascending": "Name, ascending",
   "ordenation.name.descending": "Name, descending",
-  "editor.search-result.title" : "Search Result",
-  "editor.search-result.description" : "Search Result Wrapper",
-  "editor.search-result.maxItemsPerLine.title" : "Maximum number of items per line",
-  "editor.search-result.maxItemsPerPage.title" : "Maximum number of items per page",
-  "editor.search-result.summary.title" : "Product Summary"
+  "editor.search-result.title": "Search Result",
+  "editor.search-result.description": "Search Result Wrapper",
+  "editor.search-result.maxItemsPerLine.title": "Maximum number of items per line",
+  "editor.search-result.maxItemsPerPage.title": "Maximum number of items per page",
+  "editor.search-result.summary.title": "Product Summary",
+  "editor.search-result.hideBrands": "Hide Brands filter",
+  "editor.search-result.hideCategories": "Hide Categories filter",
+  "editor.search-result.hideRange": "Hide Price filter",
+  "editor.search-result.hideSpecification": "Hide Specifications filter"
 }

@@ -17,9 +17,13 @@
   "ordenation.price.ascending": "Menor preço",
   "ordenation.name.ascending": "Nome, crescente",
   "ordenation.name.descending": "Nome, decrescente",
-  "editor.search-result.title" : "Resultado da pesquisa",
-  "editor.search-result.description" : "Conteúdo do resultado da pesquisa",
-  "editor.search-result.maxItemsPerLine.title" : "Número máximo de elementos por linha",
-  "editor.search-result.maxItemsPerPage.title" : "Número máximo de elementos por página",
-  "editor.search-result.summary.title" : "Resumo do produto"
+  "editor.search-result.title": "Resultado da pesquisa",
+  "editor.search-result.description": "Conteúdo do resultado da pesquisa",
+  "editor.search-result.maxItemsPerLine.title": "Número máximo de elementos por linha",
+  "editor.search-result.maxItemsPerPage.title": "Número máximo de elementos por página",
+  "editor.search-result.summary.title": "Resumo do produto",
+  "editor.search-result.hideBrands": "Ocultar filtro de Marcas",
+  "editor.search-result.hideCategories": "Ocultar filtro de Categorias",
+  "editor.search-result.hideRange": "Ocultar filtro de Preço",
+  "editor.search-result.hideSpecification": "Ocultar filtro de Especificações"
 }
