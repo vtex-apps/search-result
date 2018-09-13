@@ -101,7 +101,7 @@ function removeFilter(map, rest, { type, slug, pagesPath }) {
 
     if (symbol === categoryMapSymbol && skip > 0) {
       skip--
-    } else if (count === restIndex) {
+    } else if (count >= restIndex) {
       break
     } else {
       count++
