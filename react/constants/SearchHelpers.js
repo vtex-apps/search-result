@@ -96,14 +96,14 @@ function removeFilter(map, rest, { type, slug, pagesPath }) {
   if (type !== CATEGORIES_TYPE) {
     let categoriesFiltered = 0
 
-    const mapWithoutCategories = map.filter(symbol => {
+    const mapWithoutCategories = map.filter(s => {
       if (categoriesFiltered === categoryCount) {
         return true
       }
 
       categoriesFiltered++
 
-      return symbol !== categoryMapSymbol
+      return s !== categoryMapSymbol
     }).filter((_, i) => i !== restIndex)
 
     const lengthDifference = map.length - mapWithoutCategories.length - 1
@@ -120,8 +120,8 @@ function removeFilter(map, rest, { type, slug, pagesPath }) {
   for (const symbol of map) {
     mapIndex++
 
-    if (symbol === categoryMapSymbol && skip > 0) {
-      skip--
+    if (symbol === categoryMapSymbol && categoryCount > 0) {
+      categoryCount--
     } else if (count >= restIndex) {
       break
     } else {
