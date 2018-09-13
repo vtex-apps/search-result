@@ -139,7 +139,8 @@ export default class FiltersContainer extends Component {
           width="100%"
           height="100%"
           y="0"
-          x="0">
+          x="0"
+        >
           <rect width="100%" height="1em" />
           <rect width="100%" height="8em" y="1.5em" />
           <rect width="100%" height="1em" y="10.5em" />
