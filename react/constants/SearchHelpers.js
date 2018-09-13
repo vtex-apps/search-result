@@ -120,8 +120,8 @@ function removeFilter(map, rest, { type, slug, pagesPath }) {
   for (const symbol of map) {
     mapIndex++
 
-    if (symbol === categoryMapSymbol && categoryCount > 0) {
-      categoryCount--
+    if (symbol === categoryMapSymbol && skip > 0) {
+      skip--
     } else if (count >= restIndex) {
       break
     } else {
