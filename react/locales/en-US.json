@@ -26,5 +26,8 @@
   "editor.search-result.hiddenFacets.brands": "Hide Brands filter",
   "editor.search-result.hiddenFacets.categories": "Hide Categories filter",
   "editor.search-result.hiddenFacets.priceRange": "Hide Price filter",
-  "editor.search-result.hiddenFacets.specificationFilters": "Hide Specifications filters"
+  "editor.search-result.hiddenFacets.specificationFilters": "Hide Specifications filters",
+  "editor.search-result.hiddenFacets.specificationFilters.hideAll": "Hide all the Specifications filters",
+  "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter": "Hidden Specification filter",
+  "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name": "Hidden Specification filter name"
 }

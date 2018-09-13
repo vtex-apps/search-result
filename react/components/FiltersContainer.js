@@ -1,7 +1,7 @@
 /* global __RUNTIME__ */
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { flatten, identity } from 'ramda'
+import { flatten, path, identity, contains } from 'ramda'
 import ContentLoader from 'react-content-loader'
 
 import SelectedFilters from './SelectedFilters'
@@ -150,9 +150,14 @@ export default class FiltersContainer extends Component {
     }
 
     const categories = this.availableCategories
+    const hiddenFacetsNames = (
+        path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
+      ).map(filter => filter.name)
 
-    const mappedSpecificationFilters = !hiddenFacets.specificationFilters
-      ? specificationFilters.map(spec => ({
+    const mappedSpecificationFilters = !path(['specificationFilters', 'hideAll'], hiddenFacets)
+      ? specificationFilters.filter(
+          spec => !contains(spec.name, hiddenFacetsNames)
+        ).map(spec => ({
           type: SPECIFICATION_FILTERS_TYPE,
           title: spec.name,
           options: spec.facets,

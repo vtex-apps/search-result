@@ -69,8 +69,31 @@ export default class SearchResult extends Component {
             },
             specificationFilters: {
               title: 'editor.search-result.hiddenFacets.specificationFilters',
-              type: 'boolean',
+              type: 'object',
               isLayout: true,
+              properties: {
+                hideAll: {
+                  title: 'editor.search-result.hiddenFacets.specificationFilters.hideAll',
+                  type: 'boolean',
+                  isLayout: true,
+                },
+                hiddenFilters: {
+                  type: 'array',
+                  isLayout: true,
+                  items: {
+                    title: 'editor.search-result.hiddenFacets.specificationFilters.hiddenFilter',
+                    type: 'object',
+                    isLayout: true,
+                    properties: {
+                      name: {
+                        title: 'editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name',
+                        type: 'string',
+                        isLayout: true,
+                      },
+                    },
+                  },
+                },
+              },
             },
           },
         },
