@@ -69,6 +69,7 @@ export default class FiltersContainer extends Component {
     priceRanges: [],
     brands: [],
     loading: false,
+    hiddenFacets: {},
   }
 
   get availableCategories() {
