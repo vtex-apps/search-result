@@ -189,8 +189,8 @@ export const searchResultContainerPropTypes = {
 
 export const searchResultPropTypes = {
   breadcrumbsProps: PropTypes.shape({
-    categories: PropTypes.array.isRequired,
-    term: PropTypes.string.isRequired
+    categories: PropTypes.array,
+    term: PropTypes.string
   }),
   recordsFiltered: PropTypes.number.isRequired,
   brands: PropTypes.array.isRequired,
@@ -207,6 +207,7 @@ export const searchResultPropTypes = {
 }
 
 export const loaderPropTypes = {
+  renderSpinner: PropTypes.func,
   renderFilters: PropTypes.func.isRequired,
   renderBreadcrumb: PropTypes.func.isRequired,
   renderTotalProducts: PropTypes.func.isRequired,
@@ -219,4 +220,5 @@ export const loaderPropTypes = {
   fetchMore: PropTypes.func.isRequired,
   onFetchMoreProducts: PropTypes.func.isRequired,
   recordsFiltered: PropTypes.number.isRequired,
+  fetchMoreLoading: PropTypes.bool
 }
