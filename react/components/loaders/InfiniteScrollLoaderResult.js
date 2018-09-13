@@ -25,6 +25,7 @@ export default class InfiniteScrollLoaderResult extends Component {
       fetchMoreLoading,
     } = this.props
 
+    console.log('Loader')
     return (
       <InfiniteScroll
         dataLength={productsLength}

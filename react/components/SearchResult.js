@@ -60,7 +60,8 @@ export default class SearchResult extends Component {
 
     return (
       <div className="vtex-search-result__filters">
-        <FiltersContainer
+        <ExtensionPoint
+          id="filters"
           brands={brands}
           getLinkProps={getLinkProps}
           map={map}
@@ -81,7 +82,8 @@ export default class SearchResult extends Component {
 
     return (
       <div className="vtex-search-result__order-by">
-        <OrderBy
+        <ExtensionPoint
+          id="order-by"
           orderBy={orderBy}
           getLinkProps={getLinkProps}
         />
@@ -97,7 +99,11 @@ export default class SearchResult extends Component {
         {loading && !fetchMoreLoading ? (
           this.renderSpinner()
         ) : (
-            <Gallery products={products} summary={summary} />
+            <ExtensionPoint
+              id="gallery"
+              products={products}
+              summary={summary}
+            />
           )}
       </div>
     )
@@ -116,10 +122,11 @@ export default class SearchResult extends Component {
       loading
     } = this.props
 
-    console.log(products)
+    console.log('SearchResult')
     return (
       <PopupProvider>
-        <ShowMoreLoaderResult
+        <ExtensionPoint
+          id="search-result/result-loader"
           renderSpinner={this.renderSpinner}
           renderFilters={this.renderFilters}
           renderBreadcrumb={this.renderBreadcrumb}
