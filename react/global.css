@@ -149,7 +149,3 @@ body.vtex-filter-popup-open {
     border-top: 1px solid #c4c4c4;
   }
 }
-
-.vtex-range {
-  user-select: none;
-}

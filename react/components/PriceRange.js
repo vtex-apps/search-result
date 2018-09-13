@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRuntimeContext } from 'render'
 import { injectIntl, intlShape } from 'react-intl'
-import { RangeSlider } from 'vtex.styleguide'
+import { Slider } from 'vtex.styleguide'
 
 import { facetOptionShape } from '../constants/propTypes'
 import { getFilterTitle } from '../constants/SearchHelpers'
@@ -43,7 +43,7 @@ class PriceRange extends Component {
     }
   }
 
-  handleChange = ({ left, right }) => {
+  handleChange = ([left, right]) => {
     if (this.navigateTimeoutId) {
       clearTimeout(this.navigateTimeoutId)
     }
@@ -92,24 +92,25 @@ class PriceRange extends Component {
       }
     })
 
-    const initialValues = { left: minValue, right: maxValue }
+    const defaultValues = [minValue, maxValue]
     const currentValuesRegex = /^(.*) TO (.*)$/
 
     if (priceRange && currentValuesRegex.test(priceRange)) {
       const [_, currentMin, currentMax] = priceRange.match(currentValuesRegex) // eslint-disable-line no-unused-vars
 
-      initialValues.left = parseInt(currentMin)
-      initialValues.right = parseInt(currentMax)
+      defaultValues[0] = parseInt(currentMin)
+      defaultValues[1] = parseInt(currentMax)
     }
 
     return (
       <FilterOptionTemplate title={title} collapsable={false}>
-        <RangeSlider
+        <Slider
           min={minValue}
           max={maxValue}
           onChange={this.handleChange}
-          initialValues={initialValues}
+          defaultValues={defaultValues}
           formatValue={value => intl.formatNumber(value, this.currencyOptions)}
+          range
         />
       </FilterOptionTemplate>
     )
