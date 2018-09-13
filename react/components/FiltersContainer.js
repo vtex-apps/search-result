@@ -1,7 +1,7 @@
 /* global __RUNTIME__ */
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { flatten, path, identity, contains } from 'ramda'
+import { flatten, identity } from 'ramda'
 import ContentLoader from 'react-content-loader'
 
 import SelectedFilters from './SelectedFilters'
@@ -12,7 +12,7 @@ import {
   mountOptions,
   getMapByType,
 } from '../constants/SearchHelpers'
-import { facetOptionShape, paramShape, hiddenFacetsSchema } from '../constants/propTypes'
+import { facetOptionShape, paramShape } from '../constants/propTypes'
 
 export const CATEGORIES_TYPE = 'Categories'
 export const BRANDS_TYPE = 'Brands'
@@ -54,7 +54,13 @@ export default class FiltersContainer extends Component {
     rest: PropTypes.string.isRequired,
     /** Loading indicator */
     loading: PropTypes.bool,
-    ...hiddenFacetsSchema
+    /** Indicates which facets will be hidden */
+    hiddenFacets: PropTypes.shape({
+      brands: PropTypes.bool,
+      priceRange: PropTypes.bool,
+      specificationFilters: PropTypes.bool,
+      categories: PropTypes.bool,
+    }),
   }
 
   static defaultProps = {
@@ -133,8 +139,7 @@ export default class FiltersContainer extends Component {
           width="267"
           height="320"
           y="0"
-          x="0"
-        >
+          x="0">
           <rect width="100%" height="1em" />
           <rect width="100%" height="8em" y="1.5em" />
           <rect width="100%" height="1em" y="10.5em" />
@@ -152,6 +157,14 @@ export default class FiltersContainer extends Component {
       ? specificationFilters.filter(
         spec => !contains(spec.name, hiddenFacetsNames)
       ).map(spec => ({
+        type: SPECIFICATION_FILTERS_TYPE,
+        title: spec.name,
+        options: spec.facets,
+      }))
+      : []
+
+    const mappedSpecificationFilters = !hiddenFacets.specificationFilters
+      ? specificationFilters.map(spec => ({
         type: SPECIFICATION_FILTERS_TYPE,
         title: spec.name,
         options: spec.facets,
