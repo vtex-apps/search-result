@@ -158,20 +158,11 @@ export default class SearchResultInfiniteScroll extends Component {
       rest,
       params,
       priceRange,
-      hideBrands,
-      hideCategories,
-      hideRange,
-      hideSpecification,
+      hiddenFacets
     } = this.props
 
     const isLoading = loading || this.props.loading
     const to = (page - 1) * maxItemsPerPage + products.length
-    const hiddenFacets = {
-      brands: hideBrands,
-      priceRange: hideRange,
-      specificationFilters: hideSpecification,
-      categories: hideCategories,
-    }
 
     return (
       <PopupProvider>

@@ -139,13 +139,13 @@ export const schemaPropsTypes = {
   /** Product Summary's props */
   summary: PropTypes.any,
   /** Determines if the brands facets will be hidden */
-  hideBrands: PropTypes.bool,
+  brands: PropTypes.bool,
   /** Determines if the categories facets will be hidden */
-  hideCategories: PropTypes.bool,
+  categories: PropTypes.bool,
   /** Determines if the price range will be hidden */
-  hideRange: PropTypes.bool,
+  priceRange: PropTypes.bool,
   /** Determines if the specification filters facets will be hidden */
-  hideSpecification: PropTypes.bool,
+  specificationFilters: PropTypes.bool,
 }
 
 export const schemaPropsTypes = {
