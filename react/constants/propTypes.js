@@ -133,7 +133,11 @@ export const mapType = PropTypes.string
 
 export const orderType = PropTypes.string
 
-export const schemaLayoutPropTypes = {
+export const schemaPropsTypes = {
+  /** Maximum number of items per page. */
+  maxItemsPerPage: PropTypes.number,
+  /** Product Summary's props */
+  summary: PropTypes.any,
   /** Determines if the brands facets will be hidden */
   hideBrands: PropTypes.bool,
   /** Determines if the categories facets will be hidden */
