@@ -9,6 +9,7 @@ import { loaderPropTypes } from '../../constants/propTypes'
 export default class InfiniteScrollLoaderResult extends Component {
   render() {
     const {
+      renderSpinner,
       renderFilters,
       renderBreadcrumb,
       renderTotalProducts,
@@ -21,6 +22,7 @@ export default class InfiniteScrollLoaderResult extends Component {
       fetchMore,
       onFetchMoreProducts,
       recordsFiltered,
+      fetchMoreLoading,
     } = this.props
 
     return (
@@ -46,6 +48,7 @@ export default class InfiniteScrollLoaderResult extends Component {
           <div className="vtex-search-result__border" />
           {renderOrderBy()}
           {renderGallery()}
+          {fetchMoreLoading && renderSpinner()}
         </div>
       </InfiniteScroll>
     )

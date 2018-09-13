@@ -10,6 +10,7 @@ import OrderBy from './OrderBy'
 import Gallery from './Gallery'
 
 import InfiniteScrollLoaderResult from './loaders/InfiniteScrollLoaderResult'
+import ShowMoreLoaderResult from './loaders/ShowMoreLoaderResult'
 
 /**
  * Search Result Component.
@@ -98,11 +99,9 @@ export default class SearchResult extends Component {
         ) : (
             <Gallery products={products} summary={summary} />
           )}
-        {fetchMoreLoading && this.renderSpinner()}
       </div>
     )
   }
-
 
   render() {
     const {
@@ -112,12 +111,16 @@ export default class SearchResult extends Component {
       products,
       fetchMore,
       onFetchMoreProducts,
-      recordsFiltered
+      recordsFiltered,
+      fetchMoreLoading,
+      loading
     } = this.props
 
+    console.log(products)
     return (
       <PopupProvider>
-        <InfiniteScrollLoaderResult
+        <ShowMoreLoaderResult
+          renderSpinner={this.renderSpinner}
           renderFilters={this.renderFilters}
           renderBreadcrumb={this.renderBreadcrumb}
           renderTotalProducts={this.renderTotalProducts}
@@ -130,6 +133,8 @@ export default class SearchResult extends Component {
           fetchMore={fetchMore}
           onFetchMoreProducts={onFetchMoreProducts}
           recordsFiltered={recordsFiltered}
+          fetchMoreLoading={fetchMoreLoading}
+          loading={loading}
         />
       </PopupProvider>
     )

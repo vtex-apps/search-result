@@ -9,7 +9,7 @@ import { SORT_OPTIONS } from './components/OrderBy'
 import { searchResultContainerPropTypes } from './constants/propTypes'
 import { getPagesArgs, getBaseMap } from './constants/SearchHelpers'
 
-const DEFAULT_MAX_ITEMS_PER_PAGE = 10
+const DEFAULT_MAX_ITEMS_PER_PAGE = 2
 
 /**
  * Search Result Container Component.
