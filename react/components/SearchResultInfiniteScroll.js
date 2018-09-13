@@ -44,12 +44,7 @@ export default class SearchResultInfiniteScroll extends Component {
   }
 
   getLinkProps = (spec, useEmptyMapAndRest = false) => {
-    const {
-      rest,
-      map,
-      pagesPath,
-      params,
-    } = this.props
+    const { rest, map, pagesPath, params } = this.props
     const filters = Array.isArray(spec) ? spec : [spec]
 
     if (filters.length === 0) {
@@ -61,7 +56,16 @@ export default class SearchResultInfiniteScroll extends Component {
 
     const pageProps = filters.reduce(
       (linkProps, filter) => {
-        const { type, ordenation, pageNumber, isSelected, path, name, link, slug } = filter
+        const {
+          type,
+          ordenation,
+          pageNumber,
+          isSelected,
+          path,
+          name,
+          link,
+          slug,
+        } = filter
         const order = ordenation || linkProps.query.order
 
         return getPagesArgs({
@@ -86,7 +90,9 @@ export default class SearchResultInfiniteScroll extends Component {
         query: {
           order: this.props.orderBy,
           map: useEmptyMapAndRest
-            ? getBaseMap(map, rest).split(',').filter(x => x)
+            ? getBaseMap(map, rest)
+                .split(',')
+                .filter(x => x)
             : map.split(','),
           rest: useEmptyMapAndRest ? [] : rest.split(',').filter(x => x),
         },
@@ -152,6 +158,7 @@ export default class SearchResultInfiniteScroll extends Component {
       rest,
       params,
       priceRange,
+      hiddenFacets
     } = this.props
 
     const isLoading = loading || this.props.loading
@@ -199,15 +206,13 @@ export default class SearchResultInfiniteScroll extends Component {
                 rest={rest}
                 specificationFilters={SpecificationFilters}
                 tree={CategoriesTrees}
+                hiddenFacets={hiddenFacets}
                 loading={isLoading && !this.state.fetchMoreLoading}
               />
             </div>
             <div className="vtex-search-result__border" />
             <div className="vtex-search-result__order-by">
-              <OrderBy
-                orderBy={orderBy}
-                getLinkProps={this.getLinkProps}
-              />
+              <OrderBy orderBy={orderBy} getLinkProps={this.getLinkProps} />
             </div>
             <div className="vtex-search-result__gallery">
               {isLoading && !this.state.fetchMoreLoading ? (

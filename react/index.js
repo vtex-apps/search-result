@@ -3,8 +3,8 @@ import './global.css'
 import React, { Component } from 'react'
 import ProductSummary from 'vtex.product-summary/index'
 
-import SearchResultInfiniteScroll from './components/SearchResultInfiniteScroll'
 import { SORT_OPTIONS } from './components/OrderBy'
+import SearchResultInfiniteScroll from './components/SearchResultInfiniteScroll'
 import { searchResultPropTypes } from './constants/propTypes'
 
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
@@ -47,6 +47,56 @@ export default class SearchResult extends Component {
           type: 'number',
           default: DEFAULT_MAX_ITEMS_PER_PAGE,
         },
+        hiddenFacets: {
+          title: 'editor.search-result.hiddenFacets',
+          type: 'object',
+          isLayout: true,
+          properties: {
+            brands: {
+              title: 'editor.search-result.hiddenFacets.brands',
+              type: 'boolean',
+              isLayout: true,
+            },
+            categories: {
+              title: 'editor.search-result.hiddenFacets.categories',
+              type: 'boolean',
+              isLayout: true,
+            },
+            priceRange: {
+              title: 'editor.search-result.hiddenFacets.priceRange',
+              type: 'boolean',
+              isLayout: true,
+            },
+            specificationFilters: {
+              title: 'editor.search-result.hiddenFacets.specificationFilters',
+              type: 'object',
+              isLayout: true,
+              properties: {
+                hideAll: {
+                  title: 'editor.search-result.hiddenFacets.specificationFilters.hideAll',
+                  type: 'boolean',
+                  isLayout: true,
+                },
+                hiddenFilters: {
+                  type: 'array',
+                  isLayout: true,
+                  items: {
+                    title: 'editor.search-result.hiddenFacets.specificationFilters.hiddenFilter',
+                    type: 'object',
+                    isLayout: true,
+                    properties: {
+                      name: {
+                        title: 'editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name',
+                        type: 'string',
+                        isLayout: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
         summary: {
           title: 'editor.search-result.summary.title',
           type: 'object',
@@ -57,10 +107,6 @@ export default class SearchResult extends Component {
   }
 
   render() {
-    return (
-      <SearchResultInfiniteScroll
-        {...this.props}
-      />
-    )
+    return <SearchResultInfiniteScroll {...this.props} />
   }
 }
