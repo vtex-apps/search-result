@@ -73,14 +73,14 @@ function restMapped(rest, map) {
 }
 
 function removeFilter(map, rest, { type, slug, pagesPath }) {
-  let skip = 0
+  let categoryCount = 0
 
   if (pagesPath === 'store/department') {
-    skip = 1
+    categoryCount = 1
   } else if (pagesPath === 'store/category') {
-    skip = 2
+    categoryCount = 2
   } else if (pagesPath === 'store/subcategory') {
-    skip = 3
+    categoryCount = 3
   }
 
   const categoryMapSymbol = getMapByType(CATEGORIES_TYPE)
@@ -93,25 +93,39 @@ function removeFilter(map, rest, { type, slug, pagesPath }) {
     return { map, rest }
   }
 
+  if (type !== CATEGORIES_TYPE) {
+    let categoriesFiltered = 0
+
+    const mapWithoutCategories = map.filter(s => {
+      if (categoriesFiltered === categoryCount) {
+        return true
+      }
+
+      categoriesFiltered++
+
+      return s !== categoryMapSymbol
+    }).filter((_, i) => i !== restIndex)
+
+    const lengthDifference = map.length - mapWithoutCategories.length - 1
+
+    return {
+      map: [...repeat(categoryMapSymbol, lengthDifference), ...mapWithoutCategories],
+      rest: rest.filter((_, i) => i !== restIndex),
+    }
+  }
+
   let mapIndex = -1
-  let count = skip - 1
+  let count = categoryCount - 1
 
   for (const symbol of map) {
     mapIndex++
 
-    if (symbol === categoryMapSymbol && skip > 0) {
-      skip--
+    if (symbol === categoryMapSymbol && categoryCount > 0) {
+      categoryCount--
     } else if (count >= restIndex) {
       break
     } else {
       count++
-    }
-  }
-
-  if (type !== CATEGORIES_TYPE) {
-    return {
-      map: map.filter((_, i) => i !== mapIndex),
-      rest: rest.filter((_, i) => i !== restIndex),
     }
   }
 
