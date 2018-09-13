@@ -7,10 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.2.0] - 2018-09-13
+### Changed
+- Migrate to use range slider from `vtex.styleguide`.
+
 ## [1.1.2] - 2018-09-13
 ### Changed
 - Update the `vtex.product-summary` version.
-- Migrate to use range slider from `vtex.styleguide`.
 
 ### Fixed
 - Filter content loader height and width.
