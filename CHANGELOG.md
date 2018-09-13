@@ -7,25 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-<<<<<<< HEAD
-## [1.3.1] - 2018-09-14
-### Fixed
-- Fix incorrect specification filter being removed with more than 1 in map.
-
-## [1.3.0] - 2018-09-13
-### Added
-- Add the possibility to hide the search-result facets
-
 ## [1.2.0] - 2018-09-13
 ### Changed
 - Migrate to use range slider from `vtex.styleguide`.
 
-=======
->>>>>>> Release v1.1.2
 ## [1.1.2] - 2018-09-13
 ### Changed
 - Update the `vtex.product-summary` version.
-- Migrate to use range slider from `vtex.styleguide`.
 
 ### Fixed
 - Filter content loader height and width.
