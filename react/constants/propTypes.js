@@ -134,6 +134,7 @@ export const mapType = PropTypes.string
 export const orderType = PropTypes.string
 
 export const hiddenFacetsSchema = {
+  /** Indicates which facets will be hidden */
   hiddenFacets: PropTypes.shape({
     /** Determines if the brands facets will be hidden */
     brands: PropTypes.bool,
