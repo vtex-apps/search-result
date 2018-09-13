@@ -190,7 +190,8 @@ export default class SearchResultInfiniteScroll extends Component {
               updateQuery: this.handleFetchMoreProducts,
             })
           }}
-          hasMore={products.length < recordsFiltered}>
+          hasMore={products.length < recordsFiltered}
+        >
           <div className="vtex-search-result vtex-search-result--infinite-scroll pv5 ph9-l ph7-m ph5-s">
             <div className="vtex-search-result__breadcrumb">
               <ExtensionPoint id="breadcrumb" {...this.breadcrumbsProps} />
@@ -198,7 +199,8 @@ export default class SearchResultInfiniteScroll extends Component {
             <div className="vtex-search-result__total-products">
               <FormattedMessage
                 id="search.total-products"
-                values={{ recordsFiltered }}>
+                values={{ recordsFiltered }}
+              >
                 {txt => <span className="ph4 black-50">{txt}</span>}
               </FormattedMessage>
             </div>
