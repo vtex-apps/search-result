@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.3.1] - 2018-09-14
+### Fixed
+- Fix incorrect specification filter being removed with more than 1 in map.
+
 ## [1.3.0] - 2018-09-13
 ### Added
 - Add the possibility to hide the search-result facets

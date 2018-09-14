@@ -4,6 +4,7 @@ import {
   CATEGORIES_TYPE,
   BRANDS_TYPE,
   PRICE_RANGES_TYPE,
+  SPECIFICATION_FILTERS_TYPE,
 } from '../../components/FiltersContainer'
 
 describe('getSpecificationFilterFromLink', () => {
@@ -189,7 +190,7 @@ describe('getPagesArgs', () => {
       pagesPath: SUBCATEGORY_PAGE,
       query: {
         rest: ['Samsung', 'foo'],
-        map: ['c', 'b', 'c', 'c', 'c'],
+        map: ['c', 'c', 'c', 'c', 'b'],
       },
       params: {
         department: 'Eletronicos',
@@ -201,7 +202,7 @@ describe('getPagesArgs', () => {
 
     const { query: { map, rest } } = getPagesArgs(filterSpec)
 
-    expect(map).toEqual(['c', 'b', 'c', 'c'])
+    expect(map).toEqual(['c', 'c', 'c', 'b'])
     expect(rest).toEqual(['Samsung'])
   })
 
@@ -332,5 +333,30 @@ describe('getPagesArgs', () => {
     const { query: { priceRange } } = getPagesArgs(filterSpec)
 
     expect(priceRange).toBe('1000 TO 1999,99')
+  })
+
+  it('should remove correct specification filter map', () => {
+    const filterSpec = {
+      type: SPECIFICATION_FILTERS_TYPE,
+      isUnselectLink: true,
+      name: 'Branco',
+      slug: 'Branco',
+      link: '/eletrodomesticos/Geladeira---Refrigerador/Geladeira---Refrigerador/Branco?map=c,c,c,specificationFilter_14',
+      pagesPath: 'store/subcategory',
+      query: {
+        rest: ['Outra categoria', 'Branco', '110V'],
+        map: ['c', 'c', 'c', 'c', 'specificationFilter_14', 'specificationFilter_692'],
+      },
+      params: {
+        department: 'eletrodomesticos',
+        category: 'geladeiras 1',
+        subcategory: 'geladeiras 2',
+      },
+    }
+
+    const { query: { map, rest } } = getPagesArgs(filterSpec)
+
+    expect(map).toEqual(['c', 'c', 'c', 'c', 'specificationFilter_692'])
+    expect(rest).toEqual(['Outra categoria', '110V'])
   })
 })
