@@ -96,14 +96,14 @@ function removeFilter(map, rest, { type, slug, pagesPath }) {
   if (type !== CATEGORIES_TYPE) {
     let categoriesFiltered = 0
 
-    const mapWithoutCategories = map.filter(s => {
+    const mapWithoutCategories = map.filter(symbol => {
       if (categoriesFiltered === categoryCount) {
         return true
       }
 
       categoriesFiltered++
 
-      return s !== categoryMapSymbol
+      return symbol !== categoryMapSymbol
     }).filter((_, i) => i !== restIndex)
 
     const lengthDifference = map.length - mapWithoutCategories.length - 1
