@@ -243,6 +243,9 @@ export default class SearchResultInfiniteScroll extends Component {
                  
                 </div>
                 
+                  {/* 
+                  // Removido do projeto temporariamente
+                    
                   <div className="vtex-search-result__order-by">
                       
 
@@ -257,7 +260,7 @@ export default class SearchResultInfiniteScroll extends Component {
                         orderBy={orderBy}
                         getLinkProps={this.getLinkProps}/>
 
-                </div>
+                </div> */}
                 
             
                 <div className="vtex-search-result__gallery">
