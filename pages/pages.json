@@ -1,12 +1,12 @@
 {
-  "pages": {
-    "search-result": {
-      "path": "/_v/search-result"
-    }
-  },
   "extensions": {
     "search-result": {
-      "component": "index"
+      "component": "index",
+      "extensions": {
+        "result-loader": {
+          "component": "/components/loaders/InfiniteScrollLoaderResultasdas"
+        }
+      }
     }
   }
 }

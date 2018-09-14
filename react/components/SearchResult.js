@@ -126,7 +126,7 @@ export default class SearchResult extends Component {
     return (
       <PopupProvider>
         <ExtensionPoint
-          id="search-result/result-loader"
+          id="result-loader"
           renderSpinner={this.renderSpinner}
           renderFilters={this.renderFilters}
           renderBreadcrumb={this.renderBreadcrumb}
