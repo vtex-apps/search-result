@@ -4,7 +4,7 @@
       "component": "index",
       "extensions": {
         "result-loader": {
-          "component": "/components/loaders/InfiniteScrollLoaderResultasdas"
+          "component": "/components/loaders/InfiniteScrollLoaderResults"
         }
       }
     }
