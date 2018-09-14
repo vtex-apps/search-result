@@ -18,7 +18,7 @@ export default class SearchResult extends Component {
       brands, getLinkProps, map, params, priceRange,
       priceRanges, rest, specificationFilters, tree,
       loading, fetchMoreLoading, products, summary,
-      orderBy
+      orderBy, hiddenFacets
     } = this.props
 
     return (
@@ -45,6 +45,7 @@ export default class SearchResult extends Component {
             rest={rest}
             specificationFilters={specificationFilters}
             tree={tree}
+            hiddenFacets={hiddenFacets}
             loading={loading && !fetchMoreLoading}
           />
         </div>

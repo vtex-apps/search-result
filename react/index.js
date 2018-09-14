@@ -14,7 +14,7 @@ import ShowMoreLoaderResult from './components/loaders/ShowMoreLoaderResult'
 import { searchResultContainerPropTypes } from './constants/propTypes'
 import { getPagesArgs, getBaseMap } from './constants/SearchHelpers'
 
-const DEFAULT_MAX_ITEMS_PER_PAGE = 2
+const DEFAULT_MAX_ITEMS_PER_PAGE = 10
 
 /**
  * Search Result Container Component.
@@ -156,6 +156,7 @@ export default class SearchResultContainer extends Component {
       params,
       priceRange,
       showMore,
+      hiddenFacets
     } = this.props
 
     const breadcrumbsProps = this.breadcrumbsProps
@@ -184,6 +185,7 @@ export default class SearchResultContainer extends Component {
       specificationFilters: SpecificationFilters,
       priceRanges: PriceRanges,
       priceRange: priceRange,
+      hiddenFacets,
       tree: CategoriesTrees
     }
 
@@ -227,6 +229,56 @@ SearchResultContainer.getSchema = props => {
         title: 'editor.search-result.maxItemsPerPage.title',
         type: 'number',
         default: DEFAULT_MAX_ITEMS_PER_PAGE,
+      },
+      hiddenFacets: {
+        title: 'editor.search-result.hiddenFacets',
+        type: 'object',
+        isLayout: true,
+        properties: {
+          brands: {
+            title: 'editor.search-result.hiddenFacets.brands',
+            type: 'boolean',
+            isLayout: true,
+          },
+          categories: {
+            title: 'editor.search-result.hiddenFacets.categories',
+            type: 'boolean',
+            isLayout: true,
+          },
+          priceRange: {
+            title: 'editor.search-result.hiddenFacets.priceRange',
+            type: 'boolean',
+            isLayout: true,
+          },
+          specificationFilters: {
+            title: 'editor.search-result.hiddenFacets.specificationFilters',
+            type: 'object',
+            isLayout: true,
+            properties: {
+              hideAll: {
+                title: 'editor.search-result.hiddenFacets.specificationFilters.hideAll',
+                type: 'boolean',
+                isLayout: true,
+              },
+              hiddenFilters: {
+                type: 'array',
+                isLayout: true,
+                items: {
+                  title: 'editor.search-result.hiddenFacets.specificationFilters.hiddenFilter',
+                  type: 'object',
+                  isLayout: true,
+                  properties: {
+                    name: {
+                      title: 'editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name',
+                      type: 'string',
+                      isLayout: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
       },
       summary: {
         title: 'editor.search-result.summary.title',

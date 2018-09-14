@@ -215,16 +215,10 @@ export const searchResultPropTypes = {
 }
 
 export const loaderPropTypes = {
-  renderSpinner: PropTypes.func,
-  renderFilters: PropTypes.func.isRequired,
-  renderBreadcrumb: PropTypes.func.isRequired,
-  renderTotalProducts: PropTypes.func.isRequired,
-  renderOrderBy: PropTypes.func.isRequired,
-  renderGallery: PropTypes.func.isRequired,
   to: PropTypes.number.isRequired,
   onSetFetchMoreLoading: PropTypes.func.isRequired,
   maxItemsPerPage: PropTypes.number.isRequired,
-  productsLength: PropTypes.number.isRequired,
+  products: PropTypes.arrayOf(productShape),
   fetchMore: PropTypes.func.isRequired,
   onFetchMoreProducts: PropTypes.func.isRequired,
   recordsFiltered: PropTypes.number.isRequired,
