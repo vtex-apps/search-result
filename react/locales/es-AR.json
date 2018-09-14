@@ -19,6 +19,7 @@
   "ordenation.name.ascending": "Nombre, creciente",
   "ordenation.name.descending": "Nombre, decreciente",
   "editor.search-result.title": "Resultado de búsqueda",
+  "editor.search-result.showMore.title": "botón de mostrar más",
   "editor.search-result.description": "Contenedor de resultados de búsqueda",
   "editor.search-result.maxItemsPerLine.title": "Número máximo de elementos por línea",
   "editor.search-result.maxItemsPerPage.title": "Número máximo de elementos por página",

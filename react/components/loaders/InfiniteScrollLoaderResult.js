@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import { Spinner } from 'vtex.styleguide'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 import { loaderPropTypes } from '../../constants/propTypes'
+import SearchResult from "../SearchResult";
 
 /**
  * Search Result Component.
@@ -9,26 +11,19 @@ import { loaderPropTypes } from '../../constants/propTypes'
 export default class InfiniteScrollLoaderResult extends Component {
   render() {
     const {
-      renderSpinner,
-      renderFilters,
-      renderBreadcrumb,
-      renderTotalProducts,
-      renderOrderBy,
-      renderGallery,
       to,
       onSetFetchMoreLoading,
       maxItemsPerPage,
-      productsLength,
+      products,
       fetchMore,
       onFetchMoreProducts,
       recordsFiltered,
       fetchMoreLoading,
     } = this.props
 
-    console.log('Loader')
     return (
       <InfiniteScroll
-        dataLength={productsLength}
+        dataLength={products.length}
         next={() => {
           onSetFetchMoreLoading(true)
 
@@ -40,17 +35,17 @@ export default class InfiniteScrollLoaderResult extends Component {
             updateQuery: onFetchMoreProducts,
           })
         }}
-        hasMore={productsLength < recordsFiltered}
+        hasMore={products.length < recordsFiltered}
       >
-        <div className="vtex-search-result vtex-search-result--infinite-scroll pv5 ph9-l ph7-m ph5-s">
-          {renderBreadcrumb()}
-          {renderTotalProducts()}
-          {renderFilters()}
-          <div className="vtex-search-result__border" />
-          {renderOrderBy()}
-          {renderGallery()}
-          {fetchMoreLoading && renderSpinner()}
-        </div>
+        <SearchResult {...this.props}>
+          {fetchMoreLoading && (
+            <div className="w-100 flex justify-center">
+              <div className="w3 ma0">
+                <Spinner />
+              </div>
+            </div>
+          )}
+        </SearchResult>
       </InfiniteScroll>
     )
   }

@@ -2,14 +2,13 @@ import React, { Component } from 'react'
 import { Button } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
 
-
+import SearchResult from '../SearchResult'
 import { loaderPropTypes } from '../../constants/propTypes'
 
 /**
  * Search Result Component.
  */
 export default class ShowMoreLoaderResult extends Component {
-
   handleFetchMore = () => {
     const {
       to,
@@ -32,32 +31,21 @@ export default class ShowMoreLoaderResult extends Component {
 
   render() {
     const {
-      renderFilters,
-      renderBreadcrumb,
-      renderTotalProducts,
-      renderOrderBy,
-      renderGallery,
-      productsLength,
+      products,
       recordsFiltered,
       fetchMoreLoading,
     } = this.props
 
     return (
-      <div className="vtex-search-result vtex-search-result--show-more pv5 ph9-l ph7-m ph5-s">
-        {renderBreadcrumb()}
-        {renderTotalProducts()}
-        {renderFilters()}
-        <div className="vtex-search-result__border" />
-        {renderOrderBy()}
-        {renderGallery()}
+      <SearchResult {...this.props}>
         <div className="vtex-search-result__button--show-more w-100 flex justify-end">
-          <Button onClick={this.handleFetchMore} disabled={!(productsLength < recordsFiltered)} isLoading={fetchMoreLoading} size="small">
+          <Button onClick={this.handleFetchMore} disabled={!(products.length < recordsFiltered)} isLoading={fetchMoreLoading} size="small">
             <FormattedMessage
               id="search-result.show-more-button"
             />
           </Button>
         </div>
-      </div>
+      </SearchResult>
     )
   }
 }

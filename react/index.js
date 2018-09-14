@@ -4,8 +4,12 @@ import React, { Component } from 'react'
 import QueryString from 'query-string'
 import ProductSummary from 'vtex.product-summary/index'
 
-import SearchResult from './components/SearchResult'
 import { SORT_OPTIONS } from './components/OrderBy'
+import { PopupProvider } from './components/Popup'
+
+import InfiniteScrollLoaderResult from './components/loaders/InfiniteScrollLoaderResult'
+import ShowMoreLoaderResult from './components/loaders/ShowMoreLoaderResult'
+
 import { searchResultContainerPropTypes } from './constants/propTypes'
 import { getPagesArgs, getBaseMap } from './constants/SearchHelpers'
 
@@ -150,39 +154,46 @@ export default class SearchResultContainer extends Component {
       rest,
       params,
       priceRange,
+      showMore,
     } = this.props
 
     const breadcrumbsProps = this.breadcrumbsProps
     const isLoading = loading || this.props.loading
     const to = (page - 1) * maxItemsPerPage + products.length
 
-    console.log('Search Container')
+    const props = {
+      breadcrumbsProps,
+      onSetFetchMoreLoading: this.handleSetFetchMoreLoading,
+      onFetchMoreProducts: this.handleFetchMoreProducts,
+      getLinkProps: this.getLinkProps,
+      fetchMoreLoading: this.state.fetchMoreLoading,
+      orderBy,
+      maxItemsPerPage,
+      page,
+      summary,
+      map,
+      rest,
+      params,
+      fetchMore,
+      to,
+      loading: isLoading,
+      recordsFiltered,
+      products,
+      brands: Brands,
+      specificationFilters: SpecificationFilters,
+      priceRanges: PriceRanges,
+      priceRange: priceRange,
+      tree: CategoriesTrees
+    }
 
     return (
-      <SearchResult
-        breadcrumbsProps={breadcrumbsProps}
-        onSetFetchMoreLoading={this.handleSetFetchMoreLoading}
-        onFetchMoreProducts={this.handleFetchMoreProducts}
-        getLinkProps={this.getLinkProps}
-        fetchMoreLoading={this.state.fetchMoreLoading}
-        orderBy={orderBy}
-        maxItemsPerPage={maxItemsPerPage}
-        page={page}
-        summary={summary}
-        map={map}
-        rest={rest}
-        params={params}
-        fetchMore={fetchMore}
-        to={to}
-        loading={isLoading}
-        recordsFiltered={recordsFiltered}
-        products={products}
-        brands={Brands}
-        specificationFilters={SpecificationFilters}
-        priceRanges={PriceRanges}
-        priceRange={priceRange}
-        tree={CategoriesTrees}
-      />
+      <PopupProvider>
+        {showMore ? (
+          <ShowMoreLoaderResult {...props} />
+        ) : (
+            <InfiniteScrollLoaderResult {...props} />
+          )}
+      </PopupProvider >
     )
   }
 }
@@ -190,6 +201,7 @@ export default class SearchResultContainer extends Component {
 SearchResultContainer.propTypes = searchResultContainerPropTypes
 
 SearchResultContainer.defaultProps = {
+  showMore: false,
   orderBy: SORT_OPTIONS[0].value,
   rest: '',
   maxItemsPerPage: DEFAULT_MAX_ITEMS_PER_PAGE,
@@ -220,6 +232,11 @@ SearchResultContainer.getSchema = props => {
         type: 'object',
         properties: ProductSummary.getSchema(props).properties,
       },
+      showMore: {
+        type: 'boolean',
+        title: 'editor.search-result.showMore.title',
+        default: false,
+      }
     },
   }
 }
