@@ -12,7 +12,6 @@ import InfiniteScrollLoaderResult from './components/loaders/InfiniteScrollLoade
 import ShowMoreLoaderResult from './components/loaders/ShowMoreLoaderResult'
 
 import { searchResultContainerPropTypes } from './constants/propTypes'
-import { getPagesArgs, getBaseMap } from './constants/SearchHelpers'
 
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
 

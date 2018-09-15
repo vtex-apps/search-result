@@ -165,14 +165,6 @@ export const schemaPropsTypes = {
   ...hiddenFacetsSchema,
 }
 
-export const schemaPropsTypes = {
-  /** Maximum number of items per page. */
-  maxItemsPerPage: PropTypes.number,
-  /** Product Summary's props */
-  summary: PropTypes.any,
-  ...schemaLayoutPropTypes,
-}
-
 export const searchResultContainerPropTypes = {
   /** Internal route path. e.g: 'store/search' */
   pagesPath: PropTypes.string,
