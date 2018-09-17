@@ -69,8 +69,8 @@ export default class SearchResult extends Component {
                 summary={summary}
               />
             )}
+          {children}
         </div>
-        {children}
       </div>
     )
   }

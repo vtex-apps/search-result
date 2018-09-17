@@ -14,16 +14,16 @@ export default class InfiniteScrollLoaderResult extends Component {
       to,
       onSetFetchMoreLoading,
       maxItemsPerPage,
-      productsLength,
       fetchMore,
       onFetchMoreProducts,
       recordsFiltered,
       fetchMoreLoading,
+      products,
     } = this.props
 
     return (
       <InfiniteScroll
-        dataLength={productsLength}
+        dataLength={products.length}
         next={() => {
           onSetFetchMoreLoading(true)
 
@@ -35,7 +35,7 @@ export default class InfiniteScrollLoaderResult extends Component {
             updateQuery: onFetchMoreProducts,
           })
         }}
-        hasMore={productsLength < recordsFiltered}
+        hasMore={products.length < recordsFiltered}
       >
         <SearchResult {...this.props}>
           {fetchMoreLoading && (
