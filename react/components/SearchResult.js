@@ -59,46 +59,55 @@ export default class SearchResult extends Component {
     } = this.props
 
     return (
-      <div className="vtex-search-result__filters">
-        <FiltersContainer
-          brands={brands}
-          getLinkProps={getLinkProps}
-          map={map}
-          params={params}
-          priceRange={priceRange}
-          priceRanges={priceRanges}
-          rest={rest}
-          specificationFilters={specificationFilters}
-          tree={tree}
-          loading={loading && !fetchMoreLoading}
-        />
-      </div>
-    )
-  }
-
-  renderOrderBy = () => {
-    const { orderBy, getLinkProps } = this.props
-
-    return (
-      <div className="vtex-search-result__order-by">
-        <OrderBy
-          orderBy={orderBy}
-          getLinkProps={getLinkProps}
-        />
-      </div>
-    )
-  }
-
-  renderGallery = () => {
-    const { loading, fetchMoreLoading, products, summary } = this.props
-
-    return (
-      <div className="vtex-search-result__gallery">
-        {loading && !fetchMoreLoading ? (
-          this.renderSpinner()
-        ) : (
-            <Gallery products={products} summary={summary} />
-          )}
+      <div className="vtex-search-result vtex-search-result--show-more pv5 ph9-l ph7-m ph5-s">
+        <div className="vtex-search-result__breadcrumb">
+          <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
+        </div>
+        <div className="vtex-search-result__total-products">
+          <FormattedMessage
+            id="search.total-products"
+            values={{ recordsFiltered }}
+          >
+            {txt => <span className="ph4 black-50">{txt}</span>}
+          </FormattedMessage>
+        </div>
+        <div className="vtex-search-result__filters">
+          <FiltersContainer
+            brands={brands}
+            getLinkProps={getLinkProps}
+            map={map}
+            params={params}
+            priceRange={priceRange}
+            priceRanges={priceRanges}
+            rest={rest}
+            specificationFilters={specificationFilters}
+            tree={tree}
+            hiddenFacets={hiddenFacets}
+            loading={loading && !fetchMoreLoading}
+          />
+        </div>
+        <div className="vtex-search-result__border" />
+        <div className="vtex-search-result__order-by">
+          <OrderBy
+            orderBy={orderBy}
+            getLinkProps={getLinkProps}
+          />
+        </div>
+        <div className="vtex-search-result__gallery">
+          {loading && !fetchMoreLoading ? (
+            <div className="w-100 flex justify-center">
+              <div className="w3 ma0">
+                <Spinner />
+              </div>
+            </div>
+          ) : (
+              <Gallery
+                products={products}
+                summary={summary}
+              />
+            )}
+          {children}
+        </div>
       </div>
     )
   }

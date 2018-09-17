@@ -18,16 +18,16 @@ export default class InfiniteScrollLoaderResult extends Component {
       to,
       onSetFetchMoreLoading,
       maxItemsPerPage,
-      productsLength,
       fetchMore,
       onFetchMoreProducts,
       recordsFiltered,
       fetchMoreLoading,
+      products,
     } = this.props
 
     return (
       <InfiniteScroll
-        dataLength={productsLength}
+        dataLength={products.length}
         next={() => {
           onSetFetchMoreLoading(true)
 
@@ -39,7 +39,7 @@ export default class InfiniteScrollLoaderResult extends Component {
             updateQuery: onFetchMoreProducts,
           })
         }}
-        hasMore={productsLength < recordsFiltered}
+        hasMore={products.length < recordsFiltered}
       >
         <div className="vtex-search-result vtex-search-result--infinite-scroll pv5 ph9-l ph7-m ph5-s">
           {renderBreadcrumb()}
