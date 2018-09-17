@@ -57,12 +57,7 @@ export default class SearchResultInfiniteScroll extends Component {
   }
 
   getLinkProps = (spec, useEmptyMapAndRest = false) => {
-    const {
-      rest,
-      map,
-      pagesPath,
-      params,
-    } = this.props
+    const { rest, map, pagesPath, params } = this.props
     const filters = Array.isArray(spec) ? spec : [spec]
 
     if (filters.length === 0) {
@@ -74,7 +69,16 @@ export default class SearchResultInfiniteScroll extends Component {
 
     const pageProps = filters.reduce(
       (linkProps, filter) => {
-        const { type, ordenation, pageNumber, isSelected, path, name, link, slug } = filter
+        const {
+          type,
+          ordenation,
+          pageNumber,
+          isSelected,
+          path,
+          name,
+          link,
+          slug,
+        } = filter
         const order = ordenation || linkProps.query.order
 
         return getPagesArgs({
@@ -99,7 +103,9 @@ export default class SearchResultInfiniteScroll extends Component {
         query: {
           order: this.props.orderBy,
           map: useEmptyMapAndRest
-            ? getBaseMap(map, rest).split(',').filter(x => x)
+            ? getBaseMap(map, rest)
+                .split(',')
+                .filter(x => x)
             : map.split(','),
           rest: useEmptyMapAndRest ? [] : rest.split(',').filter(x => x),
         },
@@ -167,6 +173,7 @@ export default class SearchResultInfiniteScroll extends Component {
       rest,
       params,
       priceRange,
+      hiddenFacets
     }={
         Gallery:GalleryDefault, 
         ...this.props
@@ -195,7 +202,7 @@ export default class SearchResultInfiniteScroll extends Component {
           }}
           hasMore={products.length < recordsFiltered}
         >
-          <div className="vtex-search-result vtex-search-result--infinite-scroll pv5 ph9-l ph7-m ph5-s">
+          <div className="vtex-search-result vtex-search-result--infinite-scroll pv5 ph9-l ph7-m ph5-s vtex-page-padding">
             <div className="vtex-search-result__breadcrumb">
               <ExtensionPoint id="breadcrumb" {...this.breadcrumbsProps} />
             </div>
@@ -228,16 +235,18 @@ export default class SearchResultInfiniteScroll extends Component {
                     </li>
 
                   </ul>
-                  
                   <FiltersContainer
                     brands={Brands}
                     getLinkProps={this.getLinkProps}
                     map={map}
                     params={params}
+                    priceRange={priceRange}
                     priceRanges={PriceRanges}
                     rest={rest}
                     specificationFilters={SpecificationFilters}
                     tree={CategoriesTrees}
+                    hiddenFacets={hiddenFacets}
+                    loading={isLoading && !this.state.fetchMoreLoading}
                   />
                   <div className="vtex-search-result__border" />
                  
@@ -264,12 +273,12 @@ export default class SearchResultInfiniteScroll extends Component {
                 
             
                 <div className="vtex-search-result__gallery">
-                    {isLoading && !this.state.fetchMoreLoading ? (
-                      this.renderSpinner()
-                    ) : (
-                      <Gallery products={products} summary={summary} />
-                    )}
-                    {this.state.fetchMoreLoading && this.renderSpinner()}
+                  {isLoading && !this.state.fetchMoreLoading ? (
+                    this.renderSpinner()
+                  ) : (
+                    <Gallery products={products} summary={summary} />
+                  )}
+                  {this.state.fetchMoreLoading && this.renderSpinner()}
                 </div>
               </div>
           </div>

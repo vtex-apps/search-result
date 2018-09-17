@@ -85,3 +85,32 @@
 .vtex-range {
   user-select: none;
 }
+@media only screen and (max-width: 40em) {
+  .vtex-search-result {
+    grid-template-columns: 1fr 1px 1fr;
+    grid-template-areas:
+      "breadcrumb breadcrumb breadcrumb"
+      "quantity quantity quantity"
+      "filters border orderby"
+      "gallery gallery gallery";
+  }
+
+  .vtex-search-result__breadcrumb {
+    justify-self: center;
+  }
+
+  .vtex-search-result__total-products {
+    justify-self: stretch;
+    text-align: center;
+    padding-bottom: 0.375rem;
+    border-bottom: 1px solid #c4c4c4;
+  }
+
+  .vtex-search-result__filter-title {
+    font-weight: 300;
+  }
+
+  .vtex-gallery {
+    border-top: 1px solid #c4c4c4;
+  }
+}
