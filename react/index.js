@@ -9,7 +9,8 @@ import { SORT_OPTIONS } from './components/OrderBy'
 import { searchResultContainerPropTypes } from './constants/propTypes'
 import { getPagesArgs, getBaseMap } from './constants/SearchHelpers'
 
-const DEFAULT_MAX_ITEMS_PER_PAGE = 2
+const DEFAULT_MAX_ITEMS_PER_PAGE = 10
+const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
 
 /**
  * Search Result Container Component.
@@ -150,6 +151,8 @@ export default class SearchResultContainer extends Component {
       rest,
       params,
       priceRange,
+      pagination,
+      hiddenFacets
     } = this.props
 
     const breadcrumbsProps = this.breadcrumbsProps
@@ -157,30 +160,13 @@ export default class SearchResultContainer extends Component {
     const to = (page - 1) * maxItemsPerPage + products.length
 
     return (
-      <SearchResult
-        breadcrumbsProps={breadcrumbsProps}
-        onSetFetchMoreLoading={this.handleSetFetchMoreLoading}
-        onFetchMoreProducts={this.handleFetchMoreProducts}
-        getLinkProps={this.getLinkProps}
-        fetchMoreLoading={this.state.fetchMoreLoading}
-        orderBy={orderBy}
-        maxItemsPerPage={maxItemsPerPage}
-        page={page}
-        summary={summary}
-        map={map}
-        rest={rest}
-        params={params}
-        fetchMore={fetchMore}
-        to={to}
-        loading={isLoading}
-        recordsFiltered={recordsFiltered}
-        products={products}
-        brands={Brands}
-        specificationFilters={SpecificationFilters}
-        priceRanges={PriceRanges}
-        priceRange={priceRange}
-        tree={CategoriesTrees}
-      />
+      <PopupProvider>
+        {pagination === PAGINATION_TYPES[0] ? (
+          <ShowMoreLoaderResult {...props} />
+        ) : (
+            <InfiniteScrollLoaderResult {...props} />
+          )}
+      </PopupProvider >
     )
   }
 }
@@ -218,6 +204,16 @@ SearchResultContainer.getSchema = props => {
         type: 'object',
         properties: ProductSummary.getSchema(props).properties,
       },
+      pagination: {
+        type: 'string',
+        title: 'editor.search-result.pagination.title',
+        default: 'infinity-scroll',
+        enum: PAGINATION_TYPES,
+        enumNames: [
+          'editor.search-result.pagination.show-more',
+          'editor.search-result.pagination.infinite-scroll',
+        ],
+      }
     },
   }
 }
