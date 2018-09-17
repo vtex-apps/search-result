@@ -4,7 +4,7 @@
   grid-template-areas:
     ". breadcrumb . quantity orderby limit"
     "filters gallery gallery gallery  gallery gallery"
-    ". . . button . .";
+    ". pagination pagination bpagination pagination pagination";
 }
 
 .vtex-search-result--infinite-scroll {
@@ -18,12 +18,12 @@
   grid-template-areas:
     ". breadcrumb . . quantity orderby"
     "filters gallery gallery gallery gallery  gallery"
-    ". . . button . .";
+    ". pagination pagination pagination pagination pagination";
 }
 
 .vtex-search-result__button--show-more {
-  grid-column: button;
-  grid-row: button;
+  grid-column: pagination;
+  grid-row: pagination;
   justify-self: end;
   align-self: center;
 }

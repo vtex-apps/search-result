@@ -38,7 +38,7 @@ export default class ShowMoreLoaderResult extends Component {
 
     return (
       <SearchResult {...this.props}>
-        <div className="vtex-search-result__button--show-more w-100 flex justify-end">
+        <div className="vtex-search-result__button--show-more w-100 flex justify-center">
           <Button onClick={this.handleFetchMore} disabled={!(products.length < recordsFiltered)} isLoading={fetchMoreLoading} size="small">
             <FormattedMessage
               id="search-result.show-more-button"

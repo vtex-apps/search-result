@@ -14,6 +14,7 @@ import ShowMoreLoaderResult from './components/loaders/ShowMoreLoaderResult'
 import { searchResultContainerPropTypes } from './constants/propTypes'
 
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
+const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
 
 /**
  * Search Result Container Component.
@@ -154,7 +155,7 @@ export default class SearchResultContainer extends Component {
       rest,
       params,
       priceRange,
-      showMore,
+      pagination,
       hiddenFacets
     } = this.props
 
@@ -190,7 +191,7 @@ export default class SearchResultContainer extends Component {
 
     return (
       <PopupProvider>
-        {showMore ? (
+        {pagination === PAGINATION_TYPES[0] ? (
           <ShowMoreLoaderResult {...props} />
         ) : (
             <InfiniteScrollLoaderResult {...props} />
@@ -284,10 +285,15 @@ SearchResultContainer.getSchema = props => {
         type: 'object',
         properties: ProductSummary.getSchema(props).properties,
       },
-      showMore: {
-        type: 'boolean',
-        title: 'editor.search-result.showMore.title',
-        default: false,
+      pagination: {
+        type: 'string',
+        title: 'editor.search-result.pagination.title',
+        default: 'infinity-scroll',
+        enum: PAGINATION_TYPES,
+        enumNames: [
+          'editor.search-result.pagination.show-more',
+          'editor.search-result.pagination.infinite-scroll',
+        ],
       }
     },
   }
