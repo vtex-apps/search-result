@@ -151,7 +151,6 @@ export default class SearchResultContainer extends Component {
     } = this.props
 
     const breadcrumbsProps = this.breadcrumbsProps
-    const isLoading = loading || this.props.loading
     const to = (page - 1) * maxItemsPerPage + products.length
 
     const props = {
@@ -169,7 +168,7 @@ export default class SearchResultContainer extends Component {
       params,
       fetchMore,
       to,
-      loading: isLoading,
+      loading,
       recordsFiltered,
       products,
       brands: Brands,
