@@ -133,15 +133,28 @@ export const mapType = PropTypes.string
 
 export const orderType = PropTypes.string
 
-export const schemaLayoutPropTypes = {
-  /** Determines if the brands facets will be hidden */
-  hideBrands: PropTypes.bool,
-  /** Determines if the categories facets will be hidden */
-  hideCategories: PropTypes.bool,
-  /** Determines if the price range will be hidden */
-  hideRange: PropTypes.bool,
-  /** Determines if the specification filters facets will be hidden */
-  hideSpecification: PropTypes.bool,
+export const hiddenFacetsSchema = {
+  /** Indicates which facets will be hidden */
+  hiddenFacets: PropTypes.shape({
+    /** Determines if the brands facets will be hidden */
+    brands: PropTypes.bool,
+    /** Determines if the categories facets will be hidden */
+    categories: PropTypes.bool,
+    /** Determines if the price range will be hidden */
+    priceRange: PropTypes.bool,
+    /** Hidden specification filters facets configuration */
+    specificationFilters: PropTypes.shape({
+      /** Determines if all the specification filters facets will be hidden */
+      hideAll: PropTypes.bool,
+      /** Array of specific hidden filters */
+      hiddenFilters: PropTypes.arrayOf(
+        PropTypes.shape({
+          /** Name of the hidden filter */
+          name: PropTypes.string,
+        })
+      ),
+    }),
+  })
 }
 
 export const schemaPropsTypes = {
@@ -149,7 +162,7 @@ export const schemaPropsTypes = {
   maxItemsPerPage: PropTypes.number,
   /** Product Summary's props */
   summary: PropTypes.any,
-  ...schemaLayoutPropTypes,
+  ...hiddenFacetsSchema,
 }
 
 export const searchResultContainerPropTypes = {
@@ -197,7 +210,7 @@ export const searchResultPropTypes = {
   /** Hidden specification filters facets configuration */
   specificationFilters: PropTypes.array.isRequired,
   /** Categories matched with the facets. */
-  tree: PropTypes.array.isRequired,
+  tree: PropTypes.array,
   /** Query loading status*/
   loading: PropTypes.bool.isRequired,
   /** Loading status when the query is refetched */

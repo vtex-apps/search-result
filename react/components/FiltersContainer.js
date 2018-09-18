@@ -12,7 +12,7 @@ import {
   mountOptions,
   getMapByType,
 } from '../constants/SearchHelpers'
-import { facetOptionShape, paramShape } from '../constants/propTypes'
+import { facetOptionShape, paramShape, hiddenFacetsSchema } from '../constants/propTypes'
 
 export const CATEGORIES_TYPE = 'Categories'
 export const BRANDS_TYPE = 'Brands'
@@ -54,13 +54,7 @@ export default class FiltersContainer extends Component {
     rest: PropTypes.string.isRequired,
     /** Loading indicator */
     loading: PropTypes.bool,
-    /** Indicates which facets will be hidden */
-    hiddenFacets: PropTypes.shape({
-      brands: PropTypes.bool,
-      priceRange: PropTypes.bool,
-      specificationFilters: PropTypes.bool,
-      categories: PropTypes.bool,
-    }),
+    ...hiddenFacetsSchema
   }
 
   static defaultProps = {
@@ -139,7 +133,8 @@ export default class FiltersContainer extends Component {
           width="267"
           height="320"
           y="0"
-          x="0">
+          x="0"
+        >
           <rect width="100%" height="1em" />
           <rect width="100%" height="8em" y="1.5em" />
           <rect width="100%" height="1em" y="10.5em" />
