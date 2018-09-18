@@ -3,13 +3,29 @@
   grid-template-columns: 267px repeat(5, auto);
   grid-template-areas:
     ". breadcrumb . quantity orderby limit"
-    "filters gallery gallery gallery gallery gallery";
+    "filters gallery gallery gallery  gallery gallery"
+    ". pagination pagination bpagination pagination pagination";
 }
 
 .vtex-search-result--infinite-scroll {
   grid-template-areas:
     ". breadcrumb . . quantity orderby"
     "filters gallery gallery gallery gallery gallery";
+}
+
+
+.vtex-search-result--show-more {
+  grid-template-areas:
+    ". breadcrumb . . quantity orderby"
+    "filters gallery gallery gallery gallery  gallery"
+    ". pagination pagination pagination pagination pagination";
+}
+
+.vtex-search-result__button--show-more {
+  grid-column: pagination;
+  grid-row: pagination;
+  justify-self: end;
+  align-self: center;
 }
 
 .vtex-search-result__total-products {

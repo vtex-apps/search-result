@@ -1,12 +1,7 @@
 {
-  "pages": {
-    "search-result": {
-      "path": "/_v/search-result"
-    }
-  },
   "extensions": {
     "search-result": {
-      "component": "SearchResult"
+      "component": "index"
     }
   }
 }

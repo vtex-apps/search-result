@@ -145,17 +145,17 @@ export default class FiltersContainer extends Component {
 
     const categories = this.availableCategories
     const hiddenFacetsNames = (
-        path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
-      ).map(filter => filter.name)
+      path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
+    ).map(filter => filter.name)
 
     const mappedSpecificationFilters = !path(['specificationFilters', 'hideAll'], hiddenFacets)
       ? specificationFilters.filter(
-          spec => !contains(spec.name, hiddenFacetsNames)
-        ).map(spec => ({
-          type: SPECIFICATION_FILTERS_TYPE,
-          title: spec.name,
-          options: spec.facets,
-        }))
+        spec => !contains(spec.name, hiddenFacetsNames)
+      ).map(spec => ({
+        type: SPECIFICATION_FILTERS_TYPE,
+        title: spec.name,
+        options: spec.facets,
+      }))
       : []
 
     const filters = [
