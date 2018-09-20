@@ -12,17 +12,32 @@ import Gallery from './Gallery'
  * Search Result Component.
  */
 export default class SearchResult extends Component {
+  static propTypes = searchResultPropTypes
+
   render() {
     const {
-      children, recordsFiltered, breadcrumbsProps,
-      brands, getLinkProps, map, params, priceRange,
-      priceRanges, rest, specificationFilters, tree,
-      loading, fetchMoreLoading, products, summary,
-      orderBy, hiddenFacets
+      children,
+      recordsFiltered,
+      breadcrumbsProps,
+      brands,
+      getLinkProps,
+      map,
+      params,
+      priceRange,
+      priceRanges,
+      rest,
+      specificationFilters,
+      tree,
+      loading,
+      fetchMoreLoading,
+      products,
+      summary,
+      orderBy,
+      hiddenFacets,
     } = this.props
 
     return (
-      <div className="vtex-search-result vtex-search-result--show-more pv5 ph9-l ph7-m ph5-s">
+      <div className="vtex-search-result vtex-page-padding pv5 ph9-l ph7-m ph5-s">
         <div className="vtex-search-result__breadcrumb">
           <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
         </div>
@@ -64,16 +79,14 @@ export default class SearchResult extends Component {
               </div>
             </div>
           ) : (
-              <Gallery
-                products={products}
-                summary={summary}
-              />
-            )}
+            <Gallery
+              products={products}
+              summary={summary}
+            />
+          )}
           {children}
         </div>
       </div>
     )
   }
 }
-
-SearchResult.propTypes = searchResultPropTypes

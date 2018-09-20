@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.5.1] - 2018-09-20
+### Fixed
+- Fix breadcrumb padding to match the product details.
+
 ## [1.5.0] - 2018-09-20
 ### Fixed
 - Removed `ProductSearchContextProvider` state change to avoid unnecessary dependency.
