@@ -11,19 +11,12 @@ import InfiniteScrollLoaderResult from './components/loaders/InfiniteScrollLoade
 import ShowMoreLoaderResult from './components/loaders/ShowMoreLoaderResult'
 import { searchResultContainerPropTypes } from './constants/propTypes'
 
-const DEFAULT_MAX_ITEMS_PER_PAGE = 10
 const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
 
 /**
  * Search Result Container Component.
  */
 export default class SearchResultContainer extends Component {
-  constructor(props) {
-    super(props)
-    const { maxItemsPerPage } = props
-    props.setContextVariables({ maxItemsPerPage })
-  }
-
   state = {
     fetchMoreLoading: false,
   }
@@ -158,7 +151,6 @@ export default class SearchResultContainer extends Component {
     } = this.props
 
     const breadcrumbsProps = this.breadcrumbsProps
-    const isLoading = loading || this.props.loading
     const to = (page - 1) * maxItemsPerPage + products.length
 
     const props = {
@@ -176,7 +168,7 @@ export default class SearchResultContainer extends Component {
       params,
       fetchMore,
       to,
-      loading: isLoading,
+      loading,
       recordsFiltered,
       products,
       brands: Brands,
@@ -205,7 +197,6 @@ SearchResultContainer.defaultProps = {
   showMore: false,
   orderBy: SORT_OPTIONS[0].value,
   rest: '',
-  maxItemsPerPage: DEFAULT_MAX_ITEMS_PER_PAGE,
 }
 
 SearchResultContainer.uiSchema = {
@@ -223,11 +214,6 @@ SearchResultContainer.getSchema = props => {
     description: 'editor.search-result.description',
     type: 'object',
     properties: {
-      maxItemsPerPage: {
-        title: 'editor.search-result.maxItemsPerPage.title',
-        type: 'number',
-        default: DEFAULT_MAX_ITEMS_PER_PAGE,
-      },
       hiddenFacets: {
         title: 'editor.search-result.hiddenFacets',
         type: 'object',

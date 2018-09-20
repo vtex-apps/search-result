@@ -24,7 +24,6 @@
   "editor.search-result.pagination.infinite-scroll": "Desplazamiento infinito",
   "editor.search-result.description": "Contenedor de resultados de búsqueda",
   "editor.search-result.maxItemsPerLine.title": "Número máximo de elementos por línea",
-  "editor.search-result.maxItemsPerPage.title": "Número máximo de elementos por página",
   "editor.search-result.summary.title": "Resumen del producto",
   "editor.search-result.hiddenFacets": "Filtros Ocultados",
   "editor.search-result.hiddenFacets.brands": "Ocultar filtro de Marcas",

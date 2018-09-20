@@ -24,7 +24,6 @@
   "editor.search-result.pagination.infinite-scroll": "Infinite scrolling",
   "editor.search-result.description": "Search Result Wrapper",
   "editor.search-result.maxItemsPerLine.title": "Maximum number of items per line",
-  "editor.search-result.maxItemsPerPage.title": "Maximum number of items per page",
   "editor.search-result.summary.title": "Product Summary",
   "editor.search-result.hiddenFacets": "Hidden Filters",
   "editor.search-result.hiddenFacets.brands": "Hide Brands filter",
