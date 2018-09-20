@@ -1,23 +1,29 @@
 .vtex-search-result {
   display: grid;
-  grid-template-columns: 267px repeat(5, auto);
+  grid-template-columns: 206px repeat(5, auto);
   grid-template-areas:
-    ". breadcrumb . quantity orderby limit"
-    "filters gallery gallery gallery  gallery gallery"
-    ". pagination pagination bpagination pagination pagination";
+    "breadcrumb breadcrumb breadcrumb . quantity orderby"
+    "filters gallery gallery gallery gallery gallery"
+    ". pagination pagination pagination pagination pagination";
 }
 
 .vtex-search-result--infinite-scroll {
   grid-template-areas:
-    ". breadcrumb . . quantity orderby"
+    "breadcrumb breadcrumb breadcrumb . quantity orderby"
     "filters gallery gallery gallery gallery gallery";
 }
 
-
 .vtex-search-result--show-more {
   grid-template-areas:
-    ". breadcrumb . . quantity orderby"
-    "filters gallery gallery gallery gallery  gallery"
+    "breadcrumb breacrumb breadcrumb . quantity orderby"
+    "filters gallery gallery gallery gallery gallery"
+    ". pagination pagination pagination pagination pagination";
+}
+
+.vtex-search-result--paginated {
+  grid-template-areas:
+    "breadcrumb breadcrumb breadcrumb quantity orderby limit"
+    "filters gallery gallery gallery gallery gallery"
     ". pagination pagination pagination pagination pagination";
 }
 
@@ -140,7 +146,6 @@ body.vtex-filter-popup-open {
   .vtex-search-result {
     grid-template-columns: 1fr 1px 1fr;
     grid-template-areas:
-      "breadcrumb breadcrumb breadcrumb"
       "quantity quantity quantity"
       "filters border orderby"
       "gallery gallery gallery";

@@ -154,7 +154,7 @@ export const hiddenFacetsSchema = {
         })
       ),
     }),
-  })
+  }),
 }
 
 export const schemaPropsTypes = {
@@ -190,7 +190,7 @@ export const searchResultContainerPropTypes = {
 export const searchResultPropTypes = {
   breadcrumbsProps: PropTypes.shape({
     categories: PropTypes.array,
-    term: PropTypes.string
+    term: PropTypes.string,
   }),
   /** Number of items available according to the filters */
   recordsFiltered: PropTypes.number.isRequired,
@@ -233,5 +233,5 @@ export const loaderPropTypes = {
   /** Number of items available according to the filters */
   recordsFiltered: PropTypes.number.isRequired,
   /** Loading status when the query is refetched */
-  fetchMoreLoading: PropTypes.bool
+  fetchMoreLoading: PropTypes.bool,
 }
