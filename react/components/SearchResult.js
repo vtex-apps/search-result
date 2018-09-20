@@ -38,7 +38,7 @@ export default class SearchResult extends Component {
 
     return (
       <div className="vtex-search-result vtex-page-padding pv5 ph9-l ph7-m ph5-s">
-        <div className="vtex-search-result__breadcrumb">
+        <div className="vtex-search-result__breadcrumb db-m dn-s">
           <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
         </div>
         <div className="vtex-search-result__total-products">
