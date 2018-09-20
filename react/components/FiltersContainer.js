@@ -123,7 +123,9 @@ export default class FiltersContainer extends Component {
       hiddenFacets,
     } = this.props
 
-    if (loading) {
+    const mobile = __RUNTIME__.hints.mobile
+
+    if (loading && !mobile) {
       return (
         <ContentLoader
           style={{
@@ -178,7 +180,7 @@ export default class FiltersContainer extends Component {
       },
     ].filter(identity)
 
-    if (__RUNTIME__.hints.mobile) {
+    if (mobile) {
       return (
         <AccordionFilterContainer
           filters={filters}

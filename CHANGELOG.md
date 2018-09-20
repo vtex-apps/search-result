@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Fix breadcrumb being shown on mobile.
 
+### Removed
+- Content loader of filters on mobile.
+
 ## [1.5.1] - 2018-09-20
 ### Fixed
 - Fix breadcrumb padding to match the product details.
