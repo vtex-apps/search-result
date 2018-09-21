@@ -2,9 +2,9 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import FiltersContainer from '../../components/FiltersContainer'
+import FilterNavigator from '../FilterNavigator'
 
-describe('<FiltersContainer />', () => {
+describe('<FilterNavigator />', () => {
   beforeEach(() => {
     global.__RUNTIME__ = {
       hints: { mobile: false },
@@ -13,7 +13,7 @@ describe('<FiltersContainer />', () => {
 
   it('should match snapshot', () => {
     const wrapper = shallow(
-      <FiltersContainer
+      <FilterNavigator
         getLinkProps={jest.fn()}
         map="c"
         rest=""
@@ -66,7 +66,7 @@ describe('<FiltersContainer />', () => {
     ]
 
     const wrapper = shallow(
-      <FiltersContainer
+      <FilterNavigator
         getLinkProps={jest.fn()}
         map="c"
         rest=""
@@ -127,7 +127,7 @@ describe('<FiltersContainer />', () => {
     ]
 
     const wrapper = shallow(
-      <FiltersContainer
+      <FilterNavigator
         getLinkProps={jest.fn()}
         map="c"
         rest=""
