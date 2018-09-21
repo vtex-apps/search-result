@@ -26,8 +26,6 @@
   ],
   "dependencies": {
     "vtex.styleguide": "6.x",
-    "vtex.product-summary": "1.x",
-    "vtex.store-graphql": "2.x",
-    "vtex.breadcrumb": "0.x"
+    "vtex.store-graphql": "2.x"
   }
 }
