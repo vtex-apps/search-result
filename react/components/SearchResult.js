@@ -4,10 +4,8 @@ import { ExtensionPoint } from 'render'
 import { FormattedMessage } from 'react-intl'
 
 import LayoutModeSwitcher from './LayoutModeSwitcher'
-import FiltersContainer from './FiltersContainer'
 import { searchResultPropTypes } from '../constants/propTypes'
 import OrderBy from './OrderBy'
-import Gallery from './Gallery'
 
 /**
  * Search Result Component.
@@ -63,7 +61,8 @@ export default class SearchResult extends Component {
           </FormattedMessage>
         </div>
         <div className="vtex-search-result__filters">
-          <FiltersContainer
+          <ExtensionPoint
+            id="filter-navigator"
             brands={brands}
             getLinkProps={getLinkProps}
             map={map}
@@ -98,7 +97,8 @@ export default class SearchResult extends Component {
               </div>
             </div>
           ) : (
-            <Gallery
+            <ExtensionPoint
+              id="gallery"
               products={products}
               summary={summary}
               layoutMode={this.state.galleryLayoutMode}

@@ -4,15 +4,15 @@ import { flatten, path, identity, contains } from 'ramda'
 import ContentLoader from 'react-content-loader'
 import { withRuntimeContext } from 'render'
 
-import SelectedFilters from './SelectedFilters'
-import AvailableFilters from './AvailableFilters'
-import AccordionFilterContainer from './AccordionFilterContainer'
+import SelectedFilters from './components/SelectedFilters'
+import AvailableFilters from './components/AvailableFilters'
+import AccordionFilterContainer from './components/AccordionFilterContainer'
 import {
   formatCategoriesTree,
   mountOptions,
   getMapByType,
-} from '../constants/SearchHelpers'
-import { facetOptionShape, paramShape, hiddenFacetsSchema } from '../constants/propTypes'
+} from './constants/SearchHelpers'
+import { facetOptionShape, paramShape, hiddenFacetsSchema } from './constants/propTypes'
 
 export const CATEGORIES_TYPE = 'Categories'
 export const BRANDS_TYPE = 'Brands'
@@ -27,7 +27,7 @@ const PRICE_RANGES_TITLE = 'search.filter.title.price-ranges'
  * Wrapper around the filters (selected and available) as well
  * as the popup filters that appear on mobile devices
  */
-class FiltersContainer extends Component {
+class FilterNavigator extends Component {
   static propTypes = {
     /** Get the props to pass to render's Link */
     getLinkProps: PropTypes.func.isRequired,
@@ -208,4 +208,4 @@ class FiltersContainer extends Component {
   }
 }
 
-export default withRuntimeContext(FiltersContainer)
+export default withRuntimeContext(FilterNavigator)

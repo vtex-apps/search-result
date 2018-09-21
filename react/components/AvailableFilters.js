@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { PRICE_RANGES_TYPE } from './FiltersContainer'
+import { PRICE_RANGES_TYPE } from '../FilterNavigator'
 import { mountOptions } from '../constants/SearchHelpers'
 import SearchFilter from './SearchFilter'
 import PriceRange from './PriceRange'

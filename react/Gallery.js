@@ -2,8 +2,8 @@ import React from 'react'
 import { PropTypes } from 'prop-types'
 import classNames from 'classnames'
 
-import { productShape } from '../constants/propTypes'
-import GalleryItem from './GalleryItem'
+import { productShape } from './constants/propTypes'
+import GalleryItem from './components/GalleryItem'
 
 /**
  * Canonical gallery that displays a list of given products.
