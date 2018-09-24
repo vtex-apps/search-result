@@ -1,8 +1,8 @@
-/* global __RUNTIME__ */
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { flatten, path, identity, contains } from 'ramda'
 import ContentLoader from 'react-content-loader'
+import { withRuntimeContext } from 'render'
 
 import SelectedFilters from './SelectedFilters'
 import AvailableFilters from './AvailableFilters'
@@ -27,7 +27,7 @@ const PRICE_RANGES_TITLE = 'search.filter.title.price-ranges'
  * Wrapper around the filters (selected and available) as well
  * as the popup filters that appear on mobile devices
  */
-export default class FiltersContainer extends Component {
+class FiltersContainer extends Component {
   static propTypes = {
     /** Get the props to pass to render's Link */
     getLinkProps: PropTypes.func.isRequired,
@@ -54,7 +54,7 @@ export default class FiltersContainer extends Component {
     rest: PropTypes.string.isRequired,
     /** Loading indicator */
     loading: PropTypes.bool,
-    ...hiddenFacetsSchema
+    ...hiddenFacetsSchema,
   }
 
   static defaultProps = {
@@ -121,9 +121,8 @@ export default class FiltersContainer extends Component {
       getLinkProps,
       loading,
       hiddenFacets,
+      runtime: { hints: { mobile } },
     } = this.props
-
-    const mobile = __RUNTIME__.hints.mobile
 
     if (loading && !mobile) {
       return (
@@ -208,3 +207,5 @@ export default class FiltersContainer extends Component {
     )
   }
 }
+
+export default withRuntimeContext(FiltersContainer)
