@@ -20,6 +20,7 @@ describe('<FiltersContainer />', () => {
         params={{
           department: 'Eletronicos',
         }}
+        runtime={{ hints: { mobile: false } }}
       />
     )
 
@@ -73,6 +74,7 @@ describe('<FiltersContainer />', () => {
         params={{
           department: 'Livros',
         }}
+        runtime={{ hints: { mobile: false } }}
       />
     )
 
@@ -133,6 +135,7 @@ describe('<FiltersContainer />', () => {
         params={{
           department: 'livros',
         }}
+        runtime={{ hints: { mobile: false } }}
       />
     )
 
