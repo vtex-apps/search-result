@@ -6,11 +6,12 @@ import { FormattedMessage } from 'react-intl'
 import FiltersContainer from './FiltersContainer'
 import { searchResultPropTypes } from '../constants/propTypes'
 import OrderBy from './OrderBy'
-import Gallery from './Gallery'
+import GalleryDefault from './Gallery'
 
 /**
  * Search Result Component.
  */
+var Gallery;
 export default class SearchResult extends Component {
   static propTypes = searchResultPropTypes
 
@@ -35,7 +36,8 @@ export default class SearchResult extends Component {
       orderBy,
       hiddenFacets,
     } = this.props
-
+    Gallery = this.props.Gallery || GalleryDefault
+    console.log('search',this.props)
     return (
       <div className="vtex-search-result vtex-page-padding pv5 ph9-l ph7-m ph5-s">
         <div className="vtex-search-result__breadcrumb db-ns dn-s">
@@ -79,6 +81,7 @@ export default class SearchResult extends Component {
               </div>
             </div>
           ) : (
+            
             <Gallery
               products={products}
               summary={summary}

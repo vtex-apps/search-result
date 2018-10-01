@@ -156,6 +156,7 @@ export default class SearchResultContainer extends Component {
     const props = {
       breadcrumbsProps,
       onSetFetchMoreLoading: this.handleSetFetchMoreLoading,
+      Gallery: this.props.Gallery,
       onFetchMoreProducts: this.handleFetchMoreProducts,
       getLinkProps: this.getLinkProps,
       fetchMoreLoading: this.state.fetchMoreLoading,
