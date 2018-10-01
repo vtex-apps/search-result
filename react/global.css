@@ -89,14 +89,9 @@
   .vtex-search-result {
     grid-template-columns: 1fr 1px 1fr;
     grid-template-areas:
-      "breadcrumb breadcrumb breadcrumb"
       "quantity quantity quantity"
       "filters border orderby"
       "gallery gallery gallery";
-  }
-
-  .vtex-search-result__breadcrumb {
-    justify-self: center;
   }
 
   .vtex-search-result__total-products {

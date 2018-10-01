@@ -1,4 +1,5 @@
 {
+  "search-result.show-more-button": "Mostrar más",
   "search-result.filter-button.title": "Filtros",
   "search-result.orderby.title": "Ordenar",
   "search-result.filter-action.title": "Filtrar",
@@ -18,9 +19,11 @@
   "ordenation.name.ascending": "Nombre, creciente",
   "ordenation.name.descending": "Nombre, decreciente",
   "editor.search-result.title": "Resultado de búsqueda",
+  "editor.search-result.pagination.title": "Tipo de paginación",
+  "editor.search-result.pagination.show-more": "Mostrar más",
+  "editor.search-result.pagination.infinite-scroll": "Desplazamiento infinito",
   "editor.search-result.description": "Contenedor de resultados de búsqueda",
   "editor.search-result.maxItemsPerLine.title": "Número máximo de elementos por línea",
-  "editor.search-result.maxItemsPerPage.title": "Número máximo de elementos por página",
   "editor.search-result.summary.title": "Resumen del producto",
   "editor.search-result.hiddenFacets": "Filtros Ocultados",
   "editor.search-result.hiddenFacets.brands": "Ocultar filtro de Marcas",

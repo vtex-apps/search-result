@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.5.2] - 2018-09-28
+### Fixed
+- Fix breadcrumb being shown on mobile.
+
+### Removed
+- Content loader of filters on mobile.
+
+## [1.5.1] - 2018-09-20
+### Fixed
+- Fix breadcrumb padding to match the product details.
+
+## [1.5.0] - 2018-09-20
+### Fixed
+- Removed `ProductSearchContextProvider` state change to avoid unnecessary dependency.
+
+## [1.4.0] - 2018-09-18
+### Added
+- ShowMore loading option
+
 ## [1.3.1] - 2018-09-14
 ### Fixed
 - Fix incorrect specification filter being removed with more than 1 in map.
