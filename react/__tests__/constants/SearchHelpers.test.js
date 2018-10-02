@@ -5,7 +5,7 @@ import {
   BRANDS_TYPE,
   PRICE_RANGES_TYPE,
   SPECIFICATION_FILTERS_TYPE,
-} from '../../components/FiltersContainer'
+} from '../../FilterNavigator'
 
 describe('getSpecificationFilterFromLink', () => {
   it('should return the only specification in link', () => {

@@ -6,7 +6,7 @@ import {
   BRANDS_TYPE,
   PRICE_RANGES_TYPE,
   SPECIFICATION_FILTERS_TYPE,
-} from '../components/FiltersContainer'
+} from '../FilterNavigator'
 
 /**
  * Returns the parameter name to be used in the map

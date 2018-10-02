@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
+import { ExtensionPoint } from 'render'
 
-import ProductSummary from 'vtex.product-summary/index'
 import { productShape } from '../constants/propTypes'
 import { PropTypes } from 'prop-types'
 
@@ -38,7 +38,8 @@ export default class GalleryItem extends Component {
 
   render() {
     return (
-      <ProductSummary
+      <ExtensionPoint
+        id="product-summary"
         {...this.props.summary}
         product={this.normalizeProductSummary(this.props.item)}
         displayMode={this.props.displayMode}

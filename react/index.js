@@ -147,7 +147,7 @@ export default class SearchResultContainer extends Component {
       params,
       priceRange,
       pagination,
-      hiddenFacets
+      hiddenFacets,
     } = this.props
 
     const breadcrumbsProps = this.breadcrumbsProps
@@ -176,7 +176,7 @@ export default class SearchResultContainer extends Component {
       priceRanges: PriceRanges,
       priceRange: priceRange,
       hiddenFacets,
-      tree: CategoriesTrees
+      tree: CategoriesTrees,
     }
 
     return (
@@ -184,9 +184,9 @@ export default class SearchResultContainer extends Component {
         {pagination === PAGINATION_TYPES[0] ? (
           <ShowMoreLoaderResult {...props} />
         ) : (
-            <InfiniteScrollLoaderResult {...props} />
-          )}
-      </PopupProvider >
+          <InfiniteScrollLoaderResult {...props} />
+        )}
+      </PopupProvider>
     )
   }
 }
@@ -278,7 +278,7 @@ SearchResultContainer.getSchema = props => {
           'editor.search-result.pagination.show-more',
           'editor.search-result.pagination.infinite-scroll',
         ],
-      }
+      },
     },
   }
 }
