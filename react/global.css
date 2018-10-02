@@ -68,9 +68,6 @@
 .vtex-search-result__border {
   grid-column: border;
   grid-row: border;
-  height: 80%;
-  background-color: #c4c4c4;
-  align-self: center;
 }
 
 .vtex-search-result a {
@@ -153,9 +150,7 @@ body.vtex-filter-popup-open {
 
   .vtex-search-result__total-products {
     justify-self: stretch;
-    text-align: center;
     padding-bottom: 0.375rem;
-    border-bottom: 1px solid #c4c4c4;
   }
 
   .vtex-search-result__filter-title {
@@ -163,6 +158,10 @@ body.vtex-filter-popup-open {
   }
 
   .vtex-gallery {
-    border-top: 1px solid #c4c4c4;
+    grid-template-columns: 1fr;
+  }
+
+  .vtex-gallery--two-columns {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

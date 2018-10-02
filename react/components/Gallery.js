@@ -1,5 +1,6 @@
 import React from 'react'
 import { PropTypes } from 'prop-types'
+import classNames from 'classnames'
 
 import { productShape } from '../constants/propTypes'
 import GalleryItem from './GalleryItem'
@@ -7,18 +8,24 @@ import GalleryItem from './GalleryItem'
 /**
  * Canonical gallery that displays a list of given products.
  */
-const Gallery = props => {
-  const { products, summary } = props
+const Gallery = ({ products, summary, layoutMode }) => {
+  const classes = classNames('vtex-gallery pa3 bn-ns bt-s b--muted-4', {
+    'vtex-gallery--two-columns': layoutMode === 'small',
+  })
 
   return (
-    <div className="vtex-gallery pa3">
+    <div className={classes}>
       {products.map(item => {
         return (
           <div
             key={item.productId}
             className="vtex-gallery__item mv2 pa1"
           >
-            <GalleryItem item={item} summary={summary} />
+            <GalleryItem
+              item={item}
+              summary={summary}
+              displayMode={layoutMode}
+            />
           </div>
         )
       })}
@@ -27,12 +34,12 @@ const Gallery = props => {
 }
 
 Gallery.propTypes = {
-  /** Maximum number of items per page. */
-  maxItemsPerPage: PropTypes.number.isRequired,
   /** Products to be displayed. */
   products: PropTypes.arrayOf(productShape),
   /** ProductSummary props. */
   summary: PropTypes.any,
+  /** Layout mode of the gallery */
+  layoutMode: PropTypes.string,
 }
 
 Gallery.defaultProps = {

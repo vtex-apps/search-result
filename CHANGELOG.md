@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.6.0] - 2018-10-02
+### Added
+- Different viewmode of the result on mobile.
+
 ## [1.5.2] - 2018-09-28
 ### Fixed
 - Fix breadcrumb being shown on mobile.

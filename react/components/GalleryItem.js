@@ -13,6 +13,8 @@ export default class GalleryItem extends Component {
     item: productShape,
     /** ProductSummary props.  */
     summary: PropTypes.any,
+    /** Display mode of the product summary */
+    displayMode: PropTypes.string,
   }
 
   normalizeProductSummary(product) {
@@ -39,6 +41,7 @@ export default class GalleryItem extends Component {
       <ProductSummary
         {...this.props.summary}
         product={this.normalizeProductSummary(this.props.item)}
+        displayMode={this.props.displayMode}
       />
     )
   }

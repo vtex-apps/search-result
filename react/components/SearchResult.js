@@ -3,6 +3,7 @@ import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint } from 'render'
 import { FormattedMessage } from 'react-intl'
 
+import LayoutModeSwitcher from './LayoutModeSwitcher'
 import FiltersContainer from './FiltersContainer'
 import { searchResultPropTypes } from '../constants/propTypes'
 import OrderBy from './OrderBy'
@@ -13,6 +14,18 @@ import Gallery from './Gallery'
  */
 export default class SearchResult extends Component {
   static propTypes = searchResultPropTypes
+
+  state = {
+    galleryLayoutMode: 'normal',
+  }
+
+  handleLayoutChange = (e, mode) => {
+    e.preventDefault()
+
+    this.setState({
+      galleryLayoutMode: mode,
+    })
+  }
 
   render() {
     const {
@@ -41,12 +54,12 @@ export default class SearchResult extends Component {
         <div className="vtex-search-result__breadcrumb db-ns dn-s">
           <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
         </div>
-        <div className="vtex-search-result__total-products">
+        <div className="vtex-search-result__total-products bn-ns bb-s b--muted-4 tc-s tl">
           <FormattedMessage
             id="search.total-products"
             values={{ recordsFiltered }}
           >
-            {txt => <span className="ph4 black-50">{txt}</span>}
+            {txt => <span className="ph4 c-muted-2">{txt}</span>}
           </FormattedMessage>
         </div>
         <div className="vtex-search-result__filters">
@@ -64,7 +77,7 @@ export default class SearchResult extends Component {
             loading={loading && !fetchMoreLoading}
           />
         </div>
-        <div className="vtex-search-result__border" />
+        <div className="vtex-search-result__border bg-muted-4 h-75 self-center" />
         <div className="vtex-search-result__order-by">
           <OrderBy
             orderBy={orderBy}
@@ -72,6 +85,12 @@ export default class SearchResult extends Component {
           />
         </div>
         <div className="vtex-search-result__gallery">
+          <div className="dn-ns db-s bt b--muted-4">
+            <LayoutModeSwitcher
+              activeMode={this.state.galleryLayoutMode}
+              onChange={this.handleLayoutChange}
+            />
+          </div>
           {loading && !fetchMoreLoading ? (
             <div className="w-100 flex justify-center">
               <div className="w3 ma0">
@@ -82,6 +101,7 @@ export default class SearchResult extends Component {
             <Gallery
               products={products}
               summary={summary}
+              layoutMode={this.state.galleryLayoutMode}
             />
           )}
           {children}
