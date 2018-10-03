@@ -137,10 +137,6 @@ body.vtex-filter-popup-open {
   .vtex-search-result__border {
     display: none;
   }
-
-  .vtex-search__term {
-    display: none;
-  }
 }
 
 @media only screen and (max-width: 40em) {
