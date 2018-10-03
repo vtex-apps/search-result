@@ -133,8 +133,12 @@ body.vtex-filter-popup-open {
   }
 }
 
-@media only screen and (min-width: calc(40em + 1px)) {
+@media only screen and (min-width: 40em) {
   .vtex-search-result__border {
+    display: none;
+  }
+
+  .vtex-search__term {
     display: none;
   }
 }

@@ -47,12 +47,17 @@ export default class SearchResult extends Component {
       hiddenFacets,
     } = this.props
 
+    const term = params && params.term ? params.term : null
+
     return (
       <div className="vtex-search-result vtex-page-padding pv5 ph9-l ph7-m ph5-s">
         <div className="vtex-search-result__breadcrumb db-ns dn-s">
           <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
         </div>
         <div className="vtex-search-result__total-products bn-ns bb-s b--muted-4 tc-s tl">
+          <span className=" vtex-search__term fw4 mt1 mb1 db f4">
+            {term}
+          </span>
           <FormattedMessage
             id="search.total-products"
             values={{ recordsFiltered }}
