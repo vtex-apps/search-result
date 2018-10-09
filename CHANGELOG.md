@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.0.2] - 2018-10-09
 ### Fixed
 - Change breakpoint of vertical divider in SearchResult in mobile view and add :term to the view + correction of encoded values passed to :term 
 
