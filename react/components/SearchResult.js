@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint } from 'render'
 import { FormattedMessage } from 'react-intl'
@@ -122,6 +122,25 @@ export default class SearchResult extends Component {
 
     const term = params && params.term
       ? decodeURIComponent(params.term) : undefined
+
+    if (!products.length && !loading) {
+      return (
+        <div className="flex justify-center items-center h5">
+          <FormattedMessage
+            id="search.empty-products"
+            values={{
+              term: <span className="b">{params.term}</span>,
+            }}
+          >
+            {(...textList) => (
+              <span className="c-muted-2">
+                {textList.map((text, index) => <Fragment key={index}>{text}</Fragment>)}
+              </span>
+            )}
+          </FormattedMessage>
+        </div>
+      )
+    }
 
     const hideFacets = !map || !map.length
 
