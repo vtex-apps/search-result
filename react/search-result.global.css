@@ -9,8 +9,26 @@
     ;
 }
 
+.vtex-search-result__total-products {
+    display: inline-block;
+    position: relative;
+}
+
+.vtex-search-result__total-products span {
+    color: var(--black);
+    display: inline-block;
+    font-weight: 300;
+    padding: 0;
+    position: absolute;
+    top: 18px;
+    width: 100px;
+}
+
 .vtex-search-result__filters{
+    float: left;
     grid-area: filtro;
+    margin-right: 60px;
+    width: 260px;
 }
 
 .vtex-search-result__order-by{
@@ -18,6 +36,13 @@
     display: flex;
     align-items: center;
 }
+
+.vtex-search-result__order-by .vtex-dropdown label > div {
+    border: 1px solid var(--white-two);
+    border-radius: 0;
+    font-weight: 400;
+}
+
 .vtex-search-result__gallery{
     grid-area: galeria;
 }
@@ -97,7 +122,8 @@ svg rect {
         justify-self: self-start;
     }
     .vtex-search-result__order-by{
-        padding-left: 200px;
+        padding-left: 120px;
+        margin-bottom: 20px;
     }
 
     .vtex-dropdown{
@@ -124,6 +150,99 @@ svg rect {
         padding: 0 20%;
     }
 }
+
+/* Sobrescreve CSS do Filtro e Ordenação da VTEX - Daqui */
+
+@media (max-width: 768px) {
+    .vtex-search-result__filters {
+        height: 70px;
+        margin-top: 20px;
+        width: 51%;
+    }
+    
+    .vtex-search-result__filters:before {
+        background-color: var(--white-two);
+        content: '';
+        height: 70px;
+        left: -20px;
+        position: absolute;
+        width: 100vw;
+    }
+    
+    .vtex-search-result__filters .vtex-filter-popup__button {
+        background-color: var(--orange);
+        border-radius: 25px;
+        color: var(--white);
+        margin: 10px 0 0;
+        width: 130px;
+    }
+    
+    .vtex-search-result__filters .vtex-filter-popup__button .vtex-filter-popup__title {
+        margin: 0;
+    }
+    
+    .vtex-search-result__filters .vtex-filter-popup__button .vtex-filter-popup__title:before {
+        content: '\e954';
+        font-family: 'brastemp-icons';
+        margin-right: 15px;
+    }
+    
+    .vtex-search-result__filters .vtex-filter-popup__button .vtex-filter-popup__arrow-icon {
+        display: none;
+    }
+    
+    .vtex-search-result__order-by {
+        width: 100%;
+    }
+    
+    .vtex-search-result__order-by .vtex-filter-popup__button {
+        background-color: var(--white);
+        justify-content: start;
+        padding-left: 20px;
+        width: 185px;
+    }
+    
+    .vtex-search-result__order-by .vtex-filter-popup__title {
+        margin: 0;
+    }
+    
+    .vtex-search-result__order-by .vtex-filter-popup__title:after {
+        content: '\e90b';
+        color: var(--orange);
+        font-family: 'brastemp-icons';
+        font-size: 8px;
+        position: absolute;
+        right: 30px;
+        top: 20px;
+    }
+    
+    .vtex-search-result__order-by .vtex-filter-popup__arrow-icon {
+        display: none;
+    }
+    
+    .vtex-search-result__order-by:after {
+        background-color: var(--white-two);;
+        content: '';
+        height: 70px;
+        margin-top: -35px;
+        position: absolute;
+        right: 0;
+        width: 51%;
+    }
+    
+    .vtex-search-result__order-by .vtex-filter-popup {
+        margin-top: -35px;
+        position: absolute;
+        right: 5px;
+        z-index: 1;
+    }
+    
+    .vtex-search-result__gallery {
+        margin-top: 40px;
+    }
+}
+
+/* Sobrescreve CSS do Filtro e Ordenação da VTEX - Até aqui */
 
 @media screen and (max-width:767px){
     .vtex-search-result__gallery{
