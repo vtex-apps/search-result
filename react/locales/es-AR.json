@@ -10,6 +10,7 @@
   "search.text": "Mostrar {from}-{to} de {recordsFiltered} resultados",
   "search.selected-filters": "Filtrado por:",
   "search.total-products": "{recordsFiltered} Productos",
+  "search.empty-products": "No hay publicaciones que coincidan con {term}. Ver otros productos de la tienda",
   "ordenation.button": "Ordenar",
   "ordenation.sales": "Vendas",
   "ordenation.release.date": "Más reciente",
