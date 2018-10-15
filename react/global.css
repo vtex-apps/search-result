@@ -127,13 +127,17 @@ body.vtex-filter-popup-open {
   width: 1rem;
 }
 
+.vtex-search-result__term {
+  color: #4f4f4f;
+}
+
 @media only screen and (max-width: 60em) {
   .vtex-search-result {
     grid-template-columns: 180px repeat(5, auto);
   }
 }
 
-@media only screen and (min-width: calc(40em + 1px)) {
+@media only screen and (min-width: 40em) {
   .vtex-search-result__border {
     display: none;
   }
@@ -150,7 +154,6 @@ body.vtex-filter-popup-open {
 
   .vtex-search-result__total-products {
     justify-self: stretch;
-    padding-bottom: 0.375rem;
   }
 
   .vtex-search-result__filter-title {

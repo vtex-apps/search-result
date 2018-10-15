@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.0.2] - 2018-10-09
+### Fixed
+- Change breakpoint of vertical divider in SearchResult in mobile view and add :term to the view + correction of encoded values passed to :term 
+
 ## [2.0.1] - 2018-10-02
 ### Changed
 - Moved the filter navigator, gallery and product summary to extension points.
