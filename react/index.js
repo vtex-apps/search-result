@@ -29,15 +29,15 @@ export default class SearchResultContainer extends Component {
     const categories = []
 
     if (department) {
-      categories.push(department)
+      categories.push(decodeURIComponent(department))
     }
 
     if (category) {
-      categories.push(`${department}/${category}/`)
+      categories.push(`${decodeURIComponent(department)}/${decodeURIComponent(category)}/`)
     }
 
     return {
-      term,
+      term: term ? decodeURIComponent(term) : term,
       categories,
     }
   }
