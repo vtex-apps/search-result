@@ -14,6 +14,95 @@ const DEFAULT_MAX_ITEMS_PER_PAGE = 10
  * Search Result Query Loader Component.
  * This Component queries the search if the search-result doesn't receive it already
  */
+<<<<<<< HEAD
+export default class SearchResultContainer extends Component {
+  state = {
+    fetchMoreLoading: false,
+  }
+
+  get breadcrumbsProps() {
+    const {
+      params: { category, department, term },
+    } = this.props
+
+    const categories = []
+
+    if (department) {
+      categories.push(decodeURIComponent(department))
+    }
+
+    if (category) {
+      categories.push(`${decodeURIComponent(department)}/${decodeURIComponent(category)}/`)
+    }
+
+    return {
+      term: term ? decodeURIComponent(term) : term,
+      categories,
+    }
+  }
+
+  getLinkProps = (spec, useEmptyMapAndRest = false) => {
+    const {
+      rest,
+      map,
+      pagesPath,
+      params,
+    } = this.props
+    const filters = Array.isArray(spec) ? spec : [spec]
+
+    if (filters.length === 0) {
+      return {
+        page: pagesPath,
+        params,
+      }
+    }
+
+    const pageProps = filters.reduce(
+      (linkProps, filter) => {
+        const { type, ordenation, pageNumber, isSelected, path, name, link, slug } = filter
+        const order = ordenation || linkProps.query.order
+
+        return getPagesArgs({
+          ...linkProps,
+          query: {
+            ...linkProps.query,
+            order,
+          },
+          pagesPath: linkProps.page,
+          name,
+          slug,
+          link,
+          path,
+          type,
+          pageNumber,
+          isUnselectLink: isSelected,
+        })
+      },
+      {
+        page: pagesPath,
+        params,
+        query: {
+          order: this.props.orderBy,
+          map: useEmptyMapAndRest
+            ? getBaseMap(map, rest).split(',').filter(x => x)
+            : map.split(','),
+          rest: useEmptyMapAndRest ? [] : rest.split(',').filter(x => x),
+        },
+      }
+    )
+
+    const queryString = QueryString.stringify({
+      ...pageProps.query,
+      map: pageProps.query.map.join(','),
+      rest: pageProps.query.rest.join(',') || undefined,
+    })
+
+    return {
+      page: pageProps.page,
+      queryString: queryString,
+      params: pageProps.params,
+    }
+=======
 export default class SearchResultQueryLoader extends Component {
   static defaultProps = {
     orderBy: SORT_OPTIONS[0].value,
@@ -21,6 +110,7 @@ export default class SearchResultQueryLoader extends Component {
     querySchema: {
       maxItemsPerPage: DEFAULT_MAX_ITEMS_PER_PAGE,
     },
+>>>>>>> Added the possibility of local queries to use the SearchResult without search context
   }
 
   static uiSchema = {
