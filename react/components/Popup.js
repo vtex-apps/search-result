@@ -94,7 +94,7 @@ export default class Popup extends Component {
           })
 
           const contentClassName = classNames(
-            'vtex-filter-popup__content-container h-auto bg-white fixed dn w-100 left-0 bottom-0 z-999 ph3 overflow-y-auto flex-column',
+            'vtex-filter-popup__content-container h-auto bg-white fixed dn w-100 left-0 bottom-0 z-1 ph3 overflow-y-auto flex-column',
             {
               'vtex-filter-popup__content-container--open flex': open,
             }
