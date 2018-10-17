@@ -34,7 +34,7 @@ export default class SearchResultQueryLoader extends Component {
 
   render() {
     const { querySchema } = this.props
-    return !this.props.searchQuery || querySchema.enableLocalQuery ? (
+    return !this.props.searchQuery || querySchema.enableCustomQuery ? (
       <WithQuery
         {...this.props}
         {...querySchema}
@@ -47,7 +47,7 @@ export default class SearchResultQueryLoader extends Component {
 }
 
 SearchResultQueryLoader.getSchema = props => {
-  const queryProperties = props.querySchema && props.querySchema.enableLocalQuery
+  const queryProperties = props.querySchema && props.querySchema.enableCustomQuery
     ? {
         maxItemsPerPage: {
           title: 'editor.search-result.query.maxItemsPerPage',
@@ -78,8 +78,8 @@ SearchResultQueryLoader.getSchema = props => {
         description: 'editor.search-result.query.description',
         type: 'object',
         properties: {
-          enableLocalQuery: {
-            title: 'editor.search-result.query.enableLocalQuery',
+          enableCustomQuery: {
+            title: 'editor.search-result.query.enableCustomQuery',
             type: 'boolean',
           },
           ...queryProperties,
