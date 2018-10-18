@@ -71,7 +71,7 @@ export default class SearchResultContainer extends Component {
           },
           pagesPath: linkProps.page,
           name,
-          slug: slug || name,
+          slug,
           link,
           path,
           type,
