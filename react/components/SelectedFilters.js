@@ -5,6 +5,7 @@ import { Link } from 'render'
 
 import FilterOptionTemplate from './FilterOptionTemplate'
 import Check from '../images/Check'
+import { formatFacetToLinkPropsParam } from '../constants/SearchHelpers'
 
 /**
  * Search Filter Component.
@@ -36,17 +37,14 @@ class SelectedFilters extends Component {
         collapsable={false}
         selected
       >
-        {({ Name: name, Link: link, path, type, slug }) => {
-          const pagesArgs = this.props.getLinkProps({
-            name,
-            path,
-            link,
-            type,
-            isSelected: true,
-          })
+        {opt => {
+          const pagesArgs = this.props.getLinkProps(
+            formatFacetToLinkPropsParam(opt.type, opt)
+          )
+
           return (
             <Link
-              key={slug}
+              key={opt.slug}
               className="w-100 flex clear-link"
               page={pagesArgs.page}
               params={pagesArgs.params}
@@ -63,7 +61,7 @@ class SelectedFilters extends Component {
                   onChange={e => e.preventDefault()}
                   checked
                 />
-                {name}
+                {opt.Name}
               </label>
             </Link>
           )

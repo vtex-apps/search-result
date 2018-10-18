@@ -247,7 +247,7 @@ export function mountOptions(options, type, map, rest) {
   const restMap = restMapped(rest, map)
 
   return options.reduce((acc, opt) => {
-    const slug = opt.Slug || opt.normalizedName || opt.Name
+    const slug = opt.Slug || (opt.normalizedName || opt.Name).replace(/[^\w\d]/g, '-')
     const optMap = type === SPECIFICATION_FILTERS_TYPE
       ? getSpecificationFilterFromLink(opt.Link, map.split(','))
       : getMapByType(type)
@@ -307,7 +307,7 @@ export function formatFacetToLinkPropsParam(type, option, oneSelectedCollapse = 
     name: option.Name,
     link: option.Link,
     path: option.path,
-    slug: option.Slug,
+    slug: option.slug,
     isSelected: option.selected,
     oneSelectedCollapse,
     type,
