@@ -2,7 +2,7 @@ import { identity } from 'ramda'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import { withRuntimeContext } from 'render'
-import searchQuery from '../queries/searchQuery.gql'
+import { Queries } from 'vtex.store'
 
 const SORT_OPTIONS = [
   {
@@ -120,7 +120,7 @@ class WithQuery extends Component {
 
     return (
       <Query
-        query={searchQuery}
+        query={Queries.search}
         variables={queryField ? customSearch : defaultSearch}
         notifyOnNetworkStatusChange
       >

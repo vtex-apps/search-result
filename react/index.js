@@ -5,7 +5,7 @@ import ProductSummary from 'vtex.product-summary/index'
 
 import SearchResultContainer from './components/SearchResultContainer'
 import { SORT_OPTIONS } from './components/OrderBy'
-import WithQuery from './components/withQuery'
+import WithQuery from './components/WithQuery'
 
 const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
