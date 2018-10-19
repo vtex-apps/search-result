@@ -49,7 +49,7 @@ function createInitialMap(params) {
   return map.filter(identity).join(',')
 }
 
-class WithQuery extends Component {
+class LocalQuery extends Component {
   static schema = {
     title: 'editor.product-search.title',
     type: 'object',
@@ -150,4 +150,4 @@ class WithQuery extends Component {
   }
 }
 
-export default withRuntimeContext(WithQuery)
+export default withRuntimeContext(LocalQuery)
