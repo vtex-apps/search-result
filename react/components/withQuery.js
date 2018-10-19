@@ -4,6 +4,8 @@ import { Query } from 'react-apollo'
 import { withRuntimeContext } from 'render'
 import { Queries } from 'vtex.store'
 
+const DEFAULT_PAGE = 1
+
 const SORT_OPTIONS = [
   {
     value: 'OrderByTopSaleDESC',
@@ -46,8 +48,6 @@ function createInitialMap(params) {
 
   return map.filter(identity).join(',')
 }
-
-const DEFAULT_PAGE = 1
 
 class WithQuery extends Component {
   static schema = {
