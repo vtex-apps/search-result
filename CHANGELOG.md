@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Update loading to use an overlay instead of content loader after initial mount.
 
+### Added
+- Not found page component.
+
 ## [2.4.1] - 2018-11-22
 ### Changed
 - Changes to search scroll the window to the top of the search result
