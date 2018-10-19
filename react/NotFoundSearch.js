@@ -8,8 +8,8 @@ const flexStyle = { flex: 1 }
 export default function NotFoundSearch({ term }) {
   return (
     <Fragment>
-      <div className="vtex-search-not-found flex justify-center items-center h5">
-        <div className="flex justify-end ttu f1 ph4 c-muted-3 ph9 b" style={flexStyle}>
+      <div className="vtex-search-not-found flex flex-column-s flex-row-ns justify-center-ns items-center h-auto-s h5-ns">
+        <div className="flex justify-end-ns justify-center-s ttu f1 ph4 pv4-s pv0-ns c-muted-3 ph9 b" style={flexStyle}>
           ops!
         </div>
         <div className="ph9" style={flexStyle}>
