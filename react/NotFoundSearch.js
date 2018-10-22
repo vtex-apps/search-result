@@ -6,6 +6,10 @@ import { range } from 'ramda'
 
 const flexStyle = { flex: 1 }
 
+/**
+ * Not found page component, rendered when the search doesn't return any
+ * products from the API.
+ */
 const NotFoundSearch = ({ term }) => {
   return (
     <Fragment>
