@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React, { Fragment } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { ExtensionPoint } from 'render'
@@ -8,7 +9,7 @@ const flexStyle = { flex: 1 }
 export default function NotFoundSearch({ term }) {
   return (
     <Fragment>
-      <div className="vtex-search-not-found flex flex-column-s flex-row-ns justify-center-ns items-center h-auto-s h5-ns">
+      <div className="vtex-search-not-found vtex-page-padding flex flex-column-s flex-row-ns justify-center-ns items-center h-auto-s h5-ns">
         <div className="flex justify-end-ns justify-center-s ttu f1 ph4 pv4-s pv0-ns c-muted-3 ph9 b" style={flexStyle}>
           ops!
         </div>
