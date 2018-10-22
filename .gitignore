@@ -36,3 +36,6 @@ npm-debug.log
 lib
 .eslintrc
 package-lock.json
+
+
+*.orig
