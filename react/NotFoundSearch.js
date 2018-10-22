@@ -6,7 +6,7 @@ import { range } from 'ramda'
 
 const flexStyle = { flex: 1 }
 
-export default function NotFoundSearch({ term }) {
+const NotFoundSearch = ({ term }) => {
   return (
     <Fragment>
       <div className="vtex-search-not-found vtex-page-padding flex flex-column-s flex-row-ns justify-center-ns items-center h-auto-s h5-ns">
@@ -31,7 +31,7 @@ export default function NotFoundSearch({ term }) {
           </FormattedMessage>
           <ul className="c-muted-2">
             {range(1, 5).map(id => (
-              <FormattedMessage id={`search.what-to-do.${id}`}>
+              <FormattedMessage id={`search.what-to-do.${id}`} key={id}>
                 {text => <li key={text}>{text}</li>}
               </FormattedMessage>
             ))}
@@ -47,3 +47,5 @@ NotFoundSearch.propTypes = {
   /** Search term */
   term: PropTypes.string.isRequired,
 }
+
+export default NotFoundSearch
