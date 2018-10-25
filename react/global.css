@@ -1,4 +1,4 @@
-.vtex-search-result {
+.vtex-search-result__header {
   display: grid;
   grid-template-columns: 206px repeat(5, auto);
   grid-template-areas:
@@ -132,7 +132,7 @@ body.vtex-filter-popup-open {
 }
 
 @media only screen and (max-width: 60em) {
-  .vtex-search-result {
+  .vtex-search-result__header {
     grid-template-columns: 180px repeat(5, auto);
   }
 }
@@ -144,7 +144,7 @@ body.vtex-filter-popup-open {
 }
 
 @media only screen and (max-width: 40em) {
-  .vtex-search-result {
+  .vtex-search-result__header {
     grid-template-columns: 1fr 1px 1fr;
     grid-template-areas:
       "quantity quantity quantity"

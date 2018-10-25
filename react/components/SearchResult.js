@@ -52,45 +52,47 @@ export default class SearchResult extends Component {
 
     return (
       <div className="vtex-search-result vtex-page-padding pv5 ph9-l ph7-m ph5-s">
-        <div className="vtex-search-result__breadcrumb db-ns dn-s">
-          <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
-        </div>
-        <div className="vtex-search-result__total-products pb5 bn-ns bb-s b--muted-4 tc-s tl">
-          <span className="vtex-search-result__term fw4 dn-ns db-s f4">
-            {term}
-          </span>
-          <FormattedMessage
-            id="search.total-products"
-            values={{ recordsFiltered }}
-          >
-            {txt => <span className="ph4 c-muted-2">{txt}</span>}
-          </FormattedMessage>
-        </div>
-        <div className="vtex-search-result__filters">
-          <ExtensionPoint
-            id="filter-navigator"
-            brands={brands}
-            getLinkProps={getLinkProps}
-            map={map}
-            params={params}
-            priceRange={priceRange}
-            priceRanges={priceRanges}
-            rest={rest}
-            specificationFilters={specificationFilters}
-            tree={tree}
-            hiddenFacets={hiddenFacets}
-            loading={loading && !fetchMoreLoading}
-          />
-        </div>
-        <div className="vtex-search-result__border bg-muted-4 h-75 self-center" />
-        <div className="vtex-search-result__order-by">
-          <OrderBy
-            orderBy={orderBy}
-            getLinkProps={getLinkProps}
-          />
+        <div className="vtex-search-result__header">
+          <div className="vtex-search-result__breadcrumb db-ns dn-s">
+            <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
+          </div>
+          <div className="vtex-search-result__total-products pb5 bn-ns bb-s b--muted-4 tc-s tl">
+            <span className="vtex-search-result__term fw4 dn-ns db-s f4">
+              {term}
+            </span>
+            <FormattedMessage
+              id="search.total-products"
+              values={{ recordsFiltered }}
+            >
+              {txt => <span className="ph4 c-muted-2">{txt}</span>}
+            </FormattedMessage>
+          </div>
+          <div className="vtex-search-result__filters">
+            <ExtensionPoint
+              id="filter-navigator"
+              brands={brands}
+              getLinkProps={getLinkProps}
+              map={map}
+              params={params}
+              priceRange={priceRange}
+              priceRanges={priceRanges}
+              rest={rest}
+              specificationFilters={specificationFilters}
+              tree={tree}
+              hiddenFacets={hiddenFacets}
+              loading={loading && !fetchMoreLoading}
+            />
+          </div>
+          <div className="vtex-search-result__border bg-muted-4 h-75 self-center" />
+          <div className="vtex-search-result__order-by">
+            <OrderBy
+              orderBy={orderBy}
+              getLinkProps={getLinkProps}
+            />
+          </div>
         </div>
         <div className="vtex-search-result__gallery">
-          <div className="dn-ns db-s bt b--muted-4">
+          <div className="vtex-search-result__mode-switcher dn-ns db-s bt b--muted-4">
             <LayoutModeSwitcher
               activeMode={this.state.galleryLayoutMode}
               onChange={this.handleLayoutChange}
