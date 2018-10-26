@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Update loading to use an overlay instead of content loader after initial mount.
 
 ## [2.4.0] - 2018-11-16
 ### Changed
