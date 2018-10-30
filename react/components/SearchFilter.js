@@ -68,7 +68,7 @@ class SearchFilter extends Component {
               scrollOptions={false}
             >
               <span
-                className="f6 fw3 bb db"
+                className="t-small bb db"
                 style={{
                   borderColor: opt.selected
                     ? SELECTED_FILTER_COLOR
