@@ -50,8 +50,8 @@ class SelectionListOrderBy extends Component {
             return (
               <div
                 key={opt.label}
-                className={classNames('vtex-orderby__item pointer pv3 ph7 bb b--light-gray', {
-                  'vtex-orderby__item--active dark-gray normal': active,
+                className={classNames('vtex-orderby__item pointer pv3 ph7 bb b--muted-4', {
+                  'vtex-orderby__item--active normal c-on-base': active,
                   'fw3': !active,
                 })}
                 onClick={this.handleSelect(opt)}
