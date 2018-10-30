@@ -68,7 +68,7 @@ class SearchFilter extends Component {
               scrollOptions={{ baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET }}
             >
               <span
-                className="f6 fw3 bb db"
+                className="t-small bb db"
                 style={{
                   borderColor: opt.selected
                     ? SELECTED_FILTER_COLOR
