@@ -5,7 +5,8 @@ export default function FooterButton({ children, tag, ...props }) {
   const Tag = tag || 'button'
 
   return (
-    <Tag {...props} className="vtex-footer-button link pointer f5 bg-dark-gray br1 white ba b--white pv2 ph7 hover-bg-white hover-dark-gray">
+    <Tag {...props} className="vtex-footer-button link pointer f5 bg-base--inverted br1 c-on-base--inverted
+      ba b--muted-5 pv2 ph7 hover-bg-muted-5 hover-c-action-primary">
       {children}
     </Tag>
   )
