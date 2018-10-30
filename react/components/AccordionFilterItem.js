@@ -30,7 +30,7 @@ const AccordionFilterItem = ({
     >
       <div
         className={classNames('vtex-accordion-filter__item-title', {
-          'normal dark-gray': open,
+          'normal c-muted-1': open,
         })}
       >
         {getFilterTitle(title, intl)}
