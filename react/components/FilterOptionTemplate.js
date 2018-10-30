@@ -55,7 +55,7 @@ export default class FilterOptionTemplate extends Component {
       return null
     }
 
-    const className = classNames('vtex-search-result__filter pv3 bb b--light-gray', {
+    const className = classNames('vtex-search-result__filter pv3 bb b--muted-4', {
       'vtex-search-result__filter--selected': selected,
       'vtex-search-result__filter--available': !selected,
     })
