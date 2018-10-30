@@ -64,7 +64,7 @@ class SearchFooter extends Component {
         {page > maxNumberButtons ? (
           <Fragment>
             <div className="ph2 c-disabled pointer">1</div>
-            <div className="ph2 gray">&hellip;</div>
+            <div className="ph2 c-disabled">&hellip;</div>
             {page <= lastPage - maxNumberButtons ? (
               <Fragment>
                 <div
