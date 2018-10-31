@@ -5,9 +5,15 @@ export default function SingleItemGrid({ active }) {
   const color = active ? '#828282' : '#ececec'
 
   return (
-    <svg width="10" height="19" viewBox="0 0 10 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="10" height="14" fill={color} />
-      <rect y="16" width="10" height="3" fill={color} />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="10"
+      height="19"
+      viewBox="0 0 10 19"
+      fill="none"
+      color={color}
+    >
+      <use href="#ds-single-item-grid" />
     </svg>
   )
 }
