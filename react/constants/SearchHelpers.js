@@ -247,7 +247,14 @@ export function mountOptions(options, type, map, rest) {
   const restMap = restMapped(rest, map)
 
   return options.reduce((acc, opt) => {
-    const slug = opt.Slug || (opt.normalizedName || opt.Name).replace(/[^\w\d]/g, '-')
+    let slug
+
+    if (opt.type === BRANDS_TYPE) {
+      slug = opt.Name.replace(/[^\w\d]/g, '-')
+    } else {
+      slug = opt.Slug || opt.normalizedName || opt.Name
+    }
+
     const optMap = type === SPECIFICATION_FILTERS_TYPE
       ? getSpecificationFilterFromLink(opt.Link, map.split(','))
       : getMapByType(type)
