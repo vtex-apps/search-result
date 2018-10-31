@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - Update loading to use an overlay instead of content loader after initial mount.
+- Use icons from the dreamstore icon pack.
 
 ### Changed
 - Replace tachyons classes with design tokens.
