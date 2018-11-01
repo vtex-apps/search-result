@@ -10,7 +10,7 @@ export default function Check({ size }) {
       viewBox="0 0 9 9"
       fill="none"
     >
-      <use href="#ds-check" />
+      <use href="#check" />
     </svg>
   )
 }

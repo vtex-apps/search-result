@@ -13,7 +13,7 @@ export default function Grid({ active }) {
       fill="none"
       color={color}
     >
-      <use href="#ds-grid" />
+      <use href="#grid" />
     </svg>
   )
 }

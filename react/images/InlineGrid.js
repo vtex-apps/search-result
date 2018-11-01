@@ -13,7 +13,7 @@ export default function InlineGrid({ active }) {
       fill="none"
       color={color}
     >
-      <use href="#ds-inline-grid" />
+      <use href="#inline-grid" />
     </svg>
   )
 }

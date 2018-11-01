@@ -13,7 +13,7 @@ export default function SingleItemGrid({ active }) {
       fill="none"
       color={color}
     >
-      <use href="#ds-single-item-grid" />
+      <use href="#single-item-grid" />
     </svg>
   )
 }

@@ -10,7 +10,7 @@ export default class CheckTick extends Component {
         viewBox="0 0 11 9"
         fill="none"
       >
-        <use href="#ds-check-tick" />
+        <use href="#check-tick" />
       </svg>
     )
   }

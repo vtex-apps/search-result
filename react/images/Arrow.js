@@ -27,7 +27,7 @@ export default class Arrow extends Component {
 
     return (
       <svg width={width} height={height} viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <use href={up ? '#ds-arrow-up' : '#ds-arrow-down'} />
+        <use href={up ? '#arrow-up' : '#arrow-down'} />
       </svg>
     )
   }
