@@ -61,7 +61,7 @@ class SearchFilter extends Component {
           return (
             <Link
               key={opt.Name}
-              className="clear-link w-100"
+              className="clear-link link w-100"
               page={pagesArgs.page}
               params={pagesArgs.params}
               query={pagesArgs.queryString}

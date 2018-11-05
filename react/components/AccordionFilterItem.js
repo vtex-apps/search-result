@@ -22,7 +22,7 @@ const AccordionFilterItem = ({
 }) => (
   <Fragment>
     <div
-      className={classNames('vtex-accordion-filter__item t-action--small pv3 ph7 pointer bb b--muted-4', {
+      className={classNames('vtex-accordion-filter__item t-body pv3 ph7 pointer bb b--muted-4', {
         'vtex-accordion-filter__item--active': open,
         'vtex-accordion-filter__item--hidden dn': !show,
       })}
@@ -30,7 +30,7 @@ const AccordionFilterItem = ({
     >
       <div
         className={classNames('vtex-accordion-filter__item-title', {
-          'normal c-muted-1': open,
+          'c-on-base': open,
         })}
       >
         {getFilterTitle(title, intl)}
@@ -48,7 +48,7 @@ const AccordionFilterItem = ({
           return (
             <Link
               key={opt.Name}
-              className="vtex-accordion-filter__item-opt pv3 ph7 pointer bb b--muted-4 link t-action--small db c-muted-1"
+              className="vtex-accordion-filter__item-opt pv3 ph7 pointer bb b--muted-4 link db c-muted-1"
               page={pagesArgs.page}
               params={pagesArgs.params}
               query={pagesArgs.queryString}
