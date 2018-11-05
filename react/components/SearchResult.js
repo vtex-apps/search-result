@@ -51,7 +51,7 @@ export default class SearchResult extends Component {
       decodeURIComponent(params.term) : undefined
 
     return (
-      <div className="vtex-search-result vtex-page-padding pv5 ph9-l ph7-m ph5-s">
+      <div className="vtex-search-result vtex-page-padding center pv5">
         <div className="vtex-search-result__breadcrumb db-ns dn-s">
           <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
         </div>
