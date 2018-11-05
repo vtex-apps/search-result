@@ -141,7 +141,7 @@ export default class SearchResult extends Component {
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
           <div className="vtex-search-result__total-products pb5 bn-ns bb-s b--muted-4 tc-s tl">
-            <span className="vtex-search-result__term dn-ns db-s t-body">
+            <span className="vtex-search-result__term dn-ns db-s t-heading-5">
               {term}
             </span>
             <FormattedMessage
@@ -177,29 +177,29 @@ export default class SearchResult extends Component {
               getLinkProps={getLinkProps}
             />
           </div>
-        </div>
-        <div className="vtex-search-result__gallery">
-          <div className="dn-ns db-s bt b--muted-4">
-            <LayoutModeSwitcher
-              activeMode={this.state.galleryLayoutMode}
-              onChange={this.handleLayoutChange}
-            />
-          </div>
-          {showContentLoader ? (
-            <div className="w-100 flex justify-center">
-              <div className="w3 ma0">
-                <Spinner />
-              </div>
+          <div className="vtex-search-result__gallery">
+            <div className="dn-ns db-s bt b--muted-4">
+              <LayoutModeSwitcher
+                activeMode={this.state.galleryLayoutMode}
+                onChange={this.handleLayoutChange}
+              />
             </div>
-          ) : (
-            <ExtensionPoint
-              id="gallery"
-              products={products}
-              summary={summary}
-              layoutMode={this.state.galleryLayoutMode}
-            />
-          )}
-          {children}
+            {showContentLoader ? (
+              <div className="w-100 flex justify-center">
+                <div className="w3 ma0">
+                  <Spinner />
+                </div>
+              </div>
+            ) : (
+                <ExtensionPoint
+                  id="gallery"
+                  products={products}
+                  summary={summary}
+                  layoutMode={this.state.galleryLayoutMode}
+                />
+              )}
+            {children}
+          </div>
         </div>
       </LoadingOverlay>
     )
