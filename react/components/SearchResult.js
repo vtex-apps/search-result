@@ -66,7 +66,7 @@ export default class SearchResult extends Component {
             {txt => <span className="ph4 c-muted-2">{txt}</span>}
           </FormattedMessage>
         </div>
-        <div className="vtex-search-result__filters">
+        <div className="vtex-search-result__filters pl4">
           <ExtensionPoint
             id="filter-navigator"
             brands={brands}
@@ -83,7 +83,7 @@ export default class SearchResult extends Component {
           />
         </div>
         <div className="vtex-search-result__border bg-muted-4 h-75 self-center" />
-        <div className="vtex-search-result__order-by">
+        <div className="vtex-search-result__order-by pr4">
           <OrderBy
             orderBy={orderBy}
             getLinkProps={getLinkProps}
