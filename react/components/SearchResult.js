@@ -47,8 +47,8 @@ export default class SearchResult extends Component {
       hiddenFacets,
     } = this.props
 
-    const term = params && params.term ?
-      decodeURIComponent(params.term) : undefined
+    const term = params && params.term
+      ? decodeURIComponent(params.term) : undefined
 
     return (
       <div className="vtex-search-result vtex-page-padding pv5 ph9-l ph7-m ph5-s">
