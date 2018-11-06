@@ -6,37 +6,6 @@ import { Queries } from 'vtex.store'
 
 const DEFAULT_PAGE = 1
 
-const SORT_OPTIONS = [
-  {
-    value: 'OrderByTopSaleDESC',
-    label: 'ordenation.sales',
-  },
-  {
-    value: 'OrderByReleaseDateDESC',
-    label: 'ordenation.release.date',
-  },
-  {
-    value: 'OrderByBestDiscountDESC',
-    label: 'ordenation.discount',
-  },
-  {
-    value: 'OrderByPriceDESC',
-    label: 'ordenation.price.descending',
-  },
-  {
-    value: 'OrderByPriceASC',
-    label: 'ordenation.price.ascending',
-  },
-  {
-    value: 'OrderByNameASC',
-    label: 'ordenation.name.ascending',
-  },
-  {
-    value: 'OrderByNameDESC',
-    label: 'ordenation.name.descending',
-  },
-]
-
 function createInitialMap(params) {
   const map = [
     params.term && 'ft',
@@ -50,29 +19,6 @@ function createInitialMap(params) {
 }
 
 class LocalQuery extends Component {
-  static schema = {
-    title: 'editor.product-search.title',
-    type: 'object',
-    properties: {
-      maxItemsPerPage: {
-        title: 'editor.product-search.maxItemsPerPage',
-        type: 'number',
-      },
-      queryField: {
-        title: 'Query',
-        type: 'string',
-      },
-      mapField: {
-        title: 'Map',
-        type: 'string',
-      },
-      restField: {
-        title: 'Other Query Strings',
-        type: 'string',
-      },
-    },
-  }
-
   render() {
     const {
       nextTreePath,
@@ -81,8 +27,9 @@ class LocalQuery extends Component {
       queryField,
       mapField,
       restField,
+      orderByField,
       query: {
-        order: orderBy = SORT_OPTIONS[0].value,
+        order: orderBy = orderByField,
         page: pageQuery,
         map: mapQuery,
         rest = '',

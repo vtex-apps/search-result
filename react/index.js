@@ -49,24 +49,31 @@ export default class SearchResultQueryLoader extends Component {
 SearchResultQueryLoader.getSchema = props => {
   const queryProperties = props.querySchema && props.querySchema.enableCustomQuery
     ? {
-        maxItemsPerPage: {
-          title: 'editor.search-result.query.maxItemsPerPage',
-          type: 'number',
-          default: DEFAULT_MAX_ITEMS_PER_PAGE,
-        },
-        queryField: {
-          title: 'Query',
-          type: 'string',
-        },
-        mapField: {
-          title: 'Map',
-          type: 'string',
-        },
-        restField: {
-          title: 'Other Query Strings',
-          type: 'string',
-        },
-      }
+      maxItemsPerPage: {
+        title: 'editor.search-result.query.maxItemsPerPage',
+        type: 'number',
+        default: DEFAULT_MAX_ITEMS_PER_PAGE,
+      },
+      queryField: {
+        title: 'Query',
+        type: 'string',
+      },
+      mapField: {
+        title: 'Map',
+        type: 'string',
+      },
+      restField: {
+        title: 'Other Query Strings',
+        type: 'string',
+      },
+      orderByField: {
+        title: 'Order by field',
+        type: 'string',
+        default: SORT_OPTIONS[1].value,
+        enum: SORT_OPTIONS.map(opt => opt.value),
+        enumNames: SORT_OPTIONS.map(opt => opt.label),
+      },
+    }
     : {}
   return {
     title: 'editor.search-result.title',
