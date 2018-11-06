@@ -47,51 +47,48 @@ export default class SearchResultQueryLoader extends Component {
 }
 
 SearchResultQueryLoader.getSchema = props => {
-  const queryProperties = props.querySchema && props.querySchema.enableCustomQuery
+  const querySchema = !props.searchQuery
     ? {
-      maxItemsPerPage: {
-        title: 'editor.search-result.query.maxItemsPerPage',
-        type: 'number',
-        default: DEFAULT_MAX_ITEMS_PER_PAGE,
-      },
-      queryField: {
-        title: 'Query',
-        type: 'string',
-      },
-      mapField: {
-        title: 'Map',
-        type: 'string',
-      },
-      restField: {
-        title: 'Other Query Strings',
-        type: 'string',
-      },
-      orderByField: {
-        title: 'Order by field',
-        type: 'string',
-        default: SORT_OPTIONS[1].value,
-        enum: SORT_OPTIONS.map(opt => opt.value),
-        enumNames: SORT_OPTIONS.map(opt => opt.label),
-      },
-    }
-    : {}
-  return {
-    title: 'editor.search-result.title',
-    description: 'editor.search-result.description',
-    type: 'object',
-    properties: {
       querySchema: {
         title: 'editor.search-result.query',
         description: 'editor.search-result.query.description',
         type: 'object',
         properties: {
-          enableCustomQuery: {
-            title: 'editor.search-result.query.enableCustomQuery',
-            type: 'boolean',
+          maxItemsPerPage: {
+            title: 'editor.search-result.query.maxItemsPerPage',
+            type: 'number',
+            default: DEFAULT_MAX_ITEMS_PER_PAGE,
           },
-          ...queryProperties,
+          queryField: {
+            title: 'Query',
+            type: 'string',
+          },
+          mapField: {
+            title: 'Map',
+            type: 'string',
+          },
+          restField: {
+            title: 'Other Query Strings',
+            type: 'string',
+          },
+          orderByField: {
+            title: 'Order by field',
+            type: 'string',
+            default: SORT_OPTIONS[1].value,
+            enum: SORT_OPTIONS.map(opt => opt.value),
+            enumNames: SORT_OPTIONS.map(opt => opt.label),
+          },
         },
       },
+    }
+    : {}
+
+  return {
+    title: 'editor.search-result.title',
+    description: 'editor.search-result.description',
+    type: 'object',
+    properties: {
+      ...querySchema,
       hiddenFacets: {
         title: 'editor.search-result.hiddenFacets',
         type: 'object',
