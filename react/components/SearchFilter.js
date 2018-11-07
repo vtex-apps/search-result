@@ -64,6 +64,7 @@ class SearchFilter extends Component {
               page={pagesArgs.page}
               params={pagesArgs.params}
               query={pagesArgs.queryString}
+              scrollOptions={false}
             >
               <span
                 className="f6 fw3 bb db"
