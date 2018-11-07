@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.3.2] - 2018-11-07
+### Fixed
+- Typo in the `locales pt-BR`.
+
 ## [2.3.1] - 2018-11-06
 ### Changed
 - Only show custom query schema if not inside search context.
