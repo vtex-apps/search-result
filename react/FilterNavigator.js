@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { flatten, path, identity, contains } from 'ramda'
+import { flatten, path, identity, contains, map, length, filter, split } from 'ramda'
 import ContentLoader from 'react-content-loader'
 import { withRuntimeContext } from 'render'
 
@@ -70,9 +70,8 @@ class FilterNavigator extends Component {
     const params = this.props.params
     const categories = this.categories
 
-    const categoriesCount = this.props.map
-      .split(',')
-      .filter(m => m === getMapByType(CATEGORIES_TYPE)).length
+    const maps = Array.isArray(this.props.map) ? this.props.map : split(',', this.props.map)
+    const categoriesCount = length(filter((p) => p === getMapByType(CATEGORIES_TYPE), maps))
 
     const currentPath = [params.department, params.category, params.subcategory]
       .filter(v => v)

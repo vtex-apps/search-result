@@ -66,7 +66,7 @@ export function getMapByType(type) {
  */
 function restMapped(rest, map) {
   const restValues = (rest && rest.split(',')) || []
-  const mapValues = (map && map.split(',')) || []
+  const mapValues = map || []
   const mapValuesSliced = mapValues.slice(restValues.length * -1)
   return restValues.reduce((acc, value, index) => {
     return { ...acc, [value.toUpperCase()]: mapValuesSliced[index] }
@@ -238,7 +238,7 @@ export function getPagesArgs({
 }
 
 export function getBaseMap(map, rest) {
-  const mapArray = map.split(',')
+  const mapArray = map
   const restArray = rest.split(',').filter(s => s.length > 0)
 
   return mapArray.splice(0, Math.max(mapArray.length - restArray.length, 0)).join(',')
@@ -257,7 +257,7 @@ export function mountOptions(options, type, map, rest) {
     }
 
     const optMap = type === SPECIFICATION_FILTERS_TYPE
-      ? getSpecificationFilterFromLink(opt.Link, map.split(','))
+      ? getSpecificationFilterFromLink(opt.Link, map)
       : getMapByType(type)
     const selected = restMap[slug && slug.toUpperCase()] === optMap && optMap !== undefined
 
