@@ -9,12 +9,13 @@
   "license": "ISC",
   "dependencies": {
     "classnames": "^2.2.6",
-    "query-string": "^6.1.0",
+    "query-string": "5",
     "ramda": "^0.25.0",
     "react-collapse": "^4.0.3",
     "react-content-loader": "^3.1.2",
     "react-infinite-scroll-component": "^4.1.0",
-    "react-motion": "^0.5.2"
+    "react-motion": "^0.5.2",
+    "unorm": "^1.4.1"
   },
   "devDependencies": {
     "apollo-cache-inmemory": "^1.2.2",
