@@ -46,7 +46,7 @@ export default class InfiniteScrollLoaderResult extends Component {
             </div>
           )}
         </SearchResult>
-      </InfiniteScroll >
+      </InfiniteScroll>
     )
   }
 }

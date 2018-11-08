@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.3.3] - 2018-11-08
+### Fixed
+- Fix layout on IE and add polyfill for `String.prototype.normalize`.
+
 ## [2.3.2] - 2018-11-07
 ### Fixed
 - Typo in the `locales pt-BR`.

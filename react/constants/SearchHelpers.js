@@ -1,4 +1,5 @@
 import { repeat } from 'ramda'
+import unorm from 'unorm'
 
 import { SORT_OPTIONS } from '../components/OrderBy'
 import {
@@ -281,7 +282,7 @@ export function formatCategoriesTree(root) {
 
     return tree.reduce((categories, node) => {
       // Remove the accents and diacritics of the string
-      const normalizedName = node.Name.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      const normalizedName = unorm.nfd(node.Name).replace(/[\u0300-\u036f]/g, '')
       const nodePath = parentPath ? `${parentPath}/${normalizedName}` : normalizedName
       return [
         ...categories,
