@@ -94,10 +94,10 @@ export default class SearchResultContainer extends Component {
           order: this.props.orderBy,
           map: useEmptyMapAndRest
             ? getBaseMap(map, rest)
-                .split(',')
-                .filter(x => x)
+              .split(',')
+              .filter(x => x)
             : map.split(','),
-          rest: useEmptyMapAndRest ? [] : rest.split(',').filter(x => x),
+          rest: (useEmptyMapAndRest || !rest) ? [] : rest.split(',').filter(x => x),
         },
       }
     )
@@ -109,7 +109,7 @@ export default class SearchResultContainer extends Component {
     })
 
     return {
-      page: pageProps.page,
+      page: pagesPath,
       queryString: queryString,
       params: pageProps.params,
     }
@@ -163,39 +163,37 @@ export default class SearchResultContainer extends Component {
     const breadcrumbsProps = this.breadcrumbsProps
     const to = (page - 1) * maxItemsPerPage + products.length
 
-    const props = {
-      breadcrumbsProps,
-      onSetFetchMoreLoading: this.handleSetFetchMoreLoading,
-      onFetchMoreProducts: this.handleFetchMoreProducts,
-      getLinkProps: this.getLinkProps,
-      fetchMoreLoading: this.state.fetchMoreLoading,
-      orderBy,
-      maxItemsPerPage,
-      page,
-      summary,
-      map,
-      rest,
-      params,
-      fetchMore,
-      to,
-      loading,
-      recordsFiltered,
-      products,
-      brands: Brands,
-      specificationFilters: SpecificationFilters,
-      priceRanges: PriceRanges,
-      priceRange: priceRange,
-      hiddenFacets,
-      tree: CategoriesTrees,
-    }
+    const ResultComponent = pagination === PAGINATION_TYPES[0]
+      ? ShowMoreLoaderResult
+      : InfiniteScrollLoaderResult
 
     return (
       <PopupProvider>
-        {pagination === PAGINATION_TYPES[0] ? (
-          <ShowMoreLoaderResult {...props} />
-        ) : (
-          <InfiniteScrollLoaderResult {...props} />
-        )}
+        <ResultComponent
+          breadcrumbsProps={breadcrumbsProps}
+          onSetFetchMoreLoading={this.handleSetFetchMoreLoading}
+          onFetchMoreProducts={this.handleFetchMoreProducts}
+          getLinkProps={this.getLinkProps}
+          fetchMoreLoading={this.state.fetchMoreLoading}
+          orderBy={orderBy}
+          maxItemsPerPage={maxItemsPerPage}
+          page={page}
+          summary={summary}
+          map={map}
+          rest={rest}
+          params={params}
+          fetchMore={fetchMore}
+          to={to}
+          loading={loading}
+          recordsFiltered={recordsFiltered}
+          products={products}
+          brands={Brands}
+          specificationFilters={SpecificationFilters}
+          priceRanges={PriceRanges}
+          priceRange={priceRange}
+          hiddenFacets={hiddenFacets}
+          tree={CategoriesTrees}
+        />
       </PopupProvider>
     )
   }

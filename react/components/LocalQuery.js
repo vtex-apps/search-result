@@ -1,28 +1,19 @@
-import { identity } from 'ramda'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import { withRuntimeContext } from 'render'
 import { Queries } from 'vtex.store'
 
+import { SORT_OPTIONS } from './OrderBy'
+
 const DEFAULT_PAGE = 1
 
-function createInitialMap(params) {
-  const map = [
-    params.term && 'ft',
-    params.brand && 'b',
-    params.department && 'c',
-    params.category && 'c',
-    params.subcategory && 'c',
-  ]
-
-  return map.filter(identity).join(',')
-}
-
 class LocalQuery extends Component {
+  static defaultProps = {
+    orderByField: SORT_OPTIONS[0].value,
+  }
+
   render() {
     const {
-      nextTreePath,
-      params,
       maxItemsPerPage,
       queryField,
       mapField,
@@ -31,44 +22,30 @@ class LocalQuery extends Component {
       query: {
         order: orderBy = orderByField,
         page: pageQuery,
-        map: mapQuery,
-        rest = '',
         priceRange,
+        map = mapField,
+        rest = restField,
       },
       runtime: { page: runtimePage },
     } = this.props
 
-    const map = mapQuery || createInitialMap(params)
     const page = pageQuery ? parseInt(pageQuery) : DEFAULT_PAGE
     const from = (page - 1) * maxItemsPerPage
     const to = from + maxItemsPerPage - 1
 
-    const defaultSearch = {
-      query: Object.values(params)
-        .filter(s => s.length > 0)
-        .join('/'),
-      map,
-      rest,
-      orderBy,
-      priceRange,
-      from,
-      to,
-    }
-
-    const customSearch = {
-      query: queryField,
-      map: mapField,
-      rest: restField,
-      orderBy,
-      priceRange,
-      from,
-      to,
-    }
-
     return (
       <Query
         query={Queries.search}
-        variables={queryField ? customSearch : defaultSearch}
+        variables={{
+          query: queryField,
+          map,
+          rest,
+          orderBy,
+          priceRange,
+          from,
+          to,
+          withFacets: !!(map && map.length > 0),
+        }}
         notifyOnNetworkStatusChange
       >
         {searchQueryProps => {
@@ -82,7 +59,7 @@ class LocalQuery extends Component {
               ...search,
             },
             searchContext: runtimePage,
-            pagesPath: nextTreePath,
+            pagesPath: runtimePage,
             map,
             rest,
             orderBy,

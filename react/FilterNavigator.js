@@ -124,6 +124,10 @@ class FilterNavigator extends Component {
       runtime: { hints: { mobile } },
     } = this.props
 
+    if (!map || !map.length) {
+      return null
+    }
+
     if (loading && !mobile) {
       return (
         <ContentLoader
