@@ -86,6 +86,7 @@ class OrderBy extends Component {
             params: pagesArgs.params,
             query: pagesArgs.queryString,
             fallbackToWindowLocation: false,
+            scrollOptions: false,
           })
         }}
       />
