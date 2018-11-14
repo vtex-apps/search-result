@@ -54,7 +54,7 @@ class SelectionListOrderBy extends Component {
                 key={opt.label}
                 className={classNames('vtex-orderby__item pointer pv3 ph7 bb b--muted-4', {
                   'vtex-orderby__item--active t-body c-on-base': active,
-                  'fw3': !active,
+                  'c-disabled': !active,
                 })}
                 onClick={this.handleSelect(opt)}
               >
