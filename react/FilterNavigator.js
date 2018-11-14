@@ -49,9 +49,9 @@ class FilterNavigator extends Component {
     /** Current price range filter query parameter */
     priceRange: PropTypes.string,
     /** Map query parameter */
-    map: PropTypes.string.isRequired,
+    map: PropTypes.string,
     /** Rest query parameter */
-    rest: PropTypes.string.isRequired,
+    rest: PropTypes.string,
     /** Loading indicator */
     loading: PropTypes.bool,
     ...hiddenFacetsSchema,
