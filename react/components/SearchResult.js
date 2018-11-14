@@ -191,13 +191,13 @@ export default class SearchResult extends Component {
                 </div>
               </div>
             ) : (
-                <ExtensionPoint
-                  id="gallery"
-                  products={products}
-                  summary={summary}
-                  layoutMode={this.state.galleryLayoutMode}
-                />
-              )}
+              <ExtensionPoint
+                id="gallery"
+                products={products}
+                summary={summary}
+                layoutMode={this.state.galleryLayoutMode}
+              />
+            )}
             {children}
           </div>
         </div>
