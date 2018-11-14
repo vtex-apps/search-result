@@ -74,6 +74,8 @@ function restMapped(rest, map) {
 }
 
 function removeFilter(map, rest, { type, slug, pagesPath }) {
+  console.log('remove filter', ...arguments)
+
   let categoryCount = 0
 
   if (pagesPath === 'store/department') {
@@ -95,22 +97,10 @@ function removeFilter(map, rest, { type, slug, pagesPath }) {
   }
 
   if (type !== CATEGORIES_TYPE) {
-    let categoriesFiltered = 0
-
-    const mapWithoutCategories = map.filter(symbol => {
-      if (categoriesFiltered === categoryCount) {
-        return true
-      }
-
-      categoriesFiltered++
-
-      return symbol !== categoryMapSymbol
-    }).filter((_, i) => i !== restIndex)
-
-    const lengthDifference = map.length - mapWithoutCategories.length - 1
+    const mapIndex = map.length - 1 - restIndex
 
     return {
-      map: [...repeat(categoryMapSymbol, lengthDifference), ...mapWithoutCategories],
+      map: map.filter((_, i) => i !== mapIndex),
       rest: rest.filter((_, i) => i !== restIndex),
     }
   }
