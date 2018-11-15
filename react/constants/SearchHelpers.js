@@ -73,21 +73,7 @@ function restMapped(rest, map) {
   }, {})
 }
 
-function removeFilter(map, rest, { type, slug, pagesPath }) {
-  console.log('remove filter', ...arguments)
-
-  let categoryCount = 0
-
-  if (pagesPath === 'store/department') {
-    categoryCount = 1
-  } else if (pagesPath === 'store/category') {
-    categoryCount = 2
-  } else if (pagesPath === 'store/subcategory') {
-    categoryCount = 3
-  }
-
-  const categoryMapSymbol = getMapByType(CATEGORIES_TYPE)
-
+function removeFilter(map, rest, { slug }) {
   const restIndex = rest.findIndex(
     item => slug.toLowerCase() === item.toLowerCase()
   )
@@ -96,49 +82,15 @@ function removeFilter(map, rest, { type, slug, pagesPath }) {
     return { map, rest }
   }
 
-  if (type !== CATEGORIES_TYPE) {
-    const mapIndex = map.length - 1 - restIndex
+  // assuming the map is always equals or bigger
+  // than the rest, this will never be negative
+  const lengthDiff = map.length - rest.length
 
-    return {
-      map: map.filter((_, i) => i !== mapIndex),
-      rest: rest.filter((_, i) => i !== restIndex),
-    }
-  }
-
-  let mapIndex = -1
-  let count = categoryCount - 1
-
-  for (const symbol of map) {
-    mapIndex++
-
-    if (symbol === categoryMapSymbol && categoryCount > 0) {
-      categoryCount--
-    } else if (count >= restIndex) {
-      break
-    } else {
-      count++
-    }
-  }
+  const mapIndex = lengthDiff + restIndex
 
   return {
-    rest: rest
-      .filter((_, i) => {
-        if (i < restIndex) {
-          return true
-        } else if (i === restIndex) {
-          return false
-        }
-        return map[i + mapIndex] !== categoryMapSymbol
-      }),
-    map: map
-      .filter((mapValue, i) => {
-        if (i < mapIndex) {
-          return true
-        } else if (i === mapIndex) {
-          return false
-        }
-        return mapValue !== categoryMapSymbol
-      }),
+    map: map.filter((_, i) => i !== mapIndex),
+    rest: rest.filter((_, i) => i !== restIndex),
   }
 }
 
