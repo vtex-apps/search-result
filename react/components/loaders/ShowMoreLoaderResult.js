@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Button } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
 
@@ -8,46 +8,32 @@ import { loaderPropTypes } from '../../constants/propTypes'
 /**
  * Search Result Component.
  */
-export default class ShowMoreLoaderResult extends Component {
-  handleFetchMore = () => {
-    const {
-      to,
-      onSetFetchMoreLoading,
-      maxItemsPerPage,
-      fetchMore,
-      onFetchMoreProducts,
-    } = this.props
+const ShowMoreLoaderResult = props => {
+  const {
+    products,
+    recordsFiltered,
+    onFetchMore,
+    fetchMoreLoading,
+  } = props
 
-    onSetFetchMoreLoading(true)
-
-    fetchMore({
-      variables: {
-        from: to,
-        to: to + maxItemsPerPage - 1,
-      },
-      updateQuery: onFetchMoreProducts,
-    })
-  }
-
-  render() {
-    const {
-      products,
-      recordsFiltered,
-      fetchMoreLoading,
-    } = this.props
-
-    return (
-      <SearchResult {...this.props}>
-        <div className="vtex-search-result__button--show-more w-100 flex justify-center">
-          <Button onClick={this.handleFetchMore} disabled={!(products.length < recordsFiltered)} isLoading={fetchMoreLoading} size="small">
-            <FormattedMessage
-              id="search-result.show-more-button"
-            />
-          </Button>
-        </div>
-      </SearchResult>
-    )
-  }
+  return (
+    <SearchResult {...props}>
+      <div className="vtex-search-result__button--show-more w-100 flex justify-center">
+        <Button
+          onClick={onFetchMore}
+          disabled={!(products.length < recordsFiltered)}
+          isLoading={fetchMoreLoading}
+          size="small"
+        >
+          <FormattedMessage
+            id="search-result.show-more-button"
+          />
+        </Button>
+      </div>
+    </SearchResult>
+  )
 }
 
 ShowMoreLoaderResult.propTypes = loaderPropTypes
+
+export default ShowMoreLoaderResult

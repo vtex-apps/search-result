@@ -1,54 +1,42 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Spinner } from 'vtex.styleguide'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 import { loaderPropTypes } from '../../constants/propTypes'
-import SearchResult from "../SearchResult";
+import SearchResult from '../SearchResult'
 
 /**
  * Search Result Component.
  */
-export default class InfiniteScrollLoaderResult extends Component {
-  render() {
-    const {
-      to,
-      onSetFetchMoreLoading,
-      maxItemsPerPage,
-      fetchMore,
-      onFetchMoreProducts,
-      recordsFiltered,
-      fetchMoreLoading,
-      products,
-    } = this.props
+const InfiniteScrollLoaderResult = props => {
+  const {
+    to,
+    maxItemsPerPage,
+    onFetchMore,
+    recordsFiltered,
+    fetchMoreLoading,
+    products,
+  } = props
 
-    return (
-      <InfiniteScroll
-        dataLength={products.length}
-        next={() => {
-          onSetFetchMoreLoading(true)
-
-          return fetchMore({
-            variables: {
-              from: to,
-              to: to + maxItemsPerPage - 1,
-            },
-            updateQuery: onFetchMoreProducts,
-          })
-        }}
-        hasMore={products.length < recordsFiltered}
-      >
-        <SearchResult {...this.props}>
-          {fetchMoreLoading && (
-            <div className="w-100 flex justify-center">
-              <div className="w3 ma0">
-                <Spinner />
-              </div>
+  return (
+    <InfiniteScroll
+      dataLength={products.length}
+      next={onFetchMore}
+      hasMore={products.length < recordsFiltered}
+    >
+      <SearchResult {...props}>
+        {fetchMoreLoading && (
+          <div className="w-100 flex justify-center">
+            <div className="w3 ma0">
+              <Spinner />
             </div>
-          )}
-        </SearchResult>
-      </InfiniteScroll>
-    )
-  }
+          </div>
+        )}
+      </SearchResult>
+    </InfiniteScroll>
+  )
 }
 
 InfiniteScrollLoaderResult.propTypes = loaderPropTypes
+
+export default InfiniteScrollLoaderResult
