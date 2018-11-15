@@ -133,7 +133,7 @@ export function getPagesArgs({
     map,
     rest,
     page: pageNumber !== 1 ? pageNumber : undefined,
-    order: order !== SORT_OPTIONS[0].value ? order : undefined,
+    order,
     priceRange,
   }
 
