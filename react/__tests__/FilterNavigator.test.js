@@ -17,9 +17,7 @@ describe('<FilterNavigator />', () => {
         getLinkProps={jest.fn()}
         map="c"
         rest=""
-        params={{
-          department: 'Eletronicos',
-        }}
+        query="Eletronicos"
         runtime={{ hints: { mobile: false } }}
       />
     )
@@ -71,9 +69,7 @@ describe('<FilterNavigator />', () => {
         map="c"
         rest=""
         tree={categoriesTree}
-        params={{
-          department: 'Livros',
-        }}
+        query="Livros"
         runtime={{ hints: { mobile: false } }}
       />
     )
@@ -85,7 +81,7 @@ describe('<FilterNavigator />', () => {
       },
     ]
 
-    expect(wrapper.instance().availableCategories).toMatchObject(availableCategories)
+    expect(wrapper.instance().getAvailableCategories()).toMatchObject(availableCategories)
   })
 
   it('should be case insensitive when matching the available categories', () => {
@@ -132,9 +128,7 @@ describe('<FilterNavigator />', () => {
         map="c"
         rest=""
         tree={categoriesTree}
-        params={{
-          department: 'livros',
-        }}
+        query="livros"
         runtime={{ hints: { mobile: false } }}
       />
     )
@@ -146,6 +140,6 @@ describe('<FilterNavigator />', () => {
       },
     ]
 
-    expect(wrapper.instance().availableCategories).toMatchObject(availableCategories)
+    expect(wrapper.instance().getAvailableCategories()).toMatchObject(availableCategories)
   })
 })

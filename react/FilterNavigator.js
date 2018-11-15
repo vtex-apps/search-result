@@ -34,7 +34,7 @@ class FilterNavigator extends Component {
     /** Categories tree */
     tree: PropTypes.arrayOf(facetOptionShape),
     /** Params from pages */
-    params: paramShape.isRequired,
+    params: paramShape,
     /** List of brand filters (e.g. Samsung) */
     brands: PropTypes.arrayOf(facetOptionShape),
     /** List of specification filters (e.g. Android 7.0) */
@@ -66,11 +66,11 @@ class FilterNavigator extends Component {
     hiddenFacets: {},
   }
 
-  availableCategories = (showOnlySelected = false) => {
+  getAvailableCategories = (showOnlySelected = false) => {
     const { rest, query, map } = this.props
     const categories = this.categories
 
-    let queryParams = query
+    let queryParams = query || ''
 
     if (rest && rest.length > 0) {
       queryParams = `${queryParams}/${rest.replace(',', '/')}`
@@ -105,7 +105,7 @@ class FilterNavigator extends Component {
   get selectedFilters() {
     const { brands, specificationFilters, priceRanges, map, rest } = this.props
 
-    const categories = this.availableCategories(true)
+    const categories = this.getAvailableCategories(true)
 
     const options = [
       ...mountOptions(categories, CATEGORIES_TYPE, map, rest),
@@ -157,7 +157,7 @@ class FilterNavigator extends Component {
       )
     }
 
-    const categories = this.availableCategories()
+    const categories = this.getAvailableCategories()
 
     const hiddenFacetsNames = (
       path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
