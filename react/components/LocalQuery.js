@@ -44,9 +44,10 @@ class LocalQuery extends Component {
           priceRange,
           from,
           to,
-          withFacets: !!(map && map.length > 0),
+          withFacets: !!(map && map.length > 0 && queryField && queryField.length > 0),
         }}
         notifyOnNetworkStatusChange
+        partialRefetch
       >
         {searchQueryProps => {
           const { data } = searchQueryProps
