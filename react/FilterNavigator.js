@@ -73,7 +73,7 @@ class FilterNavigator extends Component {
     let queryParams = query || ''
 
     if (rest && rest.length > 0) {
-      queryParams = `${queryParams}/${rest.replace(',', '/')}`
+      queryParams = `${queryParams}/${rest.replace(/,/g, '/')}`
     }
 
     const mapArray = map.split(',')

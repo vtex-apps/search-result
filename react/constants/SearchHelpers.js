@@ -12,10 +12,10 @@ import {
 /**
  * Returns the parameter name to be used in the map
  */
-export function getSpecificationFilterFromLink(link, map) {
-  const [_, linkQueryParams] = link.split('?') // eslint-disable-line no-unused-vars
+export function getSpecificationFilterFromLink(link, slug) {
+  const [url, queryParams] = link.split('?') // eslint-disable-line no-unused-vars
 
-  const { map: linkMap } = linkQueryParams.split('&').reduce((acc, param) => {
+  const { map } = queryParams.split('&').reduce((acc, param) => {
     const [name, values] = param.split('=')
 
     return {
@@ -24,32 +24,15 @@ export function getSpecificationFilterFromLink(link, map) {
     }
   }, {})
 
-  const filterMapParams = (currentMap, currentLinkMap, index = 0) => {
-    if (currentMap.length === 0 || index >= currentLinkMap.length) {
-      return currentLinkMap
-    }
+  const urlParams = url.split('/').filter(v => v)
 
-    if (currentMap[0] !== currentLinkMap[index]) {
-      return filterMapParams(currentMap, currentLinkMap, index + 1)
-    }
+  const urlIndex = urlParams.indexOf(slug)
 
-    return filterMapParams(
-      currentMap.slice(1, currentMap.length),
-      currentLinkMap
-        .slice(0, index)
-        .concat(currentLinkMap.slice(index + 1, currentLinkMap.length)),
-      index
-    )
+  if (urlIndex === -1) {
+    return undefined
   }
 
-  const filteredLinks = filterMapParams(
-    map.filter(m => m !== 'productClusterIds'),
-    linkMap
-  )
-
-  const [specificationFilterMap] = filteredLinks
-
-  return specificationFilterMap
+  return map[urlIndex]
 }
 
 export function getMapByType(type) {
@@ -99,7 +82,7 @@ function removeFilter(map, rest, { slug }) {
 
 function addFilter(map, rest, { path, type, link, pagesPath, slug }) {
   const mapSymbol = type === SPECIFICATION_FILTERS_TYPE
-    ? getSpecificationFilterFromLink(link, map)
+    ? getSpecificationFilterFromLink(link, slug)
     : getMapByType(type)
 
   if (type !== CATEGORIES_TYPE) {
@@ -205,9 +188,11 @@ export function mountOptions(options, type, map, rest) {
     }
 
     const optMap = type === SPECIFICATION_FILTERS_TYPE
-      ? getSpecificationFilterFromLink(opt.Link, map.split(','))
+      ? getSpecificationFilterFromLink(opt.Link, slug)
       : getMapByType(type)
-    const selected = restMap[slug && slug.toUpperCase()] === optMap && optMap !== undefined
+
+    const selected = restMap.hasOwnProperty(slug.toUpperCase()) &&
+      restMap[slug.toUpperCase()] === optMap
 
     return [
       ...acc,
