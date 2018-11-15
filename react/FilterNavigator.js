@@ -96,7 +96,7 @@ class FilterNavigator extends Component {
   get selectedFilters() {
     const { brands, specificationFilters, priceRanges, map, rest } = this.props
 
-    const categories = this.categories
+    const categories = this.availableCategories
 
     const options = [
       ...mountOptions(categories, CATEGORIES_TYPE, map, rest),
