@@ -42,7 +42,10 @@ export function getSpecificationFilterFromLink(link, map) {
     )
   }
 
-  const filteredLinks = filterMapParams(map, linkMap)
+  const filteredLinks = filterMapParams(
+    map.filter(m => m !== 'productClusterIds'),
+    linkMap
+  )
 
   const [specificationFilterMap] = filteredLinks
 
