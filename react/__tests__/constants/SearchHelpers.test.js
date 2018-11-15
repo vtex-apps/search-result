@@ -60,7 +60,6 @@ describe('getSpecificationFilterFromLink', () => {
 describe('getPagesArgs', () => {
   const DEPARTMENT_PAGE = 'store/department'
   const CATEGORY_PAGE = 'store/category'
-  const SUBCATEGORY_PAGE = 'store/subcategory'
   const SEARCH_PAGE = 'store/search'
 
   it('should stay in the search page', () => {
@@ -180,32 +179,6 @@ describe('getPagesArgs', () => {
     expect(rest).toEqual([])
   })
 
-  it('should remove one sub-subcategory on subcategory page', () => {
-    const filterSpec = {
-      type: CATEGORIES_TYPE,
-      isUnselectLink: true,
-      name: 'foo',
-      slug: 'foo',
-      path: 'Eletronicos/Smartphones/Acessorios/foo',
-      pagesPath: SUBCATEGORY_PAGE,
-      query: {
-        rest: ['Samsung', 'foo'],
-        map: ['c', 'c', 'c', 'c', 'b'],
-      },
-      params: {
-        department: 'Eletronicos',
-        category: 'Smartphones',
-        subcategory: 'Acessorios',
-        _rest: '',
-      },
-    }
-
-    const { query: { map, rest } } = getPagesArgs(filterSpec)
-
-    expect(map).toEqual(['c', 'c', 'c', 'b'])
-    expect(rest).toEqual(['Samsung'])
-  })
-
   it('should remove category from rest', () => {
     const filterSpec = {
       type: CATEGORIES_TYPE,
@@ -228,29 +201,6 @@ describe('getPagesArgs', () => {
 
     expect(map).toEqual(['c', 'b'])
     expect(rest).toEqual(['Google'])
-  })
-
-  it('should remove all categories on search page', () => {
-    const filterSpec = {
-      type: CATEGORIES_TYPE,
-      isUnselectLink: true,
-      name: 'Eletrônicos',
-      slug: 'Eletronicos',
-      path: 'Eletronicos',
-      pagesPath: SEARCH_PAGE,
-      query: {
-        map: ['ft', 'c', 'c'],
-        rest: ['Eletronicos', 'Smartphones'],
-      },
-      params: {
-        term: 'samsun',
-      },
-    }
-
-    const { query: { map, rest } } = getPagesArgs(filterSpec)
-
-    expect(map).toEqual(['ft'])
-    expect(rest).toEqual([])
   })
 
   it('should remove brand from filters', () => {
