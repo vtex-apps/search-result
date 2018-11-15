@@ -149,6 +149,9 @@ export default class SearchResultContainer extends Component {
         recordsFiltered = 0,
         loading,
         fetchMore,
+        variables: {
+          query,
+        },
       },
       orderBy,
       maxItemsPerPage,
@@ -184,6 +187,7 @@ export default class SearchResultContainer extends Component {
           map={map}
           rest={rest}
           params={params}
+          query={query}
           fetchMore={fetchMore}
           to={to}
           loading={loading}
