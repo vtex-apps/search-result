@@ -192,8 +192,11 @@ export function mountOptions(options, type, map, rest) {
   return options.reduce((acc, opt) => {
     let slug
 
-    if (opt.type === BRANDS_TYPE) {
-      slug = opt.Name.replace(/[^\w\d]/g, '-')
+    if (type === BRANDS_TYPE) {
+      slug = unorm.nfd(opt.Name)
+        // Remove the accents
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^\w\d]/g, '-')
     } else {
       slug = opt.Slug || opt.normalizedName || opt.Name
     }
