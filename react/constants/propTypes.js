@@ -214,18 +214,12 @@ export const searchResultPropTypes = {
 }
 
 export const loaderPropTypes = {
-  /** Right limit of numbers to be displayed */
-  to: PropTypes.number.isRequired,
-  /** Function to set the fetchMoreLoading status */
-  onSetFetchMoreLoading: PropTypes.func.isRequired,
   /** Max number of items retrieved each time */
   maxItemsPerPage: PropTypes.number.isRequired,
   /** List of products */
   products: PropTypes.arrayOf(productShape),
   /** Function to refetch de data query */
-  fetchMore: PropTypes.func.isRequired,
-  /** Handle function to be called when the fetchMore is activated */
-  onFetchMoreProducts: PropTypes.func.isRequired,
+  onFetchMore: PropTypes.func.isRequired,
   /** Number of items available according to the filters */
   recordsFiltered: PropTypes.number.isRequired,
   /** Loading status when the query is refetched */

@@ -10,8 +10,6 @@ import SearchResult from '../SearchResult'
  */
 const InfiniteScrollLoaderResult = props => {
   const {
-    to,
-    maxItemsPerPage,
     onFetchMore,
     recordsFiltered,
     fetchMoreLoading,
