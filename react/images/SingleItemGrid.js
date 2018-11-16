@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Use from 'vtex.react-use-svg/Use'
 
 export default function SingleItemGrid({ active }) {
   const color = active ? '#828282' : '#ececec'
@@ -14,7 +15,7 @@ export default function SingleItemGrid({ active }) {
       fill="none"
       color={color}
     >
-      <use href="#single-item-grid" xlinkHref="#single-item-grid" />
+      <Use id="single-item-grid" />
     </svg>
   )
 }

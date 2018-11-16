@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Use from 'vtex.react-use-svg/Use'
 
 export default function Check({ size }) {
   return (
@@ -11,7 +12,7 @@ export default function Check({ size }) {
       viewBox="0 0 9 9"
       fill="none"
     >
-      <use href="#check" xlinkHref="#check" />
+      <Use id="check" />
     </svg>
   )
 }

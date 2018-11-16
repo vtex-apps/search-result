@@ -1,4 +1,6 @@
 import React from 'react'
+import Use from 'vtex.react-use-svg/Use'
+
 
 const CheckTick = () => {
   return (
@@ -10,7 +12,7 @@ const CheckTick = () => {
       viewBox="0 0 11 9"
       fill="none"
     >
-      <use href="#check-tick" xlinkHref="#check-tick" />
+      <Use id="check-tick" />
     </svg>
   )
 }
