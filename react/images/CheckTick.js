@@ -1,5 +1,5 @@
 import React from 'react'
-import Use from 'vtex.react-use-svg/Use'
+import Use from 'vtex.use-svg/Use'
 
 
 const CheckTick = () => {
