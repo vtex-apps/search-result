@@ -117,9 +117,9 @@ export const queryShape = PropTypes.shape({
    */
   rest: PropTypes.string,
   /** Determines the types of the terms, e.g: "c,c,b" (category, category, brand). */
-  map: mapType,
+  map: PropTypes.string,
   /** Current ordenation. */
-  order: orderType,
+  order: PropTypes.string,
   /** Current page number. */
   page: PropTypes.string,
   /**
@@ -128,10 +128,6 @@ export const queryShape = PropTypes.shape({
    */
   priceRange: PropTypes.string,
 })
-
-export const mapType = PropTypes.string
-
-export const orderType = PropTypes.string
 
 export const hiddenFacetsSchema = {
   /** Indicates which facets will be hidden */
@@ -173,13 +169,13 @@ export const searchResultContainerPropTypes = {
    */
   params: PropTypes.object,
   /** Map param. e.g: c,c */
-  map: mapType.isRequired,
+  map: PropTypes.string,
   /** Rest param. e.g: Android,Samsung */
-  rest: mapType.isRequired,
+  rest: PropTypes.string,
   /** Search result page. */
   page: PropTypes.number.isRequired,
   /** Search result ordernation. */
-  orderBy: orderType,
+  orderBy: PropTypes.string,
   /** Price range filter */
   priceRange: PropTypes.string,
   /** Search graphql query. */
@@ -199,14 +195,14 @@ export const searchResultPropTypes = {
   /** Retrieve link props */
   getLinkProps: PropTypes.func.isRequired,
   /** Map param. e.g: c,c */
-  map: mapType.isRequired,
+  map: PropTypes.string,
   params: PropTypes.object,
   /** Price range filter */
   priceRange: PropTypes.string,
   /** List of price ranges filter */
   priceRanges: PropTypes.array.isRequired,
   /** Rest param. e.g: Android,Samsung */
-  rest: mapType.isRequired,
+  rest: PropTypes.string,
   /** Hidden specification filters facets configuration */
   specificationFilters: PropTypes.array.isRequired,
   /** Categories matched with the facets. */
@@ -218,18 +214,12 @@ export const searchResultPropTypes = {
 }
 
 export const loaderPropTypes = {
-  /** Right limit of numbers to be displayed */
-  to: PropTypes.number.isRequired,
-  /** Function to set the fetchMoreLoading status */
-  onSetFetchMoreLoading: PropTypes.func.isRequired,
   /** Max number of items retrieved each time */
   maxItemsPerPage: PropTypes.number.isRequired,
   /** List of products */
   products: PropTypes.arrayOf(productShape),
   /** Function to refetch de data query */
-  fetchMore: PropTypes.func.isRequired,
-  /** Handle function to be called when the fetchMore is activated */
-  onFetchMoreProducts: PropTypes.func.isRequired,
+  onFetchMore: PropTypes.func.isRequired,
   /** Number of items available according to the filters */
   recordsFiltered: PropTypes.number.isRequired,
   /** Loading status when the query is refetched */

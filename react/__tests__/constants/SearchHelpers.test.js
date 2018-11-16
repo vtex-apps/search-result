@@ -10,9 +10,9 @@ import {
 describe('getSpecificationFilterFromLink', () => {
   it('should return the only specification in link', () => {
     const link = '/eletronicos/smartphones/Android 7.0?map=c,c,specificationFilter_20'
-    const map = ['c', 'c']
+    const slug = 'Android 7.0'
 
-    const filterMap = getSpecificationFilterFromLink(link, map)
+    const filterMap = getSpecificationFilterFromLink(link, slug)
 
     expect(filterMap).toBe('specificationFilter_20')
   })
@@ -20,9 +20,9 @@ describe('getSpecificationFilterFromLink', () => {
   it('should return the first non-equal specification', () => {
     const link =
       '/eletronicos/smartphones/Android 7.0/3 GB?map=c,c,specificationFilter_20,specificationFilter_21'
-    const map = ['c', 'c', 'specificationFilter_20']
+    const slug = '3 GB'
 
-    const filterMap = getSpecificationFilterFromLink(link, map)
+    const filterMap = getSpecificationFilterFromLink(link, slug)
 
     expect(filterMap).toBe('specificationFilter_21')
   })
@@ -30,9 +30,9 @@ describe('getSpecificationFilterFromLink', () => {
   it('should return the duplicated specification', () => {
     const link =
       '/eletronicos/smartphones/Android 7.0/Android 7.1?map=c,c,specificationFilter_20,specificationFilter_20'
-    const map = ['c', 'c', 'specificationFilter_20']
+    const slug = 'Android 7.1'
 
-    const filterMap = getSpecificationFilterFromLink(link, map)
+    const filterMap = getSpecificationFilterFromLink(link, slug)
 
     expect(filterMap).toBe('specificationFilter_20')
   })
@@ -40,27 +40,26 @@ describe('getSpecificationFilterFromLink', () => {
   it('should ignore the order of the elements', () => {
     const link =
       '/eletronicos/smartphones/3 GB/Android 7.1?map=c,c,specificationFilter_20,specificationFilter_21,specificationFilter_22'
-    const map = ['c', 'c', 'specificationFilter_20', 'specificationFilter_22']
+    const slug = 'Android 7.1'
 
-    const filterMap = getSpecificationFilterFromLink(link, map)
+    const filterMap = getSpecificationFilterFromLink(link, slug)
 
     expect(filterMap).toBe('specificationFilter_21')
   })
 
   it('should bail out if can\'t match the params', () => {
     const link = '/eletronics/smartphones/android 7.1?map=c,c,specificationFilter_20'
-    const map = ['c', 'c', 'specificationFilter_21']
+    const slug = 'Android 7.1'
 
-    const filterMap = getSpecificationFilterFromLink(link, map)
+    const filterMap = getSpecificationFilterFromLink(link, slug)
 
-    expect(filterMap).toBe('specificationFilter_20')
+    expect(filterMap).toBe(undefined)
   })
 })
 
 describe('getPagesArgs', () => {
   const DEPARTMENT_PAGE = 'store/department'
   const CATEGORY_PAGE = 'store/category'
-  const SUBCATEGORY_PAGE = 'store/subcategory'
   const SEARCH_PAGE = 'store/search'
 
   it('should stay in the search page', () => {
@@ -180,32 +179,6 @@ describe('getPagesArgs', () => {
     expect(rest).toEqual([])
   })
 
-  it('should remove one sub-subcategory on subcategory page', () => {
-    const filterSpec = {
-      type: CATEGORIES_TYPE,
-      isUnselectLink: true,
-      name: 'foo',
-      slug: 'foo',
-      path: 'Eletronicos/Smartphones/Acessorios/foo',
-      pagesPath: SUBCATEGORY_PAGE,
-      query: {
-        rest: ['Samsung', 'foo'],
-        map: ['c', 'c', 'c', 'c', 'b'],
-      },
-      params: {
-        department: 'Eletronicos',
-        category: 'Smartphones',
-        subcategory: 'Acessorios',
-        _rest: '',
-      },
-    }
-
-    const { query: { map, rest } } = getPagesArgs(filterSpec)
-
-    expect(map).toEqual(['c', 'c', 'c', 'b'])
-    expect(rest).toEqual(['Samsung'])
-  })
-
   it('should remove category from rest', () => {
     const filterSpec = {
       type: CATEGORIES_TYPE,
@@ -228,29 +201,6 @@ describe('getPagesArgs', () => {
 
     expect(map).toEqual(['c', 'b'])
     expect(rest).toEqual(['Google'])
-  })
-
-  it('should remove all categories on search page', () => {
-    const filterSpec = {
-      type: CATEGORIES_TYPE,
-      isUnselectLink: true,
-      name: 'Eletrônicos',
-      slug: 'Eletronicos',
-      path: 'Eletronicos',
-      pagesPath: SEARCH_PAGE,
-      query: {
-        map: ['ft', 'c', 'c'],
-        rest: ['Eletronicos', 'Smartphones'],
-      },
-      params: {
-        term: 'samsun',
-      },
-    }
-
-    const { query: { map, rest } } = getPagesArgs(filterSpec)
-
-    expect(map).toEqual(['ft'])
-    expect(rest).toEqual([])
   })
 
   it('should remove brand from filters', () => {

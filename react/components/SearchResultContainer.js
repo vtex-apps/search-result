@@ -23,6 +23,8 @@ export default class SearchResultContainer extends Component {
     fetchMoreLoading: false,
   }
 
+  _fetchMoreLocked = false
+
   get breadcrumbsProps() {
     const {
       params: { category, department, term },
@@ -92,46 +94,69 @@ export default class SearchResultContainer extends Component {
         params,
         query: {
           order: this.props.orderBy,
-          map: useEmptyMapAndRest
-            ? getBaseMap(map, rest)
+          map: map && (
+            useEmptyMapAndRest
+              ? getBaseMap(map, rest)
                 .split(',')
                 .filter(x => x)
-            : map.split(','),
-          rest: useEmptyMapAndRest ? [] : rest.split(',').filter(x => x),
+              : map.split(',')
+          ) || [],
+          rest: (useEmptyMapAndRest || !rest) ? [] : rest.split(',').filter(x => x),
         },
       }
     )
 
     const queryString = QueryString.stringify({
       ...pageProps.query,
-      map: pageProps.query.map.join(','),
+      map: pageProps.query.map && pageProps.query.map.join(','),
       rest: pageProps.query.rest.join(',') || undefined,
     })
 
     return {
-      page: pageProps.page,
+      page: pagesPath,
       queryString: queryString,
       params: pageProps.params,
     }
   }
 
-  handleFetchMoreProducts = (prev, { fetchMoreResult }) => {
+  handleFetchMore = () => {
+    if (this._fetchMoreLocked) {
+      return
+    }
+
+    this._fetchMoreLocked = true
+
+    const { maxItemsPerPage, searchQuery: { products } } = this.props
+
+    const to = maxItemsPerPage + products.length - 1
+
     this.setState({
-      fetchMoreLoading: false,
+      fetchMoreLoading: true,
     })
 
-    if (!fetchMoreResult) return prev
-
-    return {
-      search: {
-        ...prev.search,
-        products: [...prev.search.products, ...fetchMoreResult.search.products],
+    this.props.searchQuery.fetchMore({
+      variables: {
+        from: products.length,
+        to,
       },
-    }
-  }
+      updateQuery: (prevResult, { fetchMoreResult }) => {
+        this.setState({
+          fetchMoreLoading: false,
+        }, () => {
+          this._fetchMoreLocked = false
+        })
 
-  handleSetFetchMoreLoading = fetchMoreLoading => {
-    this.setState({ fetchMoreLoading })
+        return {
+          search: {
+            ...prevResult.search,
+            products: [
+              ...prevResult.search.products,
+              ...fetchMoreResult.search.products,
+            ],
+          },
+        }
+      },
+    })
   }
 
   render() {
@@ -146,56 +171,34 @@ export default class SearchResultContainer extends Component {
         products = [],
         recordsFiltered = 0,
         loading,
-        fetchMore,
+        variables: {
+          query,
+        },
       },
-      orderBy,
-      maxItemsPerPage,
-      page,
-      summary,
-      map,
-      rest,
-      params,
-      priceRange,
       pagination,
-      hiddenFacets,
     } = this.props
 
-    const breadcrumbsProps = this.breadcrumbsProps
-    const to = (page - 1) * maxItemsPerPage + products.length
-
-    const props = {
-      breadcrumbsProps,
-      onSetFetchMoreLoading: this.handleSetFetchMoreLoading,
-      onFetchMoreProducts: this.handleFetchMoreProducts,
-      getLinkProps: this.getLinkProps,
-      fetchMoreLoading: this.state.fetchMoreLoading,
-      orderBy,
-      maxItemsPerPage,
-      page,
-      summary,
-      map,
-      rest,
-      params,
-      fetchMore,
-      to,
-      loading,
-      recordsFiltered,
-      products,
-      brands: Brands,
-      specificationFilters: SpecificationFilters,
-      priceRanges: PriceRanges,
-      priceRange: priceRange,
-      hiddenFacets,
-      tree: CategoriesTrees,
-    }
+    const ResultComponent = pagination === PAGINATION_TYPES[0]
+      ? ShowMoreLoaderResult
+      : InfiniteScrollLoaderResult
 
     return (
       <PopupProvider>
-        {pagination === PAGINATION_TYPES[0] ? (
-          <ShowMoreLoaderResult {...props} />
-        ) : (
-          <InfiniteScrollLoaderResult {...props} />
-        )}
+        <ResultComponent
+          {...this.props}
+          breadcrumbsProps={this.breadcrumbsProps}
+          getLinkProps={this.getLinkProps}
+          onFetchMore={this.handleFetchMore}
+          fetchMoreLoading={this.state.fetchMoreLoading}
+          query={query}
+          loading={loading}
+          recordsFiltered={recordsFiltered}
+          products={products}
+          brands={Brands}
+          specificationFilters={SpecificationFilters}
+          priceRanges={PriceRanges}
+          tree={CategoriesTrees}
+        />
       </PopupProvider>
     )
   }

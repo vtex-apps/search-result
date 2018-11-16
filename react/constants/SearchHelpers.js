@@ -12,10 +12,10 @@ import {
 /**
  * Returns the parameter name to be used in the map
  */
-export function getSpecificationFilterFromLink(link, map) {
-  const [_, linkQueryParams] = link.split('?') // eslint-disable-line no-unused-vars
+export function getSpecificationFilterFromLink(link, slug) {
+  const [url, queryParams] = link.split('?') // eslint-disable-line no-unused-vars
 
-  const { map: linkMap } = linkQueryParams.split('&').reduce((acc, param) => {
+  const { map } = queryParams.split('&').reduce((acc, param) => {
     const [name, values] = param.split('=')
 
     return {
@@ -24,29 +24,15 @@ export function getSpecificationFilterFromLink(link, map) {
     }
   }, {})
 
-  const filterMapParams = (currentMap, currentLinkMap, index = 0) => {
-    if (currentMap.length === 0 || index >= currentLinkMap.length) {
-      return currentLinkMap
-    }
+  const urlParams = url.split('/').filter(v => v)
 
-    if (currentMap[0] !== currentLinkMap[index]) {
-      return filterMapParams(currentMap, currentLinkMap, index + 1)
-    }
+  const urlIndex = urlParams.indexOf(slug)
 
-    return filterMapParams(
-      currentMap.slice(1, currentMap.length),
-      currentLinkMap
-        .slice(0, index)
-        .concat(currentLinkMap.slice(index + 1, currentLinkMap.length)),
-      index
-    )
+  if (urlIndex === -1) {
+    return undefined
   }
 
-  const filteredLinks = filterMapParams(map, linkMap)
-
-  const [specificationFilterMap] = filteredLinks
-
-  return specificationFilterMap
+  return map[urlIndex]
 }
 
 export function getMapByType(type) {
@@ -73,19 +59,7 @@ function restMapped(rest, map) {
   }, {})
 }
 
-function removeFilter(map, rest, { type, slug, pagesPath }) {
-  let categoryCount = 0
-
-  if (pagesPath === 'store/department') {
-    categoryCount = 1
-  } else if (pagesPath === 'store/category') {
-    categoryCount = 2
-  } else if (pagesPath === 'store/subcategory') {
-    categoryCount = 3
-  }
-
-  const categoryMapSymbol = getMapByType(CATEGORIES_TYPE)
-
+function removeFilter(map, rest, { slug }) {
   const restIndex = rest.findIndex(
     item => slug.toLowerCase() === item.toLowerCase()
   )
@@ -94,67 +68,21 @@ function removeFilter(map, rest, { type, slug, pagesPath }) {
     return { map, rest }
   }
 
-  if (type !== CATEGORIES_TYPE) {
-    let categoriesFiltered = 0
+  // assuming the map is always equals or bigger
+  // than the rest, this will never be negative
+  const lengthDiff = map.length - rest.length
 
-    const mapWithoutCategories = map.filter(symbol => {
-      if (categoriesFiltered === categoryCount) {
-        return true
-      }
-
-      categoriesFiltered++
-
-      return symbol !== categoryMapSymbol
-    }).filter((_, i) => i !== restIndex)
-
-    const lengthDifference = map.length - mapWithoutCategories.length - 1
-
-    return {
-      map: [...repeat(categoryMapSymbol, lengthDifference), ...mapWithoutCategories],
-      rest: rest.filter((_, i) => i !== restIndex),
-    }
-  }
-
-  let mapIndex = -1
-  let count = categoryCount - 1
-
-  for (const symbol of map) {
-    mapIndex++
-
-    if (symbol === categoryMapSymbol && categoryCount > 0) {
-      categoryCount--
-    } else if (count >= restIndex) {
-      break
-    } else {
-      count++
-    }
-  }
+  const mapIndex = lengthDiff + restIndex
 
   return {
-    rest: rest
-      .filter((_, i) => {
-        if (i < restIndex) {
-          return true
-        } else if (i === restIndex) {
-          return false
-        }
-        return map[i + mapIndex] !== categoryMapSymbol
-      }),
-    map: map
-      .filter((mapValue, i) => {
-        if (i < mapIndex) {
-          return true
-        } else if (i === mapIndex) {
-          return false
-        }
-        return mapValue !== categoryMapSymbol
-      }),
+    map: map.filter((_, i) => i !== mapIndex),
+    rest: rest.filter((_, i) => i !== restIndex),
   }
 }
 
 function addFilter(map, rest, { path, type, link, pagesPath, slug }) {
   const mapSymbol = type === SPECIFICATION_FILTERS_TYPE
-    ? getSpecificationFilterFromLink(link, map)
+    ? getSpecificationFilterFromLink(link, slug)
     : getMapByType(type)
 
   if (type !== CATEGORIES_TYPE) {
@@ -205,7 +133,7 @@ export function getPagesArgs({
     map,
     rest,
     page: pageNumber !== 1 ? pageNumber : undefined,
-    order: order !== SORT_OPTIONS[0].value ? order : undefined,
+    order,
     priceRange,
   }
 
@@ -250,16 +178,21 @@ export function mountOptions(options, type, map, rest) {
   return options.reduce((acc, opt) => {
     let slug
 
-    if (opt.type === BRANDS_TYPE) {
-      slug = opt.Name.replace(/[^\w\d]/g, '-')
+    if (type === BRANDS_TYPE) {
+      slug = unorm.nfd(opt.Name)
+        // Remove the accents
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^\w\d]/g, '-')
     } else {
       slug = opt.Slug || opt.normalizedName || opt.Name
     }
 
     const optMap = type === SPECIFICATION_FILTERS_TYPE
-      ? getSpecificationFilterFromLink(opt.Link, map.split(','))
+      ? getSpecificationFilterFromLink(opt.Link, slug)
       : getMapByType(type)
-    const selected = restMap[slug && slug.toUpperCase()] === optMap && optMap !== undefined
+
+    const selected = restMap.hasOwnProperty(slug.toUpperCase()) &&
+      restMap[slug.toUpperCase()] === optMap
 
     return [
       ...acc,

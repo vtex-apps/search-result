@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
+import { withRuntimeContext } from 'render'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
-import { Link } from 'render'
 
 import CheckTick from '../images/CheckTick'
 import Popup from './Popup'
-import FooterButton from './FooterButton'
 
 class SelectionListOrderBy extends Component {
   static propTypes = {
@@ -17,51 +16,36 @@ class SelectionListOrderBy extends Component {
       value: PropTypes.string,
     })),
     intl: intlShape,
-  }
-
-  static contextTypes = {
-    navigate: PropTypes.func,
-  }
-
-  state = {
-    selectedOption: this.props.orderBy,
+    runtime: PropTypes.shape({
+      navigate: PropTypes.func,
+    }),
   }
 
   handleSelect = option => e => {
     e.preventDefault()
 
-    this.setState({
-      selectedOption: option.value,
+    const { getLinkProps, runtime: { navigate } } = this.props
+
+    const linkProps = getLinkProps({ ordenation: option.value })
+
+    navigate({
+      page: linkProps.page,
+      query: linkProps.queryString,
+      params: linkProps.params,
     })
   }
 
   render() {
-    const { intl, options, getLinkProps } = this.props
-    const { selectedOption } = this.state
-
-    const linkProps = getLinkProps({ ordenation: selectedOption })
+    const { intl, options, orderBy } = this.props
 
     return (
       <Popup
         title={intl.formatMessage({ id: 'search-result.orderby.title' })}
         id="orderby"
-        renderFooter={({ onClose }) => (
-          <div className="vtex-orderby-popup__footer flex justify-end pv3 ph6 nh3 bg-dark-gray">
-            <FooterButton
-              tag={Link}
-              page={linkProps.page}
-              params={linkProps.params}
-              query={linkProps.queryString}
-              onClick={onClose}
-            >
-              {intl.formatMessage({ id: 'ordenation.button' })}
-            </FooterButton>
-          </div>
-        )}
       >
         <div className="vtex-orderby-popup">
           {options.map(opt => {
-            const active = selectedOption === opt.value
+            const active = orderBy === opt.value
 
             return (
               <div
@@ -88,4 +72,4 @@ class SelectionListOrderBy extends Component {
   }
 }
 
-export default injectIntl(SelectionListOrderBy)
+export default injectIntl(withRuntimeContext(SelectionListOrderBy))

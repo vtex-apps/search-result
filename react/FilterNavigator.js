@@ -34,7 +34,7 @@ class FilterNavigator extends Component {
     /** Categories tree */
     tree: PropTypes.arrayOf(facetOptionShape),
     /** Params from pages */
-    params: paramShape.isRequired,
+    params: paramShape,
     /** List of brand filters (e.g. Samsung) */
     brands: PropTypes.arrayOf(facetOptionShape),
     /** List of specification filters (e.g. Android 7.0) */
@@ -49,9 +49,9 @@ class FilterNavigator extends Component {
     /** Current price range filter query parameter */
     priceRange: PropTypes.string,
     /** Map query parameter */
-    map: PropTypes.string.isRequired,
+    map: PropTypes.string,
     /** Rest query parameter */
-    rest: PropTypes.string.isRequired,
+    rest: PropTypes.string,
     /** Loading indicator */
     loading: PropTypes.bool,
     ...hiddenFacetsSchema,
@@ -66,20 +66,29 @@ class FilterNavigator extends Component {
     hiddenFacets: {},
   }
 
-  get availableCategories() {
-    const params = this.props.params
+  getAvailableCategories = (showOnlySelected = false) => {
+    const { rest, query, map } = this.props
     const categories = this.categories
 
-    const categoriesCount = this.props.map
-      .split(',')
-      .filter(m => m === getMapByType(CATEGORIES_TYPE)).length
+    let queryParams = query || ''
 
-    const currentPath = [params.department, params.category, params.subcategory]
-      .filter(v => v)
+    if (rest && rest.length > 0) {
+      queryParams = `${queryParams}/${rest.replace(/,/g, '/')}`
+    }
+
+    const mapArray = map.split(',')
+
+    const categoriesCount = mapArray
+      .filter(m => m === getMapByType(CATEGORIES_TYPE))
+      .length
+
+    const currentPath = queryParams
+      .split('/')
+      .filter((_, index) => mapArray[index] === getMapByType(CATEGORIES_TYPE))
       .join('/')
 
     return categories
-      .filter(c => c.level === categoriesCount)
+      .filter(c => c.level === (showOnlySelected ? categoriesCount - 1 : categoriesCount))
       .filter(c => c.path.toLowerCase().startsWith(currentPath.toLowerCase()))
   }
 
@@ -96,7 +105,7 @@ class FilterNavigator extends Component {
   get selectedFilters() {
     const { brands, specificationFilters, priceRanges, map, rest } = this.props
 
-    const categories = this.categories
+    const categories = this.getAvailableCategories(true)
 
     const options = [
       ...mountOptions(categories, CATEGORIES_TYPE, map, rest),
@@ -124,6 +133,10 @@ class FilterNavigator extends Component {
       runtime: { hints: { mobile } },
     } = this.props
 
+    if (!map || !map.length) {
+      return null
+    }
+
     if (loading && !mobile) {
       return (
         <ContentLoader
@@ -144,7 +157,8 @@ class FilterNavigator extends Component {
       )
     }
 
-    const categories = this.availableCategories
+    const categories = this.getAvailableCategories()
+
     const hiddenFacetsNames = (
       path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
     ).map(filter => filter.name)

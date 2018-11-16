@@ -57,6 +57,7 @@ class SearchFilter extends Component {
       >
         {opt => {
           const pagesArgs = getLinkProps(formatFacetToLinkPropsParam(type, opt, oneSelectedCollapse))
+
           return (
             <Link
               key={opt.Name}
