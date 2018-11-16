@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Use from 'vtex.use-svg/Use'
 
 export default function SingleItemGrid({ active }) {
-  const color = active ? '#828282' : '#ececec'
+  const color = active ? 'mid-gray' : 'light-gray'
 
   return (
     <svg
@@ -13,7 +13,7 @@ export default function SingleItemGrid({ active }) {
       height="19"
       viewBox="0 0 10 19"
       fill="none"
-      color={color}
+      className={color}
     >
       <Use id="single-item-grid" />
     </svg>

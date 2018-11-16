@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Use from 'vtex.use-svg/Use'
 
 export default function Grid({ active }) {
-  const color = active ? '#828282' : '#ececec'
+  const color = active ? 'mid-gray' : 'light-gray'
 
   return (
     <svg
@@ -13,7 +13,7 @@ export default function Grid({ active }) {
       height="19"
       viewBox="0 0 16 19"
       fill="none"
-      color={color}
+      className={color}
     >
       <Use id="grid" />
     </svg>

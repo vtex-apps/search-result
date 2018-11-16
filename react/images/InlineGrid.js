@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import Use from 'vtex.use-svg/Use'
 
 export default function InlineGrid({ active }) {
-  const color = active ? '#828282' : '#ececec'
+  
+  const color = active ? 'mid-gray' : 'light-gray'
 
   return (
     <svg
@@ -13,7 +14,7 @@ export default function InlineGrid({ active }) {
       height="19"
       viewBox="0 0 19 19"
       fill="none"
-      color={color}
+      className={color}
     >
       <Use id="inline-grid" />
     </svg>
