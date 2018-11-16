@@ -28,6 +28,7 @@ const Arrow = ({ up, size }) => {
     </svg>
   )
 }
+
 Arrow.propTypes = {
   up: PropTypes.bool,
   size: PropTypes.number,
