@@ -120,8 +120,8 @@ export default class Popup extends Component {
                 })}
                 onClick={onToggle(id)}
               >
-                <span className="vtex-filter-popup__title t-action ml-auto">{title}</span>
-                <span className="vtex-filter-popup__arrow-icon ml2">
+                <span className="vtex-filter-popup__title t-action-small ml-auto">{title}</span>
+                <span className="vtex-filter-popup__arrow-icon ml-auto">
                   <Arrow size={8} />
                 </span>
               </button>
