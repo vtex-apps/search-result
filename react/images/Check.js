@@ -1,26 +1,27 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { string } from 'prop-types'
 import Use from 'vtex.use-svg/Use'
+import Svg from 'vtex.use-svg/Svg'
 
-export default function Check({ size }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      width={size}
-      height={size}
-      viewBox="0 0 9 9"
-      fill="none"
-    >
-      <Use id="check" />
-    </svg>
-  )
+const Check = ({ size, fill }) => (
+  <Svg
+    width={size}
+    height={size}
+    viewBox={`0 0 ${size} ${size}`}
+    fill={fill}
+  >
+    <Use id="check" />
+  </Svg>
+)
+
+Check.defaultProps = {
+  size: '9',
+  fill: 'none'
 }
 
 Check.propTypes = {
-  size: PropTypes.number,
+  size: string,
+  fill: string
 }
 
-Check.defaultProps = {
-  size: 9,
-}
+export default Check

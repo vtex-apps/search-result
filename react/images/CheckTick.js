@@ -1,20 +1,29 @@
 import React from 'react'
+import { string } from 'prop-types'
 import Use from 'vtex.use-svg/Use'
+import Svg from 'vtex.use-svg/Svg'
 
+const CheckTick = ({ width, height, fill}) => (
+  <Svg
+    width={width}
+    height={height}
+    viewBox={`0 0 ${width} ${height}`}      
+    fill={fill}
+  >
+    <Use id="check-tick" />
+  </Svg>
+)
 
-const CheckTick = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      width="11"
-      height="9"
-      viewBox="0 0 11 9"
-      fill="none"
-    >
-      <Use id="check-tick" />
-    </svg>
-  )
+CheckTick.defaultProps = {
+  width: '11',
+  height: '9',
+  fill: 'none',
+}
+
+CheckTick.propTypes = {
+  width: string,
+  height: string,
+  fill: string,
 }
 
 export default CheckTick
