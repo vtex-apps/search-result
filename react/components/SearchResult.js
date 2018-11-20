@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint } from 'render'
 import { FormattedMessage } from 'react-intl'
@@ -122,6 +122,12 @@ export default class SearchResult extends Component {
 
     const term = params && params.term
       ? decodeURIComponent(params.term) : undefined
+
+    if (!products.length && !loading) {
+      return (
+        <ExtensionPoint id="not-found" term={term} />
+      )
+    }
 
     const hideFacets = !map || !map.length
 
