@@ -3,7 +3,7 @@ import { bool, string } from 'prop-types'
 import Use from 'vtex.use-svg/Use'
 import Svg from 'vtex.use-svg/Svg'
 
-const GridIcon = ({ active, activeClassName, muttedClassName, width, height, fill, iconID }) => (  
+const GridIcon = ({ active, activeClassName, muttedClassName, width, height, fill, icon }) => (  
   <Svg
     width={width}
     height={height}
@@ -11,7 +11,7 @@ const GridIcon = ({ active, activeClassName, muttedClassName, width, height, fil
     fill={fill}
     className={active ? activeClassName : muttedClassName}
   >
-    <Use id={iconID}/>
+    <Use id={icon}/>
   </Svg>
 )
 
@@ -32,7 +32,7 @@ GridIcon.propTypes = {
   width: string,
   height: string,
   fill: string,
-  iconID: string.isRequired
+  icon: string.isRequired
 }
 
 export default GridIcon
