@@ -1,26 +1,37 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { bool, string } from 'prop-types'
 import Use from 'vtex.use-svg/Use'
+import Svg from 'vtex.use-svg/Svg'
 
-export default function Grid({ active }) {
-  const color = active ? 'mid-gray' : 'light-gray'
+const Grid = ({ active, activeClassName, muttedClassName, width, height, fill }) => (  
+  <Svg
+    width={width}
+    height={height}
+    viewBox={`0 0 ${width} ${height}`}
+    fill={fill}
+    className={active ? activeClassName : muttedClassName}
+  >
+    <Use id="grid" />
+  </Svg>
+)
 
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      width="16"
-      height="19"
-      viewBox="0 0 16 19"
-      fill="none"
-      className={color}
-    >
-      <Use id="grid" />
-    </svg>
-  )
+Grid.defaultProps = {
+  active: false,
+  activeClassName: 'mid-gray',
+  muttedClassName: 'light-gray',
+  width: '16',
+  height: '19',
+  fill: 'none',
 }
 
 Grid.propTypes = {
   /** Whether the icon is active */
-  active: PropTypes.bool,
+  active: bool,
+  activeClassName: string,
+  muttedClassName: string,
+  width: string,
+  height: string,
+  fill: string
 }
+
+export default Grid;
