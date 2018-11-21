@@ -60,7 +60,7 @@ class PriceRange extends Component {
         page: linkProps.page,
         params: linkProps.params,
         query: linkProps.queryString,
-        scrollOptions: false,
+        scrollOptions: { elementId: 'search-result-anchor' },
       })
     }, DEBOUNCE_TIME)
   }

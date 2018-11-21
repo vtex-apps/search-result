@@ -65,7 +65,7 @@ class SearchFilter extends Component {
               page={pagesArgs.page}
               params={pagesArgs.params}
               query={pagesArgs.queryString}
-              scrollOptions={false}
+              scrollOptions={{ elementId: 'search-result-anchor' }}
             >
               <span
                 className="f6 fw3 bb db"

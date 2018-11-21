@@ -30,6 +30,7 @@ class SearchFooter extends Component {
       page,
       params,
       query,
+      scrollOptions: { elementId: 'search-result-anchor' },
     })
   }
 

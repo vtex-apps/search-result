@@ -32,6 +32,7 @@ class SelectionListOrderBy extends Component {
       page: linkProps.page,
       query: linkProps.queryString,
       params: linkProps.params,
+      scrollOptions: { elementId: 'search-result-anchor' },
     })
   }
 

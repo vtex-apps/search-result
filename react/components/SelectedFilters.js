@@ -49,7 +49,7 @@ class SelectedFilters extends Component {
               page={pagesArgs.page}
               params={pagesArgs.params}
               query={pagesArgs.queryString}
-              scrollOptions={false}
+              scrollOptions={{ elementId: 'search-result-anchor' }}
             >
               <label className="w-100 flex items-center relative f7 fw3 mb2 pointer">
                 <div className="absolute top-0 left-0 bottom-0 z-1">

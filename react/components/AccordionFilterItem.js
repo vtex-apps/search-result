@@ -54,8 +54,8 @@ const AccordionFilterItem = ({
               params={pagesArgs.params}
               query={pagesArgs.queryString}
               onClick={onItemSelected}
-              scrollOptions={false}
-            >
+              scrollOptions={{ elementId: 'search-result-anchor' }}
+          >
               {opt.Name}
 
               {false && (
