@@ -6,40 +6,33 @@ import Grid from '../images/Grid'
 import SingleItemGrid from '../images/SingleItemGrid'
 import InlineGrid from '../images/InlineGrid'
 
-const onChangeHandler = (type, onChange) => e => onChange(e, type)
 
 export default function LayoutModeSwitcher({ activeMode, onChange }) {
-  return (
-    <div className="vtex-layout-switcher flex justify-between pv2">
-      <div className="flex justify-center flex-auto br b--muted-4">
-        <Button
-          variation="tertiary"
-          size="small"
-          onClick={onChangeHandler('small', onChange)}
-        >
-          <Grid active={activeMode === 'small'} />
-        </Button>
+
+  const onChangeHandler = (type, onChange) => e => onChange(e, type)
+  const renderButton = (mode, onChange) => {
+
+    const renderIcon = mode => {
+      return mode === 'small' ?  <Grid active /> : mode === 'inline' ?  <InlineGrid active /> : <SingleItemGrid active />
+    }
+
+    return (
+      <div className="vtex-layout-switcher flex justify-between pv2">
+        <div className="flex justify-center flex-auto br b--muted-4">
+          <Button
+            variation="tertiary"
+            size="small"
+            onClick={onChangeHandler('small', onChange)}
+          >
+            {renderIcon(mode)}
+          </Button>
+        </div>
       </div>
-      <div className="flex justify-center flex-auto br b--muted-4">
-        <Button
-          variation="tertiary"
-          size="small"
-          onClick={onChangeHandler('inline', onChange)}
-        >
-          <InlineGrid active={activeMode === 'inline'} />
-        </Button>
-      </div>
-      <div className="flex justify-center flex-auto">
-        <Button
-          variation="tertiary"
-          size="small"
-          onClick={onChangeHandler('normal', onChange)}
-        >
-          <SingleItemGrid active={activeMode === 'normal'} />
-        </Button>
-      </div>
-    </div>
-  )
+    )
+  }
+
+  return renderButton(activeMode, onChange)
+
 }
 
 LayoutModeSwitcher.propTypes = {

@@ -180,7 +180,7 @@ body.vtex-filter-popup-open {
     grid-template-columns: 1fr 1px 1fr;
     grid-template-areas:
       "quantity quantity quantity"
-      "filters border orderby"
+      "orderby border filters"
       "gallery gallery gallery";
   }
 
