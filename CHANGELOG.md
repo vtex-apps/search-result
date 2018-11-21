@@ -39,8 +39,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Add field `orderBy` to custom query schema.
 
-## [2.2.0] - 2018-10-31	
-### Fixed	
+## [2.2.0] - 2018-10-31
+### Fixed
 - Fix slug being modified for every type, instead of only brands.
 
 ## [2.1.0] - 2018-10-22
