@@ -34,9 +34,13 @@ export default class SearchResult extends Component {
 
   handleLayoutChange = (e, mode) => {
     e.preventDefault()
+    const modes = ['small', 'inline', 'normal']
+
+    let modeIndex = modes.indexOf(this.state.galleryLayoutMode) !== -1 ? (modes.indexOf(this.state.galleryLayoutMode) + 1) % 3 : 0
+    const newMode = modes[modeIndex]
 
     this.setState({
-      galleryLayoutMode: mode,
+      galleryLayoutMode: newMode,
     })
   }
 
@@ -112,7 +116,6 @@ export default class SearchResult extends Component {
       params,
       priceRange,
       priceRanges,
-      query,
       rest,
       specificationFilters,
       tree,
@@ -191,13 +194,13 @@ export default class SearchResult extends Component {
                 </div>
               </div>
             ) : (
-              <ExtensionPoint
-                id="gallery"
-                products={products}
-                summary={summary}
-                layoutMode={this.state.galleryLayoutMode}
-              />
-            )}
+                <ExtensionPoint
+                  id="gallery"
+                  products={products}
+                  summary={summary}
+                  layoutMode={this.state.galleryLayoutMode}
+                />
+              )}
             {children}
           </div>
         </div>
