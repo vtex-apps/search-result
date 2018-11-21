@@ -194,15 +194,15 @@ export default class SearchResult extends Component {
             hiddenFacets={hiddenFacets}
             loading={loading && !fetchMoreLoading}
           />
-
         </div>
 
         <div className="vtex-search-result__order-by">
-
-          <OrderBy
-            orderBy={orderBy}
-            getLinkProps={getLinkProps}
-          />
+          <div className="br b--muted-4" >
+            <OrderBy
+              orderBy={orderBy}
+              getLinkProps={getLinkProps}
+            />
+          </div>
         </div>
 
         <div className="vtex-search-result__switch">
@@ -215,7 +215,6 @@ export default class SearchResult extends Component {
         </div>
 
         <div className="vtex-search-result__gallery">
-
           {loading && !fetchMoreLoading ? (
             <div className="w-100 flex justify-center">
               <div className="w3 ma0">

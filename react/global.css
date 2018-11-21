@@ -89,6 +89,8 @@
   -ms-grid-column: 1;
   grid-column: filters;
   grid-row: filters;
+  align-self: center;
+  justify-self: stretch;
 }
 
 .vtex-search-result__gallery {
