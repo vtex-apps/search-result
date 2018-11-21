@@ -33,7 +33,6 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
   }
 
   return renderButton(activeMode, onChange)
-
 }
 
 LayoutModeSwitcher.propTypes = {
