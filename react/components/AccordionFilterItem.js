@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { Link } from 'render'
 
 import Arrow from '../images/Arrow'
-import CheckTick from '../images/CheckTick'
+import Icon from 'vtex.use-svg/Icon'
 import { facetOptionShape } from '../constants/propTypes'
 import { getFilterTitle, formatFacetToLinkPropsParam, HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
 
@@ -59,7 +59,7 @@ const AccordionFilterItem = ({
 
               {false && (
                 <span className="vtex-accordion-filter__check-icon fr">
-                  <CheckTick />
+                  <Icon id='check-tick' size={11} viewBox='0 0 11 9' />
                 </span>
               )}
             </Link>

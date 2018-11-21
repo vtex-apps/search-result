@@ -5,7 +5,7 @@ import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 
 import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
-import CheckTick from '../images/CheckTick'
+import Icon from 'vtex.use-svg/Icon'
 import Popup from './Popup'
 
 class SelectionListOrderBy extends Component {
@@ -62,7 +62,7 @@ class SelectionListOrderBy extends Component {
 
                 {active && (
                   <span className="vtex-orderby__item-icon fr">
-                    <CheckTick />
+                    <Icon id='check-tick' size={11} viewBox='0 0 11 9' />
                   </span>
                 )}
               </div>

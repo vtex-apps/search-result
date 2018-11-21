@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Use from 'vtex.use-svg/Use'
+import Icon from 'vtex.use-svg/Icon'
 
 const defaultSize = {
   width: 14,
@@ -16,16 +16,7 @@ const Arrow = ({ up, size }) => {
   const iconId = up ? 'arrow-up' : 'arrow-down'
 
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      width={width}
-      height={height}
-      viewBox="0 0 14 10"
-      fill="none"
-    >
-      <Use id={iconId} />
-    </svg>
+    <Icon id={iconId} size={size} viewBox='0 0 14 10'/>
   )
 }
 
