@@ -5,7 +5,7 @@ import { Link } from 'render'
 
 import FilterOptionTemplate from './FilterOptionTemplate'
 import Check from '../images/Check'
-import { formatFacetToLinkPropsParam } from '../constants/SearchHelpers'
+import { formatFacetToLinkPropsParam, HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
 
 /**
  * Search Filter Component.
@@ -49,7 +49,7 @@ class SelectedFilters extends Component {
               page={pagesArgs.page}
               params={pagesArgs.params}
               query={pagesArgs.queryString}
-              scrollOptions={{ elementId: 'search-result-anchor' }}
+              scrollOptions={{ baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET }}
             >
               <label className="w-100 flex items-center relative f7 fw3 mb2 pointer">
                 <div className="absolute top-0 left-0 bottom-0 z-1">

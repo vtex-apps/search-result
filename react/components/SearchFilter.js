@@ -5,7 +5,7 @@ import { Link } from 'render'
 
 import FilterOptionTemplate from './FilterOptionTemplate'
 import { facetOptionShape } from '../constants/propTypes'
-import { getFilterTitle, formatFacetToLinkPropsParam } from '../constants/SearchHelpers'
+import { getFilterTitle, formatFacetToLinkPropsParam, HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
 
 const SELECTED_FILTER_COLOR = '#368DF7'
 
@@ -65,7 +65,7 @@ class SearchFilter extends Component {
               page={pagesArgs.page}
               params={pagesArgs.params}
               query={pagesArgs.queryString}
-              scrollOptions={{ elementId: 'search-result-anchor' }}
+              scrollOptions={{ baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET }}
             >
               <span
                 className="f6 fw3 bb db"

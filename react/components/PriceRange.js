@@ -5,7 +5,7 @@ import { injectIntl, intlShape } from 'react-intl'
 import { Slider } from 'vtex.styleguide'
 
 import { facetOptionShape } from '../constants/propTypes'
-import { getFilterTitle } from '../constants/SearchHelpers'
+import { getFilterTitle, HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
 import FilterOptionTemplate from './FilterOptionTemplate'
 
 const DEBOUNCE_TIME = 500 // ms
@@ -60,7 +60,7 @@ class PriceRange extends Component {
         page: linkProps.page,
         params: linkProps.params,
         query: linkProps.queryString,
-        scrollOptions: { elementId: 'search-result-anchor' },
+        scrollOptions: { baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET },
       })
     }, DEBOUNCE_TIME)
   }

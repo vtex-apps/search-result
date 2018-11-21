@@ -7,7 +7,7 @@ import { Link } from 'render'
 import Arrow from '../images/Arrow'
 import CheckTick from '../images/CheckTick'
 import { facetOptionShape } from '../constants/propTypes'
-import { getFilterTitle, formatFacetToLinkPropsParam } from '../constants/SearchHelpers'
+import { getFilterTitle, formatFacetToLinkPropsParam, HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
 
 const AccordionFilterItem = ({
   title,
@@ -54,7 +54,7 @@ const AccordionFilterItem = ({
               params={pagesArgs.params}
               query={pagesArgs.queryString}
               onClick={onItemSelected}
-              scrollOptions={{ elementId: 'search-result-anchor' }}
+              scrollOptions={{ baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET }}
           >
               {opt.Name}
 

@@ -184,7 +184,7 @@ export default class SearchResultContainer extends Component {
 
     return (
       <PopupProvider>
-        <div id="search-result-anchor" className="relative" style={{ top: "-56px" }} />
+        <div id="search-result-anchor" />
         <ResultComponent
           {...this.props}
           breadcrumbsProps={this.breadcrumbsProps}
