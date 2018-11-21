@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button } from 'vtex.styleguide'
 
-import GridIcon from '../images/GridIcon'
+import Icon from 'vtex.use-svg/Icon'
 
 const onChangeHandler = (type, onChange) => e => onChange(e, type)
 
@@ -15,7 +15,7 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
           size="small"
           onClick={onChangeHandler('small', onChange)}
         >
-          <GridIcon active={activeMode === 'small'} icon='grid' width='16' height='19' />
+          <Icon id='grid' isActive={activeMode === 'small'} viewBox='0 0 16 19' />
         </Button>
       </div>
       <div className="flex justify-center flex-auto br b--muted-4">
@@ -24,7 +24,7 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
           size="small"
           onClick={onChangeHandler('inline', onChange)}
         >
-          <GridIcon active={activeMode === 'inline'} icon='inline-grid' width='19' height='19' />          
+          <Icon id='inline-grid' isActive={activeMode === 'inline'} viewBox='0 0 10 19' />          
         </Button>
       </div>
       <div className="flex justify-center flex-auto">
@@ -33,7 +33,7 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
           size="small"
           onClick={onChangeHandler('normal', onChange)}
         > 
-          <GridIcon active={activeMode === 'normal'} icon='single-item-grid' width='10' height='19' />          
+          <Icon id='single-item-grid' isActive={activeMode === 'normal'} viewBox='0 0 10 19' />          
         </Button>
       </div>
     </div>
