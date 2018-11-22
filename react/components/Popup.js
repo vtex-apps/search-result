@@ -125,7 +125,7 @@ export default class Popup extends Component {
                 onClick={onToggle(id)}
               >
               <span className="vtex-filter-popup__title f5 ml-auto">{title}</span>
-              <span className="vtex-filter-popup__arrow-icon ml-auto pl4 ml2">
+              <span className="vtex-filter-popup__arrow-icon ml-auto">
                 {icon}
               </span>
               </button>
