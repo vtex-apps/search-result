@@ -155,7 +155,7 @@ export default class SearchResult extends Component {
           </div>
           {!hideFacets && (
             <div className="vtex-search-result__filters">
-              <div className="br bl b--muted-4">
+              <div className="flex justify-center flex-auto br bl b--muted-4">
                 <ExtensionPoint
                   id="filter-navigator"
                   brands={brands}
