@@ -66,8 +66,7 @@
   -ms-grid-column: 6;
   grid-column: switch;
   grid-row: switch;
-  align-self: center;
-  justify-self: stretch;
+
 }
 
 .vtex-search-result--paginated .vtex-search-result__order-by {
@@ -89,8 +88,7 @@
   -ms-grid-column: 1;
   grid-column: filters;
   grid-row: filters;
-  align-self: center;
-  justify-self: stretch;
+
 }
 
 .vtex-search-result__gallery {
@@ -99,8 +97,7 @@
   -ms-grid-column-span: 5;
   grid-column: gallery;
   grid-row: gallery;
-  align-self: center;
-  justify-self: stretch;
+
 }
 
 .vtex-search-result__border {
