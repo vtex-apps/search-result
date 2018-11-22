@@ -34,16 +34,9 @@ export default class SearchResult extends Component {
 
   handleLayoutChange = (e, mode) => {
     e.preventDefault()
-<<<<<<< HEAD
-    const modes = ['small', 'inline', 'normal']
-
-    let modeIndex = modes.indexOf(this.state.galleryLayoutMode) !== -1 ? (modes.indexOf(this.state.galleryLayoutMode) + 1) % 3 : 0
-    const newMode = modes[modeIndex]
-=======
     const defaultModes = ['small', 'inline', 'normal']
     const modeIndex = defaultModes.indexOf(this.state.galleryLayoutMode) !== -1 ? (defaultModes.indexOf(this.state.galleryLayoutMode) + 1) % 3 : 0
     const currentMode = defaultModes[modeIndex]
->>>>>>> Organize layout bar
 
     this.setState({
       galleryLayoutMode: currentMode,
@@ -133,7 +126,6 @@ export default class SearchResult extends Component {
     const term = params && params.term
       ? decodeURIComponent(params.term) : undefined
 
-<<<<<<< HEAD
     if (!products.length && !loading) {
       return (
         <ExtensionPoint id="not-found" term={term} />
@@ -145,12 +137,7 @@ export default class SearchResult extends Component {
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
 
-=======
-    const hideFacets = !map || !map.length
-
->>>>>>> Fix mobile layout and other css things
     return (
-<<<<<<< HEAD
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
         <div className="vtex-search-result vtex-p pv5 ph4">
           <div className="vtex-search-result__breadcrumb db-ns dn-s">
@@ -169,101 +156,47 @@ export default class SearchResult extends Component {
           </div>
           {!hideFacets && (
             <div className="vtex-search-result__filters">
-=======
-      <div className="vtex-search-result vtex-page-padding pv5 ph9-l ph7-m ph5-s">
-        <div className="vtex-search-result__breadcrumb db-ns dn-s">
-          <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
-        </div>
-        <div className="vtex-search-result__total-products pb5 bn-ns bb-s b--muted-4 tc-s tl">
-          <span className="vtex-search-result__term fw4 dn-ns db-s f4">
-            {term}
-          </span>
-          <FormattedMessage
-            id="search.total-products"
-            values={{ recordsFiltered }}
-          >
-            {txt => <span className="ph4 c-muted-2">{txt}</span>}
-          </FormattedMessage>
-        </div>
-        {!hideFacets && (
-          <div className="vtex-search-result__filters">
-            <ExtensionPoint
-              id="filter-navigator"
-              brands={brands}
-              getLinkProps={getLinkProps}
-              map={map}
-              params={params}
-              priceRange={priceRange}
-              priceRanges={priceRanges}
-              query={query}
-              rest={rest}
-              specificationFilters={specificationFilters}
-              tree={tree}
-              hiddenFacets={hiddenFacets}
-              loading={loading && !fetchMoreLoading}
-            />
-          </div>
-        )}
-          <div className="vtex-search-result__border bg-muted-4 h-75 self-center" />
-
-        <div className="vtex-search-result__order-by">
-          <div className="br b--muted-4" >
-            <OrderBy
-              orderBy={orderBy}
-              getLinkProps={getLinkProps}
-            />
-          </div>
-        </div>
-
-        <div className="vtex-search-result__switch">
-          <div className="dn-ns db-s">
-            <LayoutModeSwitcher
-              activeMode={this.state.galleryLayoutMode}
-              onChange={this.handleLayoutChange}
-            />
-          </div>
-        </div>
-
-        <div className="vtex-search-result__gallery">
-          {loading && !fetchMoreLoading ? (
-            <div className="w-100 flex justify-center">
-              <div className="w3 ma0">
-                <Spinner />
+              <div className="br bl b--muted-4">
+                <ExtensionPoint
+                  id="filter-navigator"
+                  brands={brands}
+                  getLinkProps={getLinkProps}
+                  map={map}
+                  params={params}
+                  priceRange={priceRange}
+                  priceRanges={priceRanges}
+                  query={query}
+                  rest={rest}
+                  specificationFilters={specificationFilters}
+                  tree={tree}
+                  hiddenFacets={hiddenFacets}
+                  loading={loading && !fetchMoreLoading}
+                />
               </div>
-            </div>
-          ) : (
->>>>>>> Organize layout bar
-              <ExtensionPoint
-                id="filter-navigator"
-                brands={brands}
-                getLinkProps={getLinkProps}
-                map={map}
-                params={params}
-                priceRange={priceRange}
-                priceRanges={priceRanges}
-                query={query}
-                rest={rest}
-                specificationFilters={specificationFilters}
-                tree={tree}
-                hiddenFacets={hiddenFacets}
-                loading={loading && !fetchMoreLoading}
-              />
+
             </div>
           )}
-          <div className="vtex-search-result__border bg-muted-4 h-75 self-center" />
           <div className="vtex-search-result__order-by">
-            <OrderBy
-              orderBy={orderBy}
-              getLinkProps={getLinkProps}
-            />
+            <div >
+              <OrderBy
+                orderBy={orderBy}
+                getLinkProps={getLinkProps}
+              />
+            </div>
           </div>
-          <div className="vtex-search-result__gallery">
-            <div className="dn-ns db-s bt b--muted-4">
+
+          <div className="vtex-search-result__switch">
+
+            <div className="dn-ns db-s">
               <LayoutModeSwitcher
                 activeMode={this.state.galleryLayoutMode}
                 onChange={this.handleLayoutChange}
               />
             </div>
+          </div>
+
+          <div className="vtex-search-result__gallery">
+
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
                 <div className="w3 ma0">
