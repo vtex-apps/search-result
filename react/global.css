@@ -99,6 +99,8 @@
   -ms-grid-column-span: 5;
   grid-column: gallery;
   grid-row: gallery;
+  align-self: center;
+  justify-self: stretch;
 }
 
 .vtex-search-result__border {
