@@ -119,6 +119,7 @@ export default class SearchResult extends Component {
       products,
       brands,
       map,
+      query,
       params,
       priceRange,
       priceRanges,
@@ -132,6 +133,7 @@ export default class SearchResult extends Component {
     const term = params && params.term
       ? decodeURIComponent(params.term) : undefined
 
+<<<<<<< HEAD
     if (!products.length && !loading) {
       return (
         <ExtensionPoint id="not-found" term={term} />
@@ -143,6 +145,10 @@ export default class SearchResult extends Component {
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
 
+=======
+    const hideFacets = !map || !map.length
+
+>>>>>>> Fix mobile layout and other css things
     return (
 <<<<<<< HEAD
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
@@ -179,22 +185,26 @@ export default class SearchResult extends Component {
             {txt => <span className="ph4 c-muted-2">{txt}</span>}
           </FormattedMessage>
         </div>
-        <div className="vtex-search-result__filters">
-          <ExtensionPoint
-            id="filter-navigator"
-            brands={brands}
-            getLinkProps={getLinkProps}
-            map={map}
-            params={params}
-            priceRange={priceRange}
-            priceRanges={priceRanges}
-            rest={rest}
-            specificationFilters={specificationFilters}
-            tree={tree}
-            hiddenFacets={hiddenFacets}
-            loading={loading && !fetchMoreLoading}
-          />
-        </div>
+        {!hideFacets && (
+          <div className="vtex-search-result__filters">
+            <ExtensionPoint
+              id="filter-navigator"
+              brands={brands}
+              getLinkProps={getLinkProps}
+              map={map}
+              params={params}
+              priceRange={priceRange}
+              priceRanges={priceRanges}
+              query={query}
+              rest={rest}
+              specificationFilters={specificationFilters}
+              tree={tree}
+              hiddenFacets={hiddenFacets}
+              loading={loading && !fetchMoreLoading}
+            />
+          </div>
+        )}
+          <div className="vtex-search-result__border bg-muted-4 h-75 self-center" />
 
         <div className="vtex-search-result__order-by">
           <div className="br b--muted-4" >
