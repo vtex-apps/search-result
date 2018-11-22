@@ -254,3 +254,5 @@ export function formatFacetToLinkPropsParam(type, option, oneSelectedCollapse = 
     type,
   }
 }
+
+export const HEADER_SCROLL_OFFSET = 90

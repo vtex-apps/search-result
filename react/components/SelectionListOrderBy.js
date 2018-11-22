@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 
+import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
 import CheckTick from '../images/CheckTick'
 import Popup from './Popup'
 
@@ -32,6 +33,7 @@ class SelectionListOrderBy extends Component {
       page: linkProps.page,
       query: linkProps.queryString,
       params: linkProps.params,
+      scrollOptions: { baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET },
     })
   }
 

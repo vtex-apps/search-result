@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.4.1] - 2018-11-22
+### Changed
+- Changes to search scroll the window to the top of the search result
+
 ## [2.4.0] - 2018-11-16
 ### Changed
 - Added better support for use outside a search context.

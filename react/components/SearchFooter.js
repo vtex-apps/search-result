@@ -4,6 +4,8 @@ import React, { Component, Fragment } from 'react'
 import { IconCaretLeft, IconCaretRight } from 'vtex.styleguide'
 import { withRuntimeContext } from 'render'
 
+import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
+
 class SearchFooter extends Component {
   static propTypes = {
     /** Amount of products matched with the filters. */
@@ -30,6 +32,7 @@ class SearchFooter extends Component {
       page,
       params,
       query,
+      scrollOptions: { baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET },
     })
   }
 

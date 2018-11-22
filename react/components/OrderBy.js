@@ -6,6 +6,7 @@ import { Dropdown } from 'vtex.styleguide'
 import { withRuntimeContext } from 'render'
 
 import SelectionListOrderBy from './SelectionListOrderBy'
+import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
 
 export const SORT_OPTIONS = [
   {
@@ -86,7 +87,7 @@ class OrderBy extends Component {
             params: pagesArgs.params,
             query: pagesArgs.queryString,
             fallbackToWindowLocation: false,
-            scrollOptions: false,
+            scrollOptions: { baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET },
           })
         }}
       />
