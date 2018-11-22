@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
+import FilterIcon from '../images/FilterIcon'
 import Arrow from '../images/Arrow'
+
 
 const { Provider, Consumer } = React.createContext()
 
@@ -72,16 +74,18 @@ export default class Popup extends Component {
       PropTypes.func,
     ]),
     renderFooter: PropTypes.func,
+    icon: PropTypes.node,
   }
 
   static defaultProps = {
     renderFooter: () => null,
+    icon: <Arrow size={8} />
   }
 
   contentRef = React.createRef()
 
   render() {
-    const { children, renderFooter, title, id } = this.props
+    const { children, renderFooter, title, id, icon } = this.props
 
     return (
       <Consumer>
@@ -120,10 +124,10 @@ export default class Popup extends Component {
                 })}
                 onClick={onToggle(id)}
               >
-                <span className="vtex-filter-popup__title t-action-small ml-auto">{title}</span>
-                <span className="vtex-filter-popup__arrow-icon ml-auto">
-                  <Arrow size={8} />
-                </span>
+              <span className="vtex-filter-popup__title f5 ml-auto">{title}</span>
+              <span className="vtex-filter-popup__arrow-icon ml-auto pl4 ml2">
+                {icon}
+              </span>
               </button>
               <div className={contentClassName} style={{ top: contentTop }}>
                 <div className="vtex-filter-popup__content">

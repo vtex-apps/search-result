@@ -42,7 +42,7 @@ class SelectionListOrderBy extends Component {
 
     return (
       <Popup
-        title={intl.formatMessage({ id: 'search-result.orderby.title' })}
+        title={intl.formatMessage({ id: 'search-result.orderby.title' }).toUpperCase()}
         id="orderby"
       >
         <div className="vtex-orderby-popup">
