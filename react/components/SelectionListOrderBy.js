@@ -50,7 +50,6 @@ class SelectionListOrderBy extends Component {
             const active = orderBy === opt.value
 
             return (
-
               <div
                 key={opt.label}
                 className={classNames('vtex-orderby__item pointer pv3 ph7 bb b--muted-4', {

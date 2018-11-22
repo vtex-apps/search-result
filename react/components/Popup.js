@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-
-import FilterIcon from '../images/FilterIcon'
 import Arrow from '../images/Arrow'
-
 
 const { Provider, Consumer } = React.createContext()
 
@@ -124,8 +121,8 @@ export default class Popup extends Component {
                 })}
                 onClick={onToggle(id)}
               >
-              <span className="vtex-filter-popup__title f5 ml-auto">{title}</span>
-              <span className="vtex-filter-popup__arrow-icon ml-auto">
+              <span className="vtex-filter-popup__title t-action-small ml-auto">{title}</span>
+              <span className="vtex-filter-popup__arrow-icon ml-auto pl3">
                 {icon}
               </span>
               </button>
