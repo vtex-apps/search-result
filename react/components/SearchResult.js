@@ -133,7 +133,6 @@ export default class SearchResult extends Component {
     }
 
     const hideFacets = !map || !map.length
-
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
 
@@ -173,7 +172,6 @@ export default class SearchResult extends Component {
                   loading={loading && !fetchMoreLoading}
                 />
               </div>
-
             </div>
           )}
           <div className="vtex-search-result__order-by">
@@ -184,9 +182,7 @@ export default class SearchResult extends Component {
               />
             </div>
           </div>
-
           <div className="vtex-search-result__switch">
-
             <div className="dn-ns db-s">
               <LayoutModeSwitcher
                 activeMode={this.state.galleryLayoutMode}
@@ -194,9 +190,7 @@ export default class SearchResult extends Component {
               />
             </div>
           </div>
-
           <div className="vtex-search-result__gallery">
-
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
                 <div className="w3 ma0">
