@@ -13,12 +13,11 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
   const renderButton = (mode, onChange) => {
 
     const renderIcon = mode => {
-      return mode === 'small' ?  <Grid active /> : mode === 'inline' ?  <InlineGrid active /> : <SingleItemGrid active />
+      return mode === 'small' ?  <Grid  /> : mode === 'inline' ?  <InlineGrid  /> : <SingleItemGrid  />
     }
 
     return (
       <div className="vtex-layout-switcher flex justify-between pv2">
-      <div className="bl b--muted-4" ></div>
         <div className="flex justify-center flex-auto ">
           <Button
             variation="tertiary"

@@ -54,6 +54,7 @@ class AccordionFilterContainer extends Component {
     const nonEmptyFilters = filters.filter(spec => spec.options.length > 0)
 
     return (
+
       <Popup
         title={intl.formatMessage({ id: 'search-result.filter-button.title' }).toUpperCase()}
         id="filters"
@@ -66,6 +67,7 @@ class AccordionFilterContainer extends Component {
               const isOpen = openedItem === filter.title
 
               return (
+                
                 <AccordionFilterItem
                   key={filter.title}
                   type={type}
