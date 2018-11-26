@@ -54,7 +54,7 @@ export default class SearchResult extends Component {
     const hideFacets = !map || !map.length
 
     return (
-      <div className="vtex-search-result vtex-page-padding pv5 ph9-l ph7-m ph5-s">
+      <div className="vtex-search-result pv5 ph4">
         <div className="vtex-search-result__breadcrumb db-ns dn-s">
           <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
         </div>
