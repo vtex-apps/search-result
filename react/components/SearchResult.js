@@ -1,17 +1,20 @@
 import React, { Component, Fragment } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint } from 'render'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
+import classNames from 'classnames'
 
 import LoadingOverlay from './LoadingOverlay'
 import LayoutModeSwitcher from './LayoutModeSwitcher'
 import { searchResultPropTypes } from '../constants/propTypes'
 import OrderBy from './OrderBy'
+import { withRuntimeContext } from 'render'
+
 
 /**
  * Search Result Component.
  */
-export default class SearchResult extends Component {
+class SearchResult extends Component {
   static propTypes = searchResultPropTypes
 
   state = {
@@ -123,6 +126,7 @@ export default class SearchResult extends Component {
       showLoadingAsOverlay,
     } = this.state
 
+    const mobileMode = __RUNTIME__.hints.mobile
     const term = params && params.term
       ? decodeURIComponent(params.term) : undefined
 
@@ -135,6 +139,7 @@ export default class SearchResult extends Component {
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
+    const filterClasses = classNames({ 'flex justify-center flex-auto br bl b--muted-4': mobileMode })
 
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
@@ -155,7 +160,7 @@ export default class SearchResult extends Component {
           </div>
           {!hideFacets && (
             <div className="vtex-search-result__filters">
-              <div className="flex justify-center flex-auto br bl b--muted-4">
+              <div className={filterClasses}>
                 <ExtensionPoint
                   id="filter-navigator"
                   brands={brands}
@@ -182,14 +187,15 @@ export default class SearchResult extends Component {
               />
             </div>
           </div>
-          <div className="vtex-search-result__switch">
+          {mobileMode && <div className="vtex-search-result__switch">
             <div className="dn-ns db-s">
               <LayoutModeSwitcher
                 activeMode={this.state.galleryLayoutMode}
                 onChange={this.handleLayoutChange}
               />
             </div>
-          </div>
+          </div>}
+
           <div className="vtex-search-result__gallery">
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
@@ -212,3 +218,5 @@ export default class SearchResult extends Component {
     )
   }
 }
+
+export default withRuntimeContext(injectIntl(SearchResult))
