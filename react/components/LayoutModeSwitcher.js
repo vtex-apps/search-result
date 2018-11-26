@@ -13,7 +13,7 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
   const renderButton = (mode, onChange) => {
 
     const renderIcon = mode => {
-      return mode === 'small' ?  <Grid  /> : mode === 'inline' ?  <InlineGrid  /> : <SingleItemGrid  />
+      return mode === 'small' ? <Grid /> : mode === 'inline' ? <InlineGrid /> : <SingleItemGrid />
     }
 
     return (
@@ -22,7 +22,7 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
           <Button
             variation="tertiary"
             size="small"
-            onClick={onChangeHandler('small', onChange)}
+            onClick={onChangeHandler(mode, onChange)}
           >
             {renderIcon(mode)}
           </Button>
