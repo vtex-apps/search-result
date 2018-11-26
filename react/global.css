@@ -191,7 +191,7 @@ body.vtex-filter-popup-open {
     grid-template-areas:
       "quantity quantity quantity"
       "orderby filters switch"
-      "gallery gallery gallery ";
+      "gallery gallery gallery";
   }
 
   .vtex-search-result__total-products {
