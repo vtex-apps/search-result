@@ -15,7 +15,7 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
           size="small"
           onClick={onChangeHandler('small', onChange)}
         >
-          <Icon id='grid' isActive={activeMode === 'small'} size={20} viewBox='0 0 16 19' />
+          <Icon id="grid" isActive={activeMode === 'small'} size={20} />
         </Button>
       </div>
       <div className="flex justify-center flex-auto br b--muted-4">
@@ -24,7 +24,7 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
           size="small"
           onClick={onChangeHandler('inline', onChange)}
         >
-          <Icon id='inline-grid' isActive={activeMode === 'inline'} size={20} viewBox='0 0 10 19' />          
+          <Icon id="inline-grid" isActive={activeMode === 'inline'} size={20} />          
         </Button>
       </div>
       <div className="flex justify-center flex-auto">
@@ -33,7 +33,7 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
           size="small"
           onClick={onChangeHandler('normal', onChange)}
         > 
-          <Icon id='single-item-grid' isActive={activeMode === 'normal'} size={20} viewBox='0 0 10 19' />          
+          <Icon id="single-item-grid" isActive={activeMode === 'normal'} size={20} />          
         </Button>
       </div>
     </div>

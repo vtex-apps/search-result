@@ -53,7 +53,7 @@ class SelectedFilters extends Component {
             >
               <label className="w-100 flex items-center relative t-body fw3 mb2 pointer">
                 <div className="absolute top-0 left-0 bottom-0 z-1">
-                  <Icon id='check' size={16} viewBox='0 0 9 9' />
+                  <Icon id="check" size={16} />
                 </div>
                 <input
                   className="mr2 o-0 vtex-selected-filter__checkbox"

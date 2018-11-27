@@ -7,7 +7,7 @@ const Arrow = ({ up, size }) => {
   const iconId = up ? 'arrow-up' : 'arrow-down'
 
   return (
-    <Icon id={iconId} size={size} viewBox='0 0 14 10'/>
+    <Icon id={iconId} size={size} />
   )
 }
 

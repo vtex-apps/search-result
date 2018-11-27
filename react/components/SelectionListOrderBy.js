@@ -62,7 +62,7 @@ class SelectionListOrderBy extends Component {
 
                 {active && (
                   <span className="vtex-orderby__item-icon fr">
-                    <Icon id='check-tick' size={11} viewBox='0 0 11 9' />
+                    <Icon id="check-tick" size={11} />
                   </span>
                 )}
               </div>

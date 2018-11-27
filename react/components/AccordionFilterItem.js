@@ -59,7 +59,7 @@ const AccordionFilterItem = ({
 
               {false && (
                 <span className="vtex-accordion-filter__check-icon fr">
-                  <Icon id='check-tick' size={11} viewBox='0 0 11 9' />
+                  <Icon id="check-tick" size={11} />
                 </span>
               )}
             </Link>
