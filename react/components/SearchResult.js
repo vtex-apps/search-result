@@ -136,7 +136,7 @@ export default class SearchResult extends Component {
 
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
-        <div className="vtex-search-result vtex-page-padding pv5 ph9-l ph7-m ph5-s">
+        <div className="vtex-search-result vtex-p pv5 ph4">
           <div className="vtex-search-result__breadcrumb db-ns dn-s">
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
