@@ -61,14 +61,14 @@ class SearchFilter extends Component {
           return (
             <Link
               key={opt.Name}
-              className="clear-link w-100"
+              className="clear-link link w-100"
               page={pagesArgs.page}
               params={pagesArgs.params}
               query={pagesArgs.queryString}
               scrollOptions={{ baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET }}
             >
               <span
-                className="f6 fw3 bb db"
+                className="t-small c-muted-1 bb db"
                 style={{
                   borderColor: opt.selected
                     ? SELECTED_FILTER_COLOR

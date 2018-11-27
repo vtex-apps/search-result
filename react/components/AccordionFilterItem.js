@@ -19,11 +19,10 @@ const AccordionFilterItem = ({
   onItemSelected,
   getLinkProps,
   intl,
-  oneSelectedCollapse,
 }) => (
   <Fragment>
     <div
-      className={classNames('vtex-accordion-filter__item fw3 pv3 ph7 pointer bb b--light-gray', {
+      className={classNames('vtex-accordion-filter__item t-body pv3 ph7 pointer bb b--muted-4', {
         'vtex-accordion-filter__item--active': open,
         'vtex-accordion-filter__item--hidden dn': !show,
       })}
@@ -31,7 +30,7 @@ const AccordionFilterItem = ({
     >
       <div
         className={classNames('vtex-accordion-filter__item-title', {
-          'normal dark-gray': open,
+          'c-on-base': open,
         })}
       >
         {getFilterTitle(title, intl)}
@@ -49,7 +48,7 @@ const AccordionFilterItem = ({
           return (
             <Link
               key={opt.Name}
-              className="vtex-accordion-filter__item-opt pv3 ph7 pointer bb b--light-gray link fw3 db dark-gray"
+              className="vtex-accordion-filter__item-opt pv3 ph7 pointer bb b--muted-4 link db c-muted-1"
               page={pagesArgs.page}
               params={pagesArgs.params}
               query={pagesArgs.queryString}

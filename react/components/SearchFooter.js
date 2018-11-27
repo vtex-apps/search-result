@@ -40,7 +40,7 @@ class SearchFooter extends Component {
     range(begin, end).map(pageNumber => (
       <div
         className={`ph2 pointer ${
-          pageNumber === this.props.page ? 'near-black' : 'gray'
+          pageNumber === this.props.page ? 'c-on-base' : 'c-disabled'
         }`}
         onClick={() => this.handleClick(pageNumber)}
         key={pageNumber}>
@@ -63,28 +63,28 @@ class SearchFooter extends Component {
         )}
         {page > maxNumberButtons ? (
           <Fragment>
-            <div className="ph2 gray pointer">1</div>
-            <div className="ph2 gray">&hellip;</div>
+            <div className="ph2 c-disabled pointer">1</div>
+            <div className="ph2 c-disabled">&hellip;</div>
             {page <= lastPage - maxNumberButtons ? (
               <Fragment>
                 <div
-                  className="ph2 pointer gray"
+                  className="ph2 pointer c-disabled"
                   onClick={() => this.handleClick(page - 1)}>
                   {page - 1}
                 </div>
                 <div
-                  className="ph2 pointer near-black"
+                  className="ph2 pointer c-on-base"
                   onClick={() => this.handleClick(page)}>
                   {page}
                 </div>
                 <div
-                  className="ph2 pointer gray"
+                  className="ph2 pointer c-disabled"
                   onClick={() => this.handleClick(page + 1)}>
                   {page + 1}
                 </div>
-                <div className="ph2 gray">&hellip;</div>
+                <div className="ph2 c-disabled">&hellip;</div>
                 <div
-                  className="ph2 pointer gray"
+                  className="ph2 pointer c-disabled"
                   onClick={() => this.handleClick(lastPage)}>
                   {lastPage}
                 </div>
@@ -103,12 +103,12 @@ class SearchFooter extends Component {
               Math.min(lastPage, maxNumberButtons) + 1
             )}
             {lastPage > maxNumberButtons && (
-              <div className="ph2 gray">&hellip;</div>
+              <div className="ph2 c-disabled">&hellip;</div>
             )}
             {page !== lastPage &&
               lastPage > maxNumberButtons && (
               <div
-                className="ph2 pointer gray"
+                className="ph2 pointer c-disabled"
                 onClick={() => this.handleClick(lastPage)}>
                 {lastPage}
               </div>
