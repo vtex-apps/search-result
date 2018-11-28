@@ -15,7 +15,7 @@ const Grid = ({ size, fillColor }) => {
       fill="none"
       color={fillColor}
     >
-      <use href="#grid" xlinkHref="#grid" />
+      <use href="#grid-search-result" xlinkHref="#grid-search-result" />
     </svg>
   )
 }

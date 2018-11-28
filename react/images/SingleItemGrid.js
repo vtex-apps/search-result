@@ -15,7 +15,7 @@ const SingleItemGrid = ({ size, fillColor }) => {
       fill="none"
       color={fillColor}
     >
-      <use href="#single-item-grid" xlinkHref="#single-item-grid" />
+      <use href="#single-item-grid-search-result" xlinkHref="#single-item-grid-search-result" />
     </svg>
   )
 }
