@@ -194,8 +194,8 @@ body.vtex-filter-popup-open {
 
 @media only screen and (max-width: 40em) {
   .vtex-search-result {
-    -ms-grid-columns: 2fr 1px 1.5fr 1px 0.25fr;
-    grid-template-columns: 2fr 1px 1.5fr 1px 0.25fr;
+    -ms-grid-columns: 2fr 1px 1.5fr 1px 0.2fr;
+    grid-template-columns: 2fr 1px 1.5fr 1px 0.2fr;
     grid-template-areas:
       "quantity quantity quantity quantity quantity"
       "orderby border filters borderseq switch"
