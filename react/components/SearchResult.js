@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint } from 'render'
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import classNames from 'classnames'
 import { withRuntimeContext } from 'render'
 import LoadingOverlay from './LoadingOverlay'
@@ -178,7 +178,7 @@ class SearchResult extends Component {
               </div>
             </div>
           )}
-          {mobile && <div className="vtex-search-result__border bg-muted-5 h-50 self-center" />} 
+          {mobile && <div className="vtex-search-result__border bg-muted-5 h-50 self-center" />}
           <div className="vtex-search-result__order-by">
             <div >
               <OrderBy
@@ -191,7 +191,7 @@ class SearchResult extends Component {
           {mobile && <div className="vtex-search-result__switch">
             <div className="dn-ns db-s">
               <LayoutModeSwitcher
-                activeMode={this.state.galleryLayoutMode}
+                activeMode={galleryLayoutMode}
                 onChange={this.handleLayoutChange}
               />
             </div>
@@ -204,12 +204,12 @@ class SearchResult extends Component {
                 </div>
               </div>
             ) : (
-                <ExtensionPoint
-                  id="gallery"
-                  products={products}
-                  summary={summary}
-                  layoutMode={this.state.galleryLayoutMode}
-                />
+              <ExtensionPoint
+                id="gallery"
+                products={products}
+                summary={summary}
+                layoutMode={galleryLayoutMode}
+              />
               )}
             {children}
           </div>
