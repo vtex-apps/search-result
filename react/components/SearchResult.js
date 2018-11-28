@@ -3,12 +3,11 @@ import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint } from 'render'
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
-
+import { withRuntimeContext } from 'render'
 import LoadingOverlay from './LoadingOverlay'
 import LayoutModeSwitcher from './LayoutModeSwitcher'
 import { searchResultPropTypes } from '../constants/propTypes'
 import OrderBy from './OrderBy'
-import { withRuntimeContext } from 'render'
 
 
 /**
