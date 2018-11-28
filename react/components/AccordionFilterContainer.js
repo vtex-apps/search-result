@@ -55,7 +55,7 @@ class AccordionFilterContainer extends Component {
 
     return (
       <Popup
-        title={intl.formatMessage({ id: 'search-result.filter-action.title' }).toUpperCase()}
+        title={intl.formatMessage({ id: 'search-result.filter-action.title' })}
         id="filters"
         icon={<FilterIcon size={16} active/>}
       >
