@@ -10,14 +10,14 @@ import InlineGrid from '../images/InlineGrid'
 export default function LayoutModeSwitcher({ activeMode, onChange }) {
 
   const renderButton = (mode, onChange) => {
-
     const renderIcon = mode => {
-      if(mode === 'small'){ 
-        return <Grid />
-      } else if (mode === 'inline'){
-        return <InlineGrid />
-      } else {
-        return <SingleItemGrid /> 
+      switch (mode) {
+        case 'small':
+          return <Grid />
+        case 'inline':
+          return <InlineGrid />
+        case 'normal':
+          return <SingleItemGrid />
       }
     }
 
