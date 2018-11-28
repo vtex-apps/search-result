@@ -76,7 +76,7 @@ export default class Popup extends Component {
 
   static defaultProps = {
     renderFooter: () => null,
-    icon: <Arrow size={8} />
+    icon: <Arrow size={16} />
   }
 
   contentRef = React.createRef()
@@ -122,7 +122,7 @@ export default class Popup extends Component {
                 })}
                 onClick={onToggle(id)}
               >
-                <span className="vtex-filter-popup__title t-action-small ml-auto">{title}</span>
+                <span className="vtex-filter-popup__title t-action--small ml-auto">{title}</span>
                 <span className="vtex-filter-popup__arrow-icon ml-auto pl3">
                   {icon}
                 </span>

@@ -13,7 +13,13 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
   const renderButton = (mode, onChange) => {
 
     const renderIcon = mode => {
-      return mode === 'small' ? <Grid /> : mode === 'inline' ? <InlineGrid /> : <SingleItemGrid />
+      if(mode === 'small'){ 
+        return <Grid />
+      } else if (mode === 'inline'){
+        return <InlineGrid />
+      } else {
+        return <SingleItemGrid /> 
+      }
     }
 
     return (
@@ -36,7 +42,7 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
 
 LayoutModeSwitcher.propTypes = {
   /** Current active mode */
-  activeMode: PropTypes.string.isRequired,
+  activeMode: PropTypes.string,
   /** On change callback */
   onChange: PropTypes.func.isRequired,
 }
