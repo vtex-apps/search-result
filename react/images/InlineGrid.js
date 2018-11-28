@@ -15,7 +15,7 @@ const InlineGrid = ({ size, fillColor }) => {
       fill="none"
       color={fillColor}
     >
-      <use href="#list-grid" xlinkHref="#list-grid" />
+      <use href="#list-grid-search-result" xlinkHref="#list-grid-search-result" />
     </svg>
   )
 }
