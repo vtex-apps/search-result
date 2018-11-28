@@ -211,6 +211,13 @@ export const searchResultPropTypes = {
   loading: PropTypes.bool.isRequired,
   /** Loading status when the query is refetched */
   fetchMoreLoading: PropTypes.bool.isRequired,
+   /** Runtime context */
+   runtime: PropTypes.shape({
+    hints: PropTypes.shape({
+      /** Indicates if is on a mobile device */
+      mobile: PropTypes.bool,
+    }),
+  }),
 }
 
 export const loaderPropTypes = {
