@@ -108,6 +108,7 @@ class SearchResult extends Component {
       fetchMoreLoading,
       summary,
       orderBy,
+      runtime: { hints: { mobile } },
     } = this.props
     const {
       galleryLayoutMode,
@@ -126,7 +127,6 @@ class SearchResult extends Component {
       showLoadingAsOverlay,
     } = this.state
 
-    const mobileMode = __RUNTIME__.hints.mobile
     const term = params && params.term
       ? decodeURIComponent(params.term) : undefined
 
@@ -139,7 +139,7 @@ class SearchResult extends Component {
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
-    const filterClasses = classNames({ 'flex justify-center flex-auto pt1 br bl b--muted-4': mobileMode })
+    const filterClasses = classNames({ 'flex justify-center flex-auto pt1 br bl b--muted-4': mobile })
 
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
@@ -187,7 +187,7 @@ class SearchResult extends Component {
               />
             </div>
           </div>
-          {mobileMode && <div className="vtex-search-result__switch">
+          {mobile && <div className="vtex-search-result__switch">
             <div className="dn-ns db-s">
               <LayoutModeSwitcher
                 activeMode={this.state.galleryLayoutMode}
@@ -219,4 +219,4 @@ class SearchResult extends Component {
   }
 }
 
-export default withRuntimeContext(injectIntl(SearchResult))
+export default withRuntimeContext(SearchResult)
