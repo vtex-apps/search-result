@@ -139,7 +139,7 @@ class SearchResult extends Component {
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
-    const filterClasses = classNames({ 'flex justify-center flex-auto pt1 br bl b--muted-4': mobile })
+    const filterClasses = classNames({ 'flex justify-center flex-auto pt1 ': mobile })
 
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
@@ -179,6 +179,7 @@ class SearchResult extends Component {
               </div>
             </div>
           )}
+          {mobile && <div className="vtex-search-result__border bg-muted-5 h-75 self-center" />} 
           <div className="vtex-search-result__order-by">
             <div >
               <OrderBy
@@ -187,6 +188,7 @@ class SearchResult extends Component {
               />
             </div>
           </div>
+          {mobile && <div className="vtex-search-result__border-2 bg-muted-5 h-75 self-center" />}
           {mobile && <div className="vtex-search-result__switch">
             <div className="dn-ns db-s">
               <LayoutModeSwitcher
@@ -195,7 +197,6 @@ class SearchResult extends Component {
               />
             </div>
           </div>}
-
           <div className="vtex-search-result__gallery">
             {showContentLoader ? (
               <div className="w-100 flex justify-center">

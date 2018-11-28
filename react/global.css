@@ -107,6 +107,13 @@
   -ms-grid-row: 2;
 }
 
+.vtex-search-result__border-2 {
+  grid-column: borderseq;
+  grid-row: borderseq;
+  -ms-grid-column: 2;
+  -ms-grid-row: 2;
+}
+
 .vtex-search-result a {
   outline: 0;
 }
@@ -185,12 +192,12 @@ body.vtex-filter-popup-open {
 
 @media only screen and (max-width: 40em) {
   .vtex-search-result {
-    -ms-grid-columns: 2fr 1.5fr 0.25fr;
-    grid-template-columns: 2fr 1.5fr 0.25fr;
+    -ms-grid-columns: 2fr 1px 1.5fr 1px 0.25fr;
+    grid-template-columns: 2fr 1px 1.5fr 1px 0.25fr;
     grid-template-areas:
-      "quantity quantity quantity"
-      "orderby filters switch"
-      "gallery gallery gallery";
+      "quantity quantity quantity quantity quantity"
+      "orderby border filters borderseq switch"
+      "gallery gallery gallery gallery gallery";
   }
 
   .vtex-search-result__total-products {
