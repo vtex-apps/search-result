@@ -23,7 +23,7 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
 
     return (
       <div className="vtex-layout-switcher flex justify-between pt2 pl1">
-        <div className="flex justify-center flex-auto ">
+        <div className="flex justify-center flex-auto ph0">
           <Button
             variation="tertiary"
             size="small"
