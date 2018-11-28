@@ -139,7 +139,7 @@ class SearchResult extends Component {
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
-    const filterClasses = classNames({ 'flex justify-center flex-auto br bl b--muted-4 bw1': mobileMode })
+    const filterClasses = classNames({ 'flex justify-center flex-auto pt1 br bl b--muted-4': mobileMode })
 
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
@@ -159,7 +159,7 @@ class SearchResult extends Component {
             </FormattedMessage>
           </div>
           {!hideFacets && (
-            <div className="vtex-search-result__filters bt bb  b--transparent bw2 overflow-hidden-y">
+            <div className="vtex-search-result__filters">
               <div className={filterClasses}>
                 <ExtensionPoint
                   id="filter-navigator"

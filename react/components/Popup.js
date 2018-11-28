@@ -90,7 +90,7 @@ export default class Popup extends Component {
           const { isOpen, onToggle } = contextProps
           const open = isOpen(id)
 
-          const className = classNames('vtex-filter-popup relative', {
+          const className = classNames('vtex-filter-popup relative  justify-center flex ', {
             'vtex-filter-popup--open': open,
           })
 
@@ -114,8 +114,9 @@ export default class Popup extends Component {
 
           return (
             <div className={className} ref={this.contentRef}>
+            
               <button
-                className={classNames('vtex-filter-popup__button pa5 mv0 mh5 pointer flex justify-center items-center', {
+                className={classNames('vtex-filter-popup__button mv0 pointer flex justify-center items-center', {
                   'bb b--muted-1': open,
                   'bn': !open,
                 })}
