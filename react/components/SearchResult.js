@@ -38,7 +38,7 @@ class SearchResult extends Component {
   handleLayoutChange = (e, mode) => {
     e.preventDefault()
     const defaultModes = ['small', 'inline', 'normal']
-    const modeIndex = defaultModes.indexOf(this.state.galleryLayoutMode) !== -1 ? (defaultModes.indexOf(this.state.galleryLayoutMode) + 1) % 3 : 0
+    const modeIndex = defaultModes.indexOf(this.state.galleryLayoutMode) + 1 
     const currentMode = defaultModes[modeIndex]
 
     this.setState({

@@ -5,7 +5,7 @@ import { injectIntl, intlShape } from 'react-intl'
 import Popup from './Popup'
 import AccordionFilterItem from './AccordionFilterItem'
 import { mountOptions } from '../constants/SearchHelpers'
-import FilterIcon from './../images/FilterIcon';
+import FilterIcon from './../images/FilterIcon'
 
 class AccordionFilterContainer extends Component {
   static propTypes = {
@@ -54,20 +54,17 @@ class AccordionFilterContainer extends Component {
     const nonEmptyFilters = filters.filter(spec => spec.options.length > 0)
 
     return (
-
       <Popup
         title={intl.formatMessage({ id: 'search-result.filter-action.title' }).toUpperCase()}
         id="filters"
-        icon={<FilterIcon size={13} active/>}
+        icon={<FilterIcon size={16} active/>}
       >
         {({ onClose }) => (
           <div className="vtex-accordion-filter">
             {nonEmptyFilters.map(filter => {
               const { type, title, options, oneSelectedCollapse } = filter
               const isOpen = openedItem === filter.title
-
               return (
-                
                 <AccordionFilterItem
                   key={filter.title}
                   type={type}
