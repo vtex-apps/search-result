@@ -9,7 +9,6 @@ import InlineGrid from '../images/InlineGrid'
 
 export default function LayoutModeSwitcher({ activeMode, onChange }) {
 
-  const onChangeHandler = (type, onChange) => e => onChange(e, type)
   const renderButton = (mode, onChange) => {
 
     const renderIcon = mode => {
@@ -28,7 +27,7 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
           <Button
             variation="tertiary"
             size="small"
-            onClick={onChangeHandler(mode, onChange)}
+            onClick={e => onChange(e, mode)}
           >
             {renderIcon(mode)}
           </Button>
