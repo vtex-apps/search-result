@@ -179,7 +179,7 @@ class SearchResult extends Component {
               </div>
             </div>
           )}
-          {mobile && <div className="vtex-search-result__border bg-muted-5 h-75 self-center" />} 
+          {mobile && <div className="vtex-search-result__border bg-muted-5 h-50 self-center" />} 
           <div className="vtex-search-result__order-by">
             <div >
               <OrderBy
@@ -188,7 +188,7 @@ class SearchResult extends Component {
               />
             </div>
           </div>
-          {mobile && <div className="vtex-search-result__border-2 bg-muted-5 h-75 self-center" />}
+          {mobile && <div className="vtex-search-result__border-2 bg-muted-5 h-50 self-center" />}
           {mobile && <div className="vtex-search-result__switch">
             <div className="dn-ns db-s">
               <LayoutModeSwitcher

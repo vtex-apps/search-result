@@ -105,6 +105,7 @@
   grid-row: border;
   -ms-grid-column: 2;
   -ms-grid-row: 2;
+  width: 2px;
 }
 
 .vtex-search-result__border-2 {
@@ -112,6 +113,7 @@
   grid-row: borderseq;
   -ms-grid-column: 2;
   -ms-grid-row: 2;
+  width: 2px;
 }
 
 .vtex-search-result a {
