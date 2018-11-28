@@ -61,6 +61,14 @@
   justify-self: stretch;
 }
 
+.vtex-search-result__switch {
+  -ms-grid-row: 1;
+  -ms-grid-column: 6;
+  grid-column: switch;
+  grid-row: switch;
+
+}
+
 .vtex-search-result--paginated .vtex-search-result__order-by {
   -ms-grid-column: 5;
 }
@@ -80,6 +88,7 @@
   -ms-grid-column: 1;
   grid-column: filters;
   grid-row: filters;
+
 }
 
 .vtex-search-result__gallery {
@@ -95,6 +104,15 @@
   grid-row: border;
   -ms-grid-column: 2;
   -ms-grid-row: 2;
+  width: 2px;
+}
+
+.vtex-search-result__border-2 {
+  grid-column: borderseq;
+  grid-row: borderseq;
+  -ms-grid-column: 2;
+  -ms-grid-row: 2;
+  width: 2px;
 }
 
 .vtex-search-result a {
@@ -121,11 +139,6 @@
   border-top: none;
   border-left: none;
   border-right: none;
-  width: calc(100% - 2rem);
-}
-
-.vtex-filter-popup__title {
-  color: #828282;
 }
 
 .vtex-filter-popup__footer {
@@ -176,12 +189,12 @@ body.vtex-filter-popup-open {
 
 @media only screen and (max-width: 40em) {
   .vtex-search-result {
-    -ms-grid-columns: 1fr 1px 1fr;
-    grid-template-columns: 1fr 1px 1fr;
+    -ms-grid-columns: 2fr 1px 1.5fr 1px 0.2fr;
+    grid-template-columns: 2fr 1px 1.5fr 1px 0.2fr;
     grid-template-areas:
-      "quantity quantity quantity"
-      "filters border orderby"
-      "gallery gallery gallery";
+      "quantity quantity quantity quantity quantity"
+      "orderby border filters borderseq switch"
+      "gallery gallery gallery gallery gallery";
   }
 
   .vtex-search-result__total-products {

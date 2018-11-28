@@ -6,45 +6,42 @@ import Grid from '../images/Grid'
 import SingleItemGrid from '../images/SingleItemGrid'
 import InlineGrid from '../images/InlineGrid'
 
-const onChangeHandler = (type, onChange) => e => onChange(e, type)
 
 export default function LayoutModeSwitcher({ activeMode, onChange }) {
-  return (
-    <div className="vtex-layout-switcher flex justify-between pv2">
-      <div className="flex justify-center flex-auto br b--muted-4">
-        <Button
-          variation="tertiary"
-          size="small"
-          onClick={onChangeHandler('small', onChange)}
-        >
-          <Grid active={activeMode === 'small'} />
-        </Button>
+
+  const renderButton = (mode, onChange) => {
+    const renderIcon = mode => {
+      switch (mode) {
+        case 'small':
+          return <Grid />
+        case 'inline':
+          return <InlineGrid />
+        case 'normal':
+          return <SingleItemGrid />
+      }
+    }
+
+    return (
+      <div className="vtex-layout-switcher flex justify-between pt2 pl1">
+        <div className="flex justify-center flex-auto ph0">
+          <Button
+            variation="tertiary"
+            size="small"
+            onClick={e => onChange(e, mode)}
+          >
+            {renderIcon(mode)}
+          </Button>
+        </div>
       </div>
-      <div className="flex justify-center flex-auto br b--muted-4">
-        <Button
-          variation="tertiary"
-          size="small"
-          onClick={onChangeHandler('inline', onChange)}
-        >
-          <InlineGrid active={activeMode === 'inline'} />
-        </Button>
-      </div>
-      <div className="flex justify-center flex-auto">
-        <Button
-          variation="tertiary"
-          size="small"
-          onClick={onChangeHandler('normal', onChange)}
-        >
-          <SingleItemGrid active={activeMode === 'normal'} />
-        </Button>
-      </div>
-    </div>
-  )
+    )
+  }
+
+  return renderButton(activeMode, onChange)
 }
 
 LayoutModeSwitcher.propTypes = {
   /** Current active mode */
-  activeMode: PropTypes.string.isRequired,
+  activeMode: PropTypes.string,
   /** On change callback */
   onChange: PropTypes.func.isRequired,
 }

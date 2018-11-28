@@ -1,18 +1,35 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export default function SingleItemGrid({ active }) {
-  const color = active ? '#828282' : '#ececec'
-
+/**
+ * SingleItemGrid icon component in svg
+ */
+const SingleItemGrid = ({ size, fillColor }) => {
   return (
-    <svg width="10" height="19" viewBox="0 0 10 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="10" height="14" fill={color} />
-      <rect y="16" width="10" height="3" fill={color} />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      width={size}
+      height={size}
+      viewBox="0 0 12 17"
+      fill="none"
+      color={fillColor}
+    >
+      <use href="#single-item-grid-search-result" xlinkHref="#single-item-grid-search-result" />
     </svg>
   )
 }
 
 SingleItemGrid.propTypes = {
-  /** Whether the icon is active */
-  active: PropTypes.bool,
+  /* Percentage size of the icon */
+  size: PropTypes.number,
+  /* Fill color for the icon */
+  fillColor: PropTypes.string,
 }
+
+SingleItemGrid.defaultProps = {
+  size: 20,
+  fillColor: '#3F3F40',
+}
+
+export default SingleItemGrid

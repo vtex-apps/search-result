@@ -5,6 +5,7 @@ import { injectIntl, intlShape } from 'react-intl'
 import Popup from './Popup'
 import AccordionFilterItem from './AccordionFilterItem'
 import { mountOptions } from '../constants/SearchHelpers'
+import FilterIcon from './../images/FilterIcon'
 
 class AccordionFilterContainer extends Component {
   static propTypes = {
@@ -54,15 +55,15 @@ class AccordionFilterContainer extends Component {
 
     return (
       <Popup
-        title={intl.formatMessage({ id: 'search-result.filter-button.title' })}
+        title={intl.formatMessage({ id: 'search-result.filter-action.title' })}
         id="filters"
+        icon={<FilterIcon size={16} active/>}
       >
         {({ onClose }) => (
           <div className="vtex-accordion-filter">
             {nonEmptyFilters.map(filter => {
               const { type, title, options, oneSelectedCollapse } = filter
               const isOpen = openedItem === filter.title
-
               return (
                 <AccordionFilterItem
                   key={filter.title}

@@ -1,17 +1,19 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint } from 'render'
 import { FormattedMessage } from 'react-intl'
-
+import classNames from 'classnames'
+import { withRuntimeContext } from 'render'
 import LoadingOverlay from './LoadingOverlay'
 import LayoutModeSwitcher from './LayoutModeSwitcher'
 import { searchResultPropTypes } from '../constants/propTypes'
 import OrderBy from './OrderBy'
 
+
 /**
  * Search Result Component.
  */
-export default class SearchResult extends Component {
+class SearchResult extends Component {
   static propTypes = searchResultPropTypes
 
   state = {
@@ -34,9 +36,12 @@ export default class SearchResult extends Component {
 
   handleLayoutChange = (e, mode) => {
     e.preventDefault()
+    const defaultModes = ['small', 'inline', 'normal']
+    const modeIndex = (defaultModes.indexOf(this.state.galleryLayoutMode) + 1) % 3
+    const currentMode = defaultModes[modeIndex]
 
     this.setState({
-      galleryLayoutMode: mode,
+      galleryLayoutMode: currentMode,
     })
   }
 
@@ -102,6 +107,7 @@ export default class SearchResult extends Component {
       fetchMoreLoading,
       summary,
       orderBy,
+      runtime: { hints: { mobile } },
     } = this.props
     const {
       galleryLayoutMode,
@@ -109,10 +115,10 @@ export default class SearchResult extends Component {
       products,
       brands,
       map,
+      query,
       params,
       priceRange,
       priceRanges,
-      query,
       rest,
       specificationFilters,
       tree,
@@ -130,13 +136,13 @@ export default class SearchResult extends Component {
     }
 
     const hideFacets = !map || !map.length
-
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
+    const filterClasses = classNames({ 'flex justify-center flex-auto pt1 ': mobile })
 
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
-        <div className="vtex-search-result vtex-p pv5 ph4">
+        <div className="vtex-search-result vtex-p pv5 ph3">
           <div className="vtex-search-result__breadcrumb db-ns dn-s">
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
@@ -153,37 +159,44 @@ export default class SearchResult extends Component {
           </div>
           {!hideFacets && (
             <div className="vtex-search-result__filters">
-              <ExtensionPoint
-                id="filter-navigator"
-                brands={brands}
-                getLinkProps={getLinkProps}
-                map={map}
-                params={params}
-                priceRange={priceRange}
-                priceRanges={priceRanges}
-                query={query}
-                rest={rest}
-                specificationFilters={specificationFilters}
-                tree={tree}
-                hiddenFacets={hiddenFacets}
-                loading={loading && !fetchMoreLoading}
-              />
+              <div className={filterClasses}>
+                <ExtensionPoint
+                  id="filter-navigator"
+                  brands={brands}
+                  getLinkProps={getLinkProps}
+                  map={map}
+                  params={params}
+                  priceRange={priceRange}
+                  priceRanges={priceRanges}
+                  query={query}
+                  rest={rest}
+                  specificationFilters={specificationFilters}
+                  tree={tree}
+                  hiddenFacets={hiddenFacets}
+                  loading={loading && !fetchMoreLoading}
+                />
+              </div>
             </div>
           )}
-          <div className="vtex-search-result__border bg-muted-4 h-75 self-center" />
+          {mobile && <div className="vtex-search-result__border bg-muted-5 h-50 self-center" />}
           <div className="vtex-search-result__order-by">
-            <OrderBy
-              orderBy={orderBy}
-              getLinkProps={getLinkProps}
-            />
+            <div >
+              <OrderBy
+                orderBy={orderBy}
+                getLinkProps={getLinkProps}
+              />
+            </div>
           </div>
-          <div className="vtex-search-result__gallery">
-            <div className="dn-ns db-s bt b--muted-4">
+          {mobile && <div className="vtex-search-result__border-2 bg-muted-5 h-50 self-center" />}
+          {mobile && <div className="vtex-search-result__switch">
+            <div className="dn-ns db-s">
               <LayoutModeSwitcher
-                activeMode={this.state.galleryLayoutMode}
+                activeMode={galleryLayoutMode}
                 onChange={this.handleLayoutChange}
               />
             </div>
+          </div>}
+          <div className="vtex-search-result__gallery">
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
                 <div className="w3 ma0">
@@ -195,9 +208,9 @@ export default class SearchResult extends Component {
                 id="gallery"
                 products={products}
                 summary={summary}
-                layoutMode={this.state.galleryLayoutMode}
+                layoutMode={galleryLayoutMode}
               />
-            )}
+              )}
             {children}
           </div>
         </div>
@@ -205,3 +218,5 @@ export default class SearchResult extends Component {
     )
   }
 }
+
+export default withRuntimeContext(SearchResult)
