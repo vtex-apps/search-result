@@ -6,6 +6,20 @@ import Grid from '../images/Grid'
 import SingleItemGrid from '../images/SingleItemGrid'
 import InlineGrid from '../images/InlineGrid'
 
+export const LAYOUT_MODE = [
+  {
+    value: 'normal',
+    label: 'layoutModeSwitcher.normal',
+  },
+  {
+    value: 'small',
+    label: 'layoutModeSwitcher.small',
+  },
+  {
+    value: 'inline',
+    label: 'layoutModeSwitcher.inline',
+  },
+]
 
 export default function LayoutModeSwitcher({ activeMode, onChange }) {
 

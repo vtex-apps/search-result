@@ -42,5 +42,8 @@
   "editor.search-result.hiddenFacets.specificationFilters": "Ocultar filtros de especificaciones",
   "editor.search-result.hiddenFacets.specificationFilters.hideAll": "Ocultar todos los filtros de especificaciones",
   "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter": "Filtro de Especificaciones oculto",
-  "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name": "Nombre del filtro de Especificaciones oculto"
+  "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name": "Nombre del filtro de Especificaciones oculto",
+  "layoutModeSwitcher.inline": "En línea",
+  "layoutModeSwitcher.small": "Pequeño",
+  "layoutModeSwitcher.normal": "Normal"
 }
