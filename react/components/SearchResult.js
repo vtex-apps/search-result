@@ -5,10 +5,9 @@ import { FormattedMessage } from 'react-intl'
 import classNames from 'classnames'
 import { withRuntimeContext } from 'render'
 import LoadingOverlay from './LoadingOverlay'
-import LayoutModeSwitcher from './LayoutModeSwitcher'
 import { searchResultPropTypes } from '../constants/propTypes'
 import OrderBy from './OrderBy'
-import { LAYOUT_MODE } from './LayoutModeSwitcher'
+import LayoutModeSwitcher, { LAYOUT_MODE } from './LayoutModeSwitcher'
 
 /**
  * Search Result Component.
@@ -67,7 +66,7 @@ class SearchResult extends Component {
         rest,
         specificationFilters,
         tree,
-        hiddenFacets
+        hiddenFacets,
       } = props
 
       return {
@@ -81,7 +80,7 @@ class SearchResult extends Component {
         rest,
         specificationFilters,
         tree,
-        hiddenFacets
+        hiddenFacets,
       }
     }
 
