@@ -6,6 +6,7 @@ import ProductSummary from 'vtex.product-summary/index'
 import SearchResultContainer from './components/SearchResultContainer'
 import { SORT_OPTIONS } from './components/OrderBy'
 import LocalQuery from './components/LocalQuery'
+import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 
 const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
@@ -18,9 +19,6 @@ export default class SearchResultQueryLoader extends Component {
   static defaultProps = {
     orderBy: SORT_OPTIONS[0].value,
     rest: '',
-    querySchema: {
-      maxItemsPerPage: DEFAULT_MAX_ITEMS_PER_PAGE,
-    },
   }
 
   static uiSchema = {
@@ -94,6 +92,22 @@ SearchResultQueryLoader.getSchema = props => {
         type: 'object',
         isLayout: true,
         properties: {
+          layoutMode1: {
+            title: 'Layout Mode Switcher 1',
+            type: 'string',
+            default: LAYOUT_MODE[0].value,
+            enum: LAYOUT_MODE.map(opt => opt.value),
+            enumNames: LAYOUT_MODE.map(opt => opt.label),
+            isLayout: true,
+          },
+          layoutMode2: {
+            title: 'Layout Mode Switcher 2',
+            type: 'string',
+            default: LAYOUT_MODE[1].value,
+            enum: LAYOUT_MODE.map(opt => opt.value),
+            enumNames: LAYOUT_MODE.map(opt => opt.label),
+            isLayout: true,
+          },
           brands: {
             title: 'editor.search-result.hiddenFacets.brands',
             type: 'boolean',

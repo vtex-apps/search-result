@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Add new mobile design.
 - Not found page component.
+- Get switcher layout modes by schema
 
 ### Changed
 - Replace tachyons classes with design tokens.
