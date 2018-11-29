@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Not found page component.
-Get
+
 ## [2.4.1] - 2018-11-22
 ### Changed
 - Changes to search scroll the window to the top of the search result
