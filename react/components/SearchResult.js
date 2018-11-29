@@ -8,7 +8,7 @@ import LoadingOverlay from './LoadingOverlay'
 import LayoutModeSwitcher from './LayoutModeSwitcher'
 import { searchResultPropTypes } from '../constants/propTypes'
 import OrderBy from './OrderBy'
-
+import { LAYOUT_MODE } from './LayoutModeSwitcher'
 
 /**
  * Search Result Component.
@@ -17,7 +17,7 @@ class SearchResult extends Component {
   static propTypes = searchResultPropTypes
 
   state = {
-    galleryLayoutMode: 'normal',
+    galleryLayoutMode: this.props.hiddenFacets.layoutMode1 || LAYOUT_MODE[0].value,
     showLoadingAsOverlay: false,
     // The definitions bellow are required because
     // on SSR the getDerivedStateFromProps isn't called
@@ -36,8 +36,9 @@ class SearchResult extends Component {
 
   handleLayoutChange = (e, mode) => {
     e.preventDefault()
-    const defaultModes = ['small', 'inline', 'normal']
-    const modeIndex = (defaultModes.indexOf(this.state.galleryLayoutMode) + 1) % 3
+    
+    const defaultModes = [this.props.hiddenFacets.layoutMode1, this.props.hiddenFacets.layoutMode2]
+    const modeIndex = (defaultModes.indexOf(this.state.galleryLayoutMode) + 1) % 2
     const currentMode = defaultModes[modeIndex]
 
     this.setState({
@@ -50,6 +51,11 @@ class SearchResult extends Component {
     // so we can show the previous products when the
     // overlay is on the screen
     if (!props.loading) {
+      if (!props.hiddenFacets.layoutMode1 && !props.hiddenFacets.layoutMode2) {
+        props.hiddenFacets.layoutMode1 = LAYOUT_MODE[0].value
+        props.hiddenFacets.layoutMode2 = LAYOUT_MODE[1].value
+      }
+
       const {
         products,
         recordsFiltered,
@@ -61,7 +67,7 @@ class SearchResult extends Component {
         rest,
         specificationFilters,
         tree,
-        hiddenFacets,
+        hiddenFacets
       } = props
 
       return {
@@ -75,7 +81,7 @@ class SearchResult extends Component {
         rest,
         specificationFilters,
         tree,
-        hiddenFacets,
+        hiddenFacets
       }
     }
 
