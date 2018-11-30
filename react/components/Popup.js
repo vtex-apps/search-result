@@ -76,7 +76,7 @@ export default class Popup extends Component {
 
   static defaultProps = {
     renderFooter: () => null,
-    icon: <Arrow size={16} />
+    icon: <Arrow size={16} />,
   }
 
   contentRef = React.createRef()
@@ -114,9 +114,8 @@ export default class Popup extends Component {
 
           return (
             <div className={className} ref={this.contentRef}>
-            
               <button
-                className={classNames('vtex-filter-popup__button mv0 pointer flex justify-center items-center', {
+                className={classNames('vtex-filter-popup__button ph3 pv5 mv0 mh3 pointer flex justify-center items-center', {
                   'bb b--muted-1': open,
                   'bn': !open,
                 })}

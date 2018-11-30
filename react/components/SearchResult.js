@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { Spinner } from 'vtex.styleguide'
-import { ExtensionPoint } from 'render'
+import { ExtensionPoint, withRuntimeContext } from 'render'
 import { FormattedMessage } from 'react-intl'
 import classNames from 'classnames'
-import { withRuntimeContext } from 'render'
 import LoadingOverlay from './LoadingOverlay'
 import { searchResultPropTypes } from '../constants/propTypes'
 import OrderBy from './OrderBy'
@@ -19,7 +18,7 @@ class SearchResult extends Component {
     hiddenFacets: {
       layoutMode1: LAYOUT_MODE[0].value,
       layoutMode2: LAYOUT_MODE[1].value,
-    }
+    },
   }
 
   state = {
@@ -155,7 +154,7 @@ class SearchResult extends Component {
 
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
-        <div className="vtex-search-result vtex-p pv2 ph3">
+        <div className="vtex-search-result vtex-p pv5 force-full-width">
           <div className="vtex-search-result__breadcrumb db-ns dn-s">
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
@@ -196,8 +195,8 @@ class SearchResult extends Component {
             />
           </div>
           {mobile && <div className="vtex-search-result__border-2 bg-muted-5 h-50 self-center" />}
-          {mobile && (
-            <div className="vtex-search-result__switch">
+          {mobile && <div className="vtex-search-result__switch flex justify-center items-center">
+            <div className="dn-ns db-s">
               <LayoutModeSwitcher
                 activeMode={galleryLayoutMode}
                 onChange={this.handleLayoutChange}

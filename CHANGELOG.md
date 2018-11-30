@@ -23,11 +23,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add new mobile design.
 - Not found page component.
 - Get switcher layout modes by schema
+- Sort option in search-result is redesign to be dropdown button
 
 ### Changed
 - Replace tachyons classes with design tokens.
 - Paddings and margins to match other components.
 - Update loading to use an overlay instead of content loader after initial mount.
+- Sort option in search-result is redesign to be dropdown button
 
 ## [2.4.1] - 2018-11-22
 ### Changed
