@@ -42,7 +42,7 @@ export const SORT_OPTIONS = [
 class OrderBy extends Component {
   static propTypes = {
     /** Which sorting option is selected. */
-    orderBy: PropTypes.string.isRequired,
+    orderBy: PropTypes.string,
     /** Returns the link props. */
     getLinkProps: PropTypes.func,
     /** Intl instance. */

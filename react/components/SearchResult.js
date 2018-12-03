@@ -15,6 +15,13 @@ import LayoutModeSwitcher, { LAYOUT_MODE } from './LayoutModeSwitcher'
 class SearchResult extends Component {
   static propTypes = searchResultPropTypes
 
+  static defaultProps = {
+    hiddenFacets: {
+      layoutMode1: LAYOUT_MODE[0].value, 
+      layoutMode2: LAYOUT_MODE[1].value, 
+    } 
+  }
+
   state = {
     galleryLayoutMode: this.props.hiddenFacets.layoutMode1 || LAYOUT_MODE[0].value,
     showLoadingAsOverlay: false,
