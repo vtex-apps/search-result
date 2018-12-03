@@ -32,7 +32,7 @@ export default class SearchResultQueryLoader extends Component {
 
   render() {
     const { querySchema } = this.props
-    return !this.props.searchQuery || querySchema.enableCustomQuery ? (
+    return !this.props.searchQuery || (querySchema && querySchema.enableCustomQuery) ? (
       <LocalQuery
         {...this.props}
         {...querySchema}
