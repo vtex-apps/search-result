@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Add default behavoir when `querySchema` comes undefined from server. 
+
 ### Added
 - Add new mobile design.
 - Not found page component.
