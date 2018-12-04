@@ -158,10 +158,7 @@ class SearchResult extends Component {
           <div className="vtex-search-result__breadcrumb db-ns dn-s">
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
-          <div className="vtex-search-result__total-products pb5 bn-ns bb-s b--muted-4 tc-s tl">
-            <span className="vtex-search-result__term dn-ns db-s t-heading-5">
-              {term}
-            </span>
+          <div className="vtex-search-result__total-products pv5 bn-ns bt-s b--muted-4 tc-s tl">
             <FormattedMessage
               id="search.total-products"
               values={{ recordsFiltered }}

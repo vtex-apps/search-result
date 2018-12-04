@@ -192,8 +192,8 @@ body.vtex-filter-popup-open {
     -ms-grid-columns: 2fr 1px 1.5fr 1px 0.2fr;
     grid-template-columns: 2fr 1px 1.5fr 1px 0.2fr;
     grid-template-areas:
-      "quantity quantity quantity quantity quantity"
       "orderby border filters borderseq switch"
+      "quantity quantity quantity quantity quantity"
       "gallery gallery gallery gallery gallery";
   }
 
@@ -212,4 +212,8 @@ body.vtex-filter-popup-open {
   .vtex-gallery--two-columns {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+.vtex-dropdown__mobile {
+  margin-top: -2px;
 }
