@@ -40,7 +40,7 @@ class SelectionListOrderBy extends Component {
           page={linkProps.page}
           query={linkProps.queryString}
           params={linkProps.params}
-          className="c-on-base f5 ml-auto db no-underline"
+          className="c-on-base f5 ml-auto db no-underline pv4 ph5 hover-bg-muted-4"
         >
           {option.label}
         </Link>
@@ -56,16 +56,16 @@ class SelectionListOrderBy extends Component {
   render() {
     const { orderBy } = this.props
     const { showDropdown } = this.state
-    const btClass = classNames('ph3 pv5 mv0 pointer flex justify-center items-center bn w-100 bg-base c-on-base t-action--small ml-auto',
+    const btClass = classNames('ph3 pv5 mv0 pointer flex justify-center items-center w-100 bg-base c-on-base t-action--small ml-auto',
       {
-        'vtex-dropdown__btn--active b--muted-4': showDropdown,
+        'bt br bl bb-0 br2 br--top bw1 b--muted-4 shadow-1': showDropdown,
         'bn pl1': !showDropdown,
       }
     )
 
-    const contentClass = classNames('vtex-dropdown__content z-1 absolute bg-base f5 w-100',
+    const contentClass = classNames('z-1 absolute bg-base shadow-5 f5 w-100 b--muted-4 br2 ba bw1 br--bottom',
       {
-        'b--muted-4 vtex-dropdown__content--active db': showDropdown,
+        'db': showDropdown,
         'dn': !showDropdown,
       }
     )
