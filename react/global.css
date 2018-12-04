@@ -224,7 +224,6 @@ body.vtex-filter-popup-open {
 
 .vtex-dropdown__content a {
   padding: 12px 16px;
-  text-decoration: none;
 }
 
 .vtex-dropdown__content a:hover {background-color: #f1f1f1}

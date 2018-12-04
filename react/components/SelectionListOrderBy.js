@@ -40,7 +40,7 @@ class SelectionListOrderBy extends Component {
           page={linkProps.page}
           query={linkProps.queryString}
           params={linkProps.params}
-          className="c-on-base t-action--small ml-auto db"
+          className="c-on-base t-action--small ml-auto db no-underline"
         >
           {option.label}
         </Link>
@@ -56,7 +56,7 @@ class SelectionListOrderBy extends Component {
   render() {
     const { orderBy } = this.props
     const { showDropdown } = this.state
-    const btClass = classNames('ph3 pv5  mv0 pointer flex justify-center items-center bn w-100 bg-base c-on-base t-action--small ml-auto',
+    const btClass = classNames('ph3 pv5 mv0 pointer flex justify-center items-center bn w-100 bg-base c-on-base t-action--small ml-auto',
       {
         'vtex-dropdown__btn--active b--muted-4': showDropdown,
         'bn pl1': !showDropdown,
