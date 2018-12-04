@@ -3,8 +3,8 @@ import { withRuntimeContext, Link } from 'render'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
+import { find, propEq } from 'ramda'
 
-import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
 import Arrow from '../images/Arrow'
 
 class SelectionListOrderBy extends Component {
@@ -40,7 +40,6 @@ class SelectionListOrderBy extends Component {
           page={linkProps.page}
           query={linkProps.queryString}
           params={linkProps.params}
-          scrollOptions={{ baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET }}
           className="c-on-base t-action--small ml-auto db"
         >
           {option.label}
@@ -51,13 +50,7 @@ class SelectionListOrderBy extends Component {
 
   getOptionTitle = option => {
     const { options, intl } = this.props
-    let title = intl.formatMessage({ id: 'search-result.orderby.title' })
-    options.forEach(opt => {
-      if (opt.value === option) {
-        title = opt.label
-      }
-    })
-    return title
+    return find(propEq('value', option), options).label
   }
 
   render() {
