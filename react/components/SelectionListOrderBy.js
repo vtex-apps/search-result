@@ -40,7 +40,7 @@ class SelectionListOrderBy extends Component {
           page={linkProps.page}
           query={linkProps.queryString}
           params={linkProps.params}
-          className="c-on-base t-action--small ml-auto db no-underline"
+          className="c-on-base f5 ml-auto db no-underline"
         >
           {option.label}
         </Link>
