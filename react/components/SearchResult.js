@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint } from 'render'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, FormattedPlural, injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { withRuntimeContext } from 'render'
 import LoadingOverlay from './LoadingOverlay'
@@ -38,6 +38,7 @@ class SearchResult extends Component {
     specificationFilters: this.props.specificationFilters,
     tree: this.props.tree,
     hiddenFacets: this.props.hiddenFacets,
+    intl: intlShape,
   }
 
   handleLayoutChange = (e, mode) => {
@@ -112,6 +113,7 @@ class SearchResult extends Component {
 
   render() {
     const {
+      intl,
       children,
       breadcrumbsProps,
       getLinkProps,
@@ -155,6 +157,7 @@ class SearchResult extends Component {
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
         <div className="vtex-search-result vtex-p pv5 ph3">
+          {mobile && (<div className="vtex-search-result__divider bt bw1 b--muted-4 w-100"></div>)}
           <div className="vtex-search-result__breadcrumb db-ns dn-s">
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
@@ -215,6 +218,7 @@ class SearchResult extends Component {
                   id="gallery"
                   products={products}
                   summary={summary}
+                  className="bn"
                   layoutMode={galleryLayoutMode}
                 />
               )}
@@ -226,4 +230,4 @@ class SearchResult extends Component {
   }
 }
 
-export default withRuntimeContext(SearchResult)
+export default injectIntl(withRuntimeContext(SearchResult))

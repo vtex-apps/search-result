@@ -9,7 +9,7 @@ import GalleryItem from './components/GalleryItem'
  * Canonical gallery that displays a list of given products.
  */
 const Gallery = ({ products, summary, layoutMode }) => {
-  const classes = classNames('vtex-gallery pa3 bn-ns bt-s b--muted-4', {
+  const classes = classNames('vtex-gallery pa3 bn', {
     'vtex-gallery--two-columns': layoutMode === 'small',
   })
 
