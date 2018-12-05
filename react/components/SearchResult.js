@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint } from 'render'
-import { FormattedMessage, FormattedPlural, injectIntl, intlShape } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import classNames from 'classnames'
 import { withRuntimeContext } from 'render'
 import LoadingOverlay from './LoadingOverlay'
@@ -38,7 +38,6 @@ class SearchResult extends Component {
     specificationFilters: this.props.specificationFilters,
     tree: this.props.tree,
     hiddenFacets: this.props.hiddenFacets,
-    intl: intlShape,
   }
 
   handleLayoutChange = (e, mode) => {
@@ -230,4 +229,4 @@ class SearchResult extends Component {
   }
 }
 
-export default injectIntl(withRuntimeContext(SearchResult))
+export default withRuntimeContext(SearchResult)

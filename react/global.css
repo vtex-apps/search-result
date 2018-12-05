@@ -221,7 +221,3 @@ body.vtex-filter-popup-open {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
-.vtex-dropdown__mobile {
-  margin-top: -2px;
-}
