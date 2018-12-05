@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.0.1] - 2018-12-05
+### Fixed
+- Fix alignment of `LayoutModeSwitcher`.
+
 ## [3.0.0] - 2018-12-04
 ### Fixed
 - Add default behavoir when `querySchema` comes undefined from server. 

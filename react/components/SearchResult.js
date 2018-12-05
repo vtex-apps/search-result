@@ -17,9 +17,9 @@ class SearchResult extends Component {
 
   static defaultProps = {
     hiddenFacets: {
-      layoutMode1: LAYOUT_MODE[0].value, 
-      layoutMode2: LAYOUT_MODE[1].value, 
-    } 
+      layoutMode1: LAYOUT_MODE[0].value,
+      layoutMode2: LAYOUT_MODE[1].value,
+    }
   }
 
   state = {
@@ -192,22 +192,20 @@ class SearchResult extends Component {
           )}
           {mobile && <div className="vtex-search-result__border bg-muted-5 h-50 self-center" />}
           <div className="vtex-search-result__order-by">
-            <div >
-              <OrderBy
-                orderBy={orderBy}
-                getLinkProps={getLinkProps}
-              />
-            </div>
+            <OrderBy
+              orderBy={orderBy}
+              getLinkProps={getLinkProps}
+            />
           </div>
           {mobile && <div className="vtex-search-result__border-2 bg-muted-5 h-50 self-center" />}
-          {mobile && <div className="vtex-search-result__switch">
-            <div className="dn-ns db-s">
+          {mobile && (
+            <div className="vtex-search-result__switch">
               <LayoutModeSwitcher
                 activeMode={galleryLayoutMode}
                 onChange={this.handleLayoutChange}
               />
             </div>
-          </div>}
+          )}
           <div className="vtex-search-result__gallery">
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
