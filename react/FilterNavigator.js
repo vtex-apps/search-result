@@ -1,8 +1,14 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { flatten, path, identity, contains } from 'ramda'
+import { flatten, path, identity, contains, find, propEq, union, mergeAll } from 'ramda'
 import ContentLoader from 'react-content-loader'
 import { withRuntimeContext } from 'render'
+import SideBar from './components/SideBar'
+import { Button } from 'vtex.styleguide'
+import FilterIcon from './images/FilterIcon'
+import { injectIntl } from 'react-intl'
+import classNames from 'classnames'
+import { Link } from 'render'
 
 import SelectedFilters from './components/SelectedFilters'
 import AvailableFilters from './components/AvailableFilters'
@@ -10,6 +16,7 @@ import AccordionFilterContainer from './components/AccordionFilterContainer'
 import {
   formatCategoriesTree,
   mountOptions,
+  formatFacetToLinkPropsParam,
   getMapByType,
 } from './constants/SearchHelpers'
 import { facetOptionShape, paramShape, hiddenFacetsSchema } from './constants/propTypes'
@@ -66,6 +73,99 @@ class FilterNavigator extends Component {
     hiddenFacets: {},
   }
 
+  state = {
+    openContent: false,
+    filtersChecks: {},
+    pagesArgs: {},
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const nonEmptyFilters = this.mapCheckboxFilters(this.filters.filter(spec => spec.options.length > 0))
+
+    const newFilters = Object.keys(nonEmptyFilters)
+    const prevFilters = Object.keys(prevState.filtersChecks)
+    if (this.willUpdateFilters(Object.keys(nonEmptyFilters),  Object.keys(prevState.filtersChecks))) {
+      console.log("updated")
+      this.setState({ filtersChecks: nonEmptyFilters })
+    }
+    // console.table("selected", this.selectedFilters)
+  }
+
+  willUpdateFilters = (newFilters, prevFilters) => {
+    if (newFilters.length !== prevFilters.length) return true
+    return !newFilters.every(e => prevFilters.includes(e))
+  }
+
+  // componentDidMount() {
+  //   const nonEmptyFilters = this.filters.filter(spec => spec.options.length > 0)
+  //   this.setState({filtersChecks: this.mapCheckboxFilters(nonEmptyFilters)})
+  // }
+
+  mapCheckboxFilters = (filters) => {
+    const { map, rest } = this.props
+    const filtersFlat = union(...filters.map(({options, type}) => mountOptions(options, type, map, rest).map(opt => {
+      const pagesArgs = formatFacetToLinkPropsParam(type, opt)
+      return {
+        name: opt.Name,
+        ...pagesArgs,
+        checked: !!find(propEq('Name', opt.Name), this.selectedFilters)
+      }
+    })), [])
+    return mergeAll(filtersFlat.map(({name, ...rest}) => ({[name]: rest})))
+  }
+
+  handleFilterCheck = (filter) => {
+    const { getLinkProps } = this.props
+    const filterCopy = { ...this.state.filtersChecks }
+    filterCopy[filter].checked = !filterCopy[filter].checked
+
+    this.setState({
+      filtersChecks: filterCopy
+    })
+
+    
+
+    const checkedFilters = []
+    for (const filter in this.state.filtersChecks) {
+      const filterObject = this.state.filtersChecks[filter]
+      if (filterObject.checked) {
+        checkedFilters.push(filterObject)
+      }
+    }
+    console.log("filterchecsk", this.state.filtersChecks)
+    console.log("checkedFilters", checkedFilters)
+    const pagesArgs = getLinkProps(checkedFilters)
+    console.log("pagesArgs", pagesArgs)
+    this.setState({ pagesArgs })
+  }
+
+  handleUpdateContentVisibility = () => {
+    this.setState({
+      openContent: false,
+    })
+  }
+
+  handleClickButton = event => {
+    if (!this.props.hideContent) {
+      this.setState({
+        openContent: !this.state.openContent,
+      })
+    }
+    event.persist()
+  }
+
+  clearFilters = () => {
+    const {getLinkProps, runtime: {navigate}} = this.props
+    const clearedFilters = { ...this.state.filtersChecks }
+    for (const filter in clearedFilters) {
+      clearedFilters[filter].checked = false 
+    }
+    this.setState ({ filtersChecks: clearedFilters })
+    const pagesArgs = getLinkProps([])
+    const options = {page: pagesArgs.page, params: pagesArgs.params, query: pagesArgs.queryString, to: null, scrollOptions: null, fallbackToWindowLocation: false}
+    navigate(options)
+  }
+
   getAvailableCategories = (showOnlySelected = false) => {
     const { rest, query, map } = this.props
     const categories = this.categories
@@ -119,7 +219,53 @@ class FilterNavigator extends Component {
     return flatten(options).filter(opt => opt.selected)
   }
 
+  get filters() {
+    const {
+      specificationFilters = [],
+      brands,
+      priceRanges,
+      hiddenFacets,
+    } = this.props
+
+    const categories = this.getAvailableCategories()
+
+    const hiddenFacetsNames = (
+      path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
+    ).map(filter => filter.name)
+
+    const mappedSpecificationFilters = !path(['specificationFilters', 'hideAll'], hiddenFacets)
+      ? specificationFilters.filter(
+        spec => !contains(spec.name, hiddenFacetsNames)
+      ).map(spec => ({
+        type: SPECIFICATION_FILTERS_TYPE,
+        title: spec.name,
+        options: spec.facets,
+      }))
+      : []
+
+    return [
+      !hiddenFacets.categories && {
+        type: CATEGORIES_TYPE,
+        title: CATEGORIES_TITLE,
+        options: categories,
+        oneSelectedCollapse: true,
+      },
+      ...mappedSpecificationFilters,
+      !hiddenFacets.brands && {
+        type: BRANDS_TYPE,
+        title: BRANDS_TITLE,
+        options: brands,
+      },
+      !hiddenFacets.priceRange && {
+        type: PRICE_RANGES_TYPE,
+        title: PRICE_RANGES_TITLE,
+        options: priceRanges,
+      },
+    ].filter(identity)
+  }
+
   render() {
+    const { openContent, pagesArgs, filtersChecks } = this.state
     const {
       specificationFilters = [],
       brands,
@@ -130,6 +276,7 @@ class FilterNavigator extends Component {
       getLinkProps,
       loading,
       hiddenFacets,
+      intl,
       runtime: { hints: { mobile } },
     } = this.props
 
@@ -157,50 +304,49 @@ class FilterNavigator extends Component {
       )
     }
 
-    const categories = this.getAvailableCategories()
-
-    const hiddenFacetsNames = (
-      path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
-    ).map(filter => filter.name)
-
-    const mappedSpecificationFilters = !path(['specificationFilters', 'hideAll'], hiddenFacets)
-      ? specificationFilters.filter(
-        spec => !contains(spec.name, hiddenFacetsNames)
-      ).map(spec => ({
-        type: SPECIFICATION_FILTERS_TYPE,
-        title: spec.name,
-        options: spec.facets,
-      }))
-      : []
-
-    const filters = [
-      !hiddenFacets.categories && {
-        type: CATEGORIES_TYPE,
-        title: CATEGORIES_TITLE,
-        options: categories,
-        oneSelectedCollapse: true,
-      },
-      ...mappedSpecificationFilters,
-      !hiddenFacets.brands && {
-        type: BRANDS_TYPE,
-        title: BRANDS_TITLE,
-        options: brands,
-      },
-      !hiddenFacets.priceRange && {
-        type: PRICE_RANGES_TYPE,
-        title: PRICE_RANGES_TITLE,
-        options: priceRanges,
-      },
-    ].filter(identity)
-
     if (mobile) {
       return (
-        <AccordionFilterContainer
-          filters={filters}
-          getLinkProps={getLinkProps}
-          map={map}
-          rest={rest}
-        />
+        <Fragment>
+          <button
+            className={classNames('vtex-filter-popup__button mv0 pointer flex justify-center items-center', {
+              'bb b--muted-1': openContent,
+              'bn': !openContent,
+            })}
+            onClick={event => this.handleClickButton(event)}
+          >
+            <span className="vtex-filter-popup__title c-on-base t-action--small ml-auto">
+              {intl.formatMessage({ id: 'search-result.filter-action.title' })}
+            </span>
+            <span className="vtex-filter-popup__arrow-icon ml-auto pl3 pt2">
+              <FilterIcon size={16} active/>
+            </span>
+          </button>
+          
+          
+          <SideBar
+            onOutsideClick={this.handleUpdateContentVisibility}
+            isOpen={openContent}>
+            
+            <AccordionFilterContainer
+              filters={this.filters}
+              getLinkProps={getLinkProps}
+              map={map}
+              filtersChecks={filtersChecks}
+              handleFilterCheck={this.handleFilterCheck}
+              rest={rest}
+            />
+            <div className="vtex.filter-slidebar__buttons fixed bottom-1 ph3">
+              <Link
+                page={pagesArgs.page}
+                params={pagesArgs.params}
+                query={pagesArgs.queryString}
+              >
+                <Button variation="secondary" block>Apply Filters</Button>
+              </Link>
+              <Button variation="tertiary" block onClick={event => this.clearFilters()}>Clear All</Button>
+            </div>
+          </SideBar>
+        </Fragment>
       )
     }
 
@@ -212,7 +358,7 @@ class FilterNavigator extends Component {
         />
         <AvailableFilters
           getLinkProps={getLinkProps}
-          filters={filters}
+          filters={this.filters}
           map={map}
           rest={rest}
           priceRange={priceRange}
@@ -222,4 +368,4 @@ class FilterNavigator extends Component {
   }
 }
 
-export default withRuntimeContext(FilterNavigator)
+export default withRuntimeContext(injectIntl(FilterNavigator))

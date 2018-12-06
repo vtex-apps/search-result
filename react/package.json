@@ -11,12 +11,20 @@
     "classnames": "^2.2.6",
     "query-string": "5",
     "ramda": "^0.25.0",
+<<<<<<< HEAD
     "react-apollo": "^2.3.2",
+=======
+    "react-apollo": "^2.1.3",
+>>>>>>> New filter for search result
     "react-collapse": "^4.0.3",
     "react-content-loader": "^3.1.2",
     "react-infinite-scroll-component": "^4.1.0",
     "react-intl": "^2.4.0",
     "react-motion": "^0.5.2",
+<<<<<<< HEAD
+=======
+    "react-outside-click-handler": "^1.2.2",
+>>>>>>> New filter for search result
     "unorm": "^1.4.1"
   },
   "devDependencies": {

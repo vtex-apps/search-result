@@ -1,6 +1,7 @@
 {
   "search-result.show-more-button": "Mostrar más",
   "search-result.filter-button.title": "Filtros",
+  "search-result.filter-breadcrumbs.primary": "Filtros",
   "search-result.orderby.title": "Ordenar por",
   "search-result.filter-action.title": "Filtrar",
   "search-result.clear-filters.title": "Limpiar",

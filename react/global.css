@@ -185,7 +185,15 @@ body.vtex-filter-popup-open {
   .vtex-search-result__border {
     display: none;
   }
+
+  .vtex-search-result__sidebar {
+    width: 340px;
+  }
 }
+
+.vtex.filter-slidebar__buttons .vtex-button {
+  min-height: 20rem !important;
+} 
 
 @media only screen and (max-width: 40em) {
   .vtex-search-result {
@@ -211,6 +219,10 @@ body.vtex-filter-popup-open {
 
   .vtex-gallery--two-columns {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  body.vtex-search-result-sidebar-open {
+    overflow: hidden;
   }
 }
 

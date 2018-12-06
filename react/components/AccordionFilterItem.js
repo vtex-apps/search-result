@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { intlShape, injectIntl } from 'react-intl'
 import classNames from 'classnames'
 import { Link } from 'render'
+import { Checkbox } from 'vtex.styleguide'
 
 import Arrow from '../images/Arrow'
 import CheckTick from '../images/CheckTick'
@@ -16,37 +17,51 @@ const AccordionFilterItem = ({
   show,
   open,
   onOpen,
-  onItemSelected,
   getLinkProps,
   intl,
+  filtersChecks,
+  handleFilterCheck,
 }) => (
   <Fragment>
-    <div
-      className={classNames('vtex-accordion-filter__item t-body pv3 ph7 pointer bb b--muted-4', {
+    {!open &&
+      <div  className={classNames('vtex-accordion-filter__item t-body pv3 ph7 pv4 pointer bb b--muted-4', {
         'vtex-accordion-filter__item--active': open,
         'vtex-accordion-filter__item--hidden dn': !show,
       })}
       onClick={onOpen}
-    >
-      <div
-        className={classNames('vtex-accordion-filter__item-title', {
-          'c-on-base': open,
-        })}
       >
-        {getFilterTitle(title, intl)}
-
-        <span className="vtex-accordion-filter__item-icon fr">
-          <Arrow up={open} size={10} />
-        </span>
+        <div
+          className={classNames('vtex-accordion-filter__item-title', {
+            'c-on-base': open,
+          })}
+        >
+          {getFilterTitle(title, intl)}
+          <span className="vtex-accordion-filter__item-icon fr">
+            <Arrow up={open} size={10} />
+          </span>
+        </div>
       </div>
-    </div>
+    }
+    
     {open && (
       <div className="vtex-accordion-filter__item-options">
         {options.map(opt => {
           const pagesArgs = getLinkProps(formatFacetToLinkPropsParam(type, opt))
 
           return (
-            <Link
+            <div className="ph4 pb4 pt5 bb b--muted-4" key={opt.Name}>
+              <Checkbox
+                checked={filtersChecks[opt.Name].checked}
+                id={opt.Name}
+                label={opt.Name}
+                name={`checkbox-${opt.Name}`}
+                onChange={e => handleFilterCheck(opt.Name)}
+                value="option-0"
+                className="pa3"
+              />
+            </div>
+
+            /* <Link
               key={opt.Name}
               className="vtex-accordion-filter__item-opt pv3 ph7 pointer bb b--muted-4 link db c-muted-1"
               page={pagesArgs.page}
@@ -54,7 +69,7 @@ const AccordionFilterItem = ({
               query={pagesArgs.queryString}
               onClick={onItemSelected}
               scrollOptions={{ baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET }}
-          >
+            >
               {opt.Name}
 
               {false && (
@@ -62,7 +77,7 @@ const AccordionFilterItem = ({
                   <CheckTick />
                 </span>
               )}
-            </Link>
+            </Link> */
           )
         })}
       </div>
