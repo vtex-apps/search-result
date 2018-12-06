@@ -48,13 +48,6 @@
   align-self: center;
 }
 
-.vtex-search-result__divider {
-  -ms-grid-row: 1;
-  -ms-grid-column: 5;
-  grid-column: divider;
-  grid-row: divider;
-}
-
 .vtex-search-result--paginated .vtex-search-result__total-products {
   -ms-grid-column: 4;
 }
@@ -199,7 +192,6 @@ body.vtex-filter-popup-open {
     -ms-grid-columns: 2fr 1px 1.5fr 1px 0.2fr;
     grid-template-columns: 2fr 1px 1.5fr 1px 0.2fr;
     grid-template-areas:
-      "divider divider divider divider divider"
       "orderby border filters borderseq switch"
       "quantity quantity quantity quantity quantity"
       "gallery gallery gallery gallery gallery";

@@ -156,7 +156,6 @@ class SearchResult extends Component {
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
         <div className="vtex-search-result vtex-p pv5 ph3">
-          {mobile && (<div className="vtex-search-result__divider bt bw1 b--muted-4 w-100"></div>)}
           <div className="vtex-search-result__breadcrumb db-ns dn-s">
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
