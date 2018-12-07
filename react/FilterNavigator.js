@@ -84,11 +84,11 @@ class FilterNavigator extends Component {
 
     const newFilters = Object.keys(nonEmptyFilters)
     const prevFilters = Object.keys(prevState.filtersChecks)
+    // console.log("selected", this.selectedFilters)
     if (this.willUpdateFilters(Object.keys(nonEmptyFilters),  Object.keys(prevState.filtersChecks))) {
-      console.log("updated")
+      // console.log("updated")
       this.setState({ filtersChecks: nonEmptyFilters })
     }
-    // console.table("selected", this.selectedFilters)
   }
 
   willUpdateFilters = (newFilters, prevFilters) => {
@@ -123,8 +123,6 @@ class FilterNavigator extends Component {
       filtersChecks: filterCopy
     })
 
-    
-
     const checkedFilters = []
     for (const filter in this.state.filtersChecks) {
       const filterObject = this.state.filtersChecks[filter]
@@ -132,10 +130,10 @@ class FilterNavigator extends Component {
         checkedFilters.push(filterObject)
       }
     }
-    console.log("filterchecsk", this.state.filtersChecks)
-    console.log("checkedFilters", checkedFilters)
-    const pagesArgs = getLinkProps(checkedFilters)
-    console.log("pagesArgs", pagesArgs)
+    // console.log("filterchecsk", this.state.filtersChecks)
+    // console.log("checkedFilters", checkedFilters)
+    const pagesArgs = getLinkProps(checkedFilters, false, checkedFilters.map( opt => {return opt.slug}))
+    // console.log("pagesArgs", pagesArgs)
     this.setState({ pagesArgs })
   }
 
@@ -322,7 +320,6 @@ class FilterNavigator extends Component {
             </span>
           </button>
           
-          
           <SideBar
             onOutsideClick={this.handleUpdateContentVisibility}
             isOpen={openContent}>
@@ -335,7 +332,7 @@ class FilterNavigator extends Component {
               handleFilterCheck={this.handleFilterCheck}
               rest={rest}
             />
-            <div className="vtex.filter-slidebar__buttons fixed bottom-1 ph3">
+            <div className="fixed bottom-1 ph3">
               <Link
                 page={pagesArgs.page}
                 params={pagesArgs.params}

@@ -48,8 +48,9 @@ export default class SearchResultContainer extends Component {
     }
   }
 
-  getLinkProps = (spec, useEmptyMapAndRest = false) => {
+  getLinkProps = (spec, useEmptyMapAndRest = false, restParam = null) => {
     const { rest, map, pagesPath, params } = this.props
+
     const filters = Array.isArray(spec) ? spec : [spec]
 
     if (filters.length === 0) {
@@ -105,6 +106,11 @@ export default class SearchResultContainer extends Component {
         },
       }
     )
+    // console.log("rest", restParam)
+
+    // if (!!restParam) pageProps.query.rest = restParam
+
+    // console.log("pageProps", pageProps)
 
     const queryString = QueryString.stringify({
       ...pageProps.query,

@@ -191,10 +191,6 @@ body.vtex-filter-popup-open {
   }
 }
 
-.vtex.filter-slidebar__buttons .vtex-button {
-  min-height: 20rem !important;
-} 
-
 @media only screen and (max-width: 40em) {
   .vtex-search-result {
     -ms-grid-columns: 2fr 1px 1.5fr 1px 0.2fr;

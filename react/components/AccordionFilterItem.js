@@ -46,7 +46,6 @@ const AccordionFilterItem = ({
     {open && (
       <div className="vtex-accordion-filter__item-options">
         {options.map(opt => {
-          const pagesArgs = getLinkProps(formatFacetToLinkPropsParam(type, opt))
 
           return (
             <div className="ph4 pb4 pt5 bb b--muted-4" key={opt.Name}>
