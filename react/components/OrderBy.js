@@ -80,11 +80,11 @@ class OrderBy extends Component {
         options={this.sortingOptions}
         value={orderBy}
         onChange={(_, ordenation) => {
-          const pagesArgs = getLinkProps({ ordenation })
+          const {page, params, queryString} = getLinkProps({ ordenation })
           runtime.navigate({
-            page: pagesArgs.page,
-            params: pagesArgs.params,
-            query: pagesArgs.queryString,
+            page: page,
+            params: params,
+            query: queryString,
             fallbackToWindowLocation: false,
             scrollOptions: { baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET },
           })
