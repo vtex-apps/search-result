@@ -54,18 +54,18 @@ class OrderBy extends Component {
   }
 
   get sortingOptions() {
-    return SORT_OPTIONS.map(opt => {
+    return SORT_OPTIONS.map(({ value, label }) => {
       return {
-        value: opt.value,
-        label: this.props.intl.formatMessage({ id: opt.label }),
+        value: value,
+        label: this.props.intl.formatMessage({ id: label }),
       }
     })
   }
 
   render() {
-    const { orderBy, getLinkProps, runtime } = this.props
+    const { orderBy, getLinkProps, runtime: { hints: { mobile } }, runtime } = this.props
 
-    if (__RUNTIME__.hints.mobile) {
+    if (mobile) {
       return (
         <SelectionListOrderBy
           orderBy={orderBy}
