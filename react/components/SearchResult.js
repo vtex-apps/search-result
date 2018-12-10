@@ -151,7 +151,7 @@ class SearchResult extends Component {
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
     const filterClasses = classNames({ 'flex justify-center flex-auto pt1 ': mobile })
-    const searchResultClasses = classNames('vtex-search-result vtex-p pv5', { 'force-full-width': mobile })
+    const searchResultClasses = classNames('vtex-search-result vtex-p', { 'force-full-width': mobile })
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
         <div className={searchResultClasses}>
@@ -202,7 +202,7 @@ class SearchResult extends Component {
                 onChange={this.handleLayoutChange}
               />
             </div>
-          )}
+          </div>}
           <div className="vtex-search-result__gallery">
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
