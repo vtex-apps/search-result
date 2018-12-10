@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
-- Fix total products label alignment.
+- Destructure arguments in `OrderBy.js`.
 
 ## [3.1.0] - 2018-12-10
 ### Changed
