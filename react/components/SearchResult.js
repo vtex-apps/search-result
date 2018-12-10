@@ -112,6 +112,7 @@ class SearchResult extends Component {
 
   render() {
     const {
+      intl,
       children,
       breadcrumbsProps,
       getLinkProps,
@@ -154,14 +155,11 @@ class SearchResult extends Component {
 
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
-        <div className="vtex-search-result vtex-p pv5 ph3">
+        <div className="vtex-search-result vtex-p pv2 ph3">
           <div className="vtex-search-result__breadcrumb db-ns dn-s">
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
-          <div className="vtex-search-result__total-products pb5 bn-ns bb-s b--muted-4 tc-s tl">
-            <span className="vtex-search-result__term dn-ns db-s t-heading-5">
-              {term}
-            </span>
+          <div className="vtex-search-result__total-products pv5 bn-ns bt-s b--muted-4 tc-s tl">
             <FormattedMessage
               id="search.total-products"
               values={{ recordsFiltered }}
@@ -218,6 +216,7 @@ class SearchResult extends Component {
                   id="gallery"
                   products={products}
                   summary={summary}
+                  className="bn"
                   layoutMode={galleryLayoutMode}
                 />
               )}
