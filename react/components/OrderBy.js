@@ -80,7 +80,7 @@ class OrderBy extends Component {
         options={this.sortingOptions}
         value={orderBy}
         onChange={(_, ordenation) => {
-          const {page, params, queryString} = getLinkProps({ ordenation })
+          const { page, params, queryString } = getLinkProps({ ordenation })
           runtime.navigate({
             page: page,
             params: params,
