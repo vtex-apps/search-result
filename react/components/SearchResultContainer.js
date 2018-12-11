@@ -4,7 +4,7 @@ import QueryString from 'query-string'
 import { PopupProvider } from './Popup'
 import InfiniteScrollLoaderResult from './loaders/InfiniteScrollLoaderResult'
 import ShowMoreLoaderResult from './loaders/ShowMoreLoaderResult'
-import { getPagesArgs, getBaseMap, getMapByType } from '../constants/SearchHelpers'
+import { getPagesArgs, getBaseMap } from '../constants/SearchHelpers'
 import { searchResultContainerPropTypes } from '../constants/propTypes'
 
 const PAGINATION_TYPES = ['show-more', 'infinite-scroll']

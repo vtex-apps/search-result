@@ -156,7 +156,6 @@ export function getPagesArgs({
     default:
       break
   }
-  console.log("query", query)
 
   return {
     page: pagesPath,

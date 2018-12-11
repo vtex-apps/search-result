@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { flatten, path, identity, contains, find, propEq, union, mergeAll, uniqBy, pick, unionWith, prop } from 'ramda'
+import { flatten, path, identity, contains, find, propEq, union, mergeAll, uniqBy, pick } from 'ramda'
 import ContentLoader from 'react-content-loader'
 import { withRuntimeContext } from 'render'
 import SideBar from './components/SideBar'
