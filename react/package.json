@@ -8,6 +8,9 @@
   "author": "VTEX",
   "license": "ISC",
   "dependencies": {
+    "apollo-client": "^2.4.7",
+    "react-apollo": "^2.3.2",
+    "react-intl": "^2.7.2",
     "classnames": "^2.2.6",
     "query-string": "5",
     "ramda": "^0.25.0",
