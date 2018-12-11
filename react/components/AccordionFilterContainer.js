@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
+import { uniqBy, pick } from 'ramda'
 
 import AccordionFilterItem from './AccordionFilterItem'
 import { mountOptions } from '../constants/SearchHelpers'
@@ -11,14 +12,14 @@ class AccordionFilterContainer extends Component {
   static propTypes = {
     /** Current available filters */
     filters: PropTypes.arrayOf(PropTypes.object),
-    /** Rest query parameter */
-    rest: PropTypes.string,
-    /** Map query parameter */
-    map: PropTypes.string,
-    /** Get the props to pass to render's Link */
-    getLinkProps: PropTypes.func,
     /** Intl instance */
     intl: intlShape,
+    /** Filters mapped for checkbox */
+    filtersChecks: PropTypes.object,
+    /** Checkbox hit callback function */
+    handleFilterCheck: PropTypes.func,
+    /** Filters selected previously */
+    selectedFilters: PropTypes.array
   }
 
   state = {
@@ -48,13 +49,11 @@ class AccordionFilterContainer extends Component {
   }
 
   render() {
-    const { filters, intl, getLinkProps, map, rest, filtersChecks, handleFilterCheck, } = this.props
+    const { filters, intl, filtersChecks, handleFilterCheck, selectedFilters } = this.props
     const { openedItem } = this.state
 
-    const nonEmptyFilters = filters.filter(spec => spec.options.length > 0)
-
+    let nonEmptyFilters = filters.filter(spec => spec.options.length > 0)
     return (
-      
       <div className="vtex-accordion-filter">
         <div className="pointer flex flex-row items-center pa5 h3 bg-base w-100 z-max bb b--muted-3 bw1">
           <div className="c-muted-1 pv4 flex items-center" onClick={e => this.setState({ openedItem: null, })}>
@@ -73,21 +72,21 @@ class AccordionFilterContainer extends Component {
         </div>
         
         {nonEmptyFilters.map(filter => {
-          const { type, title, options, oneSelectedCollapse } = filter
+          const { type, title, options } = filter
           const isOpen = openedItem === filter.title
+          
+          const filtersFlat = selectedFilters.filter(({type: selectedType}) => selectedType === type)
+          const filtersFull = uniqBy(pick(['Name']), [...filtersFlat, ...options])
           return (
             <AccordionFilterItem
               key={filter.title}
-              type={type}
               title={title}
-              options={mountOptions(options, type, map, rest)}
+              options={filtersFull}
               filtersChecks={filtersChecks}
               open={isOpen}
               handleFilterCheck={handleFilterCheck}
               show={openedItem === null ? true : isOpen}
               onOpen={this.handleOpen(filter.title)}
-              oneSelectedCollapse={oneSelectedCollapse}
-              getLinkProps={getLinkProps}
             />
           )
         })}

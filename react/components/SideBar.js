@@ -47,7 +47,6 @@ class Sidebar extends Component {
           isActive={isOpen}
           type="drawerLeft"
         >
-          
           {this.props.children}
         </Animation>
       </OutsideClickHandler>,

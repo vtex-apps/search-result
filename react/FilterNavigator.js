@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { flatten, path, identity, contains, find, propEq, union, mergeAll } from 'ramda'
+import { flatten, path, identity, contains, find, propEq, union, mergeAll, uniqBy, pick, unionWith, prop } from 'ramda'
 import ContentLoader from 'react-content-loader'
 import { withRuntimeContext } from 'render'
 import SideBar from './components/SideBar'
@@ -82,11 +82,7 @@ class FilterNavigator extends Component {
   componentDidUpdate(prevProps, prevState) {
     const nonEmptyFilters = this.mapCheckboxFilters(this.filters.filter(spec => spec.options.length > 0))
 
-    const newFilters = Object.keys(nonEmptyFilters)
-    const prevFilters = Object.keys(prevState.filtersChecks)
-    // console.log("selected", this.selectedFilters)
-    if (this.willUpdateFilters(Object.keys(nonEmptyFilters),  Object.keys(prevState.filtersChecks))) {
-      // console.log("updated")
+    if (this.willUpdateFilters(Object.keys(nonEmptyFilters), Object.keys(prevState.filtersChecks))) {
       this.setState({ filtersChecks: nonEmptyFilters })
     }
   }
@@ -96,22 +92,24 @@ class FilterNavigator extends Component {
     return !newFilters.every(e => prevFilters.includes(e))
   }
 
-  // componentDidMount() {
-  //   const nonEmptyFilters = this.filters.filter(spec => spec.options.length > 0)
-  //   this.setState({filtersChecks: this.mapCheckboxFilters(nonEmptyFilters)})
-  // }
-
   mapCheckboxFilters = (filters) => {
     const { map, rest } = this.props
-    const filtersFlat = union(...filters.map(({options, type}) => mountOptions(options, type, map, rest).map(opt => {
-      const pagesArgs = formatFacetToLinkPropsParam(type, opt)
+
+    const mapperOption = (isSelected, selectedFilters) => opt => {
+      const pagesArgs = formatFacetToLinkPropsParam(opt.type, opt)
       return {
         name: opt.Name,
         ...pagesArgs,
-        checked: !!find(propEq('Name', opt.Name), this.selectedFilters)
+        checked: isSelected || !!find(propEq('Name', opt.Name), selectedFilters)
       }
-    })), [])
-    return mergeAll(filtersFlat.map(({name, ...rest}) => ({[name]: rest})))
+    }
+    const mapperOptionsForFilter = (map, rest) => ({ options, type }) => mountOptions(options, type, map, rest).map(mapperOption(false, this.selectedFilters))
+    const reducerForOptions = (current, next) => union(current, next)
+    
+    let filtersAll = [...(filters.map(mapperOptionsForFilter(map, rest)).reduce(reducerForOptions, [])), ...this.selectedFilters.map(mapperOption(true))]
+    const finalFilters = uniqBy(pick(['name']), filtersAll)
+
+    return mergeAll(finalFilters.map(({ name, ...rest }) => ({ [name]: rest })))
   }
 
   handleFilterCheck = (filter) => {
@@ -124,16 +122,15 @@ class FilterNavigator extends Component {
     })
 
     const checkedFilters = []
-    for (const filter in this.state.filtersChecks) {
-      const filterObject = this.state.filtersChecks[filter]
-      if (filterObject.checked) {
-        checkedFilters.push(filterObject)
+    for (const filter in filterCopy) {
+      if (filterCopy[filter].checked) {
+        checkedFilters.push(filterCopy[filter])
       }
     }
-    // console.log("filterchecsk", this.state.filtersChecks)
-    // console.log("checkedFilters", checkedFilters)
-    const pagesArgs = getLinkProps(checkedFilters, false, checkedFilters.map( opt => {return opt.slug}))
-    // console.log("pagesArgs", pagesArgs)
+
+    const map = checkedFilters.map(opt => { return getMapByType(opt.type) })
+    map.unshift('ft')
+    const pagesArgs = getLinkProps(checkedFilters, false, checkedFilters.map(opt => { return opt.slug }), map)
     this.setState({ pagesArgs })
   }
 
@@ -153,14 +150,21 @@ class FilterNavigator extends Component {
   }
 
   clearFilters = () => {
-    const {getLinkProps, runtime: {navigate}} = this.props
+    const { getLinkProps, runtime: { navigate } } = this.props
     const clearedFilters = { ...this.state.filtersChecks }
     for (const filter in clearedFilters) {
-      clearedFilters[filter].checked = false 
+      clearedFilters[filter].checked = false
     }
-    this.setState ({ filtersChecks: clearedFilters })
+    this.setState({ filtersChecks: clearedFilters })
     const pagesArgs = getLinkProps([])
-    const options = {page: pagesArgs.page, params: pagesArgs.params, query: pagesArgs.queryString, to: null, scrollOptions: null, fallbackToWindowLocation: false}
+
+    const options = { 
+      page: pagesArgs.page, 
+      params: pagesArgs.params, 
+      query: pagesArgs.queryString, 
+      to: null, scrollOptions: null, 
+      fallbackToWindowLocation: false,
+    }
     navigate(options)
   }
 
@@ -265,15 +269,11 @@ class FilterNavigator extends Component {
   render() {
     const { openContent, pagesArgs, filtersChecks } = this.state
     const {
-      specificationFilters = [],
-      brands,
       priceRange,
-      priceRanges,
       map,
       rest,
       getLinkProps,
       loading,
-      hiddenFacets,
       intl,
       runtime: { hints: { mobile } },
     } = this.props
@@ -316,21 +316,19 @@ class FilterNavigator extends Component {
               {intl.formatMessage({ id: 'search-result.filter-action.title' })}
             </span>
             <span className="vtex-filter-popup__arrow-icon ml-auto pl3 pt2">
-              <FilterIcon size={16} active/>
+              <FilterIcon size={16} active />
             </span>
           </button>
-          
+
           <SideBar
             onOutsideClick={this.handleUpdateContentVisibility}
             isOpen={openContent}>
-            
+
             <AccordionFilterContainer
               filters={this.filters}
-              getLinkProps={getLinkProps}
-              map={map}
               filtersChecks={filtersChecks}
               handleFilterCheck={this.handleFilterCheck}
-              rest={rest}
+              selectedFilters={this.selectedFilters}
             />
             <div className="fixed bottom-1 ph3">
               <Link

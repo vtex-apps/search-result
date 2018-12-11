@@ -13,25 +13,23 @@ import { getFilterTitle, formatFacetToLinkPropsParam, HEADER_SCROLL_OFFSET } fro
 const AccordionFilterItem = ({
   title,
   options,
-  type,
   show,
   open,
   onOpen,
-  getLinkProps,
   intl,
   filtersChecks,
   handleFilterCheck,
 }) => (
   <Fragment>
     {!open &&
-      <div  className={classNames('vtex-accordion-filter__item t-body pv3 ph7 pv4 pointer bb b--muted-4', {
+      <div  className={classNames('vtex-accordion-filter__item h3 t-body pv3 ph5 pv4 pointer bb b--muted-4', {
         'vtex-accordion-filter__item--active': open,
         'vtex-accordion-filter__item--hidden dn': !show,
       })}
       onClick={onOpen}
       >
         <div
-          className={classNames('vtex-accordion-filter__item-title', {
+          className={classNames('vtex-accordion-filter__item-title pv4', {
             'c-on-base': open,
           })}
         >
@@ -55,28 +53,10 @@ const AccordionFilterItem = ({
                 label={opt.Name}
                 name={`checkbox-${opt.Name}`}
                 onChange={e => handleFilterCheck(opt.Name)}
-                value="option-0"
+                value={`option-${opt.Name}`}
                 className="pa3"
               />
             </div>
-
-            /* <Link
-              key={opt.Name}
-              className="vtex-accordion-filter__item-opt pv3 ph7 pointer bb b--muted-4 link db c-muted-1"
-              page={pagesArgs.page}
-              params={pagesArgs.params}
-              query={pagesArgs.queryString}
-              onClick={onItemSelected}
-              scrollOptions={{ baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET }}
-            >
-              {opt.Name}
-
-              {false && (
-                <span className="vtex-accordion-filter__check-icon fr">
-                  <CheckTick />
-                </span>
-              )}
-            </Link> */
           )
         })}
       </div>

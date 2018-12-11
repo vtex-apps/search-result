@@ -4,7 +4,7 @@ import QueryString from 'query-string'
 import { PopupProvider } from './Popup'
 import InfiniteScrollLoaderResult from './loaders/InfiniteScrollLoaderResult'
 import ShowMoreLoaderResult from './loaders/ShowMoreLoaderResult'
-import { getPagesArgs, getBaseMap } from '../constants/SearchHelpers'
+import { getPagesArgs, getBaseMap, getMapByType } from '../constants/SearchHelpers'
 import { searchResultContainerPropTypes } from '../constants/propTypes'
 
 const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
@@ -48,8 +48,10 @@ export default class SearchResultContainer extends Component {
     }
   }
 
-  getLinkProps = (spec, useEmptyMapAndRest = false, restParam = null) => {
+  getLinkProps = (spec, useEmptyMapAndRest = false, restParam = null, mapParam = null) => {
     const { rest, map, pagesPath, params } = this.props
+
+    
 
     const filters = Array.isArray(spec) ? spec : [spec]
 
@@ -108,7 +110,9 @@ export default class SearchResultContainer extends Component {
     )
     // console.log("rest", restParam)
 
-    // if (!!restParam) pageProps.query.rest = restParam
+    // We need to get the rest and map with getPageArgs
+    if (!!restParam) pageProps.query.rest = restParam
+    if (!!mapParam) pageProps.query.map = mapParam
 
     // console.log("pageProps", pageProps)
 
