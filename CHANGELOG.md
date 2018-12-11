@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Sort option on mobile to a dropdown button.
 
+### Fixed
+- Destructure arguments in `OrderBy.js`.
+
 ## [3.1.0] - 2018-12-10
 ### Changed
 - Product count will be displayed below filter and order buttons.

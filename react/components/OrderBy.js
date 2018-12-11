@@ -1,4 +1,3 @@
-/* global __RUNTIME__ */
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
@@ -54,18 +53,18 @@ class OrderBy extends Component {
   }
 
   get sortingOptions() {
-    return SORT_OPTIONS.map(opt => {
+    return SORT_OPTIONS.map(({ value, label }) => {
       return {
-        value: opt.value,
-        label: this.props.intl.formatMessage({ id: opt.label }),
+        value: value,
+        label: this.props.intl.formatMessage({ id: label }),
       }
     })
   }
 
   render() {
-    const { orderBy, getLinkProps, runtime } = this.props
+    const { orderBy, getLinkProps, runtime: { hints: { mobile } }, runtime } = this.props
 
-    if (__RUNTIME__.hints.mobile) {
+    if (mobile) {
       return (
         <SelectionListOrderBy
           orderBy={orderBy}
@@ -81,11 +80,11 @@ class OrderBy extends Component {
         options={this.sortingOptions}
         value={orderBy}
         onChange={(_, ordenation) => {
-          const pagesArgs = getLinkProps({ ordenation })
+          const { page, params, queryString } = getLinkProps({ ordenation })
           runtime.navigate({
-            page: pagesArgs.page,
-            params: pagesArgs.params,
-            query: pagesArgs.queryString,
+            page: page,
+            params: params,
+            query: queryString,
             fallbackToWindowLocation: false,
             scrollOptions: { baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET },
           })
