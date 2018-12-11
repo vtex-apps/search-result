@@ -1,14 +1,22 @@
 import React, { Component } from 'react'
-import { withRuntimeContext } from 'render'
+import { withRuntimeContext, Link } from 'render'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
+import { find, propEq } from 'ramda'
 
-import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
-import CheckTick from '../images/CheckTick'
-import Popup from './Popup'
+import Arrow from '../images/Arrow'
 
 class SelectionListOrderBy extends Component {
+  state = {
+    showDropdown: false,
+  }
+
+  handleDropdownBtClick = e => {
+    e.preventDefault()
+    this.setState({ ...this.state, showDropdown: !this.state.showDropdown })
+  }
+
   static propTypes = {
     orderBy: PropTypes.string,
     getLinkProps: PropTypes.func,
@@ -22,54 +30,58 @@ class SelectionListOrderBy extends Component {
     }),
   }
 
-  handleSelect = option => e => {
-    e.preventDefault()
-
-    const { getLinkProps, runtime: { navigate } } = this.props
-
-    const linkProps = getLinkProps({ ordenation: option.value })
-
-    navigate({
-      page: linkProps.page,
-      query: linkProps.queryString,
-      params: linkProps.params,
-      scrollOptions: { baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET },
+  renderOptions = () => {
+    const { options, getLinkProps } = this.props
+    return options.map(option => {
+      const linkProps = getLinkProps({ ordenation: option.value })
+      return (
+        <Link
+          key={option.value}
+          page={linkProps.page}
+          query={linkProps.queryString}
+          params={linkProps.params}
+          className="c-on-base f5 ml-auto db no-underline pv4 ph5 hover-bg-muted-4"
+        >
+          {option.label}
+        </Link>
+      )
     })
   }
 
+  getOptionTitle = option => {
+    const { options, intl } = this.props
+    return find(propEq('value', option), options).label
+  }
+
   render() {
-    const { intl, options, orderBy } = this.props
+    const { orderBy } = this.props
+    const { showDropdown } = this.state
+    const btClass = classNames('ph3 pv5 mv0 pointer flex justify-center items-center w-100 bg-base c-on-base t-action--small ml-auto',
+      {
+        'bt br bl bb-0 br2 br--top bw1 b--muted-4 shadow-1': showDropdown,
+        'bn pl1': !showDropdown,
+      }
+    )
+
+    const contentClass = classNames('z-1 absolute bg-base shadow-5 f5 w-100 b--muted-4 br2 ba bw1 br--bottom',
+      {
+        'db': showDropdown,
+        'dn': !showDropdown,
+      }
+    )
 
     return (
-      <Popup
-        title={intl.formatMessage({ id: 'search-result.orderby.title' })}
-        id="orderby"
-      >
-        <div className="vtex-orderby-popup">
-          {options.map(opt => {
-            const active = orderBy === opt.value
-
-            return (
-              <div
-                key={opt.label}
-                className={classNames('vtex-orderby__item pointer pv3 ph7 bb b--muted-4', {
-                  'vtex-orderby__item--active t-body c-on-base': active,
-                  'c-disabled': !active,
-                })}
-                onClick={this.handleSelect(opt)}
-              >
-                {opt.label}
-
-                {active && (
-                  <span className="vtex-orderby__item-icon fr">
-                    <CheckTick />
-                  </span>
-                )}
-              </div>
-            )
-          })}
+      <div className="vtex-dropdown__mobile relative justify-center flex-auto pt1 w-100 dib">
+        <button onClick={this.handleDropdownBtClick} className={btClass}>
+          <span className="vtex-filter-popup__title c-on-base t-action--small ml-auto">{this.getOptionTitle(orderBy)}</span>
+          <span className="vtex-filter-popup__arrow-icon ml-auto pt2">
+            <Arrow size={16} />
+          </span>
+        </button>
+        <div className={contentClass}>
+          {this.renderOptions()}
         </div>
-      </Popup>
+      </div>
     )
   }
 }

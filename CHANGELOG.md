@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.2.0] - 2018-12-11
+### Changed
+- Sort option on mobile to a dropdown button.
+
 ### Fixed
 - Destructure arguments in `OrderBy.js`.
 
@@ -24,7 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Add new mobile design.
 - Not found page component.
-- Get switcher layout modes by schema
+- Get switcher layout modes by schema.
 
 ### Changed
 - Replace tachyons classes with design tokens.
