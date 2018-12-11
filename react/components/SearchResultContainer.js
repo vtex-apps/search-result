@@ -108,13 +108,9 @@ export default class SearchResultContainer extends Component {
         },
       }
     )
-    // console.log("rest", restParam)
-
-    // We need to get the rest and map with getPageArgs
+    // Need to redo this to get the rest and map with the pageProps
     if (!!restParam) pageProps.query.rest = restParam
     if (!!mapParam) pageProps.query.map = mapParam
-
-    // console.log("pageProps", pageProps)
 
     const queryString = QueryString.stringify({
       ...pageProps.query,

@@ -330,15 +330,20 @@ class FilterNavigator extends Component {
               handleFilterCheck={this.handleFilterCheck}
               selectedFilters={this.selectedFilters}
             />
-            <div className="fixed bottom-1 ph3">
-              <Link
-                page={pagesArgs.page}
-                params={pagesArgs.params}
-                query={pagesArgs.queryString}
-              >
-                <Button variation="secondary" block>Apply Filters</Button>
-              </Link>
-              <Button variation="tertiary" block onClick={event => this.clearFilters()}>Clear All</Button>
+            <div className="fixed bottom-1">
+              
+              <div className="w-50 fl ph3">
+                <Button variation="secondary" size="default" onClick={event => this.clearFilters()}>{intl.formatMessage({ id: 'search-result.filter-button.clear' })}</Button>
+              </div>
+              <div className="w-50 fr pl2 pr3">
+                <Link
+                  page={pagesArgs.page}
+                  params={pagesArgs.params}
+                  query={pagesArgs.queryString}
+                >
+                  <Button variation="primary" size="default">{intl.formatMessage({ id: 'search-result.filter-button.apply' })}</Button>
+                </Link>
+              </div>
             </div>
           </SideBar>
         </Fragment>

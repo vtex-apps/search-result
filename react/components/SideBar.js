@@ -36,7 +36,7 @@ class Sidebar extends Component {
      if (typeof document === 'undefined') {
       return null
     }
-     const scrimClasses = classNames('fixed dim bg-base--inverted top-0 z-9999 w-100 vh-100 o-40', {
+     const scrimClasses = classNames('fixed dim bg-base--inverted top-0 z-9999 w-100 vh-100 o-40 left-0', {
       dn: !isOpen,
     })
      return ReactDOM.createPortal(
