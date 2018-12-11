@@ -86,6 +86,10 @@ export default class Popup extends Component {
     return (
       <Consumer>
         {contextProps => {
+          if (!contextProps) {
+            return null;
+          }
+
           const { isOpen, onToggle } = contextProps
           const open = isOpen(id)
 
