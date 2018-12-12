@@ -15,11 +15,11 @@ class SelectionListOrderBy extends Component {
 
   handleDropdownBtClick = e => {
     e.preventDefault()
-    this.setState({ ...this.state, showDropdown: !this.state.showDropdown })
+    this.setState({ showDropdown: !this.state.showDropdown })
   }
 
   handleOutsideClick = e => {
-    this.setState({ ...this.state, showDropdown: false })
+    this.setState({ showDropdown: false })
   }
 
   static propTypes = {
