@@ -43,17 +43,17 @@ const AccordionFilterItem = ({
     
     {open && (
       <div className="vtex-accordion-filter__item-options">
-        {options.map(opt => {
+        {options.map(({Name}) => {
 
           return (
-            <div className="ph4 pb4 pt5 bb b--muted-4" key={opt.Name}>
+            <div className="ph4 pb4 pt5 bb b--muted-4" key={Name}>
               <Checkbox
-                checked={filtersChecks[opt.Name].checked}
-                id={opt.Name}
-                label={opt.Name}
-                name={`checkbox-${opt.Name}`}
-                onChange={e => handleFilterCheck(opt.Name)}
-                value={`option-${opt.Name}`}
+                checked={filtersChecks[Name].checked}
+                id={Name}
+                label={Name}
+                name={`checkbox-${Name}`}
+                onChange={e => handleFilterCheck(Name)}
+                value={`option-${Name}`}
                 className="pa3"
               />
             </div>

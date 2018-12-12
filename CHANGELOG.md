@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- New layout and behavior of search result filter 
 
 ## [3.3.0] - 2018-12-18
 ### Added
@@ -39,7 +41,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Replace tachyons classes with design tokens.
 - Paddings and margins to match other components.
 - Update loading to use an overlay instead of content loader after initial mount.
-- New layout and behavior of search result filter 
 
 ## [2.4.1] - 2018-11-22
 ### Changed

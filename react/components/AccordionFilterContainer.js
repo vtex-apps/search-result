@@ -3,10 +3,9 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { uniqBy, pick } from 'ramda'
+import Icon from "vtex.use-svg/Icon"
 
 import AccordionFilterItem from './AccordionFilterItem'
-import { mountOptions } from '../constants/SearchHelpers'
-import Icon from "vtex.use-svg/Icon"
 
 class AccordionFilterContainer extends Component {
   static propTypes = {
@@ -56,7 +55,7 @@ class AccordionFilterContainer extends Component {
     return (
       <div className="vtex-accordion-filter">
         <div className="pointer flex flex-row items-center pa5 h3 bg-base w-100 z-max bb b--muted-3 bw1">
-          <div className="c-muted-1 pv4 flex items-center" onClick={e => this.setState({ openedItem: null, })}>
+          <div className="c-muted-1 pv4 flex items-center" onClick={() => this.setState({ openedItem: null, })}>
             <div className={classNames("t-heading-6", { "b": !openedItem})}>
               {intl.formatMessage({ id: "search-result.filter-breadcrumbs.primary" })}
             </div>
@@ -76,16 +75,16 @@ class AccordionFilterContainer extends Component {
           const isOpen = openedItem === filter.title
           
           const filtersFlat = selectedFilters.filter(({type: selectedType}) => selectedType === type)
-          const filtersFull = uniqBy(pick(['Name']), [...filtersFlat, ...options])
+          const filtersMerged = uniqBy(pick(['Name']), [...filtersFlat, ...options])
           return (
             <AccordionFilterItem
               key={filter.title}
               title={title}
-              options={filtersFull}
+              options={filtersMerged}
               filtersChecks={filtersChecks}
               open={isOpen}
               handleFilterCheck={handleFilterCheck}
-              show={openedItem === null ? true : isOpen}
+              show={!openedItem || isOpen}
               onOpen={this.handleOpen(filter.title)}
             />
           )

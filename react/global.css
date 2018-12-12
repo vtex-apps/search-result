@@ -187,7 +187,7 @@ body.vtex-filter-popup-open {
   }
 
   .vtex-search-result__sidebar {
-    width: 340px;
+    width: 16rem;
   }
 }
 
@@ -215,10 +215,6 @@ body.vtex-filter-popup-open {
 
   .vtex-gallery--two-columns {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  body.vtex-search-result-sidebar-open {
-    overflow: hidden;
   }
 }
 

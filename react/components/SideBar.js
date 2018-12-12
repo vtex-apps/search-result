@@ -7,7 +7,7 @@ import OutsideClickHandler from 'react-outside-click-handler'
 import Animation from 'vtex.store-components/Animation'
 import classNames from 'classnames'
 
-const OPEN_SIDEBAR_CLASS = 'vtex-search-result-sidebar-open'
+const OPEN_SIDEBAR_CLASS = 'overflow-hidden-ns'
 
  /* SideBar component */
 class Sidebar extends Component {

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { flatten, path, identity, contains, find, propEq, union, mergeAll, uniqBy, pick } from 'ramda'
+import { flatten, path, identity, contains, find, propEq, union, mergeAll, uniqBy, pick, compose, filter as filterRamda, props } from 'ramda'
 import ContentLoader from 'react-content-loader'
 import { withRuntimeContext } from 'render'
 import SideBar from './components/SideBar'
@@ -114,21 +114,15 @@ class FilterNavigator extends Component {
 
   handleFilterCheck = (filter) => {
     const { getLinkProps } = this.props
-    const filterCopy = { ...this.state.filtersChecks }
-    filterCopy[filter].checked = !filterCopy[filter].checked
+    const filterChecksAux = { ...this.state.filtersChecks }
+    filterChecksAux[filter].checked = !filterChecksAux[filter].checked
 
     this.setState({
-      filtersChecks: filterCopy
+      filtersChecks: filterChecksAux
     })
 
-    const checkedFilters = []
-    for (const filter in filterCopy) {
-      if (filterCopy[filter].checked) {
-        checkedFilters.push(filterCopy[filter])
-      }
-    }
-
-    const map = checkedFilters.map(opt => { return getMapByType(opt.type) })
+    const checkedFilters = props(Object.keys(filterRamda(x => x.checked ,filterChecksAux)), filterChecksAux) 
+    const map = checkedFilters.map(opt => getMapByType(opt.type))
     map.unshift('ft')
     const pagesArgs = getLinkProps(checkedFilters, false, checkedFilters.map(opt => { return opt.slug }), map)
     this.setState({ pagesArgs })
@@ -152,10 +146,8 @@ class FilterNavigator extends Component {
   clearFilters = () => {
     const { getLinkProps, runtime: { navigate } } = this.props
     const clearedFilters = { ...this.state.filtersChecks }
-    for (const filter in clearedFilters) {
-      clearedFilters[filter].checked = false
-    }
-    this.setState({ filtersChecks: clearedFilters })
+
+    this.setState({ filtersChecks: mapRamda(x => ({...x, checked: false}) , clearedFilters) })
     const pagesArgs = getLinkProps([])
 
     const options = { 
@@ -368,4 +360,4 @@ class FilterNavigator extends Component {
   }
 }
 
-export default withRuntimeContext(injectIntl(FilterNavigator))
+export default compose(withRuntimeContext, injectIntl)(FilterNavigator)
