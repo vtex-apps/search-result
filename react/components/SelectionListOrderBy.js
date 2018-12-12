@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { find, propEq } from 'ramda'
+import OutsideClickHandler from 'react-outside-click-handler'
 
 import Arrow from '../images/Arrow'
 
@@ -15,6 +16,10 @@ class SelectionListOrderBy extends Component {
   handleDropdownBtClick = e => {
     e.preventDefault()
     this.setState({ ...this.state, showDropdown: !this.state.showDropdown })
+  }
+
+  handleOutsideClick = e => {
+    this.setState({ ...this.state, showDropdown: false })
   }
 
   static propTypes = {
@@ -72,15 +77,17 @@ class SelectionListOrderBy extends Component {
 
     return (
       <div className="vtex-dropdown__mobile relative justify-center flex-auto pt1 w-100 dib">
-        <button onClick={this.handleDropdownBtClick} className={btClass}>
-          <span className="vtex-filter-popup__title c-on-base t-action--small ml-auto">{this.getOptionTitle(orderBy)}</span>
-          <span className="vtex-filter-popup__arrow-icon ml-auto pt2">
-            <Arrow size={16} />
-          </span>
-        </button>
-        <div className={contentClass}>
-          {this.renderOptions()}
-        </div>
+        <OutsideClickHandler onOutsideClick={this.handleOutsideClick}>
+          <button onClick={this.handleDropdownBtClick} className={btClass}>
+            <span className="vtex-filter-popup__title c-on-base t-action--small ml-auto">{this.getOptionTitle(orderBy)}</span>
+            <span className="vtex-filter-popup__arrow-icon ml-auto pt2">
+              <Arrow size={16} />
+            </span>
+          </button>        
+          <div className={contentClass}>
+            {this.renderOptions()}
+          </div>
+        </OutsideClickHandler>
       </div>
     )
   }
