@@ -2,13 +2,11 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { intlShape, injectIntl } from 'react-intl'
 import classNames from 'classnames'
-import { Link } from 'render'
 import { Checkbox } from 'vtex.styleguide'
 
 import Arrow from '../images/Arrow'
-import CheckTick from '../images/CheckTick'
 import { facetOptionShape } from '../constants/propTypes'
-import { getFilterTitle, formatFacetToLinkPropsParam, HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
+import { getFilterTitle } from '../constants/SearchHelpers'
 
 const AccordionFilterItem = ({
   title,
@@ -18,43 +16,43 @@ const AccordionFilterItem = ({
   onOpen,
   intl,
   filtersChecks,
-  handleFilterCheck,
+  onHandleFilterCheck,
 }) => (
   <Fragment>
     {!open &&
-      <div  className={classNames('vtex-accordion-filter__item h3 t-body pv3 ph5 pv4 pointer bb b--muted-4', {
-        'vtex-accordion-filter__item--active': open,
-        'vtex-accordion-filter__item--hidden dn': !show,
-      })}
-      onClick={onOpen}
-      >
-        <div
-          className={classNames('vtex-accordion-filter__item-title pv4', {
-            'c-on-base': open,
-          })}
-        >
-          {getFilterTitle(title, intl)}
-          <span className="vtex-accordion-filter__item-icon fr">
-            <Arrow up={open} size={10} />
-          </span>
+      <div className="pl7">
+        <div className={classNames('vtex-accordion-filter__item vtex-filter-accordion__item-box t-body pr5 pv3 pointer bb b--muted-5', {
+          'vtex-accordion-filter__item--active': open,
+          'vtex-accordion-filter__item--hidden dn': !show,
+        })} onClick={onOpen}>
+          <div
+            className={classNames('vtex-accordion-filter__item-title pv4', {
+              'c-on-base t-small': open,
+              'c-on-base t-heading-5': !open,
+            })}
+          >
+            {getFilterTitle(title, intl)}
+            <span className="vtex-accordion-filter__item-icon fr">
+              <Arrow up={open} size={10} />
+            </span>
+          </div>
         </div>
       </div>
     }
-    
-    {open && (
-      <div className="vtex-accordion-filter__item-options">
-        {options.map(({Name}) => {
 
+    {open && (
+      <div className="vtex-accordion-filter__item-options pl7 overflow-hidden">
+        {options.map(({ Name }) => {
           return (
-            <div className="ph4 pb4 pt5 bb b--muted-4" key={Name}>
+            <div className="vtex-filter-accordion__item-box pr4 pt3 items-center flex bb b--muted-5" key={Name}>
               <Checkbox
                 checked={filtersChecks[Name].checked}
                 id={Name}
                 label={Name}
                 name={`checkbox-${Name}`}
-                onChange={e => handleFilterCheck(Name)}
+                onChange={() => onHandleFilterCheck(Name)}
                 value={`option-${Name}`}
-                className="pa3"
+                className="mb0"
               />
             </div>
           )
@@ -85,6 +83,11 @@ AccordionFilterItem.propTypes = {
   getLinkProps: PropTypes.func,
   /** Intl instance */
   intl: intlShape,
+  /** Filters mapped for checkbox */
+  filtersChecks: PropTypes.object,
+  /** Checkbox hit callback function */
+  onHandleFilterCheck: PropTypes.func,
+
 }
 
 export default injectIntl(AccordionFilterItem)

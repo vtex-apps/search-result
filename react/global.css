@@ -141,6 +141,18 @@
   border-right: none;
 }
 
+.vtex-filter-accordion__item-box {
+  height: 3.75rem;
+}
+
+.vtex-filter-accordion__breadcrumbs {
+  height: 4.25rem;
+}
+
+.vtex-filter-buttons__box {
+  height: 5rem;
+}
+
 .vtex-filter-popup__footer {
   margin-top: auto;
 }

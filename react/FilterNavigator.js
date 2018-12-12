@@ -1,14 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { flatten, path, identity, contains, find, propEq, union, mergeAll, uniqBy, pick, compose, filter as filterRamda, props } from 'ramda'
+import { flatten, path, identity, contains, find, propEq, union, mergeAll, uniqBy, pick, compose, filter as filterRamda, props, map as mapRamda } from 'ramda'
 import ContentLoader from 'react-content-loader'
-import { withRuntimeContext } from 'render'
+import { withRuntimeContext, Link } from 'render'
 import SideBar from './components/SideBar'
 import { Button } from 'vtex.styleguide'
 import FilterIcon from './images/FilterIcon'
 import { injectIntl } from 'react-intl'
 import classNames from 'classnames'
-import { Link } from 'render'
 
 import SelectedFilters from './components/SelectedFilters'
 import AvailableFilters from './components/AvailableFilters'
@@ -100,13 +99,13 @@ class FilterNavigator extends Component {
       return {
         name: opt.Name,
         ...pagesArgs,
-        checked: isSelected || !!find(propEq('Name', opt.Name), selectedFilters)
+        checked: isSelected || !!find(propEq('Name', opt.Name), selectedFilters),
       }
     }
     const mapperOptionsForFilter = (map, rest) => ({ options, type }) => mountOptions(options, type, map, rest).map(mapperOption(false, this.selectedFilters))
     const reducerForOptions = (current, next) => union(current, next)
-    
-    let filtersAll = [...(filters.map(mapperOptionsForFilter(map, rest)).reduce(reducerForOptions, [])), ...this.selectedFilters.map(mapperOption(true))]
+
+    const filtersAll = [...(filters.map(mapperOptionsForFilter(map, rest)).reduce(reducerForOptions, [])), ...this.selectedFilters.map(mapperOption(true))]
     const finalFilters = uniqBy(pick(['name']), filtersAll)
 
     return mergeAll(finalFilters.map(({ name, ...rest }) => ({ [name]: rest })))
@@ -118,10 +117,10 @@ class FilterNavigator extends Component {
     filterChecksAux[filter].checked = !filterChecksAux[filter].checked
 
     this.setState({
-      filtersChecks: filterChecksAux
+      filtersChecks: filterChecksAux,
     })
 
-    const checkedFilters = props(Object.keys(filterRamda(x => x.checked ,filterChecksAux)), filterChecksAux) 
+    const checkedFilters = props(Object.keys(filterRamda(x => x.checked, filterChecksAux)), filterChecksAux)
     const map = checkedFilters.map(opt => getMapByType(opt.type))
     map.unshift('ft')
     const pagesArgs = getLinkProps(checkedFilters, false, checkedFilters.map(opt => { return opt.slug }), map)
@@ -147,14 +146,14 @@ class FilterNavigator extends Component {
     const { getLinkProps, runtime: { navigate } } = this.props
     const clearedFilters = { ...this.state.filtersChecks }
 
-    this.setState({ filtersChecks: mapRamda(x => ({...x, checked: false}) , clearedFilters) })
+    this.setState({ filtersChecks: mapRamda(x => ({ ...x, checked: false }), clearedFilters) })
     const pagesArgs = getLinkProps([])
 
-    const options = { 
-      page: pagesArgs.page, 
-      params: pagesArgs.params, 
-      query: pagesArgs.queryString, 
-      to: null, scrollOptions: null, 
+    const options = {
+      page: pagesArgs.page,
+      params: pagesArgs.params,
+      query: pagesArgs.queryString,
+      to: null, scrollOptions: null,
       fallbackToWindowLocation: false,
     }
     navigate(options)
@@ -319,21 +318,21 @@ class FilterNavigator extends Component {
             <AccordionFilterContainer
               filters={this.filters}
               filtersChecks={filtersChecks}
-              handleFilterCheck={this.handleFilterCheck}
+              onHandleFilterCheck={this.handleFilterCheck}
               selectedFilters={this.selectedFilters}
             />
-            <div className="fixed bottom-1">
-              
-              <div className="w-50 fl ph3">
-                <Button variation="secondary" size="default" onClick={event => this.clearFilters()}>{intl.formatMessage({ id: 'search-result.filter-button.clear' })}</Button>
+            <div className="vtex-filter-buttons__box bt b--muted-5 bottom-0 fixed w-100 items-center flex">
+
+              <div className="bottom-0 fl w-50 pl4 pr2">
+                <Button block variation="tertiary" size="default" onClick={() => this.clearFilters()}>{intl.formatMessage({ id: 'search-result.filter-button.clear' })}</Button>
               </div>
-              <div className="w-50 fr pl2 pr3">
+              <div className="bottom-0 fr w-50 pr4 pl2">
                 <Link
                   page={pagesArgs.page}
                   params={pagesArgs.params}
                   query={pagesArgs.queryString}
                 >
-                  <Button variation="primary" size="default">{intl.formatMessage({ id: 'search-result.filter-button.apply' })}</Button>
+                  <Button block variation="secondary" size="default">{intl.formatMessage({ id: 'search-result.filter-button.apply' })}</Button>
                 </Link>
               </div>
             </div>

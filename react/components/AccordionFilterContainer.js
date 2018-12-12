@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { uniqBy, pick } from 'ramda'
-import Icon from "vtex.use-svg/Icon"
+import Icon from 'vtex.use-svg/Icon'
 
 import AccordionFilterItem from './AccordionFilterItem'
 
@@ -16,9 +16,9 @@ class AccordionFilterContainer extends Component {
     /** Filters mapped for checkbox */
     filtersChecks: PropTypes.object,
     /** Checkbox hit callback function */
-    handleFilterCheck: PropTypes.func,
+    onHandleFilterCheck: PropTypes.func,
     /** Filters selected previously */
-    selectedFilters: PropTypes.array
+    selectedFilters: PropTypes.array,
   }
 
   state = {
@@ -48,33 +48,35 @@ class AccordionFilterContainer extends Component {
   }
 
   render() {
-    const { filters, intl, filtersChecks, handleFilterCheck, selectedFilters } = this.props
+    const { filters, intl, filtersChecks, onHandleFilterCheck, selectedFilters } = this.props
     const { openedItem } = this.state
 
-    let nonEmptyFilters = filters.filter(spec => spec.options.length > 0)
+    const nonEmptyFilters = filters.filter(spec => spec.options.length > 0)
     return (
       <div className="vtex-accordion-filter">
-        <div className="pointer flex flex-row items-center pa5 h3 bg-base w-100 z-max bb b--muted-3 bw1">
-          <div className="c-muted-1 pv4 flex items-center" onClick={() => this.setState({ openedItem: null, })}>
-            <div className={classNames("t-heading-6", { "b": !openedItem})}>
-              {intl.formatMessage({ id: "search-result.filter-breadcrumbs.primary" })}
+        <div className="vtex-filter-accordion__breadcrumbs pointer flex flex-row items-center pa5 bg-base w-100 z-max bb b--muted-4">
+          <div className="pv4 flex items-center" onClick={() => this.setState({ openedItem: null })}>
+            <div className={classNames('t-heading-4', {
+              'c-muted-2': !!openedItem,
+              'c-on-base': !openedItem })}>
+              {intl.formatMessage({ id: 'search-result.filter-breadcrumbs.primary' })}
             </div>
           </div>
-          {openedItem && 
-          <div className="c-muted-1 pa4 flex items-center">
-              <Icon id="nav-angle--right" size="13"/>
-              <div className="pl3 t-heading-6 b">
-                {intl.formatMessage({ id: openedItem })}
-              </div>
+          {openedItem &&
+          <div className="pa4 flex items-center">
+            <Icon id="nav-angle--right" size="13" />
+            <div className="pl3 t-heading-4 c-on-base">
+              {intl.formatMessage({ id: openedItem })}
+            </div>
           </div>
-        }
+          }
         </div>
-        
+
         {nonEmptyFilters.map(filter => {
           const { type, title, options } = filter
           const isOpen = openedItem === filter.title
-          
-          const filtersFlat = selectedFilters.filter(({type: selectedType}) => selectedType === type)
+
+          const filtersFlat = selectedFilters.filter(({ type: selectedType }) => selectedType === type)
           const filtersMerged = uniqBy(pick(['Name']), [...filtersFlat, ...options])
           return (
             <AccordionFilterItem
@@ -83,7 +85,7 @@ class AccordionFilterContainer extends Component {
               options={filtersMerged}
               filtersChecks={filtersChecks}
               open={isOpen}
-              handleFilterCheck={handleFilterCheck}
+              onHandleFilterCheck={onHandleFilterCheck}
               show={!openedItem || isOpen}
               onOpen={this.handleOpen(filter.title)}
             />
