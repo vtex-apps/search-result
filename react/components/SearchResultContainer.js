@@ -109,8 +109,8 @@ export default class SearchResultContainer extends Component {
       }
     )
     // Need to redo this to calculate the rest and map in the pageProps
-    if (!!restParam) pageProps.query.rest = restParam
-    if (!!mapParam) pageProps.query.map = mapParam
+    restParam && (pageProps.query.rest = restParam)
+    mapParam && (pageProps.query.map = mapParam)
 
     const queryString = QueryString.stringify({
       ...pageProps.query,

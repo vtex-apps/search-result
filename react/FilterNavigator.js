@@ -6,7 +6,7 @@ import { withRuntimeContext, Link } from 'render'
 import SideBar from './components/SideBar'
 import { Button } from 'vtex.styleguide'
 import FilterIcon from './images/FilterIcon'
-import { injectIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import classNames from 'classnames'
 
 import SelectedFilters from './components/SelectedFilters'
@@ -265,7 +265,6 @@ class FilterNavigator extends Component {
       rest,
       getLinkProps,
       loading,
-      intl,
       runtime: { hints: { mobile } },
     } = this.props
 
@@ -304,7 +303,7 @@ class FilterNavigator extends Component {
             onClick={event => this.handleClickButton(event)}
           >
             <span className="vtex-filter-popup__title c-on-base t-action--small ml-auto">
-              {intl.formatMessage({ id: 'search-result.filter-action.title' })}
+              <FormattedMessage id="search-result.filter-action.title" />
             </span>
             <span className="vtex-filter-popup__arrow-icon ml-auto pl3 pt2">
               <FilterIcon size={16} active />
@@ -324,7 +323,9 @@ class FilterNavigator extends Component {
             <div className="vtex-filter-buttons__box bt b--muted-5 bottom-0 fixed w-100 items-center flex">
 
               <div className="bottom-0 fl w-50 pl4 pr2">
-                <Button block variation="tertiary" size="default" onClick={() => this.clearFilters()}>{intl.formatMessage({ id: 'search-result.filter-button.clear' })}</Button>
+                <Button block variation="tertiary" size="default" onClick={() => this.clearFilters()}>
+                  <FormattedMessage id="search-result.filter-button.clear" />
+                </Button>
               </div>
               <div className="bottom-0 fr w-50 pr4 pl2">
                 <Link
@@ -332,7 +333,9 @@ class FilterNavigator extends Component {
                   params={pagesArgs.params}
                   query={pagesArgs.queryString}
                 >
-                  <Button block variation="secondary" size="default">{intl.formatMessage({ id: 'search-result.filter-button.apply' })}</Button>
+                  <Button block variation="secondary" size="default">
+                  <FormattedMessage id="search-result.filter-button.apply" />
+                  </Button>
                 </Link>
               </div>
             </div>
@@ -359,4 +362,4 @@ class FilterNavigator extends Component {
   }
 }
 
-export default compose(withRuntimeContext, injectIntl)(FilterNavigator)
+export default withRuntimeContext(FilterNavigator)
