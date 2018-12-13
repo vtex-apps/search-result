@@ -2,6 +2,13 @@
 
 Search Result is a canonical component that any VTEX store can install.
 
+## Release schedule
+
+| Release  | Status              | Initial Release | Maintenance LTS Start | End-of-life               
+| :--:     | :---:               |  :---:          | :---:                 | :---:                     
+| [2.x]    | **Maintenance LTS** |  2018-10-02     | 2018-12-01            | February 2019     
+| [3.x]    | **Current Release** |  2018-12-01     |                       | 
+
 ## Continuous Integrations
 
 ### Travis CI
