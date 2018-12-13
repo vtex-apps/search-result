@@ -5,10 +5,10 @@ import { FormattedMessage } from 'react-intl'
 import classNames from 'classnames'
 import { withRuntimeContext, Link } from 'render'
 import { flatten, path, identity, contains, find, propEq, union, mergeAll, uniqBy, pick, keys, filter as filterRamda, props, map as mapRamda } from 'ramda'
-import SideBar from './components/SideBar'
 import ContentLoader from 'react-content-loader'
-import FilterIcon from './images/FilterIcon'
 
+import SideBar from './components/SideBar'
+import FilterIcon from './images/FilterIcon'
 import SelectedFilters from './components/SelectedFilters'
 import AvailableFilters from './components/AvailableFilters'
 import AccordionFilterContainer from './components/AccordionFilterContainer'
@@ -103,11 +103,14 @@ class FilterNavigator extends Component {
       }
     }
     
-    const filtersAll = [...(filters.map(({ options, type }) => 
-      mountOptions(options, type, map, rest).map(
-        mapperOption(false, this.selectedFilters))).reduce((current, next) => 
-          union(current, next), [])), 
-        ...this.selectedFilters.map(mapperOption(true))]
+    const filtersAll = [
+      ...(filters.map(({ options, type }) => 
+        mountOptions(options, type, map, rest).map(
+          mapperOption(false, this.selectedFilters)
+          )
+        ).reduce((current, next) => union(current, next), [])), 
+      ...this.selectedFilters.map(mapperOption(true))
+    ]
     const finalFilters = uniqBy(pick(['name']), filtersAll)
 
     return mergeAll(finalFilters.map(({ name, ...rest }) => ({ [name]: rest })))
@@ -315,7 +318,6 @@ class FilterNavigator extends Component {
             onOutsideClick={this.handleUpdateContentVisibility}
             isOpen={openContent}
           >
-
             <AccordionFilterContainer
               filters={this.filters}
               filtersChecks={filtersChecks}
