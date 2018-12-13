@@ -17,7 +17,11 @@
     "react-infinite-scroll-component": "^4.1.0",
     "react-intl": "^2.4.0",
     "react-motion": "^0.5.2",
+<<<<<<< HEAD
     "react-outside-click-handler": "^1.2.2",
+=======
+    "react-virtualized": "^9.21.0",
+>>>>>>> Initial setup for using Virtualized gallery
     "unorm": "^1.4.1"
   },
   "devDependencies": {
