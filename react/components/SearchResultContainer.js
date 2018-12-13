@@ -50,9 +50,6 @@ export default class SearchResultContainer extends Component {
 
   getLinkProps = (spec, useEmptyMapAndRest = false, restParam = null, mapParam = null) => {
     const { rest, map, pagesPath, params } = this.props
-
-    
-
     const filters = Array.isArray(spec) ? spec : [spec]
 
     if (filters.length === 0) {

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { flatten, path, identity, contains, find, propEq, union, mergeAll, uniqBy, pick, compose, filter as filterRamda, props, map as mapRamda } from 'ramda'
+import { flatten, path, identity, contains, find, propEq, union, mergeAll, uniqBy, pick, keys, filter as filterRamda, props, map as mapRamda } from 'ramda'
 import ContentLoader from 'react-content-loader'
 import { withRuntimeContext, Link } from 'render'
 import SideBar from './components/SideBar'
@@ -81,7 +81,7 @@ class FilterNavigator extends Component {
   componentDidUpdate(prevProps, prevState) {
     const nonEmptyFilters = this.mapCheckboxFilters(this.filters.filter(spec => spec.options.length > 0))
 
-    if (this.willUpdateFilters(Object.keys(nonEmptyFilters), Object.keys(prevState.filtersChecks))) {
+    if (this.willUpdateFilters(keys(nonEmptyFilters), keys(prevState.filtersChecks))) {
       this.setState({ filtersChecks: nonEmptyFilters })
     }
   }
@@ -120,10 +120,11 @@ class FilterNavigator extends Component {
       filtersChecks: filterChecksAux,
     })
 
-    const checkedFilters = props(Object.keys(filterRamda(x => x.checked, filterChecksAux)), filterChecksAux)
+    console.log(keys(filterChecksAux))
+    const checkedFilters = props(keys(filterRamda(x => x.checked, filterChecksAux)), filterChecksAux)
     const map = checkedFilters.map(opt => getMapByType(opt.type))
     map.unshift('ft')
-    const pagesArgs = getLinkProps(checkedFilters, false, checkedFilters.map(opt => { return opt.slug }), map)
+    const pagesArgs = getLinkProps(checkedFilters, false, checkedFilters.map(opt => opt.slug), map)
     this.setState({ pagesArgs })
   }
 
