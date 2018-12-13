@@ -22,12 +22,14 @@ class SelectionListOrderBy extends Component {
     }),
   }
 
-  handleSelect = option => e => {
+  handleSelect = (option, close) => e => {
     e.preventDefault()
 
     const { getLinkProps, runtime: { navigate } } = this.props
 
     const linkProps = getLinkProps({ ordenation: option.value })
+
+    close(e)
 
     navigate({
       page: linkProps.page,
@@ -45,30 +47,32 @@ class SelectionListOrderBy extends Component {
         title={intl.formatMessage({ id: 'search-result.orderby.title' })}
         id="orderby"
       >
-        <div className="vtex-orderby-popup">
-          {options.map(opt => {
-            const active = orderBy === opt.value
+        {({ onClose }) => (
+          <div className="vtex-orderby-popup">
+            {options.map(opt => {
+              const active = orderBy === opt.value
 
-            return (
-              <div
-                key={opt.label}
-                className={classNames('vtex-orderby__item pointer pv3 ph7 bb b--light-gray', {
-                  'vtex-orderby__item--active dark-gray normal': active,
-                  'fw3': !active,
-                })}
-                onClick={this.handleSelect(opt)}
-              >
-                {opt.label}
+              return (
+                <div
+                  key={opt.label}
+                  className={classNames('vtex-orderby__item pointer pv3 ph7 bb b--light-gray', {
+                    'vtex-orderby__item--active dark-gray normal': active,
+                    'fw3': !active,
+                  })}
+                  onClick={this.handleSelect(opt, onClose)}
+                >
+                  {opt.label}
 
-                {active && (
-                  <span className="vtex-orderby__item-icon fr">
-                    <CheckTick />
-                  </span>
-                )}
-              </div>
-            )
-          })}
-        </div>
+                  {active && (
+                    <span className="vtex-orderby__item-icon fr">
+                      <CheckTick />
+                    </span>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        )}
       </Popup>
     )
   }

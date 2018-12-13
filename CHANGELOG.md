@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.4.3] - 2018-12-13
+### Fixed
+- Add call to close callback on item select in order by component.
+
 ## [2.4.2] - 2018-12-11
 
 ## [2.4.1] - 2018-11-22
