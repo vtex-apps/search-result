@@ -16,7 +16,7 @@ class AccordionFilterContainer extends Component {
     /** Filters mapped for checkbox */
     filtersChecks: PropTypes.object,
     /** Checkbox hit callback function */
-    onHandleFilterCheck: PropTypes.func,
+    onFilterCheck: PropTypes.func,
     /** Filters selected previously */
     selectedFilters: PropTypes.array,
   }
@@ -48,7 +48,7 @@ class AccordionFilterContainer extends Component {
   }
 
   render() {
-    const { filters, intl, filtersChecks, onHandleFilterCheck, selectedFilters } = this.props
+    const { filters, intl, filtersChecks, onFilterCheck, selectedFilters } = this.props
     const { openedItem } = this.state
 
     const nonEmptyFilters = filters.filter(spec => spec.options.length > 0)
@@ -85,7 +85,7 @@ class AccordionFilterContainer extends Component {
               options={filtersMerged}
               filtersChecks={filtersChecks}
               open={isOpen}
-              onHandleFilterCheck={onHandleFilterCheck}
+              onFilterCheck={onFilterCheck}
               show={!openedItem || isOpen}
               onOpen={this.handleOpen(filter.title)}
             />

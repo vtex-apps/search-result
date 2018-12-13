@@ -16,7 +16,7 @@ const AccordionFilterItem = ({
   onOpen,
   intl,
   filtersChecks,
-  onHandleFilterCheck,
+  onFilterCheck,
 }) => (
   <Fragment>
     {!open &&
@@ -50,7 +50,7 @@ const AccordionFilterItem = ({
                 id={Name}
                 label={Name}
                 name={`checkbox-${Name}`}
-                onChange={() => onHandleFilterCheck(Name)}
+                onChange={() => onFilterCheck(Name)}
                 value={`option-${Name}`}
                 className="mb0"
               />
@@ -86,8 +86,7 @@ AccordionFilterItem.propTypes = {
   /** Filters mapped for checkbox */
   filtersChecks: PropTypes.object,
   /** Checkbox hit callback function */
-  onHandleFilterCheck: PropTypes.func,
-
+  onFilterCheck: PropTypes.func,
 }
 
 export default injectIntl(AccordionFilterItem)

@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { flatten, path, identity, contains, find, propEq, union, mergeAll, uniqBy, pick, keys, filter as filterRamda, props, map as mapRamda } from 'ramda'
-import ContentLoader from 'react-content-loader'
-import { withRuntimeContext, Link } from 'render'
-import SideBar from './components/SideBar'
 import { Button } from 'vtex.styleguide'
-import FilterIcon from './images/FilterIcon'
 import { FormattedMessage } from 'react-intl'
 import classNames from 'classnames'
+import { withRuntimeContext, Link } from 'render'
+import { flatten, path, identity, contains, find, propEq, union, mergeAll, uniqBy, pick, keys, filter as filterRamda, props, map as mapRamda } from 'ramda'
+import SideBar from './components/SideBar'
+import ContentLoader from 'react-content-loader'
+import FilterIcon from './images/FilterIcon'
 
 import SelectedFilters from './components/SelectedFilters'
 import AvailableFilters from './components/AvailableFilters'
@@ -102,10 +102,12 @@ class FilterNavigator extends Component {
         checked: isSelected || !!find(propEq('Name', opt.Name), selectedFilters),
       }
     }
-    const mapperOptionsForFilter = (map, rest) => ({ options, type }) => mountOptions(options, type, map, rest).map(mapperOption(false, this.selectedFilters))
-    const reducerForOptions = (current, next) => union(current, next)
-
-    const filtersAll = [...(filters.map(mapperOptionsForFilter(map, rest)).reduce(reducerForOptions, [])), ...this.selectedFilters.map(mapperOption(true))]
+    
+    const filtersAll = [...(filters.map(({ options, type }) => 
+      mountOptions(options, type, map, rest).map(
+        mapperOption(false, this.selectedFilters))).reduce((current, next) => 
+          union(current, next), [])), 
+        ...this.selectedFilters.map(mapperOption(true))]
     const finalFilters = uniqBy(pick(['name']), filtersAll)
 
     return mergeAll(finalFilters.map(({ name, ...rest }) => ({ [name]: rest })))
@@ -120,10 +122,8 @@ class FilterNavigator extends Component {
       filtersChecks: filterChecksAux,
     })
 
-    console.log(keys(filterChecksAux))
     const checkedFilters = props(keys(filterRamda(x => x.checked, filterChecksAux)), filterChecksAux)
     const map = checkedFilters.map(opt => getMapByType(opt.type))
-    map.unshift('ft')
     const pagesArgs = getLinkProps(checkedFilters, false, checkedFilters.map(opt => opt.slug), map)
     this.setState({ pagesArgs })
   }
@@ -313,12 +313,13 @@ class FilterNavigator extends Component {
 
           <SideBar
             onOutsideClick={this.handleUpdateContentVisibility}
-            isOpen={openContent}>
+            isOpen={openContent}
+          >
 
             <AccordionFilterContainer
               filters={this.filters}
               filtersChecks={filtersChecks}
-              onHandleFilterCheck={this.handleFilterCheck}
+              onFilterCheck={this.handleFilterCheck}
               selectedFilters={this.selectedFilters}
             />
             <div className="vtex-filter-buttons__box bt b--muted-5 bottom-0 fixed w-100 items-center flex">
