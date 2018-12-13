@@ -1,0 +1,18 @@
+{
+  "search-result": {
+    "blocks": ["filter-navigator", "gallery"],
+    "component": "index"
+  },
+  "filter-navigator": {
+    "blocks": [],
+    "component": "FilterNavigator"
+  },
+  "gallery": {
+    "blocks": ["product-summary"],
+    "component": "Gallery"
+  },
+  "not-found": {
+    "blocks": [],
+    "component": "NotFoundSearch"
+  }
+}

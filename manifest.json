@@ -13,24 +13,17 @@
   },
   "builders": {
     "react": "2.x",
-    "pages": "0.x",
-    "messages": "0.x"
+    "messages": "0.x",
+    "store": "0.x"
   },
-  "policies": [
-    {
-      "name": "outbound-access",
-      "attrs": {
-        "host": "{{account}}.vtexcommercestable.com.br",
-        "path": "/api/catalog_system/*"
-      }
-    }
-  ],
   "dependencies": {
+    "vtex.breadcrumb": "1.x",
     "vtex.styleguide": "8.x",
     "vtex.product-summary": "2.x",
+    "vtex.shelf": "1.x",
+    "vtex.use-svg": "0.x",
     "vtex.store-graphql": "2.x",
-    "vtex.store": "1.x",
     "vtex.store-components": "3.x",
-    "vtex.use-svg": "0.x"
+    "vtex.store-resources": "0.x"
   }
 }
