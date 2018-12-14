@@ -1,7 +1,6 @@
 import { repeat } from 'ramda'
 import unorm from 'unorm'
 
-import { SORT_OPTIONS } from '../components/OrderBy'
 import {
   CATEGORIES_TYPE,
   BRANDS_TYPE,

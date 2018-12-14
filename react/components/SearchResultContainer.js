@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import QueryString from 'query-string'
-import { contains } from 'ramda'
 
 import { PopupProvider } from './Popup'
 import InfiniteScrollLoaderResult from './loaders/InfiniteScrollLoaderResult'
@@ -49,7 +48,7 @@ export default class SearchResultContainer extends Component {
     }
   }
 
-  getLinkProps = (spec, useEmptyMapAndRest = false, restParam = null, mapParam = null) => {
+  getLinkProps = (spec, useEmptyMapAndRest = false) => {
     const { rest, map, pagesPath, params } = this.props
     const filters = Array.isArray(spec) ? spec : [spec]
 
@@ -106,17 +105,6 @@ export default class SearchResultContainer extends Component {
         },
       }
     )
-    // Need to redo this to calculate the rest and map in the pageProps
-    restParam && (pageProps.query.rest = restParam)
-    if (mapParam) {
-      if (contains('ft', pageProps.query.map)) {
-        mapParam.unshift('ft')
-        pageProps.query.map = mapParam
-      } else {
-        mapParam.unshift('c')
-        pageProps.query.map = mapParam
-      } 
-    }
 
     const queryString = QueryString.stringify({
       ...pageProps.query,

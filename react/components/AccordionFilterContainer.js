@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
-import { uniqBy, pick } from 'ramda'
 import Icon from 'vtex.use-svg/Icon'
 
+import { mountOptions } from '../constants/SearchHelpers'
 import AccordionFilterItem from './AccordionFilterItem'
 
 class AccordionFilterContainer extends Component {
@@ -19,6 +19,9 @@ class AccordionFilterContainer extends Component {
     onFilterCheck: PropTypes.func,
     /** Filters selected previously */
     selectedFilters: PropTypes.array,
+    isOptionSelected: PropTypes.func.isRequired,
+    map: PropTypes.string.isRequired,
+    rest: PropTypes.string.isRequired,
   }
 
   state = {
@@ -48,7 +51,14 @@ class AccordionFilterContainer extends Component {
   }
 
   render() {
-    const { filters, intl, filtersChecks, onFilterCheck, selectedFilters } = this.props
+    const {
+      filters,
+      intl,
+      onFilterCheck,
+      map,
+      rest,
+      isOptionSelected,
+    } = this.props
     const { openedItem } = this.state
 
     const nonEmptyFilters = filters.filter(spec => spec.options.length > 0)
@@ -58,32 +68,31 @@ class AccordionFilterContainer extends Component {
           <div className="pv4 flex items-center" onClick={() => this.setState({ openedItem: null })}>
             <div className={classNames('t-heading-4', {
               'c-muted-2': !!openedItem,
-              'c-on-base': !openedItem })}>
+              'c-on-base': !openedItem })}
+            >
               {intl.formatMessage({ id: 'search-result.filter-breadcrumbs.primary' })}
             </div>
           </div>
-          {openedItem &&
-          <div className="pa4 flex items-center">
-            <Icon id="nav-angle--right" size="13" />
-            <div className="pl3 t-heading-4 c-on-base">
-              {intl.formatMessage({ id: openedItem })}
+          {openedItem && (
+            <div className="pa4 flex items-center">
+              <Icon id="nav-angle--right" size="13" />
+              <div className="pl3 t-heading-4 c-on-base">
+                {intl.formatMessage({ id: openedItem })}
+              </div>
             </div>
-          </div>
-          }
+          )}
         </div>
 
         {nonEmptyFilters.map(filter => {
           const { type, title, options } = filter
           const isOpen = openedItem === filter.title
 
-          const filtersFlat = selectedFilters.filter(({ type: selectedType }) => selectedType === type)
-          const filtersMerged = uniqBy(pick(['Name']), [...filtersFlat, ...options])
           return (
             <AccordionFilterItem
               key={filter.title}
               title={title}
-              options={filtersMerged}
-              filtersChecks={filtersChecks}
+              options={mountOptions(options, type, map, rest)}
+              isOptionSelected={isOptionSelected}
               open={isOpen}
               onFilterCheck={onFilterCheck}
               show={!openedItem || isOpen}

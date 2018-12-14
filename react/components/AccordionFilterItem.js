@@ -15,16 +15,22 @@ const AccordionFilterItem = ({
   open,
   onOpen,
   intl,
-  filtersChecks,
   onFilterCheck,
+  isOptionSelected,
 }) => (
   <Fragment>
-    {!open &&
+    {!open && (
       <div className="pl7">
-        <div className={classNames('vtex-accordion-filter__item vtex-filter-accordion__item-box t-body pr5 pv3 pointer bb b--muted-5', {
-          'vtex-accordion-filter__item--active': open,
-          'vtex-accordion-filter__item--hidden dn': !show,
-        })} onClick={onOpen}>
+        <div
+          className={classNames(
+            'vtex-accordion-filter__item vtex-filter-accordion__item-box t-body pr5 pv3 pointer bb b--muted-5',
+            {
+              'vtex-accordion-filter__item--active': open,
+              'vtex-accordion-filter__item--hidden dn': !show,
+            }
+          )}
+          onClick={onOpen}
+        >
           <div
             className={classNames('vtex-accordion-filter__item-title pv4', {
               'c-on-base t-small': open,
@@ -38,21 +44,25 @@ const AccordionFilterItem = ({
           </div>
         </div>
       </div>
-    }
-
+    )}
     {open && (
       <div className="vtex-accordion-filter__item-options pl7 overflow-hidden">
-        {options.map(({ Name }) => {
+        {options.map(opt => {
+          const { Name } = opt
+
           return (
-            <div className="vtex-filter-accordion__item-box pr4 pt3 items-center flex bb b--muted-5" key={Name}>
+            <div
+              className="vtex-filter-accordion__item-box pr4 pt3 items-center flex bb b--muted-5"
+              key={Name}
+            >
               <Checkbox
-                checked={filtersChecks[Name].checked}
+                className="mb0"
+                checked={isOptionSelected(opt)}
                 id={Name}
                 label={Name}
                 name={`checkbox-${Name}`}
-                onChange={() => onFilterCheck(Name)}
+                onChange={() => onFilterCheck(opt)}
                 value={`option-${Name}`}
-                className="mb0"
               />
             </div>
           )
