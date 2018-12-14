@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import {
-  map,
+  map as mapRamda,
   flatten,
   filter,
   pipe,
@@ -30,12 +30,12 @@ class FilterSidebar extends Component {
   state = {
     openContent: false,
     selectedFilters: pipe(
-      map(filter =>
+      mapRamda(filter =>
         mountOptions(filter.options, filter.type, this.props.map, this.props.rest),
       ),
       flatten,
       filter(option => option.selected),
-      map(option => ({
+      mapRamda(option => ({
         ...option,
         link: option.Link,
       }))
@@ -75,7 +75,7 @@ class FilterSidebar extends Component {
   handleClearFilters = () => {
     const { getLinkProps, runtime: { navigate } } = this.props
 
-    this.setState({ checkedFilters: [] })
+    this.setState({ selectedFilters: [] })
     const pagesArgs = getLinkProps([])
 
     const options = {
@@ -96,7 +96,8 @@ class FilterSidebar extends Component {
       getLinkProps,
     } = this.props
 
-    const pagesArgs = getLinkProps(selectedFilters)
+    const pagesArgs = getLinkProps(mapRamda(x => 
+      ({ ...x, isSelected: false }) , selectedFilters), true)
 
     return (
       <Fragment>
