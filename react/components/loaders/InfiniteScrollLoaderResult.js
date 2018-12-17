@@ -18,6 +18,7 @@ const InfiniteScrollLoaderResult = props => {
 
   return (
     <InfiniteScroll
+      style={{ 'overflow': 'none' }}
       dataLength={products.length}
       next={onFetchMore}
       hasMore={products.length < recordsFiltered}
