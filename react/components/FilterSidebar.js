@@ -96,8 +96,10 @@ class FilterSidebar extends Component {
       getLinkProps,
     } = this.props
 
-    const pagesArgs = getLinkProps(mapRamda(x => 
-      ({ ...x, isSelected: false }) , selectedFilters), true)
+    
+    const mountedFilters = mapRamda(x => 
+      ({ ...x, isSelected: false, link: x.Link }) , selectedFilters)
+    const pagesArgs = getLinkProps(mountedFilters, true)
 
     return (
       <Fragment>

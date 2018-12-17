@@ -25,7 +25,7 @@ describe('<FilterNavigator />', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('shouldn\'t display unrelated categories', () => {
+  it('should display unrelated categories', () => {
     const categoriesTree = [
       {
         Name: 'Eletrônicos',
@@ -76,9 +76,13 @@ describe('<FilterNavigator />', () => {
 
     const availableCategories = [
       {
+        Name: 'Livros',
+        Link: '/Livros',
+      },
+      {
         Name: 'HQs e Mangas',
         Link: '/Livros/HQs e Mangas',
-      },
+      }
     ]
 
     expect(wrapper.instance().getAvailableCategories()).toMatchObject(availableCategories)
@@ -135,9 +139,13 @@ describe('<FilterNavigator />', () => {
 
     const availableCategories = [
       {
+        Name: 'Livros',
+        Link: '/Livros',
+      },
+      {
         Name: 'HQS E MANGAS',
         Link: '/Livros/HQs e Mangas',
-      },
+      }
     ]
 
     expect(wrapper.instance().getAvailableCategories()).toMatchObject(availableCategories)
