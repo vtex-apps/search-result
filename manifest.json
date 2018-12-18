@@ -13,7 +13,8 @@
   },
   "builders": {
     "react": "2.x",
-    "pages": "0.x"
+    "pages": "0.x",
+    "messages": "0.x"
   },
   "policies": [
     {
