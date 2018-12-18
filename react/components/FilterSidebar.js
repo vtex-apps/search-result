@@ -45,7 +45,7 @@ class FilterSidebar extends Component {
   handleFilterCheck = filter => {
     if (!this.isOptionSelected(filter)) {
       this.setState({
-        selectedFilters: this.state.selectedFilters.concat(filter),
+        selectedFilters: this.state.selectedFilters.concat({...filter, link: filter.Link}),
       })
     } else {
       this.setState({
@@ -96,10 +96,7 @@ class FilterSidebar extends Component {
       getLinkProps,
     } = this.props
 
-    
-    const mountedFilters = mapRamda(x => 
-      ({ ...x, isSelected: false, link: x.Link }) , selectedFilters)
-    const pagesArgs = getLinkProps(mountedFilters, true)
+    const pagesArgs = getLinkProps(mapRamda(opt => ({ ...opt, isSelected: false}) , selectedFilters), true)
 
     return (
       <Fragment>

@@ -93,8 +93,6 @@ AccordionFilterItem.propTypes = {
   getLinkProps: PropTypes.func,
   /** Intl instance */
   intl: intlShape,
-  /** Filters mapped for checkbox */
-  filtersChecks: PropTypes.object,
   /** Checkbox hit callback function */
   onFilterCheck: PropTypes.func,
 }
