@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.3.0] - 2018-12-18
+### Added
+- Support to messages builder.
+
 ## [3.2.0] - 2018-12-11
 ### Changed
 - Sort option on mobile to a dropdown button.

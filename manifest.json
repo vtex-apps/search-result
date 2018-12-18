@@ -1,7 +1,7 @@
 {
   "name": "search-result",
   "vendor": "vtex",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "title": "VTEX Search Result",
   "description": "A search result wrapper component",
   "mustUpdateAt": "2019-04-25",
@@ -13,7 +13,8 @@
   },
   "builders": {
     "react": "2.x",
-    "pages": "0.x"
+    "pages": "0.x",
+    "messages": "0.x"
   },
   "policies": [
     {
