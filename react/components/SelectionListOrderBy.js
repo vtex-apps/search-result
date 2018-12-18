@@ -61,10 +61,10 @@ class SelectionListOrderBy extends Component {
   render() {
     const { orderBy } = this.props
     const { showDropdown } = this.state
-    const btClass = classNames('ph3 pv5 mv0 pointer flex justify-center items-center w-100 bg-base c-on-base t-action--small ml-auto',
+    const btClass = classNames('ph3 pv5 mv0 pointer flex justify-center items-center w-100 bg-base c-on-base t-action--small ml-auto bt br bl bb-0 br2 br--top bw1',
       {
-        'bt br bl bb-0 br2 br--top bw1 b--muted-4 shadow-1': showDropdown,
-        'bn pl1': !showDropdown,
+        'b--muted-4 shadow-1': showDropdown,
+        'b--transparent pl1': !showDropdown,
       }
     )
 
