@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import { List, WindowScroller, AutoSizer } from "react-virtualized"
+import { List, WindowScroller, AutoSizer, CellMeasurer, CellMeasurerCache } from "react-virtualized"
 import { PropTypes } from 'prop-types'
 
 import { withRuntimeContext, NoSSR } from 'render'
@@ -17,27 +17,45 @@ const Gallery = ({
   summary,
   layoutMode,
   runtime: { hints: { mobile } },
-  itemDimensions: { height: itemHeights },
-  itemDimensions: { width: itemWidths } }) => {
+  itemWidth }) => {
 
-  const renderRow = ({ index, key, style }, itemsPerRow) => {
+  const cache = new CellMeasurerCache({
+    defaultHeight: 300,
+    fixedWidth: true,
+    keyMapper: () => 0
+  })
+
+  const renderRow = ({ index, key, style, parent }, itemsPerRow) => {
     const from = index * itemsPerRow
     const rowItems = products.slice(from, from + itemsPerRow)
 
+    const containerClasses = classNames('Row vtex-gallery__row', {
+      'vtex-gallery__row--two-columns': layoutMode === 'small' && mobile,
+    })
+
     return (
-      <div className="ml3-ns Row" key={key} style={style}>
-        {rowItems.map(item =>
-          <div
-            key={item.productId}
-            className="vtex-gallery__item mv2 mh3 pa1 dib-ns di-s">
-            <GalleryItem
-              item={item}
-              summary={summary}
-              displayMode={layoutMode}
-            />
+      <CellMeasurer
+        cache={cache}
+        columnIndex={0}
+        key={key}
+        parent={parent}
+        rowIndex={index}>
+        {({ measure }) => {
+          return <div className={containerClasses} key={key} style={style} onLoad={measure}>
+            {rowItems.map(item =>
+              <div
+                key={item.productId}
+                className="vtex-gallery__item mv2 pa1">
+                <GalleryItem
+                  item={item}
+                  summary={summary}
+                  displayMode={layoutMode}
+                />
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        }}
+      </CellMeasurer>
     )
   }
 
@@ -55,25 +73,29 @@ const Gallery = ({
     ))
   }
 
-  const itemHeight = itemHeights[layoutMode]
-  const itemWidth = itemWidths[layoutMode]
+  const galleryClass = classNames('vtex-gallery pa3 bn', {
+    'vtex-gallery--two-columns': layoutMode === 'small'
+  })
 
   return (
-    <div className="vtex-gallery pa1 bn">
+    <div className={galleryClass}>
       <NoSSR onSSR={renderOnServer()}>
         <WindowScroller>
           {({ height }) => {
             return (
               <AutoSizer disableHeight>
                 {({ width }) => {
-                  const itemsPerRow = layoutMode === 'small' ? 2 : (Math.floor(width / itemWidth) || 1)
+                  const itemsPerRow = (layoutMode === 'small' && mobile) ? 2 : (Math.floor(width / itemWidth) || 1)
                   const nRows = Math.ceil(products.length / itemsPerRow)
+                  console.log(nRows);
+                  
                   return <List
+                    deferredMeasurementCache={cache}
                     autoHeight
                     width={width}
                     height={height}
                     rowCount={nRows}
-                    rowHeight={itemHeight}
+                    rowHeight={cache.rowHeight}
                     rowRenderer={args => renderRow(args, itemsPerRow)}
                   />
                 }}
@@ -99,18 +121,7 @@ Gallery.propTypes = {
 Gallery.defaultProps = {
   maxItemsPerPage: 10,
   products: [],
-  itemDimensions: {
-    width: {
-      inline: 300,
-      normal: 300,
-      small: 300,
-    },
-    height: {
-      inline: 150,
-      normal: 480,
-      small: 500,
-    }
-  }
+  itemWidth: 300
 }
 
 export default withRuntimeContext(Gallery)
