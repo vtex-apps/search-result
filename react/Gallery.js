@@ -73,12 +73,8 @@ const Gallery = ({
     ))
   }
 
-  const galleryClass = classNames('vtex-gallery pa3 bn', {
-    'vtex-gallery--two-columns': layoutMode === 'small'
-  })
-
   return (
-    <div className={galleryClass}>
+    <div className="vtex-gallery pa3 bn">
       <NoSSR onSSR={renderOnServer()}>
         <WindowScroller>
           {({ height }) => {
@@ -115,7 +111,7 @@ Gallery.propTypes = {
   summary: PropTypes.any,
   /** Layout mode of the gallery */
   layoutMode: PropTypes.string,
-  /**TODO Add new props */
+  /** Item Width. */
   itemWidth: PropTypes.number
 }
 
