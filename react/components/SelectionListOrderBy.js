@@ -79,7 +79,7 @@ class SelectionListOrderBy extends Component {
       <div className="vtex-dropdown__mobile relative justify-center flex-auto pt1 w-100 dib">
         <button onClick={this.handleDropdownBtClick} className={btClass}>
           <span className="vtex-filter-popup__title c-on-base t-action--small ml-auto">{this.getOptionTitle(orderBy)}</span>
-          <span className="vtex-filter-popup__arrow-icon ml-auto pt1">
+          <span className="vtex-filter-popup__arrow-icon pt1 ml-auto pt1">
             <Arrow size={10} />
           </span>
         </button>
