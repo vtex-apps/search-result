@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import { List, WindowScroller, AutoSizer, CellMeasurer, CellMeasurerCache } from "react-virtualized"
+import { List, WindowScroller, AutoSizer, CellMeasurer, CellMeasurerCache } from 'react-virtualized'
 import { PropTypes } from 'prop-types'
 
 import { withRuntimeContext, NoSSR } from 'render'
@@ -18,14 +18,13 @@ const Gallery = ({
   layoutMode,
   runtime: { hints: { mobile } },
   itemWidth }) => {
-
   const cache = new CellMeasurerCache({
     defaultHeight: 305,
     fixedWidth: true,
-    keyMapper: () => 1
+    keyMapper: () => 1,
   })
 
-  const renderRow = ({ index, key, style, parent }, itemsPerRow) => {
+  const renderRow = ({ index, key, style, parent, itemsPerRow }) => {
     const from = index * itemsPerRow
     const rowItems = products.slice(from, from + itemsPerRow)
 
@@ -41,9 +40,9 @@ const Gallery = ({
         parent={parent}
         rowIndex={index}>
         {({ measure }) => {
-          return <div className={containerClasses} key={key} style={style} onLoad={measure}>
+          return (<div className={containerClasses} key={key} style={style} onLoad={measure}>
             {rowItems.map(item =>
-              <div
+              (<div
                 key={item.productId}
                 className="vtex-gallery__item mv2 pa1">
                 <GalleryItem
@@ -51,9 +50,9 @@ const Gallery = ({
                   summary={summary}
                   displayMode={layoutMode}
                 />
-              </div>
+              </div>)
             )}
-          </div>
+          </div>)
         }}
       </CellMeasurer>
     )
@@ -84,7 +83,7 @@ const Gallery = ({
                   const itemsPerRow = (layoutMode === 'small' && mobile) ? 2 : (Math.floor(width / itemWidth) || 1)
                   const nRows = Math.ceil(products.length / itemsPerRow)
 
-                  return <List
+                  return (<List
                     key={layoutMode}
                     deferredMeasurementCache={cache}
                     autoHeight
@@ -92,8 +91,8 @@ const Gallery = ({
                     height={height}
                     rowCount={nRows}
                     rowHeight={cache.rowHeight}
-                    rowRenderer={args => renderRow(args, itemsPerRow)}
-                  />
+                    rowRenderer={args => renderRow({ ...args, itemsPerRow })}
+                  />)
                 }}
               </AutoSizer>
             )
@@ -112,13 +111,13 @@ Gallery.propTypes = {
   /** Layout mode of the gallery */
   layoutMode: PropTypes.string,
   /** Item Width. */
-  itemWidth: PropTypes.number
+  itemWidth: PropTypes.number,
 }
 
 Gallery.defaultProps = {
   maxItemsPerPage: 10,
   products: [],
-  itemWidth: 300
+  itemWidth: 300,
 }
 
 export default withRuntimeContext(Gallery)
