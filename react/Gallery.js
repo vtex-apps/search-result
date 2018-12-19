@@ -20,9 +20,9 @@ const Gallery = ({
   itemWidth }) => {
 
   const cache = new CellMeasurerCache({
-    defaultHeight: 300,
+    defaultHeight: 305,
     fixedWidth: true,
-    keyMapper: () => 0
+    keyMapper: () => 1
   })
 
   const renderRow = ({ index, key, style, parent }, itemsPerRow) => {
@@ -87,9 +87,9 @@ const Gallery = ({
                 {({ width }) => {
                   const itemsPerRow = (layoutMode === 'small' && mobile) ? 2 : (Math.floor(width / itemWidth) || 1)
                   const nRows = Math.ceil(products.length / itemsPerRow)
-                  console.log(nRows);
-                  
+
                   return <List
+                    key={layoutMode}
                     deferredMeasurementCache={cache}
                     autoHeight
                     width={width}
@@ -116,6 +116,7 @@ Gallery.propTypes = {
   /** Layout mode of the gallery */
   layoutMode: PropTypes.string,
   /**TODO Add new props */
+  itemWidth: PropTypes.number
 }
 
 Gallery.defaultProps = {
