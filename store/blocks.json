@@ -1,18 +1,18 @@
 {
   "search-result": {
     "blocks": ["filter-navigator", "gallery"],
-    "component": "index"
+    "inheritComponent": true
   },
   "filter-navigator": {
     "blocks": [],
-    "component": "FilterNavigator"
+    "inheritComponent": true
   },
   "gallery": {
     "blocks": ["product-summary"],
-    "component": "Gallery"
+    "inheritComponent": true
   },
   "not-found": {
     "blocks": [],
-    "component": "NotFoundSearch"
+    "inheritComponent": true
   }
 }
