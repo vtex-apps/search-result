@@ -19,6 +19,7 @@ const Gallery = ({
   runtime: { hints: { mobile } },
   itemWidth }) => {
   const TWO_ITEMS = 2
+  const ONE_ITEM = 1
 
   const cache = new CellMeasurerCache({
     fixedWidth: true,
@@ -81,7 +82,7 @@ const Gallery = ({
             return (
               <AutoSizer disableHeight>
                 {({ width }) => {
-                  const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (Math.floor(width / itemWidth) || 1)
+                  const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (Math.floor(width / itemWidth) || ONE_ITEM)
                   const nRows = Math.ceil(products.length / itemsPerRow)
 
                   return (<List
