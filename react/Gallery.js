@@ -18,8 +18,9 @@ const Gallery = ({
   layoutMode,
   runtime: { hints: { mobile } },
   itemWidth }) => {
+  const TWO_ITEMS = 2
+
   const cache = new CellMeasurerCache({
-    defaultHeight: 305,
     fixedWidth: true,
     keyMapper: () => 1,
   })
@@ -28,7 +29,7 @@ const Gallery = ({
     const from = index * itemsPerRow
     const rowItems = products.slice(from, from + itemsPerRow)
 
-    const containerClasses = classNames('Row vtex-gallery__row', {
+    const containerClasses = classNames('vtex-gallery__row', {
       'vtex-gallery__row--two-columns': layoutMode === 'small' && mobile,
     })
 
@@ -80,7 +81,7 @@ const Gallery = ({
             return (
               <AutoSizer disableHeight>
                 {({ width }) => {
-                  const itemsPerRow = (layoutMode === 'small' && mobile) ? 2 : (Math.floor(width / itemWidth) || 1)
+                  const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (Math.floor(width / itemWidth) || 1)
                   const nRows = Math.ceil(products.length / itemsPerRow)
 
                   return (<List
