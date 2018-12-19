@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
+import { withRuntimeContext } from 'render'
 import { flatten, path, identity, contains } from 'ramda'
 import ContentLoader from 'react-content-loader'
-import { withRuntimeContext } from 'render'
 
+import FilterSidebar from './components/FilterSidebar'
 import SelectedFilters from './components/SelectedFilters'
 import AvailableFilters from './components/AvailableFilters'
-import AccordionFilterContainer from './components/AccordionFilterContainer'
 import {
   formatCategoriesTree,
   mountOptions,
@@ -88,7 +88,10 @@ class FilterNavigator extends Component {
       .join('/')
 
     return categories
-      .filter(c => c.level === (showOnlySelected ? categoriesCount - 1 : categoriesCount))
+      .filter(c => showOnlySelected
+        ? (c.level === categoriesCount - 1)
+        : (c.level === categoriesCount - 1 || c.level === categoriesCount)
+      )
       .filter(c => c.path.toLowerCase().startsWith(currentPath.toLowerCase()))
   }
 
@@ -119,17 +122,58 @@ class FilterNavigator extends Component {
     return flatten(options).filter(opt => opt.selected)
   }
 
-  render() {
+  get filters() {
     const {
       specificationFilters = [],
       brands,
-      priceRange,
       priceRanges,
+      hiddenFacets,
+    } = this.props
+
+    const categories = this.getAvailableCategories()
+
+    const hiddenFacetsNames = (
+      path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
+    ).map(filter => filter.name)
+
+    const mappedSpecificationFilters = !path(['specificationFilters', 'hideAll'], hiddenFacets)
+      ? specificationFilters.filter(
+        spec => !contains(spec.name, hiddenFacetsNames)
+      ).map(spec => ({
+        type: SPECIFICATION_FILTERS_TYPE,
+        title: spec.name,
+        options: spec.facets,
+      }))
+      : []
+
+    return [
+      !hiddenFacets.categories && {
+        type: CATEGORIES_TYPE,
+        title: CATEGORIES_TITLE,
+        options: categories,
+        oneSelectedCollapse: true,
+      },
+      ...mappedSpecificationFilters,
+      !hiddenFacets.brands && {
+        type: BRANDS_TYPE,
+        title: BRANDS_TITLE,
+        options: brands,
+      },
+      !hiddenFacets.priceRange && {
+        type: PRICE_RANGES_TYPE,
+        title: PRICE_RANGES_TITLE,
+        options: priceRanges,
+      },
+    ].filter(identity)
+  }
+
+  render() {
+    const {
+      priceRange,
       map,
       rest,
       getLinkProps,
       loading,
-      hiddenFacets,
       runtime: { hints: { mobile } },
     } = this.props
 
@@ -157,46 +201,11 @@ class FilterNavigator extends Component {
       )
     }
 
-    const categories = this.getAvailableCategories()
-
-    const hiddenFacetsNames = (
-      path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
-    ).map(filter => filter.name)
-
-    const mappedSpecificationFilters = !path(['specificationFilters', 'hideAll'], hiddenFacets)
-      ? specificationFilters.filter(
-        spec => !contains(spec.name, hiddenFacetsNames)
-      ).map(spec => ({
-        type: SPECIFICATION_FILTERS_TYPE,
-        title: spec.name,
-        options: spec.facets,
-      }))
-      : []
-
-    const filters = [
-      !hiddenFacets.categories && {
-        type: CATEGORIES_TYPE,
-        title: CATEGORIES_TITLE,
-        options: categories,
-        oneSelectedCollapse: true,
-      },
-      ...mappedSpecificationFilters,
-      !hiddenFacets.brands && {
-        type: BRANDS_TYPE,
-        title: BRANDS_TITLE,
-        options: brands,
-      },
-      !hiddenFacets.priceRange && {
-        type: PRICE_RANGES_TYPE,
-        title: PRICE_RANGES_TITLE,
-        options: priceRanges,
-      },
-    ].filter(identity)
-
     if (mobile) {
       return (
-        <AccordionFilterContainer
-          filters={filters}
+        <FilterSidebar
+          filters={this.filters}
+          selectedFilters={this.selectedFilters}
           getLinkProps={getLinkProps}
           map={map}
           rest={rest}
@@ -212,7 +221,7 @@ class FilterNavigator extends Component {
         />
         <AvailableFilters
           getLinkProps={getLinkProps}
-          filters={filters}
+          filters={this.filters}
           map={map}
           rest={rest}
           priceRange={priceRange}

@@ -39,7 +39,7 @@ class SearchResult extends Component {
     hiddenFacets: this.props.hiddenFacets,
   }
 
-  handleLayoutChange = (e, mode) => {
+  handleLayoutChange = e => {
     e.preventDefault()
 
     const defaultModes = [this.props.hiddenFacets.layoutMode1, this.props.hiddenFacets.layoutMode2]
@@ -111,7 +111,6 @@ class SearchResult extends Component {
 
   render() {
     const {
-      intl,
       children,
       breadcrumbsProps,
       getLinkProps,
@@ -211,14 +210,14 @@ class SearchResult extends Component {
                 </div>
               </div>
             ) : (
-                <ExtensionPoint
-                  id="gallery"
-                  products={products}
-                  summary={summary}
-                  className="bn"
-                  layoutMode={galleryLayoutMode}
-                />
-              )}
+              <ExtensionPoint
+                id="gallery"
+                products={products}
+                summary={summary}
+                className="bn"
+                layoutMode={galleryLayoutMode}
+              />
+            )}
             {children}
           </div>
         </div>

@@ -1,24 +1,27 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
+import classNames from 'classnames'
+import Icon from 'vtex.use-svg/Icon'
 
-import Popup from './Popup'
-import AccordionFilterItem from './AccordionFilterItem'
 import { mountOptions } from '../constants/SearchHelpers'
-import FilterIcon from './../images/FilterIcon'
+import AccordionFilterItem from './AccordionFilterItem'
 
 class AccordionFilterContainer extends Component {
   static propTypes = {
     /** Current available filters */
     filters: PropTypes.arrayOf(PropTypes.object),
-    /** Rest query parameter */
-    rest: PropTypes.string,
-    /** Map query parameter */
-    map: PropTypes.string,
-    /** Get the props to pass to render's Link */
-    getLinkProps: PropTypes.func,
     /** Intl instance */
     intl: intlShape,
+    /** Filters mapped for checkbox */
+    filtersChecks: PropTypes.object,
+    /** Checkbox hit callback function */
+    onFilterCheck: PropTypes.func,
+    /** Filters selected previously */
+    selectedFilters: PropTypes.array,
+    isOptionSelected: PropTypes.func.isRequired,
+    map: PropTypes.string.isRequired,
+    rest: PropTypes.string.isRequired,
   }
 
   state = {
@@ -48,40 +51,56 @@ class AccordionFilterContainer extends Component {
   }
 
   render() {
-    const { filters, intl, getLinkProps, map, rest } = this.props
+    const {
+      filters,
+      intl,
+      onFilterCheck,
+      map,
+      rest,
+      isOptionSelected,
+    } = this.props
     const { openedItem } = this.state
 
     const nonEmptyFilters = filters.filter(spec => spec.options.length > 0)
-
     return (
-      <Popup
-        title={intl.formatMessage({ id: 'search-result.filter-action.title' })}
-        id="filters"
-        icon={<FilterIcon size={16} active/>}
-      >
-        {({ onClose }) => (
-          <div className="vtex-accordion-filter">
-            {nonEmptyFilters.map(filter => {
-              const { type, title, options, oneSelectedCollapse } = filter
-              const isOpen = openedItem === filter.title
-              return (
-                <AccordionFilterItem
-                  key={filter.title}
-                  type={type}
-                  title={title}
-                  options={mountOptions(options, type, map, rest)}
-                  open={isOpen}
-                  show={openedItem === null ? true : isOpen}
-                  onOpen={this.handleOpen(filter.title)}
-                  onItemSelected={this.handleItemSelected(onClose)}
-                  oneSelectedCollapse={oneSelectedCollapse}
-                  getLinkProps={getLinkProps}
-                />
-              )
-            })}
+      <div className="vtex-accordion-filter">
+        <div className="vtex-filter-accordion__breadcrumbs pointer flex flex-row items-center pa5 bg-base w-100 z-max bb b--muted-4">
+          <div className="pv4 flex items-center" onClick={() => this.setState({ openedItem: null })}>
+            <div className={classNames('t-heading-4', {
+              'c-muted-2': !!openedItem,
+              'c-on-base': !openedItem })}
+            >
+              {intl.formatMessage({ id: 'search-result.filter-breadcrumbs.primary' })}
+            </div>
           </div>
-        )}
-      </Popup>
+          {openedItem && (
+            <div className="pa4 flex items-center">
+              <Icon id="nav-angle--right" size="13" />
+              <div className="pl3 t-heading-4 c-on-base">
+                {intl.formatMessage({ id: openedItem })}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {nonEmptyFilters.map(filter => {
+          const { type, title, options } = filter
+          const isOpen = openedItem === filter.title
+
+          return (
+            <AccordionFilterItem
+              key={filter.title}
+              title={title}
+              options={mountOptions(options, type, map, rest)}
+              isOptionSelected={isOptionSelected}
+              open={isOpen}
+              onFilterCheck={onFilterCheck}
+              show={!openedItem || isOpen}
+              onOpen={this.handleOpen(filter.title)}
+            />
+          )
+        })}
+      </div>
     )
   }
 }
