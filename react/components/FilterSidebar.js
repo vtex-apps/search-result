@@ -57,12 +57,14 @@ class FilterSidebar extends Component {
   }
 
   handleClose = () => {
+    document.body.style.overflow = 'visible'
     this.setState({
       openContent: false,
     })
   }
 
   handleOpen = () => {
+    document.body.style.overflow = 'hidden'
     this.setState({
       openContent: true,
     })
