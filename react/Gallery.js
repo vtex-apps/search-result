@@ -31,12 +31,28 @@ const Gallery = ({
   runtime: { hints: { mobile } },
   itemWidth,
 }) => {
+
+  cache.clearAll()
+
+  const toJsxItem = (item) => (
+    <div
+      key={item.productId}
+      className="vtex-gallery__item mv2 pa1"
+    >
+      <GalleryItem
+        item={item}
+        summary={summary}
+        displayMode={layoutMode}
+      />
+    </div>
+  )
+
   const renderRow = ({ index, key, style, parent, itemsPerRow }) => {
     const from = index * itemsPerRow
     const rowItems = products.slice(from, from + itemsPerRow)
 
     const containerClasses = classNames('vtex-gallery__row', {
-      'vtex-gallery__row--two-columns': layoutMode === 'small' && mobile,
+      'vtex-gallery--two-columns': layoutMode === 'small' && mobile,
     })
 
     return (
@@ -49,46 +65,33 @@ const Gallery = ({
       >
         {({ measure }) => (
           <div className={containerClasses} key={key} style={style} onLoad={measure}>
-            {rowItems.map(item => (
-              <div
-                key={item.productId}
-                className="vtex-gallery__item mv2 pa1"
-              >
-                <GalleryItem
-                  item={item}
-                  summary={summary}
-                  displayMode={layoutMode}
-                />
-              </div>
-            ))}
+            {rowItems.map(toJsxItem)}
           </div>
         )}
       </CellMeasurer>
     )
   }
 
-  const renderOnServer = () => products.map(item => (
-    <div
-      key={item.productId}
-      className="vtex-gallery__item mv2 pa1"
-    >
-      <GalleryItem
-        item={item}
-        summary={summary}
-        displayMode={layoutMode}
-      />
+  const ssrContainer = classNames('vtex-gallery pa3 bn', {
+    'vtex-gallery--two-columns': layoutMode == 'small' && mobile
+  })
+
+  const ssrFallBack = (
+    <div className={ssrContainer}>
+      {products.map(toJsxItem)}
     </div>
-  ))
+  )
 
   return (
-    <div className="vtex-gallery pa3 bn">
-      <NoSSR onSSR={renderOnServer()}>
+    <NoSSR onSSR={ssrFallBack}>
+      <div className="vtex-gallery pa3 bn">
         <Adopt
+          key={layoutMode}
           mapper={{
             scroller: <WindowScroller />,
             autoSizer: <AutoSizer disableHeight />,
           }}
-          mapProps={({ scroller: { height }, autoSizer: { width } }) => ({ height, width })}
+          mapProps={({ scroller: { height }, autoSizer: { width } }) => ({ width, height })}
         >
           {({ width, height }) => {
             const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (Math.floor(width / itemWidth) || ONE_ITEM)
@@ -108,8 +111,8 @@ const Gallery = ({
             )
           }}
         </Adopt>
-      </NoSSR>
-    </div >
+      </div >
+    </NoSSR>
   )
 }
 
