@@ -12,11 +12,13 @@ import GalleryItem from './components/GalleryItem'
 /**
  * Canonical gallery that displays a list of given products.
  */
-//Constants used
+
 const TWO_ITEMS = 2
 const ONE_ITEM = 1
 
-//Cache to measurement the row's height
+/**
+ *  Cache to measure the rows height
+ * */
 const cache = new CellMeasurerCache({
   fixedWidth: true,
   keyMapper: () => 1,
@@ -29,7 +31,6 @@ const Gallery = ({
   runtime: { hints: { mobile } },
   itemWidth,
 }) => {
-
   const renderRow = ({ index, key, style, parent, itemsPerRow }) => {
     const from = index * itemsPerRow
     const rowItems = products.slice(from, from + itemsPerRow)
@@ -92,7 +93,7 @@ const Gallery = ({
           {({ width, height }) => {
             const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (Math.floor(width / itemWidth) || ONE_ITEM)
             const nRows = Math.ceil(products.length / itemsPerRow)
-            
+
             return (
               <List
                 key={layoutMode}
