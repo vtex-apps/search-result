@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { find, propEq } from 'ramda'
+import OutsideClickHandler from 'react-outside-click-handler'
 
 import Arrow from '../images/Arrow'
 
@@ -14,7 +15,11 @@ class SelectionListOrderBy extends Component {
 
   handleDropdownBtClick = e => {
     e.preventDefault()
-    this.setState({ ...this.state, showDropdown: !this.state.showDropdown })
+    this.setState({ showDropdown: !this.state.showDropdown })
+  }
+
+  handleOutsideClick = e => {
+    this.setState({ showDropdown: false })
   }
 
   static propTypes = {
@@ -56,10 +61,10 @@ class SelectionListOrderBy extends Component {
   render() {
     const { orderBy } = this.props
     const { showDropdown } = this.state
-    const btClass = classNames('ph3 pv5 mv0 pointer flex justify-center items-center w-100 bg-base c-on-base t-action--small ml-auto',
+    const btClass = classNames('ph3 pv5 mv0 pointer flex justify-center items-center w-100 bg-base c-on-base t-action--small ml-auto bt br bl bb-0 br2 br--top bw1',
       {
-        'bt br bl bb-0 br2 br--top bw1 b--muted-4 shadow-1': showDropdown,
-        'bn pl1': !showDropdown,
+        'b--muted-4 shadow-1': showDropdown,
+        'b--transparent pl1': !showDropdown,
       }
     )
 
@@ -72,15 +77,17 @@ class SelectionListOrderBy extends Component {
 
     return (
       <div className="vtex-dropdown__mobile relative justify-center flex-auto pt1 w-100 dib">
-        <button onClick={this.handleDropdownBtClick} className={btClass}>
-          <span className="vtex-filter-popup__title c-on-base t-action--small ml-auto">{this.getOptionTitle(orderBy)}</span>
-          <span className="vtex-filter-popup__arrow-icon ml-auto pt2">
-            <Arrow size={16} />
-          </span>
-        </button>
-        <div className={contentClass}>
-          {this.renderOptions()}
-        </div>
+        <OutsideClickHandler onOutsideClick={this.handleOutsideClick}>
+          <button onClick={this.handleDropdownBtClick} className={btClass}>
+            <span className="vtex-filter-popup__title c-on-base t-action--small ml-auto">{this.getOptionTitle(orderBy)}</span>
+            <span className="vtex-filter-popup__arrow-icon ml-auto pt2">
+              <Arrow size={16} />
+            </span>
+          </button>        
+          <div className={contentClass}>
+            {this.renderOptions()}
+          </div>
+        </OutsideClickHandler>
       </div>
     )
   }
