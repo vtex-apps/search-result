@@ -2,6 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import { List, WindowScroller, AutoSizer, CellMeasurer, CellMeasurerCache } from 'react-virtualized'
 import { PropTypes } from 'prop-types'
+import { Adopt } from 'react-adopt'
 
 import { withRuntimeContext, NoSSR } from 'render'
 
@@ -11,20 +12,23 @@ import GalleryItem from './components/GalleryItem'
 /**
  * Canonical gallery that displays a list of given products.
  */
+//Constants used
+const TWO_ITEMS = 2
+const ONE_ITEM = 1
+
+//Cache to items row measurement
+const cache = new CellMeasurerCache({
+  fixedWidth: true,
+  keyMapper: () => 1,
+})
 
 const Gallery = ({
   products,
   summary,
   layoutMode,
   runtime: { hints: { mobile } },
-  itemWidth }) => {
-  const TWO_ITEMS = 2
-  const ONE_ITEM = 1
-
-  const cache = new CellMeasurerCache({
-    fixedWidth: true,
-    keyMapper: () => 1,
-  })
+  itemWidth,
+}) => {
 
   const renderRow = ({ index, key, style, parent, itemsPerRow }) => {
     const from = index * itemsPerRow
@@ -40,68 +44,71 @@ const Gallery = ({
         columnIndex={0}
         key={key}
         parent={parent}
-        rowIndex={index}>
-        {({ measure }) => {
-          return (<div className={containerClasses} key={key} style={style} onLoad={measure}>
-            {rowItems.map(item =>
-              (<div
+        rowIndex={index}
+      >
+        {({ measure }) => (
+          <div className={containerClasses} key={key} style={style} onLoad={measure}>
+            {rowItems.map(item => (
+              <div
                 key={item.productId}
-                className="vtex-gallery__item mv2 pa1">
+                className="vtex-gallery__item mv2 pa1"
+              >
                 <GalleryItem
                   item={item}
                   summary={summary}
                   displayMode={layoutMode}
                 />
-              </div>)
-            )}
-          </div>)
-        }}
+              </div>
+            ))}
+          </div>
+        )}
       </CellMeasurer>
     )
   }
 
-  const renderOnServer = () => {
-    return products.map(item => (
-      <div
-        key={item.productId}
-        className="vtex-gallery__item mv2 pa1">
-        <GalleryItem
-          item={item}
-          summary={summary}
-          displayMode={layoutMode}
-        />
-      </div>
-    ))
-  }
+  const renderOnServer = () => products.map(item => (
+    <div
+      key={item.productId}
+      className="vtex-gallery__item mv2 pa1"
+    >
+      <GalleryItem
+        item={item}
+        summary={summary}
+        displayMode={layoutMode}
+      />
+    </div>
+  ))
 
   return (
     <div className="vtex-gallery pa3 bn">
       <NoSSR onSSR={renderOnServer()}>
-        <WindowScroller>
-          {({ height }) => {
+        <Adopt
+          mapper={{
+            scroller: <WindowScroller />,
+            autoSizer: <AutoSizer disableHeight />,
+          }}
+          mapProps={({ scroller: { height }, autoSizer: { width } }) => ({ height, width })}
+        >
+          {({ width, height }) => {
+            const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (Math.floor(width / itemWidth) || ONE_ITEM)
+            const nRows = Math.ceil(products.length / itemsPerRow)
+            
             return (
-              <AutoSizer disableHeight>
-                {({ width }) => {
-                  const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (Math.floor(width / itemWidth) || ONE_ITEM)
-                  const nRows = Math.ceil(products.length / itemsPerRow)
-
-                  return (<List
-                    key={layoutMode}
-                    deferredMeasurementCache={cache}
-                    autoHeight
-                    width={width}
-                    height={height}
-                    rowCount={nRows}
-                    rowHeight={cache.rowHeight}
-                    rowRenderer={args => renderRow({ ...args, itemsPerRow })}
-                  />)
-                }}
-              </AutoSizer>
+              <List
+                key={layoutMode}
+                deferredMeasurementCache={cache}
+                autoHeight
+                width={width}
+                height={height}
+                rowCount={nRows}
+                rowHeight={cache.rowHeight}
+                rowRenderer={args => renderRow({ ...args, itemsPerRow })}
+              />
             )
           }}
-        </WindowScroller>
+        </Adopt>
       </NoSSR>
-    </div>
+    </div >
   )
 }
 
