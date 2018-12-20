@@ -161,6 +161,10 @@
   min-height: 1rem;
 }
 
+.vtex-accordion-filter__item-options {
+  padding-bottom: 9rem;
+}
+
 body.vtex-filter-popup-open {
   overflow: hidden;
 }
