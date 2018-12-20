@@ -21,6 +21,7 @@ const InfiniteScrollLoaderResult = props => {
       dataLength={products.length}
       next={onFetchMore}
       hasMore={products.length < recordsFiltered}
+      useWindow={false}
     >
       <SearchResult {...props}>
         {fetchMoreLoading && (
