@@ -127,7 +127,7 @@ class FilterSidebar extends Component {
             selectedFilters={selectedFilters}
             isOptionSelected={this.isOptionSelected}
           />
-          <div className="vtex-filter-buttons__box bt b--muted-5 bottom-0 fixed w-100 items-center flex z-999 bg-base">
+          <div className="vtex-filter-buttons__box bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base">
             <div className="bottom-0 fl w-50 pl4 pr2">
               <Button block variation="tertiary" size="default" onClick={this.handleClearFilters}>
                 <FormattedMessage id="search-result.filter-button.clear" />

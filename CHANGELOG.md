@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
-- Add Scroll on filter sidebar items.
+- Fix Scroll on filter sidebar items.
 
 ## [3.4.2] - 2018-12-21
 ### Fixed
