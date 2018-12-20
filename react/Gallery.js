@@ -16,7 +16,7 @@ import GalleryItem from './components/GalleryItem'
 const TWO_ITEMS = 2
 const ONE_ITEM = 1
 
-//Cache to items row measurement
+//Cache to measurement the row's height
 const cache = new CellMeasurerCache({
   fixedWidth: true,
   keyMapper: () => 1,
