@@ -19,16 +19,17 @@ const ShowMoreLoaderResult = props => {
   return (
     <SearchResult {...props}>
       <div className="vtex-search-result__button--show-more w-100 flex justify-center">
-        <Button
-          onClick={onFetchMore}
-          disabled={!(products.length < recordsFiltered)}
-          isLoading={fetchMoreLoading}
-          size="small"
-        >
-          <FormattedMessage
-            id="search-result.show-more-button"
-          />
-        </Button>
+        { (!!products && products.length < recordsFiltered) && (
+          <Button
+            onClick={onFetchMore}
+            isLoading={fetchMoreLoading}
+            size="small"
+          >
+            <FormattedMessage
+              id="search-result.show-more-button"
+            />
+          </Button>)
+        }
       </div>
     </SearchResult>
   )

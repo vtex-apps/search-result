@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.4.2] - 2018-12-21
+### Fixed
+- Show more button must disappear when there is no more products.
+
 ## [3.4.1] - 2018-12-20
 ### Fixed
 - Close dropdown sort when click outside of the dropdown box.
