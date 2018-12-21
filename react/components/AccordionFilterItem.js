@@ -46,7 +46,7 @@ const AccordionFilterItem = ({
       </div>
     )}
     {open && (
-      <div className="vtex-accordion-filter__item-options pl7 overflow-hidden">
+      <div className="vtex-accordion-filter__item-options pl7 overflow-scroll h-100">
         {options.map(opt => {
           const { Name } = opt
 

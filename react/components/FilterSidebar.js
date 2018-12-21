@@ -57,12 +57,14 @@ class FilterSidebar extends Component {
   }
 
   handleClose = () => {
+    document.body.style.overflow = 'visible'
     this.setState({
       openContent: false,
     })
   }
 
   handleOpen = () => {
+    document.body.style.overflow = 'hidden'
     this.setState({
       openContent: true,
     })
@@ -127,7 +129,7 @@ class FilterSidebar extends Component {
             selectedFilters={selectedFilters}
             isOptionSelected={this.isOptionSelected}
           />
-          <div className="vtex-filter-buttons__box bt b--muted-5 bottom-0 fixed w-100 items-center flex">
+          <div className="vtex-filter-buttons__box bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base">
             <div className="bottom-0 fl w-50 pl4 pr2">
               <Button block variation="tertiary" size="default" onClick={this.handleClearFilters}>
                 <FormattedMessage id="search-result.filter-button.clear" />
