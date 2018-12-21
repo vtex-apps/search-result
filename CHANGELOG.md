@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
-- SHow more button must disappear when there is no more products.
+- Show more button must disappear when there is no more products.
 
 ## [3.4.1] - 2018-12-20
 ### Fixed
