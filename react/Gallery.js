@@ -34,7 +34,7 @@ const Gallery = ({
 
   cache.clearAll()
 
-  const renderItem = (item) => (
+  const renderItem = item => (
     <div
       key={item.productId}
       className="vtex-gallery__item mv2 pa1"
@@ -86,7 +86,6 @@ const Gallery = ({
     <NoSSR onSSR={ssrFallBack}>
       <div className="vtex-gallery pa3 bn">
         <Adopt
-          key={layoutMode}
           mapper={{
             scroller: <WindowScroller />,
             autoSizer: <AutoSizer disableHeight />,
