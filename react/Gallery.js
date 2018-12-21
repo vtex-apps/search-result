@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { List, WindowScroller, AutoSizer, CellMeasurer, CellMeasurerCache } from 'react-virtualized'
-import { PropTypes } from 'prop-types'
+import PropTypes from 'prop-types'
 import { Adopt } from 'react-adopt'
 
 import { withRuntimeContext, NoSSR } from 'render'
@@ -34,7 +34,7 @@ const Gallery = ({
 
   cache.clearAll()
 
-  const toJsxItem = (item) => (
+  const renderItem = (item) => (
     <div
       key={item.productId}
       className="vtex-gallery__item mv2 pa1"
@@ -65,7 +65,7 @@ const Gallery = ({
       >
         {({ measure }) => (
           <div className={containerClasses} key={key} style={style} onLoad={measure}>
-            {rowItems.map(toJsxItem)}
+            {rowItems.map(renderItem)}
           </div>
         )}
       </CellMeasurer>
@@ -78,7 +78,7 @@ const Gallery = ({
 
   const ssrFallBack = (
     <div className={ssrContainer}>
-      {products.map(toJsxItem)}
+      {products.map(renderItem)}
     </div>
   )
 
