@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.4.4] - 2018-12-21
+### Fixed
+- Search bar items alignment.
+
 ## [3.4.3] - 2018-12-21
 ### Fixed
 - Fix Scroll on filter sidebar items.

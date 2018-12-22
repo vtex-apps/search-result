@@ -149,7 +149,7 @@ class SearchResult extends Component {
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
-    const filterClasses = classNames({ 'flex justify-center flex-auto pt1 ': mobile })
+    const filterClasses = classNames({ 'flex justify-center flex-auto ': mobile })
     const searchResultClasses = classNames('vtex-search-result vtex-p', { 'force-full-width': mobile })
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
