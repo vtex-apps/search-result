@@ -128,9 +128,20 @@
   display: -ms-flexbox;
   -ms-flex-wrap: wrap;
   -ms-flex-direction: column;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr));
   grid-gap: 0.375rem;
   margin: 0 auto;
+}
+
+.vtex-gallery__row {
+  display: grid;
+  grid-gap: 0.375rem;
+  grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr));
+}
+
+.vtex-gallery--two-columns{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .vtex-filter-popup__button {

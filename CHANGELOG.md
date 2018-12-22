@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.5.0] - 2018-12-21
+### Changed
+- Use `react-virtualized` to render gallery items.
+
 ## [3.4.4] - 2018-12-21
 ### Fixed
 - Search bar items alignment.
@@ -36,7 +40,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Sort option on mobile to a dropdown button.
 
 ### Fixed
-- Destructure arguments in `OrderBy.js`.
+- Improve code quality in `OrderBy.js`.
 
 ## [3.1.0] - 2018-12-10
 ### Changed
