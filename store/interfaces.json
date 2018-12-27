@@ -1,7 +1,13 @@
 {
   "search-result": {
-    "allowed": ["not-found", "breadcrumb"],
-    "required": ["filter-navigator", "gallery"],
+    "allowed": [
+      "not-found",
+      "breadcrumb"
+    ],
+    "required": [
+      "filter-navigator",
+      "gallery"
+    ],
     "component": "index"
   },
   "filter-navigator": {
@@ -11,11 +17,15 @@
   },
   "gallery": {
     "allowed": [],
-    "required": ["product-summary"],
+    "required": [
+      "product-summary"
+    ],
     "component": "Gallery"
   },
   "not-found": {
-    "allowed": ["shelf"],
+    "allowed": [
+      "shelf"
+    ],
     "required": [],
     "component": "NotFoundSearch"
   }

@@ -1,6 +1,11 @@
 {
   "search-result": {
-    "blocks": ["filter-navigator", "gallery"],
+    "blocks": [
+      "filter-navigator",
+      "gallery",
+      "not-found",
+      "breadcrumb"
+    ],
     "inheritComponent": true
   },
   "filter-navigator": {
@@ -8,7 +13,9 @@
     "inheritComponent": true
   },
   "gallery": {
-    "blocks": ["product-summary"],
+    "blocks": [
+      "product-summary"
+    ],
     "inheritComponent": true
   },
   "not-found": {
