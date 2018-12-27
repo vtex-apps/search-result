@@ -162,7 +162,7 @@ export const schemaPropsTypes = {
 }
 
 export const searchResultContainerPropTypes = {
-  /** Internal route path. e.g: 'store/search' */
+  /** Internal route path. e.g: 'store.search' */
   pagesPath: PropTypes.string,
   /** Internal route params.
    * e.g: { department: 'eletronics', category: 'smartphones' }

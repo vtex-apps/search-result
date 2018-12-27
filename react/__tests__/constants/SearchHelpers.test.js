@@ -58,9 +58,9 @@ describe('getSpecificationFilterFromLink', () => {
 })
 
 describe('getPagesArgs', () => {
-  const DEPARTMENT_PAGE = 'store/department'
-  const CATEGORY_PAGE = 'store/category'
-  const SEARCH_PAGE = 'store/search'
+  const DEPARTMENT_PAGE = 'store.search#department'
+  const CATEGORY_PAGE = 'store.search#category'
+  const SEARCH_PAGE = 'store.search'
 
   it('should stay in the search page', () => {
     const filterSpec = {
@@ -292,7 +292,7 @@ describe('getPagesArgs', () => {
       name: 'Branco',
       slug: 'Branco',
       link: '/eletrodomesticos/Geladeira---Refrigerador/Geladeira---Refrigerador/Branco?map=c,c,c,specificationFilter_14',
-      pagesPath: 'store/subcategory',
+      pagesPath: 'store.search#subcategory',
       query: {
         rest: ['Outra categoria', 'Branco', '110V'],
         map: ['c', 'c', 'c', 'c', 'specificationFilter_14', 'specificationFilter_692'],

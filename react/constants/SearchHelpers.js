@@ -95,9 +95,9 @@ function addFilter(map, rest, { path, type, link, pagesPath, slug }) {
 
   let categoryIndex = map.filter(m => m === mapSymbol).length
 
-  if (pagesPath === 'store/department') {
+  if (pagesPath === 'store.search#department') {
     categoryIndex = Math.max(1, categoryIndex)
-  } else if (pagesPath === 'store/category') {
+  } else if (pagesPath === 'store.search#category') {
     categoryIndex = Math.max(2, categoryIndex)
   }
 

@@ -8,7 +8,7 @@ global.window = jsdom.window
 global.document = window.document
 global.__RUNTIME__ = {
   pages: {
-    'store/search': '/path',
+    'store.search': '/path',
   },
 }
 
@@ -16,10 +16,10 @@ Enzyme.configure({ adapter: new Adapter() })
 
 window.matchMedia =
   window.matchMedia ||
-  function() {
+  function () {
     return {
       matches: false,
-      addListener: function() {},
-      removeListener: function() {},
+      addListener: function () { },
+      removeListener: function () { },
     }
   }
