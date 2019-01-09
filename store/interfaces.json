@@ -1,0 +1,32 @@
+{
+  "search-result": {
+    "allowed": [
+      "not-found",
+      "breadcrumb"
+    ],
+    "required": [
+      "filter-navigator",
+      "gallery"
+    ],
+    "component": "index"
+  },
+  "filter-navigator": {
+    "allowed": [],
+    "required": [],
+    "component": "FilterNavigator"
+  },
+  "gallery": {
+    "allowed": [],
+    "required": [
+      "product-summary"
+    ],
+    "component": "Gallery"
+  },
+  "not-found": {
+    "allowed": [
+      "shelf"
+    ],
+    "required": [],
+    "component": "NotFoundSearch"
+  }
+}
