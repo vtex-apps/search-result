@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.4.4] - 2019-01-09
+### Fixed
+- Undefined params when in landing page
+
 ## [2.4.3] - 2018-12-13
 ### Fixed
 - Add call to close callback on item select in order by component.

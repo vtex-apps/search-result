@@ -27,7 +27,7 @@ export default class SearchResultContainer extends Component {
 
   get breadcrumbsProps() {
     const {
-      params: { category, department, term },
+      params: { category, department, term } = {},
     } = this.props
 
     const categories = []
