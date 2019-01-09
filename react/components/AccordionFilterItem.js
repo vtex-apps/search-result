@@ -8,6 +8,8 @@ import Arrow from '../images/Arrow'
 import { facetOptionShape } from '../constants/propTypes'
 import { getFilterTitle } from '../constants/SearchHelpers'
 
+import searchResult from '../searchResult.css'
+
 const AccordionFilterItem = ({
   title,
   options,
@@ -23,7 +25,7 @@ const AccordionFilterItem = ({
       <div className="pl7">
         <div
           className={classNames(
-            'vtex-accordion-filter__item vtex-filter-accordion__item-box t-body pr5 pv3 pointer bb b--muted-5',
+            `vtex-accordion-filter__item ${searchResult.filterAccordionItemBox} t-body pr5 pv3 pointer bb b--muted-5`,
             {
               'vtex-accordion-filter__item--active': open,
               'vtex-accordion-filter__item--hidden dn': !show,
@@ -46,13 +48,13 @@ const AccordionFilterItem = ({
       </div>
     )}
     {open && (
-      <div className="vtex-accordion-filter__item-options pl7 overflow-scroll h-100">
+      <div className={`${searchResult.accordionFilterItemOptions} pl7 overflow-scroll h-100`}>
         {options.map(opt => {
           const { Name } = opt
 
           return (
             <div
-              className="vtex-filter-accordion__item-box pr4 pt3 items-center flex bb b--muted-5"
+              className={`${searchResult.filterAccordionItemBox} pr4 pt3 items-center flex bb b--muted-5`}
               key={Name}
             >
               <Checkbox

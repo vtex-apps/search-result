@@ -8,6 +8,8 @@ import { searchResultPropTypes } from '../constants/propTypes'
 import OrderBy from './OrderBy'
 import LayoutModeSwitcher, { LAYOUT_MODE } from './LayoutModeSwitcher'
 
+import searchResult from '../searchResult.css'
+
 /**
  * Search Result Component.
  */
@@ -152,8 +154,8 @@ class SearchResult extends Component {
     const filterClasses = classNames({ 'flex justify-center flex-auto ': mobile })
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
-        <div className="vtex-search-result w-100 mw9">
-          <div className="vtex-search-result__breadcrumb db-ns dn-s">
+        <div className={`${searchResult.container} w-100 mw9`}>
+          <div className={`${searchResult.breadcrumb} db-ns dn-s`}>
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
           <div className="vtex-search-result__total-products pv5 bn-ns bt-s b--muted-4 tc-s tl">
@@ -165,7 +167,7 @@ class SearchResult extends Component {
             </FormattedMessage>
           </div>
           {!hideFacets && (
-            <div className="vtex-search-result__filters">
+            <div className={searchResult.filters}>
               <div className={filterClasses}>
                 <ExtensionPoint
                   id="filter-navigator"
@@ -185,15 +187,15 @@ class SearchResult extends Component {
               </div>
             </div>
           )}
-          {mobile && <div className="vtex-search-result__border bg-muted-5 h-50 self-center" />}
+          {mobile && <div className={`${searchResult.border} bg-muted-5 h-50 self-center`} />}
           <div className="vtex-search-result__order-by">
             <OrderBy
               orderBy={orderBy}
               getLinkProps={getLinkProps}
             />
           </div>
-          {mobile && <div className="vtex-search-result__border-2 bg-muted-5 h-50 self-center" />}
-          {mobile && <div className="vtex-search-result__switch flex justify-center items-center">
+          {mobile && <div className={`${searchResult.border2} bg-muted-5 h-50 self-center`} />}
+          {mobile && <div className={`${searchResult.switch} flex justify-center items-center`}>
             <div className="dn-ns db-s">
               <LayoutModeSwitcher
                 activeMode={galleryLayoutMode}
@@ -201,7 +203,7 @@ class SearchResult extends Component {
               />
             </div>
           </div>}
-          <div className="vtex-search-result__gallery">
+          <div className={searchResult.gallery}>
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
                 <div className="w3 ma0">
@@ -209,14 +211,14 @@ class SearchResult extends Component {
                 </div>
               </div>
             ) : (
-                <ExtensionPoint
-                  id="gallery"
-                  products={products}
-                  summary={summary}
-                  className="bn"
-                  layoutMode={galleryLayoutMode}
-                />
-              )}
+              <ExtensionPoint
+                id="gallery"
+                products={products}
+                summary={summary}
+                className="bn"
+                layoutMode={galleryLayoutMode}
+              />
+            )}
             {children}
           </div>
         </div>

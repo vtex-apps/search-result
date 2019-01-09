@@ -1,0 +1,131 @@
+.buttonShowMore {
+  -ms-grid-row: 3;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 5;
+  grid-column: pagination;
+  grid-row: pagination;
+  justify-self: end;
+  align-self: center;
+}
+
+.switch {
+  -ms-grid-row: 1;
+  -ms-grid-column: 6;
+  grid-column: switch;
+  grid-row: switch;
+}
+
+.breadcrumb {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: breadcrumb;
+  grid-row: breadcrumb;
+  align-self: center;
+  justify-self: stretch;
+}
+
+.filters {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-column: filters;
+  grid-row: filters;
+}
+
+.gallery {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 5;
+  grid-column: gallery;
+  grid-row: gallery;
+}
+
+.border {
+  grid-column: border;
+  grid-row: border;
+  -ms-grid-column: 2;
+  -ms-grid-row: 2;
+  width: 2px;
+}
+
+.border2 {
+  grid-column: borderseq;
+  grid-row: borderseq;
+  -ms-grid-column: 2;
+  -ms-grid-row: 2;
+  width: 2px;
+}
+
+.gallery {
+  display: grid;
+  display: -ms-flexbox;
+  -ms-flex-wrap: wrap;
+  -ms-flex-direction: column;
+  grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr));
+  grid-gap: 0.375rem;
+  margin: 0 auto;
+}
+
+.galleryRow {
+  display: grid;
+  grid-gap: 0.375rem;
+  grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr));
+}
+
+.galleryTwoColumns{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.filterPopupButton {
+  background: none;
+  height: 3.3rem;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.filterAccordionItemBox {
+  height: 3.75rem;
+}
+
+.filterAccordionBreadcrumbs {
+  height: 4.25rem;
+}
+
+.filterButtonsBox {
+  height: 5rem;
+}
+
+.filterPopupFooter {
+  margin-top: auto;
+}
+
+.accordionFilterItemOptions {
+  padding-bottom: 9rem;
+}
+
+.selectedFilterCheckbox {
+  height: 1rem;
+  width: 1rem;
+}
+
+.dropdownMobile {
+  margin-top: -2px;
+}
+
+@media only screen and (min-width: 40em) {
+  .border {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 40em) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .galleryTwoColumns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

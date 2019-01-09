@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Arrow from '../images/Arrow'
 
+import searchResult from '../searchResult.css'
+
 const { Provider, Consumer } = React.createContext()
 
 export class PopupProvider extends Component {
@@ -115,7 +117,7 @@ export default class Popup extends Component {
           return (
             <div className={className} ref={this.contentRef}>
               <button
-                className={classNames('vtex-filter-popup__button ph3 pv5 mv0 mh3 pointer flex justify-center items-center', {
+                className={classNames(`${searchResult.filterPopupButton} ph3 pv5 mv0 mh3 pointer flex justify-center items-center`, {
                   'bb b--muted-1': open,
                   'bn': !open,
                 })}
@@ -130,7 +132,7 @@ export default class Popup extends Component {
                 <div className="vtex-filter-popup__content">
                   {childrenFn(renderProps)}
                 </div>
-                <div className="vtex-filter-popup__footer">
+                <div className={searchResult.filterPopupFooter}>
                   {renderFooter(renderProps)}
                 </div>
               </div>
