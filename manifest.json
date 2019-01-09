@@ -19,10 +19,10 @@
   "dependencies": {
     "vtex.store-graphql": "2.x",
     "vtex.store-resources": "0.x",
-    "vtex.store-components": "3.3.2-beta",
-    "vtex.breadcrumb": "1.0.3-beta",
-    "vtex.product-summary": "2.3.3-beta",
-    "vtex.shelf": "1.2.1-beta",
+    "vtex.store-components": "3.x",
+    "vtex.breadcrumb": "1.x",
+    "vtex.product-summary": "2.x",
+    "vtex.shelf": "1.x",
     "vtex.styleguide": "8.x",
     "vtex.use-svg": "0.x"
   }
