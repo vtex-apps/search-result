@@ -5,6 +5,8 @@ import classNames from 'classnames'
 
 import Arrow from '../images/Arrow'
 
+import searchResult from '../searchResult.css'
+
 /**
  * Collapsable filters container
  */
@@ -60,7 +62,7 @@ export default class FilterOptionTemplate extends Component {
       'vtex-search-result__filter--available': !selected,
     })
 
-    const titleClassName = classNames('vtex-search-result__filter-title t-heading-7 flex items-center justify-between', {
+    const titleClassName = classNames(`${searchResult.filterTitle} t-heading-7 flex items-center justify-between`, {
       'ttu': selected,
     })
 

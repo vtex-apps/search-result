@@ -85,6 +85,10 @@
   border-right: none;
 }
 
+.accordionFilter {
+  color: #828282;
+}
+
 .filterAccordionItemBox {
   height: 3.75rem;
 }
@@ -118,6 +122,10 @@
   .border {
     display: none;
   }
+
+  .sidebar {
+    width: 16rem;
+  }
 }
 
 @media only screen and (max-width: 40em) {
@@ -127,5 +135,9 @@
 
   .galleryTwoColumns {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .filterTitle {
+    font-weight: 300;
   }
 }

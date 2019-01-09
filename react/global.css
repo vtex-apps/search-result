@@ -54,10 +54,6 @@ body.vtex-filter-popup-open {
   overflow: hidden;
 }
 
-.vtex-accordion-filter, .vtex-orderby-popup {
-  color: #828282;
-}
-
 .vtex-accordion-filter__item--active svg path {
   fill: #4f4f4f;
 }
@@ -73,12 +69,6 @@ body.vtex-filter-popup-open {
   }
 }
 
-@media only screen and (min-width: 40em) {
-  .vtex-search-result__sidebar {
-    width: 16rem;
-  }
-}
-
 @media only screen and (max-width: 40em) {
   .vtex-search-result {
     -ms-grid-columns: 2fr 1px 1.5fr 1px 0.2fr;
@@ -91,9 +81,5 @@ body.vtex-filter-popup-open {
 
   .vtex-search-result__total-products {
     justify-self: stretch;
-  }
-
-  .vtex-search-result__filter-title {
-    font-weight: 300;
   }
 }
