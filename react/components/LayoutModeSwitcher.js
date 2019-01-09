@@ -6,6 +6,8 @@ import Grid from '../images/Grid'
 import SingleItemGrid from '../images/SingleItemGrid'
 import InlineGrid from '../images/InlineGrid'
 
+import searchResult from '../searchResult.css'
+
 export const LAYOUT_MODE = [
   {
     value: 'normal',
@@ -36,7 +38,7 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
     }
 
     return (
-      <div className="vtex-layout-switcher vtex-layout-switcher dn-ns h-100 flex justify-center items-center">
+      <div className={`${searchResult.layoutSwitcher} dn-ns h-100 flex justify-center items-center`}>
         <Button
           variation="tertiary"
           size="small"

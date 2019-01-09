@@ -111,10 +111,10 @@ class FilterSidebar extends Component {
           })}
           onClick={this.handleOpen}
         >
-          <span className="vtex-filter-popup__title c-on-base t-action--small ml-auto">
+          <span className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}>
             <FormattedMessage id="search-result.filter-action.title" />
           </span>
-          <span className="vtex-filter-popup__arrow-icon ml-auto pl3 pt2">
+          <span className={`${searchResult.filterPopupArrowIcon} ml-auto pl3 pt2`}>
             <FilterIcon size={16} active />
           </span>
         </button>

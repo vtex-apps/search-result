@@ -39,7 +39,7 @@ const Gallery = ({
   const renderItem = item => (
     <div
       key={item.productId}
-      className="vtex-gallery__item mv2 pa1"
+      className={`${searchResult.galleryItem} mv2 pa1`}
     >
       <GalleryItem
         item={item}

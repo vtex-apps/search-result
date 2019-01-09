@@ -4,6 +4,8 @@ import { FormattedMessage } from 'react-intl'
 import { ExtensionPoint } from 'render'
 import { range } from 'ramda'
 
+import searchResult from './searchResult.css'
+
 const flexStyle = { flex: 1 }
 
 /**
@@ -13,7 +15,7 @@ const flexStyle = { flex: 1 }
 const NotFoundSearch = ({ term }) => {
   return (
     <Fragment>
-      <div className="vtex-search-not-found flex flex-column-s flex-row-ns justify-center-ns items-center h-auto-s h5-ns">
+      <div className={`${searchResult.searchNotFound} flex flex-column-s flex-row-ns justify-center-ns items-center h-auto-s h5-ns`}>
         <div className="flex justify-end-ns justify-center-s ttu f1 ph4 pv4-s pv0-ns c-muted-3 ph9 b" style={flexStyle}>
           ops!
         </div>

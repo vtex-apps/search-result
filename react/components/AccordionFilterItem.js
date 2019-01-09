@@ -25,7 +25,7 @@ const AccordionFilterItem = ({
       <div className="pl7">
         <div
           className={classNames(
-            `vtex-accordion-filter__item ${searchResult.filterAccordionItemBox} t-body pr5 pv3 pointer bb b--muted-5`,
+            `${searchResult.accordionFilterItem} ${searchResult.filterAccordionItemBox} t-body pr5 pv3 pointer bb b--muted-5`,
             {
               'vtex-accordion-filter__item--active': open,
               'vtex-accordion-filter__item--hidden dn': !show,
@@ -34,13 +34,13 @@ const AccordionFilterItem = ({
           onClick={onOpen}
         >
           <div
-            className={classNames('vtex-accordion-filter__item-title pv4', {
+            className={classNames(`${searchResult.accordionFilterItemTitle} pv4`, {
               'c-on-base t-small': open,
               'c-on-base t-heading-5': !open,
             })}
           >
             {getFilterTitle(title, intl)}
-            <span className="vtex-accordion-filter__item-icon fr">
+            <span className={`${searchResult.accordionFilterItemIcon} fr`}>
               <Arrow up={open} size={10} />
             </span>
           </div>
