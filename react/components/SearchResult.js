@@ -203,7 +203,7 @@ class SearchResult extends Component {
               />
             </div>
           </div>}
-          <div className={searchResult.gallery}>
+          <div className={searchResult.resultGallery}>
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
                 <div className="w3 ma0">
