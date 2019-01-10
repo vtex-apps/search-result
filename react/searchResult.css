@@ -239,3 +239,7 @@
     justify-self: stretch;
   }
 }
+
+.filterPopupOpen {
+  overflow: hidden;
+}

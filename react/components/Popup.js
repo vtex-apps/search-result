@@ -24,25 +24,24 @@ export class PopupProvider extends Component {
         openedItem: null,
       })
 
-      document.body.classList.remove('vtex-filter-popup-open')
+      document.body.classList.remove(searchResult.filterPopupOpen)
     }
   }
 
   handleClick = id => e => {
     e.preventDefault()
-
     if (id === this.state.openedItem) {
       this.setState({
         openedItem: null,
       })
 
-      document.body.classList.remove('vtex-filter-popup-open')
+      document.body.classList.remove(searchResult.filterPopupOpen)
     } else {
       this.setState({
         openedItem: id,
       })
 
-      document.body.classList.add('vtex-filter-popup-open')
+      document.body.classList.add(searchResult.filterPopupOpen)
     }
   }
 
