@@ -158,7 +158,7 @@ class SearchResult extends Component {
           <div className={`${searchResult.breadcrumb} db-ns dn-s`}>
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
-          <div className="vtex-search-result__total-products pv5 bn-ns bt-s b--muted-4 tc-s tl">
+          <div className={`${searchResult.totalProducts} pv5 bn-ns bt-s b--muted-4 tc-s tl`}>
             <FormattedMessage
               id="search.total-products"
               values={{ recordsFiltered }}
@@ -188,7 +188,7 @@ class SearchResult extends Component {
             </div>
           )}
           {mobile && <div className={`${searchResult.border} bg-muted-5 h-50 self-center`} />}
-          <div className="vtex-search-result__order-by">
+          <div className={searchResult.orderBy}>
             <OrderBy
               orderBy={orderBy}
               getLinkProps={getLinkProps}

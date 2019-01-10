@@ -1,3 +1,18 @@
+.container {
+  display: grid;
+  display: -ms-grid;
+  grid-template-columns: 206px repeat(5, auto);
+  -ms-grid-columns: 206px (1fr)[5];
+  grid-template-areas:
+    "breadcrumb breadcrumb breadcrumb . quantity orderby"
+    "filters gallery gallery gallery gallery gallery"
+    ". pagination pagination pagination pagination pagination";
+}
+
+.container a {
+  outline: 0;
+}
+
 .buttonShowMore {
   -ms-grid-row: 3;
   -ms-grid-column: 2;
@@ -23,6 +38,10 @@
   grid-row: breadcrumb;
   align-self: center;
   justify-self: stretch;
+}
+
+.filter span:hover {
+  color: rgb(153, 175, 202)
 }
 
 .filters {
@@ -72,7 +91,7 @@
   grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr));
 }
 
-.galleryTwoColumns{
+.galleryTwoColumns {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
@@ -109,13 +128,79 @@
   padding-bottom: 9rem;
 }
 
-.selectedFilterCheckbox {
-  height: 1rem;
-  width: 1rem;
-}
-
 .dropdownMobile {
   margin-top: -2px;
+}
+
+.accordionFilterItemActive svg path {
+  fill: #4f4f4f;
+}
+
+.totalProducts {
+  -ms-grid-row: 1;
+  -ms-grid-column: 5;
+  grid-column: quantity;
+  grid-row: quantity;
+  justify-self: end;
+  align-self: center;
+}
+
+.orderBy {
+  -ms-grid-row: 1;
+  -ms-grid-column: 6;
+  grid-column: orderby;
+  grid-row: orderby;
+  align-self: center;
+  justify-self: stretch;
+}
+
+.accordionFilterItemHidden {}
+
+.accordionFilterItem {}
+
+.filterAccordionItemBox {}
+
+.accordionFilterItemTitle {}
+
+.accordionFilterItemIcon {}
+
+.filterSelected {}
+
+.filterAvailable {}
+
+.filterPopupTitle {}
+
+.filterPopupArrowIcon {}
+
+.footerButton {}
+
+.layoutSwitcher {}
+
+.buttonShowMore {}
+
+.filterPopup {}
+
+.filterPopupContent {}
+
+.filterPopupContentContainer {}
+
+.filterPopupContentContainerOpen {}
+
+.selectedFilterCheckbox {}
+
+.galleryItem {}
+
+.searchNotFound {}
+
+.filterTitle {}
+
+.filterIcon {}
+
+@media only screen and (max-width: 60em) {
+  .container {
+    -ms-grid-columns: 180px (1fr)[5];
+    grid-template-columns: 180px repeat(5, auto);
+  }
 }
 
 @media only screen and (min-width: 40em) {
@@ -129,6 +214,15 @@
 }
 
 @media only screen and (max-width: 40em) {
+  .container {
+    -ms-grid-columns: 2fr 1px 1.5fr 1px 0.2fr;
+    grid-template-columns: 2fr 1px 1.5fr 1px 0.2fr;
+    grid-template-areas:
+      "orderby border filters borderseq switch"
+      "quantity quantity quantity quantity quantity"
+      "gallery gallery gallery gallery gallery";
+  }
+
   .gallery {
     grid-template-columns: 1fr;
   }
@@ -139,5 +233,9 @@
 
   .filterTitle {
     font-weight: 300;
+  }
+
+  .totalProducts {
+    justify-self: stretch;
   }
 }

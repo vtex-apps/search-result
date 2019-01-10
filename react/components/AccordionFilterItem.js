@@ -27,8 +27,8 @@ const AccordionFilterItem = ({
           className={classNames(
             `${searchResult.accordionFilterItem} ${searchResult.filterAccordionItemBox} t-body pr5 pv3 pointer bb b--muted-5`,
             {
-              'vtex-accordion-filter__item--active': open,
-              'vtex-accordion-filter__item--hidden dn': !show,
+              [searchResult.accordionFilterItemActive]: open,
+              [`${searchResult.accordionFilterItemHidden} dn`]: !show,
             }
           )}
           onClick={onOpen}
