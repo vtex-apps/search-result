@@ -185,7 +185,7 @@ export default class SearchResultContainer extends Component {
       : InfiniteScrollLoaderResult
 
     return (
-      <Container>
+      <Container className="pt3-m pt5-l">
         <PopupProvider>
           <div id="search-result-anchor" />
           <ResultComponent
