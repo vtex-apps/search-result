@@ -150,10 +150,9 @@ class SearchResult extends Component {
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
     const filterClasses = classNames({ 'flex justify-center flex-auto ': mobile })
-    const searchResultClasses = classNames('vtex-search-result vtex-p', { 'force-full-width': mobile })
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
-        <div className={searchResultClasses}>
+        <div className="vtex-search-result">
           <div className="vtex-search-result__breadcrumb db-ns dn-s">
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
@@ -210,14 +209,14 @@ class SearchResult extends Component {
                 </div>
               </div>
             ) : (
-              <ExtensionPoint
-                id="gallery"
-                products={products}
-                summary={summary}
-                className="bn"
-                layoutMode={galleryLayoutMode}
-              />
-            )}
+                <ExtensionPoint
+                  id="gallery"
+                  products={products}
+                  summary={summary}
+                  className="bn"
+                  layoutMode={galleryLayoutMode}
+                />
+              )}
             {children}
           </div>
         </div>
