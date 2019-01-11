@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.6.1] - 2019-01-11
+### Changed
+- Add `Container` for adjusting search result to store padding.
+
 ## [3.6.0] - 2019-01-09
 ### Changed
 - Bye `pages.json`! Welcome `store-builder`.
