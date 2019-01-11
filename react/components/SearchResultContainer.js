@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import QueryString from 'query-string'
 
+import { Container } from 'vtex.store-components'
+
 import { PopupProvider } from './Popup'
 import InfiniteScrollLoaderResult from './loaders/InfiniteScrollLoaderResult'
 import ShowMoreLoaderResult from './loaders/ShowMoreLoaderResult'
@@ -183,24 +185,26 @@ export default class SearchResultContainer extends Component {
       : InfiniteScrollLoaderResult
 
     return (
-      <PopupProvider>
-        <div id="search-result-anchor" />
-        <ResultComponent
-          {...this.props}
-          breadcrumbsProps={this.breadcrumbsProps}
-          getLinkProps={this.getLinkProps}
-          onFetchMore={this.handleFetchMore}
-          fetchMoreLoading={this.state.fetchMoreLoading}
-          query={query}
-          loading={loading}
-          recordsFiltered={recordsFiltered}
-          products={products}
-          brands={Brands}
-          specificationFilters={SpecificationFilters}
-          priceRanges={PriceRanges}
-          tree={CategoriesTrees}
-        />
-      </PopupProvider>
+      <Container>
+        <PopupProvider>
+          <div id="search-result-anchor" />
+          <ResultComponent
+            {...this.props}
+            breadcrumbsProps={this.breadcrumbsProps}
+            getLinkProps={this.getLinkProps}
+            onFetchMore={this.handleFetchMore}
+            fetchMoreLoading={this.state.fetchMoreLoading}
+            query={query}
+            loading={loading}
+            recordsFiltered={recordsFiltered}
+            products={products}
+            brands={Brands}
+            specificationFilters={SpecificationFilters}
+            priceRanges={PriceRanges}
+            tree={CategoriesTrees}
+          />
+        </PopupProvider>
+      </Container>
     )
   }
 }
