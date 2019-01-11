@@ -19,7 +19,7 @@ export default class LoadingOverlay extends Component {
   }
 
   componentDidMount() {
-    if (this.props.loading)this.attachEvent()
+    if (this.props.loading) this.attachEvent()
   }
 
   attachEvent = () => {
@@ -46,7 +46,7 @@ export default class LoadingOverlay extends Component {
     const { children, loading } = this.props
 
     return (
-      <div className="relative" ref={this.root_}>
+      <div className=" justify-center flex" ref={this.root_}>
         {loading && (
           <div className="absolute w-100 h-100 z-2" style={{ background: 'rgba(255, 255, 255, .6)' }}>
             <div className="absolute top-0 bottom-0 left-0 right-0 flex justify-center pt11">

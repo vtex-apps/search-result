@@ -152,7 +152,7 @@ class SearchResult extends Component {
     const filterClasses = classNames({ 'flex justify-center flex-auto ': mobile })
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
-        <div className="vtex-search-result">
+        <div className="vtex-search-result w-100 mw9">
           <div className="vtex-search-result__breadcrumb db-ns dn-s">
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
