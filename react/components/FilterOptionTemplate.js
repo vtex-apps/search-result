@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Collapse } from 'react-collapse'
+import { NoSSR } from 'render';
 import classNames from 'classnames'
-
+import { canUseDOM } from 'exenv'
 import Arrow from '../images/Arrow'
 
 /**
@@ -91,11 +92,15 @@ export default class FilterOptionTemplate extends Component {
           )}
           style={{ maxHeight: '200px' }}
         >
-          {collapsable ? (
-            <Collapse isOpened={open}>
-              {this.renderChildren()}
-            </Collapse>
-          ) : this.renderChildren()}
+          {canUseDOM && collapsable ?
+            <NoSSR>
+              <Collapse isOpened={open}>
+                {this.renderChildren()}
+              </Collapse>
+            </NoSSR>
+            :
+            this.renderChildren()
+          }
         </div>
       </div>
     )
