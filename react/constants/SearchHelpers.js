@@ -52,10 +52,13 @@ export function getMapByType(type) {
 function restMapped(rest, map) {
   const restValues = (rest && rest.split(',')) || []
   const mapValues = (map && map.split(',')) || []
-  const mapValuesSliced = mapValues.slice(restValues.length * -1)
+  const mapValuesSliced = mapValues.slice(restValues.length * -1) 
+
   return restValues.reduce((acc, value, index) => {
-    return { ...acc, [value.toUpperCase()]: mapValuesSliced[index] }
-  }, {})
+    const mapValue = decodeURIComponent(mapValuesSliced[index]).replace(/\+/g," ")
+    const restValue = decodeURIComponent(value.toUpperCase()).replace(/\+/g," ")
+    return { ...acc, [restValue]:  mapValue }
+  }, {}) 
 }
 
 function removeFilter(map, rest, { slug }) {
