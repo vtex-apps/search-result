@@ -46,6 +46,13 @@ export function getMapByType(type) {
 }
 
 /**
+ * Returns an string normalized to be processed at filterNavigator
+ */
+function normalizeQueryToFilter(query){
+  return decodeURIComponent(query).replace(/\+/g," ")
+}
+
+/**
  * Returns an object mapped by restValue and your mapValue.
  * E.g.: rest='smartphones,lg' map='c,b' => { smartphones : 'c', lg: 'b' }
  */
@@ -55,8 +62,8 @@ function restMapped(rest, map) {
   const mapValuesSliced = mapValues.slice(restValues.length * -1) 
 
   return restValues.reduce((acc, value, index) => {
-    const mapValue = decodeURIComponent(mapValuesSliced[index]).replace(/\+/g," ")
-    const restValue = decodeURIComponent(value.toUpperCase()).replace(/\+/g," ")
+    const mapValue = normalizeQueryToFilter(mapValuesSliced[index])
+    const restValue = normalizeQueryToFilter(value.toUpperCase())
     return { ...acc, [restValue]:  mapValue }
   }, {}) 
 }
