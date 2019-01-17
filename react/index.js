@@ -1,5 +1,3 @@
-import './global.css'
-
 import React, { Component } from 'react'
 import ProductSummary from 'vtex.product-summary/index'
 

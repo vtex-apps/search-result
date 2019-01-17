@@ -5,6 +5,8 @@ import { FormattedMessage } from 'react-intl'
 import SearchResult from '../SearchResult'
 import { loaderPropTypes } from '../../constants/propTypes'
 
+import searchResult from '../../searchResult.css'
+
 /**
  * Search Result Component.
  */
@@ -18,7 +20,7 @@ const ShowMoreLoaderResult = props => {
 
   return (
     <SearchResult {...props}>
-      <div className="vtex-search-result__button--show-more w-100 flex justify-center">
+      <div className={`${searchResult.buttonShowMore} w-100 flex justify-center`}>
         { (!!products && products.length < recordsFiltered) && (
           <Button
             onClick={onFetchMore}

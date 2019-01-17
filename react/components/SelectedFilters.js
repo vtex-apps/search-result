@@ -7,6 +7,8 @@ import FilterOptionTemplate from './FilterOptionTemplate'
 import Check from '../images/Check'
 import { formatFacetToLinkPropsParam, HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
 
+import searchResult from '../searchResult.css'
+
 /**
  * Search Filter Component.
  */
@@ -56,7 +58,7 @@ class SelectedFilters extends Component {
                   <Check size={16} />
                 </div>
                 <input
-                  className="mr2 o-0 vtex-selected-filter__checkbox"
+                  className={`${searchResult.selectedFilterCheckbox} mr2 o-0`}
                   type="checkbox"
                   value=""
                   onChange={e => e.preventDefault()}

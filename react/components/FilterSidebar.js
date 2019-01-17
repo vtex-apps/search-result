@@ -17,6 +17,8 @@ import FilterIcon from '../images/FilterIcon'
 import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
 
+import searchResult from '../searchResult.css'
+
 class FilterSidebar extends Component {
   static propTypes = {
     map: PropTypes.string.isRequired,
@@ -103,16 +105,16 @@ class FilterSidebar extends Component {
     return (
       <Fragment>
         <button
-          className={classNames('vtex-filter-popup__button mv0 pointer flex justify-center items-center', {
+          className={classNames(`${searchResult.filterPopupButton} mv0 pointer flex justify-center items-center`, {
             'bb b--muted-1': openContent,
             'bn': !openContent,
           })}
           onClick={this.handleOpen}
         >
-          <span className="vtex-filter-popup__title c-on-base t-action--small ml-auto">
+          <span className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}>
             <FormattedMessage id="search-result.filter-action.title" />
           </span>
-          <span className="vtex-filter-popup__arrow-icon ml-auto pl3 pt2">
+          <span className={`${searchResult.filterPopupArrowIcon} ml-auto pl3 pt2`}>
             <FilterIcon size={16} active />
           </span>
         </button>
@@ -129,7 +131,7 @@ class FilterSidebar extends Component {
             selectedFilters={selectedFilters}
             isOptionSelected={this.isOptionSelected}
           />
-          <div className="vtex-filter-buttons__box bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base">
+          <div className={`${searchResult.filterButtonsBox} bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base`}>
             <div className="bottom-0 fl w-50 pl4 pr2">
               <Button block variation="tertiary" size="default" onClick={this.handleClearFilters}>
                 <FormattedMessage id="search-result.filter-button.clear" />

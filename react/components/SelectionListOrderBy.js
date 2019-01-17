@@ -4,9 +4,10 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { find, propEq } from 'ramda'
-import OutsideClickHandler from 'react-outside-click-handler'
 
 import Arrow from '../images/Arrow'
+
+import searchResult from '../searchResult.css'
 
 class SelectionListOrderBy extends Component {
   state = {
@@ -76,10 +77,10 @@ class SelectionListOrderBy extends Component {
     )
 
     return (
-      <div className="vtex-dropdown__mobile relative justify-center flex-auto pt1 w-100 dib">
+      <div className={`${searchResult.dropdownMobile} relative justify-center flex-auto pt1 w-100 dib`}>
         <button onClick={this.handleDropdownBtClick} className={btClass}>
-          <span className="vtex-filter-popup__title c-on-base t-action--small ml-auto">{this.getOptionTitle(orderBy)}</span>
-          <span className="vtex-filter-popup__arrow-icon pt1 ml-auto pt1">
+          <span className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}>{this.getOptionTitle(orderBy)}</span>
+          <span className={`${searchResult.filterPopupArrowIcon} pt1 ml-auto pt1`}>
             <Arrow size={10} />
           </span>
         </button>

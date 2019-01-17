@@ -9,6 +9,8 @@ import { withRuntimeContext, NoSSR } from 'render'
 import { productShape } from './constants/propTypes'
 import GalleryItem from './components/GalleryItem'
 
+import searchResult from './searchResult.css'
+
 /**
  * Canonical gallery that displays a list of given products.
  */
@@ -37,7 +39,7 @@ const Gallery = ({
   const renderItem = item => (
     <div
       key={item.productId}
-      className="vtex-gallery__item mv2 pa1"
+      className={`${searchResult.galleryItem} mv2 pa1`}
     >
       <GalleryItem
         item={item}
@@ -51,8 +53,8 @@ const Gallery = ({
     const from = index * itemsPerRow
     const rowItems = products.slice(from, from + itemsPerRow)
 
-    const containerClasses = classNames('vtex-gallery__row', {
-      'vtex-gallery--two-columns': layoutMode === 'small' && mobile,
+    const containerClasses = classNames(searchResult.galleryRow, {
+      [searchResult.galleryTwoColumns]: layoutMode === 'small' && mobile,
     })
 
     return (
@@ -72,8 +74,8 @@ const Gallery = ({
     )
   }
 
-  const ssrContainer = classNames('vtex-gallery pa3 bn', {
-    'vtex-gallery--two-columns': layoutMode == 'small' && mobile
+  const ssrContainer = classNames(`${searchResult.gallery} pa3 bn`, {
+    [searchResult.galleryTwoColumns]: layoutMode == 'small' && mobile
   })
 
   const ssrFallBack = (
@@ -84,7 +86,7 @@ const Gallery = ({
 
   return (
     <NoSSR onSSR={ssrFallBack}>
-      <div className="vtex-gallery pa3 bn">
+      <div className={`${searchResult.gallery} pa3 bn`}>
         <Adopt
           mapper={{
             scroller: <WindowScroller />,

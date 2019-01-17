@@ -5,6 +5,8 @@ import classNames from 'classnames'
 
 import Arrow from '../images/Arrow'
 
+import searchResult from '../searchResult.css'
+
 /**
  * Collapsable filters container
  */
@@ -55,12 +57,12 @@ export default class FilterOptionTemplate extends Component {
       return null
     }
 
-    const className = classNames('vtex-search-result__filter pv3 bb b--muted-4', {
-      'vtex-search-result__filter--selected': selected,
-      'vtex-search-result__filter--available': !selected,
+    const className = classNames(`${searchResult.filter} pv3 bb b--muted-4`, {
+      [searchResult.filterSelected]: selected,
+      [searchResult.filterAvailable]: !selected,
     })
 
-    const titleClassName = classNames('vtex-search-result__filter-title t-heading-7 flex items-center justify-between', {
+    const titleClassName = classNames(`${searchResult.filterTitle} t-heading-7 flex items-center justify-between`, {
       'ttu': selected,
     })
 
@@ -75,7 +77,7 @@ export default class FilterOptionTemplate extends Component {
           <div className={titleClassName}>
             {title}
             {collapsable && (
-              <span className="vtex-search-result__filter-icon" style={{ height: 10 }}>
+              <span className={searchResult.filterIcon} style={{ height: 10 }}>
                 <Arrow up={open} />
               </span>
             )}

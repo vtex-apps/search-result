@@ -7,6 +7,8 @@ import Icon from 'vtex.use-svg/Icon'
 import { mountOptions } from '../constants/SearchHelpers'
 import AccordionFilterItem from './AccordionFilterItem'
 
+import searchResult from '../searchResult.css'
+
 class AccordionFilterContainer extends Component {
   static propTypes = {
     /** Current available filters */
@@ -63,8 +65,8 @@ class AccordionFilterContainer extends Component {
 
     const nonEmptyFilters = filters.filter(spec => spec.options.length > 0)
     return (
-      <div className="vtex-accordion-filter h-100">
-        <div className="vtex-filter-accordion__breadcrumbs pointer flex flex-row items-center pa5 bg-base w-100 z-max bb b--muted-4">
+      <div className={`${searchResult.accordionFilter} h-100`}>
+        <div className={`${searchResult.filterAccordionBreadcrumbs} pointer flex flex-row items-center pa5 bg-base w-100 z-max bb b--muted-4`}>
           <div className="pv4 flex items-center" onClick={() => this.setState({ openedItem: null })}>
             <div className={classNames('t-heading-4', {
               'c-muted-2': !!openedItem,

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Arrow from '../images/Arrow'
 
+import searchResult from '../searchResult.css'
+
 const { Provider, Consumer } = React.createContext()
 
 export class PopupProvider extends Component {
@@ -22,25 +24,24 @@ export class PopupProvider extends Component {
         openedItem: null,
       })
 
-      document.body.classList.remove('vtex-filter-popup-open')
+      document.body.classList.remove(searchResult.filterPopupOpen)
     }
   }
 
   handleClick = id => e => {
     e.preventDefault()
-
     if (id === this.state.openedItem) {
       this.setState({
         openedItem: null,
       })
 
-      document.body.classList.remove('vtex-filter-popup-open')
+      document.body.classList.remove(searchResult.filterPopupOpen)
     } else {
       this.setState({
         openedItem: id,
       })
 
-      document.body.classList.add('vtex-filter-popup-open')
+      document.body.classList.add(searchResult.filterPopupOpen)
     }
   }
 
@@ -90,14 +91,14 @@ export default class Popup extends Component {
           const { isOpen, onToggle } = contextProps
           const open = isOpen(id)
 
-          const className = classNames('vtex-filter-popup relative  justify-center flex ', {
+          const className = classNames(`${searchResult.filterPopup} relative justify-center flex`, {
             'vtex-filter-popup--open': open,
           })
 
           const contentClassName = classNames(
-            'vtex-filter-popup__content-container h-auto bg-base fixed dn w-100 left-0 bottom-0 z-1 ph3 overflow-y-auto flex-column',
+            `${searchResult.filterPopupContentContainer} h-auto bg-base fixed dn w-100 left-0 bottom-0 z-1 ph3 overflow-y-auto flex-column`,
             {
-              'vtex-filter-popup__content-container--open flex': open,
+              [`${searchResult.filterPopupContentContainerOpen} flex`]: open,
             }
           )
 
@@ -115,22 +116,22 @@ export default class Popup extends Component {
           return (
             <div className={className} ref={this.contentRef}>
               <button
-                className={classNames('vtex-filter-popup__button ph3 pv5 mv0 mh3 pointer flex justify-center items-center', {
+                className={classNames(`${searchResult.filterPopupButton} ph3 pv5 mv0 mh3 pointer flex justify-center items-center`, {
                   'bb b--muted-1': open,
                   'bn': !open,
                 })}
                 onClick={onToggle(id)}
               >
-                <span className="vtex-filter-popup__title c-on-base t-action--small ml-auto">{title}</span>
-                <span className="vtex-filter-popup__arrow-icon ml-auto pl3 pt2">
+                <span className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}>{title}</span>
+                <span className={`${searchResult.filterPopupArrowIcon} ml-auto pl3 pt2`}>
                   {icon}
                 </span>
               </button>
               <div className={contentClassName} style={{ top: contentTop }}>
-                <div className="vtex-filter-popup__content">
+                <div className={searchResult.filterPopupContent}>
                   {childrenFn(renderProps)}
                 </div>
-                <div className="vtex-filter-popup__footer">
+                <div className={searchResult.filterPopupFooter}>
                   {renderFooter(renderProps)}
                 </div>
               </div>

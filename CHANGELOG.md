@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.7.0] - 2019-01-17
+### Added
+- Support to CSS Modules.
+
 ## [3.6.1] - 2019-01-11
 ### Changed
 - Add `Container` for adjusting search result to store padding.

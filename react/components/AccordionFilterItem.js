@@ -8,6 +8,8 @@ import Arrow from '../images/Arrow'
 import { facetOptionShape } from '../constants/propTypes'
 import { getFilterTitle } from '../constants/SearchHelpers'
 
+import searchResult from '../searchResult.css'
+
 const AccordionFilterItem = ({
   title,
   options,
@@ -23,22 +25,22 @@ const AccordionFilterItem = ({
       <div className="pl7">
         <div
           className={classNames(
-            'vtex-accordion-filter__item vtex-filter-accordion__item-box t-body pr5 pv3 pointer bb b--muted-5',
+            `${searchResult.accordionFilterItem} ${searchResult.filterAccordionItemBox} t-body pr5 pv3 pointer bb b--muted-5`,
             {
-              'vtex-accordion-filter__item--active': open,
-              'vtex-accordion-filter__item--hidden dn': !show,
+              [searchResult.accordionFilterItemActive]: open,
+              [`${searchResult.accordionFilterItemHidden} dn`]: !show,
             }
           )}
           onClick={onOpen}
         >
           <div
-            className={classNames('vtex-accordion-filter__item-title pv4', {
+            className={classNames(`${searchResult.accordionFilterItemTitle} pv4`, {
               'c-on-base t-small': open,
               'c-on-base t-heading-5': !open,
             })}
           >
             {getFilterTitle(title, intl)}
-            <span className="vtex-accordion-filter__item-icon fr">
+            <span className={`${searchResult.accordionFilterItemIcon} fr`}>
               <Arrow up={open} size={10} />
             </span>
           </div>
@@ -46,13 +48,13 @@ const AccordionFilterItem = ({
       </div>
     )}
     {open && (
-      <div className="vtex-accordion-filter__item-options pl7 overflow-scroll h-100">
+      <div className={`${searchResult.accordionFilterItemOptions} pl7 overflow-scroll h-100`}>
         {options.map(opt => {
           const { Name } = opt
 
           return (
             <div
-              className="vtex-filter-accordion__item-box pr4 pt3 items-center flex bb b--muted-5"
+              className={`${searchResult.filterAccordionItemBox} pr4 pt3 items-center flex bb b--muted-5`}
               key={Name}
             >
               <Checkbox
