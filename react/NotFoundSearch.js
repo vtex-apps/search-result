@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Fragment } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { ExtensionPoint } from 'render'
+import { ExtensionPoint } from 'vtex.render-runtime'
 import { range } from 'ramda'
 
 import searchResult from './searchResult.css'

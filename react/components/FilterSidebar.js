@@ -8,7 +8,7 @@ import {
 } from 'ramda'
 import React, { Component, Fragment } from 'react'
 import { FormattedMessage } from 'react-intl'
-import { withRuntimeContext, Link } from 'render'
+import { withRuntimeContext, Link } from 'vtex.render-runtime'
 import { Button } from 'vtex.styleguide'
 
 import { facetOptionShape } from '../constants/propTypes'

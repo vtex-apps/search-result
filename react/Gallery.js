@@ -4,7 +4,7 @@ import { List, WindowScroller, AutoSizer, CellMeasurer, CellMeasurerCache } from
 import PropTypes from 'prop-types'
 import { Adopt } from 'react-adopt'
 
-import { withRuntimeContext, NoSSR } from 'render'
+import { withRuntimeContext, NoSSR } from 'vtex.render-runtime'
 
 import { productShape } from './constants/propTypes'
 import GalleryItem from './components/GalleryItem'

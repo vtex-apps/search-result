@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Spinner } from 'vtex.styleguide'
-import { ExtensionPoint, withRuntimeContext } from 'render'
+import { ExtensionPoint, withRuntimeContext } from 'vtex.render-runtime'
 import { FormattedMessage } from 'react-intl'
 import classNames from 'classnames'
 import LoadingOverlay from './LoadingOverlay'

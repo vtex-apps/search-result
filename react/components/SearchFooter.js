@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { range } from 'ramda'
 import React, { Component, Fragment } from 'react'
 import { IconCaretLeft, IconCaretRight } from 'vtex.styleguide'
-import { withRuntimeContext } from 'render'
+import { withRuntimeContext } from 'vtex.render-runtime'
 
 import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
 

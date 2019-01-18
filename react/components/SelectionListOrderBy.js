@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRuntimeContext, Link } from 'render'
+import { withRuntimeContext, Link } from 'vtex.render-runtime'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'

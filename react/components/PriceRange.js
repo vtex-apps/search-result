@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withRuntimeContext } from 'render'
+import { withRuntimeContext } from 'vtex.render-runtime'
 import { injectIntl, intlShape } from 'react-intl'
 import { Slider } from 'vtex.styleguide'
 

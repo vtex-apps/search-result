@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
 import { Dropdown } from 'vtex.styleguide'
-import { withRuntimeContext } from 'render'
+import { withRuntimeContext } from 'vtex.render-runtime'
 
 import SelectionListOrderBy from './SelectionListOrderBy'
 import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'

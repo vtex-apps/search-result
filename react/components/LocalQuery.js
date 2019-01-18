@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
-import { withRuntimeContext } from 'render'
+import { withRuntimeContext } from 'vtex.render-runtime'
 import { Queries } from 'vtex.store-resources'
 
 import { SORT_OPTIONS } from './OrderBy'
