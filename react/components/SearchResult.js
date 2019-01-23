@@ -37,7 +37,10 @@ class SearchResult extends Component {
     specificationFilters: this.props.specificationFilters,
     tree: this.props.tree,
     hiddenFacets: this.props.hiddenFacets,
+    scrollValue: 0
   }
+
+  searchOptionsBar = React.createRef()
 
   handleLayoutChange = e => {
     e.preventDefault()
@@ -99,6 +102,42 @@ class SearchResult extends Component {
         showLoadingAsOverlay: true,
       })
     }
+
+    document.addEventListener('scroll', this.handleScroll)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('scroll', this.handleScroll)
+  }
+
+  handleScroll = () => {
+    // If it's in leanMode, pretend it's scrolled all the way to the bottom,
+    // in order to make it look compressed
+    const scroll = this.props.leanMode ? Infinity : window.scrollY
+    
+    if (typeof scroll !== 'number') return
+
+    this.setState({scrollValue: scroll})
+
+    console.log(scroll)
+    
+    if (scroll > this.state.scrollValue) this.handleScrollDown()
+    else if (scroll < this.state.scrollValue) this.handleScrollUp()
+    else return
+  }
+
+  handleScrollUp = () => {
+    const searchOptionsBarElement = this.searchOptionsBar.current
+    if (searchOptionsBarElement) {
+      searchOptionsBarElement.style.opacity = 1
+    }
+  }
+
+  handleScrollDown = () => {
+    const searchOptionsBarElement = this.searchOptionsBar.current
+    if (searchOptionsBarElement) {
+      searchOptionsBarElement.style.opacity = 0
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -151,7 +190,7 @@ class SearchResult extends Component {
     const showContentLoader = showLoading && !showLoadingAsOverlay
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
-        <div className={`${searchResult.container} w-100 mw9`}>
+        <div className={`${searchResult.container} w-100 mw9 relative`}>
           <div className={`${searchResult.breadcrumb} db-ns dn-s`}>
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
