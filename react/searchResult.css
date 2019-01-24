@@ -148,6 +148,7 @@
   grid-row: quantity;
   justify-self: end;
   align-self: center;
+  padding-top: 3.5rem;
 }
 
 .orderBy {
@@ -157,6 +158,9 @@
   grid-row: orderby;
   align-self: center;
   justify-self: stretch;
+}
+.searchOptionsBar{
+
 }
 
 .accordionFilterItemHidden {}
@@ -223,7 +227,7 @@
     -ms-grid-columns: 2fr 1px 1.5fr 1px 0.2fr;
     grid-template-columns: 2fr 1px 1.5fr 1px 0.2fr;
     grid-template-areas:
-      "orderby border filters borderseq switch"
+      "searchoptionsbar searchoptionsbar searchoptionsbar searchoptionsbar searchoptionsbar"
       "quantity quantity quantity quantity quantity"
       "gallery gallery gallery gallery gallery";
   }
@@ -242,6 +246,15 @@
 
   .totalProducts {
     justify-self: stretch;
+  }
+
+  .searchOptionsBar{
+    display: grid;
+    display: -ms-grid;
+    -ms-grid-columns: 2fr 1px 1.5fr 1px 0.2fr;
+    grid-template-columns: 2fr 1px 1.5fr 1px 0.2fr;
+    grid-template-areas:
+      "orderby border filters borderseq switch"
   }
 }
 
