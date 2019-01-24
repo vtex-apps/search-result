@@ -117,20 +117,25 @@ class SearchResult extends Component {
     
     if (typeof scroll !== 'number') return
 
-    this.setState({scrollValue: scroll})
-
+    
     console.log(scroll)
+    console.log(this.state.scrollValue)
     
     if (scroll > this.state.scrollValue) this.handleScrollDown()
     else if (scroll < this.state.scrollValue) this.handleScrollUp()
-    else return
+
+    this.setState({scrollValue: scroll})
   }
 
   handleScrollUp = () => {
     const searchOptionsBarElement = this.searchOptionsBar.current
     if (searchOptionsBarElement) {
       searchOptionsBarElement.style.opacity = 1
+
+      if (this.state.scrollValue < 40) searchOptionsBarElement.style.marginTop = 0
+      else searchOptionsBarElement.style.marginTop = "-3.4rem"
     }
+    console.log("up")
   }
 
   handleScrollDown = () => {
@@ -138,6 +143,8 @@ class SearchResult extends Component {
     if (searchOptionsBarElement) {
       searchOptionsBarElement.style.opacity = 0
     }
+
+    console.log("down")
   }
 
   componentDidUpdate(prevProps) {
@@ -188,6 +195,7 @@ class SearchResult extends Component {
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
+    
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
         <div className={`${searchResult.container} w-100 mw9 relative`}>
