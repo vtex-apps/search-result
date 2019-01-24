@@ -128,12 +128,16 @@ class SearchResult extends Component {
   }
 
   handleScrollUp = () => {
+    const marginValue = this.state.scrollValue * -0.085 - 3.4
+
+    console.log(marginValue)
+
     const searchOptionsBarElement = this.searchOptionsBar.current
     if (searchOptionsBarElement) {
       searchOptionsBarElement.style.opacity = 1
 
       if (this.state.scrollValue < 40) searchOptionsBarElement.style.marginTop = 0
-      else searchOptionsBarElement.style.marginTop = "-3.4rem"
+      else searchOptionsBarElement.style.marginTop = `-3.4rem`
     }
     console.log("up")
   }
