@@ -241,7 +241,7 @@ class SearchResult extends Component {
 
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
-    const searchOptionsBarClasses = classNames({ 'flex justify-center flex-auto fixed z-1 w-100 bg-base bb bw1 b--light-gray pr4': mobile })
+    const searchOptionsBarClasses = classNames({ 'flex justify-center flex-auto fixed z-1 w-100 mw9 bg-base bb bw1 b--light-gray': mobile })
 
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
