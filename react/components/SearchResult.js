@@ -114,32 +114,26 @@ class SearchResult extends Component {
     // If it's in leanMode, pretend it's scrolled all the way to the bottom,
     // in order to make it look compressed
     const scroll = this.props.leanMode ? Infinity : window.scrollY
+    const {runtime: { hints: { mobile } }} = this.props
     
-    if (typeof scroll !== 'number') return
+    if (typeof scroll !== 'number' || !mobile) return
 
-    
-    console.log(scroll)
-    console.log(this.state.scrollValue)
-    
     if (scroll > this.state.scrollValue) this.handleScrollDown()
-    else if (scroll < this.state.scrollValue) this.handleScrollUp()
+    else if (scroll < this.state.scrollValue) this.handleScrollUp(scroll)
 
     this.setState({scrollValue: scroll})
   }
 
-  handleScrollUp = () => {
-    const marginValue = this.state.scrollValue * -0.085 - 3.4
-
-    console.log(marginValue)
+  handleScrollUp = scrollValue => {
+    const marginValue = scrollValue * 0.08
 
     const searchOptionsBarElement = this.searchOptionsBar.current
     if (searchOptionsBarElement) {
       searchOptionsBarElement.style.opacity = 1
 
-      if (this.state.scrollValue < 40) searchOptionsBarElement.style.marginTop = 0
-      else searchOptionsBarElement.style.marginTop = `-3.4rem`
+      if (scrollValue < 36) searchOptionsBarElement.style.marginTop = `-${marginValue}rem`
+      else searchOptionsBarElement.style.marginTop = `-2.4rem`
     }
-    console.log("up")
   }
 
   handleScrollDown = () => {
@@ -147,33 +141,18 @@ class SearchResult extends Component {
     if (searchOptionsBarElement) {
       searchOptionsBarElement.style.opacity = 0
     }
-
-    console.log("down")
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.loading && !this.props.loading) {
-      this.setState({
-        showLoadingAsOverlay: true,
-      })
-    }
-  }
-
-  render() {
+  getSearchOptionsBar = () => {
     const {
-      children,
-      breadcrumbsProps,
       getLinkProps,
       loading,
       fetchMoreLoading,
-      summary,
       orderBy,
       runtime: { hints: { mobile } },
     } = this.props
     const {
       galleryLayoutMode,
-      recordsFiltered,
-      products,
       brands,
       map,
       query,
@@ -184,32 +163,13 @@ class SearchResult extends Component {
       specificationFilters,
       tree,
       hiddenFacets,
-      showLoadingAsOverlay,
     } = this.state
 
-    const term = params && params.term
-      ? decodeURIComponent(params.term) : undefined
-
-    if (!products.length && !loading) {
-      return (
-        <ExtensionPoint id="not-found" term={term} />
-      )
-    }
-
     const hideFacets = !map || !map.length
-    const showLoading = loading && !fetchMoreLoading
-    const showContentLoader = showLoading && !showLoadingAsOverlay
-    
+
     return (
-      <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
-        <div className={`${searchResult.container} w-100 mw9 relative`}>
-          <div className={`${searchResult.breadcrumb} db-ns dn-s`}>
-            <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
-          </div>
-          <ExtensionPoint id="total-products"
-              recordsFiltered={recordsFiltered}
-          />
-          {!hideFacets && (
+      <React.Fragment>
+        {!hideFacets && (
             <ExtensionPoint
               id="filter-navigator"
               brands={brands}
@@ -225,7 +185,81 @@ class SearchResult extends Component {
               hiddenFacets={hiddenFacets}
               loading={loading && !fetchMoreLoading}
             />
-          )}
+        )}
+        {mobile && <div className={`${searchResult.border} bg-muted-5 h-50 self-center`} />}
+          <ExtensionPoint id="order-by"
+            orderBy={orderBy}
+            getLinkProps={getLinkProps}
+          />
+          {mobile && <div className={`${searchResult.border2} bg-muted-5 h-50 self-center`} />}
+          {mobile && <div className={`${searchResult.switch} flex justify-center items-center`}>
+            <div className="dn-ns db-s">
+              <LayoutModeSwitcher
+                activeMode={galleryLayoutMode}
+                onChange={this.handleLayoutChange}
+              />
+            </div>
+          </div>}
+      </React.Fragment>
+    )
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.loading && !this.props.loading) {
+      this.setState({
+        showLoadingAsOverlay: true,
+      })
+    }
+  }
+
+  render() {
+    const {
+      children,
+      breadcrumbsProps,
+      loading,
+      fetchMoreLoading,
+      summary,
+      runtime: { hints: { mobile } },
+    } = this.props
+    const {
+      galleryLayoutMode,
+      recordsFiltered,
+      products,
+      map,
+      params,
+      showLoadingAsOverlay,
+    } = this.state
+
+    const term = params && params.term
+      ? decodeURIComponent(params.term) : undefined
+
+    if (!products.length && !loading) {
+      return (
+        <ExtensionPoint id="not-found" term={term} />
+      )
+    }
+
+    const showLoading = loading && !fetchMoreLoading
+    const showContentLoader = showLoading && !showLoadingAsOverlay
+    const searchOptionsBarClasses = classNames({ 'flex justify-center flex-auto fixed z-1 w-100 bg-base bb bw1 b--light-gray pr4': mobile })
+
+    return (
+      <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
+        <div className={`${searchResult.container} w-100 mw9`}>
+          <div className={`${searchResult.breadcrumb} db-ns dn-s`}>
+            <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
+          </div>
+          <div className={`${searchResult.totalProducts} pv5 bn-ns bt-s b--muted-4 tc-s tl`}>
+            <FormattedMessage
+              id="search.total-products"
+              values={{ recordsFiltered }}
+            >
+              {txt => <span className="ph4 c-muted-2">{txt}</span>}
+            </FormattedMessage>
+          </div>
+          {mobile ? <div ref={this.searchOptionsBar} className={`${searchResult.searchOptionsBar} ${searchOptionsBarClasses}`}>
+            {this.getSearchOptionsBar()}
+          </div> : this.getSearchOptionsBar()}
           <div className={searchResult.resultGallery}>
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
@@ -244,20 +278,6 @@ class SearchResult extends Component {
             )}
             {children}
           </div>
-          {mobile && <div className={`${searchResult.border} bg-muted-5 h-50 self-center`} />}
-          <ExtensionPoint id="order-by"
-            orderBy={orderBy}
-            getLinkProps={getLinkProps}
-          />
-          {mobile && <div className={`${searchResult.border2} bg-muted-5 h-50 self-center`} />}
-          {mobile && <div className={`${searchResult.switch} flex justify-center items-center`}>
-            <div className="dn-ns db-s">
-              <LayoutModeSwitcher
-                activeMode={galleryLayoutMode}
-                onChange={this.handleLayoutChange}
-              />
-            </div>
-          </div>}
         </div>
       </LoadingOverlay>
     )
