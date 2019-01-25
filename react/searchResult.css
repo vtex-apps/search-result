@@ -148,7 +148,6 @@
   grid-row: quantity;
   justify-self: end;
   align-self: center;
-  padding-top: 3.5rem;
 }
 
 .orderBy {
@@ -246,6 +245,7 @@
 
   .totalProducts {
     justify-self: stretch;
+    padding-top: 4.5rem;
   }
 
   .searchOptionsBar{
