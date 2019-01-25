@@ -33,7 +33,7 @@ export default class GalleryItem extends Component {
       return path(['commertialOffer', 'AvailableQuantity'], seller)
     })
     
-    const skusavailable = compose(sum, transform)(normalizedProduct.items)
+    const skusAvailable = compose(sum, transform)(normalizedProduct.items)
 
     if (sku) {
       const [seller = { commertialOffer: { Price: 0, ListPrice: 0 } }] = sku.sellers || []
@@ -41,10 +41,8 @@ export default class GalleryItem extends Component {
       const [image = { imageUrl: '' }] = sku.images || []
       const unmixedImage = { ...image, imageUrl: image.imageUrl.replace(/^https?:/, '') }
       normalizedProduct.sku = { ...sku, seller, referenceId, image: unmixedImage }
-      seller.commertialOffer.AvailableQuantity = skusavailable
+      seller.commertialOffer.AvailableQuantity = skusAvailable
     }
-
-    console.log(normalizedProduct, 'SearchResult')
 
     return normalizedProduct
   }
