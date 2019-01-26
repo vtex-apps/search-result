@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { ExtensionPoint } from 'vtex.render-runtime'
+import { path, compose, sum, map } from 'ramda'
 
 import { productShape } from '../constants/propTypes'
 import { PropTypes } from 'prop-types'
@@ -11,7 +12,7 @@ export default class GalleryItem extends Component {
   static propTypes = {
     /** Item info that will be rendered. */
     item: productShape,
-    /** ProductSummary props.  */
+    /** ProductSummary props. */
     summary: PropTypes.any,
     /** Display mode of the product summary */
     displayMode: PropTypes.string,
@@ -25,12 +26,17 @@ export default class GalleryItem extends Component {
     const normalizedProduct = { ...product }
     const [sku] = normalizedProduct.items || []
 
+    const transform = array => map(path(['sellers', '0', 'commertialOffer', 'AvailableQuantity']), array)
+    
+    const skusAvailable = compose(sum, transform)(normalizedProduct.items)
+
     if (sku) {
       const [seller = { commertialOffer: { Price: 0, ListPrice: 0 } }] = sku.sellers || []
       const [referenceId = { Value: '' }] = sku.referenceId || []
       const [image = { imageUrl: '' }] = sku.images || []
       const unmixedImage = { ...image, imageUrl: image.imageUrl.replace(/^https?:/, '') }
       normalizedProduct.sku = { ...sku, seller, referenceId, image: unmixedImage }
+      seller.commertialOffer.AvailableQuantity = skusAvailable
     }
 
     return normalizedProduct
