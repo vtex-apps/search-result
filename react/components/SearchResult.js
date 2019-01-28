@@ -10,9 +10,9 @@ import searchResult from '../searchResult.css'
 
 const HEADER_SIZE = 36
 const CONVERSION_MARGIN_VALUE = 0.08
-const MARGIN_TOP = -2.4 //rem
-const FADE_DURATION = 500 //ms - It should be passed via props in the future
-const FADE_DELAY = 0 //ms - Same as above
+const MARGIN_TOP = "-2.4rem"
+const FADE_DURATION = "500ms" // It should be passed via props in the future
+const FADE_DELAY = "0ms" // Same as above
 
 /**
  * Search Result Component.
@@ -133,11 +133,11 @@ class SearchResult extends Component {
 
     const searchOptionsBarElement = this.searchOptionsBar.current
     if (searchOptionsBarElement) {
-      searchOptionsBarElement.style.transition = `opacity ${FADE_DURATION}ms ${FADE_DELAY}ms`
+      searchOptionsBarElement.style.transition = `opacity ${FADE_DURATION} ${FADE_DELAY}`
       searchOptionsBarElement.style.opacity = 1
 
       if (scrollValue < HEADER_SIZE) searchOptionsBarElement.style.marginTop = `-${marginValue}rem`
-      else searchOptionsBarElement.style.marginTop = `${MARGIN_TOP}rem`
+      else searchOptionsBarElement.style.marginTop = MARGIN_TOP
     }
   }
 
@@ -145,7 +145,7 @@ class SearchResult extends Component {
     const searchOptionsBarElement = this.searchOptionsBar.current
     if (searchOptionsBarElement) {
       searchOptionsBarElement.style.opacity = 0
-      searchOptionsBarElement.style.transition = `opacity ${FADE_DURATION}ms ${FADE_DELAY}ms`
+      searchOptionsBarElement.style.transition = `opacity ${FADE_DURATION} ${FADE_DELAY}`
     }
   }
 
