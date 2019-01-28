@@ -254,7 +254,8 @@
     -ms-grid-columns: 2fr 1px 1.5fr 1px 0.2fr;
     grid-template-columns: 2fr 1px 1.5fr 1px 0.2fr;
     grid-template-areas:
-      "orderby border filters borderseq switch"
+      "orderby border filters borderseq switch";
+    width: 96%
   }
 }
 
