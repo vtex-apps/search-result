@@ -8,6 +8,12 @@ import LayoutModeSwitcher, { LAYOUT_MODE } from './LayoutModeSwitcher'
 
 import searchResult from '../searchResult.css'
 
+const HEADER_SIZE = 36
+const CONVERSION_MARGIN_VALUE = 0.08
+const MARGIN_TOP = -2.4 //rem
+const FADE_DURATION = 500 //ms - It should be passed via props in the future
+const FADE_DELAY = 0 //ms - Same as above
+
 /**
  * Search Result Component.
  */
@@ -111,8 +117,6 @@ class SearchResult extends Component {
   }
 
   handleScroll = () => {
-    // If it's in leanMode, pretend it's scrolled all the way to the bottom,
-    // in order to make it look compressed
     const scroll = this.props.leanMode ? Infinity : window.scrollY
     const {runtime: { hints: { mobile } }} = this.props
     
@@ -125,14 +129,15 @@ class SearchResult extends Component {
   }
 
   handleScrollUp = scrollValue => {
-    const marginValue = scrollValue * 0.08
+    const marginValue = scrollValue * CONVERSION_MARGIN_VALUE
 
     const searchOptionsBarElement = this.searchOptionsBar.current
     if (searchOptionsBarElement) {
+      searchOptionsBarElement.style.transition = `opacity ${FADE_DURATION}ms ${FADE_DELAY}ms`
       searchOptionsBarElement.style.opacity = 1
 
-      if (scrollValue < 36) searchOptionsBarElement.style.marginTop = `-${marginValue}rem`
-      else searchOptionsBarElement.style.marginTop = `-2.4rem`
+      if (scrollValue < HEADER_SIZE) searchOptionsBarElement.style.marginTop = `-${marginValue}rem`
+      else searchOptionsBarElement.style.marginTop = `${MARGIN_TOP}rem`
     }
   }
 
@@ -140,6 +145,7 @@ class SearchResult extends Component {
     const searchOptionsBarElement = this.searchOptionsBar.current
     if (searchOptionsBarElement) {
       searchOptionsBarElement.style.opacity = 0
+      searchOptionsBarElement.style.transition = `opacity ${FADE_DURATION}ms ${FADE_DELAY}ms`
     }
   }
 
@@ -241,7 +247,7 @@ class SearchResult extends Component {
 
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
-    const searchOptionsBarClasses = classNames({ 'flex justify-center flex-auto fixed z-1 w-100 mw9 bg-base bb bw1 b--light-gray': mobile })
+    const searchOptionsBarClasses = classNames({ 'flex justify-center flex-auto fixed z-1 bg-base bb bw1 b--light-gray': mobile })
 
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
@@ -257,9 +263,13 @@ class SearchResult extends Component {
               {txt => <span className="ph4 c-muted-2">{txt}</span>}
             </FormattedMessage>
           </div>
-          {mobile ? <div ref={this.searchOptionsBar} className={`${searchResult.searchOptionsBar} ${searchOptionsBarClasses}`}>
-            {this.getSearchOptionsBar()}
-          </div> : this.getSearchOptionsBar()}
+          {mobile ? (
+            <div ref={this.searchOptionsBar} className={`${searchResult.searchOptionsBar} ${searchOptionsBarClasses}`}>
+              {this.getSearchOptionsBar()}
+            </div> 
+          ): 
+            this.getSearchOptionsBar()
+          }
           <div className={searchResult.resultGallery}>
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
