@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { withRuntimeContext } from 'vtex.render-runtime'
 import { flatten, path, identity, contains } from 'ramda'
 import ContentLoader from 'react-content-loader'
+import classNames from 'classnames'
 
 import FilterSidebar from './components/FilterSidebar'
 import SelectedFilters from './components/SelectedFilters'
@@ -13,6 +14,8 @@ import {
   getMapByType,
 } from './constants/SearchHelpers'
 import { facetOptionShape, paramShape, hiddenFacetsSchema } from './constants/propTypes'
+
+import searchResult from './searchResult.css'
 
 export const CATEGORIES_TYPE = 'Categories'
 export const BRANDS_TYPE = 'Brands'
@@ -176,6 +179,7 @@ class FilterNavigator extends Component {
       loading,
       runtime: { hints: { mobile } },
     } = this.props
+    const filterClasses = classNames({ 'flex justify-center flex-auto ': mobile })
 
     if (!map || !map.length) {
       return null
@@ -203,30 +207,36 @@ class FilterNavigator extends Component {
 
     if (mobile) {
       return (
-        <FilterSidebar
-          filters={this.filters}
-          selectedFilters={this.selectedFilters}
-          getLinkProps={getLinkProps}
-          map={map}
-          rest={rest}
-        />
+        <div className={searchResult.filters}>
+          <div className={filterClasses}>
+            <FilterSidebar
+              filters={this.filters}
+              selectedFilters={this.selectedFilters}
+              getLinkProps={getLinkProps}
+              map={map}
+              rest={rest}
+            />
+          </div>
+        </div>
       )
     }
 
     return (
-      <Fragment>
-        <SelectedFilters
-          filters={this.selectedFilters}
-          getLinkProps={getLinkProps}
-        />
-        <AvailableFilters
-          getLinkProps={getLinkProps}
-          filters={this.filters}
-          map={map}
-          rest={rest}
-          priceRange={priceRange}
-        />
-      </Fragment>
+      <div className={searchResult.filters}>
+        <div className={filterClasses}>
+          <SelectedFilters
+            filters={this.selectedFilters}
+            getLinkProps={getLinkProps}
+          />
+          <AvailableFilters
+            getLinkProps={getLinkProps}
+            filters={this.filters}
+            map={map}
+            rest={rest}
+            priceRange={priceRange}
+          />
+        </div>
+      </div>
     )
   }
 }

@@ -55,8 +55,13 @@
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   -ms-grid-column-span: 5;
-  grid-column: gallery;
+  grid-column-start: filters;
+  grid-column-end: gallery;
   grid-row: gallery;
+}
+
+.filters + .resultGallery {
+  grid-column-start: gallery;
 }
 
 .border {

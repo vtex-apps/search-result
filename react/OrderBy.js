@@ -7,6 +7,8 @@ import { withRuntimeContext } from 'vtex.render-runtime'
 import SelectionListOrderBy from './components/SelectionListOrderBy'
 import { HEADER_SCROLL_OFFSET } from './constants/SearchHelpers'
 
+import searchResult from './searchResult.css'
+
 export const SORT_OPTIONS = [
   {
     value: 'OrderByTopSaleDESC',
@@ -66,30 +68,34 @@ class OrderBy extends Component {
 
     if (mobile) {
       return (
-        <SelectionListOrderBy
-          orderBy={orderBy}
-          getLinkProps={getLinkProps}
-          options={this.sortingOptions}
-        />
+        <div className={searchResult.orderBy}>
+          <SelectionListOrderBy
+            orderBy={orderBy}
+            getLinkProps={getLinkProps}
+            options={this.sortingOptions}
+          />
+        </div>
       )
     }
 
     return (
-      <Dropdown
-        size="large"
-        options={this.sortingOptions}
-        value={orderBy}
-        onChange={(_, ordenation) => {
-          const { page, params, queryString } = getLinkProps({ ordenation })
-          runtime.navigate({
-            page: page,
-            params: params,
-            query: queryString,
-            fallbackToWindowLocation: false,
-            scrollOptions: { baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET },
-          })
-        }}
-      />
+      <div className={searchResult.orderBy}>
+        <Dropdown
+          size="large"
+          options={this.sortingOptions}
+          value={orderBy}
+          onChange={(_, ordenation) => {
+            const { page, params, queryString } = getLinkProps({ ordenation })
+            runtime.navigate({
+              page: page,
+              params: params,
+              query: queryString,
+              fallbackToWindowLocation: false,
+              scrollOptions: { baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET },
+            })
+          }}
+        />
+      </div>
     )
   }
 }
