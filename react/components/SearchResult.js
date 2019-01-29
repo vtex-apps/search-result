@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint, withRuntimeContext } from 'vtex.render-runtime'
-import { FormattedMessage } from 'react-intl'
+
 import classNames from 'classnames'
 import LoadingOverlay from './LoadingOverlay'
 import { searchResultPropTypes } from '../constants/propTypes'
-import OrderBy from './OrderBy'
 import LayoutModeSwitcher, { LAYOUT_MODE } from './LayoutModeSwitcher'
 
 import searchResult from '../searchResult.css'
@@ -158,14 +157,6 @@ class SearchResult extends Component {
           <div className={`${searchResult.breadcrumb} db-ns dn-s`}>
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
-          <div className={`${searchResult.totalProducts} pv5 bn-ns bt-s b--muted-4 tc-s tl`}>
-            <FormattedMessage
-              id="search.total-products"
-              values={{ recordsFiltered }}
-            >
-              {txt => <span className="ph4 c-muted-2">{txt}</span>}
-            </FormattedMessage>
-          </div>
           {!hideFacets && (
             <div className={searchResult.filters}>
               <div className={filterClasses}>
@@ -188,8 +179,11 @@ class SearchResult extends Component {
             </div>
           )}
           {mobile && <div className={`${searchResult.border} bg-muted-5 h-50 self-center`} />}
+          <ExtensionPoint id="total-products"
+              recordsFiltered={recordsFiltered}
+          />
           <div className={searchResult.orderBy}>
-            <OrderBy
+            <ExtensionPoint id="order-by"
               orderBy={orderBy}
               getLinkProps={getLinkProps}
             />

@@ -4,12 +4,13 @@
       "filter-navigator",
       "gallery",
       "not-found",
-      "breadcrumb"
+      "breadcrumb",
+      "total-products",
+      "order-by"
     ],
     "inheritComponent": true
   },
   "filter-navigator": {
-    "blocks": [],
     "inheritComponent": true
   },
   "gallery": {
@@ -19,7 +20,12 @@
     "inheritComponent": true
   },
   "not-found": {
-    "blocks": [],
+    "inheritComponent": true
+  },
+  "total-products": {
+    "inheritComponent": true
+  },
+  "order-by": {
     "inheritComponent": true
   }
 }

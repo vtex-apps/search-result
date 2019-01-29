@@ -2,21 +2,20 @@
   "search-result": {
     "allowed": [
       "not-found",
-      "breadcrumb"
+      "breadcrumb",
+      "filter-navigator",
+      "total-products",
+      "order-by"
     ],
     "required": [
-      "filter-navigator",
       "gallery"
     ],
     "component": "index"
   },
   "filter-navigator": {
-    "allowed": [],
-    "required": [],
     "component": "FilterNavigator"
   },
   "gallery": {
-    "allowed": [],
     "required": [
       "product-summary"
     ],
@@ -26,7 +25,12 @@
     "allowed": [
       "shelf"
     ],
-    "required": [],
     "component": "NotFoundSearch"
+  },
+  "order-by": {
+    "component": "OrderBy"
+  },
+  "total-products": {
+    "component": "TotalProducts"
   }
 }

@@ -4,8 +4,8 @@ import { injectIntl, intlShape } from 'react-intl'
 import { Dropdown } from 'vtex.styleguide'
 import { withRuntimeContext } from 'vtex.render-runtime'
 
-import SelectionListOrderBy from './SelectionListOrderBy'
-import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
+import SelectionListOrderBy from './components/SelectionListOrderBy'
+import { HEADER_SCROLL_OFFSET } from './constants/SearchHelpers'
 
 export const SORT_OPTIONS = [
   {
