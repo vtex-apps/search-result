@@ -7,25 +7,6 @@
       "breadcrumb",
       "total-products",
       "order-by"
-    ],
-    "inheritComponent": true
-  },
-  "filter-navigator": {
-    "inheritComponent": true
-  },
-  "gallery": {
-    "blocks": [
-      "product-summary"
-    ],
-    "inheritComponent": true
-  },
-  "not-found": {
-    "inheritComponent": true
-  },
-  "total-products": {
-    "inheritComponent": true
-  },
-  "order-by": {
-    "inheritComponent": true
+    ]
   }
 }
