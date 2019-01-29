@@ -23,8 +23,8 @@ export default class GalleryItem extends Component {
       return null
     }
 
-    const getAvailableQuantity =  path(['sellers', '0', 'commertialOffer', 'AvailableQuantity'])
-    
+    const getAvailableQuantity = path(['sellers', '0', 'commertialOffer', 'AvailableQuantity'])
+
     const compareAvailableQuantity = comparator(useWith(gt, [getAvailableQuantity, getAvailableQuantity]))
     
     const normalizedProduct = { ...product }
