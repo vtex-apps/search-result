@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { ExtensionPoint } from 'vtex.render-runtime'
-import { path, sort, useWith, subtract, multiply, compose } from 'ramda'
+import { path, sort, comparator, useWith, gt } from 'ramda'
 
 import { productShape } from '../constants/propTypes'
 import { PropTypes } from 'prop-types'
@@ -24,8 +24,8 @@ export default class GalleryItem extends Component {
     }
 
     const getAvailableQuantity =  path(['sellers', '0', 'commertialOffer', 'AvailableQuantity'])
-
-    const compareAvailableQuantity = compose(multiply(-1), useWith(subtract, [getAvailableQuantity, getAvailableQuantity]))
+    
+    const compareAvailableQuantity = comparator(useWith(gt, [getAvailableQuantity, getAvailableQuantity]))
     
     const normalizedProduct = { ...product }
 
