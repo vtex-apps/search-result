@@ -20,8 +20,8 @@ const TotalProducts = ({ recordsFiltered }) => {
 }
 
 TotalProducts.propTypes = {
-  /** Search term */
-  term: PropTypes.string.recordsFiltered,
+  /** Total of records filtered */
+  recordsFiltered: PropTypes.string.recordsFiltered,
 }
 
 export default TotalProducts
