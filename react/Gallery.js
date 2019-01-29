@@ -34,6 +34,7 @@ const Gallery = ({
   itemWidth,
 }) => {
 
+  //Necessary to compute layout properly (e.g. from 'inline' to 'normal' or small)
   cache.clearAll()
 
   const renderItem = item => (
@@ -92,17 +93,19 @@ const Gallery = ({
             scroller: <WindowScroller />,
             autoSizer: <AutoSizer disableHeight />,
           }}
-          mapProps={({ scroller: { height }, autoSizer: { width } }) => ({ width, height })}
+          mapProps={({ scroller: { height, scrollTop }, autoSizer: { width } }) => ({ width, height, scrollTop })}
         >
-          {({ width, height }) => {
+          {({ width, height, scrollTop }) => {
             const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (Math.floor(width / itemWidth) || ONE_ITEM)
             const nRows = Math.ceil(products.length / itemsPerRow)
-
+          
             return (
               <List
                 key={layoutMode}
                 deferredMeasurementCache={cache}
+                overscanRowCount={2}
                 autoHeight
+                scrollTop={scrollTop}
                 width={width}
                 height={height}
                 rowCount={nRows}
