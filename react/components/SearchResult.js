@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint, withRuntimeContext } from 'vtex.render-runtime'
 
-import classNames from 'classnames'
 import LoadingOverlay from './LoadingOverlay'
 import { searchResultPropTypes } from '../constants/propTypes'
 import LayoutModeSwitcher, { LAYOUT_MODE } from './LayoutModeSwitcher'
@@ -150,44 +149,37 @@ class SearchResult extends Component {
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
-    const filterClasses = classNames({ 'flex justify-center flex-auto ': mobile })
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
         <div className={`${searchResult.container} w-100 mw9`}>
           <div className={`${searchResult.breadcrumb} db-ns dn-s`}>
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
-          {!hideFacets && (
-            <div className={searchResult.filters}>
-              <div className={filterClasses}>
-                <ExtensionPoint
-                  id="filter-navigator"
-                  brands={brands}
-                  getLinkProps={getLinkProps}
-                  map={map}
-                  params={params}
-                  priceRange={priceRange}
-                  priceRanges={priceRanges}
-                  query={query}
-                  rest={rest}
-                  specificationFilters={specificationFilters}
-                  tree={tree}
-                  hiddenFacets={hiddenFacets}
-                  loading={loading && !fetchMoreLoading}
-                />
-              </div>
-            </div>
-          )}
-          {mobile && <div className={`${searchResult.border} bg-muted-5 h-50 self-center`} />}
           <ExtensionPoint id="total-products"
               recordsFiltered={recordsFiltered}
           />
-          <div className={searchResult.orderBy}>
-            <ExtensionPoint id="order-by"
-              orderBy={orderBy}
+          {!hideFacets && (
+            <ExtensionPoint
+              id="filter-navigator"
+              brands={brands}
               getLinkProps={getLinkProps}
+              map={map}
+              params={params}
+              priceRange={priceRange}
+              priceRanges={priceRanges}
+              query={query}
+              rest={rest}
+              specificationFilters={specificationFilters}
+              tree={tree}
+              hiddenFacets={hiddenFacets}
+              loading={loading && !fetchMoreLoading}
             />
-          </div>
+          )}
+          {mobile && <div className={`${searchResult.border} bg-muted-5 h-50 self-center`} />}
+          <ExtensionPoint id="order-by"
+            orderBy={orderBy}
+            getLinkProps={getLinkProps}
+          />
           {mobile && <div className={`${searchResult.border2} bg-muted-5 h-50 self-center`} />}
           {mobile && <div className={`${searchResult.switch} flex justify-center items-center`}>
             <div className="dn-ns db-s">

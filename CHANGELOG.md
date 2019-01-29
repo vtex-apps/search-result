@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.10.1] - 2019-01-29
+### Changed
+- Centralize gallery when filter-navigator isn't defined.
+
 ## [3.10.0] - 2019-01-29
 ### Added
 - Add `order-by` and `total-products` on `search-result` interface.
