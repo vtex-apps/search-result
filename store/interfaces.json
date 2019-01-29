@@ -3,7 +3,9 @@
     "allowed": [
       "not-found",
       "breadcrumb",
-      "filter-navigator"
+      "filter-navigator",
+      "total-products",
+      "order-by"
     ],
     "required": [
       "gallery"
@@ -24,5 +26,11 @@
       "shelf"
     ],
     "component": "NotFoundSearch"
+  },
+  "order-by": {
+    "component": "OrderBy"
+  },
+  "total-products": {
+    "component": "TotalProducts"
   }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ProductSummary from 'vtex.product-summary/index'
 
 import SearchResultContainer from './components/SearchResultContainer'
-import { SORT_OPTIONS } from './components/OrderBy'
+import { SORT_OPTIONS } from './OrderBy'
 import LocalQuery from './components/LocalQuery'
 import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 
