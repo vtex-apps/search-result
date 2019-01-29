@@ -175,20 +175,6 @@ class SearchResult extends Component {
               loading={loading && !fetchMoreLoading}
             />
           )}
-          {mobile && <div className={`${searchResult.border} bg-muted-5 h-50 self-center`} />}
-          <ExtensionPoint id="order-by"
-            orderBy={orderBy}
-            getLinkProps={getLinkProps}
-          />
-          {mobile && <div className={`${searchResult.border2} bg-muted-5 h-50 self-center`} />}
-          {mobile && <div className={`${searchResult.switch} flex justify-center items-center`}>
-            <div className="dn-ns db-s">
-              <LayoutModeSwitcher
-                activeMode={galleryLayoutMode}
-                onChange={this.handleLayoutChange}
-              />
-            </div>
-          </div>}
           <div className={searchResult.resultGallery}>
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
@@ -207,6 +193,20 @@ class SearchResult extends Component {
             )}
             {children}
           </div>
+          {mobile && <div className={`${searchResult.border} bg-muted-5 h-50 self-center`} />}
+          <ExtensionPoint id="order-by"
+            orderBy={orderBy}
+            getLinkProps={getLinkProps}
+          />
+          {mobile && <div className={`${searchResult.border2} bg-muted-5 h-50 self-center`} />}
+          {mobile && <div className={`${searchResult.switch} flex justify-center items-center`}>
+            <div className="dn-ns db-s">
+              <LayoutModeSwitcher
+                activeMode={galleryLayoutMode}
+                onChange={this.handleLayoutChange}
+              />
+            </div>
+          </div>}
         </div>
       </LoadingOverlay>
     )

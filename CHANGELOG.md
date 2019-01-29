@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.10.2] - 2019-01-29
+### Fixed
+- Use correctly the grid API.
+
 ## [3.10.1] - 2019-01-29
 ### Changed
 - Centralize gallery when filter-navigator isn't defined.

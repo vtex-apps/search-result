@@ -60,7 +60,7 @@
   grid-row: gallery;
 }
 
-.filters + .resultGallery {
+.filters ~ .resultGallery {
   grid-column-start: gallery;
 }
 
