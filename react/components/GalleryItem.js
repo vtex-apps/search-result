@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { ExtensionPoint } from 'vtex.render-runtime'
-import { path, sort } from 'ramda'
+import { path, sort, useWith, subtract, multiply, compose } from 'ramda'
 
 import { productShape } from '../constants/propTypes'
 import { PropTypes } from 'prop-types'
@@ -22,10 +22,14 @@ export default class GalleryItem extends Component {
     if (!product) {
       return null
     }
-    const compareSKUs = (skuA, skuB) => path(['sellers', '0', 'commertialOffer', 'AvailableQuantity'], skuB) - path(['sellers', '0', 'commertialOffer', 'AvailableQuantity'], skuA)
 
+    const getAvailableQuantity =  path(['sellers', '0', 'commertialOffer', 'AvailableQuantity'])
+
+    const compareAvailableQuantity = compose(multiply(-1), useWith(subtract, [getAvailableQuantity, getAvailableQuantity]))
+    
     const normalizedProduct = { ...product }
-    const [sku] = sort(compareSKUs, normalizedProduct.items) || []
+
+    const [sku] = sort(compareAvailableQuantity, normalizedProduct.items) || []
 
     if (sku) {
       const [seller = { commertialOffer: { Price: 0, ListPrice: 0 } }] = sku.sellers || []

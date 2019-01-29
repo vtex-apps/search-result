@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
-- Normalized product sort skus instead of the sum of skus `AvailableQuantity`.
+- Normalized product sorts SKU's instead of summing their `AvailableQuantity`.
 
 ## [3.10.2] - 2019-01-29
 ### Fixed
