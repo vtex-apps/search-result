@@ -139,9 +139,10 @@ export default class SearchResultContainer extends Component {
     this.props.searchQuery.fetchMore({
       variables: {
         from: products.length,
-        to,
+        ...to,
       },
       updateQuery: (prevResult, { fetchMoreResult }) => {
+        
         this.setState({
           fetchMoreLoading: false,
         }, () => {
