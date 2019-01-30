@@ -19,7 +19,7 @@ export default class SearchResultContainer extends Component {
 
   static defaultProps = {
     showMore: false,
-    maxItemsPerPage: 10
+    maxItemsPerPage: 10,
   }
 
   state = {
@@ -132,7 +132,6 @@ export default class SearchResultContainer extends Component {
     const { maxItemsPerPage, searchQuery: { products, recordsFiltered } } = this.props
 
     const to = Math.min(+maxItemsPerPage + products.length, recordsFiltered) - 1
-    console.log(to, maxItemsPerPage, recordsFiltered)
 
     this.setState({
       fetchMoreLoading: true,
