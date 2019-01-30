@@ -18,9 +18,7 @@ class SearchResult extends Component {
     hiddenFacets: {
       layoutMode1: LAYOUT_MODE[0].value,
       layoutMode2: LAYOUT_MODE[1].value,
-    },
-    easeDuration: '500ms',
-    easeDelay: '80ms'
+    }
   }
 
   state = {
