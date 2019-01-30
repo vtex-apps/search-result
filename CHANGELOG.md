@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
-- Pass `scrollTop` param to list and set `overscanRowCount` to 2.
+- Pass `scrollTop` param to list, fix `fetchMore` query and fix layout when more items are loaded.
 
 ## [3.11.0] - 2019-01-30
 ### Changed
