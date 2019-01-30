@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint, withRuntimeContext } from 'vtex.render-runtime'
 import classNames from 'classnames'
@@ -156,7 +156,7 @@ class SearchResult extends Component {
     const hideFacets = !map || !map.length
 
     return (
-      <React.Fragment>
+      <Fragment>
         {!hideFacets && (
             <ExtensionPoint
               id="filter-navigator"
@@ -175,7 +175,7 @@ class SearchResult extends Component {
             />
         )}
         {mobile && <div className={`${searchResult.border} bg-muted-5 h-50 self-center`} />}
-          <ExtensionPoint id="order-by" className={searchResult.orderBy}
+          <ExtensionPoint id="order-by"
             orderBy={orderBy}
             getLinkProps={getLinkProps}
           />
@@ -188,7 +188,7 @@ class SearchResult extends Component {
               />
             </div>
           </div>}
-      </React.Fragment>
+      </Fragment>
     )
   }
 
