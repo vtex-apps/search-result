@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
-import Icon from 'vtex.use-svg/Icon'
+import { IconCaret } from 'vtex.dreamstore-icons'
 
 import { mountOptions } from '../constants/SearchHelpers'
 import AccordionFilterItem from './AccordionFilterItem'
@@ -70,14 +70,15 @@ class AccordionFilterContainer extends Component {
           <div className="pv4 flex items-center" onClick={() => this.setState({ openedItem: null })}>
             <div className={classNames('t-heading-4', {
               'c-muted-2': !!openedItem,
-              'c-on-base': !openedItem })}
+              'c-on-base': !openedItem
+            })}
             >
               {intl.formatMessage({ id: 'search-result.filter-breadcrumbs.primary' })}
             </div>
           </div>
           {openedItem && (
             <div className="pa4 flex items-center">
-              <Icon id="nav-angle--right" size="13" />
+              <IconCaret orientation="right" size="13" />
               <div className="pl3 t-heading-4 c-on-base">
                 {intl.formatMessage({ id: openedItem })}
               </div>
