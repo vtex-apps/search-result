@@ -10,8 +10,6 @@ import searchResult from '../searchResult.css'
 
 const MARGIN_TOP_VISIBLE_SEARCH_BAR_OPTIONS = "0rem"
 const MARGIN_TOP_INVISIBLE_SEARCH_BAR_OPTIONS = "-5.5rem"
-const FADE_DURATION = "500ms" // It should be passed via props in the future
-const FADE_DELAY = "80ms" // Same as above
 
 /**
  * Search Result Component.
@@ -24,6 +22,8 @@ class SearchResult extends Component {
       layoutMode1: LAYOUT_MODE[0].value,
       layoutMode2: LAYOUT_MODE[1].value,
     },
+    easeDuration: '500ms',
+    easeDelay: '80ms'
   }
 
   state = {
@@ -128,19 +128,19 @@ class SearchResult extends Component {
   }
 
   handleScrollUp = () => {
-    this.changeSearchOptionsBarVisibility('ease-out', FADE_DURATION, FADE_DELAY, MARGIN_TOP_VISIBLE_SEARCH_BAR_OPTIONS)
+    this.changeSearchOptionsBarVisibility('ease-out', this.props.easeDuration, this.props.easeDelay, MARGIN_TOP_VISIBLE_SEARCH_BAR_OPTIONS)
 
   }
 
   handleScrollDown = () => {
-    this.changeSearchOptionsBarVisibility('ease-in', FADE_DURATION, FADE_DELAY, MARGIN_TOP_INVISIBLE_SEARCH_BAR_OPTIONS)
+    this.changeSearchOptionsBarVisibility('ease-in', this.props.easeDuration, this.props.easeDelay, MARGIN_TOP_INVISIBLE_SEARCH_BAR_OPTIONS)
   }
 
-  changeSearchOptionsBarVisibility = (transition, fadeDuration, fadeDelay, marginTop) => {
+  changeSearchOptionsBarVisibility = (transition, easeDuration, easeDelay, marginTop) => {
     const searchOptionsBarElement = this.searchOptionsBar.current
 
     if (searchOptionsBarElement) {
-      searchOptionsBarElement.style.transition = `${transition} ${fadeDuration} ${fadeDelay}`
+      searchOptionsBarElement.style.transition = `${transition} ${easeDuration} ${easeDelay}`
       searchOptionsBarElement.style.marginTop = marginTop
     }
   }
