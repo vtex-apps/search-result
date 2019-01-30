@@ -104,18 +104,21 @@ class SearchResult extends Component {
       })
     }
 
-    document.addEventListener('scroll', this.handleScroll)
+    const {runtime: { hints: { mobile } }} = this.props
+
+    if (mobile) document.addEventListener('scroll', this.handleScroll)
   }
 
   componentWillUnmount() {
-    document.removeEventListener('scroll', this.handleScroll)
+    const {runtime: { hints: { mobile } }} = this.props
+
+    if(mobile) document.removeEventListener('scroll', this.handleScroll)
   }
 
   handleScroll = () => {
     const scroll = this.props.leanMode ? Infinity : window.scrollY
-    const {runtime: { hints: { mobile } }} = this.props
     
-    if (typeof scroll !== 'number' || !mobile) return
+    if (typeof scroll !== 'number') return
 
     scroll > this.state.scrollValue ? this.handleScrollDown() : this.handleScrollUp()
 
