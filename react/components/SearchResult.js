@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint, withRuntimeContext } from 'vtex.render-runtime'
-
+import classNames from 'classnames'
 import LoadingOverlay from './LoadingOverlay'
 import { searchResultPropTypes } from '../constants/propTypes'
 import LayoutModeSwitcher, { LAYOUT_MODE } from './LayoutModeSwitcher'
 
 import searchResult from '../searchResult.css'
 
-const HEADER_SIZE = 36
-const CONVERSION_MARGIN_VALUE = 0.08
-const MARGIN_TOP = "-2.4rem"
+const MARGIN_TOP_VISIBLE_SEARCH_BAR_OPTIONS = "0rem"
+const MARGIN_TOP_INVISIBLE_SEARCH_BAR_OPTIONS = "-5.5rem"
 const FADE_DURATION = "500ms" // It should be passed via props in the future
-const FADE_DELAY = "0ms" // Same as above
+const FADE_DELAY = "80ms" // Same as above
 
 /**
  * Search Result Component.
@@ -123,29 +122,26 @@ class SearchResult extends Component {
     if (typeof scroll !== 'number' || !mobile) return
 
     if (scroll > this.state.scrollValue) this.handleScrollDown()
-    else if (scroll < this.state.scrollValue) this.handleScrollUp(scroll)
+    else if (scroll < this.state.scrollValue) this.handleScrollUp()
 
     this.setState({scrollValue: scroll})
   }
 
-  handleScrollUp = scrollValue => {
-    const marginValue = scrollValue * CONVERSION_MARGIN_VALUE
+  handleScrollUp = () => {
+    this.changeSearchOptionsBarVisibility('ease-out', FADE_DURATION, FADE_DELAY, MARGIN_TOP_VISIBLE_SEARCH_BAR_OPTIONS)
 
-    const searchOptionsBarElement = this.searchOptionsBar.current
-    if (searchOptionsBarElement) {
-      searchOptionsBarElement.style.transition = `opacity ${FADE_DURATION} ${FADE_DELAY}`
-      searchOptionsBarElement.style.opacity = 1
-
-      if (scrollValue < HEADER_SIZE) searchOptionsBarElement.style.marginTop = `-${marginValue}rem`
-      else searchOptionsBarElement.style.marginTop = MARGIN_TOP
-    }
   }
 
   handleScrollDown = () => {
+    this.changeSearchOptionsBarVisibility('ease-in', FADE_DURATION, FADE_DELAY, MARGIN_TOP_INVISIBLE_SEARCH_BAR_OPTIONS)
+  }
+
+  changeSearchOptionsBarVisibility = (transition, fadeDuration, fadeDelay, marginTop) => {
     const searchOptionsBarElement = this.searchOptionsBar.current
+
     if (searchOptionsBarElement) {
-      searchOptionsBarElement.style.opacity = 0
-      searchOptionsBarElement.style.transition = `opacity ${FADE_DURATION} ${FADE_DELAY}`
+      searchOptionsBarElement.style.transition = `${transition} ${fadeDuration} ${fadeDelay}`
+      searchOptionsBarElement.style.marginTop = marginTop
     }
   }
 
@@ -247,7 +243,7 @@ class SearchResult extends Component {
 
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
-    const searchOptionsBarClasses = classNames({ 'flex justify-center flex-auto fixed z-1 bg-base bb bw1 b--light-gray': mobile })
+    const searchOptionsBarClasses = classNames({ 'flex justify-center flex-auto fixed w-100 z-1 bg-base bb bw1 b--light-gray nl3': mobile })
 
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
@@ -255,20 +251,17 @@ class SearchResult extends Component {
           <div className={`${searchResult.breadcrumb} db-ns dn-s`}>
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
-          <div className={`${searchResult.totalProducts} pv5 bn-ns bt-s b--muted-4 tc-s tl`}>
-            <FormattedMessage
-              id="search.total-products"
-              values={{ recordsFiltered }}
-            >
-              {txt => <span className="ph4 c-muted-2">{txt}</span>}
-            </FormattedMessage>
-          </div>
+          <ExtensionPoint id="total-products"
+              recordsFiltered={recordsFiltered}
+          />
           {mobile ? (
-            <div ref={this.searchOptionsBar} className={`${searchResult.searchOptionsBar} ${searchOptionsBarClasses}`}>
+            <div 
+              ref={this.searchOptionsBar} 
+              className={`${searchResult.searchOptionsBar} ${searchOptionsBarClasses}`}
+            >
               {this.getSearchOptionsBar()}
             </div> 
-          ): 
-            this.getSearchOptionsBar()
+          ) : (this.getSearchOptionsBar())
           }
           <div className={searchResult.resultGallery}>
             {showContentLoader ? (
@@ -293,5 +286,4 @@ class SearchResult extends Component {
     )
   }
 }
-
 export default withRuntimeContext(SearchResult)
