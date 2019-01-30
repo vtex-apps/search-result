@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { ExtensionPoint } from 'vtex.render-runtime'
-import { path, compose, sum, map } from 'ramda'
+import { path, sort, comparator, useWith, gt } from 'ramda'
 
 import { productShape } from '../constants/propTypes'
 import { PropTypes } from 'prop-types'
@@ -23,12 +23,13 @@ export default class GalleryItem extends Component {
       return null
     }
 
-    const normalizedProduct = { ...product }
-    const [sku] = normalizedProduct.items || []
+    const getAvailableQuantity = path(['sellers', '0', 'commertialOffer', 'AvailableQuantity'])
 
-    const transform = array => map(path(['sellers', '0', 'commertialOffer', 'AvailableQuantity']), array)
+    const compareAvailableQuantity = comparator(useWith(gt, [getAvailableQuantity, getAvailableQuantity]))
     
-    const skusAvailable = compose(sum, transform)(normalizedProduct.items)
+    const normalizedProduct = { ...product }
+
+    const [sku] = sort(compareAvailableQuantity, normalizedProduct.items) || []
 
     if (sku) {
       const [seller = { commertialOffer: { Price: 0, ListPrice: 0 } }] = sku.sellers || []
@@ -36,7 +37,6 @@ export default class GalleryItem extends Component {
       const [image = { imageUrl: '' }] = sku.images || []
       const unmixedImage = { ...image, imageUrl: image.imageUrl.replace(/^https?:/, '') }
       normalizedProduct.sku = { ...sku, seller, referenceId, image: unmixedImage }
-      seller.commertialOffer.AvailableQuantity = skusAvailable
     }
 
     return normalizedProduct

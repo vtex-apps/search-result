@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.10.3] - 2019-01-30
+### Fixed
+- Normalized product sorts SKU's instead of summing their `AvailableQuantity`.
+
 ## [3.10.2] - 2019-01-29
 ### Fixed
 - Use correctly the grid API.
