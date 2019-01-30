@@ -142,7 +142,6 @@ export default class SearchResultContainer extends Component {
         ...to,
       },
       updateQuery: (prevResult, { fetchMoreResult }) => {
-        
         this.setState({
           fetchMoreLoading: false,
         }, () => {

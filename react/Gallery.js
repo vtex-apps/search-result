@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import classNames from 'classnames'
 import { List, WindowScroller, AutoSizer, CellMeasurer, CellMeasurerCache } from 'react-virtualized'
 import PropTypes from 'prop-types'
@@ -11,6 +11,8 @@ import GalleryItem from './components/GalleryItem'
 
 import searchResult from './searchResult.css'
 
+import 'react-virtualized/styles.css'
+
 /**
  * Canonical gallery that displays a list of given products.
  */
@@ -18,39 +20,39 @@ import searchResult from './searchResult.css'
 const TWO_ITEMS = 2
 const ONE_ITEM = 1
 
-/**
+class Gallery extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { prevLayoutMode: this.props.layoutMode }
+  }
+
+  /**
  *  Cache to measure the rows height
  * */
-const cache = new CellMeasurerCache({
-  fixedWidth: true,
-  keyMapper: () => 1,
-})
+  cache = new CellMeasurerCache({
+    fixedWidth: true,
+    keyMapper: () => 1,
+  })
 
-const Gallery = ({
-  products,
-  summary,
-  layoutMode,
-  runtime: { hints: { mobile } },
-  itemWidth,
-}) => {
+  renderItem = item => {
+    const { summary, layoutMode } = this.props
+    return (
+      <div
+        key={item.productId}
+        className={`${searchResult.galleryItem} mv2 pa1`}
+      >
+        <GalleryItem
+          item={item}
+          summary={summary}
+          displayMode={layoutMode}
+        />
+      </div>
+    )
+  }
 
-  //Necessary to compute layout properly (e.g. from 'inline' to 'normal' or small)
-  cache.clearAll()
+  renderRow = ({ index, key, style, parent, itemsPerRow }) => {
+    const { products, layoutMode, runtime: { hints: { mobile } } } = this.props
 
-  const renderItem = item => (
-    <div
-      key={item.productId}
-      className={`${searchResult.galleryItem} mv2 pa1`}
-    >
-      <GalleryItem
-        item={item}
-        summary={summary}
-        displayMode={layoutMode}
-      />
-    </div>
-  )
-
-  const renderRow = ({ index, key, style, parent, itemsPerRow }) => {
     const from = index * itemsPerRow
     const rowItems = products.slice(from, from + itemsPerRow)
 
@@ -60,64 +62,81 @@ const Gallery = ({
 
     return (
       <CellMeasurer
-        cache={cache}
+        cache={this.cache}
         columnIndex={0}
         key={key}
         parent={parent}
         rowIndex={index}
       >
-        {({ measure }) => (
-          <div className={containerClasses} key={key} style={style} onLoad={measure}>
-            {rowItems.map(renderItem)}
-          </div>
-        )}
+        <div className={containerClasses} key={key} style={style}>
+          {rowItems.map(this.renderItem)}
+        </div>
       </CellMeasurer>
     )
   }
 
-  const ssrContainer = classNames(`${searchResult.gallery} pa3 bn`, {
-    [searchResult.galleryTwoColumns]: layoutMode == 'small' && mobile
-  })
+  handleSSR() {
+    const { products, layoutMode, runtime: { hints: { mobile } } } = this.props
 
-  const ssrFallBack = (
-    <div className={ssrContainer}>
-      {products.map(renderItem)}
-    </div>
-  )
+    const ssrContainer = classNames(`${searchResult.gallery} pa3 bn`, {
+      [searchResult.galleryTwoColumns]: layoutMode === 'small' && mobile,
+    })
 
-  return (
-    <NoSSR onSSR={ssrFallBack}>
-      <div className={`${searchResult.gallery} pa3 bn`}>
-        <Adopt
-          mapper={{
-            scroller: <WindowScroller />,
-            autoSizer: <AutoSizer disableHeight />,
-          }}
-          mapProps={({ scroller: { height, scrollTop }, autoSizer: { width } }) => ({ width, height, scrollTop })}
-        >
-          {({ width, height, scrollTop }) => {
-            const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (Math.floor(width / itemWidth) || ONE_ITEM)
-            const nRows = Math.ceil(products.length / itemsPerRow)
-          
-            return (
-              <List
-                key={layoutMode}
-                deferredMeasurementCache={cache}
-                overscanRowCount={2}
-                autoHeight
-                scrollTop={scrollTop}
-                width={width}
-                height={height}
-                rowCount={nRows}
-                rowHeight={cache.rowHeight}
-                rowRenderer={args => renderRow({ ...args, itemsPerRow })}
-              />
-            )
-          }}
-        </Adopt>
-      </div >
-    </NoSSR>
-  )
+    return (
+      <div className={ssrContainer}>
+        {products.map(this.renderItem)}
+      </div>
+    )
+  }
+
+  render() {
+    const {
+      products,
+      layoutMode,
+      runtime: { hints: { mobile } },
+      itemWidth,
+    } = this.props
+
+    // Reset the cache to recalculate the heights when layout changes
+    if (layoutMode !== this.state.prevLayoutMode) {
+      this.cache.clearAll()
+    }
+
+    return (
+      <NoSSR onSSR={this.handleSSR()}>
+        <div className={`${searchResult.gallery} pa3 bn`}>
+          <Adopt
+            mapper={{
+              scroller: <WindowScroller />,
+              autoSizer: <AutoSizer disableHeight />,
+            }}
+            mapProps={({ scroller: { height, scrollTop, isScrolling }, autoSizer: { width } }) => ({ width, height, scrollTop, isScrolling })}
+          >
+            {({ width, height, scrollTop, isScrolling }) => {
+              const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (Math.floor(width / itemWidth) || ONE_ITEM)
+              const nRows = Math.ceil(products.length / itemsPerRow)
+
+              return (
+                <List
+                  key={layoutMode}
+                  deferredMeasurementCache={this.cache}
+                  overscanRowCount={2}
+                  isScrolling={isScrolling}
+                  autoHeight
+                  scrollTop={scrollTop}
+                  width={width}
+                  height={height}
+                  rowCount={nRows}
+                  rowHeight={this.cache.rowHeight}
+                  rowRenderer={args => this.renderRow({ ...args, itemsPerRow })}
+                />
+              )
+            }}
+          </Adopt>
+        </div >
+      </NoSSR>
+    )
+  }
 }
 
 Gallery.propTypes = {
@@ -129,6 +148,12 @@ Gallery.propTypes = {
   layoutMode: PropTypes.string,
   /** Item Width. */
   itemWidth: PropTypes.number,
+  /** Render runtime mobile hint */
+  runtime: PropTypes.shape({
+    hints: PropTypes.shape({
+      mobile: PropTypes.bool.isRequired,
+    }).isRequired,
+  }).isRequired,
 }
 
 Gallery.defaultProps = {
