@@ -8,9 +8,6 @@ import LayoutModeSwitcher, { LAYOUT_MODE } from './LayoutModeSwitcher'
 
 import searchResult from '../searchResult.css'
 
-const MARGIN_TOP_VISIBLE_SEARCH_BAR_OPTIONS = "0rem"
-const MARGIN_TOP_INVISIBLE_SEARCH_BAR_OPTIONS = "-5.5rem"
-
 /**
  * Search Result Component.
  */
@@ -42,10 +39,9 @@ class SearchResult extends Component {
     specificationFilters: this.props.specificationFilters,
     tree: this.props.tree,
     hiddenFacets: this.props.hiddenFacets,
-    scrollValue: 0
+    scrollValue: 0,
+    scrollDirection: 'up'
   }
-
-  searchOptionsBar = React.createRef()
 
   handleLayoutChange = e => {
     e.preventDefault()
@@ -121,28 +117,17 @@ class SearchResult extends Component {
     
     if (typeof scroll !== 'number' || !mobile) return
 
-    if (scroll > this.state.scrollValue) this.handleScrollDown()
-    else if (scroll < this.state.scrollValue) this.handleScrollUp()
+    scroll > this.state.scrollValue ? this.handleScrollDown() : this.handleScrollUp()
 
     this.setState({scrollValue: scroll})
   }
 
   handleScrollUp = () => {
-    this.changeSearchOptionsBarVisibility('ease-out', this.props.easeDuration, this.props.easeDelay, MARGIN_TOP_VISIBLE_SEARCH_BAR_OPTIONS)
-
+    this.setState({scrollDirection: 'up'})
   }
 
   handleScrollDown = () => {
-    this.changeSearchOptionsBarVisibility('ease-in', this.props.easeDuration, this.props.easeDelay, MARGIN_TOP_INVISIBLE_SEARCH_BAR_OPTIONS)
-  }
-
-  changeSearchOptionsBarVisibility = (transition, easeDuration, easeDelay, marginTop) => {
-    const searchOptionsBarElement = this.searchOptionsBar.current
-
-    if (searchOptionsBarElement) {
-      searchOptionsBarElement.style.transition = `${transition} ${easeDuration} ${easeDelay}`
-      searchOptionsBarElement.style.marginTop = marginTop
-    }
+    this.setState({scrollDirection: 'down'})
   }
 
   getSearchOptionsBar = () => {
@@ -189,7 +174,7 @@ class SearchResult extends Component {
             />
         )}
         {mobile && <div className={`${searchResult.border} bg-muted-5 h-50 self-center`} />}
-          <ExtensionPoint id="order-by"
+          <ExtensionPoint id="order-by" className={searchResult.orderBy}
             orderBy={orderBy}
             getLinkProps={getLinkProps}
           />
@@ -227,9 +212,9 @@ class SearchResult extends Component {
       galleryLayoutMode,
       recordsFiltered,
       products,
-      map,
       params,
       showLoadingAsOverlay,
+      scrollDirection
     } = this.state
 
     const term = params && params.term
@@ -244,6 +229,7 @@ class SearchResult extends Component {
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
     const searchOptionsBarClasses = classNames({ 'flex justify-center flex-auto fixed w-100 z-1 bg-base bb bw1 b--light-gray nl3': mobile })
+    const searchOptionsBarVisibility = scrollDirection === 'up' ? 'animated fadeInDownBig faster' : 'animated fadeOutUpBig slower'
 
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
@@ -254,11 +240,9 @@ class SearchResult extends Component {
           <ExtensionPoint id="total-products"
               recordsFiltered={recordsFiltered}
           />
-          {mobile ? (
-            <div 
-              ref={this.searchOptionsBar} 
-              className={`${searchResult.searchOptionsBar} ${searchOptionsBarClasses}`}
-            >
+          {mobile ? 
+          (
+            <div className={`${searchResult.searchOptionsBar} ${searchOptionsBarClasses} ${searchOptionsBarVisibility}`}>
               {this.getSearchOptionsBar()}
             </div> 
           ) : (this.getSearchOptionsBar())
