@@ -91,8 +91,8 @@ class Gallery extends Component {
   }
 
   updateCache = layoutMode => {
-      this.setState({ layoutMode })
-      this.cache.clearAll()
+    this.setState({ prevLayoutMode: layoutMode })
+    this.cache.clearAll()
   }
 
   render() {
@@ -102,10 +102,10 @@ class Gallery extends Component {
       runtime: { hints: { mobile } },
       itemWidth,
     } = this.props
-    // Maps the WindowScroller and the AutoSizer props to an adequate set of params
+    // Maps the WindowScroller and the AutoSizer props to a more adequate set of params
     const mapContainerProps = ({ scroller: { height, scrollTop, isScrolling }, autoSizer: { width } }) => ({ width, height, scrollTop, isScrolling })
-    
-    //Updates the cache to recalculate heights if the layoutMode changes
+
+    // Updates the cache to recalculate heights if the layoutMode changes
     if (layoutMode !== this.state.prevLayoutMode) {
       this.updateCache(layoutMode)
     }
