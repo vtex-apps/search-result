@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import QueryString from 'query-string'
+import { min } from 'ramda'
 
 import { Container } from 'vtex.store-components'
 
@@ -131,7 +132,7 @@ export default class SearchResultContainer extends Component {
 
     const { maxItemsPerPage, searchQuery: { products, recordsFiltered } } = this.props
 
-    const to = Math.min(+maxItemsPerPage + products.length, recordsFiltered) - 1
+    const to = min(maxItemsPerPage + products.length, recordsFiltered) - 1
 
     this.setState({
       fetchMoreLoading: true,

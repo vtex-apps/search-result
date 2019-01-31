@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import { List, WindowScroller, AutoSizer, CellMeasurer, CellMeasurerCache } from 'react-virtualized'
 import PropTypes from 'prop-types'
 import { Adopt } from 'react-adopt'
+import { map } from 'ramda'
 
 import { withRuntimeContext, NoSSR } from 'vtex.render-runtime'
 
@@ -69,7 +70,7 @@ class Gallery extends Component {
         rowIndex={index}
       >
         <div className={containerClasses} key={key} style={style}>
-          {rowItems.map(this.renderItem)}
+          {map(this.renderItem, rowItems)}
         </div>
       </CellMeasurer>
     )
@@ -84,9 +85,14 @@ class Gallery extends Component {
 
     return (
       <div className={ssrContainer}>
-        {products.map(this.renderItem)}
+        {map(this.renderItem, products)}
       </div>
     )
+  }
+
+  updateCache = layoutMode => {
+      this.setState({ layoutMode })
+      this.cache.clearAll()
   }
 
   render() {
@@ -96,10 +102,12 @@ class Gallery extends Component {
       runtime: { hints: { mobile } },
       itemWidth,
     } = this.props
-
-    // Reset the cache to recalculate the heights when layout changes
+    // Maps the WindowScroller and the AutoSizer props to an adequate set of params
+    const mapContainerProps = ({ scroller: { height, scrollTop, isScrolling }, autoSizer: { width } }) => ({ width, height, scrollTop, isScrolling })
+    
+    //Updates the cache to recalculate heights if the layoutMode changes
     if (layoutMode !== this.state.prevLayoutMode) {
-      this.cache.clearAll()
+      this.updateCache(layoutMode)
     }
 
     return (
@@ -110,7 +118,7 @@ class Gallery extends Component {
               scroller: <WindowScroller />,
               autoSizer: <AutoSizer disableHeight />,
             }}
-            mapProps={({ scroller: { height, scrollTop, isScrolling }, autoSizer: { width } }) => ({ width, height, scrollTop, isScrolling })}
+            mapProps={mapContainerProps}
           >
             {({ width, height, scrollTop, isScrolling }) => {
               const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (Math.floor(width / itemWidth) || ONE_ITEM)
