@@ -1,10 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button } from 'vtex.styleguide'
-
-import Grid from '../images/Grid'
-import SingleItemGrid from '../images/SingleItemGrid'
-import InlineGrid from '../images/InlineGrid'
+import { IconGrid, IconInlineGrid, IconSingleGrid } from 'vtex.dreamstore-icons'
 
 import searchResult from '../searchResult.css'
 
@@ -29,11 +26,11 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
     const renderIcon = mode => {
       switch (mode) {
         case 'small':
-          return <Grid />
+          return <IconGrid size={20} />
         case 'inline':
-          return <InlineGrid />
+          return <IconInlineGrid size={20} />
         case 'normal':
-          return <SingleItemGrid />
+          return <IconSingleGrid size={20} />
       }
     }
 
@@ -44,7 +41,7 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
           size="small"
           onClick={e => onChange(e, mode)}
         >
-          {renderIcon(mode)}
+          <span className="c-on-base">{renderIcon(mode)}</span>
         </Button>
       </div>
     )

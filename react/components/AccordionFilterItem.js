@@ -2,9 +2,10 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { intlShape, injectIntl } from 'react-intl'
 import classNames from 'classnames'
-import { Checkbox } from 'vtex.styleguide'
 
-import Arrow from '../images/Arrow'
+import { Checkbox } from 'vtex.styleguide'
+import { IconCaret } from 'vtex.dreamstore-icons'
+
 import { facetOptionShape } from '../constants/propTypes'
 import { getFilterTitle } from '../constants/SearchHelpers'
 
@@ -20,59 +21,59 @@ const AccordionFilterItem = ({
   onFilterCheck,
   isOptionSelected,
 }) => (
-  <Fragment>
-    {!open && (
-      <div className="pl7">
-        <div
-          className={classNames(
-            `${searchResult.accordionFilterItem} ${searchResult.filterAccordionItemBox} t-body pr5 pv3 pointer bb b--muted-5`,
-            {
-              [searchResult.accordionFilterItemActive]: open,
-              [`${searchResult.accordionFilterItemHidden} dn`]: !show,
-            }
-          )}
-          onClick={onOpen}
-        >
+    <Fragment>
+      {!open && (
+        <div className="pl7">
           <div
-            className={classNames(`${searchResult.accordionFilterItemTitle} pv4`, {
-              'c-on-base t-small': open,
-              'c-on-base t-heading-5': !open,
-            })}
+            className={classNames(
+              `${searchResult.accordionFilterItem} ${searchResult.filterAccordionItemBox} t-body pr5 pv3 pointer bb b--muted-5`,
+              {
+                [searchResult.accordionFilterItemActive]: open,
+                [`${searchResult.accordionFilterItemHidden} dn`]: !show,
+              }
+            )}
+            onClick={onOpen}
           >
-            {getFilterTitle(title, intl)}
-            <span className={`${searchResult.accordionFilterItemIcon} fr`}>
-              <Arrow up={open} size={10} />
-            </span>
+            <div
+              className={classNames(`${searchResult.accordionFilterItemTitle} pv4`, {
+                'c-on-base t-small': open,
+                'c-on-base t-heading-5': !open,
+              })}
+            >
+              {getFilterTitle(title, intl)}
+              <span className={`${searchResult.accordionFilterItemIcon} fr`}>
+                <IconCaret orientation="down" size={10} />
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-    )}
-    {open && (
-      <div className={`${searchResult.accordionFilterItemOptions} pl7 overflow-scroll h-100`}>
-        {options.map(opt => {
-          const { Name } = opt
+      )}
+      {open && (
+        <div className={`${searchResult.accordionFilterItemOptions} pl7 overflow-scroll h-100`}>
+          {options.map(opt => {
+            const { Name } = opt
 
-          return (
-            <div
-              className={`${searchResult.filterAccordionItemBox} pr4 pt3 items-center flex bb b--muted-5`}
-              key={Name}
-            >
-              <Checkbox
-                className="mb0"
-                checked={isOptionSelected(opt)}
-                id={Name}
-                label={Name}
-                name={`checkbox-${Name}`}
-                onChange={() => onFilterCheck(opt)}
-                value={`option-${Name}`}
-              />
-            </div>
-          )
-        })}
-      </div>
-    )}
-  </Fragment>
-)
+            return (
+              <div
+                className={`${searchResult.filterAccordionItemBox} pr4 pt3 items-center flex bb b--muted-5`}
+                key={Name}
+              >
+                <Checkbox
+                  className="mb0"
+                  checked={isOptionSelected(opt)}
+                  id={Name}
+                  label={Name}
+                  name={`checkbox-${Name}`}
+                  onChange={() => onFilterCheck(opt)}
+                  value={`option-${Name}`}
+                />
+              </div>
+            )
+          })}
+        </div>
+      )}
+    </Fragment>
+  )
 
 AccordionFilterItem.propTypes = {
   /** Title */

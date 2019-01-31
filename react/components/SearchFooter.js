@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { range } from 'ramda'
 import React, { Component, Fragment } from 'react'
-import { IconCaretLeft, IconCaretRight } from 'vtex.styleguide'
+import { IconCaret } from 'vtex.dreamstore-icons'
 import { withRuntimeContext } from 'vtex.render-runtime'
 
 import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
@@ -41,7 +41,7 @@ class SearchFooter extends Component {
       <div
         className={`ph2 pointer ${
           pageNumber === this.props.page ? 'c-on-base' : 'c-disabled'
-        }`}
+          }`}
         onClick={() => this.handleClick(pageNumber)}
         key={pageNumber}>
         {pageNumber}
@@ -58,7 +58,7 @@ class SearchFooter extends Component {
           <div
             className="ph2 pointer"
             onClick={() => this.handleClick(page - 1)}>
-            <IconCaretLeft />
+            <IconCaret orientation="left" />
           </div>
         )}
         {page > maxNumberButtons ? (
@@ -90,36 +90,36 @@ class SearchFooter extends Component {
                 </div>
               </Fragment>
             ) : (
-              this.getNumberButtonsFromRange(
-                lastPage - maxNumberButtons + 1,
-                lastPage + 1
-              )
-            )}
+                this.getNumberButtonsFromRange(
+                  lastPage - maxNumberButtons + 1,
+                  lastPage + 1
+                )
+              )}
           </Fragment>
         ) : (
-          <Fragment>
-            {this.getNumberButtonsFromRange(
-              1,
-              Math.min(lastPage, maxNumberButtons) + 1
-            )}
-            {lastPage > maxNumberButtons && (
-              <div className="ph2 c-disabled">&hellip;</div>
-            )}
-            {page !== lastPage &&
-              lastPage > maxNumberButtons && (
-              <div
-                className="ph2 pointer c-disabled"
-                onClick={() => this.handleClick(lastPage)}>
-                {lastPage}
-              </div>
-            )}
-          </Fragment>
-        )}
+            <Fragment>
+              {this.getNumberButtonsFromRange(
+                1,
+                Math.min(lastPage, maxNumberButtons) + 1
+              )}
+              {lastPage > maxNumberButtons && (
+                <div className="ph2 c-disabled">&hellip;</div>
+              )}
+              {page !== lastPage &&
+                lastPage > maxNumberButtons && (
+                  <div
+                    className="ph2 pointer c-disabled"
+                    onClick={() => this.handleClick(lastPage)}>
+                    {lastPage}
+                  </div>
+                )}
+            </Fragment>
+          )}
         {page < lastPage && (
           <div
             className="ph2 pointer"
             onClick={() => this.handleClick(page + 1)}>
-            <IconCaretRight />
+            <IconCaret orientation="right" />
           </div>
         )}
       </div>

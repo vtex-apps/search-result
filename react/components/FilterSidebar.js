@@ -8,12 +8,13 @@ import {
 } from 'ramda'
 import React, { Component, Fragment } from 'react'
 import { FormattedMessage } from 'react-intl'
+
 import { withRuntimeContext, Link } from 'vtex.render-runtime'
 import { Button } from 'vtex.styleguide'
+import { IconFilter } from 'vtex.dreamstore-icons'
 
 import { facetOptionShape } from '../constants/propTypes'
 import { mountOptions } from '../constants/SearchHelpers'
-import FilterIcon from '../images/FilterIcon'
 import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
 
@@ -47,7 +48,7 @@ class FilterSidebar extends Component {
   handleFilterCheck = filter => {
     if (!this.isOptionSelected(filter)) {
       this.setState({
-        selectedFilters: this.state.selectedFilters.concat({...filter, link: filter.Link}),
+        selectedFilters: this.state.selectedFilters.concat({ ...filter, link: filter.Link }),
       })
     } else {
       this.setState({
@@ -100,7 +101,7 @@ class FilterSidebar extends Component {
       getLinkProps,
     } = this.props
 
-    const pagesArgs = getLinkProps(mapRamda(opt => ({ ...opt, isSelected: false}) , selectedFilters), true)
+    const pagesArgs = getLinkProps(mapRamda(opt => ({ ...opt, isSelected: false }), selectedFilters), true)
 
     return (
       <Fragment>
@@ -115,7 +116,7 @@ class FilterSidebar extends Component {
             <FormattedMessage id="search-result.filter-action.title" />
           </span>
           <span className={`${searchResult.filterPopupArrowIcon} ml-auto pl3 pt2`}>
-            <FilterIcon size={16} active />
+            <IconFilter size={16} viewBox='0 0 17 17' />
           </span>
         </button>
 

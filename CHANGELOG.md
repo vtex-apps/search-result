@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.11.0] - 2019-01-30
+### Changed
+- Use icons from `vtex.dreamstore-icons`.
+
 ## [3.10.3] - 2019-01-30
 ### Fixed
 - Normalized product sorts SKU's instead of summing their `AvailableQuantity`.

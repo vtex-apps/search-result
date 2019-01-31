@@ -1,7 +1,7 @@
 {
   "name": "search-result",
   "vendor": "vtex",
-  "version": "3.10.3",
+  "version": "3.11.0",
   "title": "VTEX Search Result",
   "description": "A search result wrapper component",
   "mustUpdateAt": "2019-04-25",
@@ -24,6 +24,6 @@
     "vtex.product-summary": "2.x",
     "vtex.shelf": "1.x",
     "vtex.styleguide": "9.x",
-    "vtex.use-svg": "1.x"
+    "vtex.dreamstore-icons": "0.x"
   }
 }

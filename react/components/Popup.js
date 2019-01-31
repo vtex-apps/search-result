@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import Arrow from '../images/Arrow'
+
+import { IconCaret } from 'vtex.dreamstore-icons'
 
 import searchResult from '../searchResult.css'
 
@@ -77,7 +78,7 @@ export default class Popup extends Component {
 
   static defaultProps = {
     renderFooter: () => null,
-    icon: <Arrow size={16} />,
+    icon: <IconCaret orientation="down" size={16} />,
   }
 
   contentRef = React.createRef()
@@ -92,7 +93,7 @@ export default class Popup extends Component {
           const open = isOpen(id)
 
           const className = classNames(`${searchResult.filterPopup} relative justify-center flex`, {
-            'vtex-filter-popup--open': open,
+            [searchResult.filterPopupOpen]: open,
           })
 
           const contentClassName = classNames(
