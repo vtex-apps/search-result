@@ -78,7 +78,7 @@ class AccordionFilterContainer extends Component {
           </div>
           {openedItem && (
             <div className="pa4 flex items-center">
-              <IconCaret orientation="right" size="13" />
+              <IconCaret orientation="right" size={13} />
               <div className="pl3 t-heading-4 c-on-base">
                 {intl.formatMessage({ id: openedItem })}
               </div>

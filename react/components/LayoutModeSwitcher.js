@@ -26,11 +26,11 @@ export default function LayoutModeSwitcher({ activeMode, onChange }) {
     const renderIcon = mode => {
       switch (mode) {
         case 'small':
-          return <IconGrid size="20" />
+          return <IconGrid size={20} />
         case 'inline':
-          return <IconInlineGrid size="20" />
+          return <IconInlineGrid size={20} />
         case 'normal':
-          return <IconSingleGrid size="20" />
+          return <IconSingleGrid size={20} />
       }
     }
 

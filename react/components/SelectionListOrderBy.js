@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { withRuntimeContext, Link } from 'vtex.render-runtime'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { find, propEq } from 'ramda'
 
-import Arrow from '../images/Arrow'
+import { withRuntimeContext, Link } from 'vtex.render-runtime'
+import { IconCaret } from 'vtex.dreamstore-icons'
 
 import searchResult from '../searchResult.css'
 
@@ -80,8 +80,8 @@ class SelectionListOrderBy extends Component {
       <div className={`${searchResult.dropdownMobile} relative justify-center flex-auto pt1 w-100 dib`}>
         <button onClick={this.handleDropdownBtClick} className={btClass}>
           <span className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}>{this.getOptionTitle(orderBy)}</span>
-          <span className={`${searchResult.filterPopupArrowIcon} pt1 ml-auto pt1`}>
-            <Arrow size={10} />
+          <span className={`${searchResult.filterPopupArrowIcon} pt1 ml-auto`}>
+            <IconCaret orientation="down" size={10} />
           </span>
         </button>
         <div className={contentClass}>

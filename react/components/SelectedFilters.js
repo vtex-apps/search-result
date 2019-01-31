@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { intlShape, injectIntl } from 'react-intl'
+
 import { Link } from 'vtex.render-runtime'
 
 import FilterOptionTemplate from './FilterOptionTemplate'
-import Check from '../images/Check'
 import { formatFacetToLinkPropsParam, HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
 
 import searchResult from '../searchResult.css'
@@ -54,9 +54,6 @@ class SelectedFilters extends Component {
               scrollOptions={{ baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET }}
             >
               <label className="w-100 flex items-center relative t-body fw3 mb2 pointer">
-                <div className="absolute top-0 left-0 bottom-0 z-1">
-                  <Check size={16} />
-                </div>
                 <input
                   className={`${searchResult.selectedFilterCheckbox} mr2 o-0`}
                   type="checkbox"

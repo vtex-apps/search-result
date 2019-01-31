@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
 
-import Arrow from '../images/Arrow'
+import { IconCaret } from 'vtex.dreamstore-icons'
 
 import searchResult from '../searchResult.css'
 
@@ -78,7 +78,10 @@ export default class FilterOptionTemplate extends Component {
             {title}
             {collapsable && (
               <span className={searchResult.filterIcon} style={{ height: 10 }}>
-                <Arrow up={open} />
+                {open
+                  ? <IconCaret orientation="up" size={18} />
+                  : <IconCaret orientation="down" size={18} />
+                }
               </span>
             )}
           </div>
