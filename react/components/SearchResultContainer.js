@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import QueryString from 'query-string'
+import { min } from 'ramda'
 
 import { Container } from 'vtex.store-components'
 
@@ -19,6 +20,7 @@ export default class SearchResultContainer extends Component {
 
   static defaultProps = {
     showMore: false,
+    maxItemsPerPage: 10,
   }
 
   state = {
@@ -128,9 +130,9 @@ export default class SearchResultContainer extends Component {
 
     this._fetchMoreLocked = true
 
-    const { maxItemsPerPage, searchQuery: { products } } = this.props
+    const { maxItemsPerPage, searchQuery: { products, recordsFiltered } } = this.props
 
-    const to = maxItemsPerPage + products.length - 1
+    const to = min(maxItemsPerPage + products.length, recordsFiltered) - 1
 
     this.setState({
       fetchMoreLoading: true,

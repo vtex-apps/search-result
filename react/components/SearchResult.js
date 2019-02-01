@@ -156,7 +156,7 @@ class SearchResult extends Component {
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
           <ExtensionPoint id="total-products"
-              recordsFiltered={recordsFiltered}
+            recordsFiltered={recordsFiltered}
           />
           {!hideFacets && (
             <ExtensionPoint
