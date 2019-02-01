@@ -92,8 +92,7 @@
 
 .galleryRow {
   display: grid;
-  grid-gap: 0.375rem;
-  grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr));
+  grid-template-columns: repeat(auto-fill,  17rem);
 }
 
 .galleryTwoColumns {
@@ -185,8 +184,6 @@
 
 .filterPopup {}
 
-.filterPopupOpen {}
-
 .filterPopupContent {}
 
 .filterPopupContentContainer {}
@@ -231,6 +228,10 @@
   }
 
   .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .galleryRow {
     grid-template-columns: 1fr;
   }
 

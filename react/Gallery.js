@@ -36,11 +36,14 @@ class Gallery extends Component {
   })
 
   renderItem = item => {
-    const { summary, layoutMode } = this.props
+    const { summary, layoutMode, runtime: { hints: { mobile } } } = this.props
+    const galleryItemClasses = classNames(searchResult.galleryItem, {
+      'mv2 pa1': mobile
+    })
     return (
       <div
         key={item.productId}
-        className={`${searchResult.galleryItem} mv2 pa1`}
+        className={galleryItemClasses}
       >
         <GalleryItem
           item={item}
@@ -52,7 +55,7 @@ class Gallery extends Component {
   }
 
   renderRow = ({ index, key, style, parent, itemsPerRow }) => {
-    const { products, layoutMode, runtime: { hints: { mobile } } } = this.props
+    const { products, layoutMode, gap, runtime: { hints: { mobile } } } = this.props
 
     const from = index * itemsPerRow
     const rowItems = products.slice(from, from + itemsPerRow)
@@ -60,6 +63,11 @@ class Gallery extends Component {
     const containerClasses = classNames(searchResult.galleryRow, {
       [searchResult.galleryTwoColumns]: layoutMode === 'small' && mobile,
     })
+
+    const styleWithGap = {
+      ...style,
+      gridGap: `${gap}rem`,
+    }
 
     return (
       <CellMeasurer
@@ -69,7 +77,7 @@ class Gallery extends Component {
         parent={parent}
         rowIndex={index}
       >
-        <div className={containerClasses} key={key} style={style}>
+        <div className={containerClasses} key={key} style={styleWithGap}>
           {map(this.renderItem, rowItems)}
         </div>
       </CellMeasurer>
@@ -152,6 +160,8 @@ Gallery.propTypes = {
   products: PropTypes.arrayOf(productShape),
   /** ProductSummary props. */
   summary: PropTypes.any,
+  /** Grid gap */
+  gap: PropTypes.number,
   /** Layout mode of the gallery */
   layoutMode: PropTypes.string,
   /** Item Width. */
@@ -168,6 +178,7 @@ Gallery.defaultProps = {
   maxItemsPerPage: 10,
   products: [],
   itemWidth: 300,
+  gap: 0,
 }
 
 export default withRuntimeContext(Gallery)
