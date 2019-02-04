@@ -230,6 +230,11 @@
       "gallery gallery gallery gallery gallery";
   }
 
+  .resultGallery {
+    grid-column-start: gallery;
+    grid-column-end: gallery;
+  }
+
   .gallery {
     grid-template-columns: 1fr;
   }
