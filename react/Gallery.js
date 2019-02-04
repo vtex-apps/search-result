@@ -178,7 +178,7 @@ Gallery.defaultProps = {
   maxItemsPerPage: 10,
   products: [],
   itemWidth: 300,
-  gap: 0,
+  gap: 2,
 }
 
 export default withRuntimeContext(Gallery)
