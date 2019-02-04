@@ -58,9 +58,8 @@ class Gallery extends Component {
     const from = index * itemsPerRow
     const rowItems = products.slice(from, from + itemsPerRow)
 
-    const containerClasses = classNames(searchResult.galleryRow, 'flex', {
+    const containerClasses = classNames(searchResult.galleryRow, 'justify-center', {
       [searchResult.galleryTwoColumns]: layoutMode === 'small' && mobile,
-      'justify-center': mobile,
     })
 
     return (
@@ -169,7 +168,7 @@ Gallery.propTypes = {
 Gallery.defaultProps = {
   maxItemsPerPage: 10,
   products: [],
-  itemWidth: 300,
+  itemWidth: 285,
 }
 
 export default withRuntimeContext(Gallery)
