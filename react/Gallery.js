@@ -37,6 +37,7 @@ class Gallery extends Component {
 
   renderItem = item => {
     const { summary, layoutMode } = this.props
+    
     return (
       <div
         key={item.productId}
@@ -57,8 +58,9 @@ class Gallery extends Component {
     const from = index * itemsPerRow
     const rowItems = products.slice(from, from + itemsPerRow)
 
-    const containerClasses = classNames(searchResult.galleryRow, {
+    const containerClasses = classNames(searchResult.galleryRow, 'flex', {
       [searchResult.galleryTwoColumns]: layoutMode === 'small' && mobile,
+      'justify-center': mobile,
     })
 
     return (
