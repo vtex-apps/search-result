@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
-- Using display `flex` instead display `grid` in gallery row for IE compatibility.
+- Fix IE grid compatibility.
 
 ## [3.11.2] - 2019-02-01
 
