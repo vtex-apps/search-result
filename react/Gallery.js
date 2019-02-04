@@ -132,7 +132,6 @@ class Gallery extends Component {
             {({ width, height, scrollTop, isScrolling }) => {
               const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (Math.floor(width / (itemWidth + gap)) || ONE_ITEM)
               const nRows = Math.ceil(products.length / itemsPerRow)
-              console.log(width / (itemWidth + gap), width, itemWidth + gap)
               return (
                 <List
                   key={layoutMode}
