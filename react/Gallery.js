@@ -58,7 +58,7 @@ class Gallery extends Component {
     const from = index * itemsPerRow
     const rowItems = products.slice(from, from + itemsPerRow)
 
-    const containerClasses = classNames(searchResult.galleryRow, 'justify-center', {
+    const containerClasses = classNames(searchResult.galleryRow, {
       [searchResult.galleryTwoColumns]: layoutMode === 'small' && mobile,
     })
 
