@@ -37,8 +37,8 @@ class Gallery extends Component {
 
   renderItem = item => {
     const { summary, layoutMode, runtime: { hints: { mobile } } } = this.props
-    const galleryItemClasses = classNames(searchResult.galleryItem, {
-      'mv2 pa1': mobile
+    const galleryItemClasses = classNames(searchResult.galleryItem, 'pa1', {
+      'mv2': mobile
     })
     return (
       <div
@@ -66,7 +66,7 @@ class Gallery extends Component {
 
     const styleWithGap = {
       ...style,
-      gridGap: `${gap}rem`,
+      gridGap: gap,
     }
 
     return (
@@ -109,6 +109,7 @@ class Gallery extends Component {
       layoutMode,
       runtime: { hints: { mobile } },
       itemWidth,
+      gap,
     } = this.props
     // Maps the WindowScroller and the AutoSizer props to a more adequate set of params
     const mapContainerProps = ({ scroller: { height, scrollTop, isScrolling }, autoSizer: { width } }) => ({ width, height, scrollTop, isScrolling })
@@ -129,9 +130,9 @@ class Gallery extends Component {
             mapProps={mapContainerProps}
           >
             {({ width, height, scrollTop, isScrolling }) => {
-              const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (Math.floor(width / itemWidth) || ONE_ITEM)
+              const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (Math.floor(width / (itemWidth + gap)) || ONE_ITEM)
               const nRows = Math.ceil(products.length / itemsPerRow)
-
+              console.log(width / (itemWidth + gap), width, itemWidth + gap)
               return (
                 <List
                   key={layoutMode}
@@ -177,8 +178,8 @@ Gallery.propTypes = {
 Gallery.defaultProps = {
   maxItemsPerPage: 10,
   products: [],
-  itemWidth: 300,
-  gap: 2,
+  itemWidth: 280,
+  gap: 16,
 }
 
 export default withRuntimeContext(Gallery)
