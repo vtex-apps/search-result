@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import { List, WindowScroller, AutoSizer, CellMeasurer, CellMeasurerCache } from 'react-virtualized'
 import PropTypes from 'prop-types'
-import { Adopt } from 'react-adopt'
-import { map } from 'ramda'
+import { map, splitEvery, toString, head, last } from 'ramda'
 
 import { withRuntimeContext, NoSSR } from 'vtex.render-runtime'
 
@@ -11,8 +9,6 @@ import { productShape } from './constants/propTypes'
 import GalleryItem from './components/GalleryItem'
 
 import searchResult from './searchResult.css'
-
-import 'react-virtualized/styles.css'
 
 /**
  * Canonical gallery that displays a list of given products.
@@ -22,19 +18,6 @@ const TWO_ITEMS = 2
 const ONE_ITEM = 1
 
 class Gallery extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { prevLayoutMode: this.props.layoutMode }
-  }
-
-  /**
- *  Cache to measure the rows height
- * */
-  cache = new CellMeasurerCache({
-    fixedWidth: true,
-    keyMapper: () => 1,
-  })
-
   renderItem = item => {
     const { summary, layoutMode } = this.props
     return (
@@ -51,28 +34,18 @@ class Gallery extends Component {
     )
   }
 
-  renderRow = ({ index, key, style, parent, itemsPerRow }) => {
-    const { products, layoutMode, runtime: { hints: { mobile } } } = this.props
-
-    const from = index * itemsPerRow
-    const rowItems = products.slice(from, from + itemsPerRow)
+  renderRow = (rowItems) => {
+    const { layoutMode, runtime: { hints: { mobile } } } = this.props
 
     const containerClasses = classNames(searchResult.galleryRow, {
       [searchResult.galleryTwoColumns]: layoutMode === 'small' && mobile,
     })
 
+    const key = toString(head(rowItems)) + toString(last(rowItems))
     return (
-      <CellMeasurer
-        cache={this.cache}
-        columnIndex={0}
-        key={key}
-        parent={parent}
-        rowIndex={index}
-      >
-        <div className={containerClasses} key={key} style={style}>
-          {map(this.renderItem, rowItems)}
-        </div>
-      </CellMeasurer>
+      <div className={containerClasses} key={key}>
+        {map(this.renderItem, rowItems)}
+      </div>
     )
   }
 
@@ -90,11 +63,6 @@ class Gallery extends Component {
     )
   }
 
-  updateCache = layoutMode => {
-    this.setState({ prevLayoutMode: layoutMode })
-    this.cache.clearAll()
-  }
-
   render() {
     const {
       products,
@@ -102,45 +70,17 @@ class Gallery extends Component {
       runtime: { hints: { mobile } },
       itemWidth,
     } = this.props
-    // Maps the WindowScroller and the AutoSizer props to a more adequate set of params
-    const mapContainerProps = ({ scroller: { height, scrollTop, isScrolling }, autoSizer: { width } }) => ({ width, height, scrollTop, isScrolling })
 
-    // Updates the cache to recalculate heights if the layoutMode changes
-    if (layoutMode !== this.state.prevLayoutMode) {
-      this.updateCache(layoutMode)
-    }
+    //TODO check how the heck can I see the maximum number of items per row
+    // const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (5 || ONE_ITEM)
+    // const nRows = Math.ceil(products.length / itemsPerRow)
+
+    const itemsPerRow = 5
 
     return (
       <NoSSR onSSR={this.handleSSR()}>
         <div className={`${searchResult.gallery} pa3 bn`}>
-          <Adopt
-            mapper={{
-              scroller: <WindowScroller />,
-              autoSizer: <AutoSizer disableHeight />,
-            }}
-            mapProps={mapContainerProps}
-          >
-            {({ width, height, scrollTop, isScrolling }) => {
-              const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (Math.floor(width / itemWidth) || ONE_ITEM)
-              const nRows = Math.ceil(products.length / itemsPerRow)
-
-              return (
-                <List
-                  key={layoutMode}
-                  deferredMeasurementCache={this.cache}
-                  overscanRowCount={2}
-                  isScrolling={isScrolling}
-                  autoHeight
-                  scrollTop={scrollTop}
-                  width={width}
-                  height={height}
-                  rowCount={nRows}
-                  rowHeight={this.cache.rowHeight}
-                  rowRenderer={args => this.renderRow({ ...args, itemsPerRow })}
-                />
-              )
-            }}
-          </Adopt>
+          {map(this.renderRow, splitEvery(itemsPerRow, products))}
         </div >
       </NoSSR>
     )
