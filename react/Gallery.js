@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { map } from 'ramda'
 
-import { withRuntimeContext, NoSSR } from 'vtex.render-runtime'
+import { withRuntimeContext } from 'vtex.render-runtime'
 
 import { productShape } from './constants/propTypes'
 import GalleryItem from './components/GalleryItem'
@@ -29,21 +29,7 @@ class Gallery extends Component {
       </div>
     )
   }
-
-  handleSSR() {
-    const { products, layoutMode, runtime: { hints: { mobile } } } = this.props
-
-    const ssrContainer = classNames(`${searchResult.gallery} pa3 bn`, {
-      [searchResult.galleryTwoColumns]: layoutMode === 'small' && mobile,
-    })
-
-    return (
-      <div className={ssrContainer}>
-        {map(this.renderItem, products)}
-      </div>
-    )
-  }
-
+  
   render() {
     const {
       products,
@@ -56,11 +42,9 @@ class Gallery extends Component {
     })
 
     return (
-      <NoSSR onSSR={this.handleSSR()}>
-        <div className={containerClasses}>
-          {map(this.renderItem, products)}
-        </div >
-      </NoSSR>
+      <div className={containerClasses}>
+        {map(this.renderItem, products)}
+      </div >
     )
   }
 }
