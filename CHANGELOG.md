@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.11.4] - 2019-02-06
+### Fixed
+- Fix overflowing items in the `Gallery`.
+
 ## [3.11.3] - 2019-02-04
 ### Fixed
 - Fix gallery layout when in mobile mode.
