@@ -17,6 +17,7 @@ export default class SearchResultQueryLoader extends Component {
   static defaultProps = {
     orderBy: SORT_OPTIONS[0].value,
     rest: '',
+    maxItemsPerPage: DEFAULT_MAX_ITEMS_PER_PAGE,
   }
 
   static uiSchema = {
@@ -30,6 +31,7 @@ export default class SearchResultQueryLoader extends Component {
 
   render() {
     const { querySchema } = this.props
+
     return !this.props.searchQuery || (querySchema && querySchema.enableCustomQuery) ? (
       <LocalQuery
         {...this.props}

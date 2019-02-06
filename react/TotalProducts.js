@@ -16,7 +16,7 @@ const TotalProducts = ({ recordsFiltered }) => {
 
 TotalProducts.propTypes = {
   /** Total of records filtered */
-  recordsFiltered: PropTypes.string.recordsFiltered,
+  recordsFiltered: PropTypes.number,
 }
 
 export default TotalProducts

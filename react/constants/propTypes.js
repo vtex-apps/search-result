@@ -221,8 +221,6 @@ export const searchResultPropTypes = {
 }
 
 export const loaderPropTypes = {
-  /** Max number of items retrieved each time */
-  maxItemsPerPage: PropTypes.number.isRequired,
   /** List of products */
   products: PropTypes.arrayOf(productShape),
   /** Function to refetch de data query */
