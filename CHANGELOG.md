@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
-- Fix overflowing Itens in the `Gallery`.
+- Fix overflowing items in the `Gallery`.
 
 ## [3.11.3] - 2019-02-04
 ### Fixed
