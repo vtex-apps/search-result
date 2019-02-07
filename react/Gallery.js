@@ -82,7 +82,7 @@ Gallery.propTypes = {
   products: PropTypes.arrayOf(productShape),
   /** ProductSummary props. */
   summary: PropTypes.any,
-  /** Grid gap */
+  /** Gap in Px between items */
   gap: PropTypes.number,
   /** Max Items per Row */
   maxItemsPerRow: PropTypes.number,
