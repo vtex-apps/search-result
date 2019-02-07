@@ -88,6 +88,7 @@ SearchResultQueryLoader.getSchema = props => {
       mobileLayout: {
         title: 'Mobile Layout Switcher',
         type: 'object',
+        isLayout: true,
         properties: {
           mode1: {
             title: 'Layout Mode 1',
