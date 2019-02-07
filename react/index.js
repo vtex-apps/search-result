@@ -85,27 +85,33 @@ SearchResultQueryLoader.getSchema = props => {
     type: 'object',
     properties: {
       ...querySchema,
-      hiddenFacets: {
-        title: 'editor.search-result.hiddenFacets',
+      mobileLayout: {
+        title: 'Mobile Layout Switcher',
         type: 'object',
-        isLayout: true,
         properties: {
-          layoutMode1: {
-            title: 'Layout Mode Switcher 1',
+          mode1: {
+            title: 'Layout Mode 1',
             type: 'string',
             default: LAYOUT_MODE[0].value,
             enum: LAYOUT_MODE.map(opt => opt.value),
             enumNames: LAYOUT_MODE.map(opt => opt.label),
             isLayout: true,
           },
-          layoutMode2: {
-            title: 'Layout Mode Switcher 2',
+          mode2: {
+            title: 'Layout Mode 2',
             type: 'string',
             default: LAYOUT_MODE[1].value,
             enum: LAYOUT_MODE.map(opt => opt.value),
             enumNames: LAYOUT_MODE.map(opt => opt.label),
             isLayout: true,
-          },
+          }
+        }
+      },
+      hiddenFacets: {
+        title: 'editor.search-result.hiddenFacets',
+        type: 'object',
+        isLayout: true,
+        properties: {
           brands: {
             title: 'editor.search-result.hiddenFacets.brands',
             type: 'boolean',

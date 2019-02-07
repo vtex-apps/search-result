@@ -15,14 +15,14 @@ class SearchResult extends Component {
   static propTypes = searchResultPropTypes
 
   static defaultProps = {
-    hiddenFacets: {
-      layoutMode1: LAYOUT_MODE[0].value,
-      layoutMode2: LAYOUT_MODE[1].value,
+    mobileLayout: {
+      mode1: LAYOUT_MODE[0].value,
+      mode2: LAYOUT_MODE[1].value,
     },
   }
 
   state = {
-    mobileLayoutMode: this.props.hiddenFacets.layoutMode1 || LAYOUT_MODE[0].value,
+    mobileLayoutMode: this.props.mobileLayout.mode1,
     showLoadingAsOverlay: false,
     // The definitions bellow are required because
     // on SSR the getDerivedStateFromProps isn't called
@@ -42,7 +42,7 @@ class SearchResult extends Component {
   handleMobileLayoutChange = e => {
     e.preventDefault()
 
-    const defaultModes = [this.props.hiddenFacets.layoutMode1, this.props.hiddenFacets.layoutMode2]
+    const defaultModes = [this.props.mobileLayout.mode1, this.props.mobileLayout.mode2]
     const modeIndex = (defaultModes.indexOf(this.state.mobileLayoutMode) + 1) % 2
     const currentMode = defaultModes[modeIndex]
 
@@ -56,9 +56,9 @@ class SearchResult extends Component {
     // so we can show the previous products when the
     // overlay is on the screen
     if (!props.loading) {
-      if (!props.hiddenFacets.layoutMode1 && !props.hiddenFacets.layoutMode2) {
-        props.hiddenFacets.layoutMode1 = LAYOUT_MODE[0].value
-        props.hiddenFacets.layoutMode2 = LAYOUT_MODE[1].value
+      if (!props.mobileLayout.mode1 && !props.mobileLayout.mode2) {
+        props.mobileLayout.mode1 = LAYOUT_MODE[0].value
+        props.mobileLayout.mode2 = LAYOUT_MODE[1].value
       }
 
       const {
