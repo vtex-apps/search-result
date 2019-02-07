@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { withResizeDetector } from 'react-resize-detector'
-import { map, compose } from 'ramda'
+import { map, compose, pluck } from 'ramda'
 
 import { withRuntimeContext } from 'vtex.render-runtime'
 
+import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 import { productShape } from './constants/propTypes'
 import GalleryItem from './components/GalleryItem'
 
@@ -28,6 +29,12 @@ class Gallery extends Component {
 
     return mobile ? mobileLayoutMode : 'normal'
   }  
+
+  get itemsPerRow() {
+    const { maxItemsPerRow, gap, minItemWidth, width } = this.props
+    const maxItems = Math.floor(width / (minItemWidth + gap))
+    return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
+  }
 
   renderItem = item => {
     const { summary, gap } = this.props
@@ -55,15 +62,6 @@ class Gallery extends Component {
     )
   }
 
-<<<<<<< HEAD
-  get itemsPerRow() {
-    const { maxItemsPerRow, gap, minItemWidth, width } = this.props
-    const maxItems = Math.floor(width / (minItemWidth + gap))
-    return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
-  }
-
-=======
->>>>>>> Eslint
   render() {
     const {
       products,
@@ -94,7 +92,7 @@ Gallery.propTypes = {
   /** Max Items per Row */
   maxItemsPerRow: PropTypes.number,
   /** Layout mode of the gallery in mobile view */
-  mobileLayoutMode: PropTypes.string,
+  mobileLayoutMode: PropTypes.oneOf(pluck('value', LAYOUT_MODE)),
   /** Min Item Width. */
   minItemWidth: PropTypes.number,
   /** Render runtime mobile hint */
@@ -110,6 +108,7 @@ Gallery.defaultProps = {
   gap: 16,
   maxItemsPerRow: 5,
   minItemWidth: 230,
+  mobileLayoutMode: LAYOUT_MODE[0].value,
 }
 
 export default compose(withResizeDetector, withRuntimeContext)(Gallery)
