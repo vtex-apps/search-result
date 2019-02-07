@@ -20,11 +20,18 @@ const ONE_COLUMN_ITEM = 1
  * Canonical gallery that displays a list of given products.
  */
 class Gallery extends Component {
-  state = { prevLayoutMode: this.props.layoutMode }
+  get layoutMode() {
+    const { 
+      mobileLayoutMode,
+      runtime: { hints: { mobile } },
+    } = this.props
+
+    return mobile ? mobileLayoutMode : 'normal'
+  }  
 
   renderItem = item => {
-    const { summary, layoutMode, gap, runtime: { hints: { mobile } } } = this.props
-    const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_COLUMN_ITEMS : (this.itemsPerRow || ONE_COLUMN_ITEM)
+    const { summary, gap } = this.props
+    const itemsPerRow = (this.layoutMode === 'small') ? TWO_COLUMN_ITEMS : (this.itemsPerRow || ONE_COLUMN_ITEM)
 
     const style = {
       flexBasis: `calc(${100 / itemsPerRow}% - ${gap}px)`,
@@ -42,7 +49,7 @@ class Gallery extends Component {
         <GalleryItem
           item={item}
           summary={summary}
-          displayMode={layoutMode}
+          displayMode={this.layoutMode}
         />
       </div>
     )
@@ -83,8 +90,8 @@ Gallery.propTypes = {
   gap: PropTypes.number,
   /** Max Items per Row */
   maxItemsPerRow: PropTypes.number,
-  /** Layout mode of the gallery */
-  layoutMode: PropTypes.string,
+  /** Layout mode of the gallery in mobile view */
+  mobileLayoutMode: PropTypes.string,
   /** Min Item Width. */
   minItemWidth: PropTypes.number,
   /** Render runtime mobile hint */
@@ -96,7 +103,6 @@ Gallery.propTypes = {
 }
 
 Gallery.defaultProps = {
-  maxItemsPerPage: 10,
   products: [],
   gap: 16,
   maxItemsPerRow: 5,
