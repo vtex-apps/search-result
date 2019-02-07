@@ -42,9 +42,9 @@ class SearchResult extends Component {
   handleMobileLayoutChange = e => {
     e.preventDefault()
 
-    const defaultModes = [this.props.mobileLayout.mode1, this.props.mobileLayout.mode2]
-    const modeIndex = (defaultModes.indexOf(this.state.mobileLayoutMode) + 1) % 2
-    const currentMode = defaultModes[modeIndex]
+    const modes = [this.props.mobileLayout.mode1, this.props.mobileLayout.mode2]
+    const modeIndex = (modes.indexOf(this.state.mobileLayoutMode) + 1) % 2
+    const currentMode = modes[modeIndex]
 
     this.setState({
       mobileLayoutMode: currentMode,

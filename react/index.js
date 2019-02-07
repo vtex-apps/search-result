@@ -86,12 +86,12 @@ SearchResultQueryLoader.getSchema = props => {
     properties: {
       ...querySchema,
       mobileLayout: {
-        title: 'Mobile Layout Switcher',
+        title: 'editor.search-result.mobileLayout',
         type: 'object',
         isLayout: true,
         properties: {
           mode1: {
-            title: 'Layout Mode 1',
+            title: 'editor.search-result.mobileLayout.mode1',
             type: 'string',
             default: LAYOUT_MODE[0].value,
             enum: LAYOUT_MODE.map(opt => opt.value),
@@ -99,7 +99,7 @@ SearchResultQueryLoader.getSchema = props => {
             isLayout: true,
           },
           mode2: {
-            title: 'Layout Mode 2',
+            title: 'editor.search-result.mobileLayout.mode2',
             type: 'string',
             default: LAYOUT_MODE[1].value,
             enum: LAYOUT_MODE.map(opt => opt.value),
