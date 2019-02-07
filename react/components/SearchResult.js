@@ -16,8 +16,8 @@ class SearchResult extends Component {
 
   static defaultProps = {
     hiddenFacets: {
-      layoutMode1: LAYOUT_MODE[1].value,
-      layoutMode2: LAYOUT_MODE[0].value,
+      layoutMode1: LAYOUT_MODE[0].value,
+      layoutMode2: LAYOUT_MODE[1].value,
     },
   }
 
