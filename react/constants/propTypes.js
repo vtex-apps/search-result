@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types'
+import { pluck } from 'ramda'
+import { LAYOUT_MODE } from '../components/LayoutModeSwitcher'
 
 export const paramShape = PropTypes.shape({
   /** Department of the page */
@@ -217,6 +219,13 @@ export const searchResultPropTypes = {
       /** Indicates if is on a mobile device */
       mobile: PropTypes.bool,
     }),
+  }),
+  /** Mobile Layout Modes setup */
+  mobileLayout: PropTypes.shape({
+    /** First Layout Mode */
+    mode1: PropTypes.oneOf(pluck('value', LAYOUT_MODE)),
+    /** Second Layout Mode */
+    mode2: PropTypes.oneOf(pluck('value', LAYOUT_MODE)),
   }),
 }
 
