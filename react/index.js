@@ -105,8 +105,8 @@ SearchResultQueryLoader.getSchema = props => {
             enum: LAYOUT_MODE.map(opt => opt.value),
             enumNames: LAYOUT_MODE.map(opt => opt.label),
             isLayout: true,
-          }
-        }
+          },
+        },
       },
       hiddenFacets: {
         title: 'editor.search-result.hiddenFacets',

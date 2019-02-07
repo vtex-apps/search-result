@@ -21,7 +21,7 @@ const ONE_COLUMN_ITEM = 1
  */
 class Gallery extends Component {
   get layoutMode() {
-    const { 
+    const {
       mobileLayoutMode,
       runtime: { hints: { mobile } },
     } = this.props
@@ -55,12 +55,15 @@ class Gallery extends Component {
     )
   }
 
+<<<<<<< HEAD
   get itemsPerRow() {
     const { maxItemsPerRow, gap, minItemWidth, width } = this.props
     const maxItems = Math.floor(width / (minItemWidth + gap))
     return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
   }
 
+=======
+>>>>>>> Eslint
   render() {
     const {
       products,
