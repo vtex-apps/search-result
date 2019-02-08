@@ -11,28 +11,26 @@ import GalleryItem from './components/GalleryItem'
 
 import searchResult from './searchResult.css'
 
+/** Layout with two column */
+const TWO_COLUMN_ITEMS = 2
+/** Layout with one column */
+const ONE_COLUMN_ITEM = 1
+
 /**
  * Canonical gallery that displays a list of given products.
  */
-
-const TWO_ITEMS = 2
-const ONE_ITEM = 1
-
 class Gallery extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { prevLayoutMode: this.props.layoutMode }
-  }
+  state = { prevLayoutMode: this.props.layoutMode }
 
   renderItem = item => {
     const { summary, layoutMode, gap, runtime: { hints: { mobile } } } = this.props
-    const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (this.itemsPerRow || ONE_ITEM)
-    
+    const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_COLUMN_ITEMS : (this.itemsPerRow || ONE_COLUMN_ITEM)
+
     const style = {
-      flexBasis: `calc(${100/itemsPerRow}% - ${gap}px)`,
-      maxWidth: `calc(${100/itemsPerRow}% - ${gap}px)`,
-      marginLeft: gap/2,
-      marginRight: gap/2,
+      flexBasis: `calc(${100 / itemsPerRow}% - ${gap}px)`,
+      maxWidth: `calc(${100 / itemsPerRow}% - ${gap}px)`,
+      marginLeft: gap / 2,
+      marginRight: gap / 2,
     }
 
     return (
@@ -52,17 +50,17 @@ class Gallery extends Component {
 
   get itemsPerRow() {
     const { maxItemsPerRow, gap, minItemWidth, width } = this.props
-    const maxItems = Math.floor(width/(minItemWidth + gap))
+    const maxItems = Math.floor(width / (minItemWidth + gap))
     return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
   }
-  
+
   render() {
     const {
       products,
       runtime: { hints: { mobile } },
     } = this.props
 
-    const galleryClasses = classNames(searchResult.gallery, 'flex flex-row flex-wrap items-center content-stretch pa3 bn',{
+    const galleryClasses = classNames(searchResult.gallery, 'flex flex-row flex-wrap items-center content-stretch pa3 bn', {
       'mh4': !mobile,
     })
 
@@ -75,6 +73,8 @@ class Gallery extends Component {
 }
 
 Gallery.propTypes = {
+  /** Container width */
+  width: PropTypes.number,
   /** Products to be displayed. */
   products: PropTypes.arrayOf(productShape),
   /** ProductSummary props. */
