@@ -26,7 +26,7 @@ class Gallery extends Component {
 
   renderItem = item => {
     const { summary, layoutMode, gap, runtime: { hints: { mobile } } } = this.props
-    const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (this.getItemsPerRow() || ONE_ITEM)
+    const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_ITEMS : (this.itemsPerRow || ONE_ITEM)
     
     const style = {
       flexBasis: `calc(${100/itemsPerRow}% - ${gap}px)`,
@@ -50,13 +50,10 @@ class Gallery extends Component {
     )
   }
 
-  getItemsPerRow = () => {
+  get itemsPerRow() {
     const { maxItemsPerRow, gap, minItemWidth, width } = this.props
-    let maxItems = maxItemsPerRow
-    while ((minItemWidth + gap) * maxItems >= width) {
-      --maxItems
-    }
-    return maxItems
+    const maxItems = Math.floor(width/(minItemWidth + gap))
+    return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
   }
   
   render() {
@@ -65,7 +62,7 @@ class Gallery extends Component {
       runtime: { hints: { mobile } },
     } = this.props
 
-    const galleryClasses = classNames(searchResult.gallery, 'flex items-center content-stretch flex-row flex-wrap pa3 bn',{
+    const galleryClasses = classNames(searchResult.gallery, 'flex flex-row flex-wrap items-center content-stretch pa3 bn',{
       'mh4': !mobile,
     })
 
