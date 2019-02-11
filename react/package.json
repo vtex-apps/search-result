@@ -18,6 +18,7 @@
     "react-intl": "^2.4.0",
     "react-motion": "^0.5.2",
     "react-outside-click-handler": "^1.2.2",
+    "react-resize-detector": "^3.4.0",
     "unorm": "^1.4.1"
   },
   "devDependencies": {
