@@ -37,21 +37,21 @@ class Gallery extends Component {
   }
 
   renderItem = item => {
-    const { summary, gap } = this.props
-    const itemsPerRow = (this.layoutMode === 'small') ? TWO_COLUMN_ITEMS : (this.itemsPerRow || ONE_COLUMN_ITEM)
+    const { summary, layoutMode, runtime: { hints: { mobile } } } = this.props
+    const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_COLUMN_ITEMS : (this.itemsPerRow || ONE_COLUMN_ITEM)
 
     const style = {
-      flexBasis: `calc(${100 / itemsPerRow}% - ${gap}px)`,
-      maxWidth: `calc(${100 / itemsPerRow}% - ${gap}px)`,
-      marginLeft: gap / 2,
-      marginRight: gap / 2,
+      flexBasis: `${100 / itemsPerRow}%`,
+      maxWidth: `${100 / itemsPerRow}%`,
     }
+
+    const gapBetweenItems = this.gapItems
 
     return (
       <div
         key={item.productId}
         style={style}
-        className={searchResult.galleryItem}
+        className={classNames(searchResult.galleryItem, gapBetweenItems)}
       >
         <GalleryItem
           item={item}
@@ -60,6 +60,17 @@ class Gallery extends Component {
         />
       </div>
     )
+  }
+
+  get gapItems() {
+    const { gap } = this.props
+    return GAP_TYPES[gap] ? GAP_TYPES[gap] : 'pa0'
+  }
+
+  get itemsPerRow() {
+    const { maxItemsPerRow, minItemWidth, width } = this.props
+    const maxItems = Math.floor(width / (minItemWidth))
+    return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
   }
 
   render() {
@@ -80,6 +91,12 @@ class Gallery extends Component {
   }
 }
 
+const GAP_TYPES = {
+  '1x': 'pa3',
+  '2x': 'pa5',
+  '3x': 'pa7',
+}
+
 Gallery.propTypes = {
   /** Container width */
   width: PropTypes.number,
@@ -87,8 +104,8 @@ Gallery.propTypes = {
   products: PropTypes.arrayOf(productShape),
   /** ProductSummary props. */
   summary: PropTypes.any,
-  /** Gap in Px between items */
-  gap: PropTypes.number,
+  /** Gap between items */
+  gap: PropTypes.oneOf(['0x', '1x', '2x', '3x']),
   /** Max Items per Row */
   maxItemsPerRow: PropTypes.number,
   /** Layout mode of the gallery in mobile view */
@@ -105,9 +122,9 @@ Gallery.propTypes = {
 
 Gallery.defaultProps = {
   products: [],
-  gap: 16,
+  gap: '1x',
   maxItemsPerRow: 5,
-  minItemWidth: 230,
+  minItemWidth: 240,
   mobileLayoutMode: LAYOUT_MODE[0].value,
 }
 
