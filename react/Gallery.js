@@ -49,7 +49,7 @@ class Gallery extends Component {
       <div
         key={item.productId}
         style={style}
-        className={classNames(searchResult.galleryItem, this.gapItems)}
+        className={classNames(searchResult.galleryItem, this.paddingForItem)}
       >
         <GalleryItem
           item={item}
