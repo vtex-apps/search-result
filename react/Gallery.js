@@ -62,7 +62,7 @@ class Gallery extends Component {
 
   get paddingForItem() {
     const { gap } = this.props
-    return GAP_TYPES[gap] ? GAP_TYPES[gap] : 'pa0'
+    return GAP_TYPES[gap] || 'pa0'
   }
 
   get itemsPerRow() {
