@@ -45,13 +45,11 @@ class Gallery extends Component {
       maxWidth: `${100 / itemsPerRow}%`,
     }
 
-    const gapBetweenItems = this.gapItems
-
     return (
       <div
         key={item.productId}
         style={style}
-        className={classNames(searchResult.galleryItem, gapBetweenItems)}
+        className={classNames(searchResult.galleryItem, this.gapItems)}
       >
         <GalleryItem
           item={item}
