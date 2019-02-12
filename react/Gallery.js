@@ -60,7 +60,7 @@ class Gallery extends Component {
       runtime: { hints: { mobile } },
     } = this.props
 
-    const galleryClasses = classNames(searchResult.gallery, 'flex flex-row flex-wrap items-center content-stretch pa3 bn', {
+    const galleryClasses = classNames(searchResult.gallery, 'flex flex-row flex-wrap items-stretch pa3 bn', {
       'mh4': !mobile,
     })
 

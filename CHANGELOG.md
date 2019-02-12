@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.11.6] - 2019-02-12
+### Fixed
+- Normalize the height of `product-summary`.
+
 ## [3.11.5] - 2019-02-11
 ### Changed
 - Use flex instead grid in `Gallery` and spaces between `GalleryItems` can be customized.
