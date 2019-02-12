@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.11.7] - 2019-02-12
+### Fixed
+- Fix misuse of `layoutMode` prop in desktop view.
+
+### Changed
+- Rename `layoutMode` to `mobileLayoutMode` to avoid using it in desktop view.
+
 ## [3.11.6] - 2019-02-12
 ### Fixed
 - Normalize the height of `product-summary`.

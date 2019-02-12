@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { withResizeDetector } from 'react-resize-detector'
-import { map, compose } from 'ramda'
+import { map, compose, pluck } from 'ramda'
 
 import { withRuntimeContext } from 'vtex.render-runtime'
 
+import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 import { productShape } from './constants/propTypes'
 import GalleryItem from './components/GalleryItem'
 
@@ -20,11 +21,24 @@ const ONE_COLUMN_ITEM = 1
  * Canonical gallery that displays a list of given products.
  */
 class Gallery extends Component {
-  state = { prevLayoutMode: this.props.layoutMode }
+  get layoutMode() {
+    const {
+      mobileLayoutMode,
+      runtime: { hints: { mobile } },
+    } = this.props
+
+    return mobile ? mobileLayoutMode : 'normal'
+  }  
+
+  get itemsPerRow() {
+    const { maxItemsPerRow, gap, minItemWidth, width } = this.props
+    const maxItems = Math.floor(width / (minItemWidth + gap))
+    return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
+  }
 
   renderItem = item => {
-    const { summary, layoutMode, gap, runtime: { hints: { mobile } } } = this.props
-    const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_COLUMN_ITEMS : (this.itemsPerRow || ONE_COLUMN_ITEM)
+    const { summary, gap } = this.props
+    const itemsPerRow = (this.layoutMode === 'small') ? TWO_COLUMN_ITEMS : (this.itemsPerRow || ONE_COLUMN_ITEM)
 
     const style = {
       flexBasis: `calc(${100 / itemsPerRow}% - ${gap}px)`,
@@ -42,16 +56,10 @@ class Gallery extends Component {
         <GalleryItem
           item={item}
           summary={summary}
-          displayMode={layoutMode}
+          displayMode={this.layoutMode}
         />
       </div>
     )
-  }
-
-  get itemsPerRow() {
-    const { maxItemsPerRow, gap, minItemWidth, width } = this.props
-    const maxItems = Math.floor(width / (minItemWidth + gap))
-    return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
   }
 
   render() {
@@ -83,8 +91,8 @@ Gallery.propTypes = {
   gap: PropTypes.number,
   /** Max Items per Row */
   maxItemsPerRow: PropTypes.number,
-  /** Layout mode of the gallery */
-  layoutMode: PropTypes.string,
+  /** Layout mode of the gallery in mobile view */
+  mobileLayoutMode: PropTypes.oneOf(pluck('value', LAYOUT_MODE)),
   /** Min Item Width. */
   minItemWidth: PropTypes.number,
   /** Render runtime mobile hint */
@@ -96,11 +104,11 @@ Gallery.propTypes = {
 }
 
 Gallery.defaultProps = {
-  maxItemsPerPage: 10,
   products: [],
   gap: 16,
   maxItemsPerRow: 5,
   minItemWidth: 230,
+  mobileLayoutMode: LAYOUT_MODE[0].value,
 }
 
 export default compose(withResizeDetector, withRuntimeContext)(Gallery)
