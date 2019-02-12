@@ -107,21 +107,75 @@ Through the Storefront, you can change the search-result behavior and interface.
 
 | Prop name          | Type       | Description                                                                 |
 | ------------------ | ---------- | --------------------------------------------------------------------------- |
-| `hiddenFacets`                      | `String`   | Define Minicart mode. (values: 'popup' or 'sidebar')               |
-| `summary`          | `Boolean`  | Shows the remove button in each item                               |
-| `pagination`              | `String`  | Shows the total discount of your cart                              |
-| `showSku`                   | `Boolean`  | Shows the SKU name of the item                                     |
-| `labelMiniCartEmpty`        | `String`   | Text that is displayed when the cart is empty                      |
-| `labelButtonFinishShopping` | `String`   | Text displayed in the finish shopping button                       |
-| `enableQuantitySelector`    | `Boolean`  | Enable the quantity selector component                             |
-| `maxQuantity`               | `String`   | Define the maximum quantity of an item in cart                     |
+| `querySchema`                      | `QuerySchema`   | Query made when there's no context                     |
+| `hiddenFacets`          | `HiddenFacets`  | Indicates which facets will be hidden                             |
+| `pagination`                   | `String`  | Pagination type (values: 'show-more' or 'infinite-scroll')       |
+
+QuerySchema
+| Prop name          | Type       | Description                                                                 |
+| ------------------ | ---------- | --------------------------------------------------------------------------- |
+| `maxItemsPerPage`   | `Number`   | Maximum number of items per search page                     |
+| `queryField`          | `String`  | Query field                             |
+| `mapField`              | `String`  | Map field                                                  |
+| `restField`                   | `String`  | Other Query Strings       |
+| `orderByField`                   | `String`  | Order by field (values: 'OrderByTopSaleDESC', 'OrderByReleaseDateDESC', 'OrderByBestDiscountDESC', 'OrderByPriceDESC', 'OrderByPriceASC', 'OrderByNameASC' or 'OrderByNameDESC')       |
+
+HiddenFacets
+| Prop name          | Type       | Description                                                                 |
+| ------------------ | ---------- | --------------------------------------------------------------------------- |
+| `layoutMode1`            | `String`  | Layout mode of the switcher (values: 'normal', 'small' or 'inline')    |
+| `layoutMode2`            | `String`  | Layout mode of the switcher 2 (values: 'normal', 'small' or 'inline')  |
+| `brands`                 | `Boolean`  | Hide Brands filter       |
+| `categories`             | `Boolean`  | Hide Categories filter       |
+| `priceRange`              | `Boolean`  | Hide Price filter       |
+| `specificationFilters`   | `SpecificationFilters`  | Hide Specifications filters       |
+
+SpecificationFilters
+| Prop name          | Type       | Description                                                                 |
+| ------------------ | ---------- | --------------------------------------------------------------------------- |
+| `hideAll`            | `Boolean`  | Hide specifications filters    |
+| `hiddenFilters`            | `Array(String)`  | Array of specifications filters that should be hidden  |
 
 Also, you can configure the product summary that is defined on minicart. See [here](https://github.com/vtex-apps/product-summary/blob/master/README.md#configuration) the Product Summary API. 
 
-
 ### Styles API
+This app has CSS customization through `CSS Modules`. CSS Modules is a CSS file in which all class names and animation names are scoped locally by default. You can read more about CSS Modules [here](https://github.com/css-modules/css-modules) .
 
-:construction: :construction: :construction:
+We use it `css-loader` to generate a CSS token on a HTML element. For example, the builder generate a CSS token based on app vendor, name and major version. Like `container` token declared in search-result, generate the classname `vtex.search-result-3-x-container`.
+
+Below, we describe the tokens, their explanation and the component where it is located.
+
+| Token name         | Component          | Description                                            |
+| ------------------ | ----------         |------------------------------------------------------- |
+| `container`        | [SearchResult](https://github.com/vtex-apps/search-result/blob/master/react/components/SearchResult.js) | The main container of search-result |
+| `buttonShowMore`        | [ShowMoreLoaderResult](https://github.com/vtex-apps/search-result/blob/master/react/components/loaders/ShowMoreLoaderResult.js) | Show the see more button |
+| `switch`        | [SearchResult](https://github.com/vtex-apps/search-result/blob/master/react/components/SearchResult.js) | Layout mode switcher container |
+| `breadcrumb`        | [SearchResult](https://github.com/vtex-apps/search-result/blob/master/react/components/SearchResult.js) | Breadcrumb container |
+| `filter`        | [FilterOptionTemplate](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterOptionTemplate.js) | Filter option container |
+| `resultGallery`        | [SearchResult](https://github.com/vtex-apps/search-result/blob/master/react/components/SearchResult.js) | Gallery result container |
+| `border`        | [SearchResult](https://github.com/vtex-apps/search-result/blob/master/react/components/SearchResult.js) | Order by container border |
+| `gallery`        | [Gallery](https://github.com/vtex-apps/search-result/blob/master/react/Gallery.js) | The main container of gallery |
+| `filterPopupButton`        | [FilterSideBar](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterSideBar.js), [Popup](https://github.com/vtex-apps/search-result/blob/master/react/components/Popup.js) | Filter pop-up button |
+| `accordionFilter`        | [AccordionFilterContainer](https://github.com/vtex-apps/search-result/blob/master/react/components/AccordionFilterContainer.js) | Accordion filter container |
+| `filterAccordionItemBox`        | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/components/AccordionFilterItem.js) | Accordion filter item container |
+| `filterAccordionBreadcrumbs`        | [AccordionFilterContainer](https://github.com/vtex-apps/search-result/blob/master/react/components/AccordionFilterContainer.js) | Filter accordion breadcrumbs container |
+| `filterButtonsBox`        | [FilterSidebar](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterSidebar.js) | Filter buttons container |
+| `filterPopupFooter`        | [Popup](https://github.com/vtex-apps/search-result/blob/master/react/components/Popup.js) | Filter pop-up footer container |
+| `accordionFilterItemOptions`        | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/components/AccordionFilterItem.js) | Accordion filter item options container |
+| `dropdownMobile`        | [SelectionListOrderBy](https://github.com/vtex-apps/search-result/blob/master/react/components/SelectionListOrderBy.js) | The main container of drop-down on mobile |
+| `accordionFilterItemActive`        | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/components/AccordionFilterItem.js) | Container of the accordion filter item when it is active |
+| `totalProducts`        | [TotalProducts](https://github.com/vtex-apps/search-result/blob/master/react/TotalProducts.js) | The main container of total-products |
+| `orderBy`        | [OrderBy](https://github.com/vtex-apps/search-result/blob/master/react/OrderBy.js) | The main container of order-by |
+
+To override the default CSS, you need to import `styles` on your manifest:
+
+```json
+  "builders": {
+    "styles": "1.x"
+  }
+```
+
+Also, create a `vtex.minicart.css` file in `styles/css` for your handlers customization.
 
 ## Troubleshooting
 
