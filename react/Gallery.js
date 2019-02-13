@@ -15,8 +15,6 @@ import { getGapPaddingValues } from './constants/paddingEnum'
 
 /** Layout with two column */
 const TWO_COLUMN_ITEMS = 2
-/** Layout with one column */
-const ONE_COLUMN_ITEM = 1
 
 /**
  * Canonical gallery that displays a list of given products.
@@ -38,8 +36,8 @@ class Gallery extends Component {
   }
 
   renderItem = item => {
-    const { summary, layoutMode, gap, runtime: { hints: { mobile } } } = this.props
-    const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_COLUMN_ITEMS : (this.itemsPerRow || ONE_COLUMN_ITEM)
+    const { summary, layoutMode, gap, runtime: { hints: { mobile } }, maxItemsPerRow } = this.props
+    const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_COLUMN_ITEMS : (this.itemsPerRow || maxItemsPerRow)
     console.log(getGapPaddingValues())
 
     const style = {

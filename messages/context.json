@@ -55,5 +55,6 @@
   "gallery.gapType.none" : "gallery.gapType.none",
   "gallery.gapType.small" : "gallery.gapType.small",
   "gallery.gapType.medium" : "gallery.gapType.medium",
-  "gallery.gapType.large" : "gallery.gapType.large"
+  "gallery.gapType.large" : "gallery.gapType.large",
+  "editor.search-result.gap.title": "editor.search-result.gap.title"
 }
