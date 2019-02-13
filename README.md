@@ -192,9 +192,9 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 1. Add the `stylea` builder to your `manifest.json`:
 
 ```json
-	"builders": {
-    	"styles": "1.x"
-    }
+"builders": {
+	"styles": "1.x"
+}
 ```
 
 2. Create a file called `vtex.minicart.css` inside the `styles/css` folder. Add your custom styles:
