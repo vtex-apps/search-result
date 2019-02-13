@@ -51,5 +51,9 @@
   "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name": "Hidden Specification filter name",
   "layoutModeSwitcher.inline": "Line",
   "layoutModeSwitcher.small": "Small",
-  "layoutModeSwitcher.normal": "Normal"
+  "layoutModeSwitcher.normal": "Normal",
+  "gallery.gapType.none" : "None",
+  "gallery.gapType.small" : "Small",
+  "gallery.gapType.medium" : "Medium",
+  "gallery.gapType.large" : "Large"
 }

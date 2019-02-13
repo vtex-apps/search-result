@@ -119,6 +119,7 @@ class SearchResult extends Component {
       summary,
       orderBy,
       runtime: { hints: { mobile } },
+      gap,
     } = this.props
     const {
       mobileLayoutMode,
@@ -189,6 +190,7 @@ class SearchResult extends Component {
                 summary={summary}
                 className="bn"
                 mobileLayoutMode={mobileLayoutMode}
+                gap={gap}
               />
             )}
             {children}

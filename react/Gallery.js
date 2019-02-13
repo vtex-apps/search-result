@@ -11,6 +11,7 @@ import { productShape } from './constants/propTypes'
 import GalleryItem from './components/GalleryItem'
 
 import searchResult from './searchResult.css'
+import { getGapPaddingValues } from './constants/paddingEnum'
 
 /** Layout with two column */
 const TWO_COLUMN_ITEMS = 2
@@ -31,14 +32,15 @@ class Gallery extends Component {
   }  
 
   get itemsPerRow() {
-    const { maxItemsPerRow, gap, minItemWidth, width } = this.props
-    const maxItems = Math.floor(width / (minItemWidth + gap))
+    const { maxItemsPerRow, minItemWidth, width } = this.props
+    const maxItems = Math.floor(width / (minItemWidth))
     return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
   }
 
   renderItem = item => {
-    const { summary, layoutMode, runtime: { hints: { mobile } } } = this.props
+    const { summary, layoutMode, gap, runtime: { hints: { mobile } } } = this.props
     const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_COLUMN_ITEMS : (this.itemsPerRow || ONE_COLUMN_ITEM)
+    console.log(getGapPaddingValues())
 
     const style = {
       flexBasis: `${100 / itemsPerRow}%`,
@@ -49,7 +51,7 @@ class Gallery extends Component {
       <div
         key={item.productId}
         style={style}
-        className={classNames(searchResult.galleryItem, this.paddingForItem)}
+        className={classNames(searchResult.galleryItem, gap)}
       >
         <GalleryItem
           item={item}
@@ -58,11 +60,6 @@ class Gallery extends Component {
         />
       </div>
     )
-  }
-
-  get paddingForItem() {
-    const { gap } = this.props
-    return GAP_TYPES[gap] || 'pa0'
   }
 
   get itemsPerRow() {
@@ -89,12 +86,6 @@ class Gallery extends Component {
   }
 }
 
-const GAP_TYPES = {
-  '1x': 'pa3',
-  '2x': 'pa5',
-  '3x': 'pa7',
-}
-
 Gallery.propTypes = {
   /** Container width */
   width: PropTypes.number,
@@ -103,7 +94,7 @@ Gallery.propTypes = {
   /** ProductSummary props. */
   summary: PropTypes.any,
   /** Gap between items */
-  gap: PropTypes.oneOf(['0x', '1x', '2x', '3x']),
+  gap: PropTypes.oneOf(getGapPaddingValues()),
   /** Max Items per Row */
   maxItemsPerRow: PropTypes.number,
   /** Layout mode of the gallery in mobile view */
@@ -120,7 +111,6 @@ Gallery.propTypes = {
 
 Gallery.defaultProps = {
   products: [],
-  gap: '1x',
   maxItemsPerRow: 5,
   minItemWidth: 240,
   mobileLayoutMode: LAYOUT_MODE[0].value,
