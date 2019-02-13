@@ -1,8 +1,9 @@
 # VTEX Search Result
 
+## Description
 The VTEX Search Result app handles the result of a search and this app is used by the Dreamstore product.
 
-:loudspeaker: **Disclaimer:** Don't fork this project, use, contribute, or open issue with your feature request.
+:loudspeaker: **Disclaimer:** Don't fork this project; use, contribute, or open issue with your feature request.
 
 ## Release schedule
 
@@ -54,7 +55,6 @@ This app has an interface that describes which rules must be implemented by a bl
     ],
     "component": "index"
   }
-  ...
 }
 ```
 
@@ -139,11 +139,7 @@ SpecificationFilters
 Also, you can configure the product summary that is defined on minicart. See [here](https://github.com/vtex-apps/product-summary/blob/master/README.md#configuration) the Product Summary API. 
 
 ### Styles API
-This app has CSS customization through `CSS Modules`. CSS Modules is a CSS file in which all class names and animation names are scoped locally by default. You can read more about CSS Modules [here](https://github.com/css-modules/css-modules) .
-
-We use it `css-loader` to generate a CSS token on a HTML element. For example, the builder generate a CSS token based on app vendor, name and major version. Like `container` token declared in search-result, generate the classname `vtex.search-result-3-x-container`.
-
-Below, we describe the tokens, their explanation and the component where it is located.
+This app provides some CSS classes as an API for style customization.
 
 | Token name         | Component          | Description                                            |
 | ------------------ | ----------         |------------------------------------------------------- |
@@ -188,15 +184,24 @@ Below, we describe the tokens, their explanation and the component where it is l
 | `filterTitle`        | [FilterOptionTemplate](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterOptionTemplate.js) | Filter title container |
 | `filterIcon`        | [FilterOptionTemplate](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterOptionTemplate.js) | Filter icon container |
 
-To override the default CSS, you need to import `styles` on your manifest:
+To use this CSS API, you must add the `styles` builder and create an app styling CSS file.
+
+1. Add the `stylea` builder to your `manifest.json`:
 
 ```json
-  "builders": {
-    "styles": "1.x"
-  }
+	"builders": {
+    	"styles": "1.x"
+    }
 ```
 
-Also, create a `vtex.minicart.css` file in `styles/css` for your handlers customization.
+2. Create a file called `vtex.minicart.css` inside the `styles/css` folder. Add your custom styles:
+
+```css
+.container {
+	margin-top: 10px;
+}
+```
+
 
 ## Troubleshooting
 
