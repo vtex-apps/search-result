@@ -166,6 +166,27 @@ Below, we describe the tokens, their explanation and the component where it is l
 | `accordionFilterItemActive`        | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/components/AccordionFilterItem.js) | Container of the accordion filter item when it is active |
 | `totalProducts`        | [TotalProducts](https://github.com/vtex-apps/search-result/blob/master/react/TotalProducts.js) | The main container of total-products |
 | `orderBy`        | [OrderBy](https://github.com/vtex-apps/search-result/blob/master/react/OrderBy.js) | The main container of order-by |
+| `accordionFilterItemHidden`        | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) | Accordion filter item container when it is hidden |
+| `accordionFilterItem`        | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) | Accordion filter item container |
+| `accordionFilterItemBox`        | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) | Accordion filter item box |
+| `accordionFilterItemTitle`        | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) | Accordion filter item title container |
+| `accordionFilterItemIcon`        | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) | Accordion filter item icon container |
+| `filterAvailable`        | [FilterOptionTemplate](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) | Filter option template main container when it is available |
+| `filterSelected`        | [FilterOptionTemplate](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) | Filter option template main container when it is selected |
+| `filterPopupTitle`        | [FilterSidebar](https://github.com/vtex-apps/search-result/blob/master/react/compoents/FilterSidebar.js), [Popup](https://github.com/vtex-apps/search-result/blob/master/react/compoents/Popup.js), [SelectionListOrderBy](https://github.com/vtex-apps/search-result/blob/master/react/compoents/SelectionListOrderBy.js) | Filter pop-up title label |
+| `filterPopupArrowIcon`        | [FilterSidebar](https://github.com/vtex-apps/search-result/blob/master/react/compoents/FilterSidebar.js), [Popup](https://github.com/vtex-apps/search-result/blob/master/react/compoents/Popup.js), [SelectionListOrderBy](https://github.com/vtex-apps/search-result/blob/master/react/compoents/SelectionListOrderBy.js) | Filter pop-up arrow icon container |
+| `footerButton`        | [FooterButton](https://github.com/vtex-apps/search-result/blob/master/react/components/FooterButton.js) | Footer button |
+| `layoutSwitcher`        | [LayoutModeSwitcher](https://github.com/vtex-apps/search-result/blob/master/react/components/LayoutModeSwitcher.js) | Layout mode switcher container |
+| `filterPopup`        | [FilterPopup](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterPopup.js) | Main container of filter pop-up |
+| `filterPopupOpen`        | [FilterPopup](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterPopup.js) | Main container of filter pop-up when it is open |
+| `filterPopupContent`        | [Popup](https://github.com/vtex-apps/search-result/blob/master/react/components/Popup.js) | Filter pop-up content |
+| `filterPopupContentContainer`        | [Popup](https://github.com/vtex-apps/search-result/blob/master/react/components/Popup.js) | Filter pop-up content container |
+| `filterPopupContentContainerOpen`        | [Popup](https://github.com/vtex-apps/search-result/blob/master/react/components/Popup.js) | Filter pop-up content container when it is open |
+| `selectedFilterCheckbox`        | [SelectedFilters](https://github.com/vtex-apps/search-result/blob/master/react/components/SelectedFilters.js) | Selected filter check-box |
+| `galleryItem`        | [Gallery](https://github.com/vtex-apps/search-result/blob/master/react/Gallery.js) | Gallery item container |
+| `searchNotFound`        | [NotFoundSearch](https://github.com/vtex-apps/search-result/blob/master/react/NotFoundSearch.js) | Main container of Search Not Found |
+| `filterTitle`        | [FilterOptionTemplate](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterOptionTemplate.js) | Filter title container |
+| `filterIcon`        | [FilterOptionTemplate](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterOptionTemplate.js) | Filter icon container |
 
 To override the default CSS, you need to import `styles` on your manifest:
 
