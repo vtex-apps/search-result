@@ -55,5 +55,6 @@
   "gallery.gapType.none" : "None",
   "gallery.gapType.small" : "Small",
   "gallery.gapType.medium" : "Medium",
-  "gallery.gapType.large" : "Large"
+  "gallery.gapType.large" : "Large",
+  "editor.search-result.gap.title": "Gap between gallery items"
 }

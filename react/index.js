@@ -164,7 +164,7 @@ SearchResultQueryLoader.getSchema = props => {
         },
       },
       gap: {
-        title: 'editor.shelf.gap.title',
+        title: 'editor.search-result.gap.title',
         type: 'string',
         enum: getGapPaddingValues(),
         enumNames: getGapPaddingNames(),
