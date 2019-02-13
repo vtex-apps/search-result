@@ -38,8 +38,7 @@ class Gallery extends Component {
   renderItem = item => {
     const { summary, layoutMode, gap, runtime: { hints: { mobile } }, maxItemsPerRow } = this.props
     const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_COLUMN_ITEMS : (this.itemsPerRow || maxItemsPerRow)
-    console.log(getGapPaddingValues())
-
+    
     const style = {
       flexBasis: `${100 / itemsPerRow}%`,
       maxWidth: `${100 / itemsPerRow}%`,
