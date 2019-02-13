@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Changed
-- Padding between items are now defined by tachyons.
+- Padding between items are now set using tachyons.
 
 ## [3.11.9] - 2019-02-14
 
