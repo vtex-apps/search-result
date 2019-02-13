@@ -209,4 +209,4 @@ You can check if others are experiencing similar issues [here](https://github.co
 
 ## Tests
 
-To execute our tests go to `react/` folder and run `npm t`  or `npm test`
+To execute our tests go to `react/` folder and run `npm test`
