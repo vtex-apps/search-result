@@ -112,6 +112,7 @@ Through the Storefront, you can change the search-result behavior and interface.
 | `pagination`                   | `String`  | Pagination type (values: 'show-more' or 'infinite-scroll')       |
 
 QuerySchema
+
 | Prop name          | Type       | Description                                                                 |
 | ------------------ | ---------- | --------------------------------------------------------------------------- |
 | `maxItemsPerPage`   | `Number`   | Maximum number of items per search page                     |
@@ -121,6 +122,7 @@ QuerySchema
 | `orderByField`                   | `String`  | Order by field (values: 'OrderByTopSaleDESC', 'OrderByReleaseDateDESC', 'OrderByBestDiscountDESC', 'OrderByPriceDESC', 'OrderByPriceASC', 'OrderByNameASC' or 'OrderByNameDESC')       |
 
 HiddenFacets
+
 | Prop name          | Type       | Description                                                                 |
 | ------------------ | ---------- | --------------------------------------------------------------------------- |
 | `layoutMode1`            | `String`  | Layout mode of the switcher (values: 'normal', 'small' or 'inline')    |
@@ -131,6 +133,7 @@ HiddenFacets
 | `specificationFilters`   | `SpecificationFilters`  | Hide Specifications filters       |
 
 SpecificationFilters
+
 | Prop name          | Type       | Description                                                                 |
 | ------------------ | ---------- | --------------------------------------------------------------------------- |
 | `hideAll`            | `Boolean`  | Hide specifications filters    |
