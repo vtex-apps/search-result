@@ -84,7 +84,6 @@ class SelectionListOrderBy extends Component {
     return (
       <div className={dropdownSort}>
         <button onClick={this.handleDropdownBtClick} className={btClass}>
-          {!mobile && (<span className="c-muted-1 t-action--small ml-auto">{intl.formatMessage({ id: 'search-result.orderby.title' })}</span>)}
           <span className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}>{this.getOptionTitle(orderBy)} </span>
           <span className={`${searchResult.filterPopupArrowIcon} pt1 ml-auto`}>
             <IconCaret orientation="down" size={10} />
