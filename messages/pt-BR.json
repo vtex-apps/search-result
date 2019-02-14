@@ -51,5 +51,10 @@
   "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name": "Nome do filtro de Especificações oculto",
   "layoutModeSwitcher.inline": "Na linha",
   "layoutModeSwitcher.small": "Pequeno",
-  "layoutModeSwitcher.normal": "Normal"
+  "layoutModeSwitcher.normal": "Normal",
+  "gallery.gapType.none" : "Nenhum",
+  "gallery.gapType.small" : "Pequeno",
+  "gallery.gapType.medium" : "Médio",
+  "gallery.gapType.large" : "Grande",
+  "editor.search-result.gap.title": "Espaço entre os itens da galeria"
 }

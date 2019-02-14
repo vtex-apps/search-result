@@ -18,10 +18,6 @@ export class Checkbox extends Component {
   }
 }
 
-export function IconCaretLeft() {
+export function IconCaret() {
   return <div>IconCaretLeft</div>
-}
-
-export function IconCaretRight() {
-  return <div>IconCaretRight</div>
 }

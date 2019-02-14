@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.12.0] - 2019-02-14
+### Changed
+- Padding between items are now set using tachyons. Also add gap in schema.
+
 ## [3.11.9] - 2019-02-14
 
 ## [3.11.8] - 2019-02-14
