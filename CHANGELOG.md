@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.11.8] - 2019-02-14
+
 ## [3.11.7] - 2019-02-12
 ### Fixed
 - Fix misuse of `layoutMode` prop in desktop view.
