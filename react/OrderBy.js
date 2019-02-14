@@ -64,36 +64,15 @@ class OrderBy extends Component {
   }
 
   render() {
-    const { orderBy, getLinkProps, runtime: { hints: { mobile } }, runtime } = this.props
-
-    if (mobile) {
-      return (
-        <div className={searchResult.orderBy}>
-          <SelectionListOrderBy
-            orderBy={orderBy}
-            getLinkProps={getLinkProps}
-            options={this.sortingOptions}
-          />
-        </div>
-      )
-    }
+    const { orderBy, getLinkProps, runtime: { hints: { mobile } } } = this.props
 
     return (
       <div className={searchResult.orderBy}>
-        <Dropdown
-          size="large"
+        <SelectionListOrderBy
+          mobile={mobile}
+          orderBy={orderBy}
+          getLinkProps={getLinkProps}
           options={this.sortingOptions}
-          value={orderBy}
-          onChange={(_, ordenation) => {
-            const { page, params, queryString } = getLinkProps({ ordenation })
-            runtime.navigate({
-              page: page,
-              params: params,
-              query: queryString,
-              fallbackToWindowLocation: false,
-              scrollOptions: { baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET },
-            })
-          }}
         />
       </div>
     )
