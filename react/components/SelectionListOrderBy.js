@@ -56,16 +56,15 @@ class SelectionListOrderBy extends Component {
   }
 
   getOptionTitle = option => {
-    const { options, intl, mobile } = this.props
+    const { options } = this.props
     return find(propEq('value', option), options).label
   }
 
   render() {
-    const { orderBy } = this.props
+    const { orderBy, mobile, intl } = this.props
     const { showDropdown } = this.state
-    const btClass = classNames('ph3 pv5 mv0 pointer flex justify-center items-center bg-base c-on-base t-action--small ml-auto bt br bl bb-0 br2 br--top bw1',
+    const btClass = classNames('ph3 pv5 mv0 pointer flex justify-center items-center bg-base c-on-base t-action--small ml-auto bt br bl bb-0 br2 br--top bw1 w-100',
       {
-        'w-100': !mobile,
         'b--muted-4 shadow-1': showDropdown && mobile,
         'b--transparent pl1': !showDropdown,
       }
@@ -78,10 +77,15 @@ class SelectionListOrderBy extends Component {
       }
     )
 
+    const dropdownSort = classNames(searchResult.dropdownSort, 'relative pt1 dib', {
+      'flex-auto justify-center w-100': mobile,
+    })
+
     return (
-      <div className={`${searchResult.dropdownMobile} relative justify-center flex-auto pt1 w-100 dib`}>
+      <div className={dropdownSort}>
         <button onClick={this.handleDropdownBtClick} className={btClass}>
-          <span className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}>{this.getOptionTitle(orderBy)}</span>
+          {!mobile && (<span className="c-muted-1 t-action--small ml-auto">{intl.formatMessage({ id: 'search-result.orderby.title' })}</span>)}
+          <span className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}>{this.getOptionTitle(orderBy)} </span>
           <span className={`${searchResult.filterPopupArrowIcon} pt1 ml-auto`}>
             <IconCaret orientation="down" size={10} />
           </span>

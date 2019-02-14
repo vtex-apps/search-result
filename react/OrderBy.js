@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
 import { Dropdown } from 'vtex.styleguide'
 import { withRuntimeContext } from 'vtex.render-runtime'
+import classNames from 'classnames'
 
 import SelectionListOrderBy from './components/SelectionListOrderBy'
 import { HEADER_SCROLL_OFFSET } from './constants/SearchHelpers'
@@ -66,8 +67,12 @@ class OrderBy extends Component {
   render() {
     const { orderBy, getLinkProps, runtime: { hints: { mobile } } } = this.props
 
+    const orderbyClasses = classNames(searchResult.orderBy, {
+      'flex justify-end': mobile
+    })
+
     return (
-      <div className={searchResult.orderBy}>
+      <div className={orderbyClasses}>
         <SelectionListOrderBy
           mobile={mobile}
           orderBy={orderBy}
