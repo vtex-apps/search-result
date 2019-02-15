@@ -70,19 +70,21 @@ const SelectionListOrderBy = ({
   })
 
   return (
-    <OutsideClickHandler onOutsideClick={handleOutsideClick}>
-      <div className={dropdownSort}>
+    <div className={dropdownSort}>
+      <OutsideClickHandler onOutsideClick={handleOutsideClick}>
         <button onClick={handleDropdownBtClick} className={btClass}>
           <span className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}>{getOptionTitle(orderBy)} </span>
           <span className={`${searchResult.filterPopupArrowIcon} pt1 ml-auto`}>
             <IconCaret orientation="down" size={10} />
           </span>
         </button>
+
         <div className={contentClass}>
           {renderOptions()}
         </div>
-      </div>
-    </OutsideClickHandler>
+      </OutsideClickHandler>
+    </div>
+
   )
 }
 
