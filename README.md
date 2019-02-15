@@ -109,7 +109,7 @@ Through the Storefront, you can change the search-result behavior and interface.
 | ------------------ | ---------- | --------------------------------------------------------------------------- | --- |
 | `querySchema`                      | `QuerySchema`   | Query made when there's no context                     | N/A
 | `hiddenFacets`          | `HiddenFacets`  | Indicates which facets will be hidden                             | N/A
-| `pagination`                   | `String`  | Pagination type (values: 'show-more' or 'infinite-scroll')       | `infinity-scroll`
+| `pagination`                   | `Enum`  | Pagination type (values: 'show-more' or 'infinite-scroll')       | `infinity-scroll`
 
 QuerySchema
 
@@ -119,14 +119,14 @@ QuerySchema
 | `queryField`          | `String`  | Query field                             | N/A
 | `mapField`              | `String`  | Map field                                                  | N/A |
 | `restField`                   | `String`  | Other Query Strings       | N/A |
-| `orderByField`                   | `String`  | Order by field (values: 'OrderByTopSaleDESC', 'OrderByReleaseDateDESC', 'OrderByBestDiscountDESC', 'OrderByPriceDESC', 'OrderByPriceASC', 'OrderByNameASC' or 'OrderByNameDESC')       | `OrderByReleaseDateDESC` |
+| `orderByField`                   | `Enum`  | Order by field (values: 'OrderByTopSaleDESC', 'OrderByReleaseDateDESC', 'OrderByBestDiscountDESC', 'OrderByPriceDESC', 'OrderByPriceASC', 'OrderByNameASC' or 'OrderByNameDESC')       | `OrderByReleaseDateDESC` |
  
 HiddenFacets
 
 | Prop name          | Type       | Description   | Default value |
 | ------------------ | ---------- | --------------------------------------------------------------------------- | --- |
-| `layoutMode1`            | `String`  | Layout mode of the switcher (values: 'normal', 'small' or 'inline')    | `normal` |
- | `layoutMode2`            | `String`  | Layout mode of the switcher 2 (values: 'normal', 'small' or 'inline')  | `small` |
+| `layoutMode1`            | `Enum`  | Layout mode of the switcher (values: 'normal', 'small' or 'inline')    | `normal` |
+ | `layoutMode2`            | `Enum`  | Layout mode of the switcher 2 (values: 'normal', 'small' or 'inline')  | `small` |
 | `brands`                 | `Boolean`  | Hide Brands filter       | false |
 | `categories`             | `Boolean`  | Hide Categories filter       | false |
 | `priceRange`              | `Boolean`  | Hide Price filter       | false |
