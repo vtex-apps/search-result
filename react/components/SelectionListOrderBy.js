@@ -89,12 +89,18 @@ const SelectionListOrderBy = ({
 }
 
 SelectionListOrderBy.propTypes = {
+  /** Current Ordernation  */
   orderBy: PropTypes.string,
+  /** Get Properties to link */
   getLinkProps: PropTypes.func,
+  /** Sort Options*/
   options: PropTypes.arrayOf(PropTypes.shape({
+    /** Label to Option */
     label: PropTypes.string,
+    /** Value to value */
     value: PropTypes.string,
   })),
+  /** Intl to translations */
   intl: intlShape,
 }
 
