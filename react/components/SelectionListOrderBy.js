@@ -4,6 +4,7 @@ import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { find, propEq } from 'ramda'
 
+import OutsideClickHandler from 'react-outside-click-handler'
 import { useRuntime, Link } from 'vtex.render-runtime'
 import { IconCaret } from 'vtex.dreamstore-icons'
 
@@ -20,6 +21,11 @@ const SelectionListOrderBy = ({
   const handleDropdownBtClick = e => {
     e.preventDefault()
     setShowDropdown(!showDropdown)
+  }
+
+  const handleOutsideClick = e => {
+    e.preventDefault()
+    setShowDropdown(false)
   }
 
   const renderOptions = () => {
@@ -64,17 +70,19 @@ const SelectionListOrderBy = ({
   })
 
   return (
-    <div className={dropdownSort}>
-      <button onClick={handleDropdownBtClick} className={btClass}>
-        <span className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}>{getOptionTitle(orderBy)} </span>
-        <span className={`${searchResult.filterPopupArrowIcon} pt1 ml-auto`}>
-          <IconCaret orientation="down" size={10} />
-        </span>
-      </button>
-      <div className={contentClass}>
-        {renderOptions()}
+    <OutsideClickHandler onOutsideClick={handleOutsideClick}>
+      <div className={dropdownSort}>
+        <button onClick={handleDropdownBtClick} className={btClass}>
+          <span className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}>{getOptionTitle(orderBy)} </span>
+          <span className={`${searchResult.filterPopupArrowIcon} pt1 ml-auto`}>
+            <IconCaret orientation="down" size={10} />
+          </span>
+        </button>
+        <div className={contentClass}>
+          {renderOptions()}
+        </div>
       </div>
-    </div>
+    </OutsideClickHandler>
   )
 }
 
