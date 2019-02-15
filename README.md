@@ -1,7 +1,7 @@
 # VTEX Search Result
 
 ## Description
-The VTEX Search Result app is a store component that handles the result of a search, and this app is used by store theme.
+The VTEX Search Result app is a store component that handles with the result of our [_Search API_](https://documenter.getpostman.com/view/845/vtex-search-api/Hs43#8b71745e-00f9-6c98-b776-f4468ecb7a5e), and this app is used by store theme.
 
 :loudspeaker: **Disclaimer:** Don't fork this project; use, contribute, or open issue with your feature request.
 
@@ -60,27 +60,7 @@ Now, you can change the behavior of the search result block that is in the store
         "layoutMode1": "normal",
         "layoutMode2": "small",
         "specificationFilters": {
-          "hiddenFilters": [
-            {
-              "__editorItemTitle": "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter"
-            }
-          ]
-        }
-      },
-      "summary": {
-        "isOneClickBuy": false,
-        "showBadge": true,
-        "displayBuyButton": "displayButtonAlways",
-        "showCollections": false,
-        "labelSellingPrice": null,
-        "showListPrice": true,
-        "showLabels": true,
-        "showInstallments": false,
-        "showSavings": false,
-        "name": {
-          "showBrandName": false,
-          "showSku": false,
-          "showProductReference": false
+          "hiddenFilters": []
         }
       },
       "pagination": "show-more"
@@ -185,7 +165,7 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 
 #### CSS namespaces
 
-Below, we describe the namespaces that are defined in the minicart.
+Below, we describe the namespaces that are defined in the search-result.
 
 | Token name         | Description                   | Component Source |
 | ------------------ | ----------         |------------------------------------------------------- |
