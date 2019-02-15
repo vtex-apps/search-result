@@ -1,7 +1,7 @@
 # VTEX Search Result
 
 ## Description
-The VTEX Search Result app handles the result of a search and this app is used by the Dreamstore product.
+The VTEX Search Result app is a store component that handles the result of a search, and this app is used by store theme.
 
 :loudspeaker: **Disclaimer:** Don't fork this project; use, contribute, or open issue with your feature request.
 
@@ -20,6 +20,7 @@ See our [LTS policy](https://github.com/vtex-apps/awesome-io#lts-policy) for mor
   - [Blocks API](#blocks-api)
     - [Configuration](#configuration)
   - [Styles API](#styles-api)
+    - [CSS namespaces](#css-namespaces)
 - [Troubleshooting](#troubleshooting)
 - [Tests](#tests)
 
@@ -27,7 +28,9 @@ See our [LTS policy](https://github.com/vtex-apps/awesome-io#lts-policy) for mor
 
 This app uses our store builder with the blocks architecture. To know more about Store Builder [click here.](https://help.vtex.com/en/tutorial/understanding-storebuilder-and-stylesbuilder#structuring-and-configuring-our-store-with-object-object)
 
-To use this app, you need to import in your dependencies on `manifest.json`.
+We add the search-result as a block in our [Store](https://github.com/vtex-apps/store/blob/master/store/interfaces.json).
+
+To configure or customize this app, you need to import it in your dependencies in `manifest.json`.
 
 ```json
   dependencies: {
@@ -35,14 +38,63 @@ To use this app, you need to import in your dependencies on `manifest.json`.
   }
 ```
 
-Then, add `search-result` block into our app theme, as we do in our [Dreamstore app](https://github.com/vtex-apps/dreamstore/blob/master/store/blocks.json). 
+Then, add `search-result` block into your app theme as we do in our [Store theme app](https://github.com/vtex-apps/store-theme/blob/master/store/blocks.json). 
 
-### Blocks API
-This app has an interface that describes which rules must be implemented by a block when you want to use the search result.
+Now, you can change the behavior of the search result block that is in the store header. See an example of how to configure: 
 
 ```json
-{
-  "search-result": {
+  "search-result#department": {
+    "blocks": [
+      "filter-navigator",
+      "gallery",
+      "not-found",
+      "breadcrumb",
+      "order-by",
+      "total-products"
+    ],
+    "props": {
+      "querySchema": {
+        "maxItemsPerPage": 2,
+        "orderByField": "OrderByReleaseDateDESC"
+      },
+      "hiddenFacets": {
+        "layoutMode1": "normal",
+        "layoutMode2": "small",
+        "specificationFilters": {
+          "hiddenFilters": [
+            {
+              "__editorItemTitle": "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter"
+            }
+          ]
+        }
+      },
+      "summary": {
+        "isOneClickBuy": false,
+        "showBadge": true,
+        "displayBuyButton": "displayButtonAlways",
+        "showCollections": false,
+        "labelSellingPrice": null,
+        "showListPrice": true,
+        "showLabels": true,
+        "showInstallments": false,
+        "showSavings": false,
+        "name": {
+          "showBrandName": false,
+          "showSku": false,
+          "showProductReference": false
+        }
+      },
+      "pagination": "show-more"
+    }
+  },
+```
+
+### Blocks API
+
+When implementing this app as a block, various inner blocks may be available. The following interface lists the available blocks within search result and describes if they are required or optional.
+
+```json
+"search-result": {
     "allowed": [
       "not-found",
       "breadcrumb",
@@ -54,157 +106,130 @@ This app has an interface that describes which rules must be implemented by a bl
       "gallery"
     ],
     "component": "index"
-  }
-}
+  },
 ```
 
-The search-result has as a required block the `gallery`. So, any search-result implementation created must add a gallery as a block that is inside of search-result. Also it has as allowed blocks `not-found`, `breadcrumb`, `filter-navigator`, `total-products` and `order-by`. To know how is the API of the breadcrumbs, see the next section and to read about the API of the others apps, keep reading this documentation.
-
-Below, we can see the `gallery`'s interface that describes witch rules must be implemented by a block when you want to use it. The `gallery` has as required block the `product-summary`. So, any gallery implementation created must add a product-summary as a block that is inside of gallery. To know how is the API of `product-summary` see the next section.
+The search-result has as a required block the `gallery`. So, any search-result block implementation created must add a gallery as a block that is inside of search-result. Similarly, `gallery` has its own inner block structure that can be configured that you can see below.
 
 ```json
-{
-  "gallery": {
+ "gallery": {
     "required": [
       "product-summary"
     ],
     "component": "Gallery"
   }
-}
-```
-This is the `not-found` interface, it describes the rules that must be implemented by a block when you want to use it. This app has the `shelf` as a required block, to know about the shelf API, see the next section.
-
-```json
-{
-  "not-found": {
-    "allowed": [
-      "shelf"
-    ],
-    "component": "NotFoundSearch"
-  }
-}
 ```
 
-Below, there are the `filter-navigator`, `order-by` and `total-products` interfaces respectively, they do not have required or allowed blocks.
-
-```json
-{
-  "filter-navigator": {
-    "component": "FilterNavigator"
-  },
-  "order-by": {
-    "component": "OrderBy"
-  },
-  "total-products": {
-    "component": "TotalProducts"
-  }
-}
-```
+The gallery has as a required block the `product-summary`. So, any gallery block implementation created must add a product-summary as a block that is inside of gallery. (Similarly, `product-summary` has its own inner block structure that can be configured. There is a link to its API in the next section.)
 
 ### Configuration
 
 Through the Storefront, you can change the search-result behavior and interface. However, you also can make in your theme app, as Dreamstore does.
 
-| Prop name          | Type       | Description                                                                 |
-| ------------------ | ---------- | --------------------------------------------------------------------------- |
-| `querySchema`                      | `QuerySchema`   | Query made when there's no context                     |
-| `hiddenFacets`          | `HiddenFacets`  | Indicates which facets will be hidden                             |
-| `pagination`                   | `String`  | Pagination type (values: 'show-more' or 'infinite-scroll')       |
+| Prop name          | Type       | Description   | Default value |
+| ------------------ | ---------- | --------------------------------------------------------------------------- | --- |
+| `querySchema`                      | `QuerySchema`   | Query made when there's no context                     | `undefined`
+| `hiddenFacets`          | `HiddenFacets`  | Indicates which facets will be hidden                             | `undefined`
+| `pagination`                   | `String`  | Pagination type (values: 'show-more' or 'infinite-scroll')       | ``infinity-scroll
 
 QuerySchema
 
-| Prop name          | Type       | Description                                                                 |
-| ------------------ | ---------- | --------------------------------------------------------------------------- |
-| `maxItemsPerPage`   | `Number`   | Maximum number of items per search page                     |
-| `queryField`          | `String`  | Query field                             |
-| `mapField`              | `String`  | Map field                                                  |
-| `restField`                   | `String`  | Other Query Strings       |
-| `orderByField`                   | `String`  | Order by field (values: 'OrderByTopSaleDESC', 'OrderByReleaseDateDESC', 'OrderByBestDiscountDESC', 'OrderByPriceDESC', 'OrderByPriceASC', 'OrderByNameASC' or 'OrderByNameDESC')       |
-
+| Prop name          | Type       | Description  | Default value |
+| ------------------ | ---------- | --------------------------------------------------------------------------- | --- |
+| `maxItemsPerPage`   | `Number`   | Maximum number of items per search page                     | 10 |
+| `queryField`          | `String`  | Query field                             | `undefined`
+| `mapField`              | `String`  | Map field                                                  | `undefined` |
+| `restField`                   | `String`  | Other Query Strings       | `undefined` |
+| `orderByField`                   | `String`  | Order by field (values: 'OrderByTopSaleDESC', 'OrderByReleaseDateDESC', 'OrderByBestDiscountDESC', 'OrderByPriceDESC', 'OrderByPriceASC', 'OrderByNameASC' or 'OrderByNameDESC')       | `OrderByReleaseDateDESC` |
+ 
 HiddenFacets
 
-| Prop name          | Type       | Description                                                                 |
-| ------------------ | ---------- | --------------------------------------------------------------------------- |
-| `layoutMode1`            | `String`  | Layout mode of the switcher (values: 'normal', 'small' or 'inline')    |
-| `layoutMode2`            | `String`  | Layout mode of the switcher 2 (values: 'normal', 'small' or 'inline')  |
-| `brands`                 | `Boolean`  | Hide Brands filter       |
-| `categories`             | `Boolean`  | Hide Categories filter       |
-| `priceRange`              | `Boolean`  | Hide Price filter       |
-| `specificationFilters`   | `SpecificationFilters`  | Hide Specifications filters       |
+| Prop name          | Type       | Description   | Default value |
+| ------------------ | ---------- | --------------------------------------------------------------------------- | --- |
+| `layoutMode1`            | `String`  | Layout mode of the switcher (values: 'normal', 'small' or 'inline')    | `normal` |
+ | `layoutMode2`            | `String`  | Layout mode of the switcher 2 (values: 'normal', 'small' or 'inline')  | `small` |
+| `brands`                 | `Boolean`  | Hide Brands filter       | false |
+| `categories`             | `Boolean`  | Hide Categories filter       | false |
+| `priceRange`              | `Boolean`  | Hide Price filter       | false |
+| `specificationFilters`   | `SpecificationFilters`  | Hide Specifications filters       | `undefined` |
 
 SpecificationFilters
 
-| Prop name          | Type       | Description                                                                 |
-| ------------------ | ---------- | --------------------------------------------------------------------------- |
-| `hideAll`            | `Boolean`  | Hide specifications filters    |
-| `hiddenFilters`            | `Array(String)`  | Array of specifications filters that should be hidden  |
+| Prop name          | Type       | Description  | Default value |
+| ------------------ | ---------- | --------------------------------------------------------------------------- | --- |
+| `hideAll`            | `Boolean`  | Hide specifications filters    | false |
+| `hiddenFilters`            | `Array(String)`  | Array of specifications filters that should be hidden  | `undefined` |
 
-Also, you can configure the product summary that is defined on minicart. See [here](https://github.com/vtex-apps/product-summary/blob/master/README.md#configuration) the Product Summary API. 
+Also, you can configure the product summary that is defined on search-result. See [here](https://github.com/vtex-apps/product-summary/blob/master/README.md#configuration) the Product Summary API. 
 
 ### Styles API
-This app provides some CSS classes as an API for style customization.
 
-| Token name         | Component          | Description                                            |
-| ------------------ | ----------         |------------------------------------------------------- |
-| `container`        | [SearchResult](https://github.com/vtex-apps/search-result/blob/master/react/components/SearchResult.js) | The main container of search-result |
-| `buttonShowMore`        | [ShowMoreLoaderResult](https://github.com/vtex-apps/search-result/blob/master/react/components/loaders/ShowMoreLoaderResult.js) | Show the see more button |
-| `switch`        | [SearchResult](https://github.com/vtex-apps/search-result/blob/master/react/components/SearchResult.js) | Layout mode switcher container |
-| `breadcrumb`        | [SearchResult](https://github.com/vtex-apps/search-result/blob/master/react/components/SearchResult.js) | Breadcrumb container |
-| `filter`        | [FilterOptionTemplate](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterOptionTemplate.js) | Filter option container |
-| `resultGallery`        | [SearchResult](https://github.com/vtex-apps/search-result/blob/master/react/components/SearchResult.js) | Gallery result container |
-| `border`        | [SearchResult](https://github.com/vtex-apps/search-result/blob/master/react/components/SearchResult.js) | Order by container border |
-| `gallery`        | [Gallery](https://github.com/vtex-apps/search-result/blob/master/react/Gallery.js) | The main container of gallery |
-| `filterPopupButton`        | [FilterSideBar](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterSideBar.js), [Popup](https://github.com/vtex-apps/search-result/blob/master/react/components/Popup.js) | Filter pop-up button |
-| `accordionFilter`        | [AccordionFilterContainer](https://github.com/vtex-apps/search-result/blob/master/react/components/AccordionFilterContainer.js) | Accordion filter container |
-| `filterAccordionItemBox`        | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/components/AccordionFilterItem.js) | Accordion filter item container |
-| `filterAccordionBreadcrumbs`        | [AccordionFilterContainer](https://github.com/vtex-apps/search-result/blob/master/react/components/AccordionFilterContainer.js) | Filter accordion breadcrumbs container |
-| `filterButtonsBox`        | [FilterSidebar](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterSidebar.js) | Filter buttons container |
-| `filterPopupFooter`        | [Popup](https://github.com/vtex-apps/search-result/blob/master/react/components/Popup.js) | Filter pop-up footer container |
-| `accordionFilterItemOptions`        | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/components/AccordionFilterItem.js) | Accordion filter item options container |
-| `dropdownMobile`        | [SelectionListOrderBy](https://github.com/vtex-apps/search-result/blob/master/react/components/SelectionListOrderBy.js) | The main container of drop-down on mobile |
-| `accordionFilterItemActive`        | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/components/AccordionFilterItem.js) | Container of the accordion filter item when it is active |
-| `totalProducts`        | [TotalProducts](https://github.com/vtex-apps/search-result/blob/master/react/TotalProducts.js) | The main container of total-products |
-| `orderBy`        | [OrderBy](https://github.com/vtex-apps/search-result/blob/master/react/OrderBy.js) | The main container of order-by |
-| `accordionFilterItemHidden`        | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) | Accordion filter item container when it is hidden |
-| `accordionFilterItem`        | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) | Accordion filter item container |
-| `accordionFilterItemBox`        | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) | Accordion filter item box |
-| `accordionFilterItemTitle`        | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) | Accordion filter item title container |
-| `accordionFilterItemIcon`        | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) | Accordion filter item icon container |
-| `filterAvailable`        | [FilterOptionTemplate](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) | Filter option template main container when it is available |
-| `filterSelected`        | [FilterOptionTemplate](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) | Filter option template main container when it is selected |
-| `filterPopupTitle`        | [FilterSidebar](https://github.com/vtex-apps/search-result/blob/master/react/compoents/FilterSidebar.js), [Popup](https://github.com/vtex-apps/search-result/blob/master/react/compoents/Popup.js), [SelectionListOrderBy](https://github.com/vtex-apps/search-result/blob/master/react/compoents/SelectionListOrderBy.js) | Filter pop-up title label |
-| `filterPopupArrowIcon`        | [FilterSidebar](https://github.com/vtex-apps/search-result/blob/master/react/compoents/FilterSidebar.js), [Popup](https://github.com/vtex-apps/search-result/blob/master/react/compoents/Popup.js), [SelectionListOrderBy](https://github.com/vtex-apps/search-result/blob/master/react/compoents/SelectionListOrderBy.js) | Filter pop-up arrow icon container |
-| `footerButton`        | [FooterButton](https://github.com/vtex-apps/search-result/blob/master/react/components/FooterButton.js) | Footer button |
-| `layoutSwitcher`        | [LayoutModeSwitcher](https://github.com/vtex-apps/search-result/blob/master/react/components/LayoutModeSwitcher.js) | Layout mode switcher container |
-| `filterPopup`        | [FilterPopup](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterPopup.js) | Main container of filter pop-up |
-| `filterPopupOpen`        | [FilterPopup](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterPopup.js) | Main container of filter pop-up when it is open |
-| `filterPopupContent`        | [Popup](https://github.com/vtex-apps/search-result/blob/master/react/components/Popup.js) | Filter pop-up content |
-| `filterPopupContentContainer`        | [Popup](https://github.com/vtex-apps/search-result/blob/master/react/components/Popup.js) | Filter pop-up content container |
-| `filterPopupContentContainerOpen`        | [Popup](https://github.com/vtex-apps/search-result/blob/master/react/components/Popup.js) | Filter pop-up content container when it is open |
-| `selectedFilterCheckbox`        | [SelectedFilters](https://github.com/vtex-apps/search-result/blob/master/react/components/SelectedFilters.js) | Selected filter check-box |
-| `galleryItem`        | [Gallery](https://github.com/vtex-apps/search-result/blob/master/react/Gallery.js) | Gallery item container |
-| `searchNotFound`        | [NotFoundSearch](https://github.com/vtex-apps/search-result/blob/master/react/NotFoundSearch.js) | Main container of Search Not Found |
-| `filterTitle`        | [FilterOptionTemplate](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterOptionTemplate.js) | Filter title container |
-| `filterIcon`        | [FilterOptionTemplate](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterOptionTemplate.js) | Filter icon container |
+This app provides some CSS classes as an API for style customization.
 
 To use this CSS API, you must add the `styles` builder and create an app styling CSS file.
 
-1. Add the `stylea` builder to your `manifest.json`:
+1. Add the `styles` builder to your `manifest.json`:
 
 ```json
-"builders": {
-	"styles": "1.x"
-}
+  "builders": {
+    "styles": "1.x"
+  }
 ```
 
-2. Create a file called `vtex.minicart.css` inside the `styles/css` folder. Add your custom styles:
+2. Create a file called `vtex.searchResult.css` inside the `styles/css` folder. Add your custom styles:
 
 ```css
 .container {
-	margin-top: 10px;
+  margin-top: 10px;
 }
 ```
 
+#### CSS namespaces
+
+Below, we describe the namespaces that are defined in the minicart.
+
+| Token name         | Description                   | Component Source |
+| ------------------ | ----------         |------------------------------------------------------- |
+| `container`         | The main container of search-result | [SearchResult](https://github.com/vtex-apps/search-result/blob/master/react/components/SearchResult.js) |
+| `buttonShowMore`        |  Show the see more button | [ShowMoreLoaderResult](https://github.com/vtex-apps/search-result/blob/master/react/components/loaders/ShowMoreLoaderResult.js) |
+| `switch`        |  Layout mode switcher container | [SearchResult](https://github.com/vtex-apps/search-result/blob/master/react/components/SearchResult.js) |
+| `breadcrumb`        |  Breadcrumb container | [SearchResult](https://github.com/vtex-apps/search-result/blob/master/react/components/SearchResult.js) |
+| `filter`        |  Filter option container | [FilterOptionTemplate](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterOptionTemplate.js) |
+| `resultGallery`        |  Gallery result container | [SearchResult](https://github.com/vtex-apps/search-result/blob/master/react/components/SearchResult.js) |
+| `border`        |  Order by container border | [SearchResult](https://github.com/vtex-apps/search-result/blob/master/react/components/SearchResult.js) |
+| `gallery`        | The main container of gallery |  [Gallery](https://github.com/vtex-apps/search-result/blob/master/react/Gallery.js) |
+| `filterPopupButton`        | Filter pop-up button |  [FilterSideBar](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterSideBar.js), [Popup](https://github.com/vtex-apps/search-result/blob/master/react/components/Popup.js) |
+| `accordionFilter`        |  Accordion filter container | [AccordionFilterContainer](https://github.com/vtex-apps/search-result/blob/master/react/components/AccordionFilterContainer.js) |
+| `filterAccordionItemBox`        |  Accordion filter item container | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/components/AccordionFilterItem.js) |
+| `filterAccordionBreadcrumbs`        |  Filter accordion breadcrumbs container | [AccordionFilterContainer](https://github.com/vtex-apps/search-result/blob/master/react/components/AccordionFilterContainer.js) |
+| `filterButtonsBox`        |  Filter buttons container | [FilterSidebar](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterSidebar.js) |
+| `filterPopupFooter`        |  Filter pop-up footer container | [Popup](https://github.com/vtex-apps/search-result/blob/master/react/components/Popup.js) |
+| `accordionFilterItemOptions`        |  Accordion filter item options container | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/components/AccordionFilterItem.js) |
+| `dropdownMobile`        |  The main container of drop-down on mobile | [SelectionListOrderBy](https://github.com/vtex-apps/search-result/blob/master/react/components/SelectionListOrderBy.js) |
+| `accordionFilterItemActive`        |  Container of the accordion filter item when it is active | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/components/AccordionFilterItem.js) |
+| `totalProducts`        |  The main container of total-products | [TotalProducts](https://github.com/vtex-apps/search-result/blob/master/react/TotalProducts.js) |
+| `orderBy`        |  The main container of order-by | [OrderBy](https://github.com/vtex-apps/search-result/blob/master/react/OrderBy.js) |
+| `accordionFilterItemHidden`        |  Accordion filter item container when it is hidden | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) |
+| `accordionFilterItem`        |  Accordion filter item container | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) |
+| `accordionFilterItemBox`        |  Accordion filter item box | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) |
+| `accordionFilterItemTitle`        |  Accordion filter item title container | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) |
+| `accordionFilterItemIcon`        |  Accordion filter item icon container | [AccordionFilterItem](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) |
+| `filterAvailable`        |  Filter option template main container when it is available | [FilterOptionTemplate](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) |
+| `filterSelected`        |  Filter option template main container when it is selected | [FilterOptionTemplate](https://github.com/vtex-apps/search-result/blob/master/react/compoents/AccordionFilterItem.js) |
+| `filterPopupTitle`        |  Filter pop-up title label | [FilterSidebar](https://github.com/vtex-apps/search-result/blob/master/react/compoents/FilterSidebar.js), [Popup](https://github.com/vtex-apps/search-result/blob/master/react/compoents/Popup.js), [SelectionListOrderBy](https://github.com/vtex-apps/search-result/blob/master/react/compoents/SelectionListOrderBy.js) |
+| `filterPopupArrowIcon`        |  Filter pop-up arrow icon container | [FilterSidebar](https://github.com/vtex-apps/search-result/blob/master/react/compoents/FilterSidebar.js), [Popup](https://github.com/vtex-apps/search-result/blob/master/react/compoents/Popup.js), [SelectionListOrderBy](https://github.com/vtex-apps/search-result/blob/master/react/compoents/SelectionListOrderBy.js) |
+| `footerButton`        |  Footer button | [FooterButton](https://github.com/vtex-apps/search-result/blob/master/react/components/FooterButton.js) |
+| `layoutSwitcher`        |  Layout mode switcher container | [LayoutModeSwitcher](https://github.com/vtex-apps/search-result/blob/master/react/components/LayoutModeSwitcher.js) |
+| `filterPopup`        |  Main container of filter pop-up | [FilterPopup](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterPopup.js) |
+| `filterPopupOpen`        |  Main container of filter pop-up when it is open | [FilterPopup](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterPopup.js) |
+| `filterPopupContent`        |  Filter pop-up content | [Popup](https://github.com/vtex-apps/search-result/blob/master/react/components/Popup.js) |
+| `filterPopupContentContainer`        |  Filter pop-up content container | [Popup](https://github.com/vtex-apps/search-result/blob/master/react/components/Popup.js) |
+| `filterPopupContentContainerOpen`        |  Filter pop-up content container when it is open | [Popup](https://github.com/vtex-apps/search-result/blob/master/react/components/Popup.js) |
+| `selectedFilterCheckbox`        |  Selected filter check-box | [SelectedFilters](https://github.com/vtex-apps/search-result/blob/master/react/components/SelectedFilters.js) |
+| `galleryItem`        |  Gallery item container | [Gallery](https://github.com/vtex-apps/search-result/blob/master/react/Gallery.js) |
+| `searchNotFound`        |  Main container of Search Not Found | [NotFoundSearch](https://github.com/vtex-apps/search-result/blob/master/react/NotFoundSearch.js) |
+| `filterTitle`        |  Filter title container | [FilterOptionTemplate](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterOptionTemplate.js) |
+| `filterIcon`        |  Filter icon container | [FilterOptionTemplate](https://github.com/vtex-apps/search-result/blob/master/react/components/FilterOptionTemplate.js) |
 
 ## Troubleshooting
 
