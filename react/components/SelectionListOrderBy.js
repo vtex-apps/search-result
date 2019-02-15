@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
@@ -18,19 +18,18 @@ const SelectionListOrderBy = ({
 }) => {
   const [showDropdown, setShowDropdown] = useState(false)
 
-  const handleDropdownBtClick = e => {
-    e.preventDefault()
+  const handleDropdownBtClick = useCallback(() => {
     setShowDropdown(!showDropdown)
-  }
+  }, [])
 
-  const handleOutsideClick = e => {
-    e.preventDefault()
+  const handleOutsideClick = useCallback(() => {
     setShowDropdown(false)
-  }
+  }, [])
 
   const renderOptions = () => {
     return options.map(option => {
       const linkProps = getLinkProps({ ordenation: option.value })
+      console.log(option.label)
       return (
         <Link
           key={option.value}
@@ -45,9 +44,9 @@ const SelectionListOrderBy = ({
     })
   }
 
-  const getOptionTitle = option => {
+  const getOptionTitle = useCallback((option) => {
     return find(propEq('value', option), options).label
-  }
+  }, [])
 
   const { hints: { mobile } } = useRuntime()
 

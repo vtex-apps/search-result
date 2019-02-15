@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 import classNames from 'classnames'
@@ -44,14 +44,14 @@ const OrderBy = ({
   getLinkProps,
   intl,
 }) => {
-  const sortingOptions = () => {
+  const sortingOptions = useMemo( () => {
     return SORT_OPTIONS.map(({ value, label }) => {
       return {
         value: value,
         label: intl.formatMessage({ id: label }),
       }
     })
-  }
+  }, [SORT_OPTIONS])
 
   const { hints: { mobile } } = useRuntime()
 
@@ -65,7 +65,7 @@ const OrderBy = ({
         mobile={mobile}
         orderBy={orderBy}
         getLinkProps={getLinkProps}
-        options={sortingOptions()}
+        options={sortingOptions}
       />
     </div>
   )
