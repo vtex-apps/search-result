@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React from 'react'
 import { injectIntl, intlShape } from 'react-intl'
-import { Dropdown } from 'vtex.styleguide'
-import { withRuntimeContext } from 'vtex.render-runtime'
+import { useRuntime } from 'vtex.render-runtime'
 import classNames from 'classnames'
 
 import SelectionListOrderBy from './components/SelectionListOrderBy'
-import { HEADER_SCROLL_OFFSET } from './constants/SearchHelpers'
 
 import searchResult from './searchResult.css'
 
@@ -41,47 +39,45 @@ export const SORT_OPTIONS = [
   },
 ]
 
-class OrderBy extends Component {
-  static propTypes = {
-    /** Which sorting option is selected. */
-    orderBy: PropTypes.string,
-    /** Returns the link props. */
-    getLinkProps: PropTypes.func,
-    /** Intl instance. */
-    intl: intlShape,
-    /** Render Runtime context */
-    runtime: PropTypes.shape({
-      navigate: PropTypes.func.isRequired,
-    }).isRequired,
-  }
-
-  get sortingOptions() {
+const OrderBy = ({
+  orderBy,
+  getLinkProps,
+  intl,
+}) => {
+  const sortingOptions = () => {
     return SORT_OPTIONS.map(({ value, label }) => {
       return {
         value: value,
-        label: this.props.intl.formatMessage({ id: label }),
+        label: intl.formatMessage({ id: label }),
       }
     })
   }
 
-  render() {
-    const { orderBy, getLinkProps, runtime: { hints: { mobile } } } = this.props
+  const { hints: { mobile } } = useRuntime()
 
-    const orderbyClasses = classNames(searchResult.orderBy, {
-      'flex justify-end': mobile
-    })
+  const orderbyClasses = classNames(searchResult.orderBy, {
+    'flex justify-end': mobile,
+  })
 
-    return (
-      <div className={orderbyClasses}>
-        <SelectionListOrderBy
-          mobile={mobile}
-          orderBy={orderBy}
-          getLinkProps={getLinkProps}
-          options={this.sortingOptions}
-        />
-      </div>
-    )
-  }
+  return (
+    <div className={orderbyClasses}>
+      <SelectionListOrderBy
+        mobile={mobile}
+        orderBy={orderBy}
+        getLinkProps={getLinkProps}
+        options={sortingOptions()}
+      />
+    </div>
+  )
 }
 
-export default withRuntimeContext(injectIntl(OrderBy))
+OrderBy.propTypes = {
+  /** Which sorting option is selected. */
+  orderBy: PropTypes.string,
+  /** Returns the link props. */
+  getLinkProps: PropTypes.func,
+  /** Intl instance. */
+  intl: intlShape,
+}
+
+export default injectIntl(OrderBy)
