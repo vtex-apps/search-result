@@ -18,9 +18,7 @@ const SelectionListOrderBy = ({ orderBy, getLinkProps, options, intl }) => {
     [showDropdown]
   )
 
-  const handleOutsideClick = useCallback(() => setShowDropdown(false), [
-    showDropdown,
-  ])
+  const handleOutsideClick = useCallback(() => setShowDropdown(false), [])
 
   const renderOptions = () => {
     return options.map(option => {
