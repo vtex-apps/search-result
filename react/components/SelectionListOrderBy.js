@@ -10,26 +10,21 @@ import { IconCaret } from 'vtex.dreamstore-icons'
 
 import searchResult from '../searchResult.css'
 
-const SelectionListOrderBy = ({
-  orderBy,
-  getLinkProps,
-  options,
-  intl,
-}) => {
+const SelectionListOrderBy = ({ orderBy, getLinkProps, options, intl }) => {
   const [showDropdown, setShowDropdown] = useState(false)
 
-  const handleDropdownBtClick = useCallback(() => {
-    setShowDropdown(!showDropdown)
-  }, [])
+  const handleDropdownBtClick = useCallback(
+    () => setShowDropdown(!showDropdown),
+    [showDropdown]
+  )
 
-  const handleOutsideClick = useCallback(() => {
-    setShowDropdown(false)
-  }, [])
+  const handleOutsideClick = useCallback(() => setShowDropdown(false), [
+    showDropdown,
+  ])
 
   const renderOptions = () => {
     return options.map(option => {
       const linkProps = getLinkProps({ ordenation: option.value })
-      console.log(option.label)
       return (
         <Link
           key={option.value}
@@ -44,46 +39,58 @@ const SelectionListOrderBy = ({
     })
   }
 
-  const getOptionTitle = useCallback((option) => {
-    return find(propEq('value', option), options).label
-  }, [])
+  const getOptionTitle = useCallback(
+    option => find(propEq('value', option), options).label,
+    [options]
+  )
 
-  const { hints: { mobile } } = useRuntime()
+  const {
+    hints: { mobile },
+  } = useRuntime()
 
-  const btClass = classNames('ph3 pv5 mv0 pointer flex justify-center items-center bg-base c-on-base t-action--small ml-auto bt br bl bb-0 br2 br--top bw1 w-100',
+  const btClass = classNames(
+    'ph3 pv5 mv0 pointer flex justify-center items-center bg-base c-on-base t-action--small ml-auto bt br bl bb-0 br2 br--top bw1 w-100',
     {
       'b--muted-4 shadow-1': showDropdown && mobile,
       'b--transparent pl1': !showDropdown,
     }
   )
 
-  const contentClass = classNames('z-1 absolute bg-base shadow-5 f5 w-100 b--muted-4 br2 ba bw1 br--bottom',
+  const contentClass = classNames(
+    'z-1 absolute bg-base shadow-5 f5 w-100 b--muted-4 br2 ba bw1 br--bottom',
     {
-      'db': showDropdown,
-      'dn': !showDropdown,
+      db: showDropdown,
+      dn: !showDropdown,
     }
   )
 
-  const dropdownSort = classNames(searchResult.dropdownSort, 'relative pt1 dib', {
-    'flex-auto justify-center w-100': mobile,
-  })
+  const dropdownSort = classNames(
+    searchResult.dropdownSort,
+    'relative pt1 dib',
+    {
+      'flex-auto justify-center w-100': mobile,
+    }
+  )
 
   return (
     <div className={dropdownSort}>
       <OutsideClickHandler onOutsideClick={handleOutsideClick}>
         <button onClick={handleDropdownBtClick} className={btClass}>
-          <span className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}>{getOptionTitle(orderBy)} </span>
+          <span
+            className={`${
+              searchResult.filterPopupTitle
+            } c-on-base t-action--small ml-auto`}
+          >
+            {getOptionTitle(orderBy)}{' '}
+          </span>
           <span className={`${searchResult.filterPopupArrowIcon} pt1 ml-auto`}>
             <IconCaret orientation="down" size={10} />
           </span>
         </button>
 
-        <div className={contentClass}>
-          {renderOptions()}
-        </div>
+        <div className={contentClass}>{renderOptions()}</div>
       </OutsideClickHandler>
     </div>
-
   )
 }
 
@@ -93,12 +100,14 @@ SelectionListOrderBy.propTypes = {
   /** Get Properties to link */
   getLinkProps: PropTypes.func,
   /** Sort Options*/
-  options: PropTypes.arrayOf(PropTypes.shape({
-    /** Label to Option */
-    label: PropTypes.string,
-    /** Value to value */
-    value: PropTypes.string,
-  })),
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      /** Label to Option */
+      label: PropTypes.string,
+      /** Value to value */
+      value: PropTypes.string,
+    })
+  ),
   /** Intl to translations */
   intl: intlShape,
 }
