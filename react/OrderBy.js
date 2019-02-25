@@ -12,7 +12,7 @@ import searchResult from './searchResult.css'
 export const SORT_OPTIONS = [
   {
     value: 'OrderBy',
-    label: 'ordenation.choose',
+    label: 'ordenation.sort-by',
   },
   {
     value: 'OrderByTopSaleDESC',
