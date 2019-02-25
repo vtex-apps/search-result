@@ -11,7 +11,7 @@ import searchResult from './searchResult.css'
 
 export const SORT_OPTIONS = [
   {
-    value: 'OrderBy',
+    value: '',
     label: 'ordenation.sort-by',
   },
   {
