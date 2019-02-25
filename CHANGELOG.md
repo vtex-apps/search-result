@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Add default orderBy to relevance
 
 ## [3.12.0] - 2019-02-14
 ### Changed
@@ -118,7 +120,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.4.0] - 2018-12-19
 ### Changed
-- New layout and behavior of search result filter 
+- New layout and behavior of search result filter
 
 ## [3.3.0] - 2018-12-18
 ### Added
@@ -141,7 +143,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.0.0] - 2018-12-04
 ### Fixed
-- Add default behavoir when `querySchema` comes undefined from server. 
+- Add default behavoir when `querySchema` comes undefined from server.
 
 ### Added
 - Add new mobile design.
@@ -203,7 +205,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [2.0.2] - 2018-10-09
 ### Fixed
-- Change breakpoint of vertical divider in SearchResult in mobile view and add :term to the view + correction of encoded values passed to :term 
+- Change breakpoint of vertical divider in SearchResult in mobile view and add :term to the view + correction of encoded values passed to :term
 
 ## [2.0.1] - 2018-10-02
 ### Changed
@@ -350,6 +352,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.2.0] - 2018-05-11
 ### Added
-- Refactor app to import as default the product-summary app. 
+- Refactor app to import as default the product-summary app.
 - **Orderable gallery** Displays a list of products that can be ordered.
 - **Update to the new Pages** Update to new version of Pages.
