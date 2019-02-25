@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.12.1] - 2019-02-25
+### Fixed
+- Add default orderBy to relevance
+
 ## [3.12.0] - 2019-02-14
 ### Changed
 - Padding between items are now set using tachyons. Also add gap in schema.
@@ -118,7 +122,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.4.0] - 2018-12-19
 ### Changed
-- New layout and behavior of search result filter 
+- New layout and behavior of search result filter
 
 ## [3.3.0] - 2018-12-18
 ### Added
@@ -141,7 +145,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.0.0] - 2018-12-04
 ### Fixed
-- Add default behavoir when `querySchema` comes undefined from server. 
+- Add default behavoir when `querySchema` comes undefined from server.
 
 ### Added
 - Add new mobile design.
@@ -203,7 +207,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [2.0.2] - 2018-10-09
 ### Fixed
-- Change breakpoint of vertical divider in SearchResult in mobile view and add :term to the view + correction of encoded values passed to :term 
+- Change breakpoint of vertical divider in SearchResult in mobile view and add :term to the view + correction of encoded values passed to :term
 
 ## [2.0.1] - 2018-10-02
 ### Changed
@@ -350,6 +354,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.2.0] - 2018-05-11
 ### Added
-- Refactor app to import as default the product-summary app. 
+- Refactor app to import as default the product-summary app.
 - **Orderable gallery** Displays a list of products that can be ordered.
 - **Update to the new Pages** Update to new version of Pages.
