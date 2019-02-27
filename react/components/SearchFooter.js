@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { range } from 'ramda'
 import React, { Component, Fragment } from 'react'
-import { IconCaret } from 'vtex.dreamstore-icons'
+import { IconCaret } from 'vtex.store-icons'
 import { withRuntimeContext } from 'vtex.render-runtime'
 
 import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'

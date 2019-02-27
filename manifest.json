@@ -24,6 +24,6 @@
     "vtex.product-summary": "2.x",
     "vtex.shelf": "1.x",
     "vtex.styleguide": "9.x",
-    "vtex.dreamstore-icons": "0.x"
+    "vtex.store-icons": "0.x"
   }
 }
