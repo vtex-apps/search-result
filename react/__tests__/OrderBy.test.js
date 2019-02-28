@@ -28,4 +28,8 @@ describe('<OrderBy />', () => {
 
     expect(asFragment()).toMatchSnapshot()
   })
+
+  afterEach(() => {
+    setMobileState(false)
+  })
 })

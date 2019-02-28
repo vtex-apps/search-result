@@ -16,6 +16,6 @@ export const setMobileState = isMobile => {
   config.isMobile = isMobile
 }
 
-export const ExtensionPoint = () => <div> Extension Point </div>
+export const ExtensionPoint = ({ id }) => <div> Extension Point: {id} </div>
 
 export const Link = ({ children }) => <a className="mockedLink">{children}</a>
