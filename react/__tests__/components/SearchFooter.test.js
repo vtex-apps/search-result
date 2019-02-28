@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { mount } from 'enzyme'
+import { render } from 'test-utils'
 import React from 'react'
 import { IconCaret } from 'vtex.dreamstore-icons'
 
@@ -21,16 +21,17 @@ describe('<SearchFooter /> component', () => {
         ...defaultProps,
         ...customProps,
       }
-      return mount(<SearchFooter {...props} />)
+      return render(<SearchFooter {...props} />)
     }
   })
 
   it('should be rendered', () => {
-    expect(renderComponent()).toBeDefined()
+    const { asFragment } = renderComponent()
+    expect(asFragment()).toBeDefined()
   })
 
-  it('should be render an IconCaret', () => {
-    const component = renderComponent()
-    expect(component.find(IconCaret).exists()).toBe(true)
+  it('should be rendered', () => {
+    const { asFragment } = renderComponent()
+    expect(asFragment()).toMa
   })
 })

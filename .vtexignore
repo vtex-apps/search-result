@@ -1,4 +1,6 @@
-react/__mocks__/
-react/__tests__/
-react/node_modules/
-react/test-setup.js
+react/**/__tests__/**
+react/**/__mocks__/**
+react/**/*.test.js
+react/testUtils/**/*
+react/.babelrc
+.prettierrc

@@ -1,153 +1,33 @@
 /* eslint-env jest */
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render } from 'test-utils'
+
+import categoriesTree from 'categoriesTree'
 
 import FilterNavigator from '../FilterNavigator'
 
 describe('<FilterNavigator />', () => {
-  beforeEach(() => {
-    global.__RUNTIME__ = {
-      hints: { mobile: false },
+  const renderComponent = customProps => {
+    const props = {
+      getLinkProps: () => ({ page: 'mokedPage' }),
+      map: 'c',
+      rest: '',
+      tree: categoriesTree,
+      ...customProps,
     }
+
+    return render(<FilterNavigator {...props} />)
+  }
+
+  it('should match snapshot with all', () => {
+    const { asFragment } = renderComponent()
+
+    expect(asFragment()).toMatchSnapshot()
   })
 
-  it('should match snapshot', () => {
-    const wrapper = shallow(
-      <FilterNavigator
-        getLinkProps={jest.fn()}
-        map="c"
-        rest=""
-        query="Eletronicos"
-        runtime={{ hints: { mobile: false } }}
-      />
-    )
+  it('should display related categories', () => {
+    const { asFragment } = renderComponent({ query: 'Livros' })
 
-    expect(wrapper).toMatchSnapshot()
-  })
-
-  it('should display unrelated categories', () => {
-    const categoriesTree = [
-      {
-        Name: 'Eletrônicos',
-        Link: '/Eletronicos',
-        Quantity: 0,
-        Children: [
-          {
-            Name: 'Smartphones',
-            Link: '/Eletronicos/Smartphones',
-            Quantity: 0,
-          },
-          {
-            Name: 'Videogames',
-            Link: '/Eletronicos/Videogames',
-            Quantity: 0,
-          },
-          {
-            Name: 'TVs',
-            Link: '/Eletronicos/TVs',
-            Quantity: 0,
-          },
-        ],
-      },
-      {
-        Name: 'Livros',
-        Link: '/Livros',
-        Quantity: 0,
-        Children: [
-          {
-            Name: 'HQs e Mangas',
-            Link: '/Livros/HQs e Mangas',
-            Quantity: 0,
-          },
-        ],
-      },
-    ]
-
-    const wrapper = shallow(
-      <FilterNavigator
-        getLinkProps={jest.fn()}
-        map="c"
-        rest=""
-        tree={categoriesTree}
-        query="Livros"
-        runtime={{ hints: { mobile: false } }}
-      />
-    )
-
-    const availableCategories = [
-      {
-        Name: 'Livros',
-        Link: '/Livros',
-      },
-      {
-        Name: 'HQs e Mangas',
-        Link: '/Livros/HQs e Mangas',
-      }
-    ]
-
-    expect(wrapper.instance().getAvailableCategories()).toMatchObject(availableCategories)
-  })
-
-  it('should be case insensitive when matching the available categories', () => {
-    const categoriesTree = [
-      {
-        Name: 'Eletrônicos',
-        Link: '/Eletronicos',
-        Quantity: 0,
-        Children: [
-          {
-            Name: 'Smartphones',
-            Link: '/Eletronicos/Smartphones',
-            Quantity: 0,
-          },
-          {
-            Name: 'Videogames',
-            Link: '/Eletronicos/Videogames',
-            Quantity: 0,
-          },
-          {
-            Name: 'TVs',
-            Link: '/Eletronicos/TVs',
-            Quantity: 0,
-          },
-        ],
-      },
-      {
-        Name: 'Livros',
-        Link: '/Livros',
-        Quantity: 0,
-        Children: [
-          {
-            Name: 'HQS E MANGAS',
-            Link: '/Livros/HQs e Mangas',
-            Quantity: 0,
-          },
-        ],
-      },
-    ]
-
-    const wrapper = shallow(
-      <FilterNavigator
-        getLinkProps={jest.fn()}
-        map="c"
-        rest=""
-        tree={categoriesTree}
-        query="livros"
-        runtime={{ hints: { mobile: false } }}
-      />
-    )
-
-    const availableCategories = [
-      {
-        Name: 'Livros',
-        Link: '/Livros',
-      },
-      {
-        Name: 'HQS E MANGAS',
-        Link: '/Livros/HQs e Mangas',
-      }
-    ]
-
-    expect(wrapper.instance().getAvailableCategories()).toMatchObject(availableCategories)
+    expect(asFragment()).toMatchSnapshot()
   })
 })

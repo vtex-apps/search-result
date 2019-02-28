@@ -1,41 +1,217 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<FilterNavigator /> should match snapshot 1`] = `
-<div
-  className="filters"
->
+exports[`<FilterNavigator /> should display related categories 1`] = `
+<DocumentFragment>
   <div
-    className=""
+    class="filters"
   >
-    <InjectIntl(SelectedFilters)
-      filters={Array []}
-      getLinkProps={[MockFunction]}
-    />
-    <AvailableFilters
-      filters={
-        Array [
-          Object {
-            "oneSelectedCollapse": true,
-            "options": Array [],
-            "title": "search.filter.title.categories",
-            "type": "Categories",
-          },
-          Object {
-            "options": Array [],
-            "title": "search.filter.title.brands",
-            "type": "Brands",
-          },
-          Object {
-            "options": Array [],
-            "title": "search.filter.title.price-ranges",
-            "type": "PriceRanges",
-          },
-        ]
-      }
-      getLinkProps={[MockFunction]}
-      map="c"
-      rest=""
-    />
+    <div
+      class=""
+    >
+      <div
+        class="filter pv3 bb b--muted-4 filterAvailable"
+      >
+        <div
+          class="pointer"
+        >
+          <div
+            class="filterTitle t-heading-7 flex items-center justify-between"
+          >
+            Categories
+            <span
+              class="filterIcon"
+              style="height: 10px;"
+            >
+              <div>
+                IconCaret
+              </div>
+            </span>
+          </div>
+        </div>
+        <div
+          class="pt2 overflow-y-auto"
+          style="max-height: 200px;"
+        >
+          <div
+            class="ReactCollapse--collapse"
+            style="overflow: hidden; height: 0px;"
+          >
+            <div
+              class="ReactCollapse--content"
+            >
+              <a
+                class="mockedLink"
+              >
+                <span
+                  class="t-small c-muted-1 bb db"
+                  style="border-color: transparent; border-width: 1px;"
+                >
+                  Livros
+                </span>
+              </a>
+              <a
+                class="mockedLink"
+              >
+                <span
+                  class="t-small c-muted-1 bb db"
+                  style="border-color: transparent; border-width: 1px;"
+                >
+                  HQs e Mangas
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</DocumentFragment>
+`;
+
+exports[`<FilterNavigator /> should match snapshot with all 1`] = `
+<DocumentFragment>
+  <div
+    class="filters"
+  >
+    <div
+      class=""
+    >
+      <div
+        class="filter pv3 bb b--muted-4 filterAvailable"
+      >
+        <div
+          class="pointer"
+        >
+          <div
+            class="filterTitle t-heading-7 flex items-center justify-between"
+          >
+            Categories
+            <span
+              class="filterIcon"
+              style="height: 10px;"
+            >
+              <div>
+                IconCaret
+              </div>
+            </span>
+          </div>
+        </div>
+        <div
+          class="pt2 overflow-y-auto"
+          style="max-height: 200px;"
+        >
+          <div
+            class="ReactCollapse--collapse"
+            style="overflow: hidden; height: 0px;"
+          >
+            <div
+              class="ReactCollapse--content"
+            >
+              <a
+                class="mockedLink"
+              >
+                <span
+                  class="t-small c-muted-1 bb db"
+                  style="border-color: transparent; border-width: 1px;"
+                >
+                  Eletrônicos
+                </span>
+              </a>
+              <a
+                class="mockedLink"
+              >
+                <span
+                  class="t-small c-muted-1 bb db"
+                  style="border-color: transparent; border-width: 1px;"
+                >
+                  Smartphones
+                </span>
+              </a>
+              <a
+                class="mockedLink"
+              >
+                <span
+                  class="t-small c-muted-1 bb db"
+                  style="border-color: transparent; border-width: 1px;"
+                >
+                  Videogames
+                </span>
+              </a>
+              <a
+                class="mockedLink"
+              >
+                <span
+                  class="t-small c-muted-1 bb db"
+                  style="border-color: transparent; border-width: 1px;"
+                >
+                  TVs
+                </span>
+              </a>
+              <a
+                class="mockedLink"
+              >
+                <span
+                  class="t-small c-muted-1 bb db"
+                  style="border-color: transparent; border-width: 1px;"
+                >
+                  Livros
+                </span>
+              </a>
+              <a
+                class="mockedLink"
+              >
+                <span
+                  class="t-small c-muted-1 bb db"
+                  style="border-color: transparent; border-width: 1px;"
+                >
+                  HQs e Mangas
+                </span>
+              </a>
+              <a
+                class="mockedLink"
+              >
+                <span
+                  class="t-small c-muted-1 bb db"
+                  style="border-color: transparent; border-width: 1px;"
+                >
+                  Roupas
+                </span>
+              </a>
+              <a
+                class="mockedLink"
+              >
+                <span
+                  class="t-small c-muted-1 bb db"
+                  style="border-color: transparent; border-width: 1px;"
+                >
+                  Blusas
+                </span>
+              </a>
+              <a
+                class="mockedLink"
+              >
+                <span
+                  class="t-small c-muted-1 bb db"
+                  style="border-color: transparent; border-width: 1px;"
+                >
+                  Calças
+                </span>
+              </a>
+              <a
+                class="mockedLink"
+              >
+                <span
+                  class="t-small c-muted-1 bb db"
+                  style="border-color: transparent; border-width: 1px;"
+                >
+                  Moletom
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
 `;

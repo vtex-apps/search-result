@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 export class Dropdown extends Component {
   render() {
-    return <div>Dropdown</div>
+    return <div {...this.props}>Dropdown</div>
   }
 }
 
