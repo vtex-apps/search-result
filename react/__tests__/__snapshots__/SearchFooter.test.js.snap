@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchFooter /> component should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="flex justify-center b"
+  >
+    <div
+      class="ph2 pointer c-on-base"
+    >
+      1
+    </div>
+    <div
+      class="ph2 pointer c-disabled"
+    >
+      2
+    </div>
+    <div
+      class="ph2 pointer c-disabled"
+    >
+      3
+    </div>
+    <div
+      class="ph2 pointer c-disabled"
+    >
+      4
+    </div>
+    <div
+      class="ph2 pointer"
+    >
+      <div>
+        IconCaret
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

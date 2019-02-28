@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<OrderBy /> should match snapshot in mobile 1`] = `
+<DocumentFragment>
+  <div
+    class="orderBy"
+  >
+    <div
+      class="dropdownMobile relative justify-center flex-auto pt1 w-100 dib"
+    >
+      <button
+        class="ph3 pv5 mv0 pointer flex justify-center items-center w-100 bg-base c-on-base t-action--small ml-auto bt br bl bb-0 br2 br--top bw1 b--transparent pl1"
+      >
+        <span
+          class="filterPopupTitle c-on-base t-action--small ml-auto"
+        >
+          Sales
+        </span>
+        <span
+          class="filterPopupArrowIcon pt1 ml-auto"
+        >
+          <div>
+            IconCaret
+          </div>
+        </span>
+      </button>
+      <div
+        class="z-1 absolute bg-base shadow-5 f5 w-100 b--muted-4 br2 ba bw1 br--bottom dn"
+      >
+        <a
+          class="mockedLink"
+        >
+          Sort By
+        </a>
+        <a
+          class="mockedLink"
+        >
+          Sales
+        </a>
+        <a
+          class="mockedLink"
+        >
+          Release Date
+        </a>
+        <a
+          class="mockedLink"
+        >
+          Discount
+        </a>
+        <a
+          class="mockedLink"
+        >
+          Price: High to Low
+        </a>
+        <a
+          class="mockedLink"
+        >
+          Price: Low to High
+        </a>
+        <a
+          class="mockedLink"
+        >
+          Name, ascending
+        </a>
+        <a
+          class="mockedLink"
+        >
+          Name, descending
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<OrderBy /> should match snapshot in web mod 1`] = `
+<DocumentFragment>
+  <div
+    class="orderBy"
+  >
+    <div
+      options="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
+      value="OrderByTopSaleDESC"
+    >
+      Dropdown
+    </div>
+  </div>
+</DocumentFragment>
+`;
