@@ -1,8 +1,8 @@
 .container {
   display: grid;
   display: -ms-grid;
-  grid-template-columns: 206px repeat(5, auto);
-  -ms-grid-columns: 206px (1fr)[5];
+  grid-template-columns: 206px repeat(4, auto) 306px;
+  -ms-grid-columns: 206px (1fr)[4] 306px;
   grid-template-areas:
     "breadcrumb breadcrumb breadcrumb . quantity orderby"
     "filters gallery gallery gallery gallery gallery"
@@ -186,8 +186,8 @@
 
 @media only screen and (max-width: 60em) {
   .container {
-    -ms-grid-columns: 180px (1fr)[5];
-    grid-template-columns: 180px repeat(5, auto);
+    -ms-grid-columns: 180px (1fr)[4] 306px;
+    grid-template-columns: 180px repeat(4, auto) 285px;
   }
 }
 
