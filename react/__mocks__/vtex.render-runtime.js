@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const config = { isMobile: false }
 
@@ -14,6 +14,11 @@ export const withRuntimeContext = Comp => {
 
 export const setMobileState = isMobile => {
   config.isMobile = isMobile
+}
+
+export const useRuntime = () => {
+  const [hints, setHints] = useState({ mobile: false, desktop: true })
+  return { hints }
 }
 
 export const ExtensionPoint = ({ id }) => <div> Extension Point: {id} </div>

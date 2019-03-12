@@ -6,15 +6,15 @@ exports[`<OrderBy /> should match snapshot in mobile 1`] = `
     class="orderBy"
   >
     <div
-      class="dropdownMobile relative justify-center flex-auto pt1 w-100 dib"
+      class="dropdownSort relative pt1 dib"
     >
       <button
-        class="ph3 pv5 mv0 pointer flex justify-center items-center w-100 bg-base c-on-base t-action--small ml-auto bt br bl bb-0 br2 br--top bw1 b--transparent pl1"
+        class="ph3 pv5 mv0 pointer flex justify-center items-center bg-base c-on-base t-action--small ml-auto bt br bl bb-0 br2 br--top bw1 w-100 b--transparent pl1"
       >
         <span
           class="filterPopupTitle c-on-base t-action--small ml-auto"
         >
-          Sales
+          Sales 
         </span>
         <span
           class="filterPopupArrowIcon pt1 ml-auto"
