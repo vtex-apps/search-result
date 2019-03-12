@@ -7,19 +7,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix `Gallery` small layout not working properly.
+
 ## [3.12.7] - 2019-03-19
+
 ### Added
+
 - Resize images to width 500px.
 
 ## [3.12.6] - 2019-03-14
+
 ### Changed
+
 - Change language files to most generic.
 
 ## [3.12.5] - 2019-03-12
 
 ### Fixed
 
-- Fix `Gallery` small layout not working properly.
+- Fix outside click in mobile `OrderBy` dropdown.
 
 ## [3.12.4] - 2019-03-07
 
