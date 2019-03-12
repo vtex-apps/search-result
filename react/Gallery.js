@@ -23,22 +23,27 @@ class Gallery extends Component {
   get layoutMode() {
     const {
       mobileLayoutMode,
-      runtime: { hints: { mobile } },
+      runtime: {
+        hints: { mobile },
+      },
     } = this.props
 
     return mobile ? mobileLayoutMode : 'normal'
-  }  
+  }
 
   get itemsPerRow() {
     const { maxItemsPerRow, minItemWidth, width } = this.props
-    const maxItems = Math.floor(width / (minItemWidth))
+    const maxItems = Math.floor(width / minItemWidth)
     return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
   }
 
   renderItem = item => {
-    const { summary, layoutMode, gap, runtime: { hints: { mobile } }, maxItemsPerRow } = this.props
-    const itemsPerRow = (layoutMode === 'small' && mobile) ? TWO_COLUMN_ITEMS : (this.itemsPerRow || maxItemsPerRow)
-    
+    const { summary, gap, maxItemsPerRow } = this.props
+    const itemsPerRow =
+      this.layoutMode === 'small'
+        ? TWO_COLUMN_ITEMS
+        : this.itemsPerRow || maxItemsPerRow
+
     const style = {
       flexBasis: `${100 / itemsPerRow}%`,
       maxWidth: `${100 / itemsPerRow}%`,
@@ -61,24 +66,28 @@ class Gallery extends Component {
 
   get itemsPerRow() {
     const { maxItemsPerRow, minItemWidth, width } = this.props
-    const maxItems = Math.floor(width / (minItemWidth))
+    const maxItems = Math.floor(width / minItemWidth)
     return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
   }
 
   render() {
     const {
       products,
-      runtime: { hints: { mobile } },
+      runtime: {
+        hints: { mobile },
+      },
     } = this.props
 
-    const galleryClasses = classNames(searchResult.gallery, 'flex flex-row flex-wrap items-stretch pa3 bn', {
-      'mh4': !mobile,
-    })
+    const galleryClasses = classNames(
+      searchResult.gallery,
+      'flex flex-row flex-wrap items-stretch pa3 bn',
+      {
+        mh4: !mobile,
+      }
+    )
 
     return (
-      <div className={galleryClasses}>
-        {map(this.renderItem, products)}
-      </div >
+      <div className={galleryClasses}>{map(this.renderItem, products)}</div>
     )
   }
 }
@@ -113,4 +122,7 @@ Gallery.defaultProps = {
   mobileLayoutMode: LAYOUT_MODE[0].value,
 }
 
-export default compose(withResizeDetector, withRuntimeContext)(Gallery)
+export default compose(
+  withResizeDetector,
+  withRuntimeContext
+)(Gallery)

@@ -7,8 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [3.12.4] - 2019-03-07
+## [3.12.5] - 2019-03-12
+
 ### Fixed
+
+- Fix `Gallery` small layout not working properly.
+
+## [3.12.4] - 2019-03-07
+
+### Fixed
+
 - Orderby Button with fixed width in search result grid.
 
 ### Added
