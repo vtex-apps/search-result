@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
-- Fix `Gallery` small layout not working properly.
+- Fix outside click in mobile `OrderBy` dropdown.
 
 ## [3.12.7] - 2019-03-19
 
@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
-- Fix outside click in mobile `OrderBy` dropdown.
+- Fix `Gallery` small layout not working properly.
 
 ## [3.12.4] - 2019-03-07
 
