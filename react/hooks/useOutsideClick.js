@@ -1,13 +1,13 @@
 import { useLayoutEffect } from 'react'
 
-const useOutsideClick = (ref, handler, when) => {
+const useOutsideClick = (ref, handler, activeWhen) => {
   const handle = e =>
     ref && ref.current && !ref.current.contains(e.target) && handler(e)
 
   useLayoutEffect(() => {
-    when && document.addEventListener('mousedown', handle)
+    activeWhen && document.addEventListener('mousedown', handle)
     return () => document.removeEventListener('mousedown', handle)
-  }, [when])
+  }, [activeWhen])
 }
 
 export default useOutsideClick
