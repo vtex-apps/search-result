@@ -1,6 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
-import { render } from 'test-utils'
+import { render } from '@vtex/test-tools/react'
 
 import OrderBy from '../OrderBy'
 import { setMobileState } from 'vtex.render-runtime'

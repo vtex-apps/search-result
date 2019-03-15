@@ -3,8 +3,7 @@
   "description": "A Search Result.",
   "scripts": {
     "pretest": "yarn",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "vtex-test-tools test"
   },
   "author": "VTEX",
   "license": "ISC",
@@ -23,43 +22,10 @@
     "unorm": "^1.4.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.3.4",
-    "@babel/preset-env": "^7.3.4",
+    "@vtex/test-tools": "^0.1.3",
     "apollo-cache-inmemory": "^1.2.2",
-    "apollo-client": "^2.4.7",
-    "apollo-client-preset": "^1.0.8",
-    "babel-jest": "^24.1.0",
-    "babel-preset-react-app": "^7.0.1",
+    "apollo-client": "^2.5.1",
     "graphql": "^0.13.2",
-    "graphql-tag": "^2.8.0",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "^24.1.0",
-    "jest-dom": "^3.1.2",
-    "jest-transform-graphql": "^2.1.0",
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3",
-    "react-testing-library": "^6.0.0",
-    "regenerator-runtime": "^0.13.1"
-  },
-  "jest": {
-    "verbose": true,
-    "setupFilesAfterEnv": [
-      "<rootDir>/testUtils/setupTests.js"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "testUtils"
-    ],
-    "transform": {
-      "\\.(gql|graphql)$": "jest-transform-graphql",
-      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest"
-    },
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
-    ],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less|scss)$": "identity-obj-proxy"
-    }
+    "graphql-tag": "^2.8.0"
   }
 }

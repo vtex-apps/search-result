@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { render } from 'test-utils'
+import { render } from '@vtex/test-tools/react'
 import React from 'react'
 
 import SearchFooter from '../components/SearchFooter'
