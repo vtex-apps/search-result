@@ -56,3 +56,5 @@ export default [
     ],
   },
 ]
+
+export const numberOfFilters = 10
