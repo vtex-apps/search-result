@@ -45,19 +45,6 @@ export function getMapByType(type) {
   }
 }
 
-/**
- * Returns an object mapped by restValue and your mapValue.
- * E.g.: rest='smartphones,lg' map='c,b' => { smartphones : 'c', lg: 'b' }
- */
-function restMapped(rest, map) {
-  const restValues = (rest && rest.split(',')) || []
-  const mapValues = (map && map.split(',')) || []
-  const mapValuesSliced = mapValues.slice(restValues.length * -1)
-  return restValues.reduce((acc, value, index) => {
-    return { ...acc, [value.toUpperCase()]: mapValuesSliced[index] }
-  }, {})
-}
-
 function removeFilter(map, rest, { slug }) {
   const restIndex = rest.findIndex(
     item => slug.toLowerCase() === item.toLowerCase()
@@ -80,9 +67,10 @@ function removeFilter(map, rest, { slug }) {
 }
 
 function addFilter(map, rest, { path, type, link, pagesPath, slug }) {
-  const mapSymbol = type === SPECIFICATION_FILTERS_TYPE
-    ? getSpecificationFilterFromLink(link, slug)
-    : getMapByType(type)
+  const mapSymbol =
+    type === SPECIFICATION_FILTERS_TYPE
+      ? getSpecificationFilterFromLink(link, slug)
+      : getMapByType(type)
 
   if (type !== CATEGORIES_TYPE) {
     return {
@@ -113,12 +101,7 @@ function addFilter(map, rest, { path, type, link, pagesPath, slug }) {
  * Returns the props to Link component.
  */
 export function getPagesArgs({
-  query: {
-    rest = [],
-    map = [],
-    order,
-    priceRange,
-  } = {},
+  query: { map = [], order, priceRange } = {},
   type,
   params,
   path,
@@ -130,7 +113,6 @@ export function getPagesArgs({
 }) {
   const query = {
     map,
-    rest,
     page: pageNumber !== 1 ? pageNumber : undefined,
     order,
     priceRange,
@@ -145,11 +127,10 @@ export function getPagesArgs({
     case BRANDS_TYPE:
     case CATEGORIES_TYPE: {
       const filters = isUnselectLink
-        ? removeFilter(map, rest, { type, slug, pagesPath })
-        : addFilter(map, rest, { type, link, path, slug, pagesPath })
+        ? removeFilter(map, [], { type, slug, pagesPath })
+        : addFilter(map, [], { type, link, path, slug, pagesPath })
 
       query.map = filters.map
-      query.rest = filters.rest
       break
     }
     default:
@@ -164,21 +145,22 @@ export function getPagesArgs({
   }
 }
 
-export function getBaseMap(map, rest) {
+export function getBaseMap(map) {
   const mapArray = map.split(',')
-  const restArray = rest.split(',').filter(s => s.length > 0)
+  const restArray = [] //rest.split(',').filter(s => s.length > 0)
 
-  return mapArray.splice(0, Math.max(mapArray.length - restArray.length, 0)).join(',')
+  return mapArray
+    .splice(0, Math.max(mapArray.length - restArray.length, 0))
+    .join(',')
 }
 
-export function mountOptions(options, type, map, rest) {
-  const restMap = restMapped(rest, map)
-
+export function mountOptions(options, type, map) {
   return options.reduce((acc, opt) => {
     let slug
 
     if (type === BRANDS_TYPE) {
-      slug = unorm.nfd(opt.Name)
+      slug = unorm
+        .nfd(opt.Name)
         // Remove the accents
         .replace(/[\u0300-\u036f]/g, '')
         .replace(/[^\w\d]/g, '-')
@@ -186,12 +168,14 @@ export function mountOptions(options, type, map, rest) {
       slug = opt.Slug || opt.normalizedName || opt.Name
     }
 
-    const optMap = type === SPECIFICATION_FILTERS_TYPE
-      ? getSpecificationFilterFromLink(opt.Link, slug)
-      : getMapByType(type)
+    const optMap =
+      type === SPECIFICATION_FILTERS_TYPE
+        ? getSpecificationFilterFromLink(opt.Link, slug)
+        : getMapByType(type)
 
-    const selected = restMap.hasOwnProperty(slug.toUpperCase()) &&
-      restMap[slug.toUpperCase()] === optMap
+    const selected = false
+    //restMap.hasOwnProperty(slug.toUpperCase()) &&
+    //restMap[slug.toUpperCase()] === optMap
 
     return [
       ...acc,
@@ -214,8 +198,12 @@ export function formatCategoriesTree(root) {
 
     return tree.reduce((categories, node) => {
       // Remove the accents and diacritics of the string
-      const normalizedName = unorm.nfd(node.Name).replace(/[\u0300-\u036f]/g, '')
-      const nodePath = parentPath ? `${parentPath}/${normalizedName}` : normalizedName
+      const normalizedName = unorm
+        .nfd(node.Name)
+        .replace(/[\u0300-\u036f]/g, '')
+      const nodePath = parentPath
+        ? `${parentPath}/${normalizedName}`
+        : normalizedName
       return [
         ...categories,
         {
@@ -237,12 +225,14 @@ export function formatCategoriesTree(root) {
 }
 
 export function getFilterTitle(title = '', intl) {
-  return intl.messages[title]
-    ? intl.formatMessage({ id: title })
-    : title
+  return intl.messages[title] ? intl.formatMessage({ id: title }) : title
 }
 
-export function formatFacetToLinkPropsParam(type, option, oneSelectedCollapse = false) {
+export function formatFacetToLinkPropsParam(
+  type,
+  option,
+  oneSelectedCollapse = false
+) {
   return {
     name: option.Name,
     link: option.Link,

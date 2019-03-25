@@ -1,5 +1,8 @@
 /* eslint-env jest */
-import { getSpecificationFilterFromLink, getPagesArgs } from '../../constants/SearchHelpers'
+import {
+  getSpecificationFilterFromLink,
+  getPagesArgs,
+} from '../../constants/SearchHelpers'
 import {
   CATEGORIES_TYPE,
   BRANDS_TYPE,
@@ -9,7 +12,8 @@ import {
 
 describe('getSpecificationFilterFromLink', () => {
   it('should return the only specification in link', () => {
-    const link = '/eletronicos/smartphones/Android 7.0?map=c,c,specificationFilter_20'
+    const link =
+      '/eletronicos/smartphones/Android 7.0?map=c,c,specificationFilter_20'
     const slug = 'Android 7.0'
 
     const filterMap = getSpecificationFilterFromLink(link, slug)
@@ -47,8 +51,9 @@ describe('getSpecificationFilterFromLink', () => {
     expect(filterMap).toBe('specificationFilter_21')
   })
 
-  it('should bail out if can\'t match the params', () => {
-    const link = '/eletronics/smartphones/android 7.1?map=c,c,specificationFilter_20'
+  it("should bail out if can't match the params", () => {
+    const link =
+      '/eletronics/smartphones/android 7.1?map=c,c,specificationFilter_20'
     const slug = 'Android 7.1'
 
     const filterMap = getSpecificationFilterFromLink(link, slug)
@@ -78,7 +83,10 @@ describe('getPagesArgs', () => {
       },
     }
 
-    const { page, query: { map, rest } } = getPagesArgs(filterSpec)
+    const {
+      page,
+      query: { map, rest },
+    } = getPagesArgs(filterSpec)
 
     expect(map).toEqual(['ft', 'b'])
     expect(rest).toEqual(['Samsung'])
@@ -102,7 +110,9 @@ describe('getPagesArgs', () => {
       },
     }
 
-    const { query: { map, rest } } = getPagesArgs(filterSpec)
+    const {
+      query: { map, rest },
+    } = getPagesArgs(filterSpec)
 
     expect(map).toEqual(['c', 'c'])
     expect(rest).toEqual(['Smartphones'])
@@ -124,7 +134,9 @@ describe('getPagesArgs', () => {
       },
     }
 
-    const { query: { map, rest } } = getPagesArgs(filterSpec)
+    const {
+      query: { map, rest },
+    } = getPagesArgs(filterSpec)
 
     expect(map).toEqual(['c', 'c', 'c'])
     expect(rest).toEqual(['Smartphones', 'Acessorios'])
@@ -147,7 +159,10 @@ describe('getPagesArgs', () => {
       },
     }
 
-    const { page, query: { map, rest } } = getPagesArgs(filterSpec)
+    const {
+      page,
+      query: { map, rest },
+    } = getPagesArgs(filterSpec)
 
     expect(page).toEqual(SEARCH_PAGE)
     expect(map).toEqual(['ft', 'c', 'c'])
@@ -173,7 +188,9 @@ describe('getPagesArgs', () => {
       },
     }
 
-    const { query: { map, rest } } = getPagesArgs(filterSpec)
+    const {
+      query: { map, rest },
+    } = getPagesArgs(filterSpec)
 
     expect(map).toEqual(['c', 'c'])
     expect(rest).toEqual([])
@@ -197,7 +214,9 @@ describe('getPagesArgs', () => {
       },
     }
 
-    const { query: { map, rest } } = getPagesArgs(filterSpec)
+    const {
+      query: { map, rest },
+    } = getPagesArgs(filterSpec)
 
     expect(map).toEqual(['c', 'b'])
     expect(rest).toEqual(['Google'])
@@ -221,7 +240,9 @@ describe('getPagesArgs', () => {
       },
     }
 
-    const { query: { map, rest } } = getPagesArgs(filterSpec)
+    const {
+      query: { map, rest },
+    } = getPagesArgs(filterSpec)
 
     expect(map).toEqual(['c', 'c'])
     expect(rest).toEqual([])
@@ -240,7 +261,9 @@ describe('getPagesArgs', () => {
       },
     }
 
-    const { query: { order, map, rest } } = getPagesArgs(filterSpec)
+    const {
+      query: { order, map, rest },
+    } = getPagesArgs(filterSpec)
 
     expect(map).toEqual(['c', 'c'])
     expect(rest).toEqual(['Smartphones'])
@@ -261,7 +284,9 @@ describe('getPagesArgs', () => {
       },
     }
 
-    const { query: { priceRange } } = getPagesArgs(filterSpec)
+    const {
+      query: { priceRange },
+    } = getPagesArgs(filterSpec)
 
     expect(priceRange).toBeDefined()
   })
@@ -280,7 +305,9 @@ describe('getPagesArgs', () => {
       },
     }
 
-    const { query: { priceRange } } = getPagesArgs(filterSpec)
+    const {
+      query: { priceRange },
+    } = getPagesArgs(filterSpec)
 
     expect(priceRange).toBe('1000 TO 1999,99')
   })
@@ -291,11 +318,19 @@ describe('getPagesArgs', () => {
       isUnselectLink: true,
       name: 'Branco',
       slug: 'Branco',
-      link: '/eletrodomesticos/Geladeira---Refrigerador/Geladeira---Refrigerador/Branco?map=c,c,c,specificationFilter_14',
+      link:
+        '/eletrodomesticos/Geladeira---Refrigerador/Geladeira---Refrigerador/Branco?map=c,c,c,specificationFilter_14',
       pagesPath: 'store.search#subcategory',
       query: {
         rest: ['Outra categoria', 'Branco', '110V'],
-        map: ['c', 'c', 'c', 'c', 'specificationFilter_14', 'specificationFilter_692'],
+        map: [
+          'c',
+          'c',
+          'c',
+          'c',
+          'specificationFilter_14',
+          'specificationFilter_692',
+        ],
       },
       params: {
         department: 'eletrodomesticos',
@@ -304,7 +339,9 @@ describe('getPagesArgs', () => {
       },
     }
 
-    const { query: { map, rest } } = getPagesArgs(filterSpec)
+    const {
+      query: { map, rest },
+    } = getPagesArgs(filterSpec)
 
     expect(map).toEqual(['c', 'c', 'c', 'c', 'specificationFilter_692'])
     expect(rest).toEqual(['Outra categoria', '110V'])
