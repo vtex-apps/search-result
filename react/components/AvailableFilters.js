@@ -6,7 +6,7 @@ import { mountOptions } from '../constants/SearchHelpers'
 import SearchFilter from './SearchFilter'
 import PriceRange from './PriceRange'
 
-const AvailableFilters = ({ filters, map, rest, priceRange, getLinkProps }) => (
+const AvailableFilters = ({ filters, map, priceRange, getLinkProps }) =>
   filters.map(filter => {
     const { type, title, options, oneSelectedCollapse = false } = filter
 
@@ -27,7 +27,7 @@ const AvailableFilters = ({ filters, map, rest, priceRange, getLinkProps }) => (
           <SearchFilter
             key={title}
             title={title}
-            options={mountOptions(options, type, map, rest)}
+            options={mountOptions(options, type, map)}
             oneSelectedCollapse={oneSelectedCollapse}
             type={type}
             getLinkProps={getLinkProps}
@@ -35,20 +35,18 @@ const AvailableFilters = ({ filters, map, rest, priceRange, getLinkProps }) => (
         )
     }
   })
-)
 
 AvailableFilters.propTypes = {
   /** Filters to be displayed */
-  filters: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string,
-    type: PropTypes.string,
-    rest: PropTypes.string,
-    oneSelectedCollapse: PropTypes.bool,
-  })),
+  filters: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      type: PropTypes.string,
+      oneSelectedCollapse: PropTypes.bool,
+    })
+  ),
   /** Map query parameter */
   map: PropTypes.string,
-  /** Rest query parameter */
-  rest: PropTypes.string,
   /** Get the props to pass to render's Link */
   getLinkProps: PropTypes.func,
   /** Price range query parameter */

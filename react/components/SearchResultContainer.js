@@ -63,8 +63,8 @@ export default class SearchResultContainer extends Component {
     }
   }
 
-  getLinkProps = (spec, useEmptyMapAndRest = false) => {
-    const { rest, map, pagesPath, params } = this.props
+  getLinkProps = (spec, useEmptyMap = false) => {
+    const { map, pagesPath, params } = this.props
     const filters = Array.isArray(spec) ? spec : [spec]
 
     if (filters.length === 0) {
@@ -111,14 +111,12 @@ export default class SearchResultContainer extends Component {
           order: this.props.orderBy,
           map:
             (map &&
-              (useEmptyMapAndRest
-                ? getBaseMap(map, rest)
+              (useEmptyMap
+                ? getBaseMap(map)
                     .split(',')
                     .filter(x => x)
                 : map.split(','))) ||
             [],
-          rest:
-            useEmptyMapAndRest || !rest ? [] : rest.split(',').filter(x => x),
         },
       }
     )
@@ -126,7 +124,6 @@ export default class SearchResultContainer extends Component {
     const queryString = QueryString.stringify({
       ...pageProps.query,
       map: pageProps.query.map && pageProps.query.map.join(','),
-      rest: pageProps.query.rest.join(',') || undefined,
     })
 
     return {

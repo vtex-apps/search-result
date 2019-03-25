@@ -17,14 +17,12 @@ class LocalQuery extends Component {
       maxItemsPerPage,
       queryField,
       mapField,
-      restField,
       orderByField,
       query: {
         order: orderBy = orderByField,
         page: pageQuery,
         priceRange,
         map = mapField,
-        rest = restField,
       },
       runtime: { page: runtimePage },
     } = this.props
@@ -39,12 +37,16 @@ class LocalQuery extends Component {
         variables={{
           query: queryField,
           map,
-          rest,
           orderBy,
           priceRange,
           from,
           to,
-          withFacets: !!(map && map.length > 0 && queryField && queryField.length > 0),
+          withFacets: !!(
+            map &&
+            map.length > 0 &&
+            queryField &&
+            queryField.length > 0
+          ),
         }}
         notifyOnNetworkStatusChange
         partialRefetch
@@ -62,7 +64,6 @@ class LocalQuery extends Component {
             searchContext: runtimePage,
             pagesPath: runtimePage,
             map,
-            rest,
             orderBy,
             priceRange,
             page,

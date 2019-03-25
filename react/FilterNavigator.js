@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRuntimeContext } from 'vtex.render-runtime'
 import { flatten, path, identity, contains } from 'ramda'
@@ -13,7 +13,11 @@ import {
   mountOptions,
   getMapByType,
 } from './constants/SearchHelpers'
-import { facetOptionShape, paramShape, hiddenFacetsSchema } from './constants/propTypes'
+import {
+  facetOptionShape,
+  paramShape,
+  hiddenFacetsSchema,
+} from './constants/propTypes'
 
 import searchResult from './searchResult.css'
 
@@ -53,8 +57,6 @@ class FilterNavigator extends Component {
     priceRange: PropTypes.string,
     /** Map query parameter */
     map: PropTypes.string,
-    /** Rest query parameter */
-    rest: PropTypes.string,
     /** Loading indicator */
     loading: PropTypes.bool,
     ...hiddenFacetsSchema,
@@ -70,20 +72,16 @@ class FilterNavigator extends Component {
   }
 
   getAvailableCategories = (showOnlySelected = false) => {
-    const { rest, query, map } = this.props
+    const { query, map } = this.props
     const categories = this.categories
 
     let queryParams = query || ''
 
-    if (rest && rest.length > 0) {
-      queryParams = `${queryParams}/${rest.replace(/,/g, '/')}`
-    }
-
     const mapArray = map.split(',')
 
-    const categoriesCount = mapArray
-      .filter(m => m === getMapByType(CATEGORIES_TYPE))
-      .length
+    const categoriesCount = mapArray.filter(
+      m => m === getMapByType(CATEGORIES_TYPE)
+    ).length
 
     const currentPath = queryParams
       .split('/')
@@ -91,9 +89,10 @@ class FilterNavigator extends Component {
       .join('/')
 
     return categories
-      .filter(c => showOnlySelected
-        ? (c.level === categoriesCount - 1)
-        : (c.level === categoriesCount - 1 || c.level === categoriesCount)
+      .filter(c =>
+        showOnlySelected
+          ? c.level === categoriesCount - 1
+          : c.level === categoriesCount - 1 || c.level === categoriesCount
       )
       .filter(c => c.path.toLowerCase().startsWith(currentPath.toLowerCase()))
   }
@@ -109,17 +108,17 @@ class FilterNavigator extends Component {
   }
 
   get selectedFilters() {
-    const { brands, specificationFilters, priceRanges, map, rest } = this.props
+    const { brands, specificationFilters, priceRanges, map } = this.props
 
     const categories = this.getAvailableCategories(true)
 
     const options = [
-      ...mountOptions(categories, CATEGORIES_TYPE, map, rest),
+      ...mountOptions(categories, CATEGORIES_TYPE, map),
       ...specificationFilters.map(spec =>
-        mountOptions(spec.facets, SPECIFICATION_FILTERS_TYPE, map, rest)
+        mountOptions(spec.facets, SPECIFICATION_FILTERS_TYPE, map)
       ),
-      ...mountOptions(brands, BRANDS_TYPE, map, rest),
-      ...mountOptions(priceRanges, PRICE_RANGES_TYPE, map, rest),
+      ...mountOptions(brands, BRANDS_TYPE, map),
+      ...mountOptions(priceRanges, PRICE_RANGES_TYPE, map),
     ]
 
     return flatten(options).filter(opt => opt.selected)
@@ -139,14 +138,17 @@ class FilterNavigator extends Component {
       path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
     ).map(filter => filter.name)
 
-    const mappedSpecificationFilters = !path(['specificationFilters', 'hideAll'], hiddenFacets)
-      ? specificationFilters.filter(
-        spec => !contains(spec.name, hiddenFacetsNames)
-      ).map(spec => ({
-        type: SPECIFICATION_FILTERS_TYPE,
-        title: spec.name,
-        options: spec.facets,
-      }))
+    const mappedSpecificationFilters = !path(
+      ['specificationFilters', 'hideAll'],
+      hiddenFacets
+    )
+      ? specificationFilters
+          .filter(spec => !contains(spec.name, hiddenFacetsNames))
+          .map(spec => ({
+            type: SPECIFICATION_FILTERS_TYPE,
+            title: spec.name,
+            options: spec.facets,
+          }))
       : []
 
     return [
@@ -174,12 +176,15 @@ class FilterNavigator extends Component {
     const {
       priceRange,
       map,
-      rest,
       getLinkProps,
       loading,
-      runtime: { hints: { mobile } },
+      runtime: {
+        hints: { mobile },
+      },
     } = this.props
-    const filterClasses = classNames({ 'flex justify-center flex-auto ': mobile })
+    const filterClasses = classNames({
+      'flex justify-center flex-auto ': mobile,
+    })
 
     if (!map || !map.length) {
       return null
@@ -214,7 +219,6 @@ class FilterNavigator extends Component {
               selectedFilters={this.selectedFilters}
               getLinkProps={getLinkProps}
               map={map}
-              rest={rest}
             />
           </div>
         </div>
@@ -232,7 +236,6 @@ class FilterNavigator extends Component {
             getLinkProps={getLinkProps}
             filters={this.filters}
             map={map}
-            rest={rest}
             priceRange={priceRange}
           />
         </div>
