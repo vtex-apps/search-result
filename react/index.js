@@ -20,7 +20,6 @@ export default class SearchResultQueryLoader extends Component {
   static defaultProps = {
     orderBy: SORT_OPTIONS[0].value,
     gap: GapPaddingTypes.SMALL.value,
-    rest: '',
   }
 
   static uiSchema = {
@@ -66,10 +65,6 @@ SearchResultQueryLoader.getSchema = props => {
             },
             mapField: {
               title: 'Map',
-              type: 'string',
-            },
-            restField: {
-              title: 'Other Query Strings',
               type: 'string',
             },
             orderByField: {

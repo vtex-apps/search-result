@@ -33,7 +33,6 @@ class SearchResult extends Component {
     params: this.props.params,
     priceRange: this.props.priceRange,
     priceRanges: this.props.priceRanges,
-    rest: this.props.rest,
     specificationFilters: this.props.specificationFilters,
     tree: this.props.tree,
     hiddenFacets: this.props.hiddenFacets,
@@ -69,7 +68,6 @@ class SearchResult extends Component {
         params,
         priceRange,
         priceRanges,
-        rest,
         specificationFilters,
         tree,
         hiddenFacets,
@@ -83,7 +81,6 @@ class SearchResult extends Component {
         params,
         priceRange,
         priceRanges,
-        rest,
         specificationFilters,
         tree,
         hiddenFacets,
@@ -118,7 +115,9 @@ class SearchResult extends Component {
       fetchMoreLoading,
       summary,
       orderBy,
-      runtime: { hints: { mobile } },
+      runtime: {
+        hints: { mobile },
+      },
       gap,
       showTitle,
     } = this.props
@@ -132,20 +131,17 @@ class SearchResult extends Component {
       params,
       priceRange,
       priceRanges,
-      rest,
       specificationFilters,
       tree,
       hiddenFacets,
       showLoadingAsOverlay,
     } = this.state
 
-    const term = params && params.term
-      ? decodeURIComponent(params.term) : undefined
+    const term =
+      params && params.term ? decodeURIComponent(params.term) : undefined
 
     if (!products.length && !loading) {
-      return (
-        <ExtensionPoint id="not-found" term={term} />
-      )
+      return <ExtensionPoint id="not-found" term={term} />
     }
 
     const hideFacets = !map || !map.length
@@ -163,7 +159,8 @@ class SearchResult extends Component {
             params={params}
             showTitle={showTitle}
           />
-          <ExtensionPoint id="total-products"
+          <ExtensionPoint
+            id="total-products"
             recordsFiltered={recordsFiltered}
           />
           {!hideFacets && (
@@ -176,7 +173,6 @@ class SearchResult extends Component {
               priceRange={priceRange}
               priceRanges={priceRanges}
               query={query}
-              rest={rest}
               specificationFilters={specificationFilters}
               tree={tree}
               hiddenFacets={hiddenFacets}
@@ -202,20 +198,35 @@ class SearchResult extends Component {
             )}
             {children}
           </div>
-          {mobile && <div className={`${searchResult.border} bg-muted-5 h-50 self-center`} />}
-          <ExtensionPoint id="order-by"
+          {mobile && (
+            <div
+              className={`${searchResult.border} bg-muted-5 h-50 self-center`}
+            />
+          )}
+          <ExtensionPoint
+            id="order-by"
             orderBy={orderBy}
             getLinkProps={getLinkProps}
           />
-          {mobile && <div className={`${searchResult.border2} bg-muted-5 h-50 self-center`} />}
-          {mobile && <div className={`${searchResult.switch} flex justify-center items-center`}>
-            <div className="dn-ns db-s">
-              <LayoutModeSwitcher
-                activeMode={mobileLayoutMode}
-                onChange={this.handleMobileLayoutChange}
-              />
+          {mobile && (
+            <div
+              className={`${searchResult.border2} bg-muted-5 h-50 self-center`}
+            />
+          )}
+          {mobile && (
+            <div
+              className={`${
+                searchResult.switch
+              } flex justify-center items-center`}
+            >
+              <div className="dn-ns db-s">
+                <LayoutModeSwitcher
+                  activeMode={mobileLayoutMode}
+                  onChange={this.handleMobileLayoutChange}
+                />
+              </div>
             </div>
-          </div>}
+          )}
         </div>
       </LoadingOverlay>
     )
