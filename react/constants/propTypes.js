@@ -113,11 +113,6 @@ export const searchQueryShape = PropTypes.shape({
 })
 
 export const queryShape = PropTypes.shape({
-  /**
-   * Rest of the search term, e.g: eletronics/smartphones/samsung implies that
-   * rest will be equal to "smartphones,samsung".
-   */
-  rest: PropTypes.string,
   /** Determines the types of the terms, e.g: "c,c,b" (category, category, brand). */
   map: PropTypes.string,
   /** Current ordenation. */
@@ -172,8 +167,6 @@ export const searchResultContainerPropTypes = {
   params: PropTypes.object,
   /** Map param. e.g: c,c */
   map: PropTypes.string,
-  /** Rest param. e.g: Android,Samsung */
-  rest: PropTypes.string,
   /** Search result page. */
   page: PropTypes.number.isRequired,
   /** Search result ordernation. */
@@ -203,8 +196,6 @@ export const searchResultPropTypes = {
   priceRange: PropTypes.string,
   /** List of price ranges filter */
   priceRanges: PropTypes.array.isRequired,
-  /** Rest param. e.g: Android,Samsung */
-  rest: PropTypes.string,
   /** Hidden specification filters facets configuration */
   specificationFilters: PropTypes.array.isRequired,
   /** Categories matched with the facets. */
