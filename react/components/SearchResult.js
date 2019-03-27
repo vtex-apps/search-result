@@ -118,7 +118,9 @@ class SearchResult extends Component {
       fetchMoreLoading,
       summary,
       orderBy,
-      runtime: { hints: { mobile } },
+      runtime: {
+        hints: { mobile },
+      },
       gap,
     } = this.props
     const {
@@ -138,13 +140,11 @@ class SearchResult extends Component {
       showLoadingAsOverlay,
     } = this.state
 
-    const term = params && params.term
-      ? decodeURIComponent(params.term) : undefined
+    const term =
+      params && params.term ? decodeURIComponent(params.term) : undefined
 
     if (!products.length && !loading) {
-      return (
-        <ExtensionPoint id="not-found" term={term} />
-      )
+      return <ExtensionPoint id="not-found" term={term} />
     }
 
     const hideFacets = !map || !map.length
@@ -152,63 +152,92 @@ class SearchResult extends Component {
     const showContentLoader = showLoading && !showLoadingAsOverlay
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
-        <div className={`${searchResult.container} w-100 mw9`}>
-          <div className={`${searchResult.breadcrumb} db-ns dn-s`}>
-            <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
-          </div>
-          <ExtensionPoint id="total-products"
-            recordsFiltered={recordsFiltered}
-          />
-          {!hideFacets && (
+        <div className={`${searchResult.container} w-100 mw9 flex flex-column`}>
+          <div className="flex justify-between">
+            <div className={`${searchResult.breadcrumb} db-ns dn-s`}>
+              <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
+            </div>
+            {/** Spacer */}
+            <div style={{ flexGrow: 2 }} />
+
             <ExtensionPoint
-              id="filter-navigator"
-              brands={brands}
-              getLinkProps={getLinkProps}
-              map={map}
-              params={params}
-              priceRange={priceRange}
-              priceRanges={priceRanges}
-              query={query}
-              rest={rest}
-              specificationFilters={specificationFilters}
-              tree={tree}
-              hiddenFacets={hiddenFacets}
-              loading={loading && !fetchMoreLoading}
+              id="total-products"
+              recordsFiltered={recordsFiltered}
+            />
+            <span className="w5">
+              <ExtensionPoint
+                id="order-by"
+                orderBy={orderBy}
+                getLinkProps={getLinkProps}
+              />
+            </span>
+          </div>
+          <div className="flex w-100">
+            {!hideFacets && (
+              <div className="w5">
+                <ExtensionPoint
+                  id="filter-navigator"
+                  brands={brands}
+                  getLinkProps={getLinkProps}
+                  map={map}
+                  params={params}
+                  priceRange={priceRange}
+                  priceRanges={priceRanges}
+                  query={query}
+                  rest={rest}
+                  specificationFilters={specificationFilters}
+                  tree={tree}
+                  hiddenFacets={hiddenFacets}
+                  loading={loading && !fetchMoreLoading}
+                />
+              </div>
+            )}
+
+            <div className={`${searchResult.resultGallery} w-100`}>
+              {showContentLoader ? (
+                <div className="w-100 flex justify-center">
+                  <div className="w3 ma0">
+                    <Spinner />
+                  </div>
+                </div>
+              ) : (
+                <ExtensionPoint
+                  id="gallery"
+                  products={products}
+                  summary={summary}
+                  className="bn"
+                  mobileLayoutMode={mobileLayoutMode}
+                  gap={gap}
+                />
+              )}
+              {children}
+            </div>
+          </div>
+          {mobile && (
+            <div
+              className={`${searchResult.border} bg-muted-5 h-50 self-center`}
             />
           )}
-          <div className={searchResult.resultGallery}>
-            {showContentLoader ? (
-              <div className="w-100 flex justify-center">
-                <div className="w3 ma0">
-                  <Spinner />
-                </div>
+
+          {mobile && (
+            <div
+              className={`${searchResult.border2} bg-muted-5 h-50 self-center`}
+            />
+          )}
+          {mobile && (
+            <div
+              className={`${
+                searchResult.switch
+              } flex justify-center items-center`}
+            >
+              <div className="dn-ns db-s">
+                <LayoutModeSwitcher
+                  activeMode={mobileLayoutMode}
+                  onChange={this.handleMobileLayoutChange}
+                />
               </div>
-            ) : (
-              <ExtensionPoint
-                id="gallery"
-                products={products}
-                summary={summary}
-                className="bn"
-                mobileLayoutMode={mobileLayoutMode}
-                gap={gap}
-              />
-            )}
-            {children}
-          </div>
-          {mobile && <div className={`${searchResult.border} bg-muted-5 h-50 self-center`} />}
-          <ExtensionPoint id="order-by"
-            orderBy={orderBy}
-            getLinkProps={getLinkProps}
-          />
-          {mobile && <div className={`${searchResult.border2} bg-muted-5 h-50 self-center`} />}
-          {mobile && <div className={`${searchResult.switch} flex justify-center items-center`}>
-            <div className="dn-ns db-s">
-              <LayoutModeSwitcher
-                activeMode={mobileLayoutMode}
-                onChange={this.handleMobileLayoutChange}
-              />
             </div>
-          </div>}
+          )}
         </div>
       </LoadingOverlay>
     )
