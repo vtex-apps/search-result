@@ -20,6 +20,14 @@ Row.PropTypes = {
 
 const RowSpacer = () => <div style={{ flexGrow: 2 }} />
 
+const Grow = ({ children, className, by }) => (
+  <span className={className} style={{ flexGrow: by }}>
+    {children}
+  </span>
+)
+
+const Border = () => <span className="bg-muted-4 pl1 h-50 self-center" />
+
 const FlexLayout = ({
   mobile,
   breadcrumb,
@@ -28,9 +36,19 @@ const FlexLayout = ({
   hideFacets,
   filterNavigator,
   gallery,
+  layoutModeSwitcher,
 }) => {
   return mobile ? (
-    <h1>Mobile</h1>
+    <Fragment>
+      <Row className="bb bw1 b--muted-4">
+        <Grow by={3}>{orderBy}</Grow>
+        <Border />
+        <Grow by={2}>{filterNavigator}</Grow>
+        <Border />
+        <Grow by={1}>{layoutModeSwitcher}</Grow>
+      </Row>
+      <Row>{gallery}</Row>
+    </Fragment>
   ) : (
     <Fragment>
       <Row justify="between">

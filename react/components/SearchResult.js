@@ -210,26 +210,13 @@ class SearchResult extends Component {
       </div>
     )
 
-    const border1Element = (
-      <div className={`${searchResult.border} bg-muted-5 h-50 self-center`} />
-    )
-
-    const border2Element = (
-      <div className={`${searchResult.border2} bg-muted-5 h-50 self-center`} />
-    )
-
     const layoutModeSwitcherElement = (
-      <div
-        className={`${searchResult.switch} flex justify-center items-center`}
-        style={{ flexGrow: 1 }}
-      >
-        <div className="dn-ns db-s">
-          <LayoutModeSwitcher
-            activeMode={mobileLayoutMode}
-            onChange={this.handleMobileLayoutChange}
-          />
-        </div>
-      </div>
+      <span className={`${searchResult.switch}`}>
+        <LayoutModeSwitcher
+          activeMode={mobileLayoutMode}
+          onChange={this.handleMobileLayoutChange}
+        />
+      </span>
     )
 
     return (
@@ -243,6 +230,7 @@ class SearchResult extends Component {
             hideFacets={hideFacets}
             filterNavigator={filterNavigatorElement}
             gallery={galleryElement}
+            layoutModeSwitcher={layoutModeSwitcherElement}
           />
         </div>
       </LoadingOverlay>
