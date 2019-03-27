@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint, withRuntimeContext } from 'vtex.render-runtime'
 
@@ -7,6 +7,7 @@ import { searchResultPropTypes } from '../constants/propTypes'
 import LayoutModeSwitcher, { LAYOUT_MODE } from './LayoutModeSwitcher'
 
 import searchResult from '../searchResult.css'
+import FlexLayout from './FlexLayout'
 
 /**
  * Search Result Component.
@@ -150,94 +151,99 @@ class SearchResult extends Component {
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
+
+    const breadcrumbElement = (
+      <div className={`${searchResult.breadcrumb} db-ns dn-s`}>
+        <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
+      </div>
+    )
+
+    const totalProductsElement = (
+      <ExtensionPoint id="total-products" recordsFiltered={recordsFiltered} />
+    )
+
+    const orderByElement = (
+      <ExtensionPoint
+        id="order-by"
+        orderBy={orderBy}
+        getLinkProps={getLinkProps}
+      />
+    )
+
+    const filterNavigatorElement = (
+      <ExtensionPoint
+        id="filter-navigator"
+        brands={brands}
+        getLinkProps={getLinkProps}
+        map={map}
+        params={params}
+        priceRange={priceRange}
+        priceRanges={priceRanges}
+        query={query}
+        rest={rest}
+        specificationFilters={specificationFilters}
+        tree={tree}
+        hiddenFacets={hiddenFacets}
+        loading={loading && !fetchMoreLoading}
+      />
+    )
+
+    const galleryElement = (
+      <div className={`${searchResult.resultGallery} w-100`}>
+        {showContentLoader ? (
+          <div className="w-100 flex justify-center">
+            <div className="w3 ma0">
+              <Spinner />
+            </div>
+          </div>
+        ) : (
+          <ExtensionPoint
+            id="gallery"
+            products={products}
+            summary={summary}
+            className="bn"
+            mobileLayoutMode={mobileLayoutMode}
+            gap={gap}
+          />
+        )}
+        {children}
+      </div>
+    )
+
+    const border1Element = (
+      <div className={`${searchResult.border} bg-muted-5 h-50 self-center`} />
+    )
+
+    const border2Element = (
+      <div className={`${searchResult.border2} bg-muted-5 h-50 self-center`} />
+    )
+
+    const layoutModeSwitcherElement = (
+      <div
+        className={`${searchResult.switch} flex justify-center items-center`}
+        style={{ flexGrow: 1 }}
+      >
+        <div className="dn-ns db-s">
+          <LayoutModeSwitcher
+            activeMode={mobileLayoutMode}
+            onChange={this.handleMobileLayoutChange}
+          />
+        </div>
+      </div>
+    )
+
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
         <div className={`${searchResult.container} w-100 mw9 flex flex-column`}>
-          <div className="flex justify-between">
-            <div className={`${searchResult.breadcrumb} db-ns dn-s`}>
-              <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
-            </div>
-            {/** Spacer */}
-            <div style={{ flexGrow: 2 }} />
-
-            <ExtensionPoint
-              id="total-products"
-              recordsFiltered={recordsFiltered}
-            />
-            <span className="w5">
-              <ExtensionPoint
-                id="order-by"
-                orderBy={orderBy}
-                getLinkProps={getLinkProps}
-              />
-            </span>
-          </div>
-          <div className="flex w-100">
-            {!hideFacets && (
-              <div className="w5">
-                <ExtensionPoint
-                  id="filter-navigator"
-                  brands={brands}
-                  getLinkProps={getLinkProps}
-                  map={map}
-                  params={params}
-                  priceRange={priceRange}
-                  priceRanges={priceRanges}
-                  query={query}
-                  rest={rest}
-                  specificationFilters={specificationFilters}
-                  tree={tree}
-                  hiddenFacets={hiddenFacets}
-                  loading={loading && !fetchMoreLoading}
-                />
-              </div>
-            )}
-
-            <div className={`${searchResult.resultGallery} w-100`}>
-              {showContentLoader ? (
-                <div className="w-100 flex justify-center">
-                  <div className="w3 ma0">
-                    <Spinner />
-                  </div>
-                </div>
-              ) : (
-                <ExtensionPoint
-                  id="gallery"
-                  products={products}
-                  summary={summary}
-                  className="bn"
-                  mobileLayoutMode={mobileLayoutMode}
-                  gap={gap}
-                />
-              )}
-              {children}
-            </div>
-          </div>
-          {mobile && (
-            <div
-              className={`${searchResult.border} bg-muted-5 h-50 self-center`}
-            />
-          )}
-
-          {mobile && (
-            <div
-              className={`${searchResult.border2} bg-muted-5 h-50 self-center`}
-            />
-          )}
-          {mobile && (
-            <div
-              className={`${
-                searchResult.switch
-              } flex justify-center items-center`}
-            >
-              <div className="dn-ns db-s">
-                <LayoutModeSwitcher
-                  activeMode={mobileLayoutMode}
-                  onChange={this.handleMobileLayoutChange}
-                />
-              </div>
-            </div>
-          )}
+          <FlexLayout
+            mobile={mobile}
+            breadcrumb={breadcrumbElement}
+            totalProducts={totalProductsElement}
+            orderBy={orderByElement}
+            hideFacets={hideFacets}
+            filterNavigator={filterNavigatorElement}
+            gallery={galleryElement}
+          />
         </div>
       </LoadingOverlay>
     )
