@@ -32,19 +32,26 @@ export default class SearchResultContainer extends Component {
   get breadcrumbsProps() {
     const {
       params: { category, department, term },
+      searchQuery: { facets },
     } = this.props
 
-    const categories = []
+    const categoryReducer = (acc, category) => [...acc, `/${category.Name}`]
 
-    if (department) {
-      categories.push(decodeURIComponent(department))
-    }
+    const categoryWithChildrenReducer = (acc, category) => [
+      ...acc,
+      category.Link,
+      ...category.Children.reduce(categoryReducer, []),
+    ]
 
-    if (category) {
-      categories.push(
-        `${decodeURIComponent(department)}/${decodeURIComponent(category)}/`
-      )
-    }
+    const getCategoryList = (reducer, initial = []) =>
+      facets.CategoriesTrees.reduce(reducer, initial)
+
+    const categories =
+      department && category
+        ? getCategoryList(categoryWithChildrenReducer)
+        : department
+        ? getCategoryList(categoryReducer)
+        : []
 
     return {
       term: term ? decodeURIComponent(term) : term,
@@ -98,14 +105,16 @@ export default class SearchResultContainer extends Component {
         params,
         query: {
           order: this.props.orderBy,
-          map: map && (
-            useEmptyMapAndRest
-              ? getBaseMap(map, rest)
-                .split(',')
-                .filter(x => x)
-              : map.split(',')
-          ) || [],
-          rest: (useEmptyMapAndRest || !rest) ? [] : rest.split(',').filter(x => x),
+          map:
+            (map &&
+              (useEmptyMapAndRest
+                ? getBaseMap(map, rest)
+                    .split(',')
+                    .filter(x => x)
+                : map.split(','))) ||
+            [],
+          rest:
+            useEmptyMapAndRest || !rest ? [] : rest.split(',').filter(x => x),
         },
       }
     )
@@ -130,7 +139,10 @@ export default class SearchResultContainer extends Component {
 
     this._fetchMoreLocked = true
 
-    const { maxItemsPerPage, searchQuery: { products, recordsFiltered } } = this.props
+    const {
+      maxItemsPerPage,
+      searchQuery: { products, recordsFiltered },
+    } = this.props
 
     const to = min(maxItemsPerPage + products.length, recordsFiltered) - 1
 
@@ -144,11 +156,14 @@ export default class SearchResultContainer extends Component {
         to,
       },
       updateQuery: (prevResult, { fetchMoreResult }) => {
-        this.setState({
-          fetchMoreLoading: false,
-        }, () => {
-          this._fetchMoreLocked = false
-        })
+        this.setState(
+          {
+            fetchMoreLoading: false,
+          },
+          () => {
+            this._fetchMoreLocked = false
+          }
+        )
 
         return {
           search: {
@@ -175,16 +190,15 @@ export default class SearchResultContainer extends Component {
         products = [],
         recordsFiltered = 0,
         loading,
-        variables: {
-          query,
-        },
+        variables: { query },
       },
       pagination,
     } = this.props
 
-    const ResultComponent = pagination === PAGINATION_TYPES[0]
-      ? ShowMoreLoaderResult
-      : InfiniteScrollLoaderResult
+    const ResultComponent =
+      pagination === PAGINATION_TYPES[0]
+        ? ShowMoreLoaderResult
+        : InfiniteScrollLoaderResult
 
     return (
       <Container className="pt3-m pt5-l">
