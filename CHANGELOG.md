@@ -7,12 +7,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.12.8] - 2019-03-27
+
+### Fixed
+
+- Fix outside click in mobile `OrderBy` dropdown.
+
 ## [3.12.7] - 2019-03-19
+
 ### Added
+
 - Resize images to width 500px.
 
 ## [3.12.6] - 2019-03-14
+
 ### Changed
+
 - Change language files to most generic.
 
 ## [3.12.5] - 2019-03-12

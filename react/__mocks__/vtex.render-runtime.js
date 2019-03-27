@@ -16,6 +16,10 @@ export const setMobileState = isMobile => {
   config.isMobile = isMobile
 }
 
+export const useRuntime = () => {
+  return { hints: { mobile: false, desktop: true } }
+}
+
 export const ExtensionPoint = ({ id }) => <div> Extension Point: {id} </div>
 
 export const Link = ({ children }) => <a className="mockedLink">{children}</a>
