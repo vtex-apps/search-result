@@ -12,7 +12,7 @@
   "search.filter.title.price-ranges": "Gama de Precios",
   "search.text": "Mostrar {from}-{to} de {recordsFiltered} resultados",
   "search.selected-filters": "Filtrado por:",
-  "search.total-products": "{recordsFiltered} {recordsFiltered, plural, one {Producto} other {Productos}}",
+  "search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {Producto} other {Productos}}</span>",
   "search.empty-products": "No hemos encontrado ningún resultado para \"{term}\"",
   "search.what-do-i-do": "¿Qué hago?",
   "search.what-to-do.1": "Compruebe los términos introducidos.",
