@@ -1,17 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { withResizeDetector } from 'react-resize-detector'
-import { map, compose, pluck } from 'ramda'
+import { map, pluck } from 'ramda'
 
-import { withRuntimeContext } from 'vtex.render-runtime'
+import { useRuntime } from 'vtex.render-runtime'
 
 import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 import { productShape } from './constants/propTypes'
 import GalleryItem from './components/GalleryItem'
 
 import searchResult from './searchResult.css'
-import { getGapPaddingValues } from './constants/paddingEnum'
 
 /** Layout with two column */
 const TWO_COLUMN_ITEMS = 2
@@ -19,30 +18,28 @@ const TWO_COLUMN_ITEMS = 2
 /**
  * Canonical gallery that displays a list of given products.
  */
-class Gallery extends Component {
-  get layoutMode() {
-    const {
-      mobileLayoutMode,
-      runtime: {
-        hints: { mobile },
-      },
-    } = this.props
+const Gallery = ({
+  products = [],
+  mobileLayoutMode = LAYOUT_MODE[0].value,
+  maxItemsPerRow = 5,
+  minItemWidth = 240,
+  width,
+  summary,
+}) => {
+  const runtime = useRuntime()
 
-    return mobile ? mobileLayoutMode : 'normal'
-  }
+  const layoutMode = runtime.hints.mobile ? mobileLayoutMode : 'normal'
 
-  get itemsPerRow() {
-    const { maxItemsPerRow, minItemWidth, width } = this.props
+  const getItemsPerRow = () => {
     const maxItems = Math.floor(width / minItemWidth)
     return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
   }
 
-  renderItem = item => {
-    const { summary, gap, maxItemsPerRow } = this.props
+  const renderItem = item => {
     const itemsPerRow =
-      this.layoutMode === 'small'
+      layoutMode === 'small'
         ? TWO_COLUMN_ITEMS
-        : this.itemsPerRow || maxItemsPerRow
+        : getItemsPerRow() || maxItemsPerRow
 
     const style = {
       flexBasis: `${100 / itemsPerRow}%`,
@@ -53,43 +50,19 @@ class Gallery extends Component {
       <div
         key={item.productId}
         style={style}
-        className={classNames(searchResult.galleryItem, gap)}
+        className={classNames(searchResult.galleryItem, 'pa4')}
       >
-        <GalleryItem
-          item={item}
-          summary={summary}
-          displayMode={this.layoutMode}
-        />
+        <GalleryItem item={item} summary={summary} displayMode={layoutMode} />
       </div>
     )
   }
 
-  get itemsPerRow() {
-    const { maxItemsPerRow, minItemWidth, width } = this.props
-    const maxItems = Math.floor(width / minItemWidth)
-    return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
-  }
+  const galleryClasses = classNames(
+    searchResult.gallery,
+    'flex flex-row flex-wrap items-stretch bn ph1 pl9-ns na4'
+  )
 
-  render() {
-    const {
-      products,
-      runtime: {
-        hints: { mobile },
-      },
-    } = this.props
-
-    const galleryClasses = classNames(
-      searchResult.gallery,
-      'flex flex-row flex-wrap items-stretch pa3 bn',
-      {
-        mh4: !mobile,
-      }
-    )
-
-    return (
-      <div className={galleryClasses}>{map(this.renderItem, products)}</div>
-    )
-  }
+  return <div className={galleryClasses}>{map(renderItem, products)}</div>
 }
 
 Gallery.propTypes = {
@@ -99,30 +72,12 @@ Gallery.propTypes = {
   products: PropTypes.arrayOf(productShape),
   /** ProductSummary props. */
   summary: PropTypes.any,
-  /** Gap between items */
-  gap: PropTypes.oneOf(getGapPaddingValues()),
   /** Max Items per Row */
   maxItemsPerRow: PropTypes.number,
   /** Layout mode of the gallery in mobile view */
   mobileLayoutMode: PropTypes.oneOf(pluck('value', LAYOUT_MODE)),
   /** Min Item Width. */
   minItemWidth: PropTypes.number,
-  /** Render runtime mobile hint */
-  runtime: PropTypes.shape({
-    hints: PropTypes.shape({
-      mobile: PropTypes.bool.isRequired,
-    }).isRequired,
-  }).isRequired,
 }
 
-Gallery.defaultProps = {
-  products: [],
-  maxItemsPerRow: 5,
-  minItemWidth: 240,
-  mobileLayoutMode: LAYOUT_MODE[0].value,
-}
-
-export default compose(
-  withResizeDetector,
-  withRuntimeContext
-)(Gallery)
+export default withResizeDetector(Gallery)
