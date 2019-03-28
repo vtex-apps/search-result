@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { withRuntimeContext } from 'vtex.render-runtime'
+import { useRuntime } from 'vtex.render-runtime'
 import { flatten, path, identity, contains } from 'ramda'
 import ContentLoader from 'react-content-loader'
 import classNames from 'classnames'
+import { FormattedMessage } from 'react-intl'
 
 import FilterSidebar from './components/FilterSidebar'
 import SelectedFilters from './components/SelectedFilters'
@@ -34,47 +35,30 @@ const PRICE_RANGES_TITLE = 'search.filter.title.price-ranges'
  * Wrapper around the filters (selected and available) as well
  * as the popup filters that appear on mobile devices
  */
-class FilterNavigator extends Component {
-  static propTypes = {
-    /** Get the props to pass to render's Link */
-    getLinkProps: PropTypes.func.isRequired,
-    /** Categories tree */
-    tree: PropTypes.arrayOf(facetOptionShape),
-    /** Params from pages */
-    params: paramShape,
-    /** List of brand filters (e.g. Samsung) */
-    brands: PropTypes.arrayOf(facetOptionShape),
-    /** List of specification filters (e.g. Android 7.0) */
-    specificationFilters: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        facets: PropTypes.arrayOf(facetOptionShape),
-      })
-    ),
-    /** List of price ranges filters (e.g. from-0-to-100) */
-    priceRanges: PropTypes.arrayOf(facetOptionShape),
-    /** Current price range filter query parameter */
-    priceRange: PropTypes.string,
-    /** Map query parameter */
-    map: PropTypes.string,
-    /** Loading indicator */
-    loading: PropTypes.bool,
-    ...hiddenFacetsSchema,
+const FilterNavigator = ({
+  query,
+  map,
+  priceRange,
+  getLinkProps,
+  tree = [],
+  specificationFilters = [],
+  priceRanges = [],
+  brands = [],
+  loading = false,
+  hiddenFacets = {},
+}) => {
+  const {
+    hints: { mobile },
+  } = useRuntime()
+
+  const getCategories = () => {
+    if (!tree || !tree.length) {
+      return []
+    }
+    return formatCategoriesTree(tree)
   }
 
-  static defaultProps = {
-    tree: [],
-    specificationFilters: [],
-    priceRanges: [],
-    brands: [],
-    loading: false,
-    hiddenFacets: {},
-  }
-
-  getAvailableCategories = (showOnlySelected = false) => {
-    const { query, map } = this.props
-    const categories = this.categories
-
+  const getAvailableCategories = (showOnlySelected = false) => {
     let queryParams = query || ''
 
     const mapArray = map.split(',')
@@ -88,7 +72,7 @@ class FilterNavigator extends Component {
       .filter((_, index) => mapArray[index] === getMapByType(CATEGORIES_TYPE))
       .join('/')
 
-    return categories
+    return getCategories()
       .filter(c =>
         showOnlySelected
           ? c.level === categoriesCount - 1
@@ -97,23 +81,11 @@ class FilterNavigator extends Component {
       .filter(c => c.path.toLowerCase().startsWith(currentPath.toLowerCase()))
   }
 
-  get categories() {
-    const { tree } = this.props
-
-    if (!tree || tree.length === 0) {
-      return []
-    }
-
-    return formatCategoriesTree(tree)
-  }
-
-  get selectedFilters() {
-    const { brands, specificationFilters, priceRanges, map } = this.props
-
-    const categories = this.getAvailableCategories(true)
+  const getSelectedFilters = () => {
+    const availableCategories = getAvailableCategories(true)
 
     const options = [
-      ...mountOptions(categories, CATEGORIES_TYPE, map),
+      ...mountOptions(availableCategories, CATEGORIES_TYPE, map),
       ...specificationFilters.map(spec =>
         mountOptions(spec.facets, SPECIFICATION_FILTERS_TYPE, map)
       ),
@@ -124,15 +96,8 @@ class FilterNavigator extends Component {
     return flatten(options).filter(opt => opt.selected)
   }
 
-  get filters() {
-    const {
-      specificationFilters = [],
-      brands,
-      priceRanges,
-      hiddenFacets,
-    } = this.props
-
-    const categories = this.getAvailableCategories()
+  const getFilters = () => {
+    const categories = getAvailableCategories()
 
     const hiddenFacetsNames = (
       path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
@@ -172,32 +137,23 @@ class FilterNavigator extends Component {
     ].filter(identity)
   }
 
-  render() {
-    const {
-      priceRange,
-      map,
-      getLinkProps,
-      loading,
-      runtime: {
-        hints: { mobile },
-      },
-    } = this.props
-    const filterClasses = classNames({
-      'flex justify-center flex-auto ': mobile,
-    })
+  const filterClasses = classNames({
+    'flex justify-center flex-auto ': mobile,
+  })
 
-    if (!map || !map.length) {
-      return null
-    }
+  if (!map || !map.length) {
+    return null
+  }
 
-    if (loading && !mobile) {
-      return (
+  if (loading && !mobile) {
+    return (
+      <div className={searchResult.filters}>
         <ContentLoader
           style={{
             width: '100%',
             height: '100%',
           }}
-          width="267"
+          width="230"
           height="320"
           y="0"
           x="0"
@@ -207,41 +163,72 @@ class FilterNavigator extends Component {
           <rect width="100%" height="1em" y="10.5em" />
           <rect width="100%" height="8em" y="12em" />
         </ContentLoader>
-      )
-    }
+      </div>
+    )
+  }
 
-    if (mobile) {
-      return (
-        <div className={searchResult.filters}>
-          <div className={filterClasses}>
-            <FilterSidebar
-              filters={this.filters}
-              selectedFilters={this.selectedFilters}
-              getLinkProps={getLinkProps}
-              map={map}
-            />
-          </div>
-        </div>
-      )
-    }
-
+  if (mobile) {
     return (
       <div className={searchResult.filters}>
         <div className={filterClasses}>
-          <SelectedFilters
-            filters={this.selectedFilters}
+          <FilterSidebar
+            filters={getFilters()}
+            selectedFilters={getSelectedFilters()}
             getLinkProps={getLinkProps}
-          />
-          <AvailableFilters
-            getLinkProps={getLinkProps}
-            filters={this.filters}
             map={map}
-            priceRange={priceRange}
           />
         </div>
       </div>
     )
   }
+
+  return (
+    <div className={searchResult.filters}>
+      <div className={filterClasses}>
+        <div className="bb b--muted-4">
+          <h5 className="t-heading-5 mv5">
+            <FormattedMessage id="search-result.filter-button.title" />
+          </h5>
+        </div>
+        <SelectedFilters
+          filters={getSelectedFilters()}
+          getLinkProps={getLinkProps}
+        />
+        <AvailableFilters
+          filters={getFilters()}
+          map={map}
+          priceRange={priceRange}
+        />
+      </div>
+    </div>
+  )
 }
 
-export default withRuntimeContext(FilterNavigator)
+FilterNavigator.propTypes = {
+  /** Get the props to pass to render's Link */
+  getLinkProps: PropTypes.func.isRequired,
+  /** Categories tree */
+  tree: PropTypes.arrayOf(facetOptionShape),
+  /** Params from pages */
+  params: paramShape,
+  /** List of brand filters (e.g. Samsung) */
+  brands: PropTypes.arrayOf(facetOptionShape),
+  /** List of specification filters (e.g. Android 7.0) */
+  specificationFilters: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      facets: PropTypes.arrayOf(facetOptionShape),
+    })
+  ),
+  /** List of price ranges filters (e.g. from-0-to-100) */
+  priceRanges: PropTypes.arrayOf(facetOptionShape),
+  /** Current price range filter query parameter */
+  priceRange: PropTypes.string,
+  /** Map query parameter */
+  map: PropTypes.string,
+  /** Loading indicator */
+  loading: PropTypes.bool,
+  ...hiddenFacetsSchema,
+}
+
+export default FilterNavigator

@@ -156,34 +156,20 @@ export function getBaseMap(map) {
 
 export function mountOptions(options, type, map) {
   return options.reduce((acc, opt) => {
-    let slug
+    const mapType = getMapByType(type)
 
-    if (type === BRANDS_TYPE) {
-      slug = unorm
-        .nfd(opt.Name)
-        // Remove the accents
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/[^\w\d]/g, '-')
-    } else {
-      slug = opt.Slug || opt.normalizedName || opt.Name
+    let link = opt.Link
+
+    if (mapType) {
+      link = `${link}?map=${map},${mapType}`
     }
-
-    const optMap =
-      type === SPECIFICATION_FILTERS_TYPE
-        ? getSpecificationFilterFromLink(opt.Link, slug)
-        : getMapByType(type)
-
-    const selected = false
-    //restMap.hasOwnProperty(slug.toUpperCase()) &&
-    //restMap[slug.toUpperCase()] === optMap
 
     return [
       ...acc,
       {
         ...opt,
-        selected,
         type,
-        slug,
+        Link: link,
       },
     ]
   }, [])
