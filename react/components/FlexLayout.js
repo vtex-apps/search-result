@@ -18,15 +18,17 @@ Row.PropTypes = {
   items: PropTypes.oneOf(['start', 'center', 'end']),
 }
 
-const RowSpacer = () => <div style={{ flexGrow: 2 }} />
+const Item = ({ children, className, grow = 0, inline }) => {
+  const props = { className: className, style: { flexGrow: grow } }
 
-const Grow = ({ children, className, by }) => (
-  <span className={className} style={{ flexGrow: by }}>
-    {children}
-  </span>
-)
+  return !!inline ? (
+    <span {...props}>{children}</span>
+  ) : (
+    <div {...props}>{children}</div>
+  )
+}
 
-const Border = () => <span className="bg-muted-4 pl1 h-50 self-center" />
+const Border = () => <Item inline className="bg-muted-4 pl1 h-50 self-center" />
 
 const FlexLayout = ({
   mobile,
@@ -41,11 +43,17 @@ const FlexLayout = ({
   return mobile ? (
     <Fragment>
       <Row className="bb bw1 b--muted-4">
-        <Grow by={3}>{orderBy}</Grow>
+        <Item inline grow={3}>
+          {orderBy}
+        </Item>
         <Border />
-        <Grow by={2}>{filterNavigator}</Grow>
+        <Item inline grow={2}>
+          {filterNavigator}
+        </Item>
         <Border />
-        <Grow by={1}>{layoutModeSwitcher}</Grow>
+        <Item grow={1} inline>
+          {layoutModeSwitcher}
+        </Item>
       </Row>
       <Row>{gallery}</Row>
     </Fragment>
@@ -53,12 +61,14 @@ const FlexLayout = ({
     <Fragment>
       <Row justify="between">
         {breadcrumb}
-        <RowSpacer />
+        <Item grow={2} />
         {totalProducts}
-        <span className="w5">{orderBy}</span>
+        <Item inline className="w5">
+          {orderBy}
+        </Item>
       </Row>
       <Row className="w-100">
-        {!hideFacets && <div className="w5">{filterNavigator}</div>}
+        {!hideFacets && <Item className="w5">{filterNavigator}</Item>}
         {gallery}
       </Row>
     </Fragment>
