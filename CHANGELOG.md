@@ -8,11 +8,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ## [3.12.12] - 2019-04-10
+
 ### Fixed
 
 - Error when trying to read properties from facets while loading.
 
 ## [3.12.11] - 2019-03-29
+
 ### Fixed
 
 - Added the department before each category to pass it to `Breadcrubms`.
@@ -22,6 +24,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 - Remove Product summary schema from Search Result.
+
+### Changed
+
+- Use flexbox instead of grid.
 
 ## [3.12.9] - 2019-03-27
 
