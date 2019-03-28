@@ -193,14 +193,18 @@ export default class SearchResultContainer extends Component {
   render() {
     const {
       searchQuery: {
-        facets: {
-          Brands = [],
-          SpecificationFilters = [],
-          PriceRanges = [],
-          CategoriesTrees,
-        } = {},
-        products = [],
-        recordsFiltered = 0,
+        data: {
+          productSearch: {
+            facets: {
+              Brands = [],
+              SpecificationFilters = [],
+              PriceRanges = [],
+              CategoriesTrees,
+            } = {},
+            products = [],
+            recordsFiltered = 0,
+          } = {},
+        },
         loading,
         variables: { query },
       },
