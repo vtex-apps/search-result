@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React, { useState, useCallback } from 'react'
 import { Collapse } from 'react-collapse'
-import classNames from 'classnames'
+import cx from 'classnames'
 
 import { IconCaret } from 'vtex.dreamstore-icons'
 
@@ -10,37 +10,17 @@ import searchResult from '../searchResult.css'
 /**
  * Collapsable filters container
  */
-export default class FilterOptionTemplate extends Component {
-  static propTypes = {
-    /** Content class names */
-    className: PropTypes.string,
-    /** Filters to be shown, if no filter is provided, treat the children as simple node */
-    filters: PropTypes.arrayOf(PropTypes.object),
-    /** Function to handle filter rendering or node if no filter is provided */
-    children: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.node,
-    ]).isRequired,
-    /** Title */
-    title: PropTypes.string.isRequired,
-    /** Whether collapsing is enabled */
-    collapsable: PropTypes.bool,
-    /** Whether it represents the selected filters */
-    selected: PropTypes.bool,
-  }
+const FilterOptionTemplate = ({
+  selected = false,
+  title,
+  collapsable = true,
+  children,
+  filters,
+  className,
+}) => {
+  const [open, setOpen] = useState(true)
 
-  static defaultProps = {
-    collapsable: true,
-    selected: false,
-  }
-
-  state = {
-    open: true,
-  }
-
-  renderChildren() {
-    const { filters, children } = this.props
-
+  const renderChildren = () => {
     if (typeof children !== 'function') {
       return children
     }
@@ -48,61 +28,94 @@ export default class FilterOptionTemplate extends Component {
     return filters.map(children)
   }
 
-  render() {
-    const { selected, title, collapsable, children, filters } = this.props
-    const { open } = this.state
+  const handleKeyDown = useCallback(
+    e => {
+      if (e.key === ' ') {
+        e.preventDefault()
+        setOpen(!open)
+      }
+    },
+    [open]
+  )
 
-    // Backward-compatible support
-    if (typeof children === 'function' && !filters.length) {
-      return null
+  const containerClassName = cx(searchResult.filter, 'pv5', {
+    [searchResult.filterSelected]: selected,
+    [searchResult.filterAvailable]: !selected,
+  })
+
+  const titleClassName = cx(
+    searchResult.filterTitle,
+    't-heading-6 flex items-center justify-between',
+    {
+      ttu: selected,
     }
+  )
 
-    const className = classNames(`${searchResult.filter} pv3 bb b--muted-4`, {
-      [searchResult.filterSelected]: selected,
-      [searchResult.filterAvailable]: !selected,
-    })
+  // Backwards-compatible support
+  if (typeof children === 'function' && !filters.length) {
+    return null
+  }
 
-    const titleClassName = classNames(`${searchResult.filterTitle} t-heading-7 flex items-center justify-between`, {
-      'ttu': selected,
-    })
-
-    return (
-      <div className={className}>
+  return (
+    <div className="bb b--muted-4">
+      <div className={containerClassName}>
         <div
+          role="button"
+          tabIndex={0}
           className={collapsable ? 'pointer' : ''}
-          onClick={() => {
-            this.setState({ open: !open })
-          }}
+          onClick={() => setOpen(!open)}
+          onKeyDown={handleKeyDown}
         >
           <div className={titleClassName}>
             {title}
             {collapsable && (
-              <span className={searchResult.filterIcon} style={{ height: 10 }}>
-                {open
-                  ? <IconCaret orientation="up" size={18} />
-                  : <IconCaret orientation="down" size={18} />
-                }
+              <span
+                className={cx(
+                  searchResult.filterIcon,
+                  'flex items-center ph5 c-muted-3'
+                )}
+              >
+                {open ? (
+                  <IconCaret orientation="up" size={14} />
+                ) : (
+                  <IconCaret orientation="down" size={14} />
+                )}
               </span>
             )}
           </div>
         </div>
-        <div
-          className={classNames(
-            this.props.className,
-            'pt2',
-            {
-              'overflow-y-auto': collapsable,
-            }
-          )}
-          style={{ maxHeight: '200px' }}
-        >
-          {collapsable ? (
-            <Collapse isOpened={open}>
-              {this.renderChildren()}
-            </Collapse>
-          ) : this.renderChildren()}
-        </div>
       </div>
-    )
-  }
+      <div
+        className={cx(className, {
+          'overflow-y-auto': collapsable,
+          pb5: open,
+        })}
+        style={{ maxHeight: '200px' }}
+        aria-hidden={!open}
+      >
+        {collapsable ? (
+          <Collapse isOpened={open}>{renderChildren()}</Collapse>
+        ) : (
+          renderChildren()
+        )}
+      </div>
+    </div>
+  )
 }
+
+FilterOptionTemplate.propTypes = {
+  /** Content class names */
+  className: PropTypes.string,
+  /** Filters to be shown, if no filter is provided, treat the children as simple node */
+  filters: PropTypes.arrayOf(PropTypes.object),
+  /** Function to handle filter rendering or node if no filter is provided */
+  children: PropTypes.oneOfType([PropTypes.func, PropTypes.node]).isRequired,
+  /** Title */
+  title: PropTypes.string.isRequired,
+  /** Whether collapsing is enabled */
+  collapsable: PropTypes.bool,
+  /** Whether it represents the selected filters */
+  selected: PropTypes.bool,
+}
+
+export default FilterOptionTemplate

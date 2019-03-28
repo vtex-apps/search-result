@@ -1,10 +1,11 @@
 .container {
   display: grid;
   display: -ms-grid;
-  grid-template-columns: 206px repeat(4, auto) 306px;
-  -ms-grid-columns: 206px (1fr)[4] 306px;
+  grid-template-columns: 230px repeat(4, auto) 306px;
+  -ms-grid-columns: 230px (1fr)[4] 306px;
   grid-template-areas:
-    "breadcrumb breadcrumb breadcrumb . quantity orderby"
+    "breadcrumb . . . . ."
+    "filters quantity . . . orderby"
     "filters gallery gallery gallery gallery gallery"
     ". pagination pagination pagination pagination pagination";
 }
@@ -127,7 +128,7 @@
   -ms-grid-column: 5;
   grid-column: quantity;
   grid-row: quantity;
-  justify-self: end;
+  justify-self: start;
   align-self: center;
 }
 
@@ -138,6 +139,7 @@
   grid-row: orderby;
   align-self: center;
   justify-self: stretch;
+  display: flex;
 }
 
 .accordionFilterItemHidden {}
@@ -180,7 +182,9 @@
 
 .searchNotFound {}
 
-.filterTitle {}
+.filterTitle {
+  font-size: 1rem;
+}
 
 .filterIcon {}
 

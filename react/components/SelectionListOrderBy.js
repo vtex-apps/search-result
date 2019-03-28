@@ -1,16 +1,16 @@
 import React, { useState, useCallback, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
-import classNames from 'classnames'
+import cx from 'classnames'
 import { find, propEq } from 'ramda'
-
-import useOutsideClick from '../hooks/useOutsideClick'
-import { useRuntime, Link } from 'vtex.render-runtime'
+import { useRuntime } from 'vtex.render-runtime'
 import { IconCaret } from 'vtex.dreamstore-icons'
 
+import SelectionListItem from './SelectionListItem'
+import useOutsideClick from '../hooks/useOutsideClick'
 import searchResult from '../searchResult.css'
 
-const SelectionListOrderBy = ({ orderBy, getLinkProps, options, intl }) => {
+const SelectionListOrderBy = ({ orderBy, options }) => {
   const [showDropdown, setShowDropdown] = useState(false)
 
   const orderByRef = useRef(null)
@@ -21,21 +21,21 @@ const SelectionListOrderBy = ({ orderBy, getLinkProps, options, intl }) => {
   )
 
   const handleOutsideClick = useCallback(() => setShowDropdown(false), [])
+
   useOutsideClick(orderByRef, handleOutsideClick, showDropdown)
+
+  const {
+    hints: { mobile },
+  } = useRuntime()
 
   const renderOptions = () => {
     return options.map(option => {
-      const linkProps = getLinkProps({ ordenation: option.value })
       return (
-        <Link
+        <SelectionListItem
           key={option.value}
-          page={linkProps.page}
-          query={linkProps.queryString}
-          params={linkProps.params}
-          className="c-on-base f5 ml-auto db no-underline pv4 ph5 hover-bg-muted-4"
-        >
-          {option.label}
-        </Link>
+          onItemClick={handleOutsideClick}
+          option={option}
+        />
       )
     })
   }
@@ -45,19 +45,15 @@ const SelectionListOrderBy = ({ orderBy, getLinkProps, options, intl }) => {
     [options]
   )
 
-  const {
-    hints: { mobile },
-  } = useRuntime()
-
-  const btClass = classNames(
-    'ph3 pv5 mv0 pointer flex justify-center items-center bg-base c-on-base t-action--small ml-auto bt br bl bb-0 br2 br--top bw1 w-100',
+  const btClass = cx(
+    'ph3 pv5 mv0 pointer flex justify-center items-center bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100',
     {
       'b--muted-4 shadow-1': showDropdown && mobile,
       'b--transparent pl1': !showDropdown,
     }
   )
 
-  const contentClass = classNames(
+  const contentClass = cx(
     'z-1 absolute bg-base shadow-5 f5 w-100 b--muted-4 br2 ba bw1 br--bottom',
     {
       db: showDropdown,
@@ -65,25 +61,26 @@ const SelectionListOrderBy = ({ orderBy, getLinkProps, options, intl }) => {
     }
   )
 
-  const dropdownSort = classNames(
+  const dropdownSort = cx(
     searchResult.dropdownSort,
-    'relative pt1 dib',
-    {
-      'flex-auto justify-center w-100': mobile,
-    }
+    'relative pt1 justify-center w-100 w-auto-ns center'
   )
 
   return (
     <div className={dropdownSort} ref={orderByRef}>
       <button onClick={handleDropdownBtClick} className={btClass}>
         <span
-          className={`${
-            searchResult.filterPopupTitle
-          } c-on-base t-action--small ml-auto`}
+          className={cx(
+            searchResult.filterPopupTitle,
+            'c-on-base t-action--small ml-auto-ns'
+          )}
         >
-          {getOptionTitle(orderBy)}{' '}
+          <span className={cx('c-muted-2', { 'dn dib-ns': !orderBy.length })}>
+            {getOptionTitle('')}
+          </span>{' '}
+          {getOptionTitle(orderBy)}
         </span>
-        <span className={`${searchResult.filterPopupArrowIcon} pt1 ml-auto`}>
+        <span className={`${searchResult.filterPopupArrowIcon} ph5 pt1`}>
           <IconCaret orientation="down" size={10} />
         </span>
       </button>
@@ -96,8 +93,6 @@ const SelectionListOrderBy = ({ orderBy, getLinkProps, options, intl }) => {
 SelectionListOrderBy.propTypes = {
   /** Current Ordernation  */
   orderBy: PropTypes.string,
-  /** Get Properties to link */
-  getLinkProps: PropTypes.func,
   /** Sort Options*/
   options: PropTypes.arrayOf(
     PropTypes.shape({
