@@ -5,7 +5,10 @@ import { intlShape, injectIntl } from 'react-intl'
 import { Link } from 'vtex.render-runtime'
 
 import FilterOptionTemplate from './FilterOptionTemplate'
-import { formatFacetToLinkPropsParam, HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
+import {
+  formatFacetToLinkPropsParam,
+  HEADER_SCROLL_OFFSET,
+} from '../constants/SearchHelpers'
 
 import searchResult from '../searchResult.css'
 
@@ -15,12 +18,14 @@ import searchResult from '../searchResult.css'
 class SelectedFilters extends Component {
   static propTypes = {
     /** Selected filters. */
-    filters: PropTypes.arrayOf(PropTypes.shape({
-      Name: PropTypes.string,
-      Link: PropTypes.string,
-      slug: PropTypes.string,
-      type: PropTypes.string,
-    })).isRequired,
+    filters: PropTypes.arrayOf(
+      PropTypes.shape({
+        Name: PropTypes.string,
+        Link: PropTypes.string,
+        slug: PropTypes.string,
+        type: PropTypes.string,
+      })
+    ).isRequired,
     getLinkProps: PropTypes.func,
     intl: intlShape,
   }
@@ -51,7 +56,10 @@ class SelectedFilters extends Component {
               page={pagesArgs.page}
               params={pagesArgs.params}
               query={pagesArgs.queryString}
-              scrollOptions={{ baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET }}
+              scrollOptions={{
+                baseElementId: 'search-result-anchor',
+                top: -HEADER_SCROLL_OFFSET,
+              }}
             >
               <label className="w-100 flex items-center relative t-body fw3 mb2 pointer">
                 <input

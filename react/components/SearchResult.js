@@ -118,7 +118,6 @@ class SearchResult extends Component {
       runtime: {
         hints: { mobile },
       },
-      gap,
     } = this.props
     const {
       mobileLayoutMode,
@@ -188,7 +187,6 @@ class SearchResult extends Component {
                 summary={summary}
                 className="bn"
                 mobileLayoutMode={mobileLayoutMode}
-                gap={gap}
               />
             )}
             {children}
@@ -198,11 +196,7 @@ class SearchResult extends Component {
               className={`${searchResult.border} bg-muted-5 h-50 self-center`}
             />
           )}
-          <ExtensionPoint
-            id="order-by"
-            orderBy={orderBy}
-            getLinkProps={getLinkProps}
-          />
+          <ExtensionPoint id="order-by" orderBy={orderBy} />
           {mobile && (
             <div
               className={`${searchResult.border2} bg-muted-5 h-50 self-center`}
