@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.12.11] - 2019-03-29
+### Fixed
+
+- Added the department before each category to pass it to `Breadcrubms`.
+
 ## [3.12.10] - 2019-03-29
 
 ### Fixed

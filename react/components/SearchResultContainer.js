@@ -39,8 +39,10 @@ export default class SearchResultContainer extends Component {
 
     const categoryWithChildrenReducer = (acc, category) => [
       ...acc,
-      category.Link,
-      ...category.Children.reduce(categoryReducer, []),
+      `/${category.Name}`,
+      ...category.Children.map(
+        children => `/${category.Name}/${children.Name}`
+      ),
     ]
 
     const getCategoryList = (reducer, initial = []) =>
