@@ -38,7 +38,6 @@
   "editor.search-result.pagination.infinite-scroll": "Desplazamiento infinito",
   "editor.search-result.description": "Contenedor de resultados de búsqueda",
   "editor.search-result.maxItemsPerLine.title": "Número máximo de elementos por línea",
-  "editor.search-result.summary.title": "Resumen del producto",
   "editor.search-result.mobileLayout": "Alternador de diseño en el celular",
   "editor.search-result.mobileLayout.mode1": "Modo de diseño 1",
   "editor.search-result.mobileLayout.mode2": "Modo de diseño 2",
@@ -53,9 +52,9 @@
   "layoutModeSwitcher.inline": "En línea",
   "layoutModeSwitcher.small": "Pequeño",
   "layoutModeSwitcher.normal": "Normal",
-  "gallery.gapType.none" : "Ninguno",
-  "gallery.gapType.small" : "Pequeño",
-  "gallery.gapType.medium" : "Medio",
-  "gallery.gapType.large" : "Grande",
+  "gallery.gapType.none": "Ninguno",
+  "gallery.gapType.small": "Pequeño",
+  "gallery.gapType.medium": "Medio",
+  "gallery.gapType.large": "Grande",
   "editor.search-result.gap.title": "Espacio entre los elementos de la galería"
 }

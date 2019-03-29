@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.12.10] - 2019-03-29
+
+### Fixed
+
+- Remove Product summary schema from Search Result.
+
 ## [3.12.9] - 2019-03-27
 
 ### Fixed

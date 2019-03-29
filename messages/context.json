@@ -38,7 +38,6 @@
   "editor.search-result.pagination.infinite-scroll": "editor.search-result.pagination.infinite-scroll",
   "editor.search-result.description": "editor.search-result.description",
   "editor.search-result.maxItemsPerLine.title": "editor.search-result.maxItemsPerLine.title",
-  "editor.search-result.summary.title": "editor.search-result.summary.title",
   "editor.search-result.mobileLayout": "editor.search-result.mobileLayout",
   "editor.search-result.mobileLayout.mode1": "editor.search-result.mobileLayout.mode1",
   "editor.search-result.mobileLayout.mode2": "editor.search-result.mobileLayout.mode2",
@@ -53,9 +52,9 @@
   "layoutModeSwitcher.inline": "layoutModeSwitcher.inline",
   "layoutModeSwitcher.small": "layoutModeSwitcher.small",
   "layoutModeSwitcher.normal": "layoutModeSwitcher.normal",
-  "gallery.gapType.none" : "gallery.gapType.none",
-  "gallery.gapType.small" : "gallery.gapType.small",
-  "gallery.gapType.medium" : "gallery.gapType.medium",
-  "gallery.gapType.large" : "gallery.gapType.large",
+  "gallery.gapType.none": "gallery.gapType.none",
+  "gallery.gapType.small": "gallery.gapType.small",
+  "gallery.gapType.medium": "gallery.gapType.medium",
+  "gallery.gapType.large": "gallery.gapType.large",
   "editor.search-result.gap.title": "editor.search-result.gap.title"
 }
