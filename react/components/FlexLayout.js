@@ -12,7 +12,7 @@ const Row = ({ className, justify, items, children }) => {
   return <div className={rowClasses}>{children}</div>
 }
 
-Row.PropTypes = {
+Row.propTypes = {
   className: PropTypes.string,
   justify: PropTypes.oneOf(['between', 'around', 'center']),
   items: PropTypes.oneOf(['start', 'center', 'end']),
