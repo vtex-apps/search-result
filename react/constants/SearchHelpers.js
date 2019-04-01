@@ -15,24 +15,6 @@ export function getMapByType(type) {
   }
 }
 
-export function mountOptions(options, type, map) {
-  return options.map(opt => {
-    const mapType = getMapByType(type)
-
-    let link = opt.Link
-
-    if (mapType) {
-      link = `${link}?map=${map},${mapType}`
-    }
-
-    return {
-      ...opt,
-      type,
-      Link: link,
-    }
-  })
-}
-
 export function getFilterTitle(title = '', intl) {
   return intl.messages[title] ? intl.formatMessage({ id: title }) : title
 }
