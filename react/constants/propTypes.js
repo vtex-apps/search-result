@@ -187,8 +187,6 @@ export const searchResultPropTypes = {
   recordsFiltered: PropTypes.number.isRequired,
   /** List of brands available */
   brands: PropTypes.array.isRequired,
-  /** Retrieve link props */
-  getLinkProps: PropTypes.func.isRequired,
   /** Map param. e.g: c,c */
   map: PropTypes.string,
   params: PropTypes.object,

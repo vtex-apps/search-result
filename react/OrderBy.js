@@ -41,7 +41,7 @@ export const SORT_OPTIONS = [
   },
 ]
 
-const OrderBy = ({ orderBy, getLinkProps, intl }) => {
+const OrderBy = ({ orderBy, intl }) => {
   const sortingOptions = useMemo(() => {
     return SORT_OPTIONS.map(({ value, label }) => {
       return {
@@ -53,11 +53,7 @@ const OrderBy = ({ orderBy, getLinkProps, intl }) => {
 
   return (
     <div className={searchResult.orderBy}>
-      <SelectionListOrderBy
-        orderBy={orderBy}
-        getLinkProps={getLinkProps}
-        options={sortingOptions}
-      />
+      <SelectionListOrderBy orderBy={orderBy} options={sortingOptions} />
     </div>
   )
 }
@@ -65,8 +61,6 @@ const OrderBy = ({ orderBy, getLinkProps, intl }) => {
 OrderBy.propTypes = {
   /** Which sorting option is selected. */
   orderBy: PropTypes.string,
-  /** Returns the link props. */
-  getLinkProps: PropTypes.func,
   /** Intl instance. */
   intl: intlShape,
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useRuntime } from 'vtex.render-runtime'
-import { flatten, path, identity, contains } from 'ramda'
+import { flatten, path, contains } from 'ramda'
 import ContentLoader from 'react-content-loader'
 import classNames from 'classnames'
 import { FormattedMessage } from 'react-intl'
@@ -9,11 +9,7 @@ import { FormattedMessage } from 'react-intl'
 import FilterSidebar from './components/FilterSidebar'
 import SelectedFilters from './components/SelectedFilters'
 import AvailableFilters from './components/AvailableFilters'
-import {
-  formatCategoriesTree,
-  mountOptions,
-  getMapByType,
-} from './constants/SearchHelpers'
+import { getMapByType } from './constants/SearchHelpers'
 import {
   facetOptionShape,
   paramShape,
@@ -31,6 +27,43 @@ const CATEGORIES_TITLE = 'search.filter.title.categories'
 const BRANDS_TITLE = 'search.filter.title.brands'
 const PRICE_RANGES_TITLE = 'search.filter.title.price-ranges'
 
+const getCategories = tree => {
+  if (!tree || !tree.length) {
+    return []
+  }
+  return [...tree, tree.Children && getCategories(tree.Children)].filter(
+    Boolean
+  )
+}
+
+const getAvailableCategories = ({
+  tree,
+  query,
+  map,
+  showOnlySelected = false,
+}) => {
+  let queryParams = query || ''
+
+  const mapArray = map.split(',')
+
+  const categoriesCount = mapArray.filter(
+    m => m === getMapByType(CATEGORIES_TYPE)
+  ).length
+
+  const currentPath = queryParams
+    .split('/')
+    .filter((_, index) => mapArray[index] === getMapByType(CATEGORIES_TYPE))
+    .join('/')
+
+  return getCategories(tree)
+    .filter(c =>
+      showOnlySelected
+        ? c.level === categoriesCount - 1
+        : c.level === categoriesCount - 1 || c.level === categoriesCount
+    )
+    .filter(c => c.path.toLowerCase().startsWith(currentPath.toLowerCase()))
+}
+
 /**
  * Wrapper around the filters (selected and available) as well
  * as the popup filters that appear on mobile devices
@@ -39,7 +72,6 @@ const FilterNavigator = ({
   query,
   map,
   priceRange,
-  getLinkProps,
   tree = [],
   specificationFilters = [],
   priceRanges = [],
@@ -51,53 +83,26 @@ const FilterNavigator = ({
     hints: { mobile },
   } = useRuntime()
 
-  const getCategories = () => {
-    if (!tree || !tree.length) {
-      return []
-    }
-    return formatCategoriesTree(tree)
-  }
-
-  const getAvailableCategories = (showOnlySelected = false) => {
-    let queryParams = query || ''
-
-    const mapArray = map.split(',')
-
-    const categoriesCount = mapArray.filter(
-      m => m === getMapByType(CATEGORIES_TYPE)
-    ).length
-
-    const currentPath = queryParams
-      .split('/')
-      .filter((_, index) => mapArray[index] === getMapByType(CATEGORIES_TYPE))
-      .join('/')
-
-    return getCategories()
-      .filter(c =>
-        showOnlySelected
-          ? c.level === categoriesCount - 1
-          : c.level === categoriesCount - 1 || c.level === categoriesCount
-      )
-      .filter(c => c.path.toLowerCase().startsWith(currentPath.toLowerCase()))
-  }
-
   const getSelectedFilters = () => {
-    const availableCategories = getAvailableCategories(true)
+    const availableCategories = getAvailableCategories({
+      tree,
+      query,
+      map,
+      showOnlySelected: true,
+    })
 
     const options = [
-      ...mountOptions(availableCategories, CATEGORIES_TYPE, map),
-      ...specificationFilters.map(spec =>
-        mountOptions(spec.facets, SPECIFICATION_FILTERS_TYPE, map)
-      ),
-      ...mountOptions(brands, BRANDS_TYPE, map),
-      ...mountOptions(priceRanges, PRICE_RANGES_TYPE, map),
+      ...availableCategories,
+      ...specificationFilters.map(spec => spec.facets),
+      ...brands,
+      ...priceRanges,
     ]
 
     return flatten(options).filter(opt => opt.selected)
   }
 
   const getFilters = () => {
-    const categories = getAvailableCategories()
+    const categories = getAvailableCategories({ tree, query, map })
 
     const hiddenFacetsNames = (
       path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
@@ -112,7 +117,7 @@ const FilterNavigator = ({
           .map(spec => ({
             type: SPECIFICATION_FILTERS_TYPE,
             title: spec.name,
-            options: spec.facets,
+            facets: spec.facets,
           }))
       : []
 
@@ -120,21 +125,20 @@ const FilterNavigator = ({
       !hiddenFacets.categories && {
         type: CATEGORIES_TYPE,
         title: CATEGORIES_TITLE,
-        options: categories,
-        oneSelectedCollapse: true,
+        facets: categories,
       },
       ...mappedSpecificationFilters,
       !hiddenFacets.brands && {
         type: BRANDS_TYPE,
         title: BRANDS_TITLE,
-        options: brands,
+        facets: brands,
       },
       !hiddenFacets.priceRange && {
         type: PRICE_RANGES_TYPE,
         title: PRICE_RANGES_TITLE,
-        options: priceRanges,
+        facets: priceRanges,
       },
-    ].filter(identity)
+    ].filter(Boolean)
   }
 
   const filterClasses = classNames({
@@ -174,7 +178,6 @@ const FilterNavigator = ({
           <FilterSidebar
             filters={getFilters()}
             selectedFilters={getSelectedFilters()}
-            getLinkProps={getLinkProps}
             map={map}
           />
         </div>
@@ -190,23 +193,14 @@ const FilterNavigator = ({
             <FormattedMessage id="search-result.filter-button.title" />
           </h5>
         </div>
-        <SelectedFilters
-          filters={getSelectedFilters()}
-          getLinkProps={getLinkProps}
-        />
-        <AvailableFilters
-          filters={getFilters()}
-          map={map}
-          priceRange={priceRange}
-        />
+        <SelectedFilters filters={getSelectedFilters()} />
+        <AvailableFilters filters={getFilters()} priceRange={priceRange} />
       </div>
     </div>
   )
 }
 
 FilterNavigator.propTypes = {
-  /** Get the props to pass to render's Link */
-  getLinkProps: PropTypes.func.isRequired,
   /** Categories tree */
   tree: PropTypes.arrayOf(facetOptionShape),
   /** Params from pages */
