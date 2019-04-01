@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import QueryContext from '../components/QueryContext'
 
 const useSelectedFacet = facet => {
-  const { query, map } = useContext(QueryContext)
+  const { query } = useContext(QueryContext)
 
   return query.split('/').indexOf(facet.Name) !== -1
 }
