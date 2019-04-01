@@ -14,7 +14,7 @@ import FilterOptionTemplate from './FilterOptionTemplate'
 const DEBOUNCE_TIME = 500 // ms
 
 /** Price range slider component */
-const PriceRange = ({ title, options, intl, priceRange }) => {
+const PriceRange = ({ title, facets, intl, priceRange }) => {
   const {
     navigate,
     culture: { currency },
@@ -51,7 +51,7 @@ const PriceRange = ({ title, options, intl, priceRange }) => {
   }
 
   const slugRegex = /^de-(.*)-a-(.*)$/
-  const availableOptions = options.filter(({ Slug }) => slugRegex.test(Slug))
+  const availableOptions = facets.filter(({ Slug }) => slugRegex.test(Slug))
 
   if (!availableOptions.length) {
     return null
@@ -107,10 +107,9 @@ PriceRange.propTypes = {
   /** Filter title */
   title: PropTypes.string.isRequired,
   /** Available price ranges */
-  options: PropTypes.arrayOf(facetOptionShape).isRequired,
+  facets: PropTypes.arrayOf(facetOptionShape).isRequired,
   /** Intl instance */
   intl: intlShape.isRequired,
-  /** Runtime context */
   /** Current price range filter query parameter*/
   priceRange: PropTypes.string,
 }

@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import QueryString from 'query-string'
+import React, { useState, useRef } from 'react'
 import { min } from 'ramda'
 
 import { Container } from 'vtex.store-components'
@@ -7,164 +6,88 @@ import { Container } from 'vtex.store-components'
 import { PopupProvider } from './Popup'
 import InfiniteScrollLoaderResult from './loaders/InfiniteScrollLoaderResult'
 import ShowMoreLoaderResult from './loaders/ShowMoreLoaderResult'
-import { getPagesArgs, getBaseMap } from '../constants/SearchHelpers'
 import { searchResultContainerPropTypes } from '../constants/propTypes'
 
 const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
 
+const getBreadcrumbsProps = ({ category, department, term, facets }) => {
+  const categoriesTrees = facets ? facets.CategoriesTrees : []
+
+  const categoryReducer = (acc, category) => [...acc, `/${category.Name}`]
+
+  const categoryWithChildrenReducer = (acc, category) => [
+    ...acc,
+    `/${category.Name}`,
+    ...category.Children.map(children => `/${category.Name}/${children.Name}`),
+  ]
+
+  const getCategoryList = (reducer, initial = []) =>
+    categoriesTrees.reduce(reducer, initial)
+
+  const categories =
+    department && category
+      ? getCategoryList(categoryWithChildrenReducer)
+      : department
+      ? getCategoryList(categoryReducer)
+      : []
+
+  return {
+    term: term ? decodeURIComponent(term) : term,
+    categories,
+  }
+}
+
 /**
  * Search Result Container Component.
  */
-export default class SearchResultContainer extends Component {
-  static propTypes = searchResultContainerPropTypes
-
-  static defaultProps = {
-    showMore: false,
-    maxItemsPerPage: 10,
-  }
-
-  state = {
-    fetchMoreLoading: false,
-  }
-
-  _fetchMoreLocked = false
-
-  get breadcrumbsProps() {
-    const {
-      params: { category, department, term },
-      searchQuery: { facets },
-    } = this.props
-
-    const categoriesTrees = facets ? facets.CategoriesTrees : []
-
-    const categoryReducer = (acc, category) => [...acc, `/${category.Name}`]
-
-    const categoryWithChildrenReducer = (acc, category) => [
-      ...acc,
-      `/${category.Name}`,
-      ...category.Children.map(
-        children => `/${category.Name}/${children.Name}`
-      ),
-    ]
-
-    const getCategoryList = (reducer, initial = []) =>
-      categoriesTrees.reduce(reducer, initial)
-
-    const categories =
-      department && category
-        ? getCategoryList(categoryWithChildrenReducer)
-        : department
-        ? getCategoryList(categoryReducer)
-        : []
-
-    return {
-      term: term ? decodeURIComponent(term) : term,
-      categories,
-    }
-  }
-
-  getLinkProps = (spec, useEmptyMap = false) => {
-    const { map, pagesPath, params } = this.props
-    const filters = Array.isArray(spec) ? spec : [spec]
-
-    if (filters.length === 0) {
-      return {
-        page: pagesPath,
-        params,
-      }
-    }
-
-    const pageProps = filters.reduce(
-      (linkProps, filter) => {
-        const {
-          type,
-          ordenation,
-          pageNumber,
-          isSelected,
-          path,
-          name,
-          link,
-          slug,
-        } = filter
-        const order = ordenation || linkProps.query.order
-
-        return getPagesArgs({
-          ...linkProps,
-          query: {
-            ...linkProps.query,
-            order,
-          },
-          pagesPath: linkProps.page,
-          name,
-          slug: slug,
-          link,
-          path,
-          type,
-          pageNumber,
-          isUnselectLink: isSelected,
-        })
+const SearchResultContainer = props => {
+  const {
+    params,
+    showMore = false,
+    maxItemsPerPage = 10,
+    searchQuery,
+    searchQuery: {
+      data: {
+        productSearch: {
+          facets: {
+            Brands = [],
+            SpecificationFilters = [],
+            PriceRanges = [],
+            CategoriesTrees,
+          } = {},
+          products = [],
+          recordsFiltered = 0,
+        } = {},
       },
-      {
-        page: pagesPath,
-        params,
-        query: {
-          order: this.props.orderBy,
-          map:
-            (map &&
-              (useEmptyMap
-                ? getBaseMap(map)
-                    .split(',')
-                    .filter(x => x)
-                : map.split(','))) ||
-            [],
-        },
-      }
-    )
+      loading,
+      variables: { query },
+    },
+    pagination,
+  } = props
 
-    const queryString = QueryString.stringify({
-      ...pageProps.query,
-      map: pageProps.query.map && pageProps.query.map.join(','),
-    })
+  const [fetchMoreLoading, setFetchMoreLoading] = useState(false)
 
-    return {
-      page: pagesPath,
-      queryString: queryString,
-      params: pageProps.params,
-    }
-  }
+  const fetchMoreLocked = useRef(false)
 
-  handleFetchMore = () => {
-    if (this._fetchMoreLocked) {
+  const handleFetchMore = () => {
+    if (fetchMoreLocked.current) {
       return
     }
 
-    this._fetchMoreLocked = true
-
-    const {
-      maxItemsPerPage,
-      searchQuery: { products, recordsFiltered },
-    } = this.props
+    fetchMoreLocked.current = true
 
     const to = min(maxItemsPerPage + products.length, recordsFiltered) - 1
 
-    this.setState({
-      fetchMoreLoading: true,
-    })
+    setFetchMoreLoading(true)
 
-    this.props.searchQuery.fetchMore({
+    searchQuery.fetchMore({
       variables: {
         from: products.length,
         to,
       },
       updateQuery: (prevResult, { fetchMoreResult }) => {
-        this.setState(
-          {
-            fetchMoreLoading: false,
-          },
-          () => {
-            this._fetchMoreLocked = false
-          }
-        )
+        setFetchMoreLoading(false)
+        fetchMoreLocked.current = false
 
         // backwards compatibility
         if (prevResult.search) {
@@ -190,53 +113,37 @@ export default class SearchResultContainer extends Component {
     })
   }
 
-  render() {
-    const {
-      searchQuery: {
-        data: {
-          productSearch: {
-            facets: {
-              Brands = [],
-              SpecificationFilters = [],
-              PriceRanges = [],
-              CategoriesTrees,
-            } = {},
-            products = [],
-            recordsFiltered = 0,
-          } = {},
-        },
-        loading,
-        variables: { query },
-      },
-      pagination,
-    } = this.props
+  const ResultComponent =
+    pagination === PAGINATION_TYPES[0]
+      ? ShowMoreLoaderResult
+      : InfiniteScrollLoaderResult
 
-    const ResultComponent =
-      pagination === PAGINATION_TYPES[0]
-        ? ShowMoreLoaderResult
-        : InfiniteScrollLoaderResult
-
-    return (
-      <Container className="pt3-m pt5-l">
-        <PopupProvider>
-          <div id="search-result-anchor" />
-          <ResultComponent
-            {...this.props}
-            breadcrumbsProps={this.breadcrumbsProps}
-            getLinkProps={this.getLinkProps}
-            onFetchMore={this.handleFetchMore}
-            fetchMoreLoading={this.state.fetchMoreLoading}
-            query={query}
-            loading={loading}
-            recordsFiltered={recordsFiltered}
-            products={products}
-            brands={Brands}
-            specificationFilters={SpecificationFilters}
-            priceRanges={PriceRanges}
-            tree={CategoriesTrees}
-          />
-        </PopupProvider>
-      </Container>
-    )
-  }
+  return (
+    <Container className="pt3-m pt5-l">
+      <PopupProvider>
+        <div id="search-result-anchor" />
+        <ResultComponent
+          {...props}
+          showMore={showMore}
+          breadcrumbsProps={getBreadcrumbsProps(
+            Object.assign({}, params, { facets: { CategoriesTrees } })
+          )}
+          onFetchMore={handleFetchMore}
+          fetchMoreLoading={fetchMoreLoading}
+          query={query}
+          loading={loading}
+          recordsFiltered={recordsFiltered}
+          products={products}
+          brands={Brands}
+          specificationFilters={SpecificationFilters}
+          priceRanges={PriceRanges}
+          tree={CategoriesTrees}
+        />
+      </PopupProvider>
+    </Container>
+  )
 }
+
+SearchResultContainer.propTypes = searchResultContainerPropTypes
+
+export default SearchResultContainer
