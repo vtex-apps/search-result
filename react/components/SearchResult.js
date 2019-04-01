@@ -110,7 +110,6 @@ class SearchResult extends Component {
     const {
       children,
       breadcrumbsProps,
-      getLinkProps,
       loading,
       fetchMoreLoading,
       summary,
@@ -166,7 +165,6 @@ class SearchResult extends Component {
             <ExtensionPoint
               id="filter-navigator"
               brands={brands}
-              getLinkProps={getLinkProps}
               map={map}
               params={params}
               priceRange={priceRange}
