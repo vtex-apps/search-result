@@ -9,7 +9,6 @@ import { Button } from 'vtex.styleguide'
 import { IconFilter } from 'vtex.dreamstore-icons'
 
 import { facetOptionShape } from '../constants/propTypes'
-import { mountOptions } from '../constants/SearchHelpers'
 import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
 
@@ -26,9 +25,7 @@ class FilterSidebar extends Component {
   state = {
     openContent: false,
     selectedFilters: pipe(
-      mapRamda(filter =>
-        mountOptions(filter.options, filter.type, this.props.map)
-      ),
+      mapRamda(filter => filter.options),
       flatten,
       filter(option => option.selected),
       mapRamda(option => ({
