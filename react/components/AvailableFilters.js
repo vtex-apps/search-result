@@ -2,13 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { PRICE_RANGES_TYPE } from '../FilterNavigator'
-import { mountOptions } from '../constants/SearchHelpers'
 import SearchFilter from './SearchFilter'
 import PriceRange from './PriceRange'
 
-const AvailableFilters = ({ filters = [], map, priceRange }) =>
+const AvailableFilters = ({ filters = [], priceRange }) =>
   filters.map(filter => {
-    const { type, title, options, oneSelectedCollapse = false } = filter
+    const { type, title, facets, oneSelectedCollapse = false } = filter
 
     switch (type) {
       case PRICE_RANGES_TYPE:
@@ -16,7 +15,7 @@ const AvailableFilters = ({ filters = [], map, priceRange }) =>
           <PriceRange
             key={title}
             title={title}
-            options={options}
+            facets={facets}
             type={type}
             priceRange={priceRange}
           />
@@ -26,7 +25,8 @@ const AvailableFilters = ({ filters = [], map, priceRange }) =>
           <SearchFilter
             key={title}
             title={title}
-            facets={mountOptions(options, type, map)}
+            facets={facets}
+            type={type}
             oneSelectedCollapse={oneSelectedCollapse}
           />
         )
@@ -42,8 +42,6 @@ AvailableFilters.propTypes = {
       oneSelectedCollapse: PropTypes.bool,
     })
   ),
-  /** Map query parameter */
-  map: PropTypes.string,
   /** Price range query parameter */
   priceRange: PropTypes.string,
 }
