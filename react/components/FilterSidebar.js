@@ -18,7 +18,6 @@ import searchResult from '../searchResult.css'
 class FilterSidebar extends Component {
   static propTypes = {
     map: PropTypes.string.isRequired,
-    getLinkProps: PropTypes.func.isRequired,
     runtime: PropTypes.object.isRequired,
     filters: PropTypes.arrayOf(facetOptionShape).isRequired,
     selectedFilters: PropTypes.arrayOf(facetOptionShape).isRequired,
@@ -75,12 +74,12 @@ class FilterSidebar extends Component {
 
   handleClearFilters = () => {
     const {
-      getLinkProps,
       runtime: { navigate },
     } = this.props
 
     this.setState({ selectedFilters: [] })
-    const pagesArgs = getLinkProps([])
+    // TODO: fix
+    const pagesArgs = {}
 
     const options = {
       page: pagesArgs.page,
@@ -93,12 +92,10 @@ class FilterSidebar extends Component {
 
   render() {
     const { openContent, selectedFilters } = this.state
-    const { filters, map, getLinkProps } = this.props
+    const { filters, map } = this.props
 
-    const pagesArgs = getLinkProps(
-      mapRamda(opt => ({ ...opt, isSelected: false }), selectedFilters),
-      true
-    )
+    // TODO: fix
+    const pagesArgs = {}
 
     return (
       <Fragment>
