@@ -4,7 +4,6 @@ import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
 
-import { mountOptions } from '../constants/SearchHelpers'
 import AccordionFilterItem from './AccordionFilterItem'
 
 import searchResult from '../searchResult.css'
@@ -96,7 +95,7 @@ class AccordionFilterContainer extends Component {
             <AccordionFilterItem
               key={filter.title}
               title={title}
-              options={mountOptions(options, type, map)}
+              options={options}
               isOptionSelected={isOptionSelected}
               open={isOpen}
               onFilterCheck={onFilterCheck}
