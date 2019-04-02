@@ -1,37 +1,63 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useRuntime } from 'vtex.render-runtime'
 import { Checkbox } from 'vtex.styleguide'
 
+import QueryContext from './QueryContext'
 import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
-import useSelectedFacet from '../hooks/useSelectedFacet'
+
+const scrollOptions = {
+  baseElementId: 'search-result-anchor',
+  top: -HEADER_SCROLL_OFFSET,
+}
 
 const FacetItem = ({ facet }) => {
   const { navigate } = useRuntime()
-
-  const isSelected = useSelectedFacet(facet)
+  const { query, map } = useContext(QueryContext)
 
   const handleChange = () => {
-    if (isSelected) {
-      // should remove facet
+    if (facet.selected) {
+      const facetIndex = query
+        .toLowerCase()
+        .split('/')
+        .findIndex(slug => slug === facet.Slug.toLowerCase())
+
+      const urlParams = new URLSearchParams(window.location.search)
+
+      urlParams.set(
+        'map',
+        map
+          .split(',')
+          .filter((_, i) => i !== facetIndex)
+          .join(',')
+      )
+
+      navigate({
+        to:
+          '/' +
+          query
+            .split('/')
+            .filter((_, i) => i !== facetIndex)
+            .join('/'),
+        query: urlParams.toString(),
+        scrollOptions,
+      })
       return
     }
 
-    const [path, query] = facet.Link.split('?')
+    const [path, queryParams] = facet.Link.split('?')
 
     navigate({
       to: path,
-      query,
-      scrollOptions: {
-        baseElementId: 'search-result-anchor',
-        top: -HEADER_SCROLL_OFFSET,
-      },
+      query: queryParams,
+      scrollOptions,
     })
   }
 
   return (
     <div className="lh-copy w-100">
       <Checkbox
-        checked={isSelected}
+        id={facet.Slug}
+        checked={facet.selected}
         label={`${facet.Name} (${facet.Quantity})`}
         onChange={handleChange}
         value={facet.Name}
