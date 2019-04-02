@@ -3,6 +3,7 @@
   display: -ms-grid;
   grid-template-columns: 230px repeat(4, auto) 306px;
   -ms-grid-columns: 230px (1fr)[4] 306px;
+  grid-template-rows: auto 60px auto;
   grid-template-areas:
     "breadcrumb . . . . ."
     "filters quantity . . . orderby"
@@ -192,6 +193,7 @@
   .container {
     -ms-grid-columns: 180px (1fr)[4] 306px;
     grid-template-columns: 180px repeat(4, auto) 285px;
+    grid-template-rows: auto;
   }
 }
 
@@ -213,6 +215,7 @@
       "orderby border filters borderseq switch"
       "quantity quantity quantity quantity quantity"
       "gallery gallery gallery gallery gallery";
+    grid-template-rows: auto;
   }
 
   .resultGallery {
