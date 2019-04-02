@@ -58,7 +58,7 @@ const SearchResultContainer = props => {
           products = [],
           recordsFiltered = 0,
         } = {},
-      },
+      } = {},
       loading,
       variables: { query },
     },

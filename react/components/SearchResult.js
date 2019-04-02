@@ -124,7 +124,6 @@ class SearchResult extends Component {
       products,
       brands,
       map,
-      query,
       params,
       priceRange,
       priceRanges,
@@ -144,6 +143,7 @@ class SearchResult extends Component {
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
+
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
         <div className={`${searchResult.container} w-100 mw9`}>
@@ -158,15 +158,14 @@ class SearchResult extends Component {
             <ExtensionPoint
               id="filter-navigator"
               brands={brands}
-              map={map}
+              showFilters={!!map}
               params={params}
               priceRange={priceRange}
               priceRanges={priceRanges}
-              query={query}
               specificationFilters={specificationFilters}
               tree={tree}
               hiddenFacets={hiddenFacets}
-              loading={loading && !fetchMoreLoading}
+              loading={showContentLoader}
             />
           )}
           <div className={searchResult.resultGallery}>

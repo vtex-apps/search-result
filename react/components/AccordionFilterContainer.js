@@ -21,7 +21,6 @@ class AccordionFilterContainer extends Component {
     /** Filters selected previously */
     selectedFilters: PropTypes.array,
     isOptionSelected: PropTypes.func.isRequired,
-    map: PropTypes.string.isRequired,
   }
 
   state = {
@@ -51,7 +50,7 @@ class AccordionFilterContainer extends Component {
   }
 
   render() {
-    const { filters, intl, onFilterCheck, map, isOptionSelected } = this.props
+    const { filters, intl, onFilterCheck, isOptionSelected } = this.props
     const { openedItem } = this.state
 
     const nonEmptyFilters = filters.filter(spec => spec.options.length > 0)
@@ -88,7 +87,7 @@ class AccordionFilterContainer extends Component {
         </div>
 
         {nonEmptyFilters.map(filter => {
-          const { type, title, options } = filter
+          const { title, options } = filter
           const isOpen = openedItem === filter.title
 
           return (

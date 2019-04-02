@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import { map as mapRamda, flatten, filter, pipe } from 'ramda'
+import { map, flatten, filter, pipe } from 'ramda'
 import React, { Component, Fragment } from 'react'
 import { FormattedMessage } from 'react-intl'
 
@@ -16,7 +16,6 @@ import searchResult from '../searchResult.css'
 
 class FilterSidebar extends Component {
   static propTypes = {
-    map: PropTypes.string.isRequired,
     runtime: PropTypes.object.isRequired,
     filters: PropTypes.arrayOf(facetOptionShape).isRequired,
     selectedFilters: PropTypes.arrayOf(facetOptionShape).isRequired,
@@ -25,10 +24,10 @@ class FilterSidebar extends Component {
   state = {
     openContent: false,
     selectedFilters: pipe(
-      mapRamda(filter => filter.options),
+      map(filter => filter.options),
       flatten,
       filter(option => option.selected),
-      mapRamda(option => ({
+      map(option => ({
         ...option,
         link: option.Link,
       }))
@@ -89,7 +88,7 @@ class FilterSidebar extends Component {
 
   render() {
     const { openContent, selectedFilters } = this.state
-    const { filters, map } = this.props
+    const { filters } = this.props
 
     // TODO: fix
     const pagesArgs = {}
@@ -124,7 +123,6 @@ class FilterSidebar extends Component {
 
         <Sidebar onOutsideClick={this.handleClose} isOpen={openContent}>
           <AccordionFilterContainer
-            map={map}
             filters={filters}
             onFilterCheck={this.handleFilterCheck}
             selectedFilters={selectedFilters}

@@ -1,15 +1,14 @@
-import React from 'react'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
-import { useRuntime } from 'vtex.render-runtime'
 import { flatten, path, contains } from 'ramda'
+import React from 'react'
 import ContentLoader from 'react-content-loader'
-import classNames from 'classnames'
 import { FormattedMessage } from 'react-intl'
+import { useRuntime } from 'vtex.render-runtime'
 
 import FilterSidebar from './components/FilterSidebar'
 import SelectedFilters from './components/SelectedFilters'
 import AvailableFilters from './components/AvailableFilters'
-import { getMapByType } from './constants/SearchHelpers'
 import {
   facetOptionShape,
   paramShape,
@@ -31,37 +30,10 @@ const getCategories = tree => {
   if (!tree || !tree.length) {
     return []
   }
-  return [...tree, tree.Children && getCategories(tree.Children)].filter(
-    Boolean
-  )
-}
-
-const getAvailableCategories = ({
-  tree,
-  query,
-  map,
-  showOnlySelected = false,
-}) => {
-  let queryParams = query || ''
-
-  const mapArray = map.split(',')
-
-  const categoriesCount = mapArray.filter(
-    m => m === getMapByType(CATEGORIES_TYPE)
-  ).length
-
-  const currentPath = queryParams
-    .split('/')
-    .filter((_, index) => mapArray[index] === getMapByType(CATEGORIES_TYPE))
-    .join('/')
-
-  return getCategories(tree)
-    .filter(c =>
-      showOnlySelected
-        ? c.level === categoriesCount - 1
-        : c.level === categoriesCount - 1 || c.level === categoriesCount
-    )
-    .filter(c => c.path.toLowerCase().startsWith(currentPath.toLowerCase()))
+  return [
+    ...tree,
+    ...flatten(tree.map(node => node.Children && getCategories(node.Children))),
+  ].filter(Boolean)
 }
 
 /**
@@ -69,8 +41,7 @@ const getAvailableCategories = ({
  * as the popup filters that appear on mobile devices
  */
 const FilterNavigator = ({
-  query,
-  map,
+  showFilters,
   priceRange,
   tree = [],
   specificationFilters = [],
@@ -84,12 +55,9 @@ const FilterNavigator = ({
   } = useRuntime()
 
   const getSelectedFilters = () => {
-    const availableCategories = getAvailableCategories({
-      tree,
-      query,
-      map,
-      showOnlySelected: true,
-    })
+    const availableCategories = getCategories(tree).filter(
+      category => category.selected
+    )
 
     const options = [
       ...availableCategories,
@@ -102,7 +70,7 @@ const FilterNavigator = ({
   }
 
   const getFilters = () => {
-    const categories = getAvailableCategories({ tree, query, map })
+    const categories = getCategories(tree)
 
     const hiddenFacetsNames = (
       path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
@@ -141,11 +109,11 @@ const FilterNavigator = ({
     ].filter(Boolean)
   }
 
-  const filterClasses = classNames({
-    'flex justify-center flex-auto ': mobile,
+  const filterClasses = cx({
+    'flex justify-center flex-auto': mobile,
   })
 
-  if (!map || !map.length) {
+  if (!showFilters) {
     return null
   }
 
@@ -178,7 +146,6 @@ const FilterNavigator = ({
           <FilterSidebar
             filters={getFilters()}
             selectedFilters={getSelectedFilters()}
-            map={map}
           />
         </div>
       </div>
@@ -218,8 +185,8 @@ FilterNavigator.propTypes = {
   priceRanges: PropTypes.arrayOf(facetOptionShape),
   /** Current price range filter query parameter */
   priceRange: PropTypes.string,
-  /** Map query parameter */
-  map: PropTypes.string,
+  /** Enables or disables filters */
+  showFilters: PropTypes.bool,
   /** Loading indicator */
   loading: PropTypes.bool,
   ...hiddenFacetsSchema,
