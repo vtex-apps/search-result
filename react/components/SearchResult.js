@@ -121,7 +121,7 @@ class SearchResult extends Component {
     const {
       mobileLayoutMode,
       recordsFiltered,
-      products,
+      products = [],
       brands,
       map,
       params,
