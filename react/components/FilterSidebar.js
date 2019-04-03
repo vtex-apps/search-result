@@ -24,28 +24,21 @@ class FilterSidebar extends Component {
   state = {
     openContent: false,
     selectedFilters: pipe(
-      map(filter => filter.options),
+      map(filter => filter.facets),
       flatten,
-      filter(option => option.selected),
-      map(option => ({
-        ...option,
-        link: option.Link,
-      }))
+      filter(facet => facet.selected)
     )(this.props.filters || []),
   }
 
   handleFilterCheck = filter => {
     if (!this.isOptionSelected(filter)) {
       this.setState({
-        selectedFilters: this.state.selectedFilters.concat({
-          ...filter,
-          link: filter.Link,
-        }),
+        selectedFilters: this.state.selectedFilters.concat(filter),
       })
     } else {
       this.setState({
         selectedFilters: this.state.selectedFilters.filter(
-          opt => opt.slug !== filter.slug
+          facet => facet.Slug !== filter.Slug
         ),
       })
     }
