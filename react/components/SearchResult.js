@@ -203,12 +203,10 @@ class SearchResult extends Component {
                 searchResult.switch
               } flex justify-center items-center`}
             >
-              <div className="dn-ns db-s">
-                <LayoutModeSwitcher
-                  activeMode={mobileLayoutMode}
-                  onChange={this.handleMobileLayoutChange}
-                />
-              </div>
+              <LayoutModeSwitcher
+                activeMode={mobileLayoutMode}
+                onChange={this.handleMobileLayoutChange}
+              />
             </div>
           )}
         </div>

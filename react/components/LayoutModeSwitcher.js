@@ -20,34 +20,37 @@ export const LAYOUT_MODE = [
   },
 ]
 
-export default function LayoutModeSwitcher({ activeMode, onChange }) {
-
-  const renderButton = (mode, onChange) => {
-    const renderIcon = mode => {
-      switch (mode) {
-        case 'small':
-          return <IconGrid size={20} />
-        case 'inline':
-          return <IconInlineGrid size={20} />
-        case 'normal':
-          return <IconSingleGrid size={20} />
-      }
-    }
-
-    return (
-      <div className={`${searchResult.layoutSwitcher} dn-ns h-100 flex justify-center items-center`}>
-        <Button
-          variation="tertiary"
-          size="small"
-          onClick={e => onChange(e, mode)}
-        >
-          <span className="c-on-base">{renderIcon(mode)}</span>
-        </Button>
-      </div>
-    )
+const LayoutIcon = ({ mode }) => {
+  switch (mode) {
+    case 'small':
+      return <IconGrid size={20} />
+    case 'inline':
+      return <IconInlineGrid size={20} />
+    case 'normal':
+      return <IconSingleGrid size={20} />
+    default:
+      throw new Error(`Unsupported icon ${mode} in LayoutIcon`)
   }
+}
 
-  return renderButton(activeMode, onChange)
+const LayoutModeSwitcher = ({ activeMode, onChange }) => {
+  return (
+    <div
+      className={`${
+        searchResult.layoutSwitcher
+      } h-100 flex justify-center items-center`}
+    >
+      <Button
+        variation="tertiary"
+        size="small"
+        onClick={e => onChange(e, activeMode)}
+      >
+        <span className="c-on-base">
+          <LayoutIcon mode={activeMode} />
+        </span>
+      </Button>
+    </div>
+  )
 }
 
 LayoutModeSwitcher.propTypes = {
@@ -56,3 +59,5 @@ LayoutModeSwitcher.propTypes = {
   /** On change callback */
   onChange: PropTypes.func.isRequired,
 }
+
+export default LayoutModeSwitcher
