@@ -9,7 +9,7 @@ const TotalProducts = ({ recordsFiltered }) => {
     <div
       className={`${
         searchResult.totalProducts
-      } pv5 ph9 bn-ns bt-s b--muted-4 tc-s tl t-action--small`}
+      } pv5 ph9 bn-ns bt-s b--muted-5 tc-s tl t-action--small`}
     >
       <FormattedHTMLMessage
         tagName="span"
