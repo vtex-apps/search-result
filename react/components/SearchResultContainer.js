@@ -93,8 +93,8 @@ const SearchResultContainer = props => {
           productSearch: {
             ...prevResult.search,
             products: [
-              ...prevResult.search.products,
-              ...fetchMoreResult.search.products,
+              ...prevResult.productSearch.products,
+              ...fetchMoreResult.productSearch.products,
             ],
           },
         }
