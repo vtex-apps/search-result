@@ -5,7 +5,7 @@
   -ms-grid-columns: 230px (1fr)[4] 306px;
   grid-template-rows: auto 60px auto;
   grid-template-areas:
-    "breadcrumb . . . . ."
+    "breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb"
     "filters quantity . . . orderby"
     "filters gallery gallery gallery gallery gallery"
     ". pagination pagination pagination pagination pagination";
@@ -197,11 +197,23 @@
   }
 }
 
-@media only screen and (min-width: 40em) {
-  .border {
-    display: none;
+@media only screen and (max-width: 50em) {
+  .container {
+    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    grid-template-areas:
+      "filters border orderby borderseq switch"
+      "quantity quantity quantity quantity quantity"
+      "gallery gallery gallery gallery gallery";
   }
 
+  .totalProducts {
+    border-top-style: solid;
+    border-top-width: 2px;
+    justify-self: stretch;
+  }
+}
+
+@media only screen and (min-width: 40em) {
   .sidebar {
     width: 16rem;
   }
@@ -225,10 +237,6 @@
 
   .filterTitle {
     font-weight: 300;
-  }
-
-  .totalProducts {
-    justify-self: stretch;
   }
 }
 
