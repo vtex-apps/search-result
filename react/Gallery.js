@@ -59,7 +59,7 @@ const Gallery = ({
 
   const galleryClasses = classNames(
     searchResult.gallery,
-    'flex flex-row flex-wrap items-stretch bn ph1 pl9-ns na4'
+    'flex flex-row flex-wrap items-stretch bn ph1 pl9-l na4'
   )
 
   return <div className={galleryClasses}>{map(renderItem, products)}</div>
