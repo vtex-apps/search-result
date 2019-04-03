@@ -53,7 +53,7 @@ class AccordionFilterContainer extends Component {
     const { filters, intl, onFilterCheck, isOptionSelected } = this.props
     const { openedItem } = this.state
 
-    const nonEmptyFilters = filters.filter(spec => spec.options.length > 0)
+    const nonEmptyFilters = filters.filter(spec => spec.facets.length > 0)
     return (
       <div className={`${searchResult.accordionFilter} h-100`}>
         <div
@@ -62,6 +62,8 @@ class AccordionFilterContainer extends Component {
           } pointer flex flex-row items-center pa5 bg-base w-100 z-max bb b--muted-4`}
         >
           <div
+            role="button"
+            tabIndex={0}
             className="pv4 flex items-center"
             onClick={() => this.setState({ openedItem: null })}
           >
