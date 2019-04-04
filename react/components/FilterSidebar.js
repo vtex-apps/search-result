@@ -72,6 +72,7 @@ const FilterSidebar = ({ filters }) => {
 
     query.set('map', map)
 
+    setOpen(false)
     navigate({
       to: `/${params}`,
       query: query.toString(),
