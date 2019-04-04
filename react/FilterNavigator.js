@@ -143,10 +143,7 @@ const FilterNavigator = ({
     return (
       <div className={searchResult.filters}>
         <div className={filterClasses}>
-          <FilterSidebar
-            filters={getFilters()}
-            selectedFilters={getSelectedFilters()}
-          />
+          <FilterSidebar filters={getFilters()} />
         </div>
       </div>
     )
