@@ -53,6 +53,7 @@ const SearchResultContainer = props => {
           specificationFilters = [],
           priceRanges = [],
           categoriesTrees,
+          recordsFiltered,
         } = {},
         products = [],
       } = {},
@@ -73,7 +74,7 @@ const SearchResultContainer = props => {
 
     fetchMoreLocked.current = true
 
-    const to = min(maxItemsPerPage + products.length, 0) - 1
+    const to = min(maxItemsPerPage + products.length, recordsFiltered) - 1
 
     setFetchMoreLoading(true)
 
@@ -125,7 +126,7 @@ const SearchResultContainer = props => {
           fetchMoreLoading={fetchMoreLoading}
           query={query}
           loading={loading}
-          recordsFiltered={0}
+          recordsFiltered={recordsFiltered}
           products={products}
           brands={brands}
           specificationFilters={specificationFilters}
