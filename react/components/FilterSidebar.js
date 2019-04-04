@@ -36,14 +36,14 @@ const FilterSidebar = ({ filters }) => {
   }, [selectedFilters, open])
 
   const isOptionSelected = opt =>
-    !!selectedFilters.find(facet => facet.Slug === opt.Slug)
+    !!selectedFilters.find(facet => facet.slug === opt.slug)
 
   const handleFilterCheck = filter => {
     if (!isOptionSelected(filter)) {
       setSelectedFilters(selectedFilters.concat(filter))
     } else {
       setSelectedFilters(
-        selectedFilters.filter(facet => facet.Slug !== filter.Slug)
+        selectedFilters.filter(facet => facet.slug !== filter.slug)
       )
     }
   }
@@ -63,9 +63,9 @@ const FilterSidebar = ({ filters }) => {
   }
 
   const handleApply = () => {
-    const params = selectedFilters.map(facet => facet.Slug).join('/')
+    const params = selectedFilters.map(facet => facet.slug).join('/')
     const map = selectedFilters
-      .map(facet => facet.Map || getMapByType(facet.type))
+      .map(facet => facet.map || getMapByType(facet.type))
       .join(',')
 
     const query = new URLSearchParams(window.location.search)
