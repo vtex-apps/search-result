@@ -148,9 +148,11 @@ class SearchResult extends Component {
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
         <div className={`${searchResult.container} w-100 mw9`}>
-          <div className={`${searchResult.breadcrumb} db-ns dn-s`}>
-            <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
-          </div>
+          {!mobile && (
+            <div className={searchResult.breadcrumb}>
+              <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
+            </div>
+          )}
           <ExtensionPoint
             id="search-title"
             params={params}
