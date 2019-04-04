@@ -7,24 +7,12 @@ import FacetItem from './FacetItem'
 import { facetOptionShape } from '../constants/propTypes'
 import { getFilterTitle } from '../constants/SearchHelpers'
 
-const selectedEnabled = false
-
 /**
  * Search Filter Component.
  */
 const SearchFilter = ({ title = 'Default Title', facets = [], intl }) => {
-  let filters = facets || []
-
-  if (selectedEnabled) {
-    const selecteds = filters.filter(facets => facets.selected)
-
-    if (selecteds.length) {
-      filters = selecteds
-    }
-  }
-
   return (
-    <FilterOptionTemplate title={getFilterTitle(title, intl)} filters={filters}>
+    <FilterOptionTemplate title={getFilterTitle(title, intl)} filters={facets}>
       {facet => <FacetItem key={facet.name} facet={facet} />}
     </FilterOptionTemplate>
   )
