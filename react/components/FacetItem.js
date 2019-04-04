@@ -10,6 +10,12 @@ const scrollOptions = {
   top: -HEADER_SCROLL_OFFSET,
 }
 
+const removeElementAtIndex = (str, index, separator) =>
+  str
+    .split(separator)
+    .filter((_, i) => i !== index)
+    .join(separator)
+
 const FacetItem = ({ facet }) => {
   const { navigate } = useRuntime()
   const { query, map } = useContext(QueryContext)
@@ -23,21 +29,10 @@ const FacetItem = ({ facet }) => {
 
       const urlParams = new URLSearchParams(window.location.search)
 
-      urlParams.set(
-        'map',
-        map
-          .split(',')
-          .filter((_, i) => i !== facetIndex)
-          .join(',')
-      )
+      urlParams.set('map', removeElementAtIndex(map, facetIndex, ','))
 
       navigate({
-        to:
-          '/' +
-          query
-            .split('/')
-            .filter((_, i) => i !== facetIndex)
-            .join('/'),
+        to: `/${removeElementAtIndex(query, facetIndex, '/')}`,
         query: urlParams.toString(),
         scrollOptions,
       })
