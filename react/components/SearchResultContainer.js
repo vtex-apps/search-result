@@ -53,6 +53,7 @@ const SearchResultContainer = props => {
           specificationFilters = [],
           priceRanges = [],
           categoriesTrees,
+          recordsFiltered,
         } = {},
         products = [],
       } = {},
@@ -112,7 +113,7 @@ const SearchResultContainer = props => {
           fetchMoreLoading={fetchMoreLoading}
           query={query}
           loading={loading}
-          recordsFiltered={0}
+          recordsFiltered={recordsFiltered}
           products={products}
           brands={brands}
           specificationFilters={specificationFilters}
