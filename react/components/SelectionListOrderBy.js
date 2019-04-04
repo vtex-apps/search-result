@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
-import cx from 'classnames'
+import classNames from 'classnames'
 import { find, propEq } from 'ramda'
 import { useRuntime } from 'vtex.render-runtime'
 import { IconCaret } from 'vtex.dreamstore-icons'
@@ -45,7 +45,7 @@ const SelectionListOrderBy = ({ orderBy, options }) => {
     [options]
   )
 
-  const btClass = cx(
+  const btClass = classNames(
     'ph3 pv5 mv0 pointer flex justify-center items-center bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100',
     {
       'b--muted-4 shadow-1': showDropdown && mobile,
@@ -53,7 +53,7 @@ const SelectionListOrderBy = ({ orderBy, options }) => {
     }
   )
 
-  const contentClass = cx(
+  const contentClass = classNames(
     'z-1 absolute bg-base shadow-5 f5 w-100 b--muted-4 br2 ba bw1 br--bottom',
     {
       db: showDropdown,
@@ -61,7 +61,7 @@ const SelectionListOrderBy = ({ orderBy, options }) => {
     }
   )
 
-  const dropdownSort = cx(
+  const dropdownSort = classNames(
     searchResult.dropdownSort,
     'relative pt1 justify-center w-100 w-auto-ns center'
   )
@@ -70,12 +70,16 @@ const SelectionListOrderBy = ({ orderBy, options }) => {
     <div className={dropdownSort} ref={orderByRef}>
       <button onClick={handleDropdownBtClick} className={btClass}>
         <span
-          className={cx(
+          className={classNames(
             searchResult.filterPopupTitle,
             'c-on-base t-action--small ml-auto-ns'
           )}
         >
-          <span className={cx('c-muted-2', { 'dn dib-ns': !orderBy.length })}>
+          <span
+            className={classNames('c-muted-2', {
+              'dn dib-ns': !orderBy.length,
+            })}
+          >
             {getOptionTitle('')}
           </span>{' '}
           {getOptionTitle(orderBy)}
