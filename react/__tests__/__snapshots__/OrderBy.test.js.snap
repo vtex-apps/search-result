@@ -6,18 +6,23 @@ exports[`<OrderBy /> should match snapshot in mobile 1`] = `
     class="orderBy"
   >
     <div
-      class="dropdownSort relative pt1 dib"
+      class="dropdownSort relative pt1 justify-center w-100 w-auto-ns center"
     >
       <button
-        class="ph3 pv5 mv0 pointer flex justify-center items-center bg-base c-on-base t-action--small ml-auto bt br bl bb-0 br2 br--top bw1 w-100 b--transparent pl1"
+        class="ph3 pv5 mv0 pointer flex justify-center items-center bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100 b--transparent pl1"
       >
         <span
-          class="filterPopupTitle c-on-base t-action--small ml-auto"
+          class="filterPopupTitle c-on-base t-action--small ml-auto-ns"
         >
-          Sales 
+          <span
+            class="c-muted-2"
+          >
+            Sort By
+          </span>
+           Sales
         </span>
         <span
-          class="filterPopupArrowIcon pt1 ml-auto"
+          class="filterPopupArrowIcon ph5 pt1"
         >
           <div>
             IconCaret
@@ -27,46 +32,46 @@ exports[`<OrderBy /> should match snapshot in mobile 1`] = `
       <div
         class="z-1 absolute bg-base shadow-5 f5 w-100 b--muted-4 br2 ba bw1 br--bottom dn"
       >
-        <a
-          class="mockedLink"
+        <button
+          class="bg-base c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 hover-bg-muted-4 w-100"
         >
           Sort By
-        </a>
-        <a
-          class="mockedLink"
+        </button>
+        <button
+          class="bg-base c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 hover-bg-muted-4 w-100"
         >
           Sales
-        </a>
-        <a
-          class="mockedLink"
+        </button>
+        <button
+          class="bg-base c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 hover-bg-muted-4 w-100"
         >
           Release Date
-        </a>
-        <a
-          class="mockedLink"
+        </button>
+        <button
+          class="bg-base c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 hover-bg-muted-4 w-100"
         >
           Discount
-        </a>
-        <a
-          class="mockedLink"
+        </button>
+        <button
+          class="bg-base c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 hover-bg-muted-4 w-100"
         >
           Price: High to Low
-        </a>
-        <a
-          class="mockedLink"
+        </button>
+        <button
+          class="bg-base c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 hover-bg-muted-4 w-100"
         >
           Price: Low to High
-        </a>
-        <a
-          class="mockedLink"
+        </button>
+        <button
+          class="bg-base c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 hover-bg-muted-4 w-100"
         >
           Name, ascending
-        </a>
-        <a
-          class="mockedLink"
+        </button>
+        <button
+          class="bg-base c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 hover-bg-muted-4 w-100"
         >
           Name, descending
-        </a>
+        </button>
       </div>
     </div>
   </div>
@@ -79,10 +84,73 @@ exports[`<OrderBy /> should match snapshot in web mod 1`] = `
     class="orderBy"
   >
     <div
-      options="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
-      value="OrderByTopSaleDESC"
+      class="dropdownSort relative pt1 justify-center w-100 w-auto-ns center"
     >
-      Dropdown
+      <button
+        class="ph3 pv5 mv0 pointer flex justify-center items-center bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100 b--transparent pl1"
+      >
+        <span
+          class="filterPopupTitle c-on-base t-action--small ml-auto-ns"
+        >
+          <span
+            class="c-muted-2"
+          >
+            Sort By
+          </span>
+           Sales
+        </span>
+        <span
+          class="filterPopupArrowIcon ph5 pt1"
+        >
+          <div>
+            IconCaret
+          </div>
+        </span>
+      </button>
+      <div
+        class="z-1 absolute bg-base shadow-5 f5 w-100 b--muted-4 br2 ba bw1 br--bottom dn"
+      >
+        <button
+          class="bg-base c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 hover-bg-muted-4 w-100"
+        >
+          Sort By
+        </button>
+        <button
+          class="bg-base c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 hover-bg-muted-4 w-100"
+        >
+          Sales
+        </button>
+        <button
+          class="bg-base c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 hover-bg-muted-4 w-100"
+        >
+          Release Date
+        </button>
+        <button
+          class="bg-base c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 hover-bg-muted-4 w-100"
+        >
+          Discount
+        </button>
+        <button
+          class="bg-base c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 hover-bg-muted-4 w-100"
+        >
+          Price: High to Low
+        </button>
+        <button
+          class="bg-base c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 hover-bg-muted-4 w-100"
+        >
+          Price: Low to High
+        </button>
+        <button
+          class="bg-base c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 hover-bg-muted-4 w-100"
+        >
+          Name, ascending
+        </button>
+        <button
+          class="bg-base c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 hover-bg-muted-4 w-100"
+        >
+          Name, descending
+        </button>
+      </div>
     </div>
   </div>
 </DocumentFragment>
