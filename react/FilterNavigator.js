@@ -1,6 +1,6 @@
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import { flatten, path, contains } from 'ramda'
+import { map, flatten, path, contains, filter, prop } from 'ramda'
 import React from 'react'
 import ContentLoader from 'react-content-loader'
 import { FormattedMessage } from 'react-intl'
@@ -26,10 +26,7 @@ const CATEGORIES_TITLE = 'search.filter.title.categories'
 const BRANDS_TITLE = 'search.filter.title.brands'
 const PRICE_RANGES_TITLE = 'search.filter.title.price-ranges'
 
-const getCategories = tree => {
-  if (!tree || !tree.length) {
-    return []
-  }
+const getCategories = (tree = []) => {
   return [
     ...tree,
     ...flatten(tree.map(node => node.children && getCategories(node.children))),
@@ -55,13 +52,11 @@ const FilterNavigator = ({
   } = useRuntime()
 
   const getSelectedFilters = () => {
-    const availableCategories = getCategories(tree).filter(
-      category => category.selected
-    )
+    const availableCategories = filter(prop('selected'), getCategories(tree))
 
     const options = [
       ...availableCategories,
-      ...specificationFilters.map(spec => spec.facets),
+      ...map(prop('facets'), specificationFilters),
       ...brands,
       ...priceRanges,
     ]
