@@ -20,74 +20,82 @@ const AccordionFilterItem = ({
   intl,
   onFilterCheck,
   isOptionSelected,
-}) => (
-  <Fragment>
-    {!open && (
-      <div className="pl7">
-        <div
-          role="button"
-          tabIndex={0}
-          className={classNames(
-            `${searchResult.accordionFilterItem} ${
-              searchResult.filterAccordionItemBox
-            } t-body pr5 pv3 pointer bb b--muted-5`,
-            {
-              [searchResult.accordionFilterItemActive]: open,
-              [`${searchResult.accordionFilterItemHidden} dn`]: !show,
-            }
-          )}
-          onKeyDown={e => e.key === ' ' && onOpen(e)}
-          onClick={onOpen}
-        >
+}) => {
+  const handleKeyDown = e => {
+    if (e.key === ' ') {
+      onOpen(e)
+    }
+  }
+
+  return (
+    <Fragment>
+      {!open && (
+        <div className="pl7">
           <div
+            role="button"
+            tabIndex={0}
             className={classNames(
-              `${searchResult.accordionFilterItemTitle} pv4`,
+              `${searchResult.accordionFilterItem} ${
+                searchResult.filterAccordionItemBox
+              } t-body pr5 pv3 pointer bb b--muted-5`,
               {
-                'c-on-base t-small': open,
-                'c-on-base t-heading-5': !open,
+                [searchResult.accordionFilterItemActive]: open,
+                [`${searchResult.accordionFilterItemHidden} dn`]: !show,
               }
             )}
+            onKeyDown={handleKeyDown}
+            onClick={onOpen}
           >
-            {getFilterTitle(title, intl)}
-            <span className={`${searchResult.accordionFilterItemIcon} fr`}>
-              <IconCaret orientation="down" size={10} />
-            </span>
+            <div
+              className={classNames(
+                `${searchResult.accordionFilterItemTitle} pv4`,
+                {
+                  'c-on-base t-small': open,
+                  'c-on-base t-heading-5': !open,
+                }
+              )}
+            >
+              {getFilterTitle(title, intl)}
+              <span className={`${searchResult.accordionFilterItemIcon} fr`}>
+                <IconCaret orientation="down" size={10} />
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-    )}
-    {open && (
-      <div
-        className={`${
-          searchResult.accordionFilterItemOptions
-        } pl7 overflow-scroll h-100`}
-      >
-        {facets.map(facet => {
-          const { name } = facet
+      )}
+      {open && (
+        <div
+          className={`${
+            searchResult.accordionFilterItemOptions
+          } pl7 overflow-scroll h-100`}
+        >
+          {facets.map(facet => {
+            const { name } = facet
 
-          return (
-            <div
-              className={`${
-                searchResult.filterAccordionItemBox
-              } pr4 pt3 items-center flex bb b--muted-5`}
-              key={name}
-            >
-              <Checkbox
-                className="mb0"
-                checked={isOptionSelected(facet)}
-                id={name}
-                label={name}
-                name={name}
-                onChange={() => onFilterCheck(facet)}
-                value={name}
-              />
-            </div>
-          )
-        })}
-      </div>
-    )}
-  </Fragment>
-)
+            return (
+              <div
+                className={`${
+                  searchResult.filterAccordionItemBox
+                } pr4 pt3 items-center flex bb b--muted-5`}
+                key={name}
+              >
+                <Checkbox
+                  className="mb0"
+                  checked={isOptionSelected(facet)}
+                  id={name}
+                  label={name}
+                  name={name}
+                  onChange={() => onFilterCheck(facet)}
+                  value={name}
+                />
+              </div>
+            )
+          })}
+        </div>
+      )}
+    </Fragment>
+  )
+}
 
 AccordionFilterItem.propTypes = {
   /** Title */

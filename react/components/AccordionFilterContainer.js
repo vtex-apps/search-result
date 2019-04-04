@@ -26,6 +26,12 @@ const AccordionFilterContainer = ({
     }
   }
 
+  const handleKeyDown = e => {
+    if (e.key === ' ') {
+      setOpenItem(null)
+    }
+  }
+
   const nonEmptyFilters = filters.filter(spec => spec.facets.length > 0)
 
   return (
@@ -40,7 +46,7 @@ const AccordionFilterContainer = ({
           tabIndex={0}
           className="pv4 flex items-center"
           onClick={() => setOpenItem(null)}
-          onKeyDown={e => e.key === ' ' && setOpenItem(null)}
+          onKeyDown={handleKeyDown}
         >
           <div
             className={classNames('t-heading-4', {
