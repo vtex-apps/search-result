@@ -19,7 +19,7 @@ const FacetItem = ({ facet }) => {
       const facetIndex = query
         .toLowerCase()
         .split('/')
-        .findIndex(slug => slug === facet.Slug.toLowerCase())
+        .findIndex(slug => slug === facet.slug.toLowerCase())
 
       const urlParams = new URLSearchParams(window.location.search)
 
@@ -44,7 +44,7 @@ const FacetItem = ({ facet }) => {
       return
     }
 
-    const [path, queryParams] = facet.Link.split('?')
+    const [path, queryParams] = facet.link.split('?')
 
     navigate({
       to: path,
@@ -56,11 +56,12 @@ const FacetItem = ({ facet }) => {
   return (
     <div className="lh-copy w-100">
       <Checkbox
-        id={facet.Slug}
+        id={facet.slug}
         checked={facet.selected}
-        label={`${facet.Name} (${facet.Quantity})`}
+        label={`${facet.name} (${facet.quantity})`}
+        name={facet.name}
         onChange={handleChange}
-        value={facet.Name}
+        value={facet.name}
       />
     </div>
   )

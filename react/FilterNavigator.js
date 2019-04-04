@@ -32,7 +32,7 @@ const getCategories = tree => {
   }
   return [
     ...tree,
-    ...flatten(tree.map(node => node.Children && getCategories(node.Children))),
+    ...flatten(tree.map(node => node.children && getCategories(node.children))),
   ].filter(Boolean)
 }
 

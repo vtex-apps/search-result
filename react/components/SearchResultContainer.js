@@ -11,14 +11,14 @@ import { searchResultContainerPropTypes } from '../constants/propTypes'
 const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
 
 const getBreadcrumbsProps = ({ category, department, term, facets }) => {
-  const categoriesTrees = facets ? facets.CategoriesTrees : []
+  const categoriesTrees = facets ? facets.categoriesTrees : []
 
-  const categoryReducer = (acc, category) => [...acc, `/${category.Name}`]
+  const categoryReducer = (acc, category) => [...acc, `/${category.name}`]
 
   const categoryWithChildrenReducer = (acc, category) => [
     ...acc,
-    `/${category.Name}`,
-    ...category.Children.map(children => `/${category.Name}/${children.Name}`),
+    `/${category.name}`,
+    ...category.children.map(children => `/${category.name}/${children.name}`),
   ]
 
   const getCategoryList = (reducer, initial = []) =>
@@ -49,10 +49,10 @@ const SearchResultContainer = props => {
       fetchMore,
       data: {
         facets: {
-          Brands = [],
-          SpecificationFilters = [],
-          PriceRanges = [],
-          CategoriesTrees,
+          brands = [],
+          specificationFilters = [],
+          priceRanges = [],
+          categoriesTrees,
         } = {},
         products = [],
       } = {},
@@ -106,7 +106,7 @@ const SearchResultContainer = props => {
           {...props}
           showMore={showMore}
           breadcrumbsProps={getBreadcrumbsProps(
-            Object.assign({}, params, { facets: { CategoriesTrees } })
+            Object.assign({}, params, { facets: { categoriesTrees } })
           )}
           onFetchMore={handleFetchMore}
           fetchMoreLoading={fetchMoreLoading}
@@ -114,10 +114,10 @@ const SearchResultContainer = props => {
           loading={loading}
           recordsFiltered={0}
           products={products}
-          brands={Brands}
-          specificationFilters={SpecificationFilters}
-          priceRanges={PriceRanges}
-          tree={CategoriesTrees}
+          brands={brands}
+          specificationFilters={specificationFilters}
+          priceRanges={priceRanges}
+          tree={categoriesTrees}
         />
       </PopupProvider>
     </Container>

@@ -25,7 +25,7 @@ const SearchFilter = ({ title = 'Default Title', facets = [], intl }) => {
 
   return (
     <FilterOptionTemplate title={getFilterTitle(title, intl)} filters={filters}>
-      {facet => <FacetItem key={facet.Name} facet={facet} />}
+      {facet => <FacetItem key={facet.name} facet={facet} />}
     </FilterOptionTemplate>
   )
 }
