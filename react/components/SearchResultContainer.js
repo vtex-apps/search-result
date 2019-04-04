@@ -45,19 +45,16 @@ const SearchResultContainer = props => {
     params,
     showMore = false,
     maxItemsPerPage = 10,
-    searchQuery,
     searchQuery: {
+      fetchMore,
       data: {
-        productSearch: {
-          facets: {
-            Brands = [],
-            SpecificationFilters = [],
-            PriceRanges = [],
-            CategoriesTrees,
-          } = {},
-          products = [],
-          recordsFiltered = 0,
+        facets: {
+          Brands = [],
+          SpecificationFilters = [],
+          PriceRanges = [],
+          CategoriesTrees,
         } = {},
+        products = [],
       } = {},
       loading,
       variables: { query },
@@ -76,11 +73,11 @@ const SearchResultContainer = props => {
 
     fetchMoreLocked.current = true
 
-    const to = min(maxItemsPerPage + products.length, recordsFiltered) - 1
+    const to = min(maxItemsPerPage + products.length, 0) - 1
 
     setFetchMoreLoading(true)
 
-    searchQuery.fetchMore({
+    fetchMore({
       variables: {
         from: products.length,
         to,
@@ -90,13 +87,7 @@ const SearchResultContainer = props => {
         fetchMoreLocked.current = false
 
         return {
-          productSearch: {
-            ...prevResult.search,
-            products: [
-              ...prevResult.productSearch.products,
-              ...fetchMoreResult.productSearch.products,
-            ],
-          },
+          products: [...prevResult.products, ...fetchMoreResult.products],
         }
       },
     })
@@ -121,7 +112,7 @@ const SearchResultContainer = props => {
           fetchMoreLoading={fetchMoreLoading}
           query={query}
           loading={loading}
-          recordsFiltered={recordsFiltered}
+          recordsFiltered={0}
           products={products}
           brands={Brands}
           specificationFilters={SpecificationFilters}
