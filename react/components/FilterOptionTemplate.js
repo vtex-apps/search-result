@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { useState, useCallback } from 'react'
 import { Collapse } from 'react-collapse'
-import cx from 'classnames'
+import classNames from 'classnames'
 
 import { IconCaret } from 'vtex.store-icons'
 
@@ -37,23 +37,18 @@ const FilterOptionTemplate = ({
     [open]
   )
 
-  const containerClassName = cx(searchResult.filter, 'pv5', {
+  const containerClassName = classNames(searchResult.filter, 'pv5', {
     [searchResult.filterSelected]: selected,
     [searchResult.filterAvailable]: !selected,
   })
 
-  const titleClassName = cx(
+  const titleClassName = classNames(
     searchResult.filterTitle,
     't-heading-6 flex items-center justify-between',
     {
       ttu: selected,
     }
   )
-
-  // Backwards-compatible support
-  if (typeof children === 'function' && !filters.length) {
-    return null
-  }
 
   return (
     <div className="bb b--muted-4">
@@ -69,23 +64,19 @@ const FilterOptionTemplate = ({
             {title}
             {collapsable && (
               <span
-                className={cx(
+                className={classNames(
                   searchResult.filterIcon,
                   'flex items-center ph5 c-muted-3'
                 )}
               >
-                {open ? (
-                  <IconCaret orientation="up" size={14} />
-                ) : (
-                  <IconCaret orientation="down" size={14} />
-                )}
+                <IconCaret orientation={open ? 'up' : 'down'} size={14} />
               </span>
             )}
           </div>
         </div>
       </div>
       <div
-        className={cx({
+        className={classNames({
           'overflow-y-auto': collapsable,
           pb5: open,
         })}
