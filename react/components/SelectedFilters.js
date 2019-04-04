@@ -26,6 +26,7 @@ const SelectedFilters = ({ filters = [], intl }) => {
 SelectedFilters.propTypes = {
   /** Selected filters. */
   filters: PropTypes.arrayOf(facetOptionShape).isRequired,
+  /** Intl instance. */
   intl: intlShape,
 }
 
