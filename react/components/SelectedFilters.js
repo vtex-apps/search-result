@@ -4,6 +4,7 @@ import { intlShape, injectIntl } from 'react-intl'
 
 import FacetItem from './FacetItem'
 import FilterOptionTemplate from './FilterOptionTemplate'
+import { facetOptionShape } from '../constants/propTypes'
 
 /**
  * Search Filter Component.
@@ -17,21 +18,14 @@ const SelectedFilters = ({ filters = [], intl }) => {
       collapsable={false}
       selected
     >
-      {facet => <FacetItem key={facet.Name} facet={facet} />}
+      {facet => <FacetItem key={facet.name} facet={facet} />}
     </FilterOptionTemplate>
   )
 }
 
 SelectedFilters.propTypes = {
   /** Selected filters. */
-  filters: PropTypes.arrayOf(
-    PropTypes.shape({
-      Name: PropTypes.string,
-      Link: PropTypes.string,
-      slug: PropTypes.string,
-      type: PropTypes.string,
-    })
-  ).isRequired,
+  filters: PropTypes.arrayOf(facetOptionShape).isRequired,
   intl: intlShape,
 }
 

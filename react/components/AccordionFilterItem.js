@@ -63,23 +63,23 @@ const AccordionFilterItem = ({
         } pl7 overflow-scroll h-100`}
       >
         {facets.map(facet => {
-          const { Name } = facet
+          const { name } = facet
 
           return (
             <div
               className={`${
                 searchResult.filterAccordionItemBox
               } pr4 pt3 items-center flex bb b--muted-5`}
-              key={Name}
+              key={name}
             >
               <Checkbox
                 className="mb0"
                 checked={isOptionSelected(facet)}
-                id={Name}
-                label={Name}
-                name={Name}
+                id={name}
+                label={name}
+                name={name}
                 onChange={() => onFilterCheck(facet)}
-                value={Name}
+                value={name}
               />
             </div>
           )
