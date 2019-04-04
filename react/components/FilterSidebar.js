@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import { map, flatten, filter, pipe } from 'ramda'
+import { map, flatten, filter, pipe, prop } from 'ramda'
 import React, { useRef, useState, useEffect, Fragment } from 'react'
 import { FormattedMessage } from 'react-intl'
 
@@ -21,9 +21,9 @@ const FilterSidebar = ({ filters }) => {
   const [open, setOpen] = useState(false)
   const [selectedFilters, setSelectedFilters] = useState(() =>
     pipe(
-      map(filter => filter.facets),
+      map(prop('facets')),
       flatten,
-      filter(facet => facet.selected)
+      filter(prop('selected'))
     )(filters || [])
   )
 
