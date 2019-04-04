@@ -1,4 +1,4 @@
-import cx from 'classnames'
+import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { map, flatten, path, contains, filter, prop } from 'ramda'
 import React from 'react'
@@ -104,7 +104,7 @@ const FilterNavigator = ({
     ].filter(Boolean)
   }
 
-  const filterClasses = cx({
+  const filterClasses = classNames({
     'flex justify-center flex-auto': mobile,
   })
 
