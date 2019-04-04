@@ -13,7 +13,7 @@ import searchResult from '../searchResult.css'
 
 const AccordionFilterItem = ({
   title,
-  options,
+  facets,
   show,
   open,
   onOpen,
@@ -21,65 +21,79 @@ const AccordionFilterItem = ({
   onFilterCheck,
   isOptionSelected,
 }) => (
-    <Fragment>
-      {!open && (
-        <div className="pl7">
+  <Fragment>
+    {!open && (
+      <div className="pl7">
+        <div
+          role="button"
+          tabIndex={0}
+          className={classNames(
+            `${searchResult.accordionFilterItem} ${
+              searchResult.filterAccordionItemBox
+            } t-body pr5 pv3 pointer bb b--muted-5`,
+            {
+              [searchResult.accordionFilterItemActive]: open,
+              [`${searchResult.accordionFilterItemHidden} dn`]: !show,
+            }
+          )}
+          onKeyDown={e => e.key === ' ' && onOpen(e)}
+          onClick={onOpen}
+        >
           <div
             className={classNames(
-              `${searchResult.accordionFilterItem} ${searchResult.filterAccordionItemBox} t-body pr5 pv3 pointer bb b--muted-5`,
+              `${searchResult.accordionFilterItemTitle} pv4`,
               {
-                [searchResult.accordionFilterItemActive]: open,
-                [`${searchResult.accordionFilterItemHidden} dn`]: !show,
-              }
-            )}
-            onClick={onOpen}
-          >
-            <div
-              className={classNames(`${searchResult.accordionFilterItemTitle} pv4`, {
                 'c-on-base t-small': open,
                 'c-on-base t-heading-5': !open,
-              })}
-            >
-              {getFilterTitle(title, intl)}
-              <span className={`${searchResult.accordionFilterItemIcon} fr`}>
-                <IconCaret orientation="down" size={10} />
-              </span>
-            </div>
+              }
+            )}
+          >
+            {getFilterTitle(title, intl)}
+            <span className={`${searchResult.accordionFilterItemIcon} fr`}>
+              <IconCaret orientation="down" size={10} />
+            </span>
           </div>
         </div>
-      )}
-      {open && (
-        <div className={`${searchResult.accordionFilterItemOptions} pl7 overflow-scroll h-100`}>
-          {options.map(opt => {
-            const { Name } = opt
+      </div>
+    )}
+    {open && (
+      <div
+        className={`${
+          searchResult.accordionFilterItemOptions
+        } pl7 overflow-scroll h-100`}
+      >
+        {facets.map(facet => {
+          const { Name } = facet
 
-            return (
-              <div
-                className={`${searchResult.filterAccordionItemBox} pr4 pt3 items-center flex bb b--muted-5`}
-                key={Name}
-              >
-                <Checkbox
-                  className="mb0"
-                  checked={isOptionSelected(opt)}
-                  id={Name}
-                  label={Name}
-                  name={`checkbox-${Name}`}
-                  onChange={() => onFilterCheck(opt)}
-                  value={`option-${Name}`}
-                />
-              </div>
-            )
-          })}
-        </div>
-      )}
-    </Fragment>
-  )
+          return (
+            <div
+              className={`${
+                searchResult.filterAccordionItemBox
+              } pr4 pt3 items-center flex bb b--muted-5`}
+              key={Name}
+            >
+              <Checkbox
+                className="mb0"
+                checked={isOptionSelected(facet)}
+                id={Name}
+                label={Name}
+                name={Name}
+                onChange={() => onFilterCheck(facet)}
+                value={Name}
+              />
+            </div>
+          )
+        })}
+      </div>
+    )}
+  </Fragment>
+)
 
 AccordionFilterItem.propTypes = {
   /** Title */
   title: PropTypes.string,
   /** Available filter options */
-  options: PropTypes.arrayOf(facetOptionShape),
+  facets: PropTypes.arrayOf(facetOptionShape),
   /** Filter type (e.g. CATEGORIES_TYPE, BRANDS_TYPE) */
   type: PropTypes.string,
   /** Whether to show any of the content */
@@ -98,6 +112,7 @@ AccordionFilterItem.propTypes = {
   intl: intlShape,
   /** Checkbox hit callback function */
   onFilterCheck: PropTypes.func,
+  isOptionSelected: PropTypes.func,
 }
 
 export default injectIntl(AccordionFilterItem)
