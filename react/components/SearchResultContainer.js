@@ -10,9 +10,13 @@ import { searchResultContainerPropTypes } from '../constants/propTypes'
 
 const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
 
-const getBreadcrumbsProps = ({ category, department, term, facets }) => {
-  const categoriesTrees = facets ? facets.categoriesTrees : []
-
+const getBreadcrumbsProps = ({
+  category,
+  department,
+  term,
+  categoriesTrees,
+  loading,
+}) => {
   const categoryReducer = (acc, category) => [...acc, `/${category.name}`]
 
   const categoryWithChildrenReducer = (acc, category) => [
@@ -21,20 +25,26 @@ const getBreadcrumbsProps = ({ category, department, term, facets }) => {
     ...category.children.map(children => `/${category.name}/${children.name}`),
   ]
 
-  const getCategoryList = (reducer, initial = []) =>
-    categoriesTrees.reduce(reducer, initial)
+  let categories = []
 
-  const categories =
-    department && category
-      ? getCategoryList(categoryWithChildrenReducer)
-      : department
-      ? getCategoryList(categoryReducer)
-      : []
-
-  return {
+  const params = {
     term: term ? decodeURIComponent(term) : term,
     categories,
   }
+
+  if (loading && !categoriesTrees) {
+    return params
+  }
+
+  if (department && category) {
+    categories = categoriesTrees.reduce(categoryWithChildrenReducer, [])
+  } else if (department) {
+    categories = categoriesTrees.reduce(categoryReducer, [])
+  }
+
+  params.categories = categories
+
+  return params
 }
 
 /**
@@ -107,7 +117,7 @@ const SearchResultContainer = props => {
           {...props}
           showMore={showMore}
           breadcrumbsProps={getBreadcrumbsProps(
-            Object.assign({}, params, { facets: { categoriesTrees } })
+            Object.assign({}, params, { categoriesTrees, loading })
           )}
           onFetchMore={handleFetchMore}
           fetchMoreLoading={fetchMoreLoading}
