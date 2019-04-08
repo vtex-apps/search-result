@@ -51,7 +51,8 @@ Now, you can change the behavior of the search result block that is in the store
       "not-found",
       "breadcrumb",
       "order-by",
-      "total-products"
+      "total-products",
+      "category-panel"
     ],
     "props": {
       "querySchema": {
@@ -81,7 +82,8 @@ When implementing this app as a block, various inner blocks may be available. Th
       "breadcrumb",
       "filter-navigator",
       "total-products",
-      "order-by"
+      "order-by",
+      "category-panel"
     ],
     "required": [
       "gallery"
