@@ -66,7 +66,7 @@ class CategoryPanel extends Component {
           ))}
         {category.Children.map(child => {
           if (child.Children && child.Children.length > 0) {
-            return this.renderCategoryShelf(child, noOfChildren, mobile)
+            return this.renderCategoryShelf(child, noOfChildren, quantityOfItemsPerRow, mobile)
           }
         })}
       </Fragment>
