@@ -21,6 +21,7 @@ export default class SearchResultQueryLoader extends Component {
     orderBy: SORT_OPTIONS[0].value,
     gap: GapPaddingTypes.SMALL.value,
     rest: '',
+    showCategoryPanel: false,
   }
 
   static uiSchema = {
@@ -183,6 +184,12 @@ SearchResultQueryLoader.getSchema = props => {
           'editor.search-result.pagination.show-more',
           'editor.search-result.pagination.infinite-scroll',
         ],
+      },
+      showCategoryPanel: {
+        title: 'editor.search-result.show-category-panel.title',
+        type: 'boolean',
+        default: false,
+        isLayout: true,
       },
     },
   }

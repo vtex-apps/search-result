@@ -49,6 +49,7 @@
   "editor.search-result.hiddenFacets.specificationFilters.hideAll": "Hide all the Specifications filters",
   "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter": "Hidden Specification filter",
   "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name": "Hidden Specification filter name",
+  "editor.search-result.show-category-panel.title": "Show Category Panel",
   "layoutModeSwitcher.inline": "Line",
   "layoutModeSwitcher.small": "Small",
   "layoutModeSwitcher.normal": "Normal",

@@ -6,7 +6,8 @@
       "not-found",
       "breadcrumb",
       "total-products",
-      "order-by"
+      "order-by",
+      "category-panel"
     ]
   }
 }

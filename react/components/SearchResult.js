@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint, withRuntimeContext } from 'vtex.render-runtime'
 
@@ -118,6 +118,7 @@ class SearchResult extends Component {
       fetchMoreLoading,
       summary,
       orderBy,
+      showCategoryPanel,
       runtime: { hints: { mobile } },
       gap,
     } = this.props
@@ -184,14 +185,19 @@ class SearchResult extends Component {
                 </div>
               </div>
             ) : (
-              <ExtensionPoint
-                id="gallery"
-                products={products}
-                summary={summary}
-                className="bn"
-                mobileLayoutMode={mobileLayoutMode}
-                gap={gap}
-              />
+              <Fragment>
+                {showCategoryPanel && (
+                  <ExtensionPoint id="category-panel" tree={tree} />
+                )}
+                <ExtensionPoint
+                  id="gallery"
+                  products={products}
+                  summary={summary}
+                  className="bn"
+                  mobileLayoutMode={mobileLayoutMode}
+                  gap={gap}
+                />
+              </Fragment>
             )}
             {children}
           </div>
