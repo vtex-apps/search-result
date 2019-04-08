@@ -50,6 +50,7 @@
   "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter": "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter",
   "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name": "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name",
   "editor.search-result.show-category-panel.title": "editor.search-result.show-category-panel.title",
+  "editor.search-result.quantity-of-items-per-row.title": "editor.search-result.quantity-of-items-per-row.title",
   "layoutModeSwitcher.inline": "layoutModeSwitcher.inline",
   "layoutModeSwitcher.small": "layoutModeSwitcher.small",
   "layoutModeSwitcher.normal": "layoutModeSwitcher.normal",

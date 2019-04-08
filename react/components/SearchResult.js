@@ -121,6 +121,7 @@ class SearchResult extends Component {
       showCategoryPanel,
       runtime: { hints: { mobile } },
       gap,
+      quantityOfItemsPerRow,
     } = this.props
     const {
       mobileLayoutMode,
@@ -187,7 +188,11 @@ class SearchResult extends Component {
             ) : (
               <Fragment>
                 {showCategoryPanel && (
-                  <ExtensionPoint id="category-panel" tree={tree} />
+                  <ExtensionPoint
+                    id="category-panel"
+                    tree={tree}
+                    quantityOfItemsPerRow={quantityOfItemsPerRow}
+                  />
                 )}
                 <ExtensionPoint
                   id="gallery"

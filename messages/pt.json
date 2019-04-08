@@ -50,6 +50,7 @@
   "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter": "Filtro de Especificacões oculto",
   "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name": "Nome do filtro de Especificações oculto",
   "editor.search-result.show-category-panel.title": "Mostrar painel de categorias",
+  "editor.search-result.quantity-of-items-per-row.title": "Número de categorias por linha",
   "layoutModeSwitcher.inline": "Na linha",
   "layoutModeSwitcher.small": "Pequeno",
   "layoutModeSwitcher.normal": "Normal",

@@ -22,6 +22,7 @@ export default class SearchResultQueryLoader extends Component {
     gap: GapPaddingTypes.SMALL.value,
     rest: '',
     showCategoryPanel: false,
+    quantityOfItemsPerRow: 4,
   }
 
   static uiSchema = {
@@ -191,6 +192,19 @@ SearchResultQueryLoader.getSchema = props => {
         default: false,
         isLayout: true,
       },
+      quantityOfItemsPerRow: {
+        type: 'number',
+        title: 'editor.search-result.quantity-of-items-per-row.title',
+        enum: [2, 4],
+        default: 4,
+        widget: {
+          'ui:widget': 'radio',
+          'ui:options': {
+            inline: true,
+          },
+        },
+        isLayout: true,
+      }
     },
   }
 }
