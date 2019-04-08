@@ -35,8 +35,15 @@ class CategoryPanel extends Component {
         to: child.Link,
       })
     )
-    const filterClasses = classNames(
-      searchResult.gallery,
+    const headerClasses = classNames(
+      searchResult.categoryPanelHeaderRow,
+      'flex flex-row flex-wrap items-stretch pa3 bn',
+      {
+        mh4: !mobile,
+      }
+    )
+    const itemClasses = classNames(
+      searchResult.categoryPanelItemRow,
       'flex flex-row flex-wrap items-stretch pa3 bn',
       {
         mh4: !mobile,
@@ -49,14 +56,14 @@ class CategoryPanel extends Component {
     }
     return (
       <Fragment key={`parent-fragment-${category.Id}`}>
-        <div className={filterClasses}>
+        <div className={headerClasses}>
           <h3>
             <Link to={category.Link}>{category.Name}</Link>
           </h3>
         </div>
         {items.length > 0 &&
           items.map((item, index) => (
-            <div key={`category-row-${index}`} className={filterClasses}>
+            <div key={`category-row-${index}`} className={itemClasses}>
               <CategoriesHighlights
                 categoriesHighlighted={item}
                 showCategoriesHighlighted={true}

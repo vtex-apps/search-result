@@ -80,6 +80,10 @@
   width: 2px;
 }
 
+.categoryPanelHeaderRow {}
+
+.categoryPanelItemRow {}
+
 .gallery {}
 
 .filterPopupButton {
