@@ -57,7 +57,7 @@ class CategoryPanel extends Component {
     return (
       <Fragment key={`parent-fragment-${category.Id}`}>
         <div className={headerClasses}>
-          <h3>
+          <h3 className="t-heading-3">
             <Link to={category.Link}>{category.Name}</Link>
           </h3>
         </div>
