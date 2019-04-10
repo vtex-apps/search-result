@@ -26,7 +26,6 @@ exports[`<OrderBy /> should match snapshot in mobile 1`] = `
       </button>
       <div
         class="z-1 absolute bg-base shadow-5 f5 w-100 b--muted-4 br2 ba bw1 br--bottom dn"
-        data-testid="dropdown-content"
       >
         <a
           class="mockedLink"
