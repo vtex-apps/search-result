@@ -49,6 +49,7 @@
   "editor.search-result.hiddenFacets.specificationFilters.hideAll": "editor.search-result.hiddenFacets.specificationFilters.hideAll",
   "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter": "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter",
   "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name": "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name",
+  "editor.search-result.showTitle": "editor.search-result.showTitle",
   "layoutModeSwitcher.inline": "layoutModeSwitcher.inline",
   "layoutModeSwitcher.small": "layoutModeSwitcher.small",
   "layoutModeSwitcher.normal": "layoutModeSwitcher.normal",

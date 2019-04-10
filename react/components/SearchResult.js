@@ -120,6 +120,7 @@ class SearchResult extends Component {
       orderBy,
       runtime: { hints: { mobile } },
       gap,
+      showTitle,
     } = this.props
     const {
       mobileLayoutMode,
@@ -150,12 +151,18 @@ class SearchResult extends Component {
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
+
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
         <div className={`${searchResult.container} w-100 mw9`}>
           <div className={`${searchResult.breadcrumb} db-ns dn-s`}>
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
+          <ExtensionPoint
+            id="search-title"
+            params={params}
+            showTitle={showTitle}
+          />
           <ExtensionPoint id="total-products"
             recordsFiltered={recordsFiltered}
           />

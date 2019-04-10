@@ -5,7 +5,8 @@
       "breadcrumb",
       "filter-navigator",
       "total-products",
-      "order-by"
+      "order-by",
+      "search-title"
     ],
     "required": [
       "gallery"
@@ -32,5 +33,8 @@
   },
   "total-products": {
     "component": "TotalProducts"
+  },
+  "search-title": {
+    "component": "Title"
   }
 }
