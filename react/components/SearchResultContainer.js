@@ -35,7 +35,7 @@ export default class SearchResultContainer extends Component {
       searchQuery: { facets },
     } = this.props
 
-    const categories = facets ? facets.CategoriesTrees : []
+    const categoriesTrees = facets ? facets.CategoriesTrees : []
 
     const categoryReducer = (acc, category) => [...acc, `/${category.Name}`]
 
@@ -48,7 +48,7 @@ export default class SearchResultContainer extends Component {
     ]
 
     const getCategoryList = (reducer, initial = []) =>
-      categories.reduce(reducer, initial)
+      categoriesTrees.reduce(reducer, initial)
 
     const categories =
       department && category
