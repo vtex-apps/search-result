@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
-import { IconCaret } from 'vtex.dreamstore-icons'
+import { IconCaret } from 'vtex.store-icons'
 
 import { mountOptions } from '../constants/SearchHelpers'
 import AccordionFilterItem from './AccordionFilterItem'

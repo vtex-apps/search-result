@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.12.14] - 2019-04-10
+### Changed
+- Using `store-icons` instead of `dreamstore-icons`.
+
 ## [3.12.13] - 2019-04-10
 ### Changed
 - Add new CSS handle `filterContent`. 

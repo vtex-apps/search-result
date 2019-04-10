@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl'
 
 import { withRuntimeContext, Link } from 'vtex.render-runtime'
 import { Button } from 'vtex.styleguide'
-import { IconFilter } from 'vtex.dreamstore-icons'
+import { IconFilter } from 'vtex.store-icons'
 
 import { facetOptionShape } from '../constants/propTypes'
 import { mountOptions } from '../constants/SearchHelpers'
