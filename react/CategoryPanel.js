@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import { Link, withRuntimeContext } from 'vtex.render-runtime'
+import { Link } from 'vtex.render-runtime'
 import { facetOptionShape } from './constants/propTypes'
 import searchResult from './searchResult.css'
 import CategoriesHighlights from 'vtex.store-components/CategoriesHighlights'
@@ -25,8 +25,7 @@ class CategoryPanel extends Component {
   renderCategoryShelf = (
     category,
     noOfChildren,
-    quantityOfItemsPerRow,
-    mobile = false
+    quantityOfItemsPerRow
   ) => {
     const categoriesHighlighted = category.Children.slice(0, noOfChildren).map(
       child => ({
@@ -37,17 +36,11 @@ class CategoryPanel extends Component {
     )
     const headerClasses = classNames(
       searchResult.categoryPanelHeaderRow,
-      'flex flex-row flex-wrap items-stretch pa3 bn',
-      {
-        mh4: !mobile,
-      }
+      'flex flex-row flex-wrap items-stretch pa3 bn mh4-ns'
     )
     const itemClasses = classNames(
       searchResult.categoryPanelItemRow,
-      'flex flex-row flex-wrap items-stretch pa3 bn',
-      {
-        mh4: !mobile,
-      }
+      'flex flex-row flex-wrap items-stretch pa3 bn mh4-ns'
     )
     let i = 0
     const items = []
@@ -73,7 +66,7 @@ class CategoryPanel extends Component {
           ))}
         {category.Children.map(child => {
           if (child.Children && child.Children.length > 0) {
-            return this.renderCategoryShelf(child, noOfChildren, quantityOfItemsPerRow, mobile)
+            return this.renderCategoryShelf(child, noOfChildren, quantityOfItemsPerRow)
           }
         })}
       </Fragment>
@@ -97,4 +90,4 @@ class CategoryPanel extends Component {
   }
 }
 
-export default withRuntimeContext(CategoryPanel)
+export default CategoryPanel
