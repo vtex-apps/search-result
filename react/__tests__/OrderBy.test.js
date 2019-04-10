@@ -27,16 +27,17 @@ describe('<OrderBy />', () => {
   it('should shown dropdown box on mobile mode', () => {
     const { container } = renderComponent()(true)
 
-    let dropdownContainer = container.querySelector('.dropdownMobile > .dn')
+    let dropdownContainer = container.querySelector('.dropdownSort > .dn')
     const button = container.querySelector('button')
-    // Expect Dropdown container be redered with display none
+
+    // Expect Dropdown container be rendered with display none
     expect(dropdownContainer).toBeDefined()
     expect(dropdownContainer).not.toBeNull()
 
     fireEvent.click(button)
-    dropdownContainer = container.querySelector('.dropdownMobile > .dn')
+    dropdownContainer = container.querySelector('.dropdownSort > .dn')
 
-    // Expect Dropdown container be redered without display none
+    // Expect Dropdown container be rendered without display none
     expect(dropdownContainer).toBeNull()
   })
 
@@ -45,7 +46,7 @@ describe('<OrderBy />', () => {
 
     const button = container.querySelector('button')
     fireEvent.click(button)
-    // Expect Dropdown container be redered without display none
+    // Expect Dropdown container be rendered without display none
     expect(getLinkProps).toBeCalled()
   })
 
