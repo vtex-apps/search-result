@@ -12,8 +12,6 @@ import searchResult from '../searchResult.css'
  */
 export default class FilterOptionTemplate extends Component {
   static propTypes = {
-    /** Content class names */
-    className: PropTypes.string,
     /** Filters to be shown, if no filter is provided, treat the children as simple node */
     filters: PropTypes.arrayOf(PropTypes.object),
     /** Function to handle filter rendering or node if no filter is provided */
@@ -88,7 +86,6 @@ export default class FilterOptionTemplate extends Component {
         </div>
         <div
           className={classNames(
-            this.props.className,
             'pt2',
             {
               'overflow-y-auto': collapsable,
@@ -97,7 +94,10 @@ export default class FilterOptionTemplate extends Component {
           style={{ maxHeight: '200px' }}
         >
           {collapsable ? (
-            <Collapse isOpened={open}>
+            <Collapse 
+              isOpened={open}
+              theme={{content: searchResult.filterContent}}
+            >
               {this.renderChildren()}
             </Collapse>
           ) : this.renderChildren()}
