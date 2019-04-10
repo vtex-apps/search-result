@@ -32,7 +32,10 @@ class SearchFooter extends Component {
       page,
       params,
       query,
-      scrollOptions: { baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET },
+      scrollOptions: {
+        baseElementId: 'search-result-anchor',
+        top: -HEADER_SCROLL_OFFSET,
+      },
     })
   }
 
@@ -41,9 +44,11 @@ class SearchFooter extends Component {
       <div
         className={`ph2 pointer ${
           pageNumber === this.props.page ? 'c-on-base' : 'c-disabled'
-          }`}
+        }`}
+        data-testid="page-button"
         onClick={() => this.handleClick(pageNumber)}
-        key={pageNumber}>
+        key={pageNumber}
+      >
         {pageNumber}
       </div>
     ))
@@ -57,7 +62,8 @@ class SearchFooter extends Component {
         {page > 1 && (
           <div
             className="ph2 pointer"
-            onClick={() => this.handleClick(page - 1)}>
+            onClick={() => this.handleClick(page - 1)}
+          >
             <IconCaret orientation="left" />
           </div>
         )}
@@ -69,56 +75,61 @@ class SearchFooter extends Component {
               <Fragment>
                 <div
                   className="ph2 pointer c-disabled"
-                  onClick={() => this.handleClick(page - 1)}>
+                  onClick={() => this.handleClick(page - 1)}
+                >
                   {page - 1}
                 </div>
                 <div
                   className="ph2 pointer c-on-base"
-                  onClick={() => this.handleClick(page)}>
+                  onClick={() => this.handleClick(page)}
+                >
                   {page}
                 </div>
                 <div
                   className="ph2 pointer c-disabled"
-                  onClick={() => this.handleClick(page + 1)}>
+                  onClick={() => this.handleClick(page + 1)}
+                >
                   {page + 1}
                 </div>
                 <div className="ph2 c-disabled">&hellip;</div>
                 <div
                   className="ph2 pointer c-disabled"
-                  onClick={() => this.handleClick(lastPage)}>
+                  onClick={() => this.handleClick(lastPage)}
+                >
                   {lastPage}
                 </div>
               </Fragment>
             ) : (
-                this.getNumberButtonsFromRange(
-                  lastPage - maxNumberButtons + 1,
-                  lastPage + 1
-                )
-              )}
+              this.getNumberButtonsFromRange(
+                lastPage - maxNumberButtons + 1,
+                lastPage + 1
+              )
+            )}
           </Fragment>
         ) : (
-            <Fragment>
-              {this.getNumberButtonsFromRange(
-                1,
-                Math.min(lastPage, maxNumberButtons) + 1
-              )}
-              {lastPage > maxNumberButtons && (
-                <div className="ph2 c-disabled">&hellip;</div>
-              )}
-              {page !== lastPage &&
-                lastPage > maxNumberButtons && (
-                  <div
-                    className="ph2 pointer c-disabled"
-                    onClick={() => this.handleClick(lastPage)}>
-                    {lastPage}
-                  </div>
-                )}
-            </Fragment>
-          )}
+          <Fragment>
+            {this.getNumberButtonsFromRange(
+              1,
+              Math.min(lastPage, maxNumberButtons) + 1
+            )}
+            {lastPage > maxNumberButtons && (
+              <div className="ph2 c-disabled">&hellip;</div>
+            )}
+            {page !== lastPage && lastPage > maxNumberButtons && (
+              <div
+                className="ph2 pointer c-disabled"
+                onClick={() => this.handleClick(lastPage)}
+              >
+                {lastPage}
+              </div>
+            )}
+          </Fragment>
+        )}
         {page < lastPage && (
           <div
             className="ph2 pointer"
-            onClick={() => this.handleClick(page + 1)}>
+            onClick={() => this.handleClick(page + 1)}
+          >
             <IconCaret orientation="right" />
           </div>
         )}
