@@ -3,19 +3,15 @@
 exports[`<CategoryPanel /> should match snapshot with 2 items per row 1`] = `
 <DocumentFragment>
   <div>
-    <div
-      class="categoryPanelHeaderRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
+    <h3
+      class="t-heading-3 categoryPanelHeaderRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
     >
-      <h3
-        class="t-heading-3"
+      <a
+        class="mockedLink"
       >
-        <a
-          class="mockedLink"
-        >
-          Eletrônicos
-        </a>
-      </h3>
-    </div>
+        Eletrônicos
+      </a>
+    </h3>
     <div
       class="categoryPanelItemRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
     >
@@ -30,19 +26,15 @@ exports[`<CategoryPanel /> should match snapshot with 2 items per row 1`] = `
         CategoriesHighlights
       </div>
     </div>
-    <div
-      class="categoryPanelHeaderRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
+    <h3
+      class="t-heading-3 categoryPanelHeaderRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
     >
-      <h3
-        class="t-heading-3"
+      <a
+        class="mockedLink"
       >
-        <a
-          class="mockedLink"
-        >
-          Livros
-        </a>
-      </h3>
-    </div>
+        Livros
+      </a>
+    </h3>
     <div
       class="categoryPanelItemRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
     >
@@ -50,19 +42,15 @@ exports[`<CategoryPanel /> should match snapshot with 2 items per row 1`] = `
         CategoriesHighlights
       </div>
     </div>
-    <div
-      class="categoryPanelHeaderRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
+    <h3
+      class="t-heading-3 categoryPanelHeaderRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
     >
-      <h3
-        class="t-heading-3"
+      <a
+        class="mockedLink"
       >
-        <a
-          class="mockedLink"
-        >
-          Roupas
-        </a>
-      </h3>
-    </div>
+        Roupas
+      </a>
+    </h3>
     <div
       class="categoryPanelItemRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
     >
@@ -84,19 +72,15 @@ exports[`<CategoryPanel /> should match snapshot with 2 items per row 1`] = `
 exports[`<CategoryPanel /> should match snapshot with 4 items per row 1`] = `
 <DocumentFragment>
   <div>
-    <div
-      class="categoryPanelHeaderRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
+    <h3
+      class="t-heading-3 categoryPanelHeaderRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
     >
-      <h3
-        class="t-heading-3"
+      <a
+        class="mockedLink"
       >
-        <a
-          class="mockedLink"
-        >
-          Eletrônicos
-        </a>
-      </h3>
-    </div>
+        Eletrônicos
+      </a>
+    </h3>
     <div
       class="categoryPanelItemRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
     >
@@ -104,19 +88,15 @@ exports[`<CategoryPanel /> should match snapshot with 4 items per row 1`] = `
         CategoriesHighlights
       </div>
     </div>
-    <div
-      class="categoryPanelHeaderRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
+    <h3
+      class="t-heading-3 categoryPanelHeaderRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
     >
-      <h3
-        class="t-heading-3"
+      <a
+        class="mockedLink"
       >
-        <a
-          class="mockedLink"
-        >
-          Livros
-        </a>
-      </h3>
-    </div>
+        Livros
+      </a>
+    </h3>
     <div
       class="categoryPanelItemRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
     >
@@ -124,19 +104,15 @@ exports[`<CategoryPanel /> should match snapshot with 4 items per row 1`] = `
         CategoriesHighlights
       </div>
     </div>
-    <div
-      class="categoryPanelHeaderRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
+    <h3
+      class="t-heading-3 categoryPanelHeaderRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
     >
-      <h3
-        class="t-heading-3"
+      <a
+        class="mockedLink"
       >
-        <a
-          class="mockedLink"
-        >
-          Roupas
-        </a>
-      </h3>
-    </div>
+        Roupas
+      </a>
+    </h3>
     <div
       class="categoryPanelItemRow flex flex-row flex-wrap items-stretch pa3 bn mh4-ns"
     >

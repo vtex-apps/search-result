@@ -49,11 +49,9 @@ class CategoryPanel extends Component {
     }
     return (
       <Fragment key={`parent-fragment-${category.Id}`}>
-        <div className={headerClasses}>
-          <h3 className="t-heading-3">
-            <Link to={category.Link}>{category.Name}</Link>
-          </h3>
-        </div>
+        <h3 className={`t-heading-3 ${headerClasses}`}>
+          <Link to={category.Link}>{category.Name}</Link>
+        </h3>
         {items.length > 0 &&
           items.map((item, index) => (
             <div key={`category-row-${index}`} className={itemClasses}>
