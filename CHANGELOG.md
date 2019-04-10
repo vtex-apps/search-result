@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.13.1] - 2019-04-10
+
+## [3.13.0] - 2019-04-10
+### Added
+
+- Add `search-title` block for displaying category or search term.
+
 ## [3.12.14] - 2019-04-10
 ### Changed
 - Using `store-icons` instead of `dreamstore-icons`.
