@@ -67,6 +67,7 @@ Now, you can change the behavior of the search result block that is in the store
         }
       },
       "pagination": "show-more",
+      "showCategoryPanel": true,
       "quantityOfItemsPerRow": 4
     }
   },
@@ -115,6 +116,7 @@ Through the Storefront, you can change the search-result behavior and interface.
 | `querySchema`  | `QuerySchema`  | Query made when there's no context                         | N/A               |
 | `hiddenFacets` | `HiddenFacets` | Indicates which facets will be hidden                      | N/A               |
 | `pagination`   | `Enum`         | Pagination type (values: 'show-more' or 'infinite-scroll') | `infinity-scroll` |
+| `showCategoryPanel`   | `Boolean`         | Show category panel | false |
 | `quantityOfItemsPerRow`   | `Enum`         | Number of cards per row in category panel (values: 2 or 4) | 4 |
 
 QuerySchema
