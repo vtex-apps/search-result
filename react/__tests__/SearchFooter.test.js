@@ -29,8 +29,8 @@ describe('<SearchFooter /> component', () => {
   })
 
   it('should return link', () => {
-    const { container, getLinkProps } = renderComponent()
-    const mainDiv = container.querySelector('.ph2.pointer.c-on-base')
+    const { getByTestId, getLinkProps } = renderComponent()
+    const mainDiv = getByTestId('page-button')
 
     fireEvent.click(mainDiv)
 
