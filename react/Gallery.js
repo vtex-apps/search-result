@@ -1,8 +1,9 @@
-import React from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import { withResizeDetector } from 'react-resize-detector'
-import { map, pluck } from 'ramda'
+import React from 'react'
+import AutoSizer from 'react-virtualized-auto-sizer'
+import { FixedSizeGrid as Grid } from 'react-window'
+import { pluck } from 'ramda'
 
 import { useRuntime } from 'vtex.render-runtime'
 
@@ -23,46 +24,49 @@ const Gallery = ({
   mobileLayoutMode = LAYOUT_MODE[0].value,
   maxItemsPerRow = 5,
   minItemWidth = 240,
-  width,
   summary,
 }) => {
-  const runtime = useRuntime()
+  const {
+    hints: { mobile },
+  } = useRuntime()
 
-  const layoutMode = runtime.hints.mobile ? mobileLayoutMode : 'normal'
+  const displayMode = mobile ? mobileLayoutMode : 'normal'
 
-  const getItemsPerRow = () => {
+  const getItemsPerRow = width => {
+    if (mobile) {
+      return TWO_COLUMN_ITEMS
+    }
+
     const maxItems = Math.floor(width / minItemWidth)
     return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
   }
 
-  const renderItem = item => {
-    const itemsPerRow =
-      layoutMode === 'small'
-        ? TWO_COLUMN_ITEMS
-        : getItemsPerRow() || maxItemsPerRow
+  const galleryClasses = classNames(searchResult.gallery, 'bn ph1 pl9-l h-100')
 
-    const style = {
-      flexBasis: `${100 / itemsPerRow}%`,
-      maxWidth: `${100 / itemsPerRow}%`,
-    }
+  return (
+    <div className={galleryClasses}>
+      <AutoSizer>
+        {({ height, width }) => {
+          const columnCount = getItemsPerRow(width)
+          const rowCount = Math.ceil(columnCount / products.length)
 
-    return (
-      <div
-        key={item.productId}
-        style={style}
-        className={classNames(searchResult.galleryItem, 'pa4')}
-      >
-        <GalleryItem item={item} summary={summary} displayMode={layoutMode} />
-      </div>
-    )
-  }
-
-  const galleryClasses = classNames(
-    searchResult.gallery,
-    'flex flex-row flex-wrap items-stretch bn ph1 pl9-l na4'
+          return (
+            <Grid
+              height={height}
+              width={width}
+              itemData={{ columnCount, products, summary, displayMode }}
+              columnWidth={minItemWidth}
+              columnCount={columnCount}
+              rowCount={rowCount}
+              rowHeight={502}
+            >
+              {GalleryItem}
+            </Grid>
+          )
+        }}
+      </AutoSizer>
+    </div>
   )
-
-  return <div className={galleryClasses}>{map(renderItem, products)}</div>
 }
 
 Gallery.propTypes = {
@@ -80,4 +84,4 @@ Gallery.propTypes = {
   minItemWidth: PropTypes.number,
 }
 
-export default withResizeDetector(Gallery)
+export default Gallery

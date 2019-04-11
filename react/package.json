@@ -19,6 +19,9 @@
     "react-motion": "^0.5.2",
     "react-outside-click-handler": "^1.2.2",
     "react-resize-detector": "^3.4.0",
+    "react-virtualized-auto-sizer": "^1.0.2",
+    "react-window": "^1.7.2",
+    "react-window-infinite-loader": "^1.0.3",
     "unorm": "^1.4.1"
   },
   "devDependencies": {
