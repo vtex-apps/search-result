@@ -204,6 +204,11 @@ SearchResultQueryLoader.getSchema = props => {
           },
         },
         isLayout: true,
+      },
+      showTitle: {
+        type: 'boolean',
+        title: 'editor.search-result.showTitle',
+        default: false,
       }
     },
   }

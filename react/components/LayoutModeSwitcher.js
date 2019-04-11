@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button } from 'vtex.styleguide'
-import { IconGrid, IconInlineGrid, IconSingleGrid } from 'vtex.dreamstore-icons'
+import { IconGrid, IconInlineGrid, IconSingleGrid } from 'vtex.store-icons'
 
 import searchResult from '../searchResult.css'
 

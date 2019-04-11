@@ -4,7 +4,7 @@ import { intlShape, injectIntl } from 'react-intl'
 import classNames from 'classnames'
 
 import { Checkbox } from 'vtex.styleguide'
-import { IconCaret } from 'vtex.dreamstore-icons'
+import { IconCaret } from 'vtex.store-icons'
 
 import { facetOptionShape } from '../constants/propTypes'
 import { getFilterTitle } from '../constants/SearchHelpers'

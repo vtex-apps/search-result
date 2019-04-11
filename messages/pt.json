@@ -51,6 +51,7 @@
   "editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name": "Nome do filtro de Especificações oculto",
   "editor.search-result.show-category-panel.title": "Mostrar painel de categorias",
   "editor.search-result.quantity-of-items-per-row.title": "Número de categorias por linha",
+  "editor.search-result.showTitle": "Mostrar titulo da categoria ou termo de busca em cima da galeria",
   "layoutModeSwitcher.inline": "Na linha",
   "layoutModeSwitcher.small": "Pequeno",
   "layoutModeSwitcher.normal": "Normal",

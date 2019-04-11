@@ -2,6 +2,7 @@
   "search-result": {
     "blocks": [
       "filter-navigator",
+      "search-title",
       "gallery",
       "not-found",
       "breadcrumb",

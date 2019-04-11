@@ -6,7 +6,7 @@ import { find, propEq } from 'ramda'
 
 import useOutsideClick from '../hooks/useOutsideClick'
 import { useRuntime, Link } from 'vtex.render-runtime'
-import { IconCaret } from 'vtex.dreamstore-icons'
+import { IconCaret } from 'vtex.store-icons'
 
 import searchResult from '../searchResult.css'
 

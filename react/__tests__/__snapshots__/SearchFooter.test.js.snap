@@ -7,21 +7,25 @@ exports[`<SearchFooter /> component should match snapshot 1`] = `
   >
     <div
       class="ph2 pointer c-on-base"
+      data-testid="page-button"
     >
       1
     </div>
     <div
       class="ph2 pointer c-disabled"
+      data-testid="page-button"
     >
       2
     </div>
     <div
       class="ph2 pointer c-disabled"
+      data-testid="page-button"
     >
       3
     </div>
     <div
       class="ph2 pointer c-disabled"
+      data-testid="page-button"
     >
       4
     </div>

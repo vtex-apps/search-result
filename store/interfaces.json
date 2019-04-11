@@ -6,7 +6,8 @@
       "filter-navigator",
       "total-products",
       "order-by",
-      "category-panel"
+      "category-panel",
+      "search-title"
     ],
     "required": [
       "gallery"
@@ -36,5 +37,8 @@
   },
   "category-panel": {
     "component": "CategoryPanel"
+  },
+  "search-title": {
+    "component": "Title"
   }
 }

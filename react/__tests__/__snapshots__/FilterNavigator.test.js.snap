@@ -33,11 +33,10 @@ exports[`<FilterNavigator /> should display related categories 1`] = `
           style="max-height: 200px;"
         >
           <div
-            class="ReactCollapse--collapse"
             style="overflow: hidden; height: 0px;"
           >
             <div
-              class="ReactCollapse--content"
+              class="filterContent"
             >
               <a
                 class="mockedLink"
@@ -101,11 +100,10 @@ exports[`<FilterNavigator /> should match snapshot with all 1`] = `
           style="max-height: 200px;"
         >
           <div
-            class="ReactCollapse--collapse"
             style="overflow: hidden; height: 0px;"
           >
             <div
-              class="ReactCollapse--content"
+              class="filterContent"
             >
               <a
                 class="mockedLink"

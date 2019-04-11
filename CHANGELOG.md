@@ -10,6 +10,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Add `CategoryPanel` component.
 
+## [3.13.1] - 2019-04-10
+
+## [3.13.0] - 2019-04-10
+### Added
+
+- Add `search-title` block for displaying category or search term.
+
+## [3.12.14] - 2019-04-10
+### Changed
+- Using `store-icons` instead of `dreamstore-icons`.
+
+## [3.12.13] - 2019-04-10
+### Changed
+- Add new CSS handle `filterContent`. 
+
+## [3.12.12] - 2019-04-10
+### Fixed
+
+- Error when trying to read properties from facets while loading.
+
 ## [3.12.11] - 2019-03-29
 ### Fixed
 
