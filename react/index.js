@@ -184,11 +184,6 @@ SearchResultQueryLoader.getSchema = props => {
           'editor.search-result.pagination.infinite-scroll',
         ],
       },
-      showTitle: {
-        type: 'boolean',
-        title: 'editor.search-result.showTitle',
-        default: false,
-      }
     },
   }
 }

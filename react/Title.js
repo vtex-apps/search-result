@@ -3,11 +3,7 @@ import React from 'react'
 
 import styles from './searchResult.css'
 
-const Title = ({ params, showTitle }) => {
-  if (!showTitle) {
-    return null
-  }
-
+const Title = ({ params }) => {
   const title = params.term ||
     params.subcategory ||
     params.category ||

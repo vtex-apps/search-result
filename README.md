@@ -114,7 +114,6 @@ Through the Storefront, you can change the search-result behavior and interface.
 | `querySchema` | `QuerySchema` | Query made when there's no context | N/A |
 | `hiddenFacets` | `HiddenFacets` | Indicates which facets will be hidden | N/A |
 | `pagination` | `Enum` | Pagination type (values: 'show-more' or 'infinite-scroll') | `infinity-scroll` |
-| `showTitle` | `boolean` | Enables the category name or search term as a title bellow breadcrumbs | `false` |
 
 QuerySchema
 
