@@ -16,7 +16,6 @@ const AvailableFilters = ({ filters = [], priceRange }) =>
             key={title}
             title={title}
             facets={facets}
-            type={type}
             priceRange={priceRange}
           />
         )
@@ -26,7 +25,6 @@ const AvailableFilters = ({ filters = [], priceRange }) =>
             key={title}
             title={title}
             facets={facets}
-            type={type}
             oneSelectedCollapse={oneSelectedCollapse}
           />
         )
