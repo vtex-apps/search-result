@@ -8,10 +8,10 @@ The VTEX Search Result app is a store component that handles with the result of 
 
 ## Release schedule
 
-| Release |       Status        | Initial Release | Maintenance LTS Start | End-of-life | Store Compatibility |
-| :-----: | :-----------------: | :-------------: | :-------------------: | :---------: | :-----------------: |
-|  [3.x]  | **Current Release** |   2018-12-01    |                       |             |         2.x         |
-|  [2.x]  | **Maintenance LTS** |   2018-10-02    |      2018-12-01       | March 2019  |         1.x         |
+| Release | Status | Initial Release | Maintenance LTS Start | End-of-life | Store Compatibility |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| [4.x] | **Current Release** | 2019-04-12 | | | 2.x |
+| [3.x] | **Maintenance LTS** | 2018-12-01 | 2019-04-12 | July 2019 | 2.x |
 
 See our [LTS policy](https://github.com/vtex-apps/awesome-io#lts-policy) for more information.
 
