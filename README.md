@@ -35,7 +35,7 @@ To configure or customize this app, you need to import it in your dependencies i
 
 ```json
   dependencies: {
-    "vtex.search-result": "3.x"
+    "vtex.search-result": "4.x"
   }
 ```
 
