@@ -35,6 +35,6 @@
     "component": "TotalProducts"
   },
   "search-title": {
-    "component": "Title"
+    "component": "SearchTitle"
   }
 }

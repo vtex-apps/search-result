@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.13.2] - 2019-04-12
+### Changed
+- Removed option `showTitle` on schema.
+
 ## [3.13.1] - 2019-04-10
 
 ## [3.13.0] - 2019-04-10
