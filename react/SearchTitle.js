@@ -4,15 +4,15 @@ import React from 'react'
 import styles from './searchResult.css'
 
 const SearchTitle = ({ params }) => {
-  const title = params.term ||
-    params.subcategory ||
-    params.category ||
-    params.department
+  const title =
+    params.term || params.subcategory || params.category || params.department
+
+  if (!title) {
+    return null
+  }
 
   return (
-    <h1 className={classNames(styles.galleryTitle, 't-heading-1')}>
-      {title}
-    </h1>
+    <h1 className={classNames(styles.galleryTitle, 't-heading-1')}>{title}</h1>
   )
 }
 
