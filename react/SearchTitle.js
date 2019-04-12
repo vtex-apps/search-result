@@ -3,7 +3,7 @@ import React from 'react'
 
 import styles from './searchResult.css'
 
-const Title = ({ params }) => {
+const SearchTitle = ({ params }) => {
   const title = params.term ||
     params.subcategory ||
     params.category ||
@@ -16,4 +16,4 @@ const Title = ({ params }) => {
   )
 }
 
-export default Title
+export default SearchTitle
