@@ -25,7 +25,7 @@ const FacetItem = ({ facet }) => {
       const facetIndex = query
         .toLowerCase()
         .split('/')
-        .findIndex(slug => slug === facet.slug.toLowerCase())
+        .findIndex(value => value === facet.value.toLowerCase())
 
       const urlParams = new URLSearchParams(window.location.search)
 
@@ -51,7 +51,7 @@ const FacetItem = ({ facet }) => {
   return (
     <div className="lh-copy w-100">
       <Checkbox
-        id={facet.slug}
+        id={facet.value}
         checked={facet.selected}
         label={`${facet.name} (${facet.quantity})`}
         name={facet.name}

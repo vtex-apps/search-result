@@ -11,7 +11,6 @@ import { IconFilter } from 'vtex.store-icons'
 import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
 import { facetOptionShape } from '../constants/propTypes'
-import { getMapByType } from '../constants/SearchHelpers'
 
 import searchResult from '../searchResult.css'
 
@@ -36,14 +35,14 @@ const FilterSidebar = ({ filters }) => {
   }, [selectedFilters, open])
 
   const isOptionSelected = opt =>
-    !!selectedFilters.find(facet => facet.slug === opt.slug)
+    !!selectedFilters.find(facet => facet.value === opt.value)
 
   const handleFilterCheck = filter => {
     if (!isOptionSelected(filter)) {
       setSelectedFilters(selectedFilters.concat(filter))
     } else {
       setSelectedFilters(
-        selectedFilters.filter(facet => facet.slug !== filter.slug)
+        selectedFilters.filter(facet => facet.value !== filter.value)
       )
     }
   }
@@ -63,10 +62,8 @@ const FilterSidebar = ({ filters }) => {
   }
 
   const handleApply = () => {
-    const params = selectedFilters.map(facet => facet.slug).join('/')
-    const map = selectedFilters
-      .map(facet => facet.map || getMapByType(facet.type))
-      .join(',')
+    const params = selectedFilters.map(facet => facet.value).join('/')
+    const map = selectedFilters.map(facet => facet.map).join(',')
 
     const query = new URLSearchParams(window.location.search)
 
