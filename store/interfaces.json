@@ -39,6 +39,6 @@
     "component": "CategoryPanel"
   },
   "search-title": {
-    "component": "Title"
+    "component": "SearchTitle"
   }
 }

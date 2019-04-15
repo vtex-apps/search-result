@@ -120,7 +120,6 @@ Through the Storefront, you can change the search-result behavior and interface.
 | `pagination` | `Enum` | Pagination type (values: 'show-more' or 'infinite-scroll') | `infinity-scroll` |
 | `showCategoryPanel` | `Boolean` | Show category panel | false |
 | `quantityOfItemsPerRow` | `Enum` | Number of cards per row in category panel (values: 2 or 4) | 4 |
-| `showTitle` | `boolean` | Enables the category name or search term as a title bellow breadcrumbs | `false` |
 
 QuerySchema
 

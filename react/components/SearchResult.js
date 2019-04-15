@@ -122,7 +122,6 @@ class SearchResult extends Component {
       runtime: { hints: { mobile } },
       gap,
       quantityOfItemsPerRow,
-      showTitle,
     } = this.props
     const {
       mobileLayoutMode,
@@ -160,11 +159,7 @@ class SearchResult extends Component {
           <div className={`${searchResult.breadcrumb} db-ns dn-s`}>
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
-          <ExtensionPoint
-            id="search-title"
-            params={params}
-            showTitle={showTitle}
-          />
+          <ExtensionPoint id="search-title" params={params} />
           <ExtensionPoint id="total-products"
             recordsFiltered={recordsFiltered}
           />
