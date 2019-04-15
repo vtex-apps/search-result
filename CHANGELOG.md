@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
-- Fixed `TotalProducts` proptype error.
+- `TotalProducts` proptype error.
 
 ## [3.13.2] - 2019-04-12
 ### Changed
