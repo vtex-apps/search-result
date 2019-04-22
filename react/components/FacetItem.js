@@ -25,7 +25,10 @@ const FacetItem = ({ facet }) => {
       const facetIndex = query
         .toLowerCase()
         .split('/')
-        .findIndex(value => value === facet.value.toLowerCase())
+        .map(decodeURIComponent)
+        .findIndex(
+          value => value === decodeURIComponent(facet.value).toLowerCase()
+        )
 
       const urlParams = new URLSearchParams(window.location.search)
 
@@ -39,7 +42,7 @@ const FacetItem = ({ facet }) => {
       return
     }
 
-    const [path, queryParams] = facet.link.split('?')
+    const [path, queryParams] = facet.linkEncoded.split('?')
 
     navigate({
       to: path,
