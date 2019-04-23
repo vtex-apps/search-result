@@ -11,7 +11,7 @@
     "required": [
       "gallery"
     ],
-    "component": "index"
+    "component": "SearchResult"
   },
   "filter-navigator": {
     "component": "FilterNavigator"
