@@ -11,27 +11,22 @@ import searchResult from '../../searchResult.css'
  * Search Result Component.
  */
 const ShowMoreLoaderResult = props => {
-  const {
-    products,
-    recordsFiltered,
-    onFetchMore,
-    fetchMoreLoading,
-  } = props
+  const { products, recordsFiltered, onFetchMore, fetchMoreLoading } = props
 
   return (
     <SearchResult {...props}>
-      <div className={`${searchResult.buttonShowMore} w-100 flex justify-center`}>
-        { (!!products && products.length < recordsFiltered) && (
+      <div
+        className={`${searchResult.buttonShowMore} w-100 flex justify-center`}
+      >
+        {!!products && products.length < recordsFiltered && (
           <Button
             onClick={onFetchMore}
             isLoading={fetchMoreLoading}
             size="small"
           >
-            <FormattedMessage
-              id="store/search-result.show-more-button"
-            />
-          </Button>)
-        }
+            <FormattedMessage id="store/search-result.show-more-button" />
+          </Button>
+        )}
       </div>
     </SearchResult>
   )
