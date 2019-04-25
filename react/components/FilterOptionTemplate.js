@@ -104,7 +104,7 @@ FilterOptionTemplate.propTypes = {
   /** Function to handle filter rendering or node if no filter is provided */
   children: PropTypes.oneOfType([PropTypes.func, PropTypes.node]).isRequired,
   /** Title */
-  title: PropTypes.string.isRequired,
+  title: PropTypes.node,
   /** Whether collapsing is enabled */
   collapsable: PropTypes.bool,
   /** Whether it represents the selected filters */

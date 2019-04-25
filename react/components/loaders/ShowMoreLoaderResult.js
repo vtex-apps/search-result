@@ -28,7 +28,7 @@ const ShowMoreLoaderResult = props => {
             size="small"
           >
             <FormattedMessage
-              id="search-result.show-more-button"
+              id="store/search-result.show-more-button"
             />
           </Button>)
         }

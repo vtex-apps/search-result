@@ -9,35 +9,35 @@ import searchResult from './searchResult.css'
 export const SORT_OPTIONS = [
   {
     value: '',
-    label: 'ordenation.sort-by',
+    label: 'store/ordenation.sort-by',
   },
   {
     value: 'OrderByTopSaleDESC',
-    label: 'ordenation.sales',
+    label: 'store/ordenation.sales',
   },
   {
     value: 'OrderByReleaseDateDESC',
-    label: 'ordenation.release.date',
+    label: 'store/ordenation.release.date',
   },
   {
     value: 'OrderByBestDiscountDESC',
-    label: 'ordenation.discount',
+    label: 'store/ordenation.discount',
   },
   {
     value: 'OrderByPriceDESC',
-    label: 'ordenation.price.descending',
+    label: 'store/ordenation.price.descending',
   },
   {
     value: 'OrderByPriceASC',
-    label: 'ordenation.price.ascending',
+    label: 'store/ordenation.price.ascending',
   },
   {
     value: 'OrderByNameASC',
-    label: 'ordenation.name.ascending',
+    label: 'store/ordenation.name.ascending',
   },
   {
     value: 'OrderByNameDESC',
-    label: 'ordenation.name.descending',
+    label: 'store/ordenation.name.descending',
   },
 ]
 

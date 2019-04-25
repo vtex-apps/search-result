@@ -95,7 +95,7 @@ const FilterSidebar = ({ filters }) => {
             searchResult.filterPopupTitle
           } c-on-base t-action--small ml-auto`}
         >
-          <FormattedMessage id="search-result.filter-action.title" />
+          <FormattedMessage id="store/search-result.filter-action.title" />
         </span>
         <span
           className={`${searchResult.filterPopupArrowIcon} ml-auto pl3 pt2`}
@@ -123,7 +123,7 @@ const FilterSidebar = ({ filters }) => {
               size="default"
               onClick={handleClearFilters}
             >
-              <FormattedMessage id="search-result.filter-button.clear" />
+              <FormattedMessage id="store/search-result.filter-button.clear" />
             </Button>
           </div>
           <div className="bottom-0 fr w-50 pr4 pl2">
@@ -133,7 +133,7 @@ const FilterSidebar = ({ filters }) => {
               size="default"
               onClick={handleApply}
             >
-              <FormattedMessage id="search-result.filter-button.apply" />
+              <FormattedMessage id="store/search-result.filter-button.apply" />
             </Button>
           </div>
         </div>

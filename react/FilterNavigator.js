@@ -22,9 +22,9 @@ export const BRANDS_TYPE = 'Brands'
 export const PRICE_RANGES_TYPE = 'PriceRanges'
 export const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
 
-const CATEGORIES_TITLE = 'search.filter.title.categories'
-const BRANDS_TITLE = 'search.filter.title.brands'
-const PRICE_RANGES_TITLE = 'search.filter.title.price-ranges'
+const CATEGORIES_TITLE = 'store/search.filter.title.categories'
+const BRANDS_TITLE = 'store/search.filter.title.brands'
+const PRICE_RANGES_TITLE = 'store/search.filter.title.price-ranges'
 
 const getCategories = (tree = []) => {
   return [
@@ -149,7 +149,7 @@ const FilterNavigator = ({
       <div className={filterClasses}>
         <div className="bb b--muted-4">
           <h5 className="t-heading-5 mv5">
-            <FormattedMessage id="search-result.filter-button.title" />
+            <FormattedMessage id="store/search-result.filter-button.title" />
           </h5>
         </div>
         <SelectedFilters filters={getSelectedFilters()} />

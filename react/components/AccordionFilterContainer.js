@@ -55,7 +55,7 @@ const AccordionFilterContainer = ({
             })}
           >
             {intl.formatMessage({
-              id: 'search-result.filter-breadcrumbs.primary',
+              id: 'store/search-result.filter-breadcrumbs.primary',
             })}
           </div>
         </div>

@@ -52,12 +52,12 @@ SearchResultQueryLoader.getSchema = props => {
   const querySchema = !props.searchQuery
     ? {
         querySchema: {
-          title: 'editor.search-result.query',
-          description: 'editor.search-result.query.description',
+          title: 'admin/editor.search-result.query',
+          description: 'admin/editor.search-result.query.description',
           type: 'object',
           properties: {
             maxItemsPerPage: {
-              title: 'editor.search-result.query.maxItemsPerPage',
+              title: 'admin/editor.search-result.query.maxItemsPerPage',
               type: 'number',
               default: DEFAULT_MAX_ITEMS_PER_PAGE,
             },
@@ -82,18 +82,18 @@ SearchResultQueryLoader.getSchema = props => {
     : {}
 
   return {
-    title: 'editor.search-result.title',
-    description: 'editor.search-result.description',
+    title: 'admin/editor.search-result.title',
+    description: 'admin/editor.search-result.description',
     type: 'object',
     properties: {
       ...querySchema,
       mobileLayout: {
-        title: 'editor.search-result.mobileLayout',
+        title: 'admin/editor.search-result.mobileLayout',
         type: 'object',
         isLayout: true,
         properties: {
           mode1: {
-            title: 'editor.search-result.mobileLayout.mode1',
+            title: 'admin/editor.search-result.mobileLayout.mode1',
             type: 'string',
             default: LAYOUT_MODE[0].value,
             enum: LAYOUT_MODE.map(opt => opt.value),
@@ -101,7 +101,7 @@ SearchResultQueryLoader.getSchema = props => {
             isLayout: true,
           },
           mode2: {
-            title: 'editor.search-result.mobileLayout.mode2',
+            title: 'admin/editor.search-result.mobileLayout.mode2',
             type: 'string',
             default: LAYOUT_MODE[1].value,
             enum: LAYOUT_MODE.map(opt => opt.value),
@@ -111,33 +111,34 @@ SearchResultQueryLoader.getSchema = props => {
         },
       },
       hiddenFacets: {
-        title: 'editor.search-result.hiddenFacets',
+        title: 'admin/editor.search-result.hiddenFacets',
         type: 'object',
         isLayout: true,
         properties: {
           brands: {
-            title: 'editor.search-result.hiddenFacets.brands',
+            title: 'admin/editor.search-result.hiddenFacets.brands',
             type: 'boolean',
             isLayout: true,
           },
           categories: {
-            title: 'editor.search-result.hiddenFacets.categories',
+            title: 'admin/editor.search-result.hiddenFacets.categories',
             type: 'boolean',
             isLayout: true,
           },
           priceRange: {
-            title: 'editor.search-result.hiddenFacets.priceRange',
+            title: 'admin/editor.search-result.hiddenFacets.priceRange',
             type: 'boolean',
             isLayout: true,
           },
           specificationFilters: {
-            title: 'editor.search-result.hiddenFacets.specificationFilters',
+            title:
+              'admin/editor.search-result.hiddenFacets.specificationFilters',
             type: 'object',
             isLayout: true,
             properties: {
               hideAll: {
                 title:
-                  'editor.search-result.hiddenFacets.specificationFilters.hideAll',
+                  'admin/editor.search-result.hiddenFacets.specificationFilters.hideAll',
                 type: 'boolean',
                 isLayout: true,
               },
@@ -146,13 +147,13 @@ SearchResultQueryLoader.getSchema = props => {
                 isLayout: true,
                 items: {
                   title:
-                    'editor.search-result.hiddenFacets.specificationFilters.hiddenFilter',
+                    'admin/editor.search-result.hiddenFacets.specificationFilters.hiddenFilter',
                   type: 'object',
                   isLayout: true,
                   properties: {
                     name: {
                       title:
-                        'editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name',
+                        'admin/editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name',
                       type: 'string',
                       isLayout: true,
                     },
@@ -165,12 +166,12 @@ SearchResultQueryLoader.getSchema = props => {
       },
       pagination: {
         type: 'string',
-        title: 'editor.search-result.pagination.title',
+        title: 'admin/editor.search-result.pagination.title',
         default: 'infinity-scroll',
         enum: PAGINATION_TYPES,
         enumNames: [
-          'editor.search-result.pagination.show-more',
-          'editor.search-result.pagination.infinite-scroll',
+          'admin/editor.search-result.pagination.show-more',
+          'admin/editor.search-result.pagination.infinite-scroll',
         ],
       },
     },

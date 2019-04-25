@@ -13,7 +13,7 @@ const TotalProducts = ({ recordsFiltered }) => {
     >
       <FormattedHTMLMessage
         tagName="span"
-        id="search.total-products"
+        id="store/search.total-products"
         values={{
           recordsFiltered,
         }}
