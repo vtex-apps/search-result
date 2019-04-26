@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import { map, flatten, filter, pipe, prop } from 'ramda'
+import { map, flatten, filter, prop, compose } from 'ramda'
 import React, { useRef, useState, useEffect, Fragment } from 'react'
 import { FormattedMessage } from 'react-intl'
 
@@ -11,6 +11,7 @@ import { IconFilter } from 'vtex.store-icons'
 import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
 import { facetOptionShape } from '../constants/propTypes'
+import useSelectedFilters from '../hooks/useSelectedFilters'
 
 import searchResult from '../searchResult.css'
 
@@ -18,12 +19,18 @@ const FilterSidebar = ({ filters }) => {
   const { navigate } = useRuntime()
 
   const [open, setOpen] = useState(false)
-  const [selectedFilters, setSelectedFilters] = useState(() =>
-    pipe(
-      map(prop('facets')),
-      flatten,
-      filter(prop('selected'))
-    )(filters || [])
+  const selectedFiltersFromProps = filter(
+    prop('selected'),
+    useSelectedFilters(
+      compose(
+        flatten,
+        map(prop('facets'))
+      )(filters)
+    )
+  )
+
+  const [selectedFilters, setSelectedFilters] = useState(
+    selectedFiltersFromProps
   )
 
   const lastSelectedFilters = useRef(selectedFilters)
@@ -48,12 +55,10 @@ const FilterSidebar = ({ filters }) => {
   }
 
   const handleClose = () => {
-    document.body.style.overflow = 'visible'
     setOpen(false)
   }
 
   const handleOpen = () => {
-    document.body.style.overflow = 'hidden'
     setOpen(true)
   }
 
@@ -120,7 +125,7 @@ const FilterSidebar = ({ filters }) => {
             <Button
               block
               variation="tertiary"
-              size="default"
+              size="regular"
               onClick={handleClearFilters}
             >
               <FormattedMessage id="store/search-result.filter-button.clear" />
@@ -130,7 +135,7 @@ const FilterSidebar = ({ filters }) => {
             <Button
               block
               variation="secondary"
-              size="default"
+              size="regular"
               onClick={handleApply}
             >
               <FormattedMessage id="store/search-result.filter-button.apply" />
@@ -143,7 +148,13 @@ const FilterSidebar = ({ filters }) => {
 }
 
 FilterSidebar.propTypes = {
-  filters: PropTypes.arrayOf(facetOptionShape).isRequired,
+  filters: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string,
+      title: PropTypes.string.isRequired,
+      facets: PropTypes.arrayOf(facetOptionShape),
+    })
+  ).isRequired,
 }
 
 export default FilterSidebar

@@ -22,6 +22,7 @@
   "admin/editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name": "Hidden Specification filter name",
   "admin/editor.search-result.showTitle": "Show category title or search term above the gallery",
   "admin/editor.search-result.gap.title": "Gap between gallery items",
+  "admin/editor.search-result.facet-quantity": "Show filter item quantity",
 
   "store/search-result.show-more-button": "Show more",
   "store/search-result.filter-button.title": "Filters",
@@ -43,6 +44,7 @@
   "store/search.what-to-do.2": "Try to use a single word.",
   "store/search.what-to-do.3": "Use generic terms in the search.",
   "store/search.what-to-do.4": "Try to search synonyms of the desired term.",
+  "store/search.no-products": "No products were found",
   "store/ordenation.button": "Sort",
   "store/ordenation.sort-by": "Sort By",
   "store/ordenation.sales": "Sales",

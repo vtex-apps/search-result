@@ -5,6 +5,7 @@ import { SORT_OPTIONS } from './OrderBy'
 import LocalQuery from './components/LocalQuery'
 import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 import QueryContext from './components/QueryContext'
+import SettingsContext from './components/SettingsContext'
 
 const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
@@ -28,7 +29,21 @@ export default class SearchResultQueryLoader extends Component {
   }
 
   render() {
-    const { querySchema } = this.props
+    const {
+      querySchema,
+      hiddenFacets,
+      showFacetsQuantity,
+      pagination,
+      mobileLayout,
+    } = this.props
+
+    const settings = {
+      hiddenFacets,
+      showFacetsQuantity,
+      pagination,
+      mobileLayout,
+    }
+
     return !this.props.searchQuery ||
       (querySchema && querySchema.enableCustomQuery) ? (
       <LocalQuery
@@ -36,13 +51,17 @@ export default class SearchResultQueryLoader extends Component {
         {...querySchema}
         render={props => (
           <QueryContext.Provider value={props.searchQuery.variables}>
-            <SearchResultContainer {...props} />
+            <SettingsContext.Provider value={settings}>
+              <SearchResultContainer {...props} />
+            </SettingsContext.Provider>
           </QueryContext.Provider>
         )}
       />
     ) : (
       <QueryContext.Provider value={this.props.searchQuery.variables}>
-        <SearchResultContainer {...this.props} />
+        <SettingsContext.Provider value={settings}>
+          <SearchResultContainer {...this.props} />
+        </SettingsContext.Provider>
       </QueryContext.Provider>
     )
   }
@@ -173,6 +192,11 @@ SearchResultQueryLoader.getSchema = props => {
           'admin/editor.search-result.pagination.show-more',
           'admin/editor.search-result.pagination.infinite-scroll',
         ],
+      },
+      showFacetQuantity: {
+        type: 'boolean',
+        title: 'admin/editor.search-result.facet-quantity',
+        default: false,
       },
     },
   }

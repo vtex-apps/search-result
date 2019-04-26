@@ -27,20 +27,24 @@ const NotFoundSearch = ({ term }) => {
           ops!
         </div>
         <div className="ph9" style={flexStyle}>
-          <FormattedMessage
-            id="store/search.empty-products"
-            values={{
-              term: <span className="c-action-primary">{term}</span>,
-            }}
-          >
-            {(...textList) => (
-              <span className="c-muted-1 b">
-                {textList.map((text, index) => (
-                  <Fragment key={index}>{text}</Fragment>
-                ))}
-              </span>
-            )}
-          </FormattedMessage>
+          {term ? (
+            <FormattedMessage
+              id="store/search.empty-products"
+              values={{
+                term: <span className="c-action-primary">{term}</span>,
+              }}
+            >
+              {(...textList) => (
+                <span className="c-muted-1 b">
+                  {textList.map((text, index) => (
+                    <Fragment key={index}>{text}</Fragment>
+                  ))}
+                </span>
+              )}
+            </FormattedMessage>
+          ) : (
+            <FormattedMessage id="store/search.no-products" />
+          )}
           <FormattedMessage id="store/search.what-do-i-do">
             {text => <p className="c-muted-2">{text}</p>}
           </FormattedMessage>
@@ -60,7 +64,7 @@ const NotFoundSearch = ({ term }) => {
 
 NotFoundSearch.propTypes = {
   /** Search term */
-  term: PropTypes.string.isRequired,
+  term: PropTypes.string,
 }
 
 export default NotFoundSearch

@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { map, flatten, path, contains, filter, prop } from 'ramda'
-import React from 'react'
+import React, { useMemo } from 'react'
 import ContentLoader from 'react-content-loader'
 import { FormattedMessage } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
@@ -14,6 +14,7 @@ import {
   paramShape,
   hiddenFacetsSchema,
 } from './constants/propTypes'
+import useSelectedFilters from './hooks/useSelectedFilters'
 
 import searchResult from './searchResult.css'
 
@@ -51,18 +52,20 @@ const FilterNavigator = ({
     hints: { mobile },
   } = useRuntime()
 
-  const getSelectedFilters = () => {
-    const availableCategories = filter(prop('selected'), getCategories(tree))
+  const selectedFilters = useSelectedFilters(
+    useMemo(() => {
+      const availableCategories = filter(prop('selected'), getCategories(tree))
 
-    const options = [
-      ...availableCategories,
-      ...map(prop('facets'), specificationFilters),
-      ...brands,
-      ...priceRanges,
-    ]
+      const options = [
+        ...availableCategories,
+        ...map(prop('facets'), specificationFilters),
+        ...brands,
+        ...priceRanges,
+      ]
 
-    return flatten(options).filter(opt => opt.selected)
-  }
+      return flatten(options)
+    }, [brands, priceRanges, specificationFilters, tree])
+  ).filter(facet => facet.selected)
 
   const getFilters = () => {
     const categories = getCategories(tree)
@@ -152,7 +155,7 @@ const FilterNavigator = ({
             <FormattedMessage id="store/search-result.filter-button.title" />
           </h5>
         </div>
-        <SelectedFilters filters={getSelectedFilters()} />
+        <SelectedFilters filters={selectedFilters} />
         <AvailableFilters filters={getFilters()} priceRange={priceRange} />
       </div>
     </div>

@@ -78,7 +78,7 @@ const SearchResultContainer = props => {
   const fetchMoreLocked = useRef(false)
 
   const handleFetchMore = () => {
-    if (fetchMoreLocked.current) {
+    if (fetchMoreLocked.current || products.length === 0) {
       return
     }
 
@@ -111,6 +111,7 @@ const SearchResultContainer = props => {
         }
 
         return {
+          ...prevResult,
           products: [...prevResult.products, ...fetchMoreResult.products],
         }
       },
