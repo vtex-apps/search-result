@@ -21,6 +21,8 @@ const FacetItem = ({ facet }) => {
   const { query, map } = useContext(QueryContext)
 
   const handleChange = () => {
+    const urlParams = new URLSearchParams(window.location.search)
+
     if (facet.selected) {
       const facetIndex = query
         .toLowerCase()
@@ -29,8 +31,6 @@ const FacetItem = ({ facet }) => {
         .findIndex(
           value => value === decodeURIComponent(facet.value).toLowerCase()
         )
-
-      const urlParams = new URLSearchParams(window.location.search)
 
       urlParams.set('map', removeElementAtIndex(map, facetIndex, ','))
 
@@ -42,11 +42,11 @@ const FacetItem = ({ facet }) => {
       return
     }
 
-    const [path, queryParams] = facet.linkEncoded.split('?')
+    urlParams.set('map', `${map},${facet.map}`)
 
     navigate({
-      to: path,
-      query: queryParams,
+      to: `/${query}/${facet.value}`,
+      query: urlParams.toString(),
       scrollOptions,
     })
   }
