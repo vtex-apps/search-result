@@ -1,3 +1,4 @@
+import { path } from 'ramda'
 import React from 'react'
 import { Query } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
@@ -48,15 +49,18 @@ const LocalQuery = props => {
       notifyOnNetworkStatusChange
       partialRefetch
     >
-      {searchQueryProps => {
-        const { data } = searchQueryProps
-        const { search } = data || {}
-
+      {searchQuery => {
         return render({
           ...props,
           searchQuery: {
-            ...searchQueryProps,
-            ...search,
+            ...searchQuery,
+            // backwards-compatibility with search-result <= 3.13.x
+            facets: path(['data', 'facets'], searchQuery),
+            products: path(['data', 'products'], searchQuery),
+            recordsFiltered: path(
+              ['data', 'facets', 'recordsFiltered'],
+              searchQuery
+            ),
           },
           searchContext: runtimePage,
           pagesPath: runtimePage,
