@@ -169,7 +169,7 @@ export default class SearchResultContainer extends Component {
           }
         )
 
-        // backwards compat
+        // backwards compatibility
         if (prevResult.search) {
           return {
             search: {
