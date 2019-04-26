@@ -188,7 +188,7 @@ class SearchResult extends Component {
               />
             ) : (
               <div className={styles.gallery}>
-                <ExtensionPoint id="not-found" term="test" />
+                <ExtensionPoint id="not-found" />
               </div>
             )}
             {children}

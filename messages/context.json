@@ -43,6 +43,7 @@
   "store/search.what-to-do.2": "Try to use a single word.",
   "store/search.what-to-do.3": "Use generic terms in the search.",
   "store/search.what-to-do.4": "Try to search synonyms of the desired term.",
+  "store/search.no-products": "No products were found",
   "store/ordenation.button": "Sort",
   "store/ordenation.sort-by": "Sort By",
   "store/ordenation.sales": "Sales",
