@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.14.0] - 2019-04-26
+### Changed
+
+- Remove usage of `rest` parameter.
+
 ## [3.13.4] - 2019-04-26
 ### Fixed
 - undefined error in fetch more.

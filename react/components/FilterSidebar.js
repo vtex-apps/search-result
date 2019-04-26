@@ -1,159 +1,149 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import {
-  map as mapRamda,
-  flatten,
-  filter,
-  pipe,
-} from 'ramda'
-import React, { Component, Fragment } from 'react'
+import { map, flatten, filter, pipe, prop } from 'ramda'
+import React, { useRef, useState, useEffect, Fragment } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { withRuntimeContext, Link } from 'vtex.render-runtime'
+import { useRuntime } from 'vtex.render-runtime'
 import { Button } from 'vtex.styleguide'
 import { IconFilter } from 'vtex.store-icons'
 
-import { facetOptionShape } from '../constants/propTypes'
-import { mountOptions } from '../constants/SearchHelpers'
 import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
+import { facetOptionShape } from '../constants/propTypes'
 
 import searchResult from '../searchResult.css'
 
-class FilterSidebar extends Component {
-  static propTypes = {
-    map: PropTypes.string.isRequired,
-    rest: PropTypes.string.isRequired,
-    getLinkProps: PropTypes.func.isRequired,
-    runtime: PropTypes.object.isRequired,
-    filters: PropTypes.arrayOf(facetOptionShape).isRequired,
-    selectedFilters: PropTypes.arrayOf(facetOptionShape).isRequired,
-  }
+const FilterSidebar = ({ filters }) => {
+  const { navigate } = useRuntime()
 
-  state = {
-    openContent: false,
-    selectedFilters: pipe(
-      mapRamda(filter =>
-        mountOptions(filter.options, filter.type, this.props.map, this.props.rest),
-      ),
+  const [open, setOpen] = useState(false)
+  const [selectedFilters, setSelectedFilters] = useState(() =>
+    pipe(
+      map(prop('facets')),
       flatten,
-      filter(option => option.selected),
-      mapRamda(option => ({
-        ...option,
-        link: option.Link,
-      }))
-    )(this.props.filters || []),
-  }
-
-  handleFilterCheck = filter => {
-    if (!this.isOptionSelected(filter)) {
-      this.setState({
-        selectedFilters: this.state.selectedFilters.concat({ ...filter, link: filter.Link }),
-      })
-    } else {
-      this.setState({
-        selectedFilters: this.state
-          .selectedFilters
-          .filter(opt => opt.slug !== filter.slug),
-      })
-    }
-  }
-
-  handleClose = () => {
-    document.body.style.overflow = 'visible'
-    this.setState({
-      openContent: false,
-    })
-  }
-
-  handleOpen = () => {
-    document.body.style.overflow = 'hidden'
-    this.setState({
-      openContent: true,
-    })
-  }
-
-  isOptionSelected = opt => (
-    !!this.state.selectedFilters.find(o => o.slug === opt.slug)
+      filter(prop('selected'))
+    )(filters || [])
   )
 
-  handleClearFilters = () => {
-    const { getLinkProps, runtime: { navigate } } = this.props
+  const lastSelectedFilters = useRef(selectedFilters)
 
-    this.setState({ selectedFilters: [] })
-    const pagesArgs = getLinkProps([])
-
-    const options = {
-      page: pagesArgs.page,
-      params: pagesArgs.params,
-      query: pagesArgs.queryString,
+  useEffect(() => {
+    if (!open) {
+      lastSelectedFilters.current = selectedFilters
     }
+  }, [selectedFilters, open])
 
-    navigate(options)
+  const isOptionSelected = opt =>
+    !!selectedFilters.find(facet => facet.value === opt.value)
+
+  const handleFilterCheck = filter => {
+    if (!isOptionSelected(filter)) {
+      setSelectedFilters(selectedFilters.concat(filter))
+    } else {
+      setSelectedFilters(
+        selectedFilters.filter(facet => facet.value !== filter.value)
+      )
+    }
   }
 
-  render() {
-    const { openContent, selectedFilters } = this.state
-    const {
-      filters,
-      map,
-      rest,
-      getLinkProps,
-    } = this.props
+  const handleClose = () => {
+    document.body.style.overflow = 'visible'
+    setOpen(false)
+  }
 
-    const pagesArgs = getLinkProps(mapRamda(opt => ({ ...opt, isSelected: false }), selectedFilters), true)
+  const handleOpen = () => {
+    document.body.style.overflow = 'hidden'
+    setOpen(true)
+  }
 
-    return (
-      <Fragment>
-        <button
-          className={classNames(`${searchResult.filterPopupButton} mv0 pointer flex justify-center items-center`, {
-            'bb b--muted-1': openContent,
-            'bn': !openContent,
-          })}
-          onClick={this.handleOpen}
+  const handleClearFilters = () => {
+    setSelectedFilters(lastSelectedFilters.current)
+  }
+
+  const handleApply = () => {
+    const params = selectedFilters.map(facet => facet.value).join('/')
+    const map = selectedFilters.map(facet => facet.map).join(',')
+
+    const query = new URLSearchParams(window.location.search)
+
+    query.set('map', map)
+
+    setOpen(false)
+    navigate({
+      to: `/${params}`,
+      query: query.toString(),
+    })
+  }
+
+  return (
+    <Fragment>
+      <button
+        className={classNames(
+          `${
+            searchResult.filterPopupButton
+          } mv0 pointer flex justify-center items-center`,
+          {
+            'bb b--muted-1': open,
+            bn: !open,
+          }
+        )}
+        onClick={handleOpen}
+      >
+        <span
+          className={`${
+            searchResult.filterPopupTitle
+          } c-on-base t-action--small ml-auto`}
         >
-          <span className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}>
-            <FormattedMessage id="search-result.filter-action.title" />
-          </span>
-          <span className={`${searchResult.filterPopupArrowIcon} ml-auto pl3 pt2`}>
-            <IconFilter size={16} viewBox='0 0 17 17' />
-          </span>
-        </button>
-
-        <Sidebar
-          onOutsideClick={this.handleClose}
-          isOpen={openContent}
+          <FormattedMessage id="store/search-result.filter-action.title" />
+        </span>
+        <span
+          className={`${searchResult.filterPopupArrowIcon} ml-auto pl3 pt2`}
         >
-          <AccordionFilterContainer
-            map={map}
-            rest={rest}
-            filters={filters}
-            onFilterCheck={this.handleFilterCheck}
-            selectedFilters={selectedFilters}
-            isOptionSelected={this.isOptionSelected}
-          />
-          <div className={`${searchResult.filterButtonsBox} bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base`}>
-            <div className="bottom-0 fl w-50 pl4 pr2">
-              <Button block variation="tertiary" size="default" onClick={this.handleClearFilters}>
-                <FormattedMessage id="search-result.filter-button.clear" />
-              </Button>
-            </div>
-            <div className="bottom-0 fr w-50 pr4 pl2">
-              <Link
-                page={pagesArgs.page}
-                params={pagesArgs.params}
-                query={pagesArgs.queryString}
-              >
-                <Button block variation="secondary" size="default">
-                  <FormattedMessage id="search-result.filter-button.apply" />
-                </Button>
-              </Link>
-            </div>
+          <IconFilter size={16} viewBox="0 0 17 17" />
+        </span>
+      </button>
+
+      <Sidebar onOutsideClick={handleClose} isOpen={open}>
+        <AccordionFilterContainer
+          filters={filters}
+          onFilterCheck={handleFilterCheck}
+          selectedFilters={selectedFilters}
+          isOptionSelected={isOptionSelected}
+        />
+        <div
+          className={`${
+            searchResult.filterButtonsBox
+          } bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base`}
+        >
+          <div className="bottom-0 fl w-50 pl4 pr2">
+            <Button
+              block
+              variation="tertiary"
+              size="default"
+              onClick={handleClearFilters}
+            >
+              <FormattedMessage id="store/search-result.filter-button.clear" />
+            </Button>
           </div>
-        </Sidebar>
-      </Fragment>
-    )
-  }
+          <div className="bottom-0 fr w-50 pr4 pl2">
+            <Button
+              block
+              variation="secondary"
+              size="default"
+              onClick={handleApply}
+            >
+              <FormattedMessage id="store/search-result.filter-button.apply" />
+            </Button>
+          </div>
+        </div>
+      </Sidebar>
+    </Fragment>
+  )
 }
 
-export default withRuntimeContext(FilterSidebar)
+FilterSidebar.propTypes = {
+  filters: PropTypes.arrayOf(facetOptionShape).isRequired,
+}
+
+export default FilterSidebar
