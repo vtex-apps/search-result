@@ -170,13 +170,11 @@ export default class SearchResultContainer extends Component {
         )
 
         return {
-          search: {
-            ...prevResult.search,
-            products: [
-              ...prevResult.search.products,
-              ...fetchMoreResult.search.products,
-            ],
-          },
+          ...prevResult,
+          products: [
+            ...prevResult.products,
+            ...fetchMoreResult.products,
+          ],
         }
       },
     })
