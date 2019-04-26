@@ -3,6 +3,7 @@ import { useRuntime } from 'vtex.render-runtime'
 import { Checkbox } from 'vtex.styleguide'
 
 import QueryContext from './QueryContext'
+import SettingsContext from './SettingsContext'
 import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
 
 const scrollOptions = {
@@ -19,6 +20,7 @@ const removeElementAtIndex = (str, index, separator) =>
 const FacetItem = ({ facet }) => {
   const { navigate } = useRuntime()
   const { query, map } = useContext(QueryContext)
+  const { showFacetQuantity } = useContext(SettingsContext)
 
   const handleChange = () => {
     const urlParams = new URLSearchParams(window.location.search)
@@ -56,7 +58,9 @@ const FacetItem = ({ facet }) => {
       <Checkbox
         id={facet.value}
         checked={facet.selected}
-        label={`${facet.name} (${facet.quantity})`}
+        label={
+          showFacetQuantity ? `${facet.name} (${facet.quantity})` : facet.name
+        }
         name={facet.name}
         onChange={handleChange}
         value={facet.name}

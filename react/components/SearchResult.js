@@ -114,6 +114,7 @@ class SearchResult extends Component {
       fetchMoreLoading,
       summary,
       orderBy,
+      showFacetQuantity,
       runtime: {
         hints: { mobile },
       },
@@ -169,6 +170,7 @@ class SearchResult extends Component {
               tree={tree}
               hiddenFacets={hiddenFacets}
               loading={showContentLoader}
+              showFacetQuantity={showFacetQuantity}
             />
           )}
           <div className={styles.resultGallery}>

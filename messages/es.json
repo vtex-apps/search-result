@@ -22,6 +22,7 @@
   "admin/editor.search-result.hiddenFacets.specificationFilters.hiddenFilter.name": "Nombre del filtro de Especificaciones oculto",
   "admin/editor.search-result.showTitle": "Mostrar el título de la categoría o el término de búsqueda en la parte superior de la galería",
   "admin/editor.search-result.gap.title": "Espacio entre los elementos de la galería",
+  "admin/editor.search-result.facet-quantity": "Mostrar la cantidad de filtros",
 
   "store/search-result.show-more-button": "Mostrar más",
   "store/search-result.filter-button.title": "Filtros",
