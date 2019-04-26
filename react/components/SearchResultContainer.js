@@ -169,6 +169,19 @@ export default class SearchResultContainer extends Component {
           }
         )
 
+        // backwards compat
+        if (prevResult.search) {
+          return {
+            search: {
+              ...prevResult.search,
+              products: [
+                ...prevResult.search.products,
+                ...fetchMoreResult.search.products,
+              ],
+            }
+          }
+        }
+
         return {
           ...prevResult,
           products: [
