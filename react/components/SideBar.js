@@ -62,7 +62,7 @@ Sidebar.propTypes = {
   /* Set the sideBar visibility */
   isOpen: PropTypes.bool,
   /* Sidebar content */
-  children: PropTypes.object.isRequired,
+  children: PropTypes.node,
   /* Function to be called when click in the close sidebar button or outside the sidebar */
   onOutsideClick: PropTypes.func,
 }
