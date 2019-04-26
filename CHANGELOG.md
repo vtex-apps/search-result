@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+
+- Use filters value instead of encoded link on navigate.
 
 ## [3.14.1] - 2019-04-26
 ### Fixed
