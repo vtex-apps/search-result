@@ -6,7 +6,7 @@ import LoadingOverlay from './LoadingOverlay'
 import { searchResultPropTypes } from '../constants/propTypes'
 import LayoutModeSwitcher, { LAYOUT_MODE } from './LayoutModeSwitcher'
 
-import searchResult from '../searchResult.css'
+import styles from '../searchResult.css'
 
 /**
  * Search Result Component.
@@ -136,7 +136,7 @@ class SearchResult extends Component {
     const term =
       params && params.term ? decodeURIComponent(params.term) : undefined
 
-    if (!products.length && !loading) {
+    if (recordsFiltered === 0 && !loading) {
       return <ExtensionPoint id="not-found" term={term} />
     }
 
@@ -146,9 +146,9 @@ class SearchResult extends Component {
 
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
-        <div className={`${searchResult.container} w-100 mw9`}>
+        <div className={`${styles.container} w-100 mw9`}>
           {!mobile && (
-            <div className={searchResult.breadcrumb}>
+            <div className={styles.breadcrumb}>
               <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
             </div>
           )}
@@ -171,14 +171,14 @@ class SearchResult extends Component {
               loading={showContentLoader}
             />
           )}
-          <div className={searchResult.resultGallery}>
+          <div className={styles.resultGallery}>
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
                 <div className="w3 ma0">
                   <Spinner />
                 </div>
               </div>
-            ) : (
+            ) : products.length > 0 ? (
               <ExtensionPoint
                 id="gallery"
                 products={products}
@@ -186,25 +186,23 @@ class SearchResult extends Component {
                 className="bn"
                 mobileLayoutMode={mobileLayoutMode}
               />
+            ) : (
+              <div className={styles.gallery}>
+                <ExtensionPoint id="not-found" term="test" />
+              </div>
             )}
             {children}
           </div>
           {mobile && (
-            <div
-              className={`${searchResult.border} bg-muted-5 h-50 self-center`}
-            />
+            <div className={`${styles.border} bg-muted-5 h-50 self-center`} />
           )}
           <ExtensionPoint id="order-by" orderBy={orderBy} />
           {mobile && (
-            <div
-              className={`${searchResult.border2} bg-muted-5 h-50 self-center`}
-            />
+            <div className={`${styles.border2} bg-muted-5 h-50 self-center`} />
           )}
           {mobile && (
             <div
-              className={`${
-                searchResult.switch
-              } flex justify-center items-center`}
+              className={`${styles.switch} flex justify-center items-center`}
             >
               <LayoutModeSwitcher
                 activeMode={mobileLayoutMode}
