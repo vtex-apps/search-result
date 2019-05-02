@@ -2,35 +2,27 @@
 import React from 'react'
 import { render } from '@vtex/test-tools/react'
 
-import categoriesTree, { numberOfFilters } from 'categoriesTree'
+import categoriesTree from 'categoriesTree'
 
 import FilterNavigator from '../FilterNavigator'
+import QueryContext from '../components/QueryContext'
 
 describe('<FilterNavigator />', () => {
-  const renderComponent = customProps => {
-    const getLinkProps = jest.fn().mockImplementation(pageNumber => {
-      return {
-        page: `mockedPage${pageNumber}`,
-        params: 'mockedParams',
-      }
-    })
+  const renderComponent = (customProps = { query: 'clothing' }) => {
     const props = {
-      getLinkProps,
       map: 'c',
-      rest: '',
       tree: categoriesTree,
       ...customProps,
     }
 
-    return { ...render(<FilterNavigator {...props} />), getLinkProps }
+    return render(
+      <QueryContext.Provider
+        value={{ query: customProps.query, map: props.map }}
+      >
+        <FilterNavigator {...props} />
+      </QueryContext.Provider>
+    )
   }
-
-  it('should call getLinkProps on render', () => {
-    const { getLinkProps } = renderComponent()
-
-    // Expect getLinkProps has been called
-    expect(getLinkProps).toBeCalledTimes(numberOfFilters)
-  })
 
   it('should match snapshot with all', () => {
     const { asFragment } = renderComponent()

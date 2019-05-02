@@ -6,7 +6,7 @@ import LoadingOverlay from './LoadingOverlay'
 import { searchResultPropTypes } from '../constants/propTypes'
 import LayoutModeSwitcher, { LAYOUT_MODE } from './LayoutModeSwitcher'
 
-import searchResult from '../searchResult.css'
+import styles from '../searchResult.css'
 
 /**
  * Search Result Component.
@@ -33,7 +33,6 @@ class SearchResult extends Component {
     params: this.props.params,
     priceRange: this.props.priceRange,
     priceRanges: this.props.priceRanges,
-    rest: this.props.rest,
     specificationFilters: this.props.specificationFilters,
     tree: this.props.tree,
     hiddenFacets: this.props.hiddenFacets,
@@ -69,7 +68,6 @@ class SearchResult extends Component {
         params,
         priceRange,
         priceRanges,
-        rest,
         specificationFilters,
         tree,
         hiddenFacets,
@@ -83,7 +81,6 @@ class SearchResult extends Component {
         params,
         priceRange,
         priceRanges,
-        rest,
         specificationFilters,
         tree,
         hiddenFacets,
@@ -113,40 +110,37 @@ class SearchResult extends Component {
     const {
       children,
       breadcrumbsProps,
-      getLinkProps,
       loading,
       fetchMoreLoading,
       summary,
       orderBy,
       showCategoryPanel,
-      runtime: { hints: { mobile } },
-      gap,
+      showFacetQuantity,
+      runtime: {
+        hints: { mobile },
+      },
       quantityOfItemsPerRow,
     } = this.props
     const {
       mobileLayoutMode,
       recordsFiltered,
-      products,
+      products = [],
       brands,
       map,
-      query,
       params,
       priceRange,
       priceRanges,
-      rest,
       specificationFilters,
       tree,
       hiddenFacets,
       showLoadingAsOverlay,
     } = this.state
 
-    const term = params && params.term
-      ? decodeURIComponent(params.term) : undefined
+    const term =
+      params && params.term ? decodeURIComponent(params.term) : undefined
 
-    if (!products.length && !loading) {
-      return (
-        <ExtensionPoint id="not-found" term={term} />
-      )
+    if (recordsFiltered === 0 && !loading) {
+      return <ExtensionPoint id="not-found" term={term} />
     }
 
     const hideFacets = !map || !map.length
@@ -155,39 +149,40 @@ class SearchResult extends Component {
 
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
-        <div className={`${searchResult.container} w-100 mw9`}>
-          <div className={`${searchResult.breadcrumb} db-ns dn-s`}>
-            <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
-          </div>
+        <div className={`${styles.container} w-100 mw9`}>
+          {!mobile && (
+            <div className={styles.breadcrumb}>
+              <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
+            </div>
+          )}
           <ExtensionPoint id="search-title" params={params} />
-          <ExtensionPoint id="total-products"
+          <ExtensionPoint
+            id="total-products"
             recordsFiltered={recordsFiltered}
           />
           {!hideFacets && (
             <ExtensionPoint
               id="filter-navigator"
               brands={brands}
-              getLinkProps={getLinkProps}
-              map={map}
+              showFilters={!!map}
               params={params}
               priceRange={priceRange}
               priceRanges={priceRanges}
-              query={query}
-              rest={rest}
               specificationFilters={specificationFilters}
               tree={tree}
               hiddenFacets={hiddenFacets}
-              loading={loading && !fetchMoreLoading}
+              loading={showContentLoader}
+              showFacetQuantity={showFacetQuantity}
             />
           )}
-          <div className={searchResult.resultGallery}>
+          <div className={styles.resultGallery}>
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
                 <div className="w3 ma0">
                   <Spinner />
                 </div>
               </div>
-            ) : (
+            ) : products.length > 0 ? (
               <Fragment>
                 {showCategoryPanel && (
                   <ExtensionPoint
@@ -202,26 +197,32 @@ class SearchResult extends Component {
                   summary={summary}
                   className="bn"
                   mobileLayoutMode={mobileLayoutMode}
-                  gap={gap}
                 />
               </Fragment>
+            ) : (
+              <div className={styles.gallery}>
+                <ExtensionPoint id="not-found" />
+              </div>
             )}
             {children}
           </div>
-          {mobile && <div className={`${searchResult.border} bg-muted-5 h-50 self-center`} />}
-          <ExtensionPoint id="order-by"
-            orderBy={orderBy}
-            getLinkProps={getLinkProps}
-          />
-          {mobile && <div className={`${searchResult.border2} bg-muted-5 h-50 self-center`} />}
-          {mobile && <div className={`${searchResult.switch} flex justify-center items-center`}>
-            <div className="dn-ns db-s">
+          {mobile && (
+            <div className={`${styles.border} bg-muted-5 h-50 self-center`} />
+          )}
+          <ExtensionPoint id="order-by" orderBy={orderBy} />
+          {mobile && (
+            <div className={`${styles.border2} bg-muted-5 h-50 self-center`} />
+          )}
+          {mobile && (
+            <div
+              className={`${styles.switch} flex justify-center items-center`}
+            >
               <LayoutModeSwitcher
                 activeMode={mobileLayoutMode}
                 onChange={this.handleMobileLayoutChange}
               />
             </div>
-          </div>}
+          )}
         </div>
       </LoadingOverlay>
     )

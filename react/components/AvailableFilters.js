@@ -2,13 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { PRICE_RANGES_TYPE } from '../FilterNavigator'
-import { mountOptions } from '../constants/SearchHelpers'
 import SearchFilter from './SearchFilter'
 import PriceRange from './PriceRange'
 
-const AvailableFilters = ({ filters, map, rest, priceRange, getLinkProps }) => (
+const AvailableFilters = ({ filters = [], priceRange }) =>
   filters.map(filter => {
-    const { type, title, options, oneSelectedCollapse = false } = filter
+    const { type, title, facets, oneSelectedCollapse = false } = filter
 
     switch (type) {
       case PRICE_RANGES_TYPE:
@@ -16,9 +15,7 @@ const AvailableFilters = ({ filters, map, rest, priceRange, getLinkProps }) => (
           <PriceRange
             key={title}
             title={title}
-            options={options}
-            getLinkProps={getLinkProps}
-            type={type}
+            facets={facets}
             priceRange={priceRange}
           />
         )
@@ -27,36 +24,24 @@ const AvailableFilters = ({ filters, map, rest, priceRange, getLinkProps }) => (
           <SearchFilter
             key={title}
             title={title}
-            options={mountOptions(options, type, map, rest)}
+            facets={facets}
             oneSelectedCollapse={oneSelectedCollapse}
-            type={type}
-            getLinkProps={getLinkProps}
           />
         )
     }
   })
-)
 
 AvailableFilters.propTypes = {
   /** Filters to be displayed */
-  filters: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string,
-    type: PropTypes.string,
-    rest: PropTypes.string,
-    oneSelectedCollapse: PropTypes.bool,
-  })),
-  /** Map query parameter */
-  map: PropTypes.string,
-  /** Rest query parameter */
-  rest: PropTypes.string,
-  /** Get the props to pass to render's Link */
-  getLinkProps: PropTypes.func,
+  filters: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      type: PropTypes.string,
+      oneSelectedCollapse: PropTypes.bool,
+    })
+  ),
   /** Price range query parameter */
   priceRange: PropTypes.string,
-}
-
-AvailableFilters.defaultProps = {
-  filters: [],
 }
 
 export default AvailableFilters

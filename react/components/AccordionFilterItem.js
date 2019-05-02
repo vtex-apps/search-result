@@ -13,32 +13,47 @@ import searchResult from '../searchResult.css'
 
 const AccordionFilterItem = ({
   title,
-  options,
+  facets,
   show,
   open,
   onOpen,
   intl,
   onFilterCheck,
   isOptionSelected,
-}) => (
+}) => {
+  const handleKeyDown = e => {
+    if (e.key === ' ') {
+      onOpen(e)
+    }
+  }
+
+  return (
     <Fragment>
       {!open && (
         <div className="pl7">
           <div
+            role="button"
+            tabIndex={0}
             className={classNames(
-              `${searchResult.accordionFilterItem} ${searchResult.filterAccordionItemBox} t-body pr5 pv3 pointer bb b--muted-5`,
+              `${searchResult.accordionFilterItem} ${
+                searchResult.filterAccordionItemBox
+              } t-body pr5 pv3 pointer bb b--muted-5`,
               {
                 [searchResult.accordionFilterItemActive]: open,
                 [`${searchResult.accordionFilterItemHidden} dn`]: !show,
               }
             )}
+            onKeyDown={handleKeyDown}
             onClick={onOpen}
           >
             <div
-              className={classNames(`${searchResult.accordionFilterItemTitle} pv4`, {
-                'c-on-base t-small': open,
-                'c-on-base t-heading-5': !open,
-              })}
+              className={classNames(
+                `${searchResult.accordionFilterItemTitle} pv4`,
+                {
+                  'c-on-base t-small': open,
+                  'c-on-base t-heading-5': !open,
+                }
+              )}
             >
               {getFilterTitle(title, intl)}
               <span className={`${searchResult.accordionFilterItemIcon} fr`}>
@@ -49,23 +64,29 @@ const AccordionFilterItem = ({
         </div>
       )}
       {open && (
-        <div className={`${searchResult.accordionFilterItemOptions} pl7 overflow-scroll h-100`}>
-          {options.map(opt => {
-            const { Name } = opt
+        <div
+          className={`${
+            searchResult.accordionFilterItemOptions
+          } pl7 overflow-scroll h-100`}
+        >
+          {facets.map(facet => {
+            const { name } = facet
 
             return (
               <div
-                className={`${searchResult.filterAccordionItemBox} pr4 pt3 items-center flex bb b--muted-5`}
-                key={Name}
+                className={`${
+                  searchResult.filterAccordionItemBox
+                } pr4 pt3 items-center flex bb b--muted-5`}
+                key={name}
               >
                 <Checkbox
                   className="mb0"
-                  checked={isOptionSelected(opt)}
-                  id={Name}
-                  label={Name}
-                  name={`checkbox-${Name}`}
-                  onChange={() => onFilterCheck(opt)}
-                  value={`option-${Name}`}
+                  checked={isOptionSelected(facet)}
+                  id={name}
+                  label={name}
+                  name={name}
+                  onChange={() => onFilterCheck(facet)}
+                  value={name}
                 />
               </div>
             )
@@ -74,12 +95,13 @@ const AccordionFilterItem = ({
       )}
     </Fragment>
   )
+}
 
 AccordionFilterItem.propTypes = {
   /** Title */
   title: PropTypes.string,
   /** Available filter options */
-  options: PropTypes.arrayOf(facetOptionShape),
+  facets: PropTypes.arrayOf(facetOptionShape),
   /** Filter type (e.g. CATEGORIES_TYPE, BRANDS_TYPE) */
   type: PropTypes.string,
   /** Whether to show any of the content */
@@ -98,6 +120,7 @@ AccordionFilterItem.propTypes = {
   intl: intlShape,
   /** Checkbox hit callback function */
   onFilterCheck: PropTypes.func,
+  isOptionSelected: PropTypes.func,
 }
 
 export default injectIntl(AccordionFilterItem)

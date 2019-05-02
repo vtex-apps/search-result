@@ -1,27 +1,23 @@
 export default [
   {
-    Id: 1,
-    Name: 'Eletrônicos',
-    Link: '/Eletronicos',
-    Quantity: 0,
-    Children: [
+    name: 'Eletrônicos',
+    link: '/Eletronicos',
+    quantity: 0,
+    children: [
       {
-        Id: 2,
-        Name: 'Smartphones',
-        Link: '/Eletronicos/Smartphones',
-        Quantity: 0,
+        name: 'Smartphones',
+        link: '/Eletronicos/Smartphones',
+        quantity: 0,
       },
       {
-        Id: 3,
-        Name: 'Videogames',
-        Link: '/Eletronicos/Videogames',
-        Quantity: 0,
+        name: 'Videogames',
+        link: '/Eletronicos/Videogames',
+        quantity: 0,
       },
       {
-        Id: 4,
-        Name: 'TVs',
-        Link: '/Eletronicos/TVs',
-        Quantity: 0,
+        name: 'TVs',
+        link: '/Eletronicos/TVs',
+        quantity: 0,
       },
     ],
   },

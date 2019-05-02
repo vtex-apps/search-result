@@ -6,10 +6,10 @@ exports[`<OrderBy /> should match snapshot 1`] = `
     style="position: absolute; width: 0px; height: 0px; visibility: hidden; display: none;"
   />
   <div
-    class="gallery flex flex-row flex-wrap items-stretch pa3 bn mh4"
+    class="gallery flex flex-row flex-wrap items-stretch bn ph1 pl9-l na4"
   >
     <div
-      class="galleryItem"
+      class="galleryItem pa4"
       style="flex-basis: 20%; max-width: 20%;"
     >
       <div>
@@ -17,7 +17,7 @@ exports[`<OrderBy /> should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="galleryItem"
+      class="galleryItem pa4"
       style="flex-basis: 20%; max-width: 20%;"
     >
       <div>
@@ -25,7 +25,7 @@ exports[`<OrderBy /> should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="galleryItem"
+      class="galleryItem pa4"
       style="flex-basis: 20%; max-width: 20%;"
     >
       <div>
@@ -33,7 +33,7 @@ exports[`<OrderBy /> should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="galleryItem"
+      class="galleryItem pa4"
       style="flex-basis: 20%; max-width: 20%;"
     >
       <div>
@@ -41,7 +41,7 @@ exports[`<OrderBy /> should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="galleryItem"
+      class="galleryItem pa4"
       style="flex-basis: 20%; max-width: 20%;"
     >
       <div>
@@ -49,7 +49,7 @@ exports[`<OrderBy /> should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="galleryItem"
+      class="galleryItem pa4"
       style="flex-basis: 20%; max-width: 20%;"
     >
       <div>
@@ -57,7 +57,7 @@ exports[`<OrderBy /> should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="galleryItem"
+      class="galleryItem pa4"
       style="flex-basis: 20%; max-width: 20%;"
     >
       <div>
@@ -65,7 +65,7 @@ exports[`<OrderBy /> should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="galleryItem"
+      class="galleryItem pa4"
       style="flex-basis: 20%; max-width: 20%;"
     >
       <div>
