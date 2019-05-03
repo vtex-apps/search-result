@@ -43,10 +43,6 @@
   justify-self: stretch;
 }
 
-.filter span:hover {
-  color: rgb(153, 175, 202)
-}
-
 .filters {
   -ms-grid-row: 2;
   -ms-grid-column: 1;

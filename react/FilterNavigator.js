@@ -19,13 +19,6 @@ import useSelectedFilters from './hooks/useSelectedFilters'
 
 import styles from './searchResult.css'
 
-const getCategories = (tree = []) => {
-  return [
-    ...tree,
-    ...flatten(tree.map(node => node.children && getCategories(node.children))),
-  ].filter(Boolean)
-}
-
 /**
  * Wrapper around the filters (selected and available) as well
  * as the popup filters that appear on mobile devices
@@ -96,8 +89,6 @@ const FilterNavigator = ({
     )
   }
 
-  const categories = getCategories(tree)
-
   return (
     <div className={styles.filters}>
       <div className={filterClasses}>
@@ -109,8 +100,8 @@ const FilterNavigator = ({
         <SelectedFilters filters={selectedFilters} />
         <CategoryFilters
           title={CATEGORIES_TITLE}
-          filters={categories}
-          isVisible={hiddenFacets.categories}
+          tree={tree}
+          isVisible={!hiddenFacets.categories}
         />
         <AvailableFilters filters={filters} priceRange={priceRange} />
       </div>
