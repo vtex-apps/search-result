@@ -1,57 +1,13 @@
 import React, { useContext } from 'react'
-import { useRuntime } from 'vtex.render-runtime'
 import { Checkbox } from 'vtex.styleguide'
 
-import QueryContext from './QueryContext'
 import SettingsContext from './SettingsContext'
-import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
-
-const scrollOptions = {
-  baseElementId: 'search-result-anchor',
-  top: -HEADER_SCROLL_OFFSET,
-}
-
-const removeElementAtIndex = (str, index, separator) =>
-  str
-    .split(separator)
-    .filter((_, i) => i !== index)
-    .join(separator)
+import useFacetNavigation from '../hooks/useFacetNavigation'
 
 const FacetItem = ({ facet }) => {
-  const { navigate } = useRuntime()
-  const { query, map } = useContext(QueryContext)
   const { showFacetQuantity } = useContext(SettingsContext)
 
-  const handleChange = () => {
-    const urlParams = new URLSearchParams(window.location.search)
-
-    if (facet.selected) {
-      const facetIndex = query
-        .toLowerCase()
-        .split('/')
-        .map(decodeURIComponent)
-        .findIndex(
-          value => value === decodeURIComponent(facet.value).toLowerCase()
-        )
-
-      urlParams.set('map', removeElementAtIndex(map, facetIndex, ','))
-
-      navigate({
-        to: `/${removeElementAtIndex(query, facetIndex, '/')}`,
-        query: urlParams.toString(),
-        scrollOptions,
-      })
-      return
-    }
-
-    urlParams.set('map', `${map},${facet.map}`)
-
-    navigate({
-      to: `/${query}/${facet.value}`,
-      query: urlParams.toString(),
-      scrollOptions,
-    })
-  }
+  const navigateToFacet = useFacetNavigation()
 
   return (
     <div className="lh-copy w-100">
@@ -62,7 +18,7 @@ const FacetItem = ({ facet }) => {
           showFacetQuantity ? `${facet.name} (${facet.quantity})` : facet.name
         }
         name={facet.name}
-        onChange={handleChange}
+        onChange={() => navigateToFacet(facet)}
         value={facet.name}
       />
     </div>
