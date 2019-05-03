@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.15.2] - 2019-05-03
+### Fixed
+- Infinite loading on fetch more.
+
 ## [3.15.1] - 2019-05-01
 ### Changed
 - Use `recordsFiltered` value from productSearch query.

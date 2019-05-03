@@ -111,7 +111,13 @@ const SearchResultContainer = props => {
 
         return {
           ...prevResult,
-          products: [...prevResult.products, ...fetchMoreResult.products],
+          productSearch: {
+            ...prevResult.productSearch,
+            products: [
+              ...prevResult.productSearch.products,
+              ...fetchMoreResult.productSearch.products,
+            ],
+          },
         }
       },
     })
