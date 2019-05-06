@@ -12,7 +12,7 @@ const SearchTitle = ({ params }) => {
   }
 
   return (
-    <h1 className={classNames(styles.galleryTitle, 't-heading-1')}>{title}</h1>
+    <h1 className={classNames(styles.galleryTitle, 't-heading-1')}>{decodeURI(title)}</h1>
   )
 }
 

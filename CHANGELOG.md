@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.15.3] - 2019-05-06
+### Fixed
+- Decode gallery title.
+
 ## [3.15.2] - 2019-05-03
 ### Fixed
 - Infinite loading on fetch more.
