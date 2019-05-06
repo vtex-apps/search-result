@@ -51,8 +51,8 @@ const LocalQuery = props => {
     from,
     to,
     withFacets: !!(
-      map &&
-      map.length > 0 &&
+      facetMap &&
+      facetMap.length > 0 &&
       facetQuery &&
       facetQuery.length > 0
     ),
