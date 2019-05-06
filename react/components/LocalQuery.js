@@ -1,4 +1,4 @@
-import { path } from 'ramda'
+import { path, zip } from 'ramda'
 import React from 'react'
 import { Query } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
@@ -12,8 +12,8 @@ const DEFAULT_MAX_ITEMS_PER_PAGE = 10
 const LocalQuery = props => {
   const {
     maxItemsPerPage = DEFAULT_MAX_ITEMS_PER_PAGE,
-    queryField,
-    mapField,
+    queryField = '',
+    mapField = '',
     orderByField = SORT_OPTIONS[0].value,
     query: {
       order: orderBy = orderByField,
@@ -30,6 +30,19 @@ const LocalQuery = props => {
   const from = (page - 1) * maxItemsPerPage
   const to = from + maxItemsPerPage - 1
 
+  const { map: facetMap, query: facetQuery } = zip(
+    queryField.split('/'),
+    map.split(',')
+  )
+    .filter(([_, map]) => map === 'c' || map === 'ft')
+    .reduce(
+      ({ query: queryArr, map: mapArr }, [query, map]) => ({
+        query: [...queryArr, query],
+        map: [...mapArr, map],
+      }),
+      { map: [], query: [] }
+    )
+
   const variables = {
     query: queryField,
     map,
@@ -43,6 +56,8 @@ const LocalQuery = props => {
       queryField &&
       queryField.length > 0
     ),
+    facetQuery: facetQuery.join('/'),
+    facetMap: facetMap.join(',')
   }
 
   return (
