@@ -75,7 +75,7 @@ SearchResultQueryLoader.getSchema = props => {
             orderByField: {
               title: 'Order by field',
               type: 'string',
-              default: SORT_OPTIONS[1].value,
+              default: SORT_OPTIONS[0].value,
               enum: SORT_OPTIONS.map(opt => opt.value),
               enumNames: SORT_OPTIONS.map(opt => opt.label),
             },
