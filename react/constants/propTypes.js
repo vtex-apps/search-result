@@ -15,11 +15,11 @@ export const paramShape = PropTypes.shape({
 
 export const facetOptionShape = PropTypes.shape({
   /** Quantity of products matched with the facet option. */
-  Quantity: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
   /** Link of the facets option. */
-  Link: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
   /** Name of the facet option. */
-  Name: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 })
 
 export const productShape = PropTypes.shape({
@@ -78,11 +78,11 @@ export const productShape = PropTypes.shape({
 
 export const facetsShape = PropTypes.shape({
   /** Departments matched with the facets. */
-  Departments: PropTypes.arrayOf(facetOptionShape),
+  departments: PropTypes.arrayOf(facetOptionShape),
   /** Brands matched with the facets. */
-  Brands: PropTypes.arrayOf(facetOptionShape),
+  brands: PropTypes.arrayOf(facetOptionShape),
   /** SpecificationFilters matched with the facets. */
-  SpecificationFilters: PropTypes.arrayOf(
+  specificationFilters: PropTypes.arrayOf(
     PropTypes.shape({
       /** SpecificationFilter's name. */
       name: PropTypes.string.isRequired,
@@ -91,14 +91,14 @@ export const facetsShape = PropTypes.shape({
     })
   ),
   /** Categories matched with the facets. */
-  CategoriesTrees: PropTypes.arrayOf(
+  categoriesTrees: PropTypes.arrayOf(
     PropTypes.shape({
       /** Category's name. */
-      Name: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
       /** Category's quantity. */
-      Quantity: PropTypes.number.isRequired,
+      quantity: PropTypes.number.isRequired,
       /** Array of SubCategories. */
-      Children: PropTypes.arrayOf(facetOptionShape),
+      children: PropTypes.arrayOf(facetOptionShape),
     })
   ),
 })
@@ -113,11 +113,6 @@ export const searchQueryShape = PropTypes.shape({
 })
 
 export const queryShape = PropTypes.shape({
-  /**
-   * Rest of the search term, e.g: eletronics/smartphones/samsung implies that
-   * rest will be equal to "smartphones,samsung".
-   */
-  rest: PropTypes.string,
   /** Determines the types of the terms, e.g: "c,c,b" (category, category, brand). */
   map: PropTypes.string,
   /** Current ordenation. */
@@ -172,8 +167,6 @@ export const searchResultContainerPropTypes = {
   params: PropTypes.object,
   /** Map param. e.g: c,c */
   map: PropTypes.string,
-  /** Rest param. e.g: Android,Samsung */
-  rest: PropTypes.string,
   /** Search result page. */
   page: PropTypes.number.isRequired,
   /** Search result ordernation. */
@@ -194,8 +187,6 @@ export const searchResultPropTypes = {
   recordsFiltered: PropTypes.number.isRequired,
   /** List of brands available */
   brands: PropTypes.array.isRequired,
-  /** Retrieve link props */
-  getLinkProps: PropTypes.func.isRequired,
   /** Map param. e.g: c,c */
   map: PropTypes.string,
   params: PropTypes.object,
@@ -203,8 +194,6 @@ export const searchResultPropTypes = {
   priceRange: PropTypes.string,
   /** List of price ranges filter */
   priceRanges: PropTypes.array.isRequired,
-  /** Rest param. e.g: Android,Samsung */
-  rest: PropTypes.string,
   /** Hidden specification filters facets configuration */
   specificationFilters: PropTypes.array.isRequired,
   /** Categories matched with the facets. */
@@ -230,8 +219,6 @@ export const searchResultPropTypes = {
 }
 
 export const loaderPropTypes = {
-  /** Max number of items retrieved each time */
-  maxItemsPerPage: PropTypes.number.isRequired,
   /** List of products */
   products: PropTypes.arrayOf(productShape),
   /** Function to refetch de data query */

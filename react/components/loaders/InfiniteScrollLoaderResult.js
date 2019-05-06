@@ -9,16 +9,11 @@ import SearchResult from '../SearchResult'
  * Search Result Component.
  */
 const InfiniteScrollLoaderResult = props => {
-  const {
-    onFetchMore,
-    recordsFiltered,
-    fetchMoreLoading,
-    products,
-  } = props
+  const { onFetchMore, recordsFiltered, fetchMoreLoading, products } = props
 
   return (
     <InfiniteScroll
-      style={{ 'overflow': 'none' }}
+      style={{ overflow: 'none' }}
       dataLength={products.length}
       next={onFetchMore}
       hasMore={products.length < recordsFiltered}

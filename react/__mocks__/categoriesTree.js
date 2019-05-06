@@ -1,57 +1,57 @@
 export default [
   {
-    Name: 'Eletrônicos',
-    Link: '/Eletronicos',
-    Quantity: 0,
-    Children: [
+    name: 'Eletrônicos',
+    link: '/Eletronicos',
+    quantity: 0,
+    children: [
       {
-        Name: 'Smartphones',
-        Link: '/Eletronicos/Smartphones',
-        Quantity: 0,
+        name: 'Smartphones',
+        link: '/Eletronicos/Smartphones',
+        quantity: 0,
       },
       {
-        Name: 'Videogames',
-        Link: '/Eletronicos/Videogames',
-        Quantity: 0,
+        name: 'Videogames',
+        link: '/Eletronicos/Videogames',
+        quantity: 0,
       },
       {
-        Name: 'TVs',
-        Link: '/Eletronicos/TVs',
-        Quantity: 0,
-      },
-    ],
-  },
-  {
-    Name: 'Livros',
-    Link: '/Livros',
-    Quantity: 0,
-    Children: [
-      {
-        Name: 'HQs e Mangas',
-        Link: '/Livros/HQs e Mangas',
-        Quantity: 0,
+        name: 'TVs',
+        link: '/Eletronicos/TVs',
+        quantity: 0,
       },
     ],
   },
   {
-    Name: 'Roupas',
-    Link: '/Roupas',
-    Quantity: 0,
-    Children: [
+    name: 'Livros',
+    link: '/Livros',
+    quantity: 0,
+    children: [
       {
-        Name: 'Blusas',
-        Link: '/Roupas/Blusas',
-        Quantity: 0,
+        name: 'HQs e Mangas',
+        link: '/Livros/HQs e Mangas',
+        quantity: 0,
+      },
+    ],
+  },
+  {
+    name: 'Roupas',
+    link: '/Roupas',
+    quantity: 0,
+    children: [
+      {
+        name: 'Blusas',
+        link: '/Roupas/Blusas',
+        quantity: 0,
       },
       {
-        Name: 'Calças',
-        Link: '/Roupas/Calcas',
-        Quantity: 0,
+        name: 'Calças',
+        link: '/Roupas/Calcas',
+        quantity: 0,
       },
       {
-        Name: 'Moletom',
-        Link: '/Roupas/Moletom',
-        Quantity: 0,
+        name: 'Moletom',
+        link: '/Roupas/Moletom',
+        quantity: 0,
       },
     ],
   },

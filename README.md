@@ -1,5 +1,7 @@
 # VTEX Search Result
 
+[![Build Status](https://api.travis-ci.org/vtex-apps/search-result.svg?branch=master)](https://travis-ci.org/vtex-apps/search-result)
+
 ## Description
 
 The VTEX Search Result app is a store component that handles with the result of our [_Search API_](https://documenter.getpostman.com/view/845/vtex-search-api/Hs43#8b71745e-00f9-6c98-b776-f4468ecb7a5e), and this app is used by store theme.
@@ -23,6 +25,7 @@ See our [LTS policy](https://github.com/vtex-apps/awesome-io#lts-policy) for mor
   - [Styles API](#styles-api)
     - [CSS namespaces](#css-namespaces)
 - [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
 - [Tests](#tests)
 
 ## Usage
@@ -219,10 +222,10 @@ Below, we describe the namespaces that are defined in the search-result.
 
 You can check if others are experiencing similar issues [here](https://github.com/vtex-apps/search-result/issues). Also feel free to [open issues](https://github.com/vtex-apps/search-result/issues/new).
 
+## Contributing
+
+Check it out [how to contribute](https://github.com/vtex-apps/awesome-io#contributing) with this project. 
+
 ## Tests
 
 To execute our tests go to `react/` folder and run `npm test`
-
-### Travis CI
-
-[![Build Status](https://api.travis-ci.org/vtex-apps/search-result.svg?branch=master)](https://travis-ci.org/vtex-apps/search-result)
