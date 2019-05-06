@@ -30,11 +30,6 @@ exports[`<OrderBy /> should match snapshot in mobile 1`] = `
         <a
           class="mockedLink"
         >
-          Sort By
-        </a>
-        <a
-          class="mockedLink"
-        >
           Sales
         </a>
         <a
@@ -79,7 +74,7 @@ exports[`<OrderBy /> should match snapshot in web mod 1`] = `
     class="orderBy"
   >
     <div
-      options="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
+      options="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
       value="OrderByTopSaleDESC"
     >
       Dropdown
