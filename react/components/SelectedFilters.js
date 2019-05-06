@@ -10,6 +10,10 @@ import { facetOptionShape } from '../constants/propTypes'
  * Search Filter Component.
  */
 const SelectedFilters = ({ filters = [], intl }) => {
+  if (!filters.length) {
+    return null
+  }
+
   const title = intl.formatMessage({ id: 'store/search.selected-filters' })
   return (
     <FilterOptionTemplate
