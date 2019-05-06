@@ -8,10 +8,6 @@ import searchResult from './searchResult.css'
 
 export const SORT_OPTIONS = [
   {
-    value: '',
-    label: 'store/ordenation.sort-by',
-  },
-  {
     value: 'OrderByTopSaleDESC',
     label: 'store/ordenation.sales',
   },
