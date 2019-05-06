@@ -15,6 +15,7 @@ const LocalQuery = props => {
     queryField = '',
     mapField = '',
     orderByField = SORT_OPTIONS[0].value,
+    hideUnavailableItems,
     query: {
       order: orderBy = orderByField,
       page: pageQuery,
@@ -57,7 +58,8 @@ const LocalQuery = props => {
       facetQuery.length > 0
     ),
     facetQuery: facetQuery.join('/'),
-    facetMap: facetMap.join(',')
+    facetMap: facetMap.join(','),
+    hideUnavailableItems,
   }
 
   return (

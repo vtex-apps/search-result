@@ -95,6 +95,11 @@ SearchResultQueryLoader.getSchema = props => {
               enum: SORT_OPTIONS.map(opt => opt.value),
               enumNames: SORT_OPTIONS.map(opt => opt.label),
             },
+            hideUnavailableItems: {
+              title: 'admin/editor.search-result.query.hideUnavailableItems',
+              type: 'boolean',
+              default: false,
+            },
           },
         },
       }

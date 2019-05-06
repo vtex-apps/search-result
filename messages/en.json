@@ -4,6 +4,7 @@
   "admin/editor.search-result.query.description": "Query made when there's no context",
   "admin/editor.search-result.query.enableCustomQuery": "Enable custom query",
   "admin/editor.search-result.query.maxItemsPerPage": "Maximum number of items per search page",
+  "admin/editor.search-result.query.hideUnavailableItems": "Hide unavailable items",
   "admin/editor.search-result.pagination.title": "Pagination type",
   "admin/editor.search-result.pagination.show-more": "Show more",
   "admin/editor.search-result.pagination.infinite-scroll": "Infinite scrolling",
