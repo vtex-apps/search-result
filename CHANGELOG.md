@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.15.5] - 2019-05-06
+### Fixed
+- Selected filters not accounting for map parameter.
+
 ## [3.15.4] - 2019-05-06
 ### Fixed
 - Make `LocalQuery` use productSearchV2 and set default items per page.
