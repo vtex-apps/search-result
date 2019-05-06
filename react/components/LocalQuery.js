@@ -53,8 +53,8 @@ const LocalQuery = props => {
     withFacets: !!(
       map &&
       map.length > 0 &&
-      queryField &&
-      queryField.length > 0
+      facetQuery &&
+      facetQuery.length > 0
     ),
     facetQuery: facetQuery.join('/'),
     facetMap: facetMap.join(',')
