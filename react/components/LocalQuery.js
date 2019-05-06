@@ -2,15 +2,16 @@ import { path } from 'ramda'
 import React from 'react'
 import { Query } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
-import { productSearch } from 'vtex.store-resources/Queries'
+import { productSearchV2 } from 'vtex.store-resources/Queries'
 
 import { SORT_OPTIONS } from '../OrderBy'
 
 const DEFAULT_PAGE = 1
+const DEFAULT_MAX_ITEMS_PER_PAGE = 10
 
 const LocalQuery = props => {
   const {
-    maxItemsPerPage,
+    maxItemsPerPage = DEFAULT_MAX_ITEMS_PER_PAGE,
     queryField,
     mapField,
     orderByField = SORT_OPTIONS[0].value,
@@ -29,23 +30,25 @@ const LocalQuery = props => {
   const from = (page - 1) * maxItemsPerPage
   const to = from + maxItemsPerPage - 1
 
+  const variables = {
+    query: queryField,
+    map,
+    orderBy,
+    priceRange,
+    from,
+    to,
+    withFacets: !!(
+      map &&
+      map.length > 0 &&
+      queryField &&
+      queryField.length > 0
+    ),
+  }
+
   return (
     <Query
-      query={productSearch}
-      variables={{
-        query: queryField,
-        map,
-        orderBy,
-        priceRange,
-        from,
-        to,
-        withFacets: !!(
-          map &&
-          map.length > 0 &&
-          queryField &&
-          queryField.length > 0
-        ),
-      }}
+      query={productSearchV2}
+      variables={variables}
       notifyOnNetworkStatusChange
       partialRefetch
     >
@@ -54,6 +57,13 @@ const LocalQuery = props => {
           ...props,
           searchQuery: {
             ...searchQuery,
+            data: {
+              ...(searchQuery.data || {}),
+              products: path(
+                ['data', 'productSearch', 'products'],
+                searchQuery
+              ),
+            },
             // backwards-compatibility with search-result <= 3.13.x
             facets: path(['data', 'facets'], searchQuery),
             products: path(['data', 'products'], searchQuery),
