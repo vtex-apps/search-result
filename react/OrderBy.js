@@ -11,10 +11,6 @@ import searchResult from './searchResult.css'
 
 export const SORT_OPTIONS = [
   {
-    value: '',
-    label: 'ordenation.sort-by',
-  },
-  {
     value: 'OrderByTopSaleDESC',
     label: 'ordenation.sales',
   },
@@ -68,7 +64,14 @@ class OrderBy extends Component {
   }
 
   render() {
-    const { orderBy, getLinkProps, runtime: { hints: { mobile } }, runtime } = this.props
+    const {
+      orderBy,
+      getLinkProps,
+      runtime: {
+        hints: { mobile },
+      },
+      runtime,
+    } = this.props
 
     if (mobile) {
       return (
@@ -95,7 +98,10 @@ class OrderBy extends Component {
               params: params,
               query: queryString,
               fallbackToWindowLocation: false,
-              scrollOptions: { baseElementId: 'search-result-anchor', top: -HEADER_SCROLL_OFFSET },
+              scrollOptions: {
+                baseElementId: 'search-result-anchor',
+                top: -HEADER_SCROLL_OFFSET,
+              },
             })
           }}
         />
