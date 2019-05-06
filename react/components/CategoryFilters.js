@@ -51,8 +51,8 @@ const CategoryFilters = ({ title, isVisible, tree }) => {
   const selectedCategories = mapSelectedCategories(tree, categoriesQuery)
 
   return (
-    <div className="bb b--muted-4">
-      <div className={classNames(styles.filter, 'pv5')}>
+    <div className="bb b--muted-4 pv5">
+      <div className={classNames(styles.filter, 'pb5')}>
         <span
           className={classNames(
             styles.filterTitle,
@@ -70,9 +70,9 @@ const CategoryFilters = ({ title, isVisible, tree }) => {
               key={category.id}
               role="button"
               tabIndex={0}
-              className="lh-copy flex items-center c-muted-3 pointer"
+              className="mb3 flex items-center c-muted-2 pointer"
             >
-              <span className="flex items-center mr3">
+              <span className="flex items-center mr3 c-muted-3">
                 <IconCaret orientation="left" size={14} />
               </span>
               {category.name}

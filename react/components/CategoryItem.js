@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import React, { useState, useCallback } from 'react'
 import { Collapsible } from 'vtex.styleguide'
 
@@ -15,22 +16,24 @@ const CategoryItem = ({ category }) => {
   return (
     <Collapsible
       muted
-      header={category.name}
+      header={<span className="f5">{category.name}</span>}
       isOpen={isOpen}
       onClick={handleClick}
     >
-      {category.children.map(childCategory => (
-        <div
-          tabIndex={0}
-          role="link"
-          key={childCategory.id}
-          className="lh-copy pointer"
-          onClick={() => navigateToFacet(childCategory)}
-          onKeyDown={e => e.key === 'Enter' && navigateToFacet(childCategory)}
-        >
-          {childCategory.name}
-        </div>
-      ))}
+      <div className="ml6">
+        {category.children.map((childCategory, index) => (
+          <div
+            tabIndex={0}
+            role="link"
+            key={childCategory.id}
+            className={classNames('lh-copy pointer', { mt2: index === 0 })}
+            onClick={() => navigateToFacet(childCategory)}
+            onKeyDown={e => e.key === 'Enter' && navigateToFacet(childCategory)}
+          >
+            {childCategory.name}
+          </div>
+        ))}
+      </div>
     </Collapsible>
   )
 }
