@@ -10,12 +10,10 @@ import { searchResultContainerPropTypes } from '../constants/propTypes'
 
 const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
 
-const categoryReducer = (acc, category) => [...acc, `/${category.name}`]
-
 const categoryWithChildrenReducer = (acc, category) => [
   ...acc,
-  `/${category.name}`,
-  ...category.children.map(children => `/${category.name}/${children.name}`),
+  category,
+  ...category.children,
 ]
 
 const getBreadcrumbsProps = ({
@@ -25,11 +23,8 @@ const getBreadcrumbsProps = ({
   categoriesTrees,
   loading,
 }) => {
-  let categories = []
-
   const params = {
-    term: term ? decodeURIComponent(term) : term,
-    categories,
+    term: term ? decodeURIComponent(term) : term
   }
 
   if (loading || !categoriesTrees) {
@@ -37,12 +32,10 @@ const getBreadcrumbsProps = ({
   }
 
   if (department && category) {
-    categories = categoriesTrees.reduce(categoryWithChildrenReducer, [])
+    params.categoryTree = categoriesTrees.reduce(categoryWithChildrenReducer, [])
   } else if (department) {
-    categories = categoriesTrees.reduce(categoryReducer, [])
+    params.categoryTree = categoriesTrees
   }
-
-  params.categories = categories
 
   return params
 }

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.17.0] - 2019-05-07
+### Changed
+- Generates category to use as prop categoryTree in breadcrumb
+
 ## [3.16.2] - 2019-05-07
 ### Added
 - Prop `hideUnavailableItems` to querySchema and use it on `LocalQuery`.
