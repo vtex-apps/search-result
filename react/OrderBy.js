@@ -8,10 +8,6 @@ import searchResult from './searchResult.css'
 
 export const SORT_OPTIONS = [
   {
-    value: '',
-    label: 'store/ordenation.sort-by',
-  },
-  {
     value: 'OrderByTopSaleDESC',
     label: 'store/ordenation.sales',
   },
@@ -42,14 +38,17 @@ export const SORT_OPTIONS = [
 ]
 
 const OrderBy = ({ orderBy, intl }) => {
-  const sortingOptions = useMemo(() => {
-    return SORT_OPTIONS.map(({ value, label }) => {
-      return {
-        value: value,
-        label: intl.formatMessage({ id: label }),
-      }
-    })
-  }, [intl])
+  const sortingOptions = useMemo(
+    () => {
+      return SORT_OPTIONS.map(({ value, label }) => {
+        return {
+          value: value,
+          label: intl.formatMessage({ id: label }),
+        }
+      })
+    },
+    [intl]
+  )
 
   return (
     <div className={searchResult.orderBy}>

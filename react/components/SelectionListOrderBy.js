@@ -10,7 +10,7 @@ import SelectionListItem from './SelectionListItem'
 import useOutsideClick from '../hooks/useOutsideClick'
 import searchResult from '../searchResult.css'
 
-const SelectionListOrderBy = ({ orderBy, options }) => {
+const SelectionListOrderBy = ({ intl, orderBy, options }) => {
   const [showDropdown, setShowDropdown] = useState(false)
 
   const orderByRef = useRef(null)
@@ -80,7 +80,7 @@ const SelectionListOrderBy = ({ orderBy, options }) => {
               'dn dib-ns': !orderBy.length,
             })}
           >
-            {getOptionTitle('')}
+            {intl.formatMessage({ id: 'store/ordenation.sort-by' })}
           </span>{' '}
           {getOptionTitle(orderBy)}
         </span>
