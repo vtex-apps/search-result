@@ -1,7 +1,12 @@
 import { zip } from 'ramda'
 import { useContext } from 'react'
+import slugify from 'slugify'
 
 import QueryContext from '../components/QueryContext'
+
+function Slugify(str) {
+  return slugify(str, { lower: true, remove: /[*+~.()'"!:@]/g })
+}
 
 /**
  * This hook is required because we make the facets query
@@ -15,7 +20,7 @@ const useSelectedFilters = facets => {
     query
       .toLowerCase()
       .split('/')
-      .map(decodeURIComponent),
+      .map(str => Slugify(decodeURIComponent(str))),
     map.split(',')
   )
 

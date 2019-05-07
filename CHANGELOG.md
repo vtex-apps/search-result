@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.17.1] - 2019-05-07
+### Fixed
+- Correctly slugify facets when comparing if they are selected.
+
 ## [3.17.0] - 2019-05-07
 ### Changed
 - Generates category to use as prop categoryTree in breadcrumb
