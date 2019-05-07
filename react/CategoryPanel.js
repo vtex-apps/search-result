@@ -7,13 +7,13 @@ import searchResult from './searchResult.css'
 import CategoriesHighlights from 'vtex.store-components/CategoriesHighlights'
 
 const renderCategoryShelf = (category, noOfChildren, quantityOfItemsPerRow) => {
-  const categoriesHighlighted = category.Children.slice(0, noOfChildren).map(
-    child => ({
-      id: child.Id,
-      name: child.Name,
-      to: child.Link,
-    })
-  )
+  const categoriesHighlighted = category.children
+    .slice(0, noOfChildren)
+    .map(child => ({
+      id: child.id,
+      name: child.name,
+      to: child.link,
+    }))
   const headerClasses = classNames(
     searchResult.categoryPanelHeaderRow,
     'flex flex-row flex-wrap items-stretch pa3 bn mh4-ns'
@@ -28,22 +28,22 @@ const renderCategoryShelf = (category, noOfChildren, quantityOfItemsPerRow) => {
     items.push(categoriesHighlighted.slice(i, i + quantityOfItemsPerRow))
   }
   return (
-    <Fragment key={`parent-fragment-${category.Id}`}>
+    <Fragment key={`parent-fragment-${category.id}`}>
       <h3 className={`t-heading-3 ${headerClasses}`}>
-        <Link to={category.Link}>{category.Name}</Link>
+        <Link to={category.link}>{category.name}</Link>
       </h3>
       {items.length > 0 &&
         items.map((item, index) => (
           <div key={`category-row-${index}`} className={itemClasses}>
             <CategoriesHighlights
               categoriesHighlighted={item}
-              showCategoriesHighlighted={true}
+              showCategoriesHighlighted
               quantityOfItems={quantityOfItemsPerRow}
             />
           </div>
         ))}
-      {category.Children.map(child => {
-        if (child.Children && child.Children.length > 0) {
+      {category.children.map(child => {
+        if (child.children && child.children.length > 0) {
           return renderCategoryShelf(child, noOfChildren, quantityOfItemsPerRow)
         }
       })}
