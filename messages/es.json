@@ -4,6 +4,7 @@
   "admin/editor.search-result.query.description": "Consulta realizada cuando no hay contexto",
   "admin/editor.search-result.query.enableCustomQuery": "Habilitar consulta personalizada",
   "admin/editor.search-result.query.maxItemsPerPage": "Número máximo de artículos por página de búsqueda",
+  "admin/editor.search-result.query.hideUnavailableItems": "Ocultar elementos no disponibles",
   "admin/editor.search-result.pagination.title": "Tipo de paginación",
   "admin/editor.search-result.pagination.show-more": "Mostrar más",
   "admin/editor.search-result.pagination.infinite-scroll": "Desplazamiento infinito",
