@@ -28,7 +28,7 @@ const useFacetNavigation = () => {
       const { currentParams, currentQuery } = facets.reduce(
         ({ currentQuery, currentParams }, facet) => {
           if (facet.selected) {
-            const facetIndex = query
+            const facetIndex = currentQuery
               .toLowerCase()
               .split('/')
               .map(decodeURIComponent)
@@ -50,7 +50,7 @@ const useFacetNavigation = () => {
             clonedParams.set('map', `${map},${facet.map}`)
 
             return {
-              currentQuery: `${query}/${facet.value}`,
+              currentQuery: `${currentQuery}/${facet.value}`,
               currentParams: clonedParams,
             }
           }
