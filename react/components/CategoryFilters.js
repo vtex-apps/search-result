@@ -73,26 +73,25 @@ const CategoryFilters = ({ title, isVisible, tree }) => {
         </div>
       </div>
       <div className="pb5">
-        {selectedCategories.length > 1 &&
-          selectedCategories
-            .slice(0, selectedCategories.length - 1)
-            .map((category, index) => (
-              <span
-                key={category.id}
-                role="button"
-                tabIndex={0}
-                className="mb3 flex items-center c-muted-2 pointer"
-                onClick={() => handleUnselectCategories(index)}
-                onKeyDown={e =>
-                  e.key === 'Enter' && handleUnselectCategories(index)
-                }
-              >
-                <span className="flex items-center mr3 c-muted-3">
-                  <IconCaret orientation="left" size={14} />
-                </span>
-                {category.name}
+        {selectedCategories
+          .slice(0, selectedCategories.length - 1)
+          .map((category, index) => (
+            <span
+              key={category.id}
+              role="button"
+              tabIndex={0}
+              className="mb3 flex items-center c-muted-2 pointer"
+              onClick={() => handleUnselectCategories(index)}
+              onKeyDown={e =>
+                e.key === 'Enter' && handleUnselectCategories(index)
+              }
+            >
+              <span className="flex items-center mr3 c-muted-3">
+                <IconCaret orientation="left" size={14} />
               </span>
-            ))}
+              {category.name}
+            </span>
+          ))}
         {selectedCategories.length > 0 ? (
           <CategoryItem
             category={selectedCategories[selectedCategories.length - 1]}
