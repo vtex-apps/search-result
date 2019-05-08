@@ -23,10 +23,8 @@ const useFacetNavigation = () => {
     maybeFacets => {
       const facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
 
-      const urlParams = new URLSearchParams(window.location.search)
-
-      const { currentParams, currentQuery } = facets.reduce(
-        ({ currentQuery, currentParams }, facet) => {
+      const { currentQuery, currentMap } = facets.reduce(
+        ({ currentQuery, currentMap }, facet) => {
           if (facet.selected) {
             const facetIndex = currentQuery
               .toLowerCase()
@@ -36,35 +34,31 @@ const useFacetNavigation = () => {
                 value => value === decodeURIComponent(facet.value).toLowerCase()
               )
 
-            const clonedParams = new URLSearchParams(currentParams)
-
-            clonedParams.set('map', removeElementAtIndex(map, facetIndex, ','))
-
             return {
               currentQuery: removeElementAtIndex(currentQuery, facetIndex, '/'),
-              currentParams: clonedParams,
+              currentMap: removeElementAtIndex(currentMap, facetIndex, ','),
             }
           } else {
-            const clonedParams = new URLSearchParams(currentParams)
-
-            clonedParams.set('map', `${map},${facet.map}`)
-
             return {
               currentQuery: `${currentQuery}/${facet.value}`,
-              currentParams: clonedParams,
+              currentMap: `${currentMap},${facet.map}`,
             }
           }
         },
-        { currentQuery: query, currentParams: urlParams }
+        { currentQuery: query, currentMap: map }
       )
+
+      const urlParams = new URLSearchParams(window.location.search)
+
+      urlParams.set('map', currentMap)
 
       navigate({
         to: `/${currentQuery}`,
-        query: currentParams.toString(),
+        query: urlParams.toString(),
         scrollOptions,
       })
     },
-    [map, navigate, query]
+    [navigate, query, map]
   )
 
   return navigateToFacet
