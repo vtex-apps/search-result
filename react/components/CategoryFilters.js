@@ -61,7 +61,7 @@ const CategoryFilters = ({ title, isVisible, tree }) => {
   }
 
   return (
-    <div className="bb b--muted-4 pv5">
+    <div className="bb b--muted-4 pv5 flex flex-column">
       <div className={classNames(styles.filter, 'pb5')}>
         <span
           className={classNames(
@@ -98,7 +98,7 @@ const CategoryFilters = ({ title, isVisible, tree }) => {
         />
       ) : (
         tree.map(category => (
-          <CategoryItem key={category.id} category={category} />
+          <CategoryItem key={category.id} category={category} shallow />
         ))
       )}
     </div>
