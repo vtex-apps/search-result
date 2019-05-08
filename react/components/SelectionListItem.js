@@ -2,19 +2,11 @@ import React from 'react'
 import { useRuntime } from 'vtex.render-runtime'
 
 const SelectionListItem = ({ option, onItemClick }) => {
-  const { navigate } = useRuntime()
+  const { setQuery } = useRuntime()
 
   const handleOptionClick = () => {
-    const queryParams = new URLSearchParams(window.location.search)
-
-    queryParams.set('order', option.value)
-
     onItemClick()
-
-    navigate({
-      to: window.location.pathname,
-      query: queryParams.toString(),
-    })
+    setQuery({ order: option.value })
   }
 
   return (
