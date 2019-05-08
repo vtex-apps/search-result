@@ -61,46 +61,48 @@ const CategoryFilters = ({ title, isVisible, tree }) => {
   }
 
   return (
-    <div className="bb b--muted-4 pv5 flex flex-column">
-      <div className={classNames(styles.filter, 'pb5')}>
-        <span
+    <div className="bb b--muted-4 pt5 flex flex-column">
+      <div className={classNames(styles.filter, 'pb4')}>
+        <div
           className={classNames(
             styles.filterTitle,
             't-heading-6 flex items-center justify-between'
           )}
         >
           <FormattedMessage id={title} />
-        </span>
+        </div>
       </div>
-      {selectedCategories.length > 1 &&
-        selectedCategories
-          .slice(0, selectedCategories.length - 1)
-          .map((category, index) => (
-            <span
-              key={category.id}
-              role="button"
-              tabIndex={0}
-              className="mb3 flex items-center c-muted-2 pointer"
-              onClick={() => handleUnselectCategories(index)}
-              onKeyDown={e =>
-                e.key === 'Enter' && handleUnselectCategories(index)
-              }
-            >
-              <span className="flex items-center mr3 c-muted-3">
-                <IconCaret orientation="left" size={14} />
+      <div className="pb5">
+        {selectedCategories.length > 1 &&
+          selectedCategories
+            .slice(0, selectedCategories.length - 1)
+            .map((category, index) => (
+              <span
+                key={category.id}
+                role="button"
+                tabIndex={0}
+                className="mb3 flex items-center c-muted-2 pointer"
+                onClick={() => handleUnselectCategories(index)}
+                onKeyDown={e =>
+                  e.key === 'Enter' && handleUnselectCategories(index)
+                }
+              >
+                <span className="flex items-center mr3 c-muted-3">
+                  <IconCaret orientation="left" size={14} />
+                </span>
+                {category.name}
               </span>
-              {category.name}
-            </span>
-          ))}
-      {selectedCategories.length > 0 ? (
-        <CategoryItem
-          category={selectedCategories[selectedCategories.length - 1]}
-        />
-      ) : (
-        tree.map(category => (
-          <CategoryItem key={category.id} category={category} shallow />
-        ))
-      )}
+            ))}
+        {selectedCategories.length > 0 ? (
+          <CategoryItem
+            category={selectedCategories[selectedCategories.length - 1]}
+          />
+        ) : (
+          tree.map(category => (
+            <CategoryItem key={category.id} category={category} shallow />
+          ))
+        )}
+      </div>
     </div>
   )
 }
