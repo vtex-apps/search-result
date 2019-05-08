@@ -4,7 +4,6 @@ import { map, flatten, filter, prop, compose } from 'ramda'
 import React, { useRef, useState, useEffect, Fragment } from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { useRuntime } from 'vtex.render-runtime'
 import { Button } from 'vtex.styleguide'
 import { IconFilter } from 'vtex.store-icons'
 
@@ -12,13 +11,13 @@ import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
 import { facetOptionShape } from '../constants/propTypes'
 import useSelectedFilters from '../hooks/useSelectedFilters'
+import useFacetNavigation from '../hooks/useFacetNavigation'
 
 import searchResult from '../searchResult.css'
 
 const FilterSidebar = ({ filters }) => {
-  const { navigate } = useRuntime()
-
   const [open, setOpen] = useState(false)
+
   const selectedFiltersFromProps = filter(
     prop('selected'),
     useSelectedFilters(
@@ -32,6 +31,8 @@ const FilterSidebar = ({ filters }) => {
   const [selectedFilters, setSelectedFilters] = useState(
     selectedFiltersFromProps
   )
+
+  const navigateToFacet = useFacetNavigation()
 
   const lastSelectedFilters = useRef(selectedFilters)
 
@@ -67,18 +68,7 @@ const FilterSidebar = ({ filters }) => {
   }
 
   const handleApply = () => {
-    const params = selectedFilters.map(facet => facet.value).join('/')
-    const map = selectedFilters.map(facet => facet.map).join(',')
-
-    const query = new URLSearchParams(window.location.search)
-
-    query.set('map', map)
-
-    setOpen(false)
-    navigate({
-      to: `/${params}`,
-      query: query.toString(),
-    })
+    navigateToFacet(selectedFilters)
   }
 
   return (
