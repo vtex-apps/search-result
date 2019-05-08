@@ -3,9 +3,9 @@ import React from 'react'
 
 import styles from './searchResult.css'
 
-const SearchTitle = ({ params }) => {
+const SearchTitle = ({ params, titleTag }) => {
   const title =
-    params.term || params.subcategory || params.category || params.department
+    titleTag || params.term || params.subcategory || params.category || params.department
 
   if (!title) {
     return null

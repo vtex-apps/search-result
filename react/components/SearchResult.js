@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint, withRuntimeContext } from 'vtex.render-runtime'
+import { path } from 'ramda'
 
 import LoadingOverlay from './LoadingOverlay'
 import { searchResultPropTypes } from '../constants/propTypes'
@@ -71,6 +72,7 @@ class SearchResult extends Component {
         specificationFilters,
         tree,
         hiddenFacets,
+        searchQuery,
       } = props
 
       return {
@@ -84,6 +86,7 @@ class SearchResult extends Component {
         specificationFilters,
         tree,
         hiddenFacets,
+        searchQuery,
       }
     }
 
@@ -132,6 +135,7 @@ class SearchResult extends Component {
       tree,
       hiddenFacets,
       showLoadingAsOverlay,
+      searchQuery,
     } = this.state
 
     const term =
@@ -153,7 +157,7 @@ class SearchResult extends Component {
               <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
             </div>
           )}
-          <ExtensionPoint id="search-title" params={params} />
+          <ExtensionPoint id="search-title" titleTag={path(['data', 'productSearch', 'titleTag'], searchQuery)} params={params} />
           <ExtensionPoint
             id="total-products"
             recordsFiltered={recordsFiltered}
