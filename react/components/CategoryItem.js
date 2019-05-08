@@ -13,6 +13,10 @@ const CategoryItem = ({ category }) => {
 
   const navigateToFacet = useFacetNavigation()
 
+  if (!category.children.length) {
+    return <span className="ml6 f5 dib">{category.name}</span>
+  }
+
   return (
     <Collapsible
       muted
