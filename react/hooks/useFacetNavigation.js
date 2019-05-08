@@ -56,6 +56,7 @@ const useFacetNavigation = () => {
         to: `/${currentQuery}`,
         query: urlParams.toString(),
         scrollOptions,
+        fetchPage: false,
       })
     },
     [navigate, query, map]
