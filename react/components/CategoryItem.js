@@ -4,7 +4,7 @@ import { Collapsible } from 'vtex.styleguide'
 
 import useFacetNavigation from '../hooks/useFacetNavigation'
 
-const CategoryItem = ({ category }) => {
+const CategoryItem = ({ category, shallow = false }) => {
   const [isOpen, setOpen] = useState(true)
 
   const handleClick = useCallback(() => {
@@ -13,7 +13,21 @@ const CategoryItem = ({ category }) => {
 
   const navigateToFacet = useFacetNavigation()
 
-  if (!category.children.length) {
+  if (shallow) {
+    return (
+      <span
+        role="button"
+        tabIndex={0}
+        className="dib f5 pointer pv2"
+        onClick={() => navigateToFacet(category)}
+        onKeyDown={e => e.key === 'Enter' && navigateToFacet(category)}
+      >
+        {category.name}
+      </span>
+    )
+  }
+
+  if (!category.children || !category.children.length) {
     return <span className="ml6 f5 dib">{category.name}</span>
   }
 
