@@ -38,11 +38,11 @@ const useFacetNavigation = () => {
               currentQuery: removeElementAtIndex(currentQuery, facetIndex, '/'),
               currentMap: removeElementAtIndex(currentMap, facetIndex, ','),
             }
-          } else {
-            return {
-              currentQuery: `${currentQuery}/${facet.value}`,
-              currentMap: `${currentMap},${facet.map}`,
-            }
+          }
+
+          return {
+            currentQuery: `${currentQuery}/${facet.value}`,
+            currentMap: `${currentMap},${facet.map}`,
           }
         },
         { currentQuery: query, currentMap: map }
