@@ -6,13 +6,14 @@ import { IconCaret } from 'vtex.store-icons'
 
 import QueryContext from './QueryContext'
 import CategoryItem from './CategoryItem'
+import useFacetNavigation from '../hooks/useFacetNavigation'
 
 import styles from '../searchResult.css'
 
 const getCategoryWithName = (name, categoryList) => {
   return categoryList.find(
     category =>
-      decodeURIComponent(category.name).toLowerCase() ===
+      decodeURIComponent(category.value).toLowerCase() ===
       decodeURIComponent(name).toLowerCase()
   )
 }
@@ -42,13 +43,22 @@ const CategoryFilters = ({ title, isVisible, tree }) => {
 
   const categoriesQuery = zip(facetMap.split(','), facetQuery.split('/'))
     .filter(([map]) => map === 'c')
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     .map(([_, query]) => query)
+
+  const navigateToFacet = useFacetNavigation()
 
   if (!isVisible) {
     return null
   }
 
   const selectedCategories = mapSelectedCategories(tree, categoriesQuery)
+
+  const handleUnselectCategories = index => {
+    const categoriesToRemove = selectedCategories.slice(index + 1)
+
+    navigateToFacet(categoriesToRemove)
+  }
 
   return (
     <div className="bb b--muted-4 pv5">
@@ -65,12 +75,16 @@ const CategoryFilters = ({ title, isVisible, tree }) => {
       {selectedCategories.length > 1 &&
         selectedCategories
           .slice(0, selectedCategories.length - 1)
-          .map(category => (
+          .map((category, index) => (
             <span
               key={category.id}
               role="button"
               tabIndex={0}
               className="mb3 flex items-center c-muted-2 pointer"
+              onClick={() => handleUnselectCategories(index)}
+              onKeyDown={e =>
+                e.key === 'Enter' && handleUnselectCategories(index)
+              }
             >
               <span className="flex items-center mr3 c-muted-3">
                 <IconCaret orientation="left" size={14} />

@@ -20,33 +20,47 @@ const useFacetNavigation = () => {
   const { query, map } = useContext(QueryContext)
 
   const navigateToFacet = useCallback(
-    facet => {
+    maybeFacets => {
+      const facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
+
       const urlParams = new URLSearchParams(window.location.search)
 
-      if (facet.selected) {
-        const facetIndex = query
-          .toLowerCase()
-          .split('/')
-          .map(decodeURIComponent)
-          .findIndex(
-            value => value === decodeURIComponent(facet.value).toLowerCase()
-          )
+      const { currentParams, currentQuery } = facets.reduce(
+        ({ currentQuery, currentParams }, facet) => {
+          if (facet.selected) {
+            const facetIndex = query
+              .toLowerCase()
+              .split('/')
+              .map(decodeURIComponent)
+              .findIndex(
+                value => value === decodeURIComponent(facet.value).toLowerCase()
+              )
 
-        urlParams.set('map', removeElementAtIndex(map, facetIndex, ','))
+            const clonedParams = new URLSearchParams(currentParams)
 
-        navigate({
-          to: `/${removeElementAtIndex(query, facetIndex, '/')}`,
-          query: urlParams.toString(),
-          scrollOptions,
-        })
-        return
-      }
+            clonedParams.set('map', removeElementAtIndex(map, facetIndex, ','))
 
-      urlParams.set('map', `${map},${facet.map}`)
+            return {
+              currentQuery: removeElementAtIndex(currentQuery, facetIndex, '/'),
+              currentParams: clonedParams,
+            }
+          } else {
+            const clonedParams = new URLSearchParams(currentParams)
+
+            clonedParams.set('map', `${map},${facet.map}`)
+
+            return {
+              currentQuery: `${query}/${facet.value}`,
+              currentParams: clonedParams,
+            }
+          }
+        },
+        { currentQuery: query, currentParams: urlParams }
+      )
 
       navigate({
-        to: `/${query}/${facet.value}`,
-        query: urlParams.toString(),
+        to: `/${currentQuery}`,
+        query: currentParams.toString(),
         scrollOptions,
       })
     },
