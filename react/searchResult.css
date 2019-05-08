@@ -50,6 +50,8 @@
   grid-row: filters;
 }
 
+.filter {}
+
 .resultGallery {
   -ms-grid-row: 2;
   -ms-grid-column: 2;
