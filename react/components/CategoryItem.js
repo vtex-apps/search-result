@@ -4,6 +4,8 @@ import { Collapsible } from 'vtex.styleguide'
 
 import useFacetNavigation from '../hooks/useFacetNavigation'
 
+import styles from '../searchResult.css'
+
 const CategoryItem = ({ category, shallow = false }) => {
   const [isOpen, setOpen] = useState(true)
 
@@ -18,7 +20,11 @@ const CategoryItem = ({ category, shallow = false }) => {
       <span
         role="button"
         tabIndex={0}
-        className="dib f5 pointer pv2"
+        className={classNames(
+          styles.shallowCategoryItem,
+          styles.categoryItemName,
+          'dib f5 pointer pv2'
+        )}
         onClick={() => navigateToFacet(category)}
         onKeyDown={e => e.key === 'Enter' && navigateToFacet(category)}
       >
@@ -34,17 +40,25 @@ const CategoryItem = ({ category, shallow = false }) => {
   return (
     <Collapsible
       muted
-      header={<span className="f5">{category.name}</span>}
+      header={
+        <span className={classNames(styles.categoryItemName, 'f5')}>
+          {category.name}
+        </span>
+      }
       isOpen={isOpen}
       onClick={handleClick}
     >
-      <div className="ml6">
+      <div className={classNames(styles.categoryItemChildrenContainer, 'ml6')}>
         {category.children.map((childCategory, index) => (
           <div
             tabIndex={0}
             role="link"
             key={childCategory.id}
-            className={classNames('lh-copy pointer', { mt2: index === 0 })}
+            className={classNames(
+              styles.categoryItemChildren,
+              'lh-copy pointer',
+              { mt2: index === 0 }
+            )}
             onClick={() => navigateToFacet(childCategory)}
             onKeyDown={e => e.key === 'Enter' && navigateToFacet(childCategory)}
           >

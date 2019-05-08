@@ -72,7 +72,7 @@ const CategoryFilters = ({ title, isVisible, tree }) => {
           <FormattedMessage id={title} />
         </div>
       </div>
-      <div className="pb5">
+      <div className={classNames(styles.selectedCategoriesContainer, 'pb5')}>
         {selectedCategories
           .slice(0, selectedCategories.length - 1)
           .map((category, index) => (
@@ -80,16 +80,26 @@ const CategoryFilters = ({ title, isVisible, tree }) => {
               key={category.id}
               role="button"
               tabIndex={0}
-              className="mb3 flex items-center c-muted-2 pointer"
+              className={classNames(
+                styles.selectedCategory,
+                'mb3 flex items-center c-muted-2 pointer'
+              )}
               onClick={() => handleUnselectCategories(index)}
               onKeyDown={e =>
                 e.key === 'Enter' && handleUnselectCategories(index)
               }
             >
-              <span className="flex items-center mr3 c-muted-3">
+              <span
+                className={classNames(
+                  styles.selectedCategoryIcon,
+                  'flex items-center mr3 c-muted-3'
+                )}
+              >
                 <IconCaret orientation="left" size={14} />
               </span>
-              {category.name}
+              <span className={styles.selectedCategoryName}>
+                {category.name}
+              </span>
             </span>
           ))}
         {selectedCategories.length > 0 ? (
