@@ -54,8 +54,6 @@ const FilterOptionTemplate = ({
     }
   )
 
-  {!selected && console.log(title)}
-
   return (
     <div className="bb b--muted-4">
       <div className={containerClassName}>
