@@ -61,7 +61,7 @@ const CategoryFilters = ({ title, isVisible, tree }) => {
   }
 
   return (
-    <div className="bb b--muted-4 pt5 flex flex-column">
+    <div className="bb b--muted-4 pt5">
       <div className={classNames(styles.filter, 'pb4')}>
         <div
           className={classNames(
@@ -72,7 +72,12 @@ const CategoryFilters = ({ title, isVisible, tree }) => {
           <FormattedMessage id={title} />
         </div>
       </div>
-      <div className={classNames(styles.selectedCategoriesContainer, 'pb5')}>
+      <div
+        className={classNames(
+          styles.selectedCategoriesContainer,
+          'pb5 flex flex-column'
+        )}
+      >
         {selectedCategories
           .slice(0, selectedCategories.length - 1)
           .map((category, index) => (
