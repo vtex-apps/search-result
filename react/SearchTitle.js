@@ -4,12 +4,18 @@ import { zip } from 'ramda'
 
 import styles from './searchResult.css'
 
+const isIterable = object =>
+  object != null && typeof object[Symbol.iterator] === 'function'
+
 const getClusterById = (products, id) => {
-  if (!products) {
+  if (!isIterable(products)) {
     return
   }
 
   for (const product of products) {
+    if (!product || !isIterable(product.productClusters)) {
+      continue
+    }
     for (const cluster of product.productClusters) {
       if (cluster.id === id) {
         return cluster.name
@@ -17,6 +23,9 @@ const getClusterById = (products, id) => {
     }
   }
 }
+
+const padRight = (array, num) =>
+  array.concat(Array.from(Array(num))).slice(0, num)
 
 const SearchTitle = ({ params, map, products }) => {
   // Terrible hotfix for product cluster name below!!!
@@ -26,12 +35,17 @@ const SearchTitle = ({ params, map, products }) => {
 
   // matches title "sources" with its respective map,
   // and gets the last valid one
-  const titleSources = zip([
+  const categories = [
     params.department,
     params.category,
     params.subcategory,
     params.term,
-  ], map.split(',')).reverse()
+  ]
+
+  const splitMap = padRight(map ? map.split(',') : [], categories.length)
+
+  const titleSources = zip(categories, splitMap).reverse()
+
   const [titleValue, titleMap] = titleSources.find(([param]) => !!param)
 
   // if the title maps to productClusterIds, gets the cluster name
