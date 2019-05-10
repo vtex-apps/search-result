@@ -29,7 +29,7 @@ const padRight = (array, num) =>
 
 const SearchTitle = ({ params, map, products }) => {
   // Terrible hotfix for product clusters/collections name below!
-  // The title should come from store-graphql. Once that's done, 
+  // The title should come from store-graphql. Once that's done,
   // all this logic should be removed from here.
 
   let title = null
@@ -67,7 +67,9 @@ const SearchTitle = ({ params, map, products }) => {
   }
 
   return (
-    <h1 className={classNames(styles.galleryTitle, 't-heading-1')}>{decodeURI(title)}</h1>
+    <h1 className={classNames(styles.galleryTitle, 't-heading-1')}>
+      {decodeURI(title)}
+    </h1>
   )
 }
 
