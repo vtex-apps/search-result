@@ -28,8 +28,9 @@ const padRight = (array, num) =>
   array.concat(Array.from(Array(num))).slice(0, num)
 
 const SearchTitle = ({ params, map, products }) => {
-  // Terrible hotfix for product cluster name below!!!
-  // Should be updated with a better version
+  // Terrible hotfix for product clusters/collections name below!
+  // The title should come from store-graphql. Once that's done, 
+  // all this logic should be removed from here.
 
   let title = null
 
