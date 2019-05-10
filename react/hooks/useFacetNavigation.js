@@ -1,3 +1,4 @@
+import { zip } from 'ramda'
 import { useCallback, useContext } from 'react'
 import { useRuntime } from 'vtex.render-runtime'
 
@@ -26,13 +27,17 @@ const useFacetNavigation = () => {
       const { currentQuery, currentMap } = facets.reduce(
         ({ currentQuery, currentMap }, facet) => {
           if (facet.selected) {
-            const facetIndex = currentQuery
-              .toLowerCase()
-              .split('/')
-              .map(decodeURIComponent)
-              .findIndex(
-                value => value === decodeURIComponent(facet.value).toLowerCase()
-              )
+            const facetIndex = zip(
+              currentQuery
+                .toLowerCase()
+                .split('/')
+                .map(decodeURIComponent),
+              currentMap.split(',')
+            ).findIndex(
+              ([value, valueMap]) =>
+                value === decodeURIComponent(facet.value).toLowerCase() &&
+                valueMap === facet.map
+            )
 
             return {
               currentQuery: removeElementAtIndex(currentQuery, facetIndex, '/'),
