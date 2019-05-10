@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.17.4] - 2019-05-10
+### Fixed
+- Refrain from throwing error when LayoutModeSwitcher icon is not found.
+
 ## [3.17.3] - 2019-05-10
 ### Fixed
 - Vendas to Ventas in es.json
