@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.17.8] - 2019-05-10
+### Fixed
+- Fixed bug where the extension would break if no title was found.
+
 ## [3.17.7] - 2019-05-10
 ### Fixed
 - Not found page being shown without filter navigator when the cause for the
