@@ -107,6 +107,8 @@ const FilterNavigator = ({
     ].filter(Boolean)
   }
 
+  const filters = []
+
   const filterClasses = classNames({
     'flex justify-center flex-auto': mobile,
   })
@@ -152,11 +154,15 @@ const FilterNavigator = ({
       <div className={filterClasses}>
         <div className="bb b--muted-4">
           <h5 className="t-heading-5 mv5">
-            <FormattedMessage id="store/search-result.filter-button.title" />
+            { filters ? (
+              <FormattedMessage id="store/search-result.filter-button.title" />
+            ) : (
+              <FormattedMessage id="store/search.filter.empty-filters" />
+            )}
           </h5>
         </div>
         <SelectedFilters filters={selectedFilters} />
-        <AvailableFilters filters={getFilters()} priceRange={priceRange} />
+        <AvailableFilters filters={filters} priceRange={priceRange} />
       </div>
     </div>
   )
