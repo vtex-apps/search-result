@@ -153,7 +153,7 @@ class SearchResult extends Component {
               <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
             </div>
           )}
-          <ExtensionPoint id="search-title" params={params} />
+          <ExtensionPoint id="search-title" params={params} map={map} products={products} />
           <ExtensionPoint
             id="total-products"
             recordsFiltered={recordsFiltered}
