@@ -28,8 +28,12 @@ const LayoutIcon = ({ mode }) => {
       return <IconInlineGrid size={20} />
     case 'normal':
       return <IconSingleGrid size={20} />
-    default:
-      throw new Error(`Unsupported icon ${mode} in LayoutIcon`)
+    default: {
+      // eslint-disable-next-line no-undef
+      if (process.env.NODE_ENV === 'development') {
+        console.warn(`Unsupported icon ${mode} in LayoutIcon`)
+      }
+    }
   }
 }
 
