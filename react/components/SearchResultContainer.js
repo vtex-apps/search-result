@@ -24,7 +24,7 @@ const getBreadcrumbsProps = ({
   loading,
 }) => {
   const params = {
-    term: term ? decodeURIComponent(term) : term
+    term: term ? decodeURIComponent(term) : term,
   }
 
   if (loading || !categoriesTrees) {
@@ -32,7 +32,10 @@ const getBreadcrumbsProps = ({
   }
 
   if (department && category) {
-    params.categoryTree = categoriesTrees.reduce(categoryWithChildrenReducer, [])
+    params.categoryTree = categoriesTrees.reduce(
+      categoryWithChildrenReducer,
+      []
+    )
   } else if (department) {
     params.categoryTree = categoriesTrees
   }
@@ -56,6 +59,7 @@ const SearchResultContainer = props => {
           specificationFilters = [],
           priceRanges = [],
           categoriesTrees,
+          recordsFiltered: facetRecordsFiltered,
         } = {},
         productSearch: { products = [], recordsFiltered } = {},
       } = {},
@@ -136,6 +140,7 @@ const SearchResultContainer = props => {
           query={query}
           loading={loading}
           recordsFiltered={recordsFiltered}
+          facetRecordsFiltered={facetRecordsFiltered}
           products={products}
           brands={brands}
           specificationFilters={specificationFilters}

@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Not found page being shown without filter navigator when the cause for the
+  lack of products is an applied filter.
 
 ## [3.17.6] - 2019-05-10
 ### Fixed
