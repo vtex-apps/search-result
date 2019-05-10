@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.17.6] - 2019-05-10
+### Fixed
+- Fetch more on `LocalQuery` was always fetching 10 more items, and not fetching the next maxItemsPerPage items.
+
 ## [3.17.5] - 2019-05-10
 ### Fixed
 - Displays the correct product cluster title, instead of its id.

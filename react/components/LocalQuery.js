@@ -97,6 +97,7 @@ const LocalQuery = props => {
           page,
           from,
           to,
+          maxItemsPerPage,
         })
       }}
     </Query>
