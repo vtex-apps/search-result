@@ -47,7 +47,10 @@ const SearchTitle = ({ params, map, products }) => {
 
   const titleSources = zip(categories, splitMap).reverse()
 
-  const [titleValue, titleMap] = titleSources.find(([param]) => !!param)
+  const [titleValue, titleMap] = titleSources.find(([param]) => !!param) || [
+    null,
+    null,
+  ]
 
   // if the title maps to productClusterIds, gets the cluster name
   // from the product list (which hopefully at least one
