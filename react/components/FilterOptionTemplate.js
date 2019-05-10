@@ -29,12 +29,12 @@ const FilterOptionTemplate = ({
 
   const handleKeyDown = useCallback(
     e => {
-      if (e.key === ' ') {
+      if (e.key === ' ' && collapsable) {
         e.preventDefault()
         setOpen(!open)
       }
     },
-    [open]
+    [collapsable, open]
   )
 
   const containerClassName = classNames(searchResult.filter, 'pv5', {
@@ -55,10 +55,11 @@ const FilterOptionTemplate = ({
       <div className={containerClassName}>
         <div
           role="button"
-          tabIndex={0}
+          tabIndex={collapsable ? 0 : undefined}
           className={collapsable ? 'pointer' : ''}
-          onClick={() => setOpen(!open)}
+          onClick={() => collapsable && setOpen(!open)}
           onKeyDown={handleKeyDown}
+          aria-disabled={!collapsable}
         >
           <div className={titleClassName}>
             {title}
@@ -78,7 +79,7 @@ const FilterOptionTemplate = ({
       <div
         className={classNames({
           'overflow-y-auto': collapsable,
-          pb5: open,
+          pb5: !collapsable || open,
         })}
         style={{ maxHeight: '200px' }}
         aria-hidden={!open}
