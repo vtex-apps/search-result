@@ -33,6 +33,7 @@ const LayoutIcon = ({ mode }) => {
       if (process.env.NODE_ENV === 'development') {
         console.warn(`Unsupported icon ${mode} in LayoutIcon`)
       }
+      return null
     }
   }
 }
