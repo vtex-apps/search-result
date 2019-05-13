@@ -10,8 +10,9 @@ import { facetOptionShape } from '../constants/propTypes'
 /**
  * Search Filter Component.
  */
-const SelectedFilters = ({ filters = [], intl }) => {
-  const title = !isEmpty(filters) && intl.formatMessage({ id: 'store/search.selected-filters' })
+const SelectedFilters = ({ filters = [], categories = [], brands = [], intl }) => {
+  console.log(categories)
+  const title = (!isEmpty(categories) || !isEmpty(brands)) && intl.formatMessage({ id: 'store/search.selected-filters' })
   return (
     <FilterOptionTemplate 
       title={title}
