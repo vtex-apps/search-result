@@ -108,7 +108,7 @@ const FilterNavigator = ({
   }
 
   const filters = getFilters()
-  console.log(selectedFilters)
+  console.log(brands)
 
   const filterClasses = classNames({
     'flex justify-center flex-auto': mobile,
@@ -158,7 +158,7 @@ const FilterNavigator = ({
             { !isEmpty(filters) && <FormattedMessage id="store/search-result.filter-button.title"/> }
           </h5>
         </div>
-        <SelectedFilters filters={selectedFilters} />
+        <SelectedFilters filters={selectedFilters} categories={[]} brands={[]} />
         <AvailableFilters filters={filters} priceRange={priceRange} />
       </div>
     </div>
