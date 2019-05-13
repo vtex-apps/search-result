@@ -26,7 +26,7 @@
   "admin/editor.search-result.facet-quantity": "Show filter item quantity",
 
   "store/search-result.show-more-button": "Show more",
-  "store/search-result.filter-button.title": "Filters teste",
+  "store/search-result.filter-button.title": "Filters",
   "store/search-result.filter-breadcrumbs.primary": "Filters",
   "store/search-result.filter-button.apply": "Apply",
   "store/search-result.filter-button.clear": "Clean",
