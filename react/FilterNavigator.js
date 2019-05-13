@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import { map, flatten, path, contains, filter, prop } from 'ramda'
+import { map, flatten, path, contains, filter, prop, isEmpty } from 'ramda'
 import React, { useMemo } from 'react'
 import ContentLoader from 'react-content-loader'
 import { FormattedMessage } from 'react-intl'
@@ -107,7 +107,8 @@ const FilterNavigator = ({
     ].filter(Boolean)
   }
 
-  const filters = []
+  const filters = getFilters()
+  console.log(selectedFilters)
 
   const filterClasses = classNames({
     'flex justify-center flex-auto': mobile,
@@ -154,11 +155,7 @@ const FilterNavigator = ({
       <div className={filterClasses}>
         <div className="bb b--muted-4">
           <h5 className="t-heading-5 mv5">
-            { filters ? (
-              <FormattedMessage id="store/search-result.filter-button.title" />
-            ) : (
-              <FormattedMessage id="store/search.filter.empty-filters" />
-            )}
+            { !isEmpty(filters) && <FormattedMessage id="store/search-result.filter-button.title"/> }
           </h5>
         </div>
         <SelectedFilters filters={selectedFilters} />
