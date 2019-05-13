@@ -26,7 +26,7 @@
   "admin/editor.search-result.facet-quantity": "Show filter item quantity",
 
   "store/search-result.show-more-button": "Show more",
-  "store/search-result.filter-button.title": "Filters",
+  "store/search-result.filter-button.title": "Filters teste",
   "store/search-result.filter-breadcrumbs.primary": "Filters",
   "store/search-result.filter-button.apply": "Apply",
   "store/search-result.filter-button.clear": "Clean",
@@ -36,7 +36,6 @@
   "store/search.filter.title.categories": "Categories",
   "store/search.filter.title.brands": "Brands",
   "store/search.filter.title.price-ranges": "Price Ranges",
-  "store/search.filter.empty-filters": "We didn't find any filters",
   "store/search.text": "Showing {from}-{to} from {recordsFiltered} records",
   "store/search.selected-filters": "Filter by:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {Product} other {Products}}</span>",
