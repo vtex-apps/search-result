@@ -12,7 +12,7 @@ import { facetOptionShape } from '../constants/propTypes'
 const SelectedFilters = ({ filters = [], intl }) => {
   const title = intl.formatMessage({ id: 'store/search.selected-filters' })
   return (
-    <FilterOptionTemplate 
+    <FilterOptionTemplate
       title={title}
       filters={filters}
       collapsable={false}
