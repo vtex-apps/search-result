@@ -108,7 +108,6 @@ const FilterNavigator = ({
   }
 
   const filters = getFilters()
-  console.log(brands)
 
   const filterClasses = classNames({
     'flex justify-center flex-auto': mobile,
@@ -144,7 +143,7 @@ const FilterNavigator = ({
     return (
       <div className={searchResult.filters}>
         <div className={filterClasses}>
-          <FilterSidebar filters={getFilters()} />
+          <FilterSidebar filters={filters} />
         </div>
       </div>
     )
@@ -152,15 +151,19 @@ const FilterNavigator = ({
 
   return (
     <div className={searchResult.filters}>
-      <div className={filterClasses}>
-        <div className="bb b--muted-4">
-          <h5 className="t-heading-5 mv5">
-            { !isEmpty(filters) && <FormattedMessage id="store/search-result.filter-button.title"/> }
-          </h5>
-        </div>
-        <SelectedFilters filters={selectedFilters} categories={[]} brands={[]} />
-        <AvailableFilters filters={filters} priceRange={priceRange} />
-      </div>
+     { !isEmpty(filters) && 
+        ( 
+          <div className={filterClasses}>
+            <div className="bb b--muted-4">
+              <h5 className="t-heading-5 mv5">
+                <FormattedMessage id="store/search-result.filter-button.title"/>
+              </h5>
+            </div>
+            <SelectedFilters filters={selectedFilters} />
+            <AvailableFilters filters={filters} priceRange={priceRange} />
+          </div>
+        )
+      }
     </div>
   )
 }
