@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { intlShape, injectIntl } from 'react-intl'
-import { isEmpty } from 'ramda'
 
 import FacetItem from './FacetItem'
 import FilterOptionTemplate from './FilterOptionTemplate'
@@ -10,9 +9,8 @@ import { facetOptionShape } from '../constants/propTypes'
 /**
  * Search Filter Component.
  */
-const SelectedFilters = ({ filters = [], categories = [], brands = [], intl }) => {
-  console.log(categories)
-  const title = (!isEmpty(categories) || !isEmpty(brands)) && intl.formatMessage({ id: 'store/search.selected-filters' })
+const SelectedFilters = ({ filters = [], intl }) => {
+  const title = intl.formatMessage({ id: 'store/search.selected-filters' })
   return (
     <FilterOptionTemplate 
       title={title}
