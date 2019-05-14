@@ -151,19 +151,17 @@ const FilterNavigator = ({
 
   return (
     <div className={searchResult.filters}>
-     { !isEmpty(filters) && 
-        ( 
-          <div className={filterClasses}>
-            <div className="bb b--muted-4">
-              <h5 className="t-heading-5 mv5">
-                <FormattedMessage id="store/search-result.filter-button.title"/>
-              </h5>
-            </div>
-            <SelectedFilters filters={selectedFilters} />
-            <AvailableFilters filters={filters} priceRange={priceRange} />
+     { !isEmpty(filters) && ( 
+        <div className={filterClasses}>
+          <div className="bb b--muted-4">
+            <h5 className="t-heading-5 mv5">
+              <FormattedMessage id="store/search-result.filter-button.title"/>
+            </h5>
           </div>
-        )
-      }
+          <SelectedFilters filters={selectedFilters} />
+          <AvailableFilters filters={filters} priceRange={priceRange} />
+        </div>
+      )}
     </div>
   )
 }
