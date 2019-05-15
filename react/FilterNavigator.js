@@ -9,7 +9,7 @@ import { useRuntime } from 'vtex.render-runtime'
 import FilterSidebar from './components/FilterSidebar'
 import SelectedFilters from './components/SelectedFilters'
 import AvailableFilters from './components/AvailableFilters'
-import CategoryFilters from './components/CategoryFilters'
+import DepartmentFilters from './components/DepartmentFilters'
 import {
   facetOptionShape,
   paramShape,
@@ -98,7 +98,7 @@ const FilterNavigator = ({
           </h5>
         </div>
         <SelectedFilters filters={selectedFilters} />
-        <CategoryFilters
+        <DepartmentFilters
           title={CATEGORIES_TITLE}
           tree={tree}
           isVisible={!hiddenFacets.categories}

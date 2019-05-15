@@ -33,7 +33,7 @@
   "store/search-result.orderby.title": "Ordenar por",
   "store/search-result.filter-action.title": "Filtrar",
   "store/search-result.clear-filters.title": "Limpiar",
-  "store/search.filter.title.categories": "Categorías",
+  "store/search.filter.title.categories": "Departamentos",
   "store/search.filter.title.brands": "Marcas",
   "store/search.filter.title.price-ranges": "Gama de Precios",
   "store/search.text": "Mostrar {from}-{to} de {recordsFiltered} resultados",

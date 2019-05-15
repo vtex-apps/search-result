@@ -44,7 +44,7 @@ const FilterOptionTemplate = ({
 
   const titleClassName = classNames(
     searchResult.filterTitle,
-    't-heading-6 flex items-center justify-between',
+    'f5 flex items-center justify-between',
     {
       ttu: selected,
     }
