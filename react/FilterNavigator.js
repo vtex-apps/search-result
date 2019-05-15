@@ -139,7 +139,7 @@ const FilterNavigator = ({
     )
   }
 
-  if (mobile) {
+  if (mobile && !isEmpty(filters)) {
     return (
       <div className={searchResult.filters}>
         <div className={filterClasses}>
