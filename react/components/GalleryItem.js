@@ -1,5 +1,6 @@
 import React from 'react'
 import { ExtensionPoint } from 'vtex.render-runtime'
+import { usePixel } from 'vtex.pixel-manager/PixelContext'
 import { path, sort, comparator, useWith, gt } from 'ramda'
 
 import { productShape } from '../constants/propTypes'
@@ -49,12 +50,19 @@ const GalleryItem = ({ item, displayMode, summary }) => {
     return normalizedProduct
   }
 
+  const { push } = usePixel()
+
+  const sendProductClickEvent = product => {
+    push({ event: 'productClick', product })
+  }
+
   return (
     <ExtensionPoint
       id="product-summary"
       {...summary}
       product={normalizeProductSummary(item)}
       displayMode={displayMode}
+      actionOnClick={() => sendProductClickEvent(item)}
     />
   )
 }
