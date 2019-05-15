@@ -10,7 +10,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Doesn't display filter title when there is no filter types availables.
 
 ## [3.18.0] - 2019-05-15
-
 ### Added
 
 - Send productClick events to Pixel Manager.
