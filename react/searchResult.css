@@ -133,10 +133,14 @@
 .totalProducts {
   -ms-grid-row: 1;
   -ms-grid-column: 5;
-  grid-column: quantity;
+  grid-column: filters;
   grid-row: quantity;
   justify-self: start;
   align-self: center;
+}
+
+.filters ~ .totalProducts {
+  grid-column: quantity;
 }
 
 .orderBy {
