@@ -166,10 +166,6 @@ class SearchResult extends Component {
             </div>
           )}
           <ExtensionPoint id="search-title" title={title} />
-          <ExtensionPoint
-            id="total-products"
-            recordsFiltered={recordsFiltered}
-          />
           {!hideFacets && (
             <ExtensionPoint
               id="filter-navigator"
@@ -185,6 +181,10 @@ class SearchResult extends Component {
               showFacetQuantity={showFacetQuantity}
             />
           )}
+          <ExtensionPoint
+            id="total-products"
+            recordsFiltered={recordsFiltered}
+          />
           <div className={styles.resultGallery}>
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
