@@ -107,7 +107,7 @@ const FilterNavigator = ({
     ].filter(Boolean)
   }
 
-  const filters = getFilters()
+  const filters = []
 
   const filterClasses = classNames({
     'flex justify-center flex-auto': mobile,
