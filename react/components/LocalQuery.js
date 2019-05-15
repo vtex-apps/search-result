@@ -1,19 +1,21 @@
-import { path } from 'ramda'
+import { path, zip } from 'ramda'
 import React from 'react'
 import { Query } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
-import { productSearch } from 'vtex.store-resources/Queries'
+import { productSearchV2 } from 'vtex.store-resources/Queries'
 
 import { SORT_OPTIONS } from '../OrderBy'
 
 const DEFAULT_PAGE = 1
+const DEFAULT_MAX_ITEMS_PER_PAGE = 10
 
 const LocalQuery = props => {
   const {
-    maxItemsPerPage,
-    queryField,
-    mapField,
+    maxItemsPerPage = DEFAULT_MAX_ITEMS_PER_PAGE,
+    queryField = '',
+    mapField = '',
     orderByField = SORT_OPTIONS[0].value,
+    hideUnavailableItems,
     query: {
       order: orderBy = orderByField,
       page: pageQuery,
@@ -29,23 +31,41 @@ const LocalQuery = props => {
   const from = (page - 1) * maxItemsPerPage
   const to = from + maxItemsPerPage - 1
 
+  const { map: facetMap, query: facetQuery } = zip(
+    queryField.split('/'),
+    map.split(',')
+  )
+    .filter(([_, map]) => map === 'c' || map === 'ft')
+    .reduce(
+      ({ query: queryArr, map: mapArr }, [query, map]) => ({
+        query: [...queryArr, query],
+        map: [...mapArr, map],
+      }),
+      { map: [], query: [] }
+    )
+
+  const variables = {
+    query: queryField,
+    map,
+    orderBy,
+    priceRange,
+    from,
+    to,
+    withFacets: !!(
+      facetMap &&
+      facetMap.length > 0 &&
+      facetQuery &&
+      facetQuery.length > 0
+    ),
+    facetQuery: facetQuery.join('/'),
+    facetMap: facetMap.join(','),
+    hideUnavailableItems,
+  }
+
   return (
     <Query
-      query={productSearch}
-      variables={{
-        query: queryField,
-        map,
-        orderBy,
-        priceRange,
-        from,
-        to,
-        withFacets: !!(
-          map &&
-          map.length > 0 &&
-          queryField &&
-          queryField.length > 0
-        ),
-      }}
+      query={productSearchV2}
+      variables={variables}
       notifyOnNetworkStatusChange
       partialRefetch
     >
@@ -54,6 +74,13 @@ const LocalQuery = props => {
           ...props,
           searchQuery: {
             ...searchQuery,
+            data: {
+              ...(searchQuery.data || {}),
+              products: path(
+                ['data', 'productSearch', 'products'],
+                searchQuery
+              ),
+            },
             // backwards-compatibility with search-result <= 3.13.x
             facets: path(['data', 'facets'], searchQuery),
             products: path(['data', 'products'], searchQuery),
@@ -70,6 +97,7 @@ const LocalQuery = props => {
           page,
           from,
           to,
+          maxItemsPerPage,
         })
       }}
     </Query>

@@ -7,6 +7,65 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.17.8] - 2019-05-10
+### Fixed
+- Fixed bug where the extension would break if no title was found.
+
+## [3.17.7] - 2019-05-10
+### Fixed
+- Not found page being shown without filter navigator when the cause for the
+  lack of products is an applied filter.
+
+## [3.17.6] - 2019-05-10
+### Fixed
+- Fetch more on `LocalQuery` was always fetching 10 more items, and not fetching the next maxItemsPerPage items.
+
+## [3.17.5] - 2019-05-10
+### Fixed
+- Displays the correct product cluster title, instead of its id.
+
+## [3.17.4] - 2019-05-10
+### Fixed
+- Refrain from throwing error when LayoutModeSwitcher icon is not found.
+
+## [3.17.3] - 2019-05-10
+### Fixed
+- Vendas to Ventas in es.json
+
+## [3.17.2] - 2019-05-08
+### Fixed
+- Use `setQuery` method when selecting a sort by option.
+
+## [3.17.1] - 2019-05-07
+### Fixed
+- Correctly slugify facets when comparing if they are selected.
+
+## [3.17.0] - 2019-05-07
+### Changed
+- Generates category to use as prop categoryTree in breadcrumb
+
+## [3.16.2] - 2019-05-07
+### Added
+- Prop `hideUnavailableItems` to querySchema and use it on `LocalQuery`.
+
+## [3.16.1] - 2019-05-06
+
+## [3.16.0] - 2019-05-06
+### Fixed
+- Remove the default 'Sort By' option on `OrderBy` component.
+
+## [3.15.5] - 2019-05-06
+### Fixed
+- Selected filters not accounting for map parameter.
+
+## [3.15.4] - 2019-05-06
+### Fixed
+- Make `LocalQuery` use productSearchV2 and set default items per page.
+
+## [3.15.3] - 2019-05-06
+### Fixed
+- Decode gallery title.
+
 ## [3.15.2] - 2019-05-03
 ### Fixed
 - Infinite loading on fetch more.
