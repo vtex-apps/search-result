@@ -134,13 +134,14 @@
   -ms-grid-row: 1;
   -ms-grid-column: 5;
   grid-column: filters;
-  grid-row: quantity;
+  grid-row: orderby;
   justify-self: start;
   align-self: center;
 }
 
 .filters ~ .totalProducts {
   grid-column: quantity;
+  grid-row: quantity;
 }
 
 .orderBy {
@@ -217,9 +218,12 @@
   }
 
   .totalProducts {
+    justify-self: stretch;
+  }
+  
+  .filters ~ .totalProducts {
     border-top-style: solid;
     border-top-width: 2px;
-    justify-self: stretch;
   }
 }
 
