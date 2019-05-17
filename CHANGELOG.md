@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Use new breadcrumb resolver on productSearch.
+- Get Search Title from last breadcrumb name returned.
 
 ## [3.18.0] - 2019-05-15
 

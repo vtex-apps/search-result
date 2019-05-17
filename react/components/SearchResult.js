@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint, withRuntimeContext } from 'vtex.render-runtime'
+import { compose, prop, last } from 'ramda'
 
 import LoadingOverlay from './LoadingOverlay'
 import { searchResultPropTypes } from '../constants/propTypes'
@@ -152,6 +153,8 @@ class SearchResult extends Component {
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
+    const getLastName = compose(prop('name'), last)
+    const title = getLastName(breadcrumbsProps.categoryTree)
 
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
@@ -161,7 +164,7 @@ class SearchResult extends Component {
               <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
             </div>
           )}
-          <ExtensionPoint id="search-title" params={params} map={map} products={products} />
+          <ExtensionPoint id="search-title" title={title} />
           <ExtensionPoint
             id="total-products"
             recordsFiltered={recordsFiltered}
