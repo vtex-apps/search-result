@@ -10,7 +10,7 @@ import { PropTypes } from 'prop-types'
 /**
  * Normalizes the item received in the props to adapt to the extension point prop.
  */
-const GalleryItem = ({ item, displayMode, summary }) => {
+const GalleryItem = ({ item, displayMode, summary, positionList }) => {
   const normalizeProductSummary = product => {
     if (!product) {
       return null

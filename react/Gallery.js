@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { withResizeDetector } from 'react-resize-detector'
-import { map, pluck } from 'ramda'
+import { map, pluck, addIndex } from 'ramda'
 
 import { useRuntime } from 'vtex.render-runtime'
 
@@ -35,7 +35,7 @@ const Gallery = ({
     return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
   }
 
-  const renderItem = item => {
+  const renderItem = (item, index) => {
     const itemsPerRow =
       layoutMode === 'small'
         ? TWO_COLUMN_ITEMS
@@ -52,7 +52,7 @@ const Gallery = ({
         style={style}
         className={classNames(searchResult.galleryItem, 'pa4')}
       >
-        <GalleryItem item={item} summary={summary} displayMode={layoutMode} />
+        <GalleryItem item={item} summary={summary} positionList={index + 1} displayMode={layoutMode} />
       </div>
     )
   }
@@ -62,7 +62,9 @@ const Gallery = ({
     'flex flex-row flex-wrap items-stretch bn ph1 pl9-l na4'
   )
 
-  return <div className={galleryClasses}>{map(renderItem, products)}</div>
+  const mapWithIndex = addIndex(map)
+
+  return <div className={galleryClasses}>{mapWithIndex(renderItem, products)}</div>
 }
 
 Gallery.propTypes = {
