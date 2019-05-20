@@ -1,11 +1,9 @@
 import classNames from 'classnames'
-import React, { useState, useCallback, useContext } from 'react'
+import React from 'react'
 import { injectIntl } from 'react-intl'
-import { Collapsible } from 'vtex.styleguide'
 import { IconClose } from 'vtex.store-icons'
 
 import CategoryItem from './CategoryItem'
-import QueryContext from './QueryContext'
 import useFacetNavigation from '../hooks/useFacetNavigation'
 
 import styles from '../searchResult.css'
@@ -28,106 +26,106 @@ const getSelectedCategories = rootCategory => {
   return selectedCategories
 }
 
-const CategoryFilter = ({ category, shallow = false, intl }) => {
-  const [isOpen, setOpen] = useState(true)
-  const { map } = useContext(QueryContext)
-
-  const shouldShowSeeAll = map.split(',').includes('ft') && !shallow
-
-  const handleClick = useCallback(() => {
-    setOpen(prevOpen => !prevOpen)
-  }, [])
-
+const CategoryFilter = ({ category, shallow = false }) => {
   const navigateToFacet = useFacetNavigation()
 
   const selectedCategories = getSelectedCategories(category)
 
   const handleUnselectCategories = index => {
-    const startIndex = shouldShowSeeAll ? index : index + 1
-    const categoriesToRemove = selectedCategories.slice(startIndex)
+    const categoriesToRemove = selectedCategories.slice(index)
 
     navigateToFacet(categoriesToRemove)
   }
 
-  const lastSelectedCategory = selectedCategories[selectedCategories.length - 1]
+  const handleCategoryNameClick = () => {
+    if (shallow) {
+      navigateToFacet(category)
+    } else {
+      // deselect root category
+      handleUnselectCategories(0)
+    }
+  }
 
-  const seeAllLabel = intl.formatMessage({
-    id: 'store/search-result.filter.see-all',
-  })
+  const lastSelectedCategory = selectedCategories[selectedCategories.length - 1]
 
   return (
     <div className="mt4">
-      <Collapsible
-        align="right"
-        caretColor="muted"
-        header={
+      <div
+        role="button"
+        tabIndex={0}
+        className="flex items-center pointer"
+        onClick={handleCategoryNameClick}
+        onKeyDown={e => e.key === 'Enter' && handleCategoryNameClick()}
+      >
+        <div className="flex-grow-1">
           <span className={classNames(styles.categoryItemName, 'f5')}>
             {category.name}
           </span>
-        }
-        isOpen={isOpen}
-        onClick={handleClick}
-      >
-        <div className={classNames(styles.categoryItemChildrenContainer)}>
-          {selectedCategories
-            .slice(shouldShowSeeAll ? 0 : 1)
-            .map((subCategory, index) => (
-              <span
-                key={subCategory.id}
-                role="button"
-                tabIndex={0}
-                className={classNames(
-                  styles.selectedCategory,
-                  'mt4 flex items-center justify-between pointer f6'
-                )}
-                onClick={() => handleUnselectCategories(index)}
-                onKeyDown={e =>
-                  e.key === 'Enter' && handleUnselectCategories(index)
-                }
-              >
-                <span className={styles.selectedCategoryName}>
-                  {subCategory.name === category.name
-                    ? seeAllLabel
-                    : subCategory.name}
-                </span>
-                <span
-                  className={classNames(
-                    styles.selectedCategoryIcon,
-                    'flex items-center c-action-primary'
-                  )}
-                >
-                  <IconClose type="outline" size={14} />
-                </span>
-              </span>
-            ))}
-          {shallow && (
-            <CategoryItem
-              label={seeAllLabel}
-              onClick={() => navigateToFacet(category)}
-              className="mt2"
-            />
-          )}
-          {lastSelectedCategory.children &&
-            lastSelectedCategory.children.length > 0 && (
-              <div className={classNames({ ['mt4 bl b--muted-4']: !shallow })}>
-                {lastSelectedCategory.children.map((childCategory, index) => (
-                  <CategoryItem
-                    key={childCategory.id}
-                    className={classNames({
-                      mt2: index === 0 && !shallow,
-                    })}
-                    onClick={() =>
-                      navigateToFacet(
-                        shallow ? [category, childCategory] : childCategory
-                      )
-                    }
-                    label={childCategory.name}
-                  />
-                ))}
-              </div>
-            )}
         </div>
-      </Collapsible>
+        {!shallow && (
+          <span
+            className={classNames(
+              styles.selectedCategoryIcon,
+              'flex items-center c-action-primary'
+            )}
+          >
+            <IconClose type="outline" size={14} />
+          </span>
+        )}
+      </div>
+      <div className={styles.categoryItemChildrenContainer}>
+        {selectedCategories.slice(1).map((subCategory, index) => (
+          <span
+            key={subCategory.id}
+            role="button"
+            tabIndex={0}
+            className={classNames(
+              styles.selectedCategory,
+              'mt4 flex items-center justify-between pointer f6'
+            )}
+            onClick={() => handleUnselectCategories(index + 1)}
+            onKeyDown={e =>
+              e.key === 'Enter' && handleUnselectCategories(index + 1)
+            }
+          >
+            <span className={styles.selectedCategoryName}>
+              {subCategory.name}
+            </span>
+            <span
+              className={classNames(
+                styles.selectedCategoryIcon,
+                'flex items-center c-action-primary'
+              )}
+            >
+              <IconClose type="outline" size={14} />
+            </span>
+          </span>
+        ))}
+        {lastSelectedCategory.children &&
+          lastSelectedCategory.children.length > 0 && (
+            <div
+              className={classNames({
+                'mt4 bl b--muted-4': !shallow,
+                mt2: shallow,
+              })}
+            >
+              {lastSelectedCategory.children.map((childCategory, index) => (
+                <CategoryItem
+                  key={childCategory.id}
+                  className={classNames({
+                    mt2: index === 0 && !shallow,
+                  })}
+                  onClick={() =>
+                    navigateToFacet(
+                      shallow ? [category, childCategory] : childCategory
+                    )
+                  }
+                  label={childCategory.name}
+                />
+              ))}
+            </div>
+          )}
+      </div>
     </div>
   )
 }
