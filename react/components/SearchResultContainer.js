@@ -98,7 +98,7 @@ const SearchResultContainer = props => {
         <ResultComponent
           {...props}
           showMore={showMore}
-          breadcrumbsProps={{ categoryTree: breadcrumb }}
+          breadcrumbsProps={{ breadcrumb }}
           onFetchMore={handleFetchMore}
           fetchMoreLoading={fetchMoreLoading}
           query={query}

@@ -9,6 +9,8 @@ import LayoutModeSwitcher, { LAYOUT_MODE } from './LayoutModeSwitcher'
 
 import styles from '../searchResult.css'
 
+const getLastName = compose(prop('name'), last)
+
 /**
  * Search Result Component.
  */
@@ -153,8 +155,7 @@ class SearchResult extends Component {
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
-    const getLastName = compose(prop('name'), last)
-    const title = getLastName(breadcrumbsProps.categoryTree)
+    const title = getLastName(breadcrumbsProps.breadcrumb)
 
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
