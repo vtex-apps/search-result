@@ -27,6 +27,7 @@
 
   "store/search-result.show-more-button": "Show more",
   "store/search-result.filter-button.title": "Filters",
+  "store/search-result.filter.see-all": "See All",
   "store/search-result.filter-breadcrumbs.primary": "Filters",
   "store/search-result.filter-button.apply": "Apply",
   "store/search-result.filter-button.clear": "Clean",

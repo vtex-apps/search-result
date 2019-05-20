@@ -1,9 +1,11 @@
 import classNames from 'classnames'
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useContext } from 'react'
+import { injectIntl } from 'react-intl'
 import { Collapsible } from 'vtex.styleguide'
 import { IconClose } from 'vtex.store-icons'
 
 import CategoryItem from './CategoryItem'
+import QueryContext from './QueryContext'
 import useFacetNavigation from '../hooks/useFacetNavigation'
 
 import styles from '../searchResult.css'
@@ -26,8 +28,11 @@ const getSelectedCategories = rootCategory => {
   return selectedCategories
 }
 
-const CategoryFilter = ({ category, shallow = false }) => {
+const CategoryFilter = ({ category, shallow = false, intl }) => {
   const [isOpen, setOpen] = useState(true)
+  const { map } = useContext(QueryContext)
+
+  const shouldShowSeeAll = map.split(',').includes('ft') && !shallow
 
   const handleClick = useCallback(() => {
     setOpen(prevOpen => !prevOpen)
@@ -38,12 +43,17 @@ const CategoryFilter = ({ category, shallow = false }) => {
   const selectedCategories = getSelectedCategories(category)
 
   const handleUnselectCategories = index => {
-    const categoriesToRemove = selectedCategories.slice(index + 1)
+    const startIndex = shouldShowSeeAll ? index : index + 1
+    const categoriesToRemove = selectedCategories.slice(startIndex)
 
     navigateToFacet(categoriesToRemove)
   }
 
   const lastSelectedCategory = selectedCategories[selectedCategories.length - 1]
+
+  const seeAllLabel = intl.formatMessage({
+    id: 'store/search-result.filter.see-all',
+  })
 
   return (
     <div className="mt4">
@@ -59,36 +69,40 @@ const CategoryFilter = ({ category, shallow = false }) => {
         onClick={handleClick}
       >
         <div className={classNames(styles.categoryItemChildrenContainer)}>
-          {selectedCategories.slice(1).map((category, index) => (
-            <span
-              key={category.id}
-              role="button"
-              tabIndex={0}
-              className={classNames(
-                styles.selectedCategory,
-                'mt4 flex items-center justify-between pointer f6'
-              )}
-              onClick={() => handleUnselectCategories(index)}
-              onKeyDown={e =>
-                e.key === 'Enter' && handleUnselectCategories(index)
-              }
-            >
-              <span className={styles.selectedCategoryName}>
-                {category.name}
-              </span>
+          {selectedCategories
+            .slice(shouldShowSeeAll ? 0 : 1)
+            .map((subCategory, index) => (
               <span
+                key={subCategory.id}
+                role="button"
+                tabIndex={0}
                 className={classNames(
-                  styles.selectedCategoryIcon,
-                  'flex items-center c-action-primary'
+                  styles.selectedCategory,
+                  'mt4 flex items-center justify-between pointer f6'
                 )}
+                onClick={() => handleUnselectCategories(index)}
+                onKeyDown={e =>
+                  e.key === 'Enter' && handleUnselectCategories(index)
+                }
               >
-                <IconClose type="outline" size={14} />
+                <span className={styles.selectedCategoryName}>
+                  {subCategory.name === category.name
+                    ? seeAllLabel
+                    : subCategory.name}
+                </span>
+                <span
+                  className={classNames(
+                    styles.selectedCategoryIcon,
+                    'flex items-center c-action-primary'
+                  )}
+                >
+                  <IconClose type="outline" size={14} />
+                </span>
               </span>
-            </span>
-          ))}
+            ))}
           {shallow && (
             <CategoryItem
-              label="See All"
+              label={seeAllLabel}
               onClick={() => navigateToFacet(category)}
               className="mt2"
             />
@@ -118,4 +132,4 @@ const CategoryFilter = ({ category, shallow = false }) => {
   )
 }
 
-export default CategoryFilter
+export default injectIntl(CategoryFilter)
