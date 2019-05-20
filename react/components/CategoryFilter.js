@@ -1,8 +1,9 @@
 import classNames from 'classnames'
-import React from 'react'
+import React, { useContext } from 'react'
 import { injectIntl } from 'react-intl'
 import { IconClose } from 'vtex.store-icons'
 
+import QueryContext from './QueryContext'
 import Collapsible from './Collapsible'
 import CategoryItem from './CategoryItem'
 import useFacetNavigation from '../hooks/useFacetNavigation'
@@ -28,6 +29,7 @@ const getSelectedCategories = rootCategory => {
 }
 
 const CategoryFilter = ({ category, shallow = false }) => {
+  const { map } = useContext(QueryContext)
   const navigateToFacet = useFacetNavigation()
 
   const selectedCategories = getSelectedCategories(category)
@@ -38,7 +40,15 @@ const CategoryFilter = ({ category, shallow = false }) => {
     navigateToFacet(categoriesToRemove)
   }
 
-  const handleCategoryNameClick = () => {
+  const lastSelectedCategory = selectedCategories[selectedCategories.length - 1]
+
+  const canDisableRoot = map.split(',').includes('ft')
+
+  const handleRootCategoryClick = () => {
+    if (!canDisableRoot) {
+      return
+    }
+
     if (shallow) {
       navigateToFacet(category)
     } else {
@@ -47,23 +57,21 @@ const CategoryFilter = ({ category, shallow = false }) => {
     }
   }
 
-  const lastSelectedCategory = selectedCategories[selectedCategories.length - 1]
-
   return (
     <div className="mt4">
       <div
         role="button"
-        tabIndex={0}
-        className="flex items-center pointer"
-        onClick={handleCategoryNameClick}
-        onKeyDown={e => e.key === 'Enter' && handleCategoryNameClick()}
+        tabIndex={canDisableRoot ? 0 : -1}
+        className={classNames('flex items-center pointer')}
+        onClick={handleRootCategoryClick}
+        onKeyDown={e => e.key === 'Enter' && handleRootCategoryClick()}
       >
         <div className="flex-grow-1">
           <span className={classNames(styles.categoryItemName, 'f5')}>
             {category.name}
           </span>
         </div>
-        {!shallow && (
+        {!shallow && canDisableRoot && (
           <span
             className={classNames(
               styles.selectedCategoryIcon,

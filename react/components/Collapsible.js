@@ -31,7 +31,7 @@ const Collapsible = ({
       {shouldCollapse && items.length > maxItems && (
         <>
           <animated.div style={{ overflow: 'hidden', ...styles }}>
-            <div className="dib w-100" ref={containerRef}>
+            <div className="dib w-100" aria-hidden={!open} ref={containerRef}>
               {items.slice(maxItems).map(render)}
             </div>
           </animated.div>
