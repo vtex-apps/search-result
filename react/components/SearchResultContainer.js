@@ -10,45 +10,11 @@ import { searchResultContainerPropTypes } from '../constants/propTypes'
 
 const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
 
-const categoryWithChildrenReducer = (acc, category) => [
-  ...acc,
-  category,
-  ...category.children,
-]
-
-const getBreadcrumbsProps = ({
-  category,
-  department,
-  term,
-  categoriesTrees,
-  loading,
-}) => {
-  const params = {
-    term: term ? decodeURIComponent(term) : term,
-  }
-
-  if (loading || !categoriesTrees) {
-    return params
-  }
-
-  if (department && category) {
-    params.categoryTree = categoriesTrees.reduce(
-      categoryWithChildrenReducer,
-      []
-    )
-  } else if (department) {
-    params.categoryTree = categoriesTrees
-  }
-
-  return params
-}
-
 /**
  * Search Result Container Component.
  */
 const SearchResultContainer = props => {
   const {
-    params,
     showMore = false,
     maxItemsPerPage = 10,
     searchQuery: {
@@ -61,7 +27,7 @@ const SearchResultContainer = props => {
           categoriesTrees,
           recordsFiltered: facetRecordsFiltered,
         } = {},
-        productSearch: { products = [], recordsFiltered } = {},
+        productSearch: { products = [], recordsFiltered, breadcrumb = [] } = {},
       } = {},
       loading,
       variables: { query },
@@ -132,9 +98,7 @@ const SearchResultContainer = props => {
         <ResultComponent
           {...props}
           showMore={showMore}
-          breadcrumbsProps={getBreadcrumbsProps(
-            Object.assign({}, params, { categoriesTrees, loading })
-          )}
+          breadcrumbsProps={{ breadcrumb }}
           onFetchMore={handleFetchMore}
           fetchMoreLoading={fetchMoreLoading}
           query={query}

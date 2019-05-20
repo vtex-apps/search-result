@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.18.1] - 2019-05-20
+### Changed
+- Use new breadcrumb resolver on productSearch.
+- Get Search Title from last breadcrumb name returned.
+
 ## [3.18.0] - 2019-05-15
 
 ### Added
