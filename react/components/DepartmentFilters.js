@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
+import Collapsible from './Collapsible'
 import CategoryFilter from './CategoryFilter'
 
 import styles from '../searchResult.css'
@@ -32,9 +33,15 @@ const DepartmentFilters = ({ title, isVisible, tree }) => {
         )}
       >
         {showAllDepartments ? (
-          tree.map(category => (
-            <CategoryFilter key={category.id} category={category} shallow />
-          ))
+          <Collapsible
+            maxItems={5}
+            threshold={3}
+            items={tree}
+            openLabel="store/filter.more-departments"
+            render={category => (
+              <CategoryFilter key={category.id} category={category} shallow />
+            )}
+          />
         ) : (
           <CategoryFilter category={tree.find(category => category.selected)} />
         )}

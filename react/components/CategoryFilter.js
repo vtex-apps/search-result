@@ -3,6 +3,7 @@ import React from 'react'
 import { injectIntl } from 'react-intl'
 import { IconClose } from 'vtex.store-icons'
 
+import Collapsible from './Collapsible'
 import CategoryItem from './CategoryItem'
 import useFacetNavigation from '../hooks/useFacetNavigation'
 
@@ -109,20 +110,27 @@ const CategoryFilter = ({ category, shallow = false }) => {
                 mt2: shallow,
               })}
             >
-              {lastSelectedCategory.children.map((childCategory, index) => (
-                <CategoryItem
-                  key={childCategory.id}
-                  className={classNames({
-                    mt2: index === 0 && !shallow,
-                  })}
-                  onClick={() =>
-                    navigateToFacet(
-                      shallow ? [category, childCategory] : childCategory
-                    )
-                  }
-                  label={childCategory.name}
-                />
-              ))}
+              <Collapsible
+                items={lastSelectedCategory.children}
+                maxItems={2}
+                threshold={1}
+                linkClassName="ml3"
+                openLabel="store/filter.more-categories"
+                render={(childCategory, index) => (
+                  <CategoryItem
+                    key={childCategory.id}
+                    className={classNames({
+                      mt2: index === 0 && !shallow,
+                    })}
+                    onClick={() =>
+                      navigateToFacet(
+                        shallow ? [category, childCategory] : childCategory
+                      )
+                    }
+                    label={childCategory.name}
+                  />
+                )}
+              />
             </div>
           )}
       </div>
