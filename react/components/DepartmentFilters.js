@@ -15,7 +15,7 @@ const DepartmentFilters = ({ title, isVisible, tree }) => {
 
   return (
     <div className="bb b--muted-4">
-      <div className={classNames(styles.filter, 'pv4')}>
+      <div className={classNames(styles.filter, 'pt4')}>
         <div
           className={classNames(
             styles.filterTitle,
