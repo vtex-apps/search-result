@@ -88,18 +88,18 @@ const FilterNavigator = ({
       : []
 
     return [
-      !hiddenFacets.categories && {
+      !hiddenFacets.categories && !isEmpty(categories) && {
         type: CATEGORIES_TYPE,
         title: CATEGORIES_TITLE,
         facets: categories,
       },
       ...mappedSpecificationFilters,
-      !hiddenFacets.brands && {
+      !hiddenFacets.brands && !isEmpty(brands) && {
         type: BRANDS_TYPE,
         title: BRANDS_TITLE,
         facets: brands,
       },
-      !hiddenFacets.priceRange && {
+      !hiddenFacets.priceRange && !isEmpty(priceRanges) && {
         type: PRICE_RANGES_TYPE,
         title: PRICE_RANGES_TITLE,
         facets: priceRanges,
