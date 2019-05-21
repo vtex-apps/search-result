@@ -66,7 +66,7 @@ const CategoryFilter = ({ category, shallow = false }) => {
         onClick={handleRootCategoryClick}
         onKeyDown={e => e.key === 'Enter' && handleRootCategoryClick()}
       >
-        <div className="flex-grow-1">
+        <div className="flex-grow-1 dim">
           <span className={classNames(styles.categoryItemName, 'f5')}>
             {category.name}
           </span>
@@ -120,8 +120,8 @@ const CategoryFilter = ({ category, shallow = false }) => {
             >
               <Collapsible
                 items={lastSelectedCategory.children}
-                maxItems={2}
-                threshold={1}
+                maxItems={8}
+                threshold={2}
                 linkClassName="ml3"
                 openLabel="store/filter.more-categories"
                 render={(childCategory, index) => (

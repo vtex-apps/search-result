@@ -34,8 +34,8 @@ const DepartmentFilters = ({ title, isVisible, tree }) => {
       >
         {showAllDepartments ? (
           <Collapsible
-            maxItems={5}
-            threshold={3}
+            maxItems={8}
+            threshold={2}
             items={tree}
             openLabel="store/filter.more-departments"
             render={category => (
