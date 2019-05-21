@@ -25,6 +25,7 @@ const Gallery = ({
   minItemWidth = 240,
   width,
   summary,
+  showingFacets,
 }) => {
   const runtime = useRuntime()
 
@@ -59,8 +60,10 @@ const Gallery = ({
 
   const galleryClasses = classNames(
     searchResult.gallery,
-    'flex flex-row flex-wrap items-stretch bn ph1 pl9-l na4'
-  )
+    'flex flex-row flex-wrap items-stretch bn ph1 na4', {
+      'justify-center': !showingFacets,
+      'pl9-l': showingFacets,
+    })
 
   return <div className={galleryClasses}>{map(renderItem, products)}</div>
 }
