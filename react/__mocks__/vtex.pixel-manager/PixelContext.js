@@ -1,6 +1,7 @@
-export function usePixel(Comp) {
-  const usePixel = () => {
-    const push = () => {}
-  }
-  return usePixel
+import { useContext, createContext } from 'react'
+
+const PixelContext = createContext({ push: () => undefined })
+
+export const usePixel = () => {
+  return useContext(PixelContext)
 }
