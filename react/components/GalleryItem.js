@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import { usePixel } from 'vtex.pixel-manager/PixelContext'
 import { path, sort, comparator, useWith, gt } from 'ramda'
@@ -52,11 +52,24 @@ const GalleryItem = ({ item, displayMode, summary, positionList }) => {
 
   const { push } = usePixel()
 
-  const sendProductClickEvent = product => {
+  const pushPixelProductClickEvent = product => {
     push({ event: 'productClick', product })
   }
 
-  const product = normalizeProductSummary(item)
+  const pushPixelProductImpressionEvent = (product, position) => {
+    push({
+      event: 'productImpression',
+      list: 'Search result',
+      product,
+      position,
+    })
+  }
+
+  const product = useMemo(() => normalizeProductSummary(item), [item])
+
+  useEffect(() => {
+    pushPixelProductImpressionEvent(product, positionList)
+  }, [product])
 
   return (
     <ExtensionPoint
@@ -64,7 +77,7 @@ const GalleryItem = ({ item, displayMode, summary, positionList }) => {
       {...summary}
       product={product}
       displayMode={displayMode}
-      actionOnClick={() => sendProductClickEvent(product)}
+      actionOnClick={() => pushPixelProductClickEvent(product)}
     />
   )
 }
@@ -76,6 +89,8 @@ GalleryItem.propTypes = {
   summary: PropTypes.any,
   /** Display mode of the product summary */
   displayMode: PropTypes.string,
+  /** Item's position in the list in which it is rendered. */
+  positionList: PropTypes.number,
 }
 
 export default GalleryItem
