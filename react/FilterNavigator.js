@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import { map, flatten, path, contains, filter, prop, isEmpty } from 'ramda'
+import { map, flatten, filter, prop, isEmpty } from 'ramda'
 import React, { useMemo } from 'react'
 import ContentLoader from 'react-content-loader'
 import { FormattedMessage } from 'react-intl'
@@ -17,15 +17,6 @@ import {
 import useSelectedFilters from './hooks/useSelectedFilters'
 
 import searchResult from './searchResult.css'
-
-export const CATEGORIES_TYPE = 'Categories'
-export const BRANDS_TYPE = 'Brands'
-export const PRICE_RANGES_TYPE = 'PriceRanges'
-export const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
-
-const CATEGORIES_TITLE = 'store/search.filter.title.categories'
-const BRANDS_TITLE = 'store/search.filter.title.brands'
-const PRICE_RANGES_TITLE = 'store/search.filter.title.price-ranges'
 
 const getCategories = (tree = []) => {
   return [
@@ -46,7 +37,7 @@ const FilterNavigator = ({
   priceRanges = [],
   brands = [],
   loading = false,
-  hiddenFacets = {},
+  filters = [],
 }) => {
   const {
     hints: { mobile },
@@ -66,48 +57,6 @@ const FilterNavigator = ({
       return flatten(options)
     }, [brands, priceRanges, specificationFilters, tree])
   ).filter(facet => facet.selected)
-
-  const getFilters = () => {
-    const categories = getCategories(tree)
-
-    const hiddenFacetsNames = (
-      path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
-    ).map(filter => filter.name)
-
-    const mappedSpecificationFilters = !path(
-      ['specificationFilters', 'hideAll'],
-      hiddenFacets
-    )
-      ? specificationFilters
-          .filter(spec => !contains(spec.name, hiddenFacetsNames))
-          .map(spec => ({
-            type: SPECIFICATION_FILTERS_TYPE,
-            title: spec.name,
-            facets: spec.facets,
-          }))
-      : []
-
-    return [
-      !hiddenFacets.categories && !isEmpty(categories) && {
-        type: CATEGORIES_TYPE,
-        title: CATEGORIES_TITLE,
-        facets: categories,
-      },
-      ...mappedSpecificationFilters,
-      !hiddenFacets.brands && !isEmpty(brands) && {
-        type: BRANDS_TYPE,
-        title: BRANDS_TITLE,
-        facets: brands,
-      },
-      !hiddenFacets.priceRange && !isEmpty(priceRanges) && {
-        type: PRICE_RANGES_TYPE,
-        title: PRICE_RANGES_TITLE,
-        facets: priceRanges,
-      },
-    ].filter(Boolean)
-  }
-
-  const filters = getFilters()
 
   const filterClasses = classNames({
     'flex justify-center flex-auto': mobile,
@@ -139,7 +88,7 @@ const FilterNavigator = ({
     )
   }
 
-  if (mobile && !isEmpty(filters)) {
+  if (mobile) {
     return (
       <div className={searchResult.filters}>
         <div className={filterClasses}>
@@ -150,19 +99,17 @@ const FilterNavigator = ({
   }
 
   return (
-    !isEmpty(filters) && (
-      <div className={searchResult.filters}> 
-        <div className={filterClasses}>
-          <div className="bb b--muted-4">
-            <h5 className="t-heading-5 mv5">
-              <FormattedMessage id="store/search-result.filter-button.title"/>
-            </h5>
-          </div>
-          <SelectedFilters filters={selectedFilters} />
-          <AvailableFilters filters={filters} priceRange={priceRange} />
+    <div className={searchResult.filters}> 
+      <div className={filterClasses}>
+        <div className="bb b--muted-4">
+          <h5 className="t-heading-5 mv5">
+            <FormattedMessage id="store/search-result.filter-button.title"/>
+          </h5>
         </div>
+        <SelectedFilters filters={selectedFilters} />
+        <AvailableFilters filters={filters} priceRange={priceRange} />
       </div>
-    )
+    </div>
   )
 }
 

@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint, withRuntimeContext } from 'vtex.render-runtime'
-import { compose, prop, last } from 'ramda'
+import { compose, prop, last, isEmpty } from 'ramda'
 
 import LoadingOverlay from './LoadingOverlay'
 import { searchResultPropTypes } from '../constants/propTypes'
 import LayoutModeSwitcher, { LAYOUT_MODE } from './LayoutModeSwitcher'
+
+import useFilters from '../hooks/useFilters'
 
 import styles from '../searchResult.css'
 
@@ -157,6 +159,15 @@ class SearchResult extends Component {
     const showContentLoader = showLoading && !showLoadingAsOverlay
     const title = getLastName(breadcrumbsProps.breadcrumb)
 
+    const filters = useFilters({
+      tree,
+      specificationFilters,
+      priceRanges,
+      brands,
+      hiddenFacets,
+    })
+
+    const showFacets = !hideFacets && !isEmpty(filters)
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
         <div className={`${styles.container} w-100 mw9`}>
@@ -166,7 +177,7 @@ class SearchResult extends Component {
             </div>
           )}
           <ExtensionPoint id="search-title" title={title} />
-          {!hideFacets && (
+          {showFacets && (
             <ExtensionPoint
               id="filter-navigator"
               brands={brands}
@@ -176,9 +187,8 @@ class SearchResult extends Component {
               priceRanges={priceRanges}
               specificationFilters={specificationFilters}
               tree={tree}
-              hiddenFacets={hiddenFacets}
               loading={showContentLoader}
-              showFacetQuantity={showFacetQuantity}
+              filters={filters}
             />
           )}
           <ExtensionPoint
@@ -199,6 +209,7 @@ class SearchResult extends Component {
                 summary={summary}
                 className="bn"
                 mobileLayoutMode={mobileLayoutMode}
+                showingFacets={showFacets}
               />
             ) : (
               <div className={styles.gallery}>
