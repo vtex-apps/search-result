@@ -10,7 +10,7 @@ const FacetItem = ({ facet }) => {
   const navigateToFacet = useFacetNavigation()
 
   return (
-    <div className="lh-copy w-100">
+    <div className="lh-copy w-100" style={{hyphens: 'auto', wordBreak: 'break-all'}}>
       <Checkbox
         id={facet.value}
         checked={facet.selected}
@@ -26,3 +26,6 @@ const FacetItem = ({ facet }) => {
 }
 
 export default FacetItem
+
+// hyphens: auto;
+// word-break: break-all;
