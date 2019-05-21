@@ -58,7 +58,7 @@ Now, you can change the behavior of the search result block that is in the store
       "search-title"
     ],
     "props": {
-      "querySchema": {
+      "context": {
         "maxItemsPerPage": 2,
         "orderByField": "OrderByReleaseDateDESC"
       },
