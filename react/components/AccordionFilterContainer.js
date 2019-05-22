@@ -8,7 +8,7 @@ import { Checkbox } from 'vtex.styleguide'
 import AccordionFilterItem from './AccordionFilterItem'
 import DepartmentFilters from './DepartmentFilters'
 
-import searchResult from '../searchResult.css'
+import styles from '../searchResult.css'
 
 const CATEGORIES_TITLE = 'store/search.filter.title.categories'
 
@@ -42,12 +42,18 @@ const AccordionFilterContainer = ({
 
   const departmentsOpen = openItem === CATEGORIES_TITLE
 
+  const itemClassName = classNames(
+    styles.accordionFilterItemOptions,
+    'pl5 pt3 h-100 overflow-scroll'
+  )
+
   return (
-    <div className={`${searchResult.accordionFilter} h-100`}>
+    <div className={classNames(styles.accordionFilter, 'h-100')}>
       <div
-        className={`${
-          searchResult.filterAccordionBreadcrumbs
-        } pointer flex flex-row items-center pa5 bg-base w-100 z-max bb b--muted-4`}
+        className={classNames(
+          styles.filterAccordionBreadcrumbs,
+          'pointer flex flex-row items-center pa5 bg-base w-100 z-max bb b--muted-4'
+        )}
       >
         <div
           role="button"
@@ -83,7 +89,7 @@ const AccordionFilterContainer = ({
         show={!openItem || departmentsOpen}
         onOpen={handleOpen(CATEGORIES_TITLE)}
       >
-        <div className="pl5 pt3 h-100 overflow-scroll">
+        <div className={itemClassName}>
           <DepartmentFilters
             tree={tree}
             isVisible={tree.length > 0}
@@ -104,19 +110,16 @@ const AccordionFilterContainer = ({
             show={!openItem || isOpen}
             onOpen={handleOpen(filter.title)}
           >
-            <div
-              className={`${
-                searchResult.accordionFilterItemOptions
-              } pl7 overflow-scroll h-100`}
-            >
+            <div className={itemClassName}>
               {facets.map(facet => {
                 const { name } = facet
 
                 return (
                   <div
-                    className={`${
-                      searchResult.filterAccordionItemBox
-                    } pr4 pt3 items-center flex bb b--muted-5`}
+                    className={classNames(
+                      styles.filterAccordionItemBox,
+                      'pr4 pt3 items-center flex bb b--muted-5'
+                    )}
                     key={name}
                   >
                     <Checkbox
