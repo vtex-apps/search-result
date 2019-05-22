@@ -83,7 +83,7 @@ const AccordionFilterContainer = ({
         show={!openItem || departmentsOpen}
         onOpen={handleOpen(CATEGORIES_TITLE)}
       >
-        <div className="pl5 pt3 h-100">
+        <div className="pl5 pt3 h-100 overflow-scroll">
           <DepartmentFilters
             tree={tree}
             isVisible={tree.length > 0}
