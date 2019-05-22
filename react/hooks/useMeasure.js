@@ -3,17 +3,24 @@ import ResizeObserver from 'resize-observer-polyfill'
 
 export default function useMeasure(ref) {
   const [bounds, setBounds] = useState({ left: 0, top: 0, width: 0, height: 0 })
-  const [resizeObserver] = useState(
-    () => new ResizeObserver(([entry]) => setBounds(entry.contentRect))
-  )
 
   useEffect(() => {
+    let isCurrent = true
+    const resizeObserver = new ResizeObserver(([entry]) => {
+      if (isCurrent) {
+        setBounds(entry.contentRect)
+      }
+    })
+
     if (ref.current !== null) {
       resizeObserver.observe(ref.current)
     }
 
-    return resizeObserver.disconnect
-  }, [ref, resizeObserver])
+    return () => {
+      resizeObserver.disconnect()
+      isCurrent = false
+    }
+  }, [ref])
 
   return bounds
 }
