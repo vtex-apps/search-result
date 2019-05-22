@@ -16,6 +16,7 @@ import {
   hiddenFacetsSchema,
 } from './constants/propTypes'
 import useSelectedFilters from './hooks/useSelectedFilters'
+import useFacetNavigation from './hooks/useFacetNavigation'
 
 import styles from './searchResult.css'
 
@@ -36,6 +37,8 @@ const FilterNavigator = ({
   const {
     hints: { mobile },
   } = useRuntime()
+
+  const navigateToFacet = useFacetNavigation()
 
   const selectedFilters = useSelectedFilters(
     useMemo(() => {
@@ -83,7 +86,7 @@ const FilterNavigator = ({
     return (
       <div className={styles.filters}>
         <div className={filterClasses}>
-          <FilterSidebar filters={filters} />
+          <FilterSidebar filters={filters} tree={tree} />
         </div>
       </div>
     )
@@ -102,6 +105,7 @@ const FilterNavigator = ({
           title={CATEGORIES_TITLE}
           tree={tree}
           isVisible={!hiddenFacets.categories}
+          onCategorySelect={navigateToFacet}
         />
         <AvailableFilters filters={filters} priceRange={priceRange} />
       </div>

@@ -3,16 +3,22 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
+import { Checkbox } from 'vtex.styleguide'
 
 import AccordionFilterItem from './AccordionFilterItem'
+import DepartmentFilters from './DepartmentFilters'
 
 import searchResult from '../searchResult.css'
+
+const CATEGORIES_TITLE = 'store/search.filter.title.categories'
 
 const AccordionFilterContainer = ({
   filters,
   intl,
   onFilterCheck,
   isOptionSelected,
+  tree,
+  onCategorySelect,
 }) => {
   const [openItem, setOpenItem] = useState(null)
 
@@ -27,12 +33,14 @@ const AccordionFilterContainer = ({
   }
 
   const handleKeyDown = e => {
-    if (e.key === ' ') {
+    if (e.key === 'Enter') {
       setOpenItem(null)
     }
   }
 
   const nonEmptyFilters = filters.filter(spec => spec.facets.length > 0)
+
+  const departmentsOpen = openItem === CATEGORIES_TITLE
 
   return (
     <div className={`${searchResult.accordionFilter} h-100`}>
@@ -69,6 +77,21 @@ const AccordionFilterContainer = ({
         )}
       </div>
 
+      <AccordionFilterItem
+        title={CATEGORIES_TITLE}
+        open={departmentsOpen}
+        show={!openItem || departmentsOpen}
+        onOpen={handleOpen(CATEGORIES_TITLE)}
+      >
+        <div className="pl5 pt3 h-100">
+          <DepartmentFilters
+            tree={tree}
+            isVisible={tree.length > 0}
+            onCategorySelect={onCategorySelect}
+            hideBorder
+          />
+        </div>
+      </AccordionFilterItem>
       {nonEmptyFilters.map(filter => {
         const { title, facets } = filter
         const isOpen = openItem === filter.title
@@ -77,13 +100,39 @@ const AccordionFilterContainer = ({
           <AccordionFilterItem
             key={filter.title}
             title={title}
-            facets={facets}
-            isOptionSelected={isOptionSelected}
             open={isOpen}
-            onFilterCheck={onFilterCheck}
             show={!openItem || isOpen}
             onOpen={handleOpen(filter.title)}
-          />
+          >
+            <div
+              className={`${
+                searchResult.accordionFilterItemOptions
+              } pl7 overflow-scroll h-100`}
+            >
+              {facets.map(facet => {
+                const { name } = facet
+
+                return (
+                  <div
+                    className={`${
+                      searchResult.filterAccordionItemBox
+                    } pr4 pt3 items-center flex bb b--muted-5`}
+                    key={name}
+                  >
+                    <Checkbox
+                      className="mb0"
+                      checked={isOptionSelected(facet)}
+                      id={name}
+                      label={name}
+                      name={name}
+                      onChange={() => onFilterCheck(facet)}
+                      value={name}
+                    />
+                  </div>
+                )
+              })}
+            </div>
+          </AccordionFilterItem>
         )
       })}
     </div>
@@ -102,6 +151,8 @@ AccordionFilterContainer.propTypes = {
   /** Filters selected previously */
   selectedFilters: PropTypes.array,
   isOptionSelected: PropTypes.func.isRequired,
+  tree: PropTypes.any,
+  onCategorySelect: PropTypes.func,
 }
 
 export default injectIntl(AccordionFilterContainer)

@@ -6,7 +6,6 @@ import { IconClose } from 'vtex.store-icons'
 import QueryContext from './QueryContext'
 import Collapsible from './Collapsible'
 import CategoryItem from './CategoryItem'
-import useFacetNavigation from '../hooks/useFacetNavigation'
 
 import styles from '../searchResult.css'
 
@@ -28,16 +27,15 @@ const getSelectedCategories = rootCategory => {
   return selectedCategories
 }
 
-const CategoryFilter = ({ category, shallow = false }) => {
+const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
   const { map } = useContext(QueryContext)
-  const navigateToFacet = useFacetNavigation()
 
   const selectedCategories = getSelectedCategories(category)
 
   const handleUnselectCategories = index => {
     const categoriesToRemove = selectedCategories.slice(index)
 
-    navigateToFacet(categoriesToRemove)
+    onCategorySelect(categoriesToRemove)
   }
 
   const lastSelectedCategory = selectedCategories[selectedCategories.length - 1]
@@ -50,7 +48,7 @@ const CategoryFilter = ({ category, shallow = false }) => {
     }
 
     if (shallow) {
-      navigateToFacet(category)
+      onCategorySelect(category)
     } else {
       // deselect root category
       handleUnselectCategories(0)
@@ -67,7 +65,7 @@ const CategoryFilter = ({ category, shallow = false }) => {
         onKeyDown={e => e.key === 'Enter' && handleRootCategoryClick()}
       >
         <div className="flex-grow-1 dim">
-          <span className={classNames(styles.categoryItemName, 'f5')}>
+          <span className={classNames(styles.categoryItemName, 'f5 c-on-base')}>
             {category.name}
           </span>
         </div>
@@ -131,7 +129,7 @@ const CategoryFilter = ({ category, shallow = false }) => {
                       mt2: index === 0 && !shallow,
                     })}
                     onClick={() =>
-                      navigateToFacet(
+                      onCategorySelect(
                         shallow ? [category, childCategory] : childCategory
                       )
                     }
