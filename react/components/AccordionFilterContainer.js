@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
-import { Checkbox } from 'vtex.styleguide'
 
 import AccordionFilterItem from './AccordionFilterItem'
 import DepartmentFilters from './DepartmentFilters'
+import FacetCheckboxList from './FacetCheckboxList'
 
 import styles from '../searchResult.css'
 
@@ -16,7 +16,6 @@ const AccordionFilterContainer = ({
   filters,
   intl,
   onFilterCheck,
-  isOptionSelected,
   tree,
   onCategorySelect,
 }) => {
@@ -111,29 +110,10 @@ const AccordionFilterContainer = ({
             onOpen={handleOpen(filter.title)}
           >
             <div className={itemClassName}>
-              {facets.map(facet => {
-                const { name } = facet
-
-                return (
-                  <div
-                    className={classNames(
-                      styles.filterAccordionItemBox,
-                      'pr4 pt3 items-center flex bb b--muted-5'
-                    )}
-                    key={name}
-                  >
-                    <Checkbox
-                      className="mb0"
-                      checked={isOptionSelected(facet)}
-                      id={name}
-                      label={name}
-                      name={name}
-                      onChange={() => onFilterCheck(facet)}
-                      value={name}
-                    />
-                  </div>
-                )
-              })}
+              <FacetCheckboxList
+                onFilterCheck={onFilterCheck}
+                facets={facets}
+              />
             </div>
           </AccordionFilterItem>
         )
@@ -151,9 +131,6 @@ AccordionFilterContainer.propTypes = {
   filtersChecks: PropTypes.object,
   /** Checkbox hit callback function */
   onFilterCheck: PropTypes.func,
-  /** Filters selected previously */
-  selectedFilters: PropTypes.array,
-  isOptionSelected: PropTypes.func.isRequired,
   tree: PropTypes.any,
   onCategorySelect: PropTypes.func,
 }

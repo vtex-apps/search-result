@@ -1,13 +1,6 @@
 import classNames from 'classnames'
 import produce from 'immer'
-import { map, flatten, filter, prop, compose } from 'ramda'
-import React, {
-  useRef,
-  useState,
-  useEffect,
-  Fragment,
-  useCallback,
-} from 'react'
+import React, { useState, useEffect, useCallback, Fragment } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { Button } from 'vtex.styleguide'
@@ -15,7 +8,6 @@ import { IconFilter } from 'vtex.store-icons'
 
 import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
-import useSelectedFilters from '../hooks/useSelectedFilters'
 import useFacetNavigation from '../hooks/useFacetNavigation'
 
 import searchResult from '../searchResult.css'
@@ -23,45 +15,17 @@ import searchResult from '../searchResult.css'
 const FilterSidebar = ({ filters, tree }) => {
   const [open, setOpen] = useState(false)
 
-  const {
-    tree: currentTree,
-    onAddCategories,
-    onRemoveCategories,
-  } = useCategoryTree(tree) // eslint-disable-line @typescript-eslint/no-use-before-define
-
-  const selectedFiltersFromProps = filter(
-    prop('selected'),
-    useSelectedFilters(
-      compose(
-        flatten,
-        map(prop('facets'))
-      )(filters)
-    )
-  )
-
-  const [selectedFilters, setSelectedFilters] = useState(
-    selectedFiltersFromProps
-  )
+  const [filterOperations, setFilterOperations] = useState([])
+  const currentTree = useCategoryTree(tree, filterOperations) // eslint-disable-line @typescript-eslint/no-use-before-define
 
   const navigateToFacet = useFacetNavigation()
 
-  const lastSelectedFilters = useRef(selectedFilters)
-
-  useEffect(() => {
-    if (!open) {
-      lastSelectedFilters.current = selectedFilters
-    }
-  }, [selectedFilters, open])
-
-  const isOptionSelected = opt =>
-    !!selectedFilters.find(facet => facet.value === opt.value)
-
   const handleFilterCheck = filter => {
-    if (!isOptionSelected(filter)) {
-      setSelectedFilters(selectedFilters.concat(filter))
+    if (!filter.selected) {
+      setFilterOperations(filterOperations.concat(filter))
     } else {
-      setSelectedFilters(
-        selectedFilters.filter(facet => facet.value !== filter.value)
+      setFilterOperations(
+        filterOperations.filter(facet => facet.value !== filter.value)
       )
     }
   }
@@ -75,11 +39,11 @@ const FilterSidebar = ({ filters, tree }) => {
   }
 
   const handleClearFilters = () => {
-    setSelectedFilters(lastSelectedFilters.current)
+    setFilterOperations([])
   }
 
   const handleApply = () => {
-    navigateToFacet(selectedFilters)
+    navigateToFacet(filterOperations)
   }
 
   const handleUpdateCategories = maybeCategories => {
@@ -87,21 +51,9 @@ const FilterSidebar = ({ filters, tree }) => {
       ? maybeCategories
       : [maybeCategories]
 
-    // whether we are adding (selecting) or removing
-    // the categories from the tree
-    const isAddOperation = categories.every(category => !category.selected)
-
-    if (isAddOperation) {
-      setSelectedFilters(filters => [...filters, ...categories])
-
-      onAddCategories(categories)
-    } else {
-      setSelectedFilters(filters =>
-        filters.filter(filter => categories.includes(filter))
-      )
-
-      onRemoveCategories(categories)
-    }
+    setFilterOperations(filters =>
+      filters.filter(operations => operations.map !== 'c').concat(categories)
+    )
   }
 
   return (
@@ -138,8 +90,6 @@ const FilterSidebar = ({ filters, tree }) => {
           tree={currentTree}
           onFilterCheck={handleFilterCheck}
           onCategorySelect={handleUpdateCategories}
-          selectedFilters={selectedFilters}
-          isOptionSelected={isOptionSelected}
         />
         <div
           className={`${
@@ -172,6 +122,32 @@ const FilterSidebar = ({ filters, tree }) => {
   )
 }
 
+const updateTree = categories =>
+  produce(draft => {
+    if (!categories.length) {
+      return
+    }
+
+    let currentLevel = draft
+
+    while (
+      !currentLevel.find(category => category.value !== categories[0].value) &&
+      !currentLevel.every(category => !category.selected)
+    ) {
+      currentLevel = currentLevel.find(category => category.selected).children
+    }
+
+    categories.forEach(category => {
+      let selectedIndex = currentLevel.findIndex(
+        cat => cat.value === category.value
+      )
+
+      currentLevel[selectedIndex].selected = !currentLevel[selectedIndex]
+        .selected
+      currentLevel = currentLevel[selectedIndex].children
+    })
+  })
+
 // in order for us to avoid sending a request to the facets
 // API and refetch all filters on every category change (like
 // we are doing on desktop), we'll keep a local copy of the category
@@ -182,57 +158,22 @@ const FilterSidebar = ({ filters, tree }) => {
 // in a user-friendly manner should reflect to the changes
 // we make in the tree, the same as it would with a tree fetched
 // from the API.
-const useCategoryTree = initialTree => {
+const useCategoryTree = (initialTree, filterOperations) => {
   const [tree, setTree] = useState(initialTree)
 
-  const onAddCategories = useCallback(categories => {
-    setTree(
-      produce(draft => {
-        let selectedLevel = draft
+  useEffect(() => {
+    setTree(initialTree)
+  }, [initialTree])
 
-        while (selectedLevel.some(category => category.selected)) {
-          selectedLevel = selectedLevel.find(category => category.selected)
-            .children
-        }
-
-        categories.forEach(category => {
-          const index = selectedLevel.findIndex(
-            levelCategory => levelCategory.value === category.value
-          )
-
-          selectedLevel[index].selected = true
-          selectedLevel = selectedLevel[index].children
-        })
-      })
+  useEffect(() => {
+    const categoryOperations = filterOperations.filter(
+      operation => operation.map === 'c'
     )
-  }, [])
 
-  const onRemoveCategories = useCallback(categories => {
-    setTree(
-      produce(draft => {
-        let currentLevel = draft
+    setTree(updateTree(categoryOperations))
+  }, [filterOperations, initialTree])
 
-        while (
-          currentLevel.find(category => category.selected).value !==
-          categories[0].value
-        ) {
-          currentLevel = currentLevel.find(category => category.selected)
-            .children
-        }
-
-        categories.forEach(category => {
-          let selectedIndex = currentLevel.findIndex(
-            cat => cat.value === category.value
-          )
-
-          currentLevel[selectedIndex].selected = false
-          currentLevel = currentLevel[selectedIndex].children
-        })
-      })
-    )
-  }, [])
-
-  return { tree, onAddCategories, onRemoveCategories }
+  return tree
 }
 
 export default FilterSidebar
