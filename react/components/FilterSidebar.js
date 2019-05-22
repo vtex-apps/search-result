@@ -131,8 +131,10 @@ const updateTree = categories =>
     let currentLevel = draft
 
     while (
-      !currentLevel.find(category => category.value !== categories[0].value) &&
-      !currentLevel.every(category => !category.selected)
+      !(
+        currentLevel.find(category => category.value === categories[0].value) ||
+        currentLevel.every(category => !category.selected)
+      )
     ) {
       currentLevel = currentLevel.find(category => category.selected).children
     }
