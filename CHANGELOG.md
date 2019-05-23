@@ -7,8 +7,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.19.0] - 2019-05-23
+
+### Added
+
+- Send productImpression events to Pixel Manager.
+
+### Fixed
+
+- Fixed bug when pushing productClick event (param expected was not being sent)
+
 ## [3.18.1] - 2019-05-20
+
 ### Changed
+
 - Use new breadcrumb resolver on productSearch.
 - Get Search Title from last breadcrumb name returned.
 
@@ -19,119 +31,168 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Send productClick events to Pixel Manager.
 
 ## [3.17.8] - 2019-05-10
+
 ### Fixed
+
 - Fixed bug where the extension would break if no title was found.
 
 ## [3.17.7] - 2019-05-10
+
 ### Fixed
+
 - Not found page being shown without filter navigator when the cause for the
   lack of products is an applied filter.
 
 ## [3.17.6] - 2019-05-10
+
 ### Fixed
+
 - Fetch more on `LocalQuery` was always fetching 10 more items, and not fetching the next maxItemsPerPage items.
 
 ## [3.17.5] - 2019-05-10
+
 ### Fixed
+
 - Displays the correct product cluster title, instead of its id.
 
 ## [3.17.4] - 2019-05-10
+
 ### Fixed
+
 - Refrain from throwing error when LayoutModeSwitcher icon is not found.
 
 ## [3.17.3] - 2019-05-10
+
 ### Fixed
+
 - Vendas to Ventas in es.json
 
 ## [3.17.2] - 2019-05-08
+
 ### Fixed
+
 - Use `setQuery` method when selecting a sort by option.
 
 ## [3.17.1] - 2019-05-07
+
 ### Fixed
+
 - Correctly slugify facets when comparing if they are selected.
 
 ## [3.17.0] - 2019-05-07
+
 ### Changed
+
 - Generates category to use as prop categoryTree in breadcrumb
 
 ## [3.16.2] - 2019-05-07
+
 ### Added
+
 - Prop `hideUnavailableItems` to querySchema and use it on `LocalQuery`.
 
 ## [3.16.1] - 2019-05-06
 
 ## [3.16.0] - 2019-05-06
+
 ### Fixed
+
 - Remove the default 'Sort By' option on `OrderBy` component.
 
 ## [3.15.5] - 2019-05-06
+
 ### Fixed
+
 - Selected filters not accounting for map parameter.
 
 ## [3.15.4] - 2019-05-06
+
 ### Fixed
+
 - Make `LocalQuery` use productSearchV2 and set default items per page.
 
 ## [3.15.3] - 2019-05-06
+
 ### Fixed
+
 - Decode gallery title.
 
 ## [3.15.2] - 2019-05-03
+
 ### Fixed
+
 - Infinite loading on fetch more.
 
 ## [3.15.1] - 2019-05-01
+
 ### Changed
+
 - Use `recordsFiltered` value from productSearch query.
 
 ## [3.15.0] - 2019-04-26
+
 ### Changed
 
 - Use filters value instead of encoded link on navigate.
 
 ## [3.14.1] - 2019-04-26
+
 ### Fixed
+
 - Messages on not found page.
 
 ## [3.14.0] - 2019-04-26
+
 ### Changed
 
 - Remove usage of `rest` parameter.
 
 ## [3.13.4] - 2019-04-26
+
 ### Fixed
+
 - undefined error in fetch more.
 
 ## [3.13.3] - 2019-04-25
+
 ### Fixed
+
 - `TotalProducts` proptype error.
 
 ## [3.13.2] - 2019-04-12
+
 ### Changed
+
 - Removed option `showTitle` on schema.
 
 ## [3.13.1] - 2019-04-10
 
 ## [3.13.0] - 2019-04-10
+
 ### Added
 
 - Add `search-title` block for displaying category or search term.
 
 ## [3.12.14] - 2019-04-10
+
 ### Changed
+
 - Using `store-icons` instead of `dreamstore-icons`.
 
 ## [3.12.13] - 2019-04-10
+
 ### Changed
-- Add new CSS handle `filterContent`. 
+
+- Add new CSS handle `filterContent`.
 
 ## [3.12.12] - 2019-04-10
+
 ### Fixed
 
 - Error when trying to read properties from facets while loading.
 
 ## [3.12.11] - 2019-03-29
+
 ### Fixed
 
 - Added the department before each category to pass it to `Breadcrubms`.
