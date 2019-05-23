@@ -87,7 +87,7 @@ const FilterSidebar = ({ filters }) => {
         className={classNames(
           `${
             searchResult.filterPopupButton
-          } mv0 pointer flex justify-center items-center`,
+          } ph3 pv5 mv0 mv0 pointer flex justify-center items-center`,
           {
             'bb b--muted-1': open,
             bn: !open,

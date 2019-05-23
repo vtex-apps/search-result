@@ -43,7 +43,7 @@ const LayoutModeSwitcher = ({ activeMode, onChange }) => {
     <div
       className={`${
         searchResult.layoutSwitcher
-      } h-100 flex justify-center items-center`}
+      } h-100 flex justify-center items-center pl4`}
     >
       <Button
         variation="tertiary"

@@ -218,13 +218,7 @@ class SearchResult extends Component {
             )}
             {children}
           </div>
-          {mobile && (
-            <div className={`${styles.border} bg-muted-5 h-50 self-center`} />
-          )}
           <ExtensionPoint id="order-by" orderBy={orderBy} />
-          {mobile && (
-            <div className={`${styles.border2} bg-muted-5 h-50 self-center`} />
-          )}
           {mobile && (
             <div
               className={`${styles.switch} flex justify-center items-center`}

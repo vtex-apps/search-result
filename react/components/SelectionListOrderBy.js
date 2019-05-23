@@ -46,7 +46,7 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
   )
 
   const btClass = classNames(
-    'ph3 pv5 mv0 pointer flex justify-center items-center bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100',
+    'ph3 pv5 mv0 pointer flex items-center justify-between bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100',
     {
       'b--muted-4 shadow-1': showDropdown && mobile,
       'b--transparent pl1': !showDropdown,
