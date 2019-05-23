@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { PRICE_RANGES_TYPE } from '../FilterNavigator'
 import SearchFilter from './SearchFilter'
 import PriceRange from './PriceRange'
 
@@ -10,7 +9,7 @@ const AvailableFilters = ({ filters = [], priceRange }) =>
     const { type, title, facets, oneSelectedCollapse = false } = filter
 
     switch (type) {
-      case PRICE_RANGES_TYPE:
+      case 'PriceRanges':
         return (
           <PriceRange
             key={title}
