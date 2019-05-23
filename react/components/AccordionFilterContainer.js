@@ -6,7 +6,7 @@ import { IconCaret } from 'vtex.store-icons'
 
 import AccordionFilterItem from './AccordionFilterItem'
 import DepartmentFilters from './DepartmentFilters'
-import FacetCheckboxList from './FacetCheckboxList'
+import AccordionFilterGroup from './AccordionFilterGroup'
 
 import styles from '../searchResult.css'
 
@@ -98,24 +98,18 @@ const AccordionFilterContainer = ({
         </div>
       </AccordionFilterItem>
       {nonEmptyFilters.map(filter => {
-        const { title, facets } = filter
         const isOpen = openItem === filter.title
 
         return (
-          <AccordionFilterItem
+          <AccordionFilterGroup
+            {...filter}
             key={filter.title}
-            title={title}
+            className={itemClassName}
             open={isOpen}
             show={!openItem || isOpen}
             onOpen={handleOpen(filter.title)}
-          >
-            <div className={itemClassName}>
-              <FacetCheckboxList
-                onFilterCheck={onFilterCheck}
-                facets={facets}
-              />
-            </div>
-          </AccordionFilterItem>
+            onFilterCheck={onFilterCheck}
+          />
         )
       })}
     </div>

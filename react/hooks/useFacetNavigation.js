@@ -16,6 +16,36 @@ const removeElementAtIndex = (str, index, separator) =>
     .filter((_, i) => i !== index)
     .join(separator)
 
+export const buildQueryAndMap = (inputQuery, inputMap, facets) =>
+  facets.reduce(
+    ({ query, map }, facet) => {
+      if (facet.selected) {
+        const facetIndex = zip(
+          query
+            .toLowerCase()
+            .split('/')
+            .map(decodeURIComponent),
+          map.split(',')
+        ).findIndex(
+          ([value, valueMap]) =>
+            value === decodeURIComponent(facet.value).toLowerCase() &&
+            valueMap === facet.map
+        )
+
+        return {
+          query: removeElementAtIndex(query, facetIndex, '/'),
+          map: removeElementAtIndex(map, facetIndex, ','),
+        }
+      }
+
+      return {
+        query: `${query}/${facet.value}`,
+        map: `${map},${facet.map}`,
+      }
+    },
+    { query: inputQuery, map: inputMap }
+  )
+
 const useFacetNavigation = () => {
   const { navigate } = useRuntime()
   const { query, map } = useContext(QueryContext)
@@ -24,33 +54,10 @@ const useFacetNavigation = () => {
     maybeFacets => {
       const facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
 
-      const { currentQuery, currentMap } = facets.reduce(
-        ({ currentQuery, currentMap }, facet) => {
-          if (facet.selected) {
-            const facetIndex = zip(
-              currentQuery
-                .toLowerCase()
-                .split('/')
-                .map(decodeURIComponent),
-              currentMap.split(',')
-            ).findIndex(
-              ([value, valueMap]) =>
-                value === decodeURIComponent(facet.value).toLowerCase() &&
-                valueMap === facet.map
-            )
-
-            return {
-              currentQuery: removeElementAtIndex(currentQuery, facetIndex, '/'),
-              currentMap: removeElementAtIndex(currentMap, facetIndex, ','),
-            }
-          }
-
-          return {
-            currentQuery: `${currentQuery}/${facet.value}`,
-            currentMap: `${currentMap},${facet.map}`,
-          }
-        },
-        { currentQuery: query, currentMap: map }
+      const { query: currentQuery, map: currentMap } = buildQueryAndMap(
+        query,
+        map,
+        facets
       )
 
       const urlParams = new URLSearchParams(window.location.search)

@@ -1,27 +1,37 @@
 import classNames from 'classnames'
 import produce from 'immer'
-import React, { useState, useEffect, useCallback, Fragment } from 'react'
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useMemo,
+  Fragment,
+} from 'react'
 import { FormattedMessage } from 'react-intl'
-
 import { Button } from 'vtex.styleguide'
 import { IconFilter } from 'vtex.store-icons'
 
+import QueryContext from './QueryContext'
 import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
-import useFacetNavigation from '../hooks/useFacetNavigation'
+import useFacetNavigation, {
+  buildQueryAndMap,
+} from '../hooks/useFacetNavigation'
 
 import searchResult from '../searchResult.css'
 
 const FilterSidebar = ({ filters, tree }) => {
+  const queryContext = useContext(QueryContext)
   const [open, setOpen] = useState(false)
 
   const [filterOperations, setFilterOperations] = useState([])
-  const currentTree = useCategoryTree(tree, filterOperations) // eslint-disable-line @typescript-eslint/no-use-before-define
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  const currentTree = useCategoryTree(tree, filterOperations)
 
   const navigateToFacet = useFacetNavigation()
 
   const handleFilterCheck = filter => {
-    if (!filter.selected) {
+    if (!filterOperations.includes(filter)) {
       setFilterOperations(filterOperations.concat(filter))
     } else {
       setFilterOperations(
@@ -51,10 +61,21 @@ const FilterSidebar = ({ filters, tree }) => {
       ? maybeCategories
       : [maybeCategories]
 
-    setFilterOperations(filters =>
-      filters.filter(operations => operations.map !== 'c').concat(categories)
-    )
+    setFilterOperations(filters => {
+      return filters
+        .filter(operations => operations.map !== 'c')
+        .concat(categories)
+    })
   }
+
+  const context = useMemo(() => {
+    const { query, map } = queryContext
+
+    return {
+      ...queryContext,
+      ...buildQueryAndMap(query, map, filterOperations),
+    }
+  }, [filterOperations, queryContext])
 
   return (
     <Fragment>
@@ -85,12 +106,14 @@ const FilterSidebar = ({ filters, tree }) => {
       </button>
 
       <Sidebar onOutsideClick={handleClose} isOpen={open}>
-        <AccordionFilterContainer
-          filters={filters}
-          tree={currentTree}
-          onFilterCheck={handleFilterCheck}
-          onCategorySelect={handleUpdateCategories}
-        />
+        <QueryContext.Provider value={context}>
+          <AccordionFilterContainer
+            filters={filters}
+            tree={currentTree}
+            onFilterCheck={handleFilterCheck}
+            onCategorySelect={handleUpdateCategories}
+          />
+        </QueryContext.Provider>
         <div
           className={`${
             searchResult.filterButtonsBox
