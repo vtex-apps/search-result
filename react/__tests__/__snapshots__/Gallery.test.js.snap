@@ -6,7 +6,7 @@ exports[`<OrderBy /> should match snapshot 1`] = `
     style="position: absolute; width: 0px; height: 0px; visibility: hidden; display: none;"
   />
   <div
-    class="gallery flex flex-row flex-wrap items-stretch bn ph1 pl9-l na4"
+    class="gallery flex flex-row flex-wrap items-stretch bn ph1 na4 justify-center"
   >
     <div
       class="galleryItem pa4"
