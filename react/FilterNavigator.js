@@ -53,7 +53,7 @@ const FilterNavigator = ({
   ).filter(facet => facet.selected)
 
   const filterClasses = classNames({
-    'flex justify-center flex-auto bl br b--muted-5': mobile,
+    'flex items-center justify-center flex-auto h-100': mobile,
   })
 
   if (!showFilters) {
