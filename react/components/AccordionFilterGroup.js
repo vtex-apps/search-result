@@ -14,8 +14,17 @@ const AccordionFilterGroup = ({
   onFilterCheck,
 }) => {
   const filters = useSelectedFilters(facets)
+
+  const quantitySelected = filters.filter(facet => facet.selected).length
+
   return (
-    <AccordionFilterItem title={title} open={open} show={show} onOpen={onOpen}>
+    <AccordionFilterItem
+      title={title}
+      open={open}
+      show={show}
+      onOpen={onOpen}
+      quantitySelected={quantitySelected}
+    >
       <div className={className}>
         <FacetCheckboxList onFilterCheck={onFilterCheck} facets={filters} />
       </div>

@@ -43,7 +43,7 @@ const AccordionFilterContainer = ({
 
   const itemClassName = classNames(
     styles.accordionFilterItemOptions,
-    'pl5 pt3 h-100 overflow-scroll'
+    'ph5 pt3 h-100 overflow-scroll'
   )
 
   return (

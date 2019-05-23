@@ -2,14 +2,23 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { intlShape, injectIntl } from 'react-intl'
 import classNames from 'classnames'
+import { Tag } from 'vtex.styleguide'
 
 import { IconCaret } from 'vtex.store-icons'
 
 import { getFilterTitle } from '../constants/SearchHelpers'
 
-import searchResult from '../searchResult.css'
+import styles from '../searchResult.css'
 
-const AccordionFilterItem = ({ title, show, open, onOpen, intl, children }) => {
+const AccordionFilterItem = ({
+  title,
+  show,
+  open,
+  onOpen,
+  quantitySelected = 0,
+  intl,
+  children,
+}) => {
   const handleKeyDown = e => {
     if (e.key === ' ') {
       onOpen(e)
@@ -24,28 +33,37 @@ const AccordionFilterItem = ({ title, show, open, onOpen, intl, children }) => {
             role="button"
             tabIndex={0}
             className={classNames(
-              `${searchResult.accordionFilterItem} ${
-                searchResult.filterAccordionItemBox
-              } t-body pr5 pv3 pointer bb b--muted-5`,
+              styles.accordionFilterItem,
+              styles.filterAccordionItemBox,
+              't-body pr5 pv3 pointer bb b--muted-5',
               {
-                [searchResult.accordionFilterItemActive]: open,
-                [`${searchResult.accordionFilterItemHidden} dn`]: !show,
+                [styles.accordionFilterItemActive]: open,
+                [`${styles.accordionFilterItemHidden} dn`]: !show,
               }
             )}
             onKeyDown={handleKeyDown}
             onClick={onOpen}
           >
             <div
-              className={classNames(
-                `${searchResult.accordionFilterItemTitle} pv4`,
-                {
-                  'c-on-base t-small': open,
-                  'c-on-base t-heading-5': !open,
-                }
-              )}
+              className={classNames('pv4 c-on-base', {
+                't-small': open,
+                't-heading-5': !open,
+              })}
             >
-              {getFilterTitle(title, intl)}
-              <span className={`${searchResult.accordionFilterItemIcon} fr`}>
+              <span className={styles.accordionFilterItemTitle}>
+                {getFilterTitle(title, intl)}
+              </span>
+              {quantitySelected !== 0 && (
+                <div
+                  className={classNames(
+                    styles.accordionFilterItemTag,
+                    'dib ml3'
+                  )}
+                >
+                  <Tag>{quantitySelected}</Tag>
+                </div>
+              )}
+              <span className={`${styles.accordionFilterItemIcon} fr`}>
                 <IconCaret orientation="down" size={10} />
               </span>
             </div>
@@ -66,6 +84,8 @@ AccordionFilterItem.propTypes = {
   open: PropTypes.bool,
   /** Callback to open event */
   onOpen: PropTypes.func,
+  /** Quantity of selected filters */
+  quantitySelected: PropTypes.number,
   /** Intl instance */
   intl: intlShape,
   /** content */
