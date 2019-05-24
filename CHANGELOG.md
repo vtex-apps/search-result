@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.19.2] - 2019-05-24
+
+### Fixed
+
+- Flickering behaviour triggered by ResizeDetector.
+
 ## [3.19.1] - 2019-05-23
+
 ### Fixed
 - Hides filters when there are no filters available.
 
