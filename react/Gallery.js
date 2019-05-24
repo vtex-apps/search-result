@@ -1,7 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import { withResizeDetector } from 'react-resize-detector'
 import { map, pluck, addIndex } from 'ramda'
 
 import { useRuntime } from 'vtex.render-runtime'
@@ -9,6 +8,7 @@ import { useRuntime } from 'vtex.render-runtime'
 import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 import { productShape } from './constants/propTypes'
 import GalleryItem from './components/GalleryItem'
+import withResizeDetector from './components/withResizeDetector'
 
 import searchResult from './searchResult.css'
 
