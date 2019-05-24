@@ -19,6 +19,7 @@ import useSelectedFilters from './hooks/useSelectedFilters'
 import useFacetNavigation from './hooks/useFacetNavigation'
 
 import styles from './searchResult.css'
+import { CATEGORIES_TITLE } from './hooks/useFilters'
 
 /**
  * Wrapper around the filters (selected and available) as well
@@ -33,6 +34,7 @@ const FilterNavigator = ({
   brands = [],
   loading = false,
   filters = [],
+  hiddenFacets = {},
 }) => {
   const {
     hints: { mobile },

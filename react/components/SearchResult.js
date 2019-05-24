@@ -122,7 +122,6 @@ class SearchResult extends Component {
       fetchMoreLoading,
       summary,
       orderBy,
-      showFacetQuantity,
       runtime: {
         hints: { mobile },
       },
@@ -160,7 +159,6 @@ class SearchResult extends Component {
     const title = getLastName(breadcrumbsProps.breadcrumb)
 
     const filters = useFilters({
-      tree,
       specificationFilters,
       priceRanges,
       brands,
@@ -189,6 +187,7 @@ class SearchResult extends Component {
               tree={tree}
               loading={showContentLoader}
               filters={filters}
+              hiddenFacets={hiddenFacets}
             />
           )}
           <ExtensionPoint

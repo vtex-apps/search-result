@@ -1,29 +1,19 @@
-import { flatten, path, contains, isEmpty } from 'ramda'
+import { path, contains, isEmpty } from 'ramda'
 
-const getCategories = (tree = []) => {
-  return [
-    ...tree,
-    ...flatten(tree.map(node => node.children && getCategories(node.children))),
-  ].filter(Boolean)
-}
-
-const CATEGORIES_TITLE = 'store/search.filter.title.categories'
+export const CATEGORIES_TITLE = 'store/search.filter.title.categories'
 const BRANDS_TITLE = 'store/search.filter.title.brands'
 const PRICE_RANGES_TITLE = 'store/search.filter.title.price-ranges'
 
-const CATEGORIES_TYPE = 'Categories'
 const BRANDS_TYPE = 'Brands'
 const PRICE_RANGES_TYPE = 'PriceRanges'
 const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
 
 const useFilters = ({
-  tree = [],
   specificationFilters = [],
   priceRanges = [],
   brands = [],
   hiddenFacets = {},
 }) => {
-  const categories = getCategories(tree)
 
   const hiddenFacetsNames = (
     path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
@@ -43,11 +33,6 @@ const useFilters = ({
     : []
 
     return [
-    !hiddenFacets.categories && !isEmpty(categories) && {
-      type: CATEGORIES_TYPE,
-      title: CATEGORIES_TITLE,
-      facets: categories,
-    },
     ...mappedSpecificationFilters,
     !hiddenFacets.brands && !isEmpty(brands) && {
       type: BRANDS_TYPE,
