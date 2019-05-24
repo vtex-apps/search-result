@@ -26,6 +26,3 @@ const FacetItem = ({ facet }) => {
 }
 
 export default FacetItem
-
-// hyphens: auto;
-// word-break: break-all;
