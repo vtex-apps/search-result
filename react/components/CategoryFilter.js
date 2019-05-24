@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import React, { useContext } from 'react'
 import { injectIntl } from 'react-intl'
-import { IconClose } from 'vtex.store-icons'
+import { IconClose } from 'vtex.styleguide'
 
 import QueryContext from './QueryContext'
 import Collapsible from './Collapsible'
@@ -73,14 +73,19 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
           <span
             className={classNames(
               styles.selectedCategoryIcon,
-              'flex items-center c-action-primary'
+              'flex items-center c-muted-3'
             )}
           >
-            <IconClose type="outline" size={14} />
+            <IconClose size={14} />
           </span>
         )}
       </div>
-      <div className={styles.categoryItemChildrenContainer}>
+      <div
+        className={classNames(
+          styles.categoryItemChildrenContainer,
+          'pl5 pl0-ns'
+        )}
+      >
         {selectedCategories.slice(1).map((subCategory, index) => (
           <span
             key={subCategory.id}
@@ -88,7 +93,7 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
             tabIndex={0}
             className={classNames(
               styles.selectedCategory,
-              'mt4 flex items-center justify-between pointer f6'
+              'mt5 mt4-ns flex items-center justify-between pointer f5 f6-ns'
             )}
             onClick={() => handleUnselectCategories(index + 1)}
             onKeyDown={e =>
@@ -101,10 +106,10 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
             <span
               className={classNames(
                 styles.selectedCategoryIcon,
-                'flex items-center c-action-primary'
+                'flex items-center c-muted-3'
               )}
             >
-              <IconClose type="outline" size={14} />
+              <IconClose size={14} />
             </span>
           </span>
         ))}
@@ -112,7 +117,7 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
           lastSelectedCategory.children.length > 0 && (
             <div
               className={classNames({
-                'mt4 bl b--muted-4': !shallow,
+                'mt5 mt4-ns bl b--muted-4': !shallow,
                 mt2: shallow,
               })}
             >

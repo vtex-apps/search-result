@@ -187,6 +187,26 @@
   }
 }
 
+.filterContent {}
+
+.selectedCategory {}
+
+.selectedCategoryIcon {}
+
+.selectedCategoryName {}
+
+.shallowCategoryItem {}
+
+.categoryItem {}
+
+.categoryItemName {}
+
+.categoryItemChildrenContainer {}
+
+.categoryItemChildren {}
+
+.accordionFilterItemTag {}
+
 @media only screen and (max-width: 50em) {
   .container {
     grid-template-columns: 1fr 1fr 1fr;
@@ -234,23 +254,3 @@
 .filterPopupOpen {
   overflow: hidden;
 }
-
-.filterContent {}
-
-.selectedCategory {}
-
-.selectedCategoryIcon {}
-
-.selectedCategoryName {}
-
-.shallowCategoryItem {}
-
-.categoryItem {}
-
-.categoryItemName {}
-
-.categoryItemChildrenContainer {}
-
-.categoryItemChildren {}
-
-.accordionFilterItemTag {}

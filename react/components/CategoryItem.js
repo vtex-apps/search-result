@@ -10,7 +10,7 @@ const CategoryItem = ({ label, onClick, className }) => {
       role="link"
       className={classNames(
         styles.categoryItemChildren,
-        'ph3 pv1 lh-copy pointer hover-bg-muted-5 c-muted-1',
+        'ph5 ph3-ns pv5 pv1-ns lh-copy pointer hover-bg-muted-5 c-muted-1',
         className
       )}
       onClick={onClick}
