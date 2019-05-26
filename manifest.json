@@ -25,6 +25,7 @@
     "vtex.shelf": "1.x",
     "vtex.styleguide": "9.x",
     "vtex.store-icons": "0.x",
-    "vtex.pixel-manager": "0.x"
-  }
+    "vtex.pixel-manager": "1.x"
+  },
+  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

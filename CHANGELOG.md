@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Migrate to pixel-manager v1.
+
 ## [3.19.2] - 2019-05-24
 
 ### Fixed
