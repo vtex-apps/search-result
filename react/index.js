@@ -191,7 +191,7 @@ SearchResultQueryLoader.getSchema = props => {
       pagination: {
         type: 'string',
         title: 'admin/editor.search-result.pagination.title',
-        default: 'infinity-scroll',
+        default: 'infinite-scroll',
         enum: PAGINATION_TYPES,
         enumNames: [
           'admin/editor.search-result.pagination.show-more',
