@@ -1,16 +1,17 @@
 import React, { useContext } from 'react'
 import { Checkbox } from 'vtex.styleguide'
+import classNames from 'classnames'
 
 import SettingsContext from './SettingsContext'
 import useFacetNavigation from '../hooks/useFacetNavigation'
 
-const FacetItem = ({ facet }) => {
+const FacetItem = ({ facet, className }) => {
   const { showFacetQuantity } = useContext(SettingsContext)
 
   const navigateToFacet = useFacetNavigation()
 
   return (
-    <div className="lh-copy w-100" style={{hyphens: 'auto', wordBreak: 'break-word'}}>
+    <div className={classNames(className, 'lh-copy w-100')} style={{hyphens: 'auto', wordBreak: 'break-word'}}>
       <Checkbox
         id={facet.value}
         checked={facet.selected}

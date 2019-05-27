@@ -8,6 +8,8 @@ import { facetOptionShape } from '../constants/propTypes'
 import { getFilterTitle } from '../constants/SearchHelpers'
 import useSelectedFilters from '../hooks/useSelectedFilters'
 
+import styles from '../searchResult.css'
+
 /**
  * Search Filter Component.
  */
@@ -19,7 +21,7 @@ const SearchFilter = ({ title = 'Default Title', facets = [], intl }) => {
       title={getFilterTitle(title, intl)}
       filters={filtersWithSelected}
     >
-      {facet => <FacetItem key={facet.name} facet={facet} />}
+      {facet => <FacetItem key={facet.name} facet={facet} className={styles.filterItem} />}
     </FilterOptionTemplate>
   )
 }

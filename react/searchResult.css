@@ -254,3 +254,6 @@
 .filterPopupOpen {
   overflow: hidden;
 }
+
+.filterItem {}
+.selectedFilterItem {}

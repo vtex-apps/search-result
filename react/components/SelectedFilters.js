@@ -5,6 +5,7 @@ import { intlShape, injectIntl } from 'react-intl'
 import FacetItem from './FacetItem'
 import FilterOptionTemplate from './FilterOptionTemplate'
 import { facetOptionShape } from '../constants/propTypes'
+import styles from '../searchResult.css'
 
 /**
  * Search Filter Component.
@@ -22,7 +23,7 @@ const SelectedFilters = ({ filters = [], intl }) => {
       collapsable={false}
       selected
     >
-      {facet => <FacetItem key={facet.name} facet={facet} />}
+      {facet => <FacetItem key={facet.name} facet={facet} className={styles.selectedFilterItem} />}
     </FilterOptionTemplate>
   )
 }
