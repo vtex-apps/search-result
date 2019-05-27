@@ -1,0 +1,242 @@
+.container {
+  display: grid;
+  display: -ms-grid;
+  grid-template-columns: 230px repeat(4, auto) 306px;
+  -ms-grid-columns: 230px (1fr)[4] 306px;
+  grid-template-rows: auto auto 60px auto;
+  grid-template-areas:
+    "breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb"
+    "title title title title title title"
+    "filters quantity . . . orderby"
+    "filters gallery gallery gallery gallery gallery"
+    ". pagination pagination pagination pagination pagination";
+}
+
+.container a {
+  outline: 0;
+}
+
+.buttonShowMore {
+  -ms-grid-row: 3;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 5;
+  grid-column: pagination;
+  grid-row: pagination;
+  justify-self: end;
+  align-self: center;
+}
+
+.switch {
+  -ms-grid-row: 1;
+  -ms-grid-column: 6;
+  grid-column: switch;
+  grid-row: switch;
+}
+
+.breadcrumb {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: breadcrumb;
+  grid-row: breadcrumb;
+  align-self: center;
+  justify-self: stretch;
+}
+
+.filter span:hover {
+  color: rgb(153, 175, 202)
+}
+
+.filters {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-column: filters;
+  grid-row: filters;
+}
+
+.resultGallery {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 5;
+  grid-column-start: filters;
+  grid-column-end: gallery;
+  grid-row: gallery;
+}
+
+.filters ~ .resultGallery {
+  grid-column-start: gallery;
+}
+
+.gallery {}
+
+.galleryTitle {
+  grid-column: title;
+  grid-row: title;
+}
+
+.filterPopupButton {
+  background: none;
+  height: 3.3rem;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.accordionFilter {
+  color: #828282;
+}
+
+.filterAccordionItemBox {
+  height: 3.75rem;
+}
+
+.filterAccordionBreadcrumbs {
+  height: 4.25rem;
+}
+
+.filterButtonsBox {
+  height: 5rem;
+}
+
+.filterPopupFooter {
+  margin-top: auto;
+}
+
+.accordionFilterItemOptions {
+  padding-bottom: 9rem;
+}
+
+.dropdownMobile {
+  margin-top: -2px;
+}
+
+.accordionFilterItemActive svg path {
+  fill: #4f4f4f;
+}
+
+.totalProducts {
+  -ms-grid-row: 1;
+  -ms-grid-column: 5;
+  grid-row: quantity;
+  justify-self: start;
+  align-self: center;
+}
+
+.filters ~ .totalProducts {
+  grid-column: quantity;
+  grid-row: quantity;
+}
+
+.orderBy {
+  -ms-grid-row: 1;
+  -ms-grid-column: 6;
+  grid-column: orderby;
+  grid-row: orderby;
+  align-self: center;
+  justify-self: stretch;
+  display: flex;
+}
+
+.accordionFilterItemHidden {}
+
+.accordionFilterItem {}
+
+.filterAccordionItemBox {}
+
+.accordionFilterItemTitle {}
+
+.accordionFilterItemIcon {}
+
+.filterSelected {}
+
+.filterAvailable {}
+
+.filterPopupTitle {}
+
+.filterPopupArrowIcon {}
+
+.footerButton {}
+
+.layoutSwitcher {}
+
+.buttonShowMore {}
+
+.filterPopup {}
+
+.filterPopupOpen {}
+
+.filterPopupContent {}
+
+.filterPopupContentContainer {}
+
+.filterPopupContentContainerOpen {}
+
+.selectedFilterCheckbox {}
+
+.galleryItem {}
+
+.searchNotFound {}
+
+.filterTitle {
+  font-size: 1rem;
+}
+
+.filterIcon {}
+
+@media only screen and (max-width: 60em) {
+  .container {
+    -ms-grid-columns: 180px (1fr)[4] 306px;
+    grid-template-columns: 180px repeat(4, auto) 285px;
+    grid-template-rows: auto;
+  }
+}
+
+@media only screen and (max-width: 50em) {
+  .container {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      "filters orderby switch"
+      "quantity quantity quantity"
+      "gallery gallery gallery";
+  }
+
+  .totalProducts {
+    border-top-style: solid;
+    border-top-width: 2px;
+    justify-self: stretch;
+    grid-column: quantity;
+  }
+}
+
+@media only screen and (min-width: 40em) {
+  .sidebar {
+    width: 16rem;
+  }
+}
+
+@media only screen and (max-width: 40em) {
+  .container {
+    -ms-grid-columns: 2fr 1.5fr 0.2fr;
+    grid-template-columns: 2fr 1.5fr 0.2fr;
+    grid-template-areas:
+      "orderby filters switch"
+      "quantity quantity quantity"
+      "gallery gallery gallery";
+    grid-template-rows: auto;
+  }
+
+  .resultGallery {
+    grid-column-start: gallery;
+    grid-column-end: gallery;
+  }
+
+  .filterTitle {
+    font-weight: 300;
+  }
+}
+
+.filterPopupOpen {
+  overflow: hidden;
+}
+
+.filterContent {}
