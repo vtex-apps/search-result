@@ -18,6 +18,7 @@ const FacetCheckboxList = ({ facets, onFilterCheck }) => {
           'pr4 pt3 items-center flex bb b--muted-5'
         )}
         key={name}
+        style={{hyphens: 'auto', wordBreak: 'break-word'}}
       >
         <Checkbox
           className="mb0"
