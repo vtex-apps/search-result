@@ -8,6 +8,27 @@ The VTEX Search Result app is a store component that handles with the result of 
 
 :loudspeaker: **Disclaimer:** Don't fork this project; use, contribute, or open issue with your feature request.
 
+## Important Note
+
+We ask for users, from now on, to use the `filter-navigator.v2` block if you want to keep updated with the most up to date Filter Navigator in your search-result.
+
+The correct way to use it is setting it in your `blocks.json` like:
+```
+json
+"search-result": {
+    "blocks": [
+      "filter-navigator.v2",
+      "gallery",
+      "not-found",
+      "breadcrumb",
+      "order-by",
+      "total-products"
+    ],
+  }
+```
+
+Or via Storefront.
+
 ## Release schedule
 
 | Release |       Status        | Initial Release | Maintenance LTS Start | End-of-life | Store Compatibility |
