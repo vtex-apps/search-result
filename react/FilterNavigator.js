@@ -19,7 +19,7 @@ import useSelectedFilters from './hooks/useSelectedFilters'
 import useFacetNavigation from './hooks/useFacetNavigation'
 
 import styles from './searchResult.css'
-import { CATEGORIES_TITLE } from './hooks/useFilters'
+import { CATEGORIES_TITLE } from './utils/getFilters'
 
 /**
  * Wrapper around the filters (selected and available) as well
@@ -99,7 +99,7 @@ const FilterNavigator = ({
       <div className={filterClasses}>
         <div className="bb b--muted-4">
           <h5 className="t-heading-5 mv5">
-            <FormattedMessage id="store/search-result.filter-button.title"/>
+            <FormattedMessage id="store/search-result.filter-button.title" />
           </h5>
         </div>
         <SelectedFilters filters={selectedFilters} />

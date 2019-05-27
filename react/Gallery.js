@@ -53,21 +53,30 @@ const Gallery = ({
         style={style}
         className={classNames(searchResult.galleryItem, 'pa4')}
       >
-        <GalleryItem item={item} summary={summary} positionList={index + 1} displayMode={layoutMode} />
+        <GalleryItem
+          item={item}
+          summary={summary}
+          positionList={index + 1}
+          displayMode={layoutMode}
+        />
       </div>
     )
   }
 
   const galleryClasses = classNames(
     searchResult.gallery,
-    'flex flex-row flex-wrap items-stretch bn ph1 na4', {
+    'flex flex-row flex-wrap items-stretch bn ph1 na4',
+    {
       'justify-center': !showingFacets,
       'pl9-l': showingFacets,
-    })
+    }
+  )
 
   const mapWithIndex = addIndex(map)
 
-  return <div className={galleryClasses}>{mapWithIndex(renderItem, products)}</div>
+  return (
+    <div className={galleryClasses}>{mapWithIndex(renderItem, products)}</div>
+  )
 }
 
 Gallery.propTypes = {
