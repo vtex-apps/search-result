@@ -1,55 +1,41 @@
 import classNames from 'classnames'
-import PropTypes from 'prop-types'
-import { map, flatten, filter, prop, compose } from 'ramda'
-import React, { useRef, useState, useEffect, Fragment } from 'react'
+import produce from 'immer'
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useMemo,
+  Fragment,
+} from 'react'
 import { FormattedMessage } from 'react-intl'
-
-import { useRuntime } from 'vtex.render-runtime'
 import { Button } from 'vtex.styleguide'
 import { IconFilter } from 'vtex.store-icons'
 
+import QueryContext from './QueryContext'
 import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
-import { facetOptionShape } from '../constants/propTypes'
-import useSelectedFilters from '../hooks/useSelectedFilters'
+import useFacetNavigation, {
+  buildQueryAndMap,
+} from '../hooks/useFacetNavigation'
 
 import searchResult from '../searchResult.css'
 
-const FilterSidebar = ({ filters }) => {
-  const { navigate } = useRuntime()
-
+const FilterSidebar = ({ filters, tree }) => {
+  const queryContext = useContext(QueryContext)
   const [open, setOpen] = useState(false)
-  const selectedFiltersFromProps = filter(
-    prop('selected'),
-    useSelectedFilters(
-      compose(
-        flatten,
-        map(prop('facets'))
-      )(filters)
-    )
-  )
 
-  const [selectedFilters, setSelectedFilters] = useState(
-    selectedFiltersFromProps
-  )
+  const [filterOperations, setFilterOperations] = useState([])
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  const currentTree = useCategoryTree(tree, filterOperations)
 
-  const lastSelectedFilters = useRef(selectedFilters)
-
-  useEffect(() => {
-    if (!open) {
-      lastSelectedFilters.current = selectedFilters
-    }
-  }, [selectedFilters, open])
-
-  const isOptionSelected = opt =>
-    !!selectedFilters.find(facet => facet.value === opt.value)
+  const navigateToFacet = useFacetNavigation()
 
   const handleFilterCheck = filter => {
-    if (!isOptionSelected(filter)) {
-      setSelectedFilters(selectedFilters.concat(filter))
+    if (!filterOperations.includes(filter)) {
+      setFilterOperations(filterOperations.concat(filter))
     } else {
-      setSelectedFilters(
-        selectedFilters.filter(facet => facet.value !== filter.value)
+      setFilterOperations(
+        filterOperations.filter(facet => facet.value !== filter.value)
       )
     }
   }
@@ -63,23 +49,33 @@ const FilterSidebar = ({ filters }) => {
   }
 
   const handleClearFilters = () => {
-    setSelectedFilters(lastSelectedFilters.current)
+    setFilterOperations([])
   }
 
   const handleApply = () => {
-    const params = selectedFilters.map(facet => facet.value).join('/')
-    const map = selectedFilters.map(facet => facet.map).join(',')
+    navigateToFacet(filterOperations)
+  }
 
-    const query = new URLSearchParams(window.location.search)
+  const handleUpdateCategories = maybeCategories => {
+    const categories = Array.isArray(maybeCategories)
+      ? maybeCategories
+      : [maybeCategories]
 
-    query.set('map', map)
-
-    setOpen(false)
-    navigate({
-      to: `/${params}`,
-      query: query.toString(),
+    setFilterOperations(filters => {
+      return filters
+        .filter(operations => operations.map !== 'c')
+        .concat(categories)
     })
   }
+
+  const context = useMemo(() => {
+    const { query, map } = queryContext
+
+    return {
+      ...queryContext,
+      ...buildQueryAndMap(query, map, filterOperations),
+    }
+  }, [filterOperations, queryContext])
 
   return (
     <Fragment>
@@ -110,12 +106,14 @@ const FilterSidebar = ({ filters }) => {
       </button>
 
       <Sidebar onOutsideClick={handleClose} isOpen={open}>
-        <AccordionFilterContainer
-          filters={filters}
-          onFilterCheck={handleFilterCheck}
-          selectedFilters={selectedFilters}
-          isOptionSelected={isOptionSelected}
-        />
+        <QueryContext.Provider value={context}>
+          <AccordionFilterContainer
+            filters={filters}
+            tree={currentTree}
+            onFilterCheck={handleFilterCheck}
+            onCategorySelect={handleUpdateCategories}
+          />
+        </QueryContext.Provider>
         <div
           className={`${
             searchResult.filterButtonsBox
@@ -147,14 +145,60 @@ const FilterSidebar = ({ filters }) => {
   )
 }
 
-FilterSidebar.propTypes = {
-  filters: PropTypes.arrayOf(
-    PropTypes.shape({
-      type: PropTypes.string,
-      title: PropTypes.string.isRequired,
-      facets: PropTypes.arrayOf(facetOptionShape),
+const updateTree = categories =>
+  produce(draft => {
+    if (!categories.length) {
+      return
+    }
+
+    let currentLevel = draft
+
+    while (
+      !(
+        currentLevel.find(category => category.value === categories[0].value) ||
+        currentLevel.every(category => !category.selected)
+      )
+    ) {
+      currentLevel = currentLevel.find(category => category.selected).children
+    }
+
+    categories.forEach(category => {
+      let selectedIndex = currentLevel.findIndex(
+        cat => cat.value === category.value
+      )
+
+      currentLevel[selectedIndex].selected = !currentLevel[selectedIndex]
+        .selected
+      currentLevel = currentLevel[selectedIndex].children
     })
-  ).isRequired,
+  })
+
+// in order for us to avoid sending a request to the facets
+// API and refetch all filters on every category change (like
+// we are doing on desktop), we'll keep a local copy of the category
+// tree structure, and locally modify it with the information we
+// have.
+//
+// the component responsible for displaying the category tree
+// in a user-friendly manner should reflect to the changes
+// we make in the tree, the same as it would with a tree fetched
+// from the API.
+const useCategoryTree = (initialTree, filterOperations) => {
+  const [tree, setTree] = useState(initialTree)
+
+  useEffect(() => {
+    setTree(initialTree)
+  }, [initialTree])
+
+  useEffect(() => {
+    const categoryOperations = filterOperations.filter(
+      operation => operation.map === 'c'
+    )
+
+    setTree(updateTree(categoryOperations))
+  }, [filterOperations, initialTree])
+
+  return tree
 }
 
 export default FilterSidebar

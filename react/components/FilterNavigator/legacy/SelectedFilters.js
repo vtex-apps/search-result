@@ -4,17 +4,12 @@ import { intlShape, injectIntl } from 'react-intl'
 
 import FacetItem from './FacetItem'
 import FilterOptionTemplate from './FilterOptionTemplate'
-import { facetOptionShape } from '../constants/propTypes'
-import styles from '../searchResult.css'
+import { facetOptionShape } from '../../../constants/propTypes'
 
 /**
  * Search Filter Component.
  */
 const SelectedFilters = ({ filters = [], intl }) => {
-  if (!filters.length) {
-    return null
-  }
-
   const title = intl.formatMessage({ id: 'store/search.selected-filters' })
   return (
     <FilterOptionTemplate
@@ -23,7 +18,7 @@ const SelectedFilters = ({ filters = [], intl }) => {
       collapsable={false}
       selected
     >
-      {facet => <FacetItem key={facet.name} facet={facet} className={styles.selectedFilterItem} />}
+      {facet => <FacetItem key={facet.name} facet={facet} />}
     </FilterOptionTemplate>
   )
 }

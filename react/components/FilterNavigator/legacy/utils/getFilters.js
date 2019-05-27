@@ -16,7 +16,7 @@ const BRANDS_TYPE = 'Brands'
 const PRICE_RANGES_TYPE = 'PriceRanges'
 const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
 
-const useFilters = ({
+const getFilters = ({
   tree = [],
   specificationFilters = [],
   priceRanges = [],
@@ -62,4 +62,4 @@ const useFilters = ({
   ].filter(Boolean)
 }
 
-export default useFilters
+export default getFilters

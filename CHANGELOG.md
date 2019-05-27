@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.21.0] - 2019-05-27
+### Added
+- `filter-navigator.v2` using the Category Tree to show categories/departments in a correct hierarchy.
+
+- `filter-navigator.v1` for whoever want to keep using the current `filter-navigator` (it will not be updated anymore).
+
+### Changed
+- Update category filters appearance.
+
+### Deprecated
+- `filter-navigator` block. If you want to keep your store up to date, use `filter-navigator.v2` for now.
+
 ## [3.20.1] - 2019-05-27
 ### Fixed
 - Typo in default value of schema.

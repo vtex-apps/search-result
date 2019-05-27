@@ -4,11 +4,9 @@ import { injectIntl, intlShape } from 'react-intl'
 
 import FilterOptionTemplate from './FilterOptionTemplate'
 import FacetItem from './FacetItem'
-import { facetOptionShape } from '../constants/propTypes'
-import { getFilterTitle } from '../constants/SearchHelpers'
-import useSelectedFilters from '../hooks/useSelectedFilters'
-
-import styles from '../searchResult.css'
+import { facetOptionShape } from '../../../constants/propTypes'
+import { getFilterTitle } from '../../../constants/SearchHelpers'
+import useSelectedFilters from './hooks/useSelectedFilters'
 
 /**
  * Search Filter Component.
@@ -21,7 +19,7 @@ const SearchFilter = ({ title = 'Default Title', facets = [], intl }) => {
       title={getFilterTitle(title, intl)}
       filters={filtersWithSelected}
     >
-      {facet => <FacetItem key={facet.name} facet={facet} className={styles.filterItem} />}
+      {facet => <FacetItem key={facet.name} facet={facet} />}
     </FilterOptionTemplate>
   )
 }

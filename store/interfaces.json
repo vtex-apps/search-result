@@ -14,6 +14,12 @@
     "component": "index"
   },
   "filter-navigator": {
+    "component": "FilterNavigatorLegacy"
+  },
+  "filter-navigator.v1": {
+    "component": "FilterNavigatorLegacy"
+  },
+  "filter-navigator.v2": {
     "component": "FilterNavigator"
   },
   "gallery": {

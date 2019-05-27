@@ -7,11 +7,14 @@ import LoadingOverlay from './LoadingOverlay'
 import { searchResultPropTypes } from '../constants/propTypes'
 import LayoutModeSwitcher, { LAYOUT_MODE } from './LayoutModeSwitcher'
 
-import useFilters from '../hooks/useFilters'
+import getFilters from '../utils/getFilters'
 
 import styles from '../searchResult.css'
 
-const getLastName = compose(prop('name'), last)
+const getLastName = compose(
+  prop('name'),
+  last
+)
 
 /**
  * Search Result Component.
@@ -122,7 +125,6 @@ class SearchResult extends Component {
       fetchMoreLoading,
       summary,
       orderBy,
-      showFacetQuantity,
       runtime: {
         hints: { mobile },
       },
@@ -159,8 +161,7 @@ class SearchResult extends Component {
     const showContentLoader = showLoading && !showLoadingAsOverlay
     const title = getLastName(breadcrumbsProps.breadcrumb)
 
-    const filters = useFilters({
-      tree,
+    const filters = getFilters({
       specificationFilters,
       priceRanges,
       brands,
@@ -168,6 +169,7 @@ class SearchResult extends Component {
     })
 
     const showFacets = !hideFacets && !isEmpty(filters)
+
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
         <div className={`${styles.container} w-100 mw9`}>
@@ -189,6 +191,7 @@ class SearchResult extends Component {
               tree={tree}
               loading={showContentLoader}
               filters={filters}
+              hiddenFacets={hiddenFacets}
             />
           )}
           <ExtensionPoint

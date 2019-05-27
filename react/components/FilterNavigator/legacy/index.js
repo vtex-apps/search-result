@@ -1,25 +1,34 @@
+/**
+ * WARNING THIS COMPONENT IS DEPRECATED, PLEASE USE THE BLOCK "filter-navigator.v2". THIS COMPONENT WILL BE DELETED IN THE NEXT MAJOR.
+ */
+
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import { map, flatten, prop } from 'ramda'
+import { map, flatten, filter, prop } from 'ramda'
 import React, { useMemo } from 'react'
 import ContentLoader from 'react-content-loader'
 import { FormattedMessage } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
 
-import FilterSidebar from './components/FilterSidebar'
-import SelectedFilters from './components/SelectedFilters'
-import AvailableFilters from './components/AvailableFilters'
-import DepartmentFilters from './components/DepartmentFilters'
+import FilterSidebar from './FilterSidebar'
+import SelectedFilters from './SelectedFilters'
+import AvailableFilters from './AvailableFilters'
 import {
   facetOptionShape,
   paramShape,
   hiddenFacetsSchema,
-} from './constants/propTypes'
+} from '../../../constants/propTypes'
 import useSelectedFilters from './hooks/useSelectedFilters'
-import useFacetNavigation from './hooks/useFacetNavigation'
 
-import styles from './searchResult.css'
-import { CATEGORIES_TITLE } from './utils/getFilters'
+import searchResult from './searchResult.css'
+import getFilters from './utils/getFilters';
+
+const getCategories = (tree = []) => {
+  return [
+    ...tree,
+    ...flatten(tree.map(node => node.children && getCategories(node.children))),
+  ].filter(Boolean)
+}
 
 /**
  * Wrapper around the filters (selected and available) as well
@@ -33,29 +42,37 @@ const FilterNavigator = ({
   priceRanges = [],
   brands = [],
   loading = false,
-  filters = [],
   hiddenFacets = {},
 }) => {
+
   const {
     hints: { mobile },
   } = useRuntime()
 
-  const navigateToFacet = useFacetNavigation()
-
+  const filters = getFilters({
+    tree,
+    specificationFilters,
+    priceRanges,
+    brands,
+    hiddenFacets,
+  })
   const selectedFilters = useSelectedFilters(
     useMemo(() => {
+      const availableCategories = filter(prop('selected'), getCategories(tree))
+
       const options = [
+        ...availableCategories,
         ...map(prop('facets'), specificationFilters),
         ...brands,
         ...priceRanges,
       ]
 
       return flatten(options)
-    }, [brands, priceRanges, specificationFilters])
+    }, [brands, priceRanges, specificationFilters, tree])
   ).filter(facet => facet.selected)
 
   const filterClasses = classNames({
-    'flex items-center justify-center flex-auto h-100': mobile,
+    'flex justify-center flex-auto bl br b--muted-5': mobile,
   })
 
   if (!showFilters) {
@@ -64,7 +81,7 @@ const FilterNavigator = ({
 
   if (loading && !mobile) {
     return (
-      <div className={styles.filters}>
+      <div className={searchResult.filters}>
         <ContentLoader
           style={{
             width: '100%',
@@ -86,29 +103,23 @@ const FilterNavigator = ({
 
   if (mobile) {
     return (
-      <div className={styles.filters}>
+      <div className={searchResult.filters}>
         <div className={filterClasses}>
-          <FilterSidebar filters={filters} tree={tree} />
+          <FilterSidebar filters={filters} />
         </div>
       </div>
     )
   }
 
   return (
-    <div className={styles.filters}>
+    <div className={searchResult.filters}> 
       <div className={filterClasses}>
         <div className="bb b--muted-4">
           <h5 className="t-heading-5 mv5">
-            <FormattedMessage id="store/search-result.filter-button.title" />
+            <FormattedMessage id="store/search-result.filter-button.title"/>
           </h5>
         </div>
         <SelectedFilters filters={selectedFilters} />
-        <DepartmentFilters
-          title={CATEGORIES_TITLE}
-          tree={tree}
-          isVisible={!hiddenFacets.categories}
-          onCategorySelect={navigateToFacet}
-        />
         <AvailableFilters filters={filters} priceRange={priceRange} />
       </div>
     </div>

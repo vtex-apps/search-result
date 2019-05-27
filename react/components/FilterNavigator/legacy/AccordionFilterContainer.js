@@ -5,19 +5,14 @@ import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
 
 import AccordionFilterItem from './AccordionFilterItem'
-import DepartmentFilters from './DepartmentFilters'
-import AccordionFilterGroup from './AccordionFilterGroup'
 
-import styles from '../searchResult.css'
-
-const CATEGORIES_TITLE = 'store/search.filter.title.categories'
+import searchResult from './searchResult.css'
 
 const AccordionFilterContainer = ({
   filters,
   intl,
   onFilterCheck,
-  tree,
-  onCategorySelect,
+  isOptionSelected,
 }) => {
   const [openItem, setOpenItem] = useState(null)
 
@@ -32,27 +27,19 @@ const AccordionFilterContainer = ({
   }
 
   const handleKeyDown = e => {
-    if (e.key === 'Enter') {
+    if (e.key === ' ') {
       setOpenItem(null)
     }
   }
 
   const nonEmptyFilters = filters.filter(spec => spec.facets.length > 0)
 
-  const departmentsOpen = openItem === CATEGORIES_TITLE
-
-  const itemClassName = classNames(
-    styles.accordionFilterItemOptions,
-    'ph5 pt3 h-100 overflow-scroll'
-  )
-
   return (
-    <div className={classNames(styles.accordionFilter, 'h-100')}>
+    <div className={`${searchResult.accordionFilter} h-100`}>
       <div
-        className={classNames(
-          styles.filterAccordionBreadcrumbs,
-          'pointer flex flex-row items-center pa5 bg-base w-100 z-max bb b--muted-4'
-        )}
+        className={`${
+          searchResult.filterAccordionBreadcrumbs
+        } pointer flex flex-row items-center pa5 bg-base w-100 z-max bb b--muted-4`}
       >
         <div
           role="button"
@@ -82,33 +69,20 @@ const AccordionFilterContainer = ({
         )}
       </div>
 
-      <AccordionFilterItem
-        title={CATEGORIES_TITLE}
-        open={departmentsOpen}
-        show={!openItem || departmentsOpen}
-        onOpen={handleOpen(CATEGORIES_TITLE)}
-      >
-        <div className={itemClassName}>
-          <DepartmentFilters
-            tree={tree}
-            isVisible={tree.length > 0}
-            onCategorySelect={onCategorySelect}
-            hideBorder
-          />
-        </div>
-      </AccordionFilterItem>
       {nonEmptyFilters.map(filter => {
+        const { title, facets } = filter
         const isOpen = openItem === filter.title
 
         return (
-          <AccordionFilterGroup
-            {...filter}
+          <AccordionFilterItem
             key={filter.title}
-            className={itemClassName}
+            title={title}
+            facets={facets}
+            isOptionSelected={isOptionSelected}
             open={isOpen}
+            onFilterCheck={onFilterCheck}
             show={!openItem || isOpen}
             onOpen={handleOpen(filter.title)}
-            onFilterCheck={onFilterCheck}
           />
         )
       })}
@@ -125,8 +99,9 @@ AccordionFilterContainer.propTypes = {
   filtersChecks: PropTypes.object,
   /** Checkbox hit callback function */
   onFilterCheck: PropTypes.func,
-  tree: PropTypes.any,
-  onCategorySelect: PropTypes.func,
+  /** Filters selected previously */
+  selectedFilters: PropTypes.array,
+  isOptionSelected: PropTypes.func.isRequired,
 }
 
 export default injectIntl(AccordionFilterContainer)

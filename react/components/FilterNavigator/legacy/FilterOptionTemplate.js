@@ -5,7 +5,7 @@ import classNames from 'classnames'
 
 import { IconCaret } from 'vtex.store-icons'
 
-import searchResult from '../searchResult.css'
+import searchResult from './searchResult.css'
 
 /**
  * Collapsable filters container
@@ -29,12 +29,12 @@ const FilterOptionTemplate = ({
 
   const handleKeyDown = useCallback(
     e => {
-      if (e.key === ' ' && collapsable) {
+      if (e.key === ' ') {
         e.preventDefault()
         setOpen(!open)
       }
     },
-    [collapsable, open]
+    [open]
   )
 
   const containerClassName = classNames(searchResult.filter, 'pv5', {
@@ -44,7 +44,7 @@ const FilterOptionTemplate = ({
 
   const titleClassName = classNames(
     searchResult.filterTitle,
-    'f5 flex items-center justify-between',
+    't-heading-6 flex items-center justify-between',
     {
       ttu: selected,
     }
@@ -55,11 +55,10 @@ const FilterOptionTemplate = ({
       <div className={containerClassName}>
         <div
           role="button"
-          tabIndex={collapsable ? 0 : undefined}
+          tabIndex={0}
           className={collapsable ? 'pointer' : ''}
-          onClick={() => collapsable && setOpen(!open)}
+          onClick={() => setOpen(!open)}
           onKeyDown={handleKeyDown}
-          aria-disabled={!collapsable}
         >
           <div className={titleClassName}>
             {title}
@@ -79,7 +78,7 @@ const FilterOptionTemplate = ({
       <div
         className={classNames({
           'overflow-y-auto': collapsable,
-          pb5: !collapsable || open,
+          pb5: open,
         })}
         style={{ maxHeight: '200px' }}
         aria-hidden={!open}
