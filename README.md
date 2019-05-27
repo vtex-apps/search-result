@@ -49,7 +49,7 @@ Now, you can change the behavior of the search result block that is in the store
 ```json
   "search-result#department": {
     "blocks": [
-      "filter-navigator",
+      "filter-navigator.v2",
       "gallery",
       "not-found",
       "breadcrumb",
@@ -217,6 +217,8 @@ Below, we describe the namespaces that are defined in the search-result.
 | `filterTitle` | Filter title container | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js) |
 | `filterIcon` | Filter icon container | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js) |
 | `galleryTitle` | Category name or search term title | [Title](/react/Title.js) |
+| `filterItem` | Checkbox and label for Filters (desktop only) | [Title](/react/components/SearchFilter.js) |
+| `selectedFilterItem` | Checkbox and label for selected Filters (desktop only) | [Title](/react/components/SelectedFilters.js) |
 
 ## Troubleshooting
 
