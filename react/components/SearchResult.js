@@ -160,7 +160,7 @@ class SearchResult extends Component {
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
-    const title = getLastName(breadcrumbsProps.breadcrumb)
+    // const title = getLastName(breadcrumbsProps.breadcrumb)
 
     const filters = getFilters({
       specificationFilters,
@@ -190,7 +190,7 @@ class SearchResult extends Component {
               <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
             </div>
           )}
-          <ExtensionPoint id="search-title" title={title} />
+          <ExtensionPoint id="search-title" breadcrumb={breadcrumbsProps.breadcrumb} />
           {showFacets && (
             <ExtensionPoint
               id="filter-navigator"
