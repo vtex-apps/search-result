@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { useContext } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { compose, equals, head, last, findLastIndex, findIndex, prop, path } from 'ramda'
 
 import QueryContext from './components/QueryContext'
@@ -32,8 +32,12 @@ const breadcrumbName = (index, breadcrumb) => path([index, 'name'], breadcrumb)
 
 const SearchTitle = ({ breadcrumb = [] }) => {
   const { map } = useContext(QueryContext)
-  const mapArray = map.split(',')
-  const index = getQueryNameIndex(mapArray)
+
+  const index = useMemo(() => {
+    const mapArray = map.split(',')
+    return getQueryNameIndex(mapArray)
+  }, [map])
+  
   const title = index >= 0 ? breadcrumbName(index, breadcrumb) : getLastName(breadcrumb)
   if (!title) {
     return null
