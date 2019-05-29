@@ -1234,6 +1234,11 @@
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
+"@vtex/css-handles@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@vtex/css-handles/-/css-handles-1.1.0.tgz#c49998230e7b1576bef4ea6125471137a54c6c86"
+  integrity sha512-GP5ONxBimQoKRIW8WjUCI5/HU13JdMTxPw1aoumWcDv3ycUu13IR8HzzIuTM+iFZE9ctvGZfVCq9FXqQ747yNw==
+
 "@vtex/test-tools@^0.1.4":
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/@vtex/test-tools/-/test-tools-0.1.5.tgz#0326145e4188f047e4d0a22e38f3d6f245ebde9b"
