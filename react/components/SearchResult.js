@@ -168,7 +168,13 @@ class SearchResult extends Component {
       hiddenFacets,
     })
 
-    const showFacets = !hideFacets && !isEmpty(filters)
+    const showCategories =
+      hiddenFacets &&
+      hiddenFacets.categories === false &&
+      tree &&
+      tree.length > 0
+
+    const showFacets = showCategories || (!hideFacets && !isEmpty(filters))
 
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.21.1] - 2019-05-28
+
+### Fixed
+
+- Filter navigation that have set only not hide categories.
+
 ## [3.21.0] - 2019-05-27
 ### Added
 - `filter-navigator.v2` using the Category Tree to show categories/departments in a correct hierarchy.
