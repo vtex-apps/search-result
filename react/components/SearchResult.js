@@ -155,7 +155,6 @@ class SearchResult extends Component {
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
-    // const title = getLastName(breadcrumbsProps.breadcrumb)
 
     const filters = getFilters({
       specificationFilters,
