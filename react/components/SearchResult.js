@@ -12,11 +12,6 @@ import getFilters from '../utils/getFilters'
 
 import styles from '../searchResult.css'
 
-const getLastName = compose(
-  prop('name'),
-  last
-)
-
 /**
  * Search Result Component.
  */
