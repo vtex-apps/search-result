@@ -8,6 +8,7 @@
   "author": "VTEX",
   "license": "ISC",
   "dependencies": {
+    "@vtex/css-handles": "^1.1.0",
     "classnames": "^2.2.6",
     "immer": "^3.1.2",
     "query-string": "5",

@@ -131,13 +131,17 @@ The gallery has as a required block the `product-summary`. So, any gallery block
 
 ### Configuration
 
-Through the Storefront, you can change the search-result behavior and interface. However, you also can make in your theme app, as Dreamstore does.
+#### Layout API
+These properties can be changed in the `blocks.json` file of your theme.
 
 | Prop name | Type | Description | Default value |
 | --- | --- | --- | --- |
 | `querySchema` | `QuerySchema` | Query made when there's no context | N/A |
 | `hiddenFacets` | `HiddenFacets` | Indicates which facets will be hidden | N/A |
 | `pagination` | `Enum` | Pagination type (values: 'show-more' or 'infinite-scroll') | `infinity-scroll` |
+| `mobileLayout` | `MobileLayout` | Control mobile layout | N/A |
+| `showFacetQuantity` | `Boolean` | If quantity of items filtered by facet should appear besides its name on `filter-navigator` | `false` |
+| `blockClass` | `String` | Unique class name to be appended to block classes | `""` |
 
 QuerySchema
 
@@ -148,13 +152,12 @@ QuerySchema
 | `mapField` | `String` | Map field | N/A |
 | `restField` | `String` | Other Query Strings | N/A |
 | `orderByField` | `Enum` | Order by field (values: 'OrderByTopSaleDESC', 'OrderByReleaseDateDESC', 'OrderByBestDiscountDESC', 'OrderByPriceDESC', 'OrderByPriceASC', 'OrderByNameASC' or 'OrderByNameDESC') | `OrderByReleaseDateDESC` |
+| `hideUnavailableItems` | `Boolean` | Set if unavailable items should show on search | `false` |
 
 HiddenFacets
 
 | Prop name | Type | Description | Default value |
 | --- | --- | --- | --- |
-| `layoutMode1` | `Enum` | Layout mode of the switcher (values: 'normal', 'small' or 'inline') | `normal` |
-| `layoutMode2` | `Enum` | Layout mode of the switcher 2 (values: 'normal', 'small' or 'inline') | `small` |
 | `brands` | `Boolean` | Hide Brands filter | false |
 | `categories` | `Boolean` | Hide Categories filter | false |
 | `priceRange` | `Boolean` | Hide Price filter | false |
@@ -165,7 +168,18 @@ SpecificationFilters
 | Prop name | Type | Description | Default value |
 | --- | --- | --- | --- |
 | `hideAll` | `Boolean` | Hide specifications filters | false |
-| `hiddenFilters` | `Array(String)` | Array of specifications filters that should be hidden | N/A |
+| `hiddenFilters` | `Array(HiddenFilterUnit)` | Array of specifications filters that should be hidden | N/A |
+
+HiddenFilterUnit
+| Prop name | Type | Description | Default value |
+| --- | --- | --- | --- |
+| `name` | `String!` | Name of Hidden specification filter | `""` |
+
+MobileLayout
+| Prop name | Type | Description | Default value |
+| --- | --- | --- | --- |
+| `mode1` | `Enum` | Layout mode of the switcher (values: 'normal', 'small' or 'inline') | `normal` |
+| `mode2` | `Enum` | Layout mode of the switcher 2 (values: 'normal', 'small' or 'inline') | `small` |
 
 Also, you can configure the product summary that is defined on search-result. See [here](https://github.com/vtex-apps/product-summary/blob/master/README.md#configuration) the Product Summary API.
 
@@ -232,14 +246,13 @@ Below, we describe the namespaces that are defined in the search-result.
 | `filterPopupContent` | Filter pop-up content | [Popup](/react/components/Popup.js) |
 | `filterPopupContentContainer` | Filter pop-up content container | [Popup](/react/components/Popup.js) |
 | `filterPopupContentContainerOpen` | Filter pop-up content container when it is open | [Popup](/react/components/Popup.js) |
-| `selectedFilterCheckbox` | Selected filter check-box | [SelectedFilters](/react/components/SelectedFilters.js) |
 | `galleryItem` | Gallery item container | [Gallery](/react/Gallery.js) |
 | `searchNotFound` | Main container of Search Not Found | [NotFoundSearch](/react/NotFoundSearch.js) |
 | `filterTitle` | Filter title container | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js) |
 | `filterIcon` | Filter icon container | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js) |
 | `galleryTitle` | Category name or search term title | [Title](/react/Title.js) |
-| `filterItem` | Checkbox and label for Filters (desktop only) | [Title](/react/components/SearchFilter.js) |
-| `selectedFilterItem` | Checkbox and label for selected Filters (desktop only) | [Title](/react/components/SelectedFilters.js) |
+| `filterItem` | Checkbox and label for Filters (desktop only) | [SearchFilter](/react/components/SearchFilter.js) |
+| `selectedFilterItem` | Checkbox and label for selected Filters (desktop only) | [SelectedFilters](/react/components/SelectedFilters.js) |
 
 ## Troubleshooting
 
