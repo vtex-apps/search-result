@@ -180,7 +180,7 @@ class SearchResult extends Component {
     return (
       <LoadingOverlay loading={showLoading && showLoadingAsOverlay}>
         <div
-          className={`${styles.container} ${generateBlockClass(
+          className={`${generateBlockClass(
             styles.container,
             this.props.blockClass
           )} w-100 mw9`}
