@@ -197,11 +197,13 @@ SearchResultQueryLoader.getSchema = props => {
           'admin/editor.search-result.pagination.show-more',
           'admin/editor.search-result.pagination.infinite-scroll',
         ],
+        isLayout: true,
       },
       showFacetQuantity: {
         type: 'boolean',
         title: 'admin/editor.search-result.facet-quantity',
         default: false,
+        isLayout: true,
       },
     },
   }
