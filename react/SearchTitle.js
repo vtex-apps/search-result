@@ -10,6 +10,8 @@ const findFT = findIndex(equals('ft'))
 const findProductCluster = findIndex(equals('productClusterIds'))
 const findLastCategory = findLastIndex(equals('c'))
 const isBrandPage = compose(equals('b'), head)
+const getLastName = compose(prop('name'), last)
+const breadcrumbName = (index, breadcrumb) => path([index, 'name'], breadcrumb)
 
 const getQueryNameIndex = mapArray => {
   if (isBrandPage(mapArray)) {
@@ -26,9 +28,6 @@ const getQueryNameIndex = mapArray => {
   const lastCategoryIndex = findLastCategory(mapArray)
   return lastCategoryIndex
 }
-
-const getLastName = compose(prop('name'), last)
-const breadcrumbName = (index, breadcrumb) => path([index, 'name'], breadcrumb)
 
 const SearchTitle = ({ breadcrumb = [] }) => {
   const { map } = useContext(QueryContext)
