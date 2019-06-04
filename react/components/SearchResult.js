@@ -12,11 +12,6 @@ import getFilters from '../utils/getFilters'
 
 import styles from '../searchResult.css'
 
-const getLastName = compose(
-  prop('name'),
-  last
-)
-
 /**
  * Search Result Component.
  */
@@ -160,7 +155,6 @@ class SearchResult extends Component {
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
-    const title = getLastName(breadcrumbsProps.breadcrumb)
 
     const filters = getFilters({
       specificationFilters,
@@ -190,7 +184,7 @@ class SearchResult extends Component {
               <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
             </div>
           )}
-          <ExtensionPoint id="search-title" title={title} />
+          <ExtensionPoint id="search-title" breadcrumb={breadcrumbsProps.breadcrumb} />
           {showFacets && (
             <ExtensionPoint
               id="filter-navigator"

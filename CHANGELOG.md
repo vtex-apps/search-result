@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.21.3] - 2019-06-04
+### Changed
+- Changed rules to display in `search-title`. Will now check if its a product cluster search, brand page, category, or a full text search.
+
 ## [3.21.2] - 2019-06-03
 
 ### Added
