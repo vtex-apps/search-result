@@ -51,7 +51,7 @@ const PriceRange = ({ title, facets, intl, priceRange }) => {
   }
 
   const slugRegex = /^de-(.*)-a-(.*)$/
-  const availableOptions = facets.filter(({ Slug }) => slugRegex.test(Slug))
+  const availableOptions = facets.filter(({ slug }) => slugRegex.test(slug))
 
   if (!availableOptions.length) {
     return null
@@ -60,9 +60,9 @@ const PriceRange = ({ title, facets, intl, priceRange }) => {
   let minValue = Number.MAX_VALUE
   let maxValue = Number.MIN_VALUE
 
-  availableOptions.forEach(({ Slug }) => {
+  availableOptions.forEach(({ slug }) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_, minSlug, maxSlug] = Slug.match(slugRegex)
+    const [_, minSlug, maxSlug] = slug.match(slugRegex)
 
     const min = parseInt(minSlug)
     const max = parseInt(maxSlug)
