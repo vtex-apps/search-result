@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Support for shop-review-interfaces app to display block on search results page.
+
 ## [3.21.4] - 2019-06-10
 ### Fixed
 - Fix priceRange using old `Slug` field. Change to `slug`.

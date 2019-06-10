@@ -6,7 +6,8 @@
       "filter-navigator",
       "total-products",
       "order-by",
-      "search-title"
+      "search-title",
+      "shop-review-widget"
     ],
     "required": [
       "gallery"
@@ -20,7 +21,8 @@
     "component": "FilterNavigatorLegacy"
   },
   "filter-navigator.v2": {
-    "component": "FilterNavigator"
+    "component": "FilterNavigator",
+    "allowed": ["shop-review-summary"]
   },
   "gallery": {
     "required": [

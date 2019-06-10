@@ -5,7 +5,7 @@ import React, { useMemo } from 'react'
 import ContentLoader from 'react-content-loader'
 import { FormattedMessage } from 'react-intl'
 import { useRuntime } from 'vtex.render-runtime'
-
+import { ExtensionPoint } from 'vtex.render-runtime'
 import FilterSidebar from './components/FilterSidebar'
 import SelectedFilters from './components/SelectedFilters'
 import AvailableFilters from './components/AvailableFilters'
@@ -111,6 +111,7 @@ const FilterNavigator = ({
         />
         <AvailableFilters filters={filters} priceRange={priceRange} />
       </div>
+      <ExtensionPoint id="shop-review-summary" />
     </div>
   )
 }
