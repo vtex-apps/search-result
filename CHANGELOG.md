@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.21.4] - 2019-06-10
+### Fixed
+- Fix priceRange using old `Slug` field. Change to `slug`.
+
 ## [3.21.3] - 2019-06-04
 ### Changed
 - Changed rules to display in `search-title`. Will now check if its a product cluster search, brand page, category, or a full text search.
