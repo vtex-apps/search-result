@@ -20,7 +20,8 @@
     "component": "FilterNavigatorLegacy"
   },
   "filter-navigator.v2": {
-    "component": "FilterNavigator"
+    "component": "FilterNavigator",
+    "allowed": ["shop-review-summary"]
   },
   "gallery": {
     "required": [
