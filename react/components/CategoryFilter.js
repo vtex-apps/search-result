@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import React, { useContext } from 'react'
 import { injectIntl } from 'react-intl'
 import { IconClose } from 'vtex.styleguide'
+import { NoSSR } from 'vtex.render-runtime'
 
 import QueryContext from './QueryContext'
 import Collapsible from './Collapsible'
@@ -121,6 +122,7 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
                 mt2: shallow,
               })}
             >
+             <NoSSR>
               <Collapsible
                 items={lastSelectedCategory.children}
                 maxItems={8}
@@ -142,6 +144,7 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
                   />
                 )}
               />
+             </NoSSR>
             </div>
           )}
       </div>
