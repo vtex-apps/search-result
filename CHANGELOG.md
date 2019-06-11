@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ## [3.21.5] - 2019-06-11
+### Fixed
+- Move `Collapsible` component to `NoSSR` to prevent crashes on SSR because of springs animation lib.
 
 ## [3.21.4] - 2019-06-10
 ### Fixed
