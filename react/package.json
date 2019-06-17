@@ -46,6 +46,6 @@
     "react-dom": "^16.8.3",
     "react-testing-library": "^6.0.0",
     "regenerator-runtime": "^0.13.1",
-    "typescript": "^3.3.4000"
+    "typescript": "3.4.3"
   }
 }

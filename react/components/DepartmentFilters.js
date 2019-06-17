@@ -37,7 +37,7 @@ const DepartmentFilters = ({
       )}
       <div
         className={classNames(
-          styles.selectedCategoriesContainer,
+          styles.categoriesContainer,
           'pb5 flex flex-column'
         )}
       >
