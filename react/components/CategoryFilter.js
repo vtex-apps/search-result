@@ -57,11 +57,11 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
   }
 
   return (
-    <div className="mt4">
+    <div className={classNames(styles.categoryGroup, 'mt4')}>
       <div
         role="button"
         tabIndex={canDisableRoot ? 0 : -1}
-        className={classNames('flex items-center pointer')}
+        className={classNames(styles.categoryParent, 'flex items-center pointer')}
         onClick={handleRootCategoryClick}
         onKeyDown={e => e.key === 'Enter' && handleRootCategoryClick()}
       >

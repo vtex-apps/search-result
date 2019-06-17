@@ -254,6 +254,10 @@ Below, we describe the namespaces that are defined in the search-result.
 | `filterItem` | Checkbox and label for Filters (desktop only) | [SearchFilter](/react/components/SearchFilter.js) |
 | `selectedFilterItem` | Checkbox and label for selected Filters (desktop only) | [SelectedFilters](/react/components/SelectedFilters.js) |
 
+| `categoriesContainer` | The container for the department filters | [DepartmentFilters](/react/components/DepartmentFilters.js) |
+| `categoryGroup` | Container for each category group in the department filters | [CategoryFilter](/react/components/CategoryFilter.js) |
+| `categoryParent` | View of the parent category of this group | [CategoryFilter](/react/components/CategoryFilter.js) |
+
 ## Troubleshooting
 
 You can check if others are experiencing similar issues [here](https://github.com/vtex-apps/search-result/issues). Also feel free to [open issues](https://github.com/vtex-apps/search-result/issues/new).
