@@ -1,14 +1,16 @@
-import { path, zip } from 'ramda'
-import React from 'react'
+import { path, zip, split, head, join, tail } from 'ramda'
+import React, { useMemo } from 'react'
 import { Query } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
-import { path, zip, split, head, join, tail } from 'ramda'
 import { productSearchV2 } from 'vtex.store-resources/Queries'
 
 import { SORT_OPTIONS } from '../OrderBy'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
+
+const QUERY_SEPARATOR = '/'
+const MAP_SEPARATOR = ','
 
 const splitQuery = split(QUERY_SEPARATOR)
 const splitMap = split(MAP_SEPARATOR)
