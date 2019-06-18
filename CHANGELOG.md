@@ -7,20 +7,32 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Issue of filters not appearing on non categories search pages, with LocalQuery component.
+
 ## [3.21.6] - 2019-06-17
+
 ### Added
+
 - More css classes for department filters and categories.
 
 ## [3.21.5] - 2019-06-11
+
 ### Fixed
+
 - Move `Collapsible` component to `NoSSR` to prevent crashes on SSR because of springs animation lib.
 
 ## [3.21.4] - 2019-06-10
+
 ### Fixed
+
 - Fix priceRange using old `Slug` field. Change to `slug`.
 
 ## [3.21.3] - 2019-06-04
+
 ### Changed
+
 - Changed rules to display in `search-title`. Will now check if its a product cluster search, brand page, category, or a full text search.
 
 ## [3.21.2] - 2019-06-03
@@ -36,19 +48,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Filter navigation that have set only not hide categories.
 
 ## [3.21.0] - 2019-05-27
+
 ### Added
+
 - `filter-navigator.v2` using the Category Tree to show categories/departments in a correct hierarchy.
 
 - `filter-navigator.v1` for whoever want to keep using the current `filter-navigator` (it will not be updated anymore).
 
 ### Changed
+
 - Update category filters appearance.
 
 ### Deprecated
+
 - `filter-navigator` block. If you want to keep your store up to date, use `filter-navigator.v2` for now.
 
 ## [3.20.1] - 2019-05-27
+
 ### Fixed
+
 - Typo in default value of schema.
 
 ## [3.20.0] - 2019-05-27
@@ -66,6 +84,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.19.1] - 2019-05-23
 
 ### Fixed
+
 - Hides filters when there are no filters available.
 
 ## [3.19.0] - 2019-05-23
