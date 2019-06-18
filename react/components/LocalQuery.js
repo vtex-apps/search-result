@@ -1,5 +1,5 @@
-import { path, zip } from 'ramda'
-import React from 'react'
+import { path, zip, split, head, join, tail } from 'ramda'
+import React, { useMemo } from 'react'
 import { Query } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import { productSearchV2 } from 'vtex.store-resources/Queries'
@@ -8,6 +8,46 @@ import { SORT_OPTIONS } from '../OrderBy'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
+
+const QUERY_SEPARATOR = '/'
+const MAP_SEPARATOR = ','
+
+const splitQuery = split(QUERY_SEPARATOR)
+const splitMap = split(MAP_SEPARATOR)
+const joinQuery = join(QUERY_SEPARATOR)
+const joinMap = join(MAP_SEPARATOR)
+
+const includeFacets = (map, query) =>
+  !!(map && map.length > 0 && query && query.length > 0)
+
+const useFacetsArgs = (query, map) => {
+  return useMemo(() => {
+    const queryArray = splitQuery(query)
+    const mapArray = splitMap(map)
+    const queryAndMap = zip(queryArray, mapArray)
+    const relevantArgs = [
+      head(queryAndMap),
+      ...tail(queryAndMap).filter(
+        ([_, tupleMap]) => tupleMap === 'c' || tupleMap === 'ft'
+      ),
+    ]
+    const { finalMap, finalQuery } = relevantArgs.reduce(
+      (accumulator, [tupleQuery, tupleMap]) => {
+        accumulator.finalQuery.push(tupleQuery)
+        accumulator.finalMap.push(tupleMap)
+        return accumulator
+      },
+      { finalQuery: [], finalMap: [] }
+    )
+    const facetQuery = joinQuery(finalQuery)
+    const facetMap = joinMap(finalMap)
+    return {
+      facetQuery,
+      facetMap,
+      withFacets: includeFacets(facetMap, facetQuery),
+    }
+  }, [map, query])
+}
 
 const LocalQuery = props => {
   const {
@@ -30,19 +70,7 @@ const LocalQuery = props => {
   const page = pageQuery ? parseInt(pageQuery) : DEFAULT_PAGE
   const from = (page - 1) * maxItemsPerPage
   const to = from + maxItemsPerPage - 1
-
-  const { map: facetMap, query: facetQuery } = zip(
-    queryField.split('/'),
-    map.split(',')
-  )
-    .filter(([_, map]) => map === 'c' || map === 'ft')
-    .reduce(
-      ({ query: queryArr, map: mapArr }, [query, map]) => ({
-        query: [...queryArr, query],
-        map: [...mapArr, map],
-      }),
-      { map: [], query: [] }
-    )
+  const facetsArgs = useFacetsArgs(queryField, map)
 
   const variables = {
     query: queryField,
@@ -51,15 +79,8 @@ const LocalQuery = props => {
     priceRange,
     from,
     to,
-    withFacets: !!(
-      facetMap &&
-      facetMap.length > 0 &&
-      facetQuery &&
-      facetQuery.length > 0
-    ),
-    facetQuery: facetQuery.join('/'),
-    facetMap: facetMap.join(','),
     hideUnavailableItems,
+    ...facetsArgs,
   }
 
   return (
