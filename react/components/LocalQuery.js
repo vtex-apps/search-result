@@ -1,53 +1,11 @@
-import { path, zip, split, head, join, tail } from 'ramda'
-import React, { useMemo } from 'react'
-import { Query } from 'react-apollo'
+import { path } from 'ramda'
+import React from 'react'
 import { useRuntime } from 'vtex.render-runtime'
-import { productSearchV2 } from 'vtex.store-resources/Queries'
+import SearchQuery from './SearchQuery'
 
 import { SORT_OPTIONS } from '../OrderBy'
 
-const DEFAULT_PAGE = 1
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
-
-const QUERY_SEPARATOR = '/'
-const MAP_SEPARATOR = ','
-
-const splitQuery = split(QUERY_SEPARATOR)
-const splitMap = split(MAP_SEPARATOR)
-const joinQuery = join(QUERY_SEPARATOR)
-const joinMap = join(MAP_SEPARATOR)
-
-const includeFacets = (map, query) =>
-  !!(map && map.length > 0 && query && query.length > 0)
-
-const useFacetsArgs = (query, map) => {
-  return useMemo(() => {
-    const queryArray = splitQuery(query)
-    const mapArray = splitMap(map)
-    const queryAndMap = zip(queryArray, mapArray)
-    const relevantArgs = [
-      head(queryAndMap),
-      ...tail(queryAndMap).filter(
-        ([_, tupleMap]) => tupleMap === 'c' || tupleMap === 'ft'
-      ),
-    ]
-    const { finalMap, finalQuery } = relevantArgs.reduce(
-      (accumulator, [tupleQuery, tupleMap]) => {
-        accumulator.finalQuery.push(tupleQuery)
-        accumulator.finalMap.push(tupleMap)
-        return accumulator
-      },
-      { finalQuery: [], finalMap: [] }
-    )
-    const facetQuery = joinQuery(finalQuery)
-    const facetMap = joinMap(finalMap)
-    return {
-      facetQuery,
-      facetMap,
-      withFacets: includeFacets(facetMap, facetQuery),
-    }
-  }, [map, query])
-}
 
 const LocalQuery = props => {
   const {
@@ -67,30 +25,17 @@ const LocalQuery = props => {
 
   const { page: runtimePage } = useRuntime()
 
-  const page = pageQuery ? parseInt(pageQuery) : DEFAULT_PAGE
-  const from = (page - 1) * maxItemsPerPage
-  const to = from + maxItemsPerPage - 1
-  const facetsArgs = useFacetsArgs(queryField, map)
-
-  const variables = {
-    query: queryField,
-    map,
-    orderBy,
-    priceRange,
-    from,
-    to,
-    hideUnavailableItems,
-    ...facetsArgs,
-  }
-
   return (
-    <Query
-      query={productSearchV2}
-      variables={variables}
-      notifyOnNetworkStatusChange
-      partialRefetch
+    <SearchQuery
+      maxItemsPerPage={maxItemsPerPage}
+      query={queryField}
+      map={map}
+      orderBy={orderBy}
+      priceRange={priceRange}
+      hideUnavailableItems={hideUnavailableItems}
+      pageQuery={pageQuery}
     >
-      {searchQuery => {
+      {(searchQuery, extraParams) => {
         return render({
           ...props,
           searchQuery: {
@@ -115,13 +60,13 @@ const LocalQuery = props => {
           map,
           orderBy,
           priceRange,
-          page,
-          from,
-          to,
+          page: extraParams.page,
+          from: extraParams.from,
+          to: extraParams.to,
           maxItemsPerPage,
         })
       }}
-    </Query>
+    </SearchQuery>
   )
 }
 
