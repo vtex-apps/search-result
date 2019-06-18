@@ -78,7 +78,6 @@ const SearchQuery = ({
     hideUnavailableItems,
     facetsArgs,
   ])
-  console.log('teste === variables: ', variables)
   const extraParams = useMemo(() => {
     return {
       ...variables,
