@@ -27,14 +27,12 @@ const useFacetsArgs = (query, map) => {
         ([_, tupleMap]) => tupleMap === 'c' || tupleMap === 'ft'
       ),
     ]
-    const { finalMap, finalQuery } = relevantArgs.reduce(
-      (accumulator, [tupleQuery, tupleMap]) => {
-        accumulator.finalQuery.push(tupleQuery)
-        accumulator.finalMap.push(tupleMap)
-        return accumulator
-      },
-      { finalQuery: [], finalMap: [] }
-    )
+    const finalMap = []
+    const finalQuery = []
+    relevantArgs.forEach(([tupleQuery, tupleMap]) => {
+      finalQuery.push(tupleQuery)
+      finalMap.push(tupleMap)
+    })
     const facetQuery = joinQuery(finalQuery)
     const facetMap = joinMap(finalMap)
     return {
