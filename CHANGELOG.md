@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.21.7] - 2019-06-18
+
 ### Fixed
 
 - Issue of filters not appearing on non categories search pages, with LocalQuery component.
