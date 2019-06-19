@@ -1,7 +1,7 @@
 {
   "name": "search-result",
   "vendor": "vtex",
-  "version": "3.21.7",
+  "version": "3.22.0",
   "title": "VTEX Search Result",
   "description": "A search result wrapper component",
   "mustUpdateAt": "2019-04-25",
@@ -25,7 +25,7 @@
     "vtex.shelf": "1.x",
     "vtex.styleguide": "9.x",
     "vtex.store-icons": "0.x",
-    "vtex.shop-review-interfaces":"0.x",
+    "vtex.shop-review-interfaces": "0.x",
     "vtex.pixel-manager": "1.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"

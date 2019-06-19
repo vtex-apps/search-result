@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.22.0] - 2019-06-19
+
 ### Added
 
 - Support for shop-review-interfaces app to display block on search results page.
