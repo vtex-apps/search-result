@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Issues with selecting categories in mobile.
+
 ## [3.22.1] - 2019-06-21
 
 ### Changed
