@@ -25,8 +25,9 @@ const FilterSidebar = ({ filters, tree }) => {
   const [open, setOpen] = useState(false)
 
   const [filterOperations, setFilterOperations] = useState([])
+  const [categoryTreeOperations, setCategoryTreeOperations] = useState([])
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  const currentTree = useCategoryTree(tree, filterOperations)
+  const currentTree = useCategoryTree(tree, categoryTreeOperations)
 
   const navigateToFacet = useFacetNavigation()
 
@@ -61,10 +62,17 @@ const FilterSidebar = ({ filters, tree }) => {
       ? maybeCategories
       : [maybeCategories]
 
+    const categoriesSelected = filterOperations.filter(op => op.map === 'c')
+    const newCategories = [...categoriesSelected, ...categories]
+
+    // Just save the newest operation here to be recorded at the category tree hook and update the tree
+    setCategoryTreeOperations(categories)
+
+    // Save all filters along with the new categories, appended to the old ones
     setFilterOperations(filters => {
       return filters
         .filter(operations => operations.map !== 'c')
-        .concat(categories)
+        .concat(newCategories)
     })
   }
 
@@ -183,7 +191,7 @@ const updateTree = categories =>
 // in a user-friendly manner should reflect to the changes
 // we make in the tree, the same as it would with a tree fetched
 // from the API.
-const useCategoryTree = (initialTree, filterOperations) => {
+const useCategoryTree = (initialTree, categoryTreeOperations) => {
   const [tree, setTree] = useState(initialTree)
 
   useEffect(() => {
@@ -191,12 +199,8 @@ const useCategoryTree = (initialTree, filterOperations) => {
   }, [initialTree])
 
   useEffect(() => {
-    const categoryOperations = filterOperations.filter(
-      operation => operation.map === 'c'
-    )
-
-    setTree(updateTree(categoryOperations))
-  }, [filterOperations, initialTree])
+    setTree(updateTree(categoryTreeOperations))
+  }, [categoryTreeOperations, initialTree])
 
   return tree
 }
