@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { injectIntl, intlShape } from 'react-intl'
+import classNames from 'classnames'
 
 import FilterOptionTemplate from './FilterOptionTemplate'
 import FacetItem from './FacetItem'
@@ -21,7 +22,15 @@ const SearchFilter = ({ title = 'Default Title', facets = [], intl }) => {
       title={getFilterTitle(title, intl)}
       filters={filtersWithSelected}
     >
-      {facet => <FacetItem key={facet.name} facet={facet} className={styles.filterItem} />}
+      {facet => (
+        <FacetItem
+          key={facet.name}
+          facet={facet}
+          className={classNames(styles.filterItem, {
+            [`${styles.filterItem}--selected`]: facet.selected,
+          })}
+        />
+      )}
     </FilterOptionTemplate>
   )
 }

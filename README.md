@@ -13,6 +13,7 @@ The VTEX Search Result app is a store component that handles with the result of 
 We ask for users, from now on, to use the `filter-navigator.v2` block if you want to keep updated with the most up to date Filter Navigator in your search-result.
 
 The correct way to use it is setting it in your `blocks.json` like:
+
 ```
 json
 "search-result": {
@@ -132,43 +133,44 @@ The gallery has as a required block the `product-summary`. So, any gallery block
 ### Configuration
 
 #### Layout API
+
 These properties can be changed in the `blocks.json` file of your theme.
 
-| Prop name | Type | Description | Default value |
-| --- | --- | --- | --- |
-| `querySchema` | `QuerySchema` | Query made when there's no context | N/A |
-| `hiddenFacets` | `HiddenFacets` | Indicates which facets will be hidden | N/A |
-| `pagination` | `Enum` | Pagination type (values: 'show-more' or 'infinite-scroll') | `infinity-scroll` |
-| `mobileLayout` | `MobileLayout` | Control mobile layout | N/A |
-| `showFacetQuantity` | `Boolean` | If quantity of items filtered by facet should appear besides its name on `filter-navigator` | `false` |
-| `blockClass` | `String` | Unique class name to be appended to block classes | `""` |
+| Prop name           | Type           | Description                                                                                 | Default value     |
+| ------------------- | -------------- | ------------------------------------------------------------------------------------------- | ----------------- |
+| `querySchema`       | `QuerySchema`  | Query made when there's no context                                                          | N/A               |
+| `hiddenFacets`      | `HiddenFacets` | Indicates which facets will be hidden                                                       | N/A               |
+| `pagination`        | `Enum`         | Pagination type (values: 'show-more' or 'infinite-scroll')                                  | `infinity-scroll` |
+| `mobileLayout`      | `MobileLayout` | Control mobile layout                                                                       | N/A               |
+| `showFacetQuantity` | `Boolean`      | If quantity of items filtered by facet should appear besides its name on `filter-navigator` | `false`           |
+| `blockClass`        | `String`       | Unique class name to be appended to block classes                                           | `""`              |
 
 QuerySchema
 
-| Prop name | Type | Description | Default value |
-| --- | --- | --- | --- |
-| `maxItemsPerPage` | `Number` | Maximum number of items per search page | 10 |
-| `queryField` | `String` | Query field | N/A |
-| `mapField` | `String` | Map field | N/A |
-| `restField` | `String` | Other Query Strings | N/A |
-| `orderByField` | `Enum` | Order by field (values: 'OrderByTopSaleDESC', 'OrderByReleaseDateDESC', 'OrderByBestDiscountDESC', 'OrderByPriceDESC', 'OrderByPriceASC', 'OrderByNameASC' or 'OrderByNameDESC') | `OrderByReleaseDateDESC` |
-| `hideUnavailableItems` | `Boolean` | Set if unavailable items should show on search | `false` |
+| Prop name              | Type      | Description                                                                                                                                                                      | Default value            |
+| ---------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
+| `maxItemsPerPage`      | `Number`  | Maximum number of items per search page                                                                                                                                          | 10                       |
+| `queryField`           | `String`  | Query field                                                                                                                                                                      | N/A                      |
+| `mapField`             | `String`  | Map field                                                                                                                                                                        | N/A                      |
+| `restField`            | `String`  | Other Query Strings                                                                                                                                                              | N/A                      |
+| `orderByField`         | `Enum`    | Order by field (values: 'OrderByTopSaleDESC', 'OrderByReleaseDateDESC', 'OrderByBestDiscountDESC', 'OrderByPriceDESC', 'OrderByPriceASC', 'OrderByNameASC' or 'OrderByNameDESC') | `OrderByReleaseDateDESC` |
+| `hideUnavailableItems` | `Boolean` | Set if unavailable items should show on search                                                                                                                                   | `false`                  |
 
 HiddenFacets
 
-| Prop name | Type | Description | Default value |
-| --- | --- | --- | --- |
-| `brands` | `Boolean` | Hide Brands filter | false |
-| `categories` | `Boolean` | Hide Categories filter | false |
-| `priceRange` | `Boolean` | Hide Price filter | false |
-| `specificationFilters` | `SpecificationFilters` | Hide Specifications filters | N/A |
+| Prop name              | Type                   | Description                 | Default value |
+| ---------------------- | ---------------------- | --------------------------- | ------------- |
+| `brands`               | `Boolean`              | Hide Brands filter          | false         |
+| `categories`           | `Boolean`              | Hide Categories filter      | false         |
+| `priceRange`           | `Boolean`              | Hide Price filter           | false         |
+| `specificationFilters` | `SpecificationFilters` | Hide Specifications filters | N/A           |
 
 SpecificationFilters
 
-| Prop name | Type | Description | Default value |
-| --- | --- | --- | --- |
-| `hideAll` | `Boolean` | Hide specifications filters | false |
-| `hiddenFilters` | `Array(HiddenFilterUnit)` | Array of specifications filters that should be hidden | N/A |
+| Prop name       | Type                      | Description                                           | Default value |
+| --------------- | ------------------------- | ----------------------------------------------------- | ------------- |
+| `hideAll`       | `Boolean`                 | Hide specifications filters                           | false         |
+| `hiddenFilters` | `Array(HiddenFilterUnit)` | Array of specifications filters that should be hidden | N/A           |
 
 HiddenFilterUnit
 | Prop name | Type | Description | Default value |
@@ -209,50 +211,51 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 
 Below, we describe the namespaces that are defined in the search-result.
 
-| Token name | Description | Component Source |
-| --- | --- | --- |
-| `container` | The main container of search-result | [SearchResult](/react/components/SearchResult.js) |
-| `buttonShowMore` | Show the see more button | [ShowMoreLoaderResult](/react/components/loaders/ShowMoreLoaderResult.js) |
-| `switch` | Layout mode switcher container | [SearchResult](/react/components/SearchResult.js) |
-| `breadcrumb` | Breadcrumb container | [SearchResult](/react/components/SearchResult.js) |
-| `filter` | Filter option container | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js) |
-| `resultGallery` | Gallery result container | [SearchResult](/react/components/SearchResult.js) |
-| `border` | Order by container border | [SearchResult](/react/components/SearchResult.js) |
-| `gallery` | The main container of gallery | [Gallery](/react/Gallery.js) |
-| `filterPopupButton` | Filter pop-up button | [FilterSideBar](/react/components/FilterSideBar.js) |
-| `accordionFilter` | Accordion filter container | [AccordionFilterContainer](/react/components/AccordionFilterContainer.js) |
-| `filterAccordionItemBox` | Accordion filter item container | [AccordionFilterItem](/react/components/AccordionFilterItem.js) |
-| `filterAccordionBreadcrumbs` | Filter accordion breadcrumbs container | [AccordionFilterContainer](/react/components/AccordionFilterContainer.js) |
-| `filterButtonsBox` | Filter buttons container | [FilterSidebar](/react/components/FilterSidebar.js) |
-| `filterPopupFooter` | Filter pop-up footer container | [Popup](/react/components/Popup.js) |
-| `accordionFilterItemOptions` | Accordion filter item options container | [AccordionFilterItem](/react/components/AccordionFilterItem.js) |
-| `dropdownMobile` | The main container of drop-down on mobile | [SelectionListOrderBy](/react/components/SelectionListOrderBy.js) |
-| `accordionFilterItemActive` | Container of the accordion filter item when it is active | [AccordionFilterItem](/react/components/AccordionFilterItem.js) |
-| `totalProducts` | The main container of total-products | [TotalProducts](/react/TotalProducts.js) |
-| `orderBy` | The main container of order-by | [OrderBy](/react/OrderBy.js) |
-| `accordionFilterItemHidden` | Accordion filter item container when it is hidden | [AccordionFilterItem](/react/compoents/AccordionFilterItem.js) |
-| `accordionFilterItem` | Accordion filter item container | [AccordionFilterItem](/react/compoents/AccordionFilterItem.js) |
-| `accordionFilterItemBox` | Accordion filter item box | [AccordionFilterItem](/react/compoents/AccordionFilterItem.js) |
-| `accordionFilterItemTitle` | Accordion filter item title container | [AccordionFilterItem](/react/compoents/AccordionFilterItem.js) |
-| `accordionFilterItemIcon` | Accordion filter item icon container | [AccordionFilterItem](/react/compoents/AccordionFilterItem.js) |
-| `filterAvailable` | Filter option template main container when it is available | [FilterOptionTemplate](/react/compoents/AccordionFilterItem.js) |
-| `filterSelected` | Filter option template main container when it is selected | [FilterOptionTemplate](/react/compoents/AccordionFilterItem.js) |
-| `filterPopupTitle` | Filter pop-up title label | [FilterSidebar](/react/compoents/FilterSidebar.js) |
-| `filterPopupArrowIcon` | Filter pop-up arrow icon container | [FilterSidebar](/react/compoents/FilterSidebar.js) |
-| `footerButton` | Footer button | [FooterButton](/react/components/FooterButton.js) |
-| `layoutSwitcher` | Layout mode switcher container | [LayoutModeSwitcher](/react/components/LayoutModeSwitcher.js) |
-| `filterPopup` | Main container of filter pop-up | [FilterPopup](/react/components/FilterPopup.js) |
-| `filterPopupOpen` | Main container of filter pop-up when it is open | [FilterPopup](/react/components/FilterPopup.js) |
-| `filterPopupContent` | Filter pop-up content | [Popup](/react/components/Popup.js) |
-| `filterPopupContentContainer` | Filter pop-up content container | [Popup](/react/components/Popup.js) |
-| `filterPopupContentContainerOpen` | Filter pop-up content container when it is open | [Popup](/react/components/Popup.js) |
-| `galleryItem` | Gallery item container | [Gallery](/react/Gallery.js) |
-| `searchNotFound` | Main container of Search Not Found | [NotFoundSearch](/react/NotFoundSearch.js) |
-| `filterTitle` | Filter title container | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js) |
-| `filterIcon` | Filter icon container | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js) |
-| `galleryTitle` | Category name or search term title | [Title](/react/Title.js) |
-| `filterItem` | Checkbox and label for Filters (desktop only) | [SearchFilter](/react/components/SearchFilter.js) |
-| `selectedFilterItem` | Checkbox and label for selected Filters (desktop only) | [SelectedFilters](/react/components/SelectedFilters.js) |
+| Token name                        | Description                                                | Component Source                                                          |
+| --------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `container`                       | The main container of search-result                        | [SearchResult](/react/components/SearchResult.js)                         |
+| `buttonShowMore`                  | Show the see more button                                   | [ShowMoreLoaderResult](/react/components/loaders/ShowMoreLoaderResult.js) |
+| `switch`                          | Layout mode switcher container                             | [SearchResult](/react/components/SearchResult.js)                         |
+| `breadcrumb`                      | Breadcrumb container                                       | [SearchResult](/react/components/SearchResult.js)                         |
+| `filter`                          | Filter option container                                    | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js)         |
+| `resultGallery`                   | Gallery result container                                   | [SearchResult](/react/components/SearchResult.js)                         |
+| `border`                          | Order by container border                                  | [SearchResult](/react/components/SearchResult.js)                         |
+| `gallery`                         | The main container of gallery                              | [Gallery](/react/Gallery.js)                                              |
+| `filterPopupButton`               | Filter pop-up button                                       | [FilterSideBar](/react/components/FilterSideBar.js)                       |
+| `accordionFilter`                 | Accordion filter container                                 | [AccordionFilterContainer](/react/components/AccordionFilterContainer.js) |
+| `filterAccordionItemBox`          | Accordion filter item container                            | [AccordionFilterItem](/react/components/AccordionFilterItem.js)           |
+| `filterAccordionBreadcrumbs`      | Filter accordion breadcrumbs container                     | [AccordionFilterContainer](/react/components/AccordionFilterContainer.js) |
+| `filterButtonsBox`                | Filter buttons container                                   | [FilterSidebar](/react/components/FilterSidebar.js)                       |
+| `filterPopupFooter`               | Filter pop-up footer container                             | [Popup](/react/components/Popup.js)                                       |
+| `accordionFilterItemOptions`      | Accordion filter item options container                    | [AccordionFilterItem](/react/components/AccordionFilterItem.js)           |
+| `dropdownMobile`                  | The main container of drop-down on mobile                  | [SelectionListOrderBy](/react/components/SelectionListOrderBy.js)         |
+| `accordionFilterItemActive`       | Container of the accordion filter item when it is active   | [AccordionFilterItem](/react/components/AccordionFilterItem.js)           |
+| `totalProducts`                   | The main container of total-products                       | [TotalProducts](/react/TotalProducts.js)                                  |
+| `orderBy`                         | The main container of order-by                             | [OrderBy](/react/OrderBy.js)                                              |
+| `accordionFilterItemHidden`       | Accordion filter item container when it is hidden          | [AccordionFilterItem](/react/compoents/AccordionFilterItem.js)            |
+| `accordionFilterItem`             | Accordion filter item container                            | [AccordionFilterItem](/react/compoents/AccordionFilterItem.js)            |
+| `accordionFilterItemBox`          | Accordion filter item box                                  | [AccordionFilterItem](/react/compoents/AccordionFilterItem.js)            |
+| `accordionFilterItemTitle`        | Accordion filter item title container                      | [AccordionFilterItem](/react/compoents/AccordionFilterItem.js)            |
+| `accordionFilterItemIcon`         | Accordion filter item icon container                       | [AccordionFilterItem](/react/compoents/AccordionFilterItem.js)            |
+| `filterAvailable`                 | Filter option template main container when it is available | [FilterOptionTemplate](/react/compoents/AccordionFilterItem.js)           |
+| `filterSelected`                  | Filter option template main container when it is selected  | [FilterOptionTemplate](/react/compoents/AccordionFilterItem.js)           |
+| `filterPopupTitle`                | Filter pop-up title label                                  | [FilterSidebar](/react/compoents/FilterSidebar.js)                        |
+| `filterPopupArrowIcon`            | Filter pop-up arrow icon container                         | [FilterSidebar](/react/compoents/FilterSidebar.js)                        |
+| `footerButton`                    | Footer button                                              | [FooterButton](/react/components/FooterButton.js)                         |
+| `layoutSwitcher`                  | Layout mode switcher container                             | [LayoutModeSwitcher](/react/components/LayoutModeSwitcher.js)             |
+| `filterPopup`                     | Main container of filter pop-up                            | [FilterPopup](/react/components/FilterPopup.js)                           |
+| `filterPopupOpen`                 | Main container of filter pop-up when it is open            | [FilterPopup](/react/components/FilterPopup.js)                           |
+| `filterPopupContent`              | Filter pop-up content                                      | [Popup](/react/components/Popup.js)                                       |
+| `filterPopupContentContainer`     | Filter pop-up content container                            | [Popup](/react/components/Popup.js)                                       |
+| `filterPopupContentContainerOpen` | Filter pop-up content container when it is open            | [Popup](/react/components/Popup.js)                                       |
+| `galleryItem`                     | Gallery item container                                     | [Gallery](/react/Gallery.js)                                              |
+| `searchNotFound`                  | Main container of Search Not Found                         | [NotFoundSearch](/react/NotFoundSearch.js)                                |
+| `filterTitle`                     | Filter title container                                     | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js)         |
+| `filterIcon`                      | Filter icon container                                      | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js)         |
+| `galleryTitle`                    | Category name or search term title                         | [Title](/react/Title.js)                                                  |
+| `filterItem`                      | Checkbox and label for Filters (desktop only)              | [SearchFilter](/react/components/SearchFilter.js)                         |
+| `filterItem--selected`            | Checkbox and label for selected Filters (desktop only)     | [SearchFilter](/react/components/SearchFilter.js)                         |
+| `selectedFilterItem`              | Checkbox and label for selected Filters (desktop only)     | [SelectedFilters](/react/components/SelectedFilters.js)                   |
 
 | `categoriesContainer` | The container for the department filters | [DepartmentFilters](/react/components/DepartmentFilters.js) |
 | `categoryGroup` | Container for each category group in the department filters | [CategoryFilter](/react/components/CategoryFilter.js) |
@@ -264,7 +267,7 @@ You can check if others are experiencing similar issues [here](https://github.co
 
 ## Contributing
 
-Check it out [how to contribute](https://github.com/vtex-apps/awesome-io#contributing) with this project. 
+Check it out [how to contribute](https://github.com/vtex-apps/awesome-io#contributing) with this project.
 
 ## Tests
 
