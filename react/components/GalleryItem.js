@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react'
+import React, { useMemo, useCallback, memo } from 'react'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import { usePixel } from 'vtex.pixel-manager/PixelContext'
 
@@ -39,4 +39,4 @@ GalleryItem.propTypes = {
   displayMode: PropTypes.string,
 }
 
-export default GalleryItem
+export default memo(GalleryItem)

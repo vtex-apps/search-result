@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, memo } from 'react'
 import { usePixel } from 'vtex.pixel-manager/PixelContext'
 import { useInView } from 'react-intersection-observer'
 import classNames from 'classnames'
@@ -82,4 +82,4 @@ const GalleryRow = ({
   })
 }
 
-export default GalleryRow
+export default memo(GalleryRow)
