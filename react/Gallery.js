@@ -9,11 +9,44 @@ import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 import { productShape } from './constants/propTypes'
 import GalleryItem from './components/GalleryItem'
 import withResizeDetector from './components/withResizeDetector'
+import { useInView } from 'react-intersection-observer'
 
 import searchResult from './searchResult.css'
+import { normalizeProduct } from './constants/productHelpers'
 
 /** Layout with two column */
 const TWO_COLUMN_ITEMS = 2
+
+const mapWithIndex = addIndex(map)
+
+const useProductImpression = (products, inView) => {
+  const viewed = useRef(false)
+  const { push } = usePixel()
+
+  // This hook checks if the products changes, we need to send a new event
+  useEffect(() => {
+    if (products) {
+      viewed.current = false
+    }
+  }, [products])
+
+  useEffect(() => {
+    if (!products || viewed.current || !inView) {
+      return
+    }
+    const normalizedProducts = products.map(normalizeProduct)
+    const impressions = normalizedProducts.map((product, index) => ({
+      product,
+      position: index,
+    }))
+    push({
+      event: 'productImpression',
+      list: 'Search result',
+      impressions,
+    })
+    viewed.current = true
+  }, [push, products, inView, viewed])
+}
 
 /**
  * Canonical gallery that displays a list of given products.
@@ -30,13 +63,17 @@ const Gallery = ({
   const runtime = useRuntime()
 
   const layoutMode = runtime.hints.mobile ? mobileLayoutMode : 'normal'
+  const [ref, inView] = useInView({
+    threshold: 0.75,
+  })
+  useProductImpression(products, inView)
 
   const getItemsPerRow = () => {
     const maxItems = Math.floor(width / minItemWidth)
     return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
   }
 
-  const renderItem = (item, index) => {
+  const renderItem = item => {
     const itemsPerRow =
       layoutMode === 'small'
         ? TWO_COLUMN_ITEMS
@@ -52,13 +89,9 @@ const Gallery = ({
         key={item.productId}
         style={style}
         className={classNames(searchResult.galleryItem, 'pa4')}
+        ref={ref}
       >
-        <GalleryItem
-          item={item}
-          summary={summary}
-          positionList={index + 1}
-          displayMode={layoutMode}
-        />
+        <GalleryItem item={item} summary={summary} displayMode={layoutMode} />
       </div>
     )
   }
@@ -71,8 +104,6 @@ const Gallery = ({
       'pl9-l': showingFacets,
     }
   )
-
-  const mapWithIndex = addIndex(map)
 
   return (
     <div className={galleryClasses}>{mapWithIndex(renderItem, products)}</div>
