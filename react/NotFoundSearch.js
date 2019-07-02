@@ -24,7 +24,7 @@ const NotFoundSearch = ({ term }) => {
           className="flex justify-end-ns justify-center-s ttu f1 ph4 pv4-s pv0-ns c-muted-3 ph9 b"
           style={flexStyle}
         >
-          ops!
+          Oops!
         </div>
         <div className="ph9" style={flexStyle}>
           {term ? (
