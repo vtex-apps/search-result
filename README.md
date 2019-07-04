@@ -113,7 +113,7 @@ At our example, we want to show a `search-result` inside a `store.home`. We put 
 
 ```json
 "store.home": {
-  blocks: [
+  "blocks": [
     "carousel#home",
     "shelf#home",
     "search-result#home"
@@ -125,7 +125,7 @@ Now, to change the search done by this block, we must pass its parameters direct
 
 ```json
 "store.home": {
-  blocks: [
+  "blocks": [
     "carousel#home",
      "shelf#home",
     "search-result#home"
