@@ -36,7 +36,7 @@ A `search-result` block may appear in two different contexts, (a) in a search re
 
 In case of (a) we can configure the search parameters in a search context in the following way:
 
-````json
+```json
   "store.search": {
     "blocks": [
       "search-result"
@@ -96,20 +96,21 @@ In case of (a) we can configure the search parameters in a search context in the
             "maxItemsPerPage": 8
         }
      }
-  }```
-Note that only in this case, the parameters must be passed in the `context` prop of the `store.search` block. Also remember that we have different `store.search` blocks and you may configure them in different ways.
-You may configure a brand search (ended with /b), to have 6 items per page, while a department search page, that number may be 12.
+  }
+```
+
+Note that only in this case, the parameters must be passed in the `context` prop of the `store.search` block. Also remember that we have different `store.search` blocks e you may configure them in different ways.
+You may configure a brand search (ended with /b), have 6 items per page, while a department search page, that number may be 12.
 
 Search examples:
 Free search: https://storetheme.vtex.com/shirt?map=ft. Falls on: `store.search`.
 Departament: https://storetheme.vtex.com/decoration/d. Falls on: `store.search#department`.
-Category: https://storetheme.vtex.com/bags/necessaire. Falls on: `store.search#category
-Subcategory: https://storetheme.vtex.com/decoration/smartphones/bateria. Falls on: `store.search#subcategory`.
-Brand: https://storetheme.vtex.com/kawasaki/b. Falls on: `store.search#brand`.
+Category: https://storetheme.vtex.com/bags/necessaire. Falls on: `store.search#category Subcategory: https://storetheme.vtex.com/decoration/smartphones/bateria. Falls on:`store.search#subcategory`. Brand: https://storetheme.vtex.com/kawasaki/b. Falls on:`store.search#brand`.
 
-Now for option (b), when we want to show the `search-result` block out of a search page, like in the home page, the same parameters must be passed on a different way.
+Now for option (b), when we want to show the `search-result` block outse of a search page, like in the home page, the same parameters must be passed on a different way.
 
 At our example, we want to show a `search-result` inside a `store.home`. We put this inside our blocks.json:
+
 ```json
 "store.home": {
   blocks: [
@@ -117,7 +118,8 @@ At our example, we want to show a `search-result` inside a `store.home`. We put 
     "shelf#home",
     "search-result#home"
   ]
-}```
+}
+```
 
 Now, to change the search done by this block, we must pass its parameters directly to it, thorugh the `querySchema` prop:
 
@@ -137,7 +139,8 @@ Now, to change the search done by this block, we must pass its parameters direct
       "maxItemsPerPage": 8
     }
   }
-}```
+}
+```
 
 ## Release schedule
 
@@ -171,7 +174,7 @@ To configure or customize this app, you need to import it in your dependencies i
   dependencies: {
     "vtex.search-result": "3.x"
   }
-````
+```
 
 Then, add `search-result` block into your app theme as we do in our [Store theme app](https://github.com/vtex-apps/store-theme/blob/master/store/blocks.json).
 
