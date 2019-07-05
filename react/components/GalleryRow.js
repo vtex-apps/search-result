@@ -59,12 +59,11 @@ const GalleryRow = ({
     itemsPerRow,
     widthAvailable,
   })
+  const style = {
+    flexBasis: `${100 / itemsPerRow}%`,
+    maxWidth: `${100 / itemsPerRow}%`,
+  }
   return products.map(product => {
-    const style = {
-      flexBasis: `${100 / itemsPerRow}%`,
-      maxWidth: `${100 / itemsPerRow}%`,
-    }
-
     return (
       <div
         key={product.productId}
