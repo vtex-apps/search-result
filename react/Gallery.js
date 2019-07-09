@@ -59,6 +59,7 @@ const Gallery = ({
     <div className={galleryClasses}>
       {rows.map((rowProducts, index) => (
         <GalleryRow
+          key={index.toString()}
           widthAvailable={width != null}
           products={rowProducts}
           summary={summary}

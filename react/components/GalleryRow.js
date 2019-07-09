@@ -52,6 +52,7 @@ const GalleryRow = ({
 }) => {
   const itemsPerRow = products.length
   const [ref, inView] = useInView({
+    // inView will be true when at least 10% of the row is viewed by user
     threshold: 0.1,
   })
   useProductImpression(products, inView, {
