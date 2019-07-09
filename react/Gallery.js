@@ -65,6 +65,7 @@ const Gallery = ({
           summary={summary}
           displayMode={layoutMode}
           rowIndex={index}
+          itemsPerRow={itemsPerRow}
         />
       ))}
     </div>
