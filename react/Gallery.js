@@ -1,16 +1,16 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import { map, pluck, addIndex } from 'ramda'
+import { pluck, splitEvery } from 'ramda'
 
 import { useRuntime } from 'vtex.render-runtime'
 
 import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 import { productShape } from './constants/propTypes'
-import GalleryItem from './components/GalleryItem'
 import withResizeDetector from './components/withResizeDetector'
 
 import searchResult from './searchResult.css'
+import GalleryRow from './components/GalleryRow'
 
 /** Layout with two column */
 const TWO_COLUMN_ITEMS = 2
@@ -36,32 +36,15 @@ const Gallery = ({
     return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
   }
 
-  const renderItem = (item, index) => {
-    const itemsPerRow =
-      layoutMode === 'small'
-        ? TWO_COLUMN_ITEMS
-        : getItemsPerRow() || maxItemsPerRow
+  const itemsPerRow =
+    layoutMode === 'small'
+      ? TWO_COLUMN_ITEMS
+      : getItemsPerRow() || maxItemsPerRow
 
-    const style = {
-      flexBasis: `${100 / itemsPerRow}%`,
-      maxWidth: `${100 / itemsPerRow}%`,
-    }
-
-    return (
-      <div
-        key={item.productId}
-        style={style}
-        className={classNames(searchResult.galleryItem, 'pa4')}
-      >
-        <GalleryItem
-          item={item}
-          summary={summary}
-          positionList={index + 1}
-          displayMode={layoutMode}
-        />
-      </div>
-    )
-  }
+  const rows = useMemo(() => splitEvery(itemsPerRow, products), [
+    itemsPerRow,
+    products,
+  ])
 
   const galleryClasses = classNames(
     searchResult.gallery,
@@ -72,10 +55,20 @@ const Gallery = ({
     }
   )
 
-  const mapWithIndex = addIndex(map)
-
   return (
-    <div className={galleryClasses}>{mapWithIndex(renderItem, products)}</div>
+    <div className={galleryClasses}>
+      {rows.map((rowProducts, index) => (
+        <GalleryRow
+          key={index.toString()}
+          widthAvailable={width != null}
+          products={rowProducts}
+          summary={summary}
+          displayMode={layoutMode}
+          rowIndex={index}
+          itemsPerRow={itemsPerRow}
+        />
+      ))}
+    </div>
   )
 }
 
