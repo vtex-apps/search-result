@@ -52,6 +52,7 @@
   "store/search.no-products": "No se ha encontrado ningún producto",
   "store/ordenation.button": "Ordenar",
   "store/ordenation.sort-by": "Ordenar por",
+  "store/ordenation.relevance": "Relevancia (Defecto)",
   "store/ordenation.sales": "Ventas",
   "store/ordenation.release.date": "Más reciente",
   "store/ordenation.discount": "Descuento",

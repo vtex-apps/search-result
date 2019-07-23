@@ -265,7 +265,7 @@ QuerySchema
 | `queryField`           | `String`  | Query field                                                                                                                                                                      | N/A                      |
 | `mapField`             | `String`  | Map field                                                                                                                                                                        | N/A                      |
 | `restField`            | `String`  | Other Query Strings                                                                                                                                                              | N/A                      |
-| `orderByField`         | `Enum`    | Order by field (values: 'OrderByTopSaleDESC', 'OrderByReleaseDateDESC', 'OrderByBestDiscountDESC', 'OrderByPriceDESC', 'OrderByPriceASC', 'OrderByNameASC' or 'OrderByNameDESC') | `OrderByReleaseDateDESC` |
+| `orderByField`         | `Enum`    | Order by field (values: `OrderByTopSaleDESC`, `OrderByReleaseDateDESC`, `OrderByBestDiscountDESC`, `OrderByPriceDESC`, `OrderByPriceASC`, `OrderByNameASC`, `OrderByNameDESC` or `''` (by relevance)) | `''` |
 | `hideUnavailableItems` | `Boolean` | Set if unavailable items should show on search                                                                                                                                   | `false`                  |
 
 HiddenFacets
