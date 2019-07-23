@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Added order by relevance to the order types
+- The default value of `orderByField` is now order by relevance.
 
 ## [3.22.5] - 2019-07-09
 ### Changed
