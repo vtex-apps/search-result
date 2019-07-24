@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.22.7] - 2019-07-24
+
 ## [3.22.6] - 2019-07-23
 ### Changed
 - Added order by relevance to the order types
