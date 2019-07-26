@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { useRuntime } from 'vtex.render-runtime'
 import { injectIntl, intlShape } from 'react-intl'
 import { Slider } from 'vtex.styleguide'
+import { formatCurrency } from 'vtex.format-currency'
 
 import { facetOptionShape } from '../constants/propTypes'
 import {
@@ -15,19 +16,9 @@ const DEBOUNCE_TIME = 500 // ms
 
 /** Price range slider component */
 const PriceRange = ({ title, facets, intl, priceRange }) => {
-  const {
-    navigate,
-    culture: { currency },
-  } = useRuntime()
+  const { navigate, culture } = useRuntime()
 
   const navigateTimeoutId = useRef()
-
-  const currencyOptions = {
-    style: 'currency',
-    currency,
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }
 
   const handleChange = ([left, right]) => {
     if (navigateTimeoutId.current) {
@@ -96,7 +87,7 @@ const PriceRange = ({ title, facets, intl, priceRange }) => {
         max={maxValue}
         onChange={handleChange}
         defaultValues={defaultValues}
-        formatValue={value => intl.formatNumber(value, currencyOptions)}
+        formatValue={value => formatCurrency({ intl, culture, value })}
         range
       />
     </FilterOptionTemplate>
