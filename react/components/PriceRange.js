@@ -6,17 +6,14 @@ import { Slider } from 'vtex.styleguide'
 import { formatCurrency } from 'vtex.format-currency'
 
 import { facetOptionShape } from '../constants/propTypes'
-import {
-  getFilterTitle,
-  HEADER_SCROLL_OFFSET,
-} from '../constants/SearchHelpers'
+import { getFilterTitle } from '../constants/SearchHelpers'
 import FilterOptionTemplate from './FilterOptionTemplate'
 
 const DEBOUNCE_TIME = 500 // ms
 
 /** Price range slider component */
 const PriceRange = ({ title, facets, intl, priceRange }) => {
-  const { navigate, culture } = useRuntime()
+  const { culture, setQuery } = useRuntime()
 
   const navigateTimeoutId = useRef()
 
@@ -26,18 +23,7 @@ const PriceRange = ({ title, facets, intl, priceRange }) => {
     }
 
     navigateTimeoutId.current = setTimeout(() => {
-      const queryParams = new URLSearchParams(window.location.search)
-
-      queryParams.set('priceRange', `${left} TO ${right}`)
-
-      navigate({
-        to: window.location.pathname,
-        query: queryParams.toString(),
-        scrollOptions: {
-          baseElementId: 'search-result-anchor',
-          top: -HEADER_SCROLL_OFFSET,
-        },
-      })
+      setQuery({ priceRange: `${left} TO ${right}` })
     }, DEBOUNCE_TIME)
   }
 
