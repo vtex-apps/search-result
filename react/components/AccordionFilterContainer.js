@@ -10,6 +10,7 @@ import AccordionFilterGroup from './AccordionFilterGroup'
 import PriceRange from './PriceRange'
 
 import styles from '../searchResult.css'
+import AccordionFilterPriceRange from './AccordionFilterPriceRange'
 
 const CATEGORIES_TITLE = 'store/search.filter.title.categories'
 
@@ -101,16 +102,20 @@ const AccordionFilterContainer = ({
       </AccordionFilterItem>
 
       {nonEmptyFilters.map(filter => {
-        const { type, title, facets, oneSelectedCollapse = false } = filter
+        const { type, title, facets } = filter
         const isOpen = openItem === filter.title
 
         switch (type) {
           case 'PriceRanges':
             return (
-              <PriceRange
-                key={title}
-                title={title}
-                facets={facets}
+              <AccordionFilterPriceRange
+                {...filter}
+                key={filter.title}
+                className={itemClassName}
+                open={isOpen}
+                show={!openItem || isOpen}
+                onOpen={handleOpen(filter.title)}
+                onFilterCheck={onFilterCheck}
                 priceRange={priceRange}
               />
             )
