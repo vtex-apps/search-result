@@ -7,6 +7,7 @@ import { IconCaret } from 'vtex.store-icons'
 import AccordionFilterItem from './AccordionFilterItem'
 import DepartmentFilters from './DepartmentFilters'
 import AccordionFilterGroup from './AccordionFilterGroup'
+import PriceRange from './PriceRange'
 
 import styles from '../searchResult.css'
 
@@ -18,6 +19,7 @@ const AccordionFilterContainer = ({
   onFilterCheck,
   tree,
   onCategorySelect,
+  priceRange,
 }) => {
   const [openItem, setOpenItem] = useState(null)
 
@@ -97,20 +99,34 @@ const AccordionFilterContainer = ({
           />
         </div>
       </AccordionFilterItem>
+
       {nonEmptyFilters.map(filter => {
+        const { type, title, facets, oneSelectedCollapse = false } = filter
         const isOpen = openItem === filter.title
 
-        return (
-          <AccordionFilterGroup
-            {...filter}
-            key={filter.title}
-            className={itemClassName}
-            open={isOpen}
-            show={!openItem || isOpen}
-            onOpen={handleOpen(filter.title)}
-            onFilterCheck={onFilterCheck}
-          />
-        )
+        switch (type) {
+          case 'PriceRanges':
+            return (
+              <PriceRange
+                key={title}
+                title={title}
+                facets={facets}
+                priceRange={priceRange}
+              />
+            )
+          default:
+            return (
+              <AccordionFilterGroup
+                {...filter}
+                key={filter.title}
+                className={itemClassName}
+                open={isOpen}
+                show={!openItem || isOpen}
+                onOpen={handleOpen(filter.title)}
+                onFilterCheck={onFilterCheck}
+              />
+            )
+        }
       })}
     </div>
   )
@@ -125,6 +141,8 @@ AccordionFilterContainer.propTypes = {
   filtersChecks: PropTypes.object,
   /** Checkbox hit callback function */
   onFilterCheck: PropTypes.func,
+  /** Current price range filter query parameter */
+  priceRange: PropTypes.string,
   tree: PropTypes.any,
   onCategorySelect: PropTypes.func,
 }
