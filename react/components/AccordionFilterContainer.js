@@ -7,7 +7,6 @@ import { IconCaret } from 'vtex.store-icons'
 import AccordionFilterItem from './AccordionFilterItem'
 import DepartmentFilters from './DepartmentFilters'
 import AccordionFilterGroup from './AccordionFilterGroup'
-import PriceRange from './PriceRange'
 
 import styles from '../searchResult.css'
 import AccordionFilterPriceRange from './AccordionFilterPriceRange'
@@ -102,7 +101,7 @@ const AccordionFilterContainer = ({
       </AccordionFilterItem>
 
       {nonEmptyFilters.map(filter => {
-        const { type, title, facets } = filter
+        const { type, title } = filter
         const isOpen = openItem === filter.title
 
         switch (type) {
@@ -110,11 +109,11 @@ const AccordionFilterContainer = ({
             return (
               <AccordionFilterPriceRange
                 {...filter}
-                key={filter.title}
+                key={title}
                 className={itemClassName}
                 open={isOpen}
                 show={!openItem || isOpen}
-                onOpen={handleOpen(filter.title)}
+                onOpen={handleOpen(title)}
                 onFilterCheck={onFilterCheck}
                 priceRange={priceRange}
               />
@@ -123,11 +122,11 @@ const AccordionFilterContainer = ({
             return (
               <AccordionFilterGroup
                 {...filter}
-                key={filter.title}
+                key={title}
                 className={itemClassName}
                 open={isOpen}
                 show={!openItem || isOpen}
-                onOpen={handleOpen(filter.title)}
+                onOpen={handleOpen(title)}
                 onFilterCheck={onFilterCheck}
               />
             )
