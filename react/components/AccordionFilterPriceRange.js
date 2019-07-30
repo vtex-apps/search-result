@@ -1,7 +1,6 @@
 import React from 'react'
 
 import AccordionFilterItem from './AccordionFilterItem'
-import useSelectedFilters from '../hooks/useSelectedFilters'
 import PriceRange from './PriceRange'
 
 const AccordionFilterPriceRange = ({
@@ -13,18 +12,8 @@ const AccordionFilterPriceRange = ({
   onOpen,
   priceRange,
 }) => {
-  const filters = useSelectedFilters(facets)
-
-  const quantitySelected = filters.filter(facet => facet.selected).length
-
   return (
-    <AccordionFilterItem
-      title={title}
-      open={open}
-      show={show}
-      onOpen={onOpen}
-      quantitySelected={quantitySelected}
-    >
+    <AccordionFilterItem title={title} open={open} show={show} onOpen={onOpen}>
       <div className={className}>
         <PriceRange
           key={title}
