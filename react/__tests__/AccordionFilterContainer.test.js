@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, getByTestId } from '@vtex/test-tools/react'
+import { render } from '@vtex/test-tools/react'
 import AccordionFilterContainer from '../components/AccordionFilterContainer'
 
 describe('<AccordionFilterContainer />', () => {
