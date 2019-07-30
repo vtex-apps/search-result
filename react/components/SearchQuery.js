@@ -86,13 +86,17 @@ const SearchQuery = ({
   }, [variables, page])
   return (
     <Query
+      key={variables.query}
       query={productSearchV2}
       variables={variables}
       notifyOnNetworkStatusChange
       partialRefetch
     >
       {searchQuery => {
-        return children(searchQuery, extraParams)
+        const safeSearchQuery = searchQuery.error
+          ? { ...searchQuery, data: {} }
+          : searchQuery
+        return children(safeSearchQuery, extraParams)
       }}
     </Query>
   )
