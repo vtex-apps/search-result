@@ -86,6 +86,9 @@ const SearchQuery = ({
   }, [variables, page])
   return (
     <Query
+      /** This key fixes an issue where data from the previous query
+       * would persist after changing `variables`, while loading.
+       * https://github.com/apollographql/react-apollo/issues/2202 */
       key={variables.query}
       query={productSearchV2}
       variables={variables}
