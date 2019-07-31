@@ -20,7 +20,7 @@ import useFacetNavigation, {
 
 import searchResult from '../searchResult.css'
 
-const FilterSidebar = ({ filters, tree }) => {
+const FilterSidebar = ({ filters, tree, priceRange }) => {
   const queryContext = useContext(QueryContext)
   const [open, setOpen] = useState(false)
 
@@ -120,6 +120,7 @@ const FilterSidebar = ({ filters, tree }) => {
             tree={currentTree}
             onFilterCheck={handleFilterCheck}
             onCategorySelect={handleUpdateCategories}
+            priceRange={priceRange}
           />
         </QueryContext.Provider>
         <div

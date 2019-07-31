@@ -9,6 +9,7 @@ import DepartmentFilters from './DepartmentFilters'
 import AccordionFilterGroup from './AccordionFilterGroup'
 
 import styles from '../searchResult.css'
+import AccordionFilterPriceRange from './AccordionFilterPriceRange'
 
 const CATEGORIES_TITLE = 'store/search.filter.title.categories'
 
@@ -18,6 +19,7 @@ const AccordionFilterContainer = ({
   onFilterCheck,
   tree,
   onCategorySelect,
+  priceRange,
 }) => {
   const [openItem, setOpenItem] = useState(null)
 
@@ -97,20 +99,40 @@ const AccordionFilterContainer = ({
           />
         </div>
       </AccordionFilterItem>
+
       {nonEmptyFilters.map(filter => {
+        const { type, title } = filter
         const isOpen = openItem === filter.title
 
-        return (
-          <AccordionFilterGroup
-            {...filter}
-            key={filter.title}
-            className={itemClassName}
-            open={isOpen}
-            show={!openItem || isOpen}
-            onOpen={handleOpen(filter.title)}
-            onFilterCheck={onFilterCheck}
-          />
-        )
+        switch (type) {
+          case 'PriceRanges':
+            return (
+              <AccordionFilterPriceRange
+                title={filter.title}
+                facets={filter.facets}
+                key={title}
+                className={itemClassName}
+                open={isOpen}
+                show={!openItem || isOpen}
+                onOpen={handleOpen(title)}
+                onFilterCheck={onFilterCheck}
+                priceRange={priceRange}
+              />
+            )
+          default:
+            return (
+              <AccordionFilterGroup
+                title={filter.title}
+                facets={filter.facets}
+                key={title}
+                className={itemClassName}
+                open={isOpen}
+                show={!openItem || isOpen}
+                onOpen={handleOpen(title)}
+                onFilterCheck={onFilterCheck}
+              />
+            )
+        }
       })}
     </div>
   )
@@ -125,6 +147,8 @@ AccordionFilterContainer.propTypes = {
   filtersChecks: PropTypes.object,
   /** Checkbox hit callback function */
   onFilterCheck: PropTypes.func,
+  /** Current price range filter query parameter */
+  priceRange: PropTypes.string,
   tree: PropTypes.any,
   onCategorySelect: PropTypes.func,
 }

@@ -88,7 +88,7 @@ const FilterNavigator = ({
     return (
       <div className={styles.filters}>
         <div className={filterClasses}>
-          <FilterSidebar filters={filters} tree={tree} />
+          <FilterSidebar filters={filters} tree={tree} priceRange={priceRange} />
         </div>
       </div>
     )
