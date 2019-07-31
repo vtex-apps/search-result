@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Prop `preventRouteChange` on (legacy for now) FilterNavigator, to prevent changing the route when filters are selected, changing just the query string instead. This is intended for `search-result` blocks inserted on custom pages with static routes.
+- Prop `preventRouteChange` on legacy FilterNavigator (for now), to prevent changing the route when filters are selected, changing just the query string instead. This is intended for `search-result` blocks inserted on custom pages with static routes.
 
 ## [3.22.12] - 2019-07-31
 ### Fixed
