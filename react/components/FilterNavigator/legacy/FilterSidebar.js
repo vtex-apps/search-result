@@ -17,10 +17,7 @@ import searchResult from './searchResult.css'
 import QueryContext from '../../QueryContext'
 
 const FilterSidebar = ({ filters, preventRouteChange = false }) => {
-  const {
-    navigate,
-    route: { path },
-  } = useRuntime()
+  const { navigate, setQuery } = useRuntime()
   const { query: queryField, map: mapField } = useContext(QueryContext)
 
   const [open, setOpen] = useState(false)
@@ -75,18 +72,13 @@ const FilterSidebar = ({ filters, preventRouteChange = false }) => {
     const query = selectedFilters.map(facet => facet.value).join('/')
     const map = selectedFilters.map(facet => facet.map).join(',')
 
-    const [basePath] = path.split('?')
-
-    const urlParams = new URLSearchParams(window.location.search)
-
     if (preventRouteChange) {
-      urlParams.set('query', `/${queryField}/${query}`)
-      urlParams.set('map', `${mapField},${map}`)
-
-      navigate({
-        to: `${basePath}?${urlParams.toString()}`,
+      setQuery({
+        map: `${mapField},${map}`,
+        query: `/${queryField}/${query}`,
       })
     } else {
+      const urlParams = new URLSearchParams(window.location.search)
       urlParams.set('map', map)
 
       navigate({

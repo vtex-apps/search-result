@@ -18,14 +18,9 @@ const removeElementAtIndex = (str, index, separator) =>
     .join(separator)
 
 const FacetItem = ({ facet, preventRouteChange = false }) => {
-  const {
-    navigate,
-    route: { path },
-  } = useRuntime()
+  const { navigate, setQuery } = useRuntime()
   const { query, map } = useContext(QueryContext)
   const { showFacetQuantity } = useContext(SettingsContext)
-
-  const [basePath] = path.split('?')
 
   const handleChange = () => {
     const urlParams = new URLSearchParams(window.location.search)
@@ -39,19 +34,14 @@ const FacetItem = ({ facet, preventRouteChange = false }) => {
           value => value === decodeURIComponent(facet.value).toLowerCase()
         )
 
-      urlParams.set('map', removeElementAtIndex(map, facetIndex, ','))
-
       if (preventRouteChange) {
-        urlParams.set(
-          'query',
-          `/${removeElementAtIndex(query, facetIndex, '/')}`
-        )
-
-        navigate({
-          to: `${basePath}?${urlParams.toString()}`,
-          scrollOptions,
+        setQuery({
+          map: removeElementAtIndex(map, facetIndex, ','),
+          query: `/${removeElementAtIndex(query, facetIndex, '/')}`,
         })
       } else {
+        urlParams.set('map', removeElementAtIndex(map, facetIndex, ','))
+
         navigate({
           to: `/${removeElementAtIndex(query, facetIndex, '/')}`,
           query: urlParams.toString(),
@@ -62,15 +52,14 @@ const FacetItem = ({ facet, preventRouteChange = false }) => {
       return
     }
 
-    urlParams.set('map', `${map},${facet.map}`)
     if (preventRouteChange) {
-      urlParams.set('query', `/${query}/${facet.value}`)
-
-      navigate({
-        to: `${basePath}?${urlParams.toString()}`,
-        scrollOptions,
+      setQuery({
+        map: `${map},${facet.map}`,
+        query: `/${query}/${facet.value}`,
       })
     } else {
+      urlParams.set('map', `${map},${facet.map}`)
+
       navigate({
         to: `/${query}/${facet.value}`,
         query: urlParams.toString(),
