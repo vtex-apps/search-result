@@ -259,14 +259,14 @@ These properties can be changed in the `blocks.json` file of your theme.
 
 QuerySchema
 
-| Prop name              | Type      | Description                                                                                                                                                                      | Default value            |
-| ---------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
-| `maxItemsPerPage`      | `Number`  | Maximum number of items per search page                                                                                                                                          | 10                       |
-| `queryField`           | `String`  | Query field                                                                                                                                                                      | N/A                      |
-| `mapField`             | `String`  | Map field                                                                                                                                                                        | N/A                      |
-| `restField`            | `String`  | Other Query Strings                                                                                                                                                              | N/A                      |
-| `orderByField`         | `Enum`    | Order by field (values: `OrderByTopSaleDESC`, `OrderByReleaseDateDESC`, `OrderByBestDiscountDESC`, `OrderByPriceDESC`, `OrderByPriceASC`, `OrderByNameASC`, `OrderByNameDESC` or `''` (by relevance)) | `''` |
-| `hideUnavailableItems` | `Boolean` | Set if unavailable items should show on search                                                                                                                                   | `false`                  |
+| Prop name              | Type      | Description                                                                                                                                                                                           | Default value |
+| ---------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `maxItemsPerPage`      | `Number`  | Maximum number of items per search page                                                                                                                                                               | 10            |
+| `queryField`           | `String`  | Query field                                                                                                                                                                                           | N/A           |
+| `mapField`             | `String`  | Map field                                                                                                                                                                                             | N/A           |
+| `restField`            | `String`  | Other Query Strings                                                                                                                                                                                   | N/A           |
+| `orderByField`         | `Enum`    | Order by field (values: `OrderByTopSaleDESC`, `OrderByReleaseDateDESC`, `OrderByBestDiscountDESC`, `OrderByPriceDESC`, `OrderByPriceASC`, `OrderByNameASC`, `OrderByNameDESC` or `''` (by relevance)) | `''`          |
+| `hideUnavailableItems` | `Boolean` | Set if unavailable items should show on search                                                                                                                                                        | `false`       |
 
 HiddenFacets
 
@@ -285,20 +285,23 @@ SpecificationFilters
 | `hiddenFilters` | `Array(HiddenFilterUnit)` | Array of specifications filters that should be hidden | N/A           |
 
 HiddenFilterUnit
-| Prop name | Type | Description | Default value |
-| --- | --- | --- | --- |
-| `name` | `String!` | Name of Hidden specification filter | `""` |
+
+| Prop name | Type    | Description                         | Default value |
+| --------- | ------- | ----------------------------------- | ------------- |
+| name      | String! | Name of Hidden specification filter | ""            |
 
 MobileLayout
-| Prop name | Type | Description | Default value |
-| --- | --- | --- | --- |
-| `mode1` | `Enum` | Layout mode of the switcher (values: 'normal', 'small' or 'inline') | `normal` |
-| `mode2` | `Enum` | Layout mode of the switcher 2 (values: 'normal', 'small' or 'inline') | `small` |
+
+| Prop name | Type   | Description                                                           | Default value |
+| --------- | ------ | --------------------------------------------------------------------- | ------------- |
+| `mode1`   | `Enum` | Layout mode of the switcher (values: 'normal', 'small' or 'inline')   | `normal`      |
+| `mode2`   | `Enum` | Layout mode of the switcher 2 (values: 'normal', 'small' or 'inline') | `small`       |
 
 `filter-navigator.v1` block
-| Prop name | Type | Description | Default value |
-| --- | --- | --- | --- |
-| `preventRouteChange` | `Boolean` | Prevents route change when selecting filters, using the query string instead. Intended for `search-result` blocks inserted on custom pages with static routes. | `false` |
+
+| Prop name            | Type      | Description                                                                                                                                                    | Default value |
+| -------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `preventRouteChange` | `Boolean` | Prevents route change when selecting filters, using the query string instead. Intended for `search-result` blocks inserted on custom pages with static routes. | `false`       |
 
 Also, you can configure the product summary that is defined on search-result. See [here](https://github.com/vtex-apps/product-summary/blob/master/README.md#configuration) the Product Summary API.
 
@@ -349,15 +352,15 @@ Below, we describe the namespaces that are defined in the search-result.
 | `accordionFilterItemActive`       | Container of the accordion filter item when it is active   | [AccordionFilterItem](/react/components/AccordionFilterItem.js)           |
 | `totalProducts`                   | The main container of total-products                       | [TotalProducts](/react/TotalProducts.js)                                  |
 | `orderBy`                         | The main container of order-by                             | [OrderBy](/react/OrderBy.js)                                              |
-| `accordionFilterItemHidden`       | Accordion filter item container when it is hidden          | [AccordionFilterItem](/react/components/AccordionFilterItem.js)            |
-| `accordionFilterItem`             | Accordion filter item container                            | [AccordionFilterItem](/react/components/AccordionFilterItem.js)            |
-| `accordionFilterItemBox`          | Accordion filter item box                                  | [AccordionFilterItem](/react/components/AccordionFilterItem.js)            |
-| `accordionFilterItemTitle`        | Accordion filter item title container                      | [AccordionFilterItem](/react/components/AccordionFilterItem.js)            |
-| `accordionFilterItemIcon`         | Accordion filter item icon container                       | [AccordionFilterItem](/react/components/AccordionFilterItem.js)            |
-| `filterAvailable`                 | Filter option template main container when it is available | [FilterOptionTemplate](/react/components/AccordionFilterItem.js)           |
-| `filterSelected`                  | Filter option template main container when it is selected  | [FilterOptionTemplate](/react/components/AccordionFilterItem.js)           |
-| `filterPopupTitle`                | Filter pop-up title label                                  | [FilterSidebar](/react/components/FilterSidebar.js)                        |
-| `filterPopupArrowIcon`            | Filter pop-up arrow icon container                         | [FilterSidebar](/react/components/FilterSidebar.js)                        |
+| `accordionFilterItemHidden`       | Accordion filter item container when it is hidden          | [AccordionFilterItem](/react/components/AccordionFilterItem.js)           |
+| `accordionFilterItem`             | Accordion filter item container                            | [AccordionFilterItem](/react/components/AccordionFilterItem.js)           |
+| `accordionFilterItemBox`          | Accordion filter item box                                  | [AccordionFilterItem](/react/components/AccordionFilterItem.js)           |
+| `accordionFilterItemTitle`        | Accordion filter item title container                      | [AccordionFilterItem](/react/components/AccordionFilterItem.js)           |
+| `accordionFilterItemIcon`         | Accordion filter item icon container                       | [AccordionFilterItem](/react/components/AccordionFilterItem.js)           |
+| `filterAvailable`                 | Filter option template main container when it is available | [FilterOptionTemplate](/react/components/AccordionFilterItem.js)          |
+| `filterSelected`                  | Filter option template main container when it is selected  | [FilterOptionTemplate](/react/components/AccordionFilterItem.js)          |
+| `filterPopupTitle`                | Filter pop-up title label                                  | [FilterSidebar](/react/components/FilterSidebar.js)                       |
+| `filterPopupArrowIcon`            | Filter pop-up arrow icon container                         | [FilterSidebar](/react/components/FilterSidebar.js)                       |
 | `footerButton`                    | Footer button                                              | [FooterButton](/react/components/FooterButton.js)                         |
 | `layoutSwitcher`                  | Layout mode switcher container                             | [LayoutModeSwitcher](/react/components/LayoutModeSwitcher.js)             |
 | `filterPopup`                     | Main container of filter pop-up                            | [FilterPopup](/react/components/FilterPopup.js)                           |
