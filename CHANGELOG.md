@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.23.0] - 2019-07-31
 ### Added
 - Prop `preventRouteChange` on legacy FilterNavigator (for now), to prevent changing the route when filters are selected, changing just the query string instead. This is intended for `search-result` blocks inserted on custom pages with static routes.
 
