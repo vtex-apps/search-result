@@ -43,8 +43,8 @@ const FilterNavigator = ({
   brands = [],
   loading = false,
   hiddenFacets = {},
+  preventRouteChange = false,
 }) => {
-
   const {
     hints: { mobile },
   } = useRuntime()
@@ -105,22 +105,32 @@ const FilterNavigator = ({
     return (
       <div className={searchResult.filters}>
         <div className={filterClasses}>
-          <FilterSidebar filters={filters} />
+          <FilterSidebar
+            filters={filters}
+            preventRouteChange={preventRouteChange}
+          />
         </div>
       </div>
     )
   }
 
   return (
-    <div className={searchResult.filters}> 
+    <div className={searchResult.filters}>
       <div className={filterClasses}>
         <div className="bb b--muted-4">
           <h5 className="t-heading-5 mv5">
-            <FormattedMessage id="store/search-result.filter-button.title"/>
+            <FormattedMessage id="store/search-result.filter-button.title" />
           </h5>
         </div>
-        <SelectedFilters filters={selectedFilters} />
-        <AvailableFilters filters={filters} priceRange={priceRange} />
+        <SelectedFilters
+          filters={selectedFilters}
+          preventRouteChange={preventRouteChange}
+        />
+        <AvailableFilters
+          filters={filters}
+          priceRange={priceRange}
+          preventRouteChange={preventRouteChange}
+        />
       </div>
     </div>
   )
@@ -148,6 +158,8 @@ FilterNavigator.propTypes = {
   showFilters: PropTypes.bool,
   /** Loading indicator */
   loading: PropTypes.bool,
+  /** Prevents changing route when setting filters (uses URL search params instead) */
+  preventRouteChange: PropTypes.bool,
   ...hiddenFacetsSchema,
 }
 
