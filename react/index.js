@@ -14,7 +14,8 @@ const DEFAULT_MAX_ITEMS_PER_PAGE = 10
  * Search Result Query Loader Component.
  * This Component queries the search if the search-result doesn't receive it already
  */
-export default class SearchResultQueryLoader extends Component {
+const trimStartingSlash = value => value && value.replace(/^\//, '')
+
   static defaultProps = {
     orderBy: SORT_OPTIONS[0].value,
   }
