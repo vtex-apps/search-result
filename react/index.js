@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRuntimeContext } from 'vtex.render-runtime'
 
 import SearchResultContainer from './components/SearchResultContainer'
 import { SORT_OPTIONS } from './OrderBy'
@@ -14,7 +15,9 @@ const DEFAULT_MAX_ITEMS_PER_PAGE = 10
  * Search Result Query Loader Component.
  * This Component queries the search if the search-result doesn't receive it already
  */
-export default class SearchResultQueryLoader extends Component {
+const trimStartingSlash = value => value && value.replace(/^\//, '')
+
+class SearchResultQueryLoader extends Component {
   static defaultProps = {
     orderBy: SORT_OPTIONS[0].value,
   }
@@ -35,6 +38,7 @@ export default class SearchResultQueryLoader extends Component {
       showFacetsQuantity,
       pagination,
       mobileLayout,
+      runtime: { query },
     } = this.props
 
     const settings = {
@@ -44,11 +48,21 @@ export default class SearchResultQueryLoader extends Component {
       mobileLayout,
     }
 
+    const fieldsFromQueryString = {
+      mapField: query.map,
+      queryField: trimStartingSlash(query.query),
+    }
+
+    const areFieldsFromQueryStringValid = !!(
+      fieldsFromQueryString.mapField && fieldsFromQueryString.queryField
+    )
+
     return !this.props.searchQuery ||
       (querySchema && querySchema.enableCustomQuery) ? (
       <LocalQuery
         {...this.props}
         {...querySchema}
+        {...(areFieldsFromQueryStringValid ? fieldsFromQueryString : {})}
         render={props => (
           <QueryContext.Provider value={props.searchQuery.variables}>
             <SettingsContext.Provider value={settings}>
@@ -67,7 +81,9 @@ export default class SearchResultQueryLoader extends Component {
   }
 }
 
-SearchResultQueryLoader.getSchema = props => {
+const SearchResult = withRuntimeContext(SearchResultQueryLoader)
+
+SearchResult.getSchema = props => {
   const querySchema = !props.searchQuery
     ? {
         querySchema: {
@@ -208,3 +224,5 @@ SearchResultQueryLoader.getSchema = props => {
     },
   }
 }
+
+export default SearchResult

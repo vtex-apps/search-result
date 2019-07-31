@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { map, flatten, filter, prop, compose } from 'ramda'
-import React, { useRef, useState, useEffect, Fragment } from 'react'
+import React, { useRef, useState, useEffect, Fragment, useContext } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { useRuntime } from 'vtex.render-runtime'
@@ -14,9 +14,11 @@ import { facetOptionShape } from '../../../constants/propTypes'
 import useSelectedFilters from './hooks/useSelectedFilters'
 
 import searchResult from './searchResult.css'
+import QueryContext from '../../QueryContext'
 
-const FilterSidebar = ({ filters }) => {
-  const { navigate } = useRuntime()
+const FilterSidebar = ({ filters, preventRouteChange = false }) => {
+  const { navigate, setQuery } = useRuntime()
+  const { query: queryField, map: mapField } = useContext(QueryContext)
 
   const [open, setOpen] = useState(false)
   const selectedFiltersFromProps = filter(
@@ -67,18 +69,25 @@ const FilterSidebar = ({ filters }) => {
   }
 
   const handleApply = () => {
-    const params = selectedFilters.map(facet => facet.value).join('/')
+    const query = selectedFilters.map(facet => facet.value).join('/')
     const map = selectedFilters.map(facet => facet.map).join(',')
 
-    const query = new URLSearchParams(window.location.search)
+    if (preventRouteChange) {
+      setQuery({
+        map: `${mapField},${map}`,
+        query: `/${queryField}/${query}`,
+      })
+    } else {
+      const urlParams = new URLSearchParams(window.location.search)
+      urlParams.set('map', map)
 
-    query.set('map', map)
+      navigate({
+        to: `/${query}`,
+        query: urlParams.toString(),
+      })
+    }
 
     setOpen(false)
-    navigate({
-      to: `/${params}`,
-      query: query.toString(),
-    })
   }
 
   return (
@@ -155,6 +164,8 @@ FilterSidebar.propTypes = {
       facets: PropTypes.arrayOf(facetOptionShape),
     })
   ).isRequired,
+  /** Prevents changing route when setting filters (uses URL search params instead) */
+  preventRouteChange: PropTypes.bool,
 }
 
 export default FilterSidebar
