@@ -1,6 +1,10 @@
 import React, { useRef, useEffect, memo } from 'react'
-import { usePixel } from 'vtex.pixel-manager/PixelContext'
+/* The IntersectionObserver polyfill from polyfill.io is incorrectly ignoring
+ * Safari 12.0 at the time of writing. This polyfill here should be removed
+ * once that issue is fixed. */
+import 'intersection-observer'
 import { useInView } from 'react-intersection-observer'
+import { usePixel } from 'vtex.pixel-manager/PixelContext'
 import classNames from 'classnames'
 
 import GalleryItem from './GalleryItem'
