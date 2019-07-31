@@ -4,7 +4,11 @@ import PropTypes from 'prop-types'
 import SearchFilter from './SearchFilter'
 import PriceRange from './PriceRange'
 
-const AvailableFilters = ({ filters = [], priceRange }) =>
+const AvailableFilters = ({
+  filters = [],
+  priceRange,
+  preventRouteChange = false,
+}) =>
   filters.map(filter => {
     const { type, title, facets, oneSelectedCollapse = false } = filter
 
@@ -24,6 +28,7 @@ const AvailableFilters = ({ filters = [], priceRange }) =>
             key={title}
             title={title}
             facets={facets}
+            preventRouteChange={preventRouteChange}
             oneSelectedCollapse={oneSelectedCollapse}
           />
         )
@@ -39,6 +44,8 @@ AvailableFilters.propTypes = {
       oneSelectedCollapse: PropTypes.bool,
     })
   ),
+  /** Prevents changing route when setting filters (uses URL search params instead) */
+  preventRouteChange: PropTypes.bool,
   /** Price range query parameter */
   priceRange: PropTypes.string,
 }

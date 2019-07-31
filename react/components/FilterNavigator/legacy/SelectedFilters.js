@@ -9,7 +9,11 @@ import { facetOptionShape } from '../../../constants/propTypes'
 /**
  * Search Filter Component.
  */
-const SelectedFilters = ({ filters = [], intl }) => {
+const SelectedFilters = ({
+  filters = [],
+  intl,
+  preventRouteChange = false,
+}) => {
   const title = intl.formatMessage({ id: 'store/search.selected-filters' })
   return (
     <FilterOptionTemplate
@@ -18,7 +22,13 @@ const SelectedFilters = ({ filters = [], intl }) => {
       collapsable={false}
       selected
     >
-      {facet => <FacetItem key={facet.name} facet={facet} />}
+      {facet => (
+        <FacetItem
+          key={facet.name}
+          facet={facet}
+          preventRouteChange={preventRouteChange}
+        />
+      )}
     </FilterOptionTemplate>
   )
 }
@@ -26,6 +36,8 @@ const SelectedFilters = ({ filters = [], intl }) => {
 SelectedFilters.propTypes = {
   /** Selected filters. */
   filters: PropTypes.arrayOf(facetOptionShape).isRequired,
+  /** Prevents changing route when setting filters (uses URL search params instead) */
+  preventRouteChange: PropTypes.bool,
   /** Intl instance. */
   intl: intlShape,
 }
