@@ -295,6 +295,11 @@ MobileLayout
 | `mode1` | `Enum` | Layout mode of the switcher (values: 'normal', 'small' or 'inline') | `normal` |
 | `mode2` | `Enum` | Layout mode of the switcher 2 (values: 'normal', 'small' or 'inline') | `small` |
 
+`filter-navigator.v1` block
+| Prop name | Type | Description | Default value |
+| --- | --- | --- | --- |
+| `preventRouteChange` | `Boolean` | Prevents route change when selecting filters, using the query string instead. Intended for `search-result` blocks inserted on custom pages with static routes. | `false` |
+
 Also, you can configure the product summary that is defined on search-result. See [here](https://github.com/vtex-apps/product-summary/blob/master/README.md#configuration) the Product Summary API.
 
 ### Styles API
