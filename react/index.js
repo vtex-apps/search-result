@@ -38,6 +38,7 @@ class SearchResultQueryLoader extends Component {
       showFacetsQuantity,
       pagination,
       mobileLayout,
+      runtime: { query },
     } = this.props
 
     const settings = {
@@ -47,11 +48,21 @@ class SearchResultQueryLoader extends Component {
       mobileLayout,
     }
 
+    const fieldsFromQueryString = {
+      mapField: query.map,
+      queryField: trimStartingSlash(query.query),
+    }
+
+    const areFieldsFromQueryStringValid = !!(
+      fieldsFromQueryString.mapField && fieldsFromQueryString.queryField
+    )
+
     return !this.props.searchQuery ||
       (querySchema && querySchema.enableCustomQuery) ? (
       <LocalQuery
         {...this.props}
         {...querySchema}
+        {...(areFieldsFromQueryStringValid ? fieldsFromQueryString : {})}
         render={props => (
           <QueryContext.Provider value={props.searchQuery.variables}>
             <SettingsContext.Provider value={settings}>
