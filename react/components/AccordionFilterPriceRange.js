@@ -15,12 +15,7 @@ const AccordionFilterPriceRange = ({
   return (
     <AccordionFilterItem title={title} open={open} show={show} onOpen={onOpen}>
       <div className={className}>
-        <PriceRange
-          key={title}
-          title={title}
-          facets={facets}
-          priceRange={priceRange}
-        />
+        <PriceRange title={title} facets={facets} priceRange={priceRange} />
       </div>
     </AccordionFilterItem>
   )

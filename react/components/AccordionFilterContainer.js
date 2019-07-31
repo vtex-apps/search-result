@@ -108,7 +108,8 @@ const AccordionFilterContainer = ({
           case 'PriceRanges':
             return (
               <AccordionFilterPriceRange
-                {...filter}
+                title={filter.title}
+                facets={filter.facets}
                 key={title}
                 className={itemClassName}
                 open={isOpen}
@@ -121,7 +122,8 @@ const AccordionFilterContainer = ({
           default:
             return (
               <AccordionFilterGroup
-                {...filter}
+                title={filter.title}
+                facets={filter.facets}
                 key={title}
                 className={itemClassName}
                 open={isOpen}
