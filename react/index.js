@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRuntimeContext } from 'vtex.render-runtime'
 
 import SearchResultContainer from './components/SearchResultContainer'
 import { SORT_OPTIONS } from './OrderBy'
@@ -16,6 +17,7 @@ const DEFAULT_MAX_ITEMS_PER_PAGE = 10
  */
 const trimStartingSlash = value => value && value.replace(/^\//, '')
 
+class SearchResultQueryLoader extends Component {
   static defaultProps = {
     orderBy: SORT_OPTIONS[0].value,
   }
@@ -68,7 +70,9 @@ const trimStartingSlash = value => value && value.replace(/^\//, '')
   }
 }
 
-SearchResultQueryLoader.getSchema = props => {
+const SearchResult = withRuntimeContext(SearchResultQueryLoader)
+
+SearchResult.getSchema = props => {
   const querySchema = !props.searchQuery
     ? {
         querySchema: {
@@ -209,3 +213,5 @@ SearchResultQueryLoader.getSchema = props => {
     },
   }
 }
+
+export default SearchResult
