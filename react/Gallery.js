@@ -85,6 +85,7 @@ Gallery.propTypes = {
   mobileLayoutMode: PropTypes.oneOf(pluck('value', LAYOUT_MODE)),
   /** Min Item Width. */
   minItemWidth: PropTypes.number,
+  showingFacets: PropTypes.bool,
 }
 
 export default withResizeDetector(Gallery)
