@@ -257,7 +257,7 @@ These properties can be changed in the `blocks.json` file of your theme.
 | `showFacetQuantity` | `Boolean`      | If quantity of items filtered by facet should appear besides its name on `filter-navigator` | `false`           |
 | `blockClass`        | `String`       | Unique class name to be appended to block classes                                           | `""`              |
 
-QuerySchema
+##### QuerySchema
 
 | Prop name              | Type      | Description                                                                                                                                                                                           | Default value |
 | ---------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
@@ -268,7 +268,7 @@ QuerySchema
 | `orderByField`         | `Enum`    | Order by field (values: `OrderByTopSaleDESC`, `OrderByReleaseDateDESC`, `OrderByBestDiscountDESC`, `OrderByPriceDESC`, `OrderByPriceASC`, `OrderByNameASC`, `OrderByNameDESC` or `''` (by relevance)) | `''`          |
 | `hideUnavailableItems` | `Boolean` | Set if unavailable items should show on search                                                                                                                                                        | `false`       |
 
-HiddenFacets
+##### HiddenFacets
 
 | Prop name              | Type                   | Description                 | Default value |
 | ---------------------- | ---------------------- | --------------------------- | ------------- |
@@ -277,20 +277,20 @@ HiddenFacets
 | `priceRange`           | `Boolean`              | Hide Price filter           | false         |
 | `specificationFilters` | `SpecificationFilters` | Hide Specifications filters | N/A           |
 
-SpecificationFilters
+##### SpecificationFilters
 
 | Prop name       | Type                      | Description                                           | Default value |
 | --------------- | ------------------------- | ----------------------------------------------------- | ------------- |
 | `hideAll`       | `Boolean`                 | Hide specifications filters                           | false         |
 | `hiddenFilters` | `Array(HiddenFilterUnit)` | Array of specifications filters that should be hidden | N/A           |
 
-HiddenFilterUnit
+##### HiddenFilterUnit
 
 | Prop name | Type    | Description                         | Default value |
 | --------- | ------- | ----------------------------------- | ------------- |
 | name      | String! | Name of Hidden specification filter | ""            |
 
-MobileLayout
+##### MobileLayout
 
 This prop controls the way search results are displayed on mobile. The default values are shown below.
 
