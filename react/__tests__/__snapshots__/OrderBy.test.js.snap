@@ -9,7 +9,7 @@ exports[`<OrderBy /> should match snapshot in mobile 1`] = `
       class="orderByDropdown relative pt1 justify-end w-100 w-auto-ns ml-auto"
     >
       <button
-        class="sortByBt ph3 pv5 mv0 pointer flex items-center justify-end bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100 outline-0 b--transparent pl1"
+        class="orderByButton ph3 pv5 mv0 pointer flex items-center justify-end bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100 outline-0 b--transparent pl1"
       >
         <span
           class="filterPopupTitle c-on-base t-action--small ml-auto-ns"
@@ -87,7 +87,7 @@ exports[`<OrderBy /> should match snapshot in web mod 1`] = `
       class="orderByDropdown relative pt1 justify-end w-100 w-auto-ns ml-auto"
     >
       <button
-        class="sortByBt ph3 pv5 mv0 pointer flex items-center justify-end bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100 outline-0 b--transparent pl1"
+        class="orderByButton ph3 pv5 mv0 pointer flex items-center justify-end bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100 outline-0 b--transparent pl1"
       >
         <span
           class="filterPopupTitle c-on-base t-action--small ml-auto-ns"

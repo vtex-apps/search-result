@@ -47,10 +47,10 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
   )
 
   const btClass = classNames(
-    searchResult.sortByBt,
+    searchResult.orderByButton,
     'ph3 pv5 mv0 pointer flex items-center justify-end bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100 outline-0',
     {
-      'b--muted-4 shadow-1': showDropdown && mobile,
+      'b--muted-4': showDropdown && mobile,
       'b--transparent pl1': !showDropdown,
     }
   )
