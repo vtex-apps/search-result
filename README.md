@@ -301,7 +301,7 @@ Notice that the default behavior for your store will be the one defined by the `
 | `mode1`   | `Enum` | Layout mode of the switcher (values: 'normal', 'small' or 'inline')   | `normal`      |
 | `mode2`   | `Enum` | Layout mode of the switcher 2 (values: 'normal', 'small' or 'inline') | `small`       |
 
-`filter-navigator.v1` block
+##### `filter-navigator` block
 
 | Prop name            | Type      | Description                                                                                                                                                    | Default value |
 | -------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
