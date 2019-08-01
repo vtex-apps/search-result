@@ -28,13 +28,14 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
     hints: { mobile },
   } = useRuntime()
 
-  const renderOptions = () => {
+  const renderOptions = orderBy => {
     return options.map(option => {
       return (
         <SelectionListItem
           key={option.value}
           onItemClick={handleOutsideClick}
           option={option}
+          selected={option.value === orderBy}
         />
       )
     })
@@ -46,15 +47,17 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
   )
 
   const btClass = classNames(
-    'ph3 pv5 mv0 pointer flex items-center justify-between bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100',
+    searchResult.orderByButton,
+    'ph3 pv5 mv0 pointer flex items-center justify-end bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100 outline-0',
     {
-      'b--muted-4 shadow-1': showDropdown && mobile,
+      'b--muted-4': showDropdown && mobile,
       'b--transparent pl1': !showDropdown,
     }
   )
 
   const contentClass = classNames(
-    'z-1 absolute bg-base shadow-5 f5 w-100 b--muted-4 br2 ba bw1 br--bottom',
+    searchResult.orderByOptionsContainer,
+    'z-1 absolute bg-base shadow-5 w-100 f5 b--muted-4 br2 ba bw1 br--bottom top-0 right-0-ns',
     {
       db: showDropdown,
       dn: !showDropdown,
@@ -62,8 +65,8 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
   )
 
   const dropdownSort = classNames(
-    searchResult.dropdownSort,
-    'relative pt1 justify-center w-100 w-auto-ns center'
+    searchResult.orderByDropdown,
+    'relative pt1 justify-end w-100 w-auto-ns ml-auto'
   )
 
   return (
@@ -89,7 +92,7 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
         </span>
       </button>
 
-      <div className={contentClass}>{renderOptions()}</div>
+      <div className={contentClass}>{renderOptions(orderBy)}</div>
     </div>
   )
 }

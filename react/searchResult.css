@@ -177,6 +177,18 @@
 
 .filterIcon {}
 
+.orderByButton {}
+
+.orderByDropdown {}
+
+.orderByOptionsContainer {
+  min-width: 180px;
+}
+
+.orderByOptionItem {
+  min-width: 180px;
+}
+
 @media only screen and (max-width: 60em) {
   .container {
     -ms-grid-columns: 180px (1fr)[4] 306px;

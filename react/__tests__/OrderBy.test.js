@@ -20,7 +20,7 @@ describe('<OrderBy />', () => {
   it('should shown dropdown box on mobile mode', () => {
     const { container } = renderComponent()(true)
 
-    let dropdownContainer = container.querySelector('.dropdownSort > .dn')
+    let dropdownContainer = container.querySelector('.orderByDropdown > .dn')
     const button = container.querySelector('button')
 
     // Expect Dropdown container be rendered with display none
@@ -28,7 +28,7 @@ describe('<OrderBy />', () => {
     expect(dropdownContainer).not.toBeNull()
 
     fireEvent.click(button)
-    dropdownContainer = container.querySelector('.dropdownSort > .dn')
+    dropdownContainer = container.querySelector('.orderByDropdown > .dn')
 
     // Expect Dropdown container be rendered without display none
     expect(dropdownContainer).toBeNull()
