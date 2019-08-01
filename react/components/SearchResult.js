@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint, withRuntimeContext } from 'vtex.render-runtime'
-import { compose, prop, last, isEmpty } from 'ramda'
+import { isEmpty } from 'ramda'
 import { generateBlockClass } from '@vtex/css-handles'
 
 import LoadingOverlay from './LoadingOverlay'
@@ -184,7 +184,10 @@ class SearchResult extends Component {
               <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
             </div>
           )}
-          <ExtensionPoint id="search-title" breadcrumb={breadcrumbsProps.breadcrumb} />
+          <ExtensionPoint
+            id="search-title"
+            breadcrumb={breadcrumbsProps.breadcrumb}
+          />
           {showFacets && (
             <ExtensionPoint
               id="filter-navigator"
@@ -230,9 +233,7 @@ class SearchResult extends Component {
           <ExtensionPoint id="order-by" orderBy={orderBy} />
           {mobile && (
             <div
-              className={`${
-                styles.switch
-              } flex justify-center items-center`}
+              className={`${styles.switch} flex justify-center items-center`}
             >
               <LayoutModeSwitcher
                 activeMode={mobileLayoutMode}
