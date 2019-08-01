@@ -133,6 +133,7 @@
   align-self: center;
   justify-self: stretch;
   display: flex;
+  
 }
 
 .accordionFilterItemHidden {}
@@ -176,6 +177,18 @@
 .filterTitle {}
 
 .filterIcon {}
+
+.sortByBt {}
+
+.orderByDropdown {}
+
+.orderByOptionItem {
+  min-width: 180px;
+}
+
+.orderByOptionsContainer {
+  min-width: 180px;
+}
 
 @media only screen and (max-width: 60em) {
   .container {
