@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Enable the user to control wheter the `LayoutModeSwitcher` component is rendered. If only a `mode1` is provided to `mobileLayout`, the switcher will not be shown.
+- Better documentation on the use of `mobileLayout` prop.
+
 ## [3.24.0] - 2019-08-01
 ### Fixed
 - Fixed the style of the "sort by" dropdown found on the search results.
