@@ -292,6 +292,10 @@ HiddenFilterUnit
 
 MobileLayout
 
+This prop controls the way search results are displayed on mobile. The default values are shown below.
+
+Notice that the default behavior for your store will be the one defined by the `mode1`. If you want the user to be able to switch between two modes, you must specify the `mode2` prop. If only the `mode1` is provided, the layout switcher will not be shown and search results will always be rendered according to `mode1`.
+
 | Prop name | Type   | Description                                                           | Default value |
 | --------- | ------ | --------------------------------------------------------------------- | ------------- |
 | `mode1`   | `Enum` | Layout mode of the switcher (values: 'normal', 'small' or 'inline')   | `normal`      |
