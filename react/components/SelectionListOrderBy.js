@@ -35,7 +35,7 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
           key={option.value}
           onItemClick={handleOutsideClick}
           option={option}
-          selected={option.value == orderBy}
+          selected={option.value === orderBy}
         />
       )
     })
