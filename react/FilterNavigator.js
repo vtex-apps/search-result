@@ -4,8 +4,8 @@ import { map, flatten, prop } from 'ramda'
 import React, { useMemo } from 'react'
 import ContentLoader from 'react-content-loader'
 import { FormattedMessage } from 'react-intl'
-import { useRuntime } from 'vtex.render-runtime'
 import { ExtensionPoint } from 'vtex.render-runtime'
+import { useDevice } from 'vtex.device-detector'
 import FilterSidebar from './components/FilterSidebar'
 import SelectedFilters from './components/SelectedFilters'
 import AvailableFilters from './components/AvailableFilters'
@@ -36,9 +36,7 @@ const FilterNavigator = ({
   filters = [],
   hiddenFacets = {},
 }) => {
-  const {
-    hints: { mobile },
-  } = useRuntime()
+  const { isMobile } = useDevice()
 
   const navigateToFacet = useFacetNavigation()
 
@@ -55,14 +53,14 @@ const FilterNavigator = ({
   ).filter(facet => facet.selected)
 
   const filterClasses = classNames({
-    'flex items-center justify-center flex-auto h-100': mobile,
+    'flex items-center justify-center flex-auto h-100': isMobile,
   })
 
   if (!showFilters) {
     return null
   }
 
-  if (loading && !mobile) {
+  if (loading && !isMobile) {
     return (
       <div className={styles.filters}>
         <ContentLoader
@@ -84,11 +82,15 @@ const FilterNavigator = ({
     )
   }
 
-  if (mobile) {
+  if (isMobile) {
     return (
       <div className={styles.filters}>
         <div className={filterClasses}>
-          <FilterSidebar filters={filters} tree={tree} priceRange={priceRange} />
+          <FilterSidebar
+            filters={filters}
+            tree={tree}
+            priceRange={priceRange}
+          />
         </div>
       </div>
     )

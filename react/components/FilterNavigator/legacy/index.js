@@ -8,7 +8,7 @@ import { map, flatten, filter, prop } from 'ramda'
 import React, { useMemo } from 'react'
 import ContentLoader from 'react-content-loader'
 import { FormattedMessage } from 'react-intl'
-import { useRuntime } from 'vtex.render-runtime'
+import { useDevice } from 'vtex.device-detector'
 
 import FilterSidebar from './FilterSidebar'
 import SelectedFilters from './SelectedFilters'
@@ -45,9 +45,7 @@ const FilterNavigator = ({
   hiddenFacets = {},
   preventRouteChange = false,
 }) => {
-  const {
-    hints: { mobile },
-  } = useRuntime()
+  const { isMobile } = useDevice()
 
   const filters = getFilters({
     tree,
@@ -72,14 +70,14 @@ const FilterNavigator = ({
   ).filter(facet => facet.selected)
 
   const filterClasses = classNames({
-    'flex justify-center flex-auto bl br b--muted-5': mobile,
+    'flex justify-center flex-auto bl br b--muted-5': isMobile,
   })
 
   if (!showFilters) {
     return null
   }
 
-  if (loading && !mobile) {
+  if (loading && !isMobile) {
     return (
       <div className={searchResult.filters}>
         <ContentLoader
@@ -101,7 +99,7 @@ const FilterNavigator = ({
     )
   }
 
-  if (mobile) {
+  if (isMobile) {
     return (
       <div className={searchResult.filters}>
         <div className={filterClasses}>
