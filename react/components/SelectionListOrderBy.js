@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { find, propEq } from 'ramda'
-import { useRuntime } from 'vtex.render-runtime'
 import { IconCaret } from 'vtex.store-icons'
+import { useDevice } from 'vtex.device-detector'
 
 import SelectionListItem from './SelectionListItem'
 import useOutsideClick from '../hooks/useOutsideClick'
@@ -24,9 +24,7 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
 
   useOutsideClick(orderByRef, handleOutsideClick, showDropdown)
 
-  const {
-    hints: { mobile },
-  } = useRuntime()
+  const { isMobile } = useDevice()
 
   const renderOptions = orderBy => {
     return options.map(option => {
@@ -50,7 +48,7 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
     searchResult.orderByButton,
     'ph3 pv5 mv0 pointer flex items-center justify-end bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100 outline-0',
     {
-      'b--muted-4': showDropdown && mobile,
+      'b--muted-4': showDropdown && isMobile,
       'b--transparent pl1': !showDropdown,
     }
   )

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { compose } from 'react-apollo'
 import { Spinner } from 'vtex.styleguide'
 import { ExtensionPoint, withRuntimeContext } from 'vtex.render-runtime'
+import { withDevice } from 'vtex.device-detector'
 import { isEmpty } from 'ramda'
 import { generateBlockClass } from '@vtex/css-handles'
 
@@ -122,9 +124,7 @@ class SearchResult extends Component {
       summary,
       orderBy,
       mobileLayout,
-      runtime: {
-        hints: { mobile },
-      },
+      isMobile,
     } = this.props
     const {
       mobileLayoutMode,
@@ -181,7 +181,7 @@ class SearchResult extends Component {
             this.props.blockClass
           )} w-100 mw9`}
         >
-          {!mobile && (
+          {!isMobile && (
             <div className={styles.breadcrumb}>
               <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
             </div>
@@ -233,7 +233,7 @@ class SearchResult extends Component {
             {children}
           </div>
           <ExtensionPoint id="order-by" orderBy={orderBy} />
-          {mobile && shouldDisplayLayoutSwitcher && (
+          {isMobile && shouldDisplayLayoutSwitcher && (
             <div
               className={`${styles.switch} flex justify-center items-center`}
             >
@@ -249,4 +249,7 @@ class SearchResult extends Component {
   }
 }
 
-export default withRuntimeContext(SearchResult)
+export default compose(
+  withRuntimeContext,
+  withDevice
+)(SearchResult)
