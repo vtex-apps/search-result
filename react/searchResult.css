@@ -182,11 +182,11 @@
 
 .orderByDropdown {}
 
-.orderByOptionItem {
+.orderByOptionsContainer {
   min-width: 180px;
 }
 
-.orderByOptionsContainer {
+.orderByOptionItem {
   min-width: 180px;
 }
 

@@ -368,6 +368,10 @@ Below, we describe the namespaces that are defined in the search-result.
 | `filterItem`                      | Checkbox and label for Filters (desktop only)              | [SearchFilter](/react/components/SearchFilter.js)                         |
 | `filterItem--selected`            | Checkbox and label for selected Filters (desktop only)     | [SearchFilter](/react/components/SearchFilter.js)                         |
 | `selectedFilterItem`              | Checkbox and label for selected Filters (desktop only)     | [SelectedFilters](/react/components/SelectedFilters.js)                   |
+| `sortByBt`              | the "Sort By" button found on search results     | [SelectionListOrderBy](/react/components/SelectionListOrderBy.js)                   |
+| `orderByDropdown`              | the dropdown that appears when the "Sort By" button found on search results is pressed     | [SelectionListOrderBy](/react/components/SelectionListOrderBy.js)                   |
+| `orderByOptionsContainer`              | the container with the "Order by" options of the "Sort by" button   | [SelectionListOrderBy](/react/components/SelectionListItem.js)                   |
+| `orderByOptionItem`              | the "Order by" option that appears in the container of the "Sort by" button   | [SelectionListOrderBy](/react/components/SelectionListItem.js)                   |
 
 | `categoriesContainer` | The container for the department filters | [DepartmentFilters](/react/components/DepartmentFilters.js) |
 | `categoryGroup` | Container for each category group in the department filters | [CategoryFilter](/react/components/CategoryFilter.js) |
