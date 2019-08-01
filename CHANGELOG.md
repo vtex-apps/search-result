@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.25.0] - 2019-08-01
+
 ### Added
 
 - Enable the user to control wheter the `LayoutModeSwitcher` component is rendered. If only a `mode1` is provided to `mobileLayout`, the switcher will not be shown.
