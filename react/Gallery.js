@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { pluck, splitEvery } from 'ramda'
 
-import { useRuntime } from 'vtex.render-runtime'
+import { useDevice } from 'vtex.device-detector'
 
 import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 import { productShape } from './constants/propTypes'
@@ -27,9 +27,9 @@ const Gallery = ({
   summary,
   showingFacets,
 }) => {
-  const runtime = useRuntime()
+  const { isMobile } = useDevice()
 
-  const layoutMode = runtime.hints.mobile ? mobileLayoutMode : 'normal'
+  const layoutMode = isMobile ? mobileLayoutMode : 'normal'
 
   const getItemsPerRow = () => {
     const maxItems = Math.floor(width / minItemWidth)
