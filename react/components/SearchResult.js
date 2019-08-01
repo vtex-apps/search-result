@@ -121,6 +121,7 @@ class SearchResult extends Component {
       fetchMoreLoading,
       summary,
       orderBy,
+      mobileLayout,
       runtime: {
         hints: { mobile },
       },
@@ -155,6 +156,7 @@ class SearchResult extends Component {
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
+    const shouldDisplayLayoutSwitcher = !!mobileLayout.mode2
 
     const filters = getFilters({
       specificationFilters,
@@ -231,7 +233,7 @@ class SearchResult extends Component {
             {children}
           </div>
           <ExtensionPoint id="order-by" orderBy={orderBy} />
-          {mobile && (
+          {mobile && shouldDisplayLayoutSwitcher && (
             <div
               className={`${styles.switch} flex justify-center items-center`}
             >
