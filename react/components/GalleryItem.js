@@ -1,10 +1,10 @@
 import React, { useMemo, useCallback, memo } from 'react'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import { usePixel } from 'vtex.pixel-manager/PixelContext'
+import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
 
 import { productShape } from '../constants/propTypes'
 import { PropTypes } from 'prop-types'
-import { normalizeProduct } from '../constants/productHelpers'
 
 /**
  * Normalizes the item received in the props to adapt to the extension point prop.
@@ -12,7 +12,10 @@ import { normalizeProduct } from '../constants/productHelpers'
 const GalleryItem = ({ item, displayMode, summary }) => {
   const { push } = usePixel()
 
-  const product = useMemo(() => normalizeProduct(item), [item])
+  const product = useMemo(
+    () => ProductSummary.mapCatalogProductToProductSummary(item),
+    [item]
+  )
 
   const handleClick = useCallback(
     () => push({ event: 'productClick', product }),
