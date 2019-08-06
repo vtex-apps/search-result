@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## [3.25.1] - 2019-08-06
 ### Changed
 - Use product parsing logic from `product-summary`.
@@ -16,6 +17,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - `showBreadcrumbsOnMobile` on `SearchResult`
 >>>>>>> `showBreadcrumbsOnMobile` on `SearchResult`
+=======
+### Changed
+
+- `SearchResult` to support breadcrumbs on mobile
+
+### Added
+
+- Some test support through mocks
+>>>>>>> removed showBreadcrumbsOnMobile prop
 
 ## [3.25.0] - 2019-08-01
 

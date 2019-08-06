@@ -125,7 +125,6 @@ class SearchResult extends Component {
       orderBy,
       mobileLayout,
       isMobile,
-      showBreadcrumbsOnMobile,
     } = this.props
     const {
       mobileLayoutMode,
@@ -182,11 +181,9 @@ class SearchResult extends Component {
             this.props.blockClass
           )} w-100 mw9`}
         >
-          {(!isMobile || showBreadcrumbsOnMobile) && (
-            <div data-testid="breadcrumb" className={styles.breadcrumb}>
-              <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
-            </div>
-          )}
+          <div data-testid="breadcrumb" className={styles.breadcrumb}>
+            <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
+          </div>
           <ExtensionPoint
             id="search-title"
             breadcrumb={breadcrumbsProps.breadcrumb}
