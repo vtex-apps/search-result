@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+<<<<<<< HEAD
 ## [3.25.1] - 2019-08-06
 ### Changed
 - Use product parsing logic from `product-summary`.
+=======
+### Added
+
+- `showBreadcrumbsOnMobile` on `SearchResult`
+>>>>>>> `showBreadcrumbsOnMobile` on `SearchResult`
 
 ## [3.25.0] - 2019-08-01
 

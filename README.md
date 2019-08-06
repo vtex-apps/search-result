@@ -203,7 +203,8 @@ Now, you can change the behavior of the search result block that is in the store
           "hiddenFilters": []
         }
       },
-      "pagination": "show-more"
+      "pagination": "show-more",
+      "showBreadcrumbsOnMobile": true
     }
   },
 ```
@@ -256,6 +257,7 @@ These properties can be changed in the `blocks.json` file of your theme.
 | `mobileLayout`      | `MobileLayout` | Control mobile layout                                                                       | N/A               |
 | `showFacetQuantity` | `Boolean`      | If quantity of items filtered by facet should appear besides its name on `filter-navigator` | `false`           |
 | `blockClass`        | `String`       | Unique class name to be appended to block classes                                           | `""`              |
+| `showBreadcrumbsOnMobile`        | `Boolean`       | if breadcrumbs should be displayed on mobile         | `false`              |
 
 ##### QuerySchema
 
