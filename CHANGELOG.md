@@ -7,9 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- `SearchResult` to support breadcrumbs on mobile
+
+### Added
+
+- Some test support through mocks
+
 ## [3.25.1] - 2019-08-06
+
 ### Changed
 - Use product parsing logic from `product-summary`.
+
 
 ## [3.25.0] - 2019-08-01
 

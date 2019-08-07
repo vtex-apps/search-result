@@ -181,11 +181,9 @@ class SearchResult extends Component {
             this.props.blockClass
           )} w-100 mw9`}
         >
-          {!isMobile && (
-            <div className={styles.breadcrumb}>
-              <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
-            </div>
-          )}
+          <div data-testid="breadcrumb" className={styles.breadcrumb}>
+            <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
+          </div>
           <ExtensionPoint
             id="search-title"
             breadcrumb={breadcrumbsProps.breadcrumb}

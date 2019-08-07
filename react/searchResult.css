@@ -246,6 +246,7 @@
     grid-template-columns: 2fr 1.5fr 0.2fr;
     grid-template-areas:
       "orderby filters switch"
+      "breadcrumb breadcrumb breadcrumb"
       "quantity quantity quantity"
       "gallery gallery gallery";
     grid-template-rows: auto;

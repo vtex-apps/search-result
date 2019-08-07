@@ -1,13 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export class IconFilter extends Component {
-  render() {
-    return <div>IconFilter</div>
-  }
-}
-
-export class IconCaret extends Component {
-  render() {
-    return <div>IconCaret</div>
-  }
-}
+export const IconFilter = () => <div>IconFilter</div>
+export const IconCaret = () => <div>IconCaret</div>
+export const IconGrid = () => <div>IconGrid</div>
+export const IconInlineGrid = () => <div>IconInlineGrid</div>
+export const IconSingleGrid = () => <div>IconSingleGrid</div>

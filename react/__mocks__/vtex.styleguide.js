@@ -21,3 +21,5 @@ export class Checkbox extends Component {
 export function IconCaret() {
   return <div>IconCaretLeft</div>
 }
+
+export const Button = () => <div>Button</div>
