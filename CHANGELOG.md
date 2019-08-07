@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.25.2] - 2019-08-07
+
 ### Changed
 
 - `SearchResult` to support breadcrumbs on mobile
