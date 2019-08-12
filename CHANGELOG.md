@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- Make search results render strategy `lazy`, i.e. component is only fetched client-side.
+
 ## [3.25.2] - 2019-08-07
 
 ### Changed
