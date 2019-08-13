@@ -11,7 +11,8 @@
     "required": [
       "gallery"
     ],
-    "component": "index"
+    "component": "index",
+    "render": "lazy"
   },
   "filter-navigator": {
     "component": "FilterNavigatorLegacy"
