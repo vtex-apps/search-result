@@ -2,14 +2,15 @@
   display: grid;
   display: -ms-grid;
   grid-template-columns: 230px repeat(4, auto) 306px;
-  -ms-grid-columns: 230px (1fr)[4] 306px;
-  grid-template-rows: auto auto 60px auto;
+  -ms-grid-columns: 230px (1fr) [4] 306px;
+  grid-template-rows: auto auto auto 60px auto;
   grid-template-areas:
-    "breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb"
-    "title title title title title title"
-    "filters quantity . . . orderby"
-    "filters gallery gallery gallery gallery gallery"
-    ". pagination pagination pagination pagination pagination";
+    'breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb breadcrumb'
+    'richTitle richTitle richTitle richTitle richTitle richTitle'
+    'title title title title title title'
+    'filters quantity . . . orderby'
+    'filters gallery gallery gallery gallery gallery'
+    '. pagination pagination pagination pagination pagination';
 }
 
 .container a {
@@ -43,6 +44,11 @@
   justify-self: stretch;
 }
 
+.richTitle {
+  grid-column: richTitle;
+  grid-row: richTitle;
+}
+
 .filters {
   -ms-grid-row: 2;
   -ms-grid-column: 1;
@@ -50,7 +56,8 @@
   grid-row: filters;
 }
 
-.filter {}
+.filter {
+}
 
 .resultGallery {
   -ms-grid-row: 2;
@@ -65,7 +72,8 @@
   grid-column-start: gallery;
 }
 
-.gallery {}
+.gallery {
+}
 
 .galleryTitle {
   grid-column: title;
@@ -135,51 +143,74 @@
   display: flex;
 }
 
-.accordionFilterItemHidden {}
+.accordionFilterItemHidden {
+}
 
-.accordionFilterItem {}
+.accordionFilterItem {
+}
 
-.filterAccordionItemBox {}
+.filterAccordionItemBox {
+}
 
-.accordionFilterItemTitle {}
+.accordionFilterItemTitle {
+}
 
-.accordionFilterItemIcon {}
+.accordionFilterItemIcon {
+}
 
-.filterSelected {}
+.filterSelected {
+}
 
-.filterAvailable {}
+.filterAvailable {
+}
 
-.filterPopupTitle {}
+.filterPopupTitle {
+}
 
-.filterPopupArrowIcon {}
+.filterPopupArrowIcon {
+}
 
-.footerButton {}
+.footerButton {
+}
 
-.layoutSwitcher {}
+.layoutSwitcher {
+}
 
-.buttonShowMore {}
+.buttonShowMore {
+}
 
-.filterPopup {}
+.filterPopup {
+}
 
-.filterPopupOpen {}
+.filterPopupOpen {
+}
 
-.filterPopupContent {}
+.filterPopupContent {
+}
 
-.filterPopupContentContainer {}
+.filterPopupContentContainer {
+}
 
-.filterPopupContentContainerOpen {}
+.filterPopupContentContainerOpen {
+}
 
-.galleryItem {}
+.galleryItem {
+}
 
-.searchNotFound {}
+.searchNotFound {
+}
 
-.filterTitle {}
+.filterTitle {
+}
 
-.filterIcon {}
+.filterIcon {
+}
 
-.orderByButton {}
+.orderByButton {
+}
 
-.orderByDropdown {}
+.orderByDropdown {
+}
 
 .orderByOptionsContainer {
   min-width: 180px;
@@ -189,41 +220,45 @@
   min-width: 180px;
 }
 
-@media only screen and (max-width: 60em) {
-  .container {
-    -ms-grid-columns: 180px (1fr)[4] 306px;
-    grid-template-columns: 180px repeat(4, auto) 285px;
-    grid-template-rows: auto;
-  }
+.filterContent {
 }
 
-.filterContent {}
+.selectedCategory {
+}
 
-.selectedCategory {}
+.selectedCategoryIcon {
+}
 
-.selectedCategoryIcon {}
+.selectedCategoryName {
+}
 
-.selectedCategoryName {}
+.shallowCategoryItem {
+}
 
-.shallowCategoryItem {}
+.categoryItem {
+}
 
-.categoryItem {}
+.categoryItemName {
+}
 
-.categoryItemName {}
+.categoryItemChildrenContainer {
+}
 
-.categoryItemChildrenContainer {}
+.categoryItemChildren {
+}
 
-.categoryItemChildren {}
+.accordionFilterItemTag {
+}
 
-.accordionFilterItemTag {}
-
-@media only screen and (max-width: 50em) {
+@media only screen and (max-width: 64.1em) {
   .container {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
-      "filters orderby switch"
-      "quantity quantity quantity"
-      "gallery gallery gallery";
+      'filters orderby switch'
+      'breadcrumb breadcrumb breadcrumb'
+      'richTitle richTitle richTitle'
+      'quantity quantity quantity'
+      'gallery gallery gallery';
   }
 
   .totalProducts {
@@ -245,10 +280,11 @@
     -ms-grid-columns: 2fr 1.5fr 0.2fr;
     grid-template-columns: 2fr 1.5fr 0.2fr;
     grid-template-areas:
-      "orderby filters switch"
-      "breadcrumb breadcrumb breadcrumb"
-      "quantity quantity quantity"
-      "gallery gallery gallery";
+      'orderby filters switch'
+      'breadcrumb breadcrumb breadcrumb'
+      'richTitle richTitle richTitle'
+      'quantity quantity quantity'
+      'gallery gallery gallery';
     grid-template-rows: auto;
   }
 
@@ -266,8 +302,13 @@
   overflow: hidden;
 }
 
-.filterItem {}
-.selectedFilterItem {}
-.categoriesContainer {}
-.categoryGroup {}
-.categoryParent {}
+.filterItem {
+}
+.selectedFilterItem {
+}
+.categoriesContainer {
+}
+.categoryGroup {
+}
+.categoryParent {
+}

@@ -6,11 +6,10 @@
       "filter-navigator",
       "total-products",
       "order-by",
-      "search-title"
+      "search-title",
+      "rich-text"
     ],
-    "required": [
-      "gallery"
-    ],
+    "required": ["gallery"],
     "component": "index",
     "render": "lazy"
   },
@@ -25,15 +24,11 @@
     "allowed": ["shop-review-summary"]
   },
   "gallery": {
-    "required": [
-      "product-summary"
-    ],
+    "required": ["product-summary"],
     "component": "Gallery"
   },
   "not-found": {
-    "allowed": [
-      "shelf"
-    ],
+    "allowed": ["shelf"],
     "component": "NotFoundSearch"
   },
   "order-by": {

@@ -184,6 +184,9 @@ class SearchResult extends Component {
           <div data-testid="breadcrumb" className={styles.breadcrumb}>
             <ExtensionPoint id="breadcrumb" {...breadcrumbsProps} />
           </div>
+          <div className={styles.richTitle}>
+            <ExtensionPoint id="rich-text" />
+          </div>
           <ExtensionPoint
             id="search-title"
             breadcrumb={breadcrumbsProps.breadcrumb}
