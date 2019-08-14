@@ -256,6 +256,7 @@ These properties can be changed in the `blocks.json` file of your theme.
 | `mobileLayout`      | `MobileLayout` | Control mobile layout                                                                       | N/A               |
 | `showFacetQuantity` | `Boolean`      | If quantity of items filtered by facet should appear besides its name on `filter-navigator` | `false`           |
 | `blockClass`        | `String`       | Unique class name to be appended to block classes                                           | `""`              |
+| `showItemQuantityOnShowMoreButton`        | `Boolean`       |         controls if the quantity of products on the page and total quantity of items in a search result are displayed on the `show more` button.  | `false`              |
 
 ##### QuerySchema
 

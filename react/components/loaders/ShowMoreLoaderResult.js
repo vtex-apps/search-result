@@ -11,7 +11,13 @@ import searchResult from '../../searchResult.css'
  * Search Result Component.
  */
 const ShowMoreLoaderResult = props => {
-  const { products, recordsFiltered, onFetchMore, fetchMoreLoading } = props
+  const {
+    products,
+    recordsFiltered,
+    onFetchMore,
+    fetchMoreLoading,
+    showItemQuantityOnShowMoreButton,
+  } = props
 
   return (
     <SearchResult {...props}>
@@ -24,7 +30,17 @@ const ShowMoreLoaderResult = props => {
             isLoading={fetchMoreLoading}
             size="small"
           >
-            <FormattedMessage id="store/search-result.show-more-button" />
+            {showItemQuantityOnShowMoreButton ? (
+              <FormattedMessage
+                id="store/search-result.show-more-button-with-quantity"
+                values={{
+                  itemQuantity: products.length,
+                  maxItems: recordsFiltered,
+                }}
+              />
+            ) : (
+              <FormattedMessage id="store/search-result.show-more-button" />
+            )}
           </Button>
         )}
       </div>
