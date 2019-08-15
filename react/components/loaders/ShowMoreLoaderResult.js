@@ -16,7 +16,7 @@ const ShowMoreLoaderResult = props => {
     recordsFiltered,
     onFetchMore,
     fetchMoreLoading,
-    showItemQuantityOnShowMoreButton,
+    showQuantityOnShowMoreButton,
   } = props
 
   return (
@@ -30,12 +30,12 @@ const ShowMoreLoaderResult = props => {
             isLoading={fetchMoreLoading}
             size="small"
           >
-            {showItemQuantityOnShowMoreButton ? (
+            {showQuantityOnShowMoreButton ? (
               <FormattedMessage
                 id="store/search-result.show-more-button-with-quantity"
                 values={{
-                  itemQuantity: products.length,
-                  maxItems: recordsFiltered,
+                  productsLoaded: products.length,
+                  total: recordsFiltered,
                 }}
               />
             ) : (
