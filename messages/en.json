@@ -26,8 +26,8 @@
   "admin/editor.search-result.facet-quantity": "Show filter item quantity",
 
   "store/search-result.show-more-button": "Show more",
-  "store/search-result.show-more-button-text": "Showing {value}",
-  "store/search-result.show-more-button-text-value": "{productsLoaded, number} of {total, number}",  
+  "store/search-result.showing-products": "Showing {value}",
+  "store/search-result.showing-products-count": "{productsLoaded, number} of {total, number}",  
   "store/search-result.filter-button.title": "Filters",
   "store/search-result.filter-breadcrumbs.primary": "Filters",
   "store/search-result.filter-button.apply": "Apply",

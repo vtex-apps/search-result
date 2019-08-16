@@ -256,7 +256,7 @@ These properties can be changed in the `blocks.json` file of your theme.
 | `mobileLayout`      | `MobileLayout` | Control mobile layout                                                                       | N/A               |
 | `showFacetQuantity` | `Boolean`      | If quantity of items filtered by facet should appear besides its name on `filter-navigator` | `false`           |
 | `blockClass`        | `String`       | Unique class name to be appended to block classes                                           | `""`              |
-| `showQuantityOnShowMoreButton`        | `Boolean`       |         controls if the quantity of loaded products and total number of items of a search result are displayed on the `show more` button.  | `false`              |
+| `showProductsCount`        | `Boolean`       |         controls if the quantity of loaded products and total number of items of a search result are displayed under the `show more` button.  | `false`              |
 
 ##### QuerySchema
 
@@ -340,8 +340,8 @@ Below, we describe the namespaces that are defined in the search-result.
 | --------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------- |
 | `container`                       | The main container of search-result                        | [SearchResult](/react/components/SearchResult.js)                         |
 | `buttonShowMore`                  | Show the see more button                                   | [ShowMoreLoaderResult](/react/components/loaders/ShowMoreLoaderResult.js) |
-| `showMoreButtonText`                  | Text below the show mnore button                                | [ShowMoreLoaderResult](/react/components/loaders/ShowMoreLoaderResult.js) |
-| `showMoreButtonTextValue`                  | The range part of the text below the show more button                                  | [ShowMoreLoaderResult](/react/components/loaders/ShowMoreLoaderResult.js) |
+| `showingProducts`                  | Text below the show mnore button                                | [ShowMoreLoaderResult](/react/components/loaders/ShowMoreLoaderResult.js) |
+| `showingProductsCount`                  | The range part of the text below the show more button                                  | [ShowMoreLoaderResult](/react/components/loaders/ShowMoreLoaderResult.js) |
 | `switch`                          | Layout mode switcher container                             | [SearchResult](/react/components/SearchResult.js)                         |
 | `breadcrumb`                      | Breadcrumb container                                       | [SearchResult](/react/components/SearchResult.js)                         |
 | `filter`                          | Filter option container                                    | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js)         |

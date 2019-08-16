@@ -16,7 +16,7 @@ const ShowMoreLoaderResult = props => {
     recordsFiltered,
     onFetchMore,
     fetchMoreLoading,
-    showQuantityOnShowMoreButton,
+    showProductsCount,
   } = props
 
   return (
@@ -34,20 +34,18 @@ const ShowMoreLoaderResult = props => {
           </Button>
         )}
       </div>
-      {showQuantityOnShowMoreButton && (
+      {showProductsCount && (
         <div
-          className={`${
-            searchResult.showMoreButtonText
-          } tc t-small pt3 c-muted-2`}
+          className={`${searchResult.showingProducts} tc t-small pt3 c-muted-2`}
         >
           <FormattedMessage
-            id="store/search-result.show-more-button-text"
+            id="store/search-result.showing-products"
             tagName="span"
             values={{
               value: (
-                <span className={`${searchResult.showMoreButtonTextValue} b`}>
+                <span className={`${searchResult.showingProductsCount} b`}>
                   <FormattedMessage
-                    id="store/search-result.show-more-button-text-value"
+                    id="store/search-result.showing-products-count"
                     values={{
                       productsLoaded: products.length,
                       total: recordsFiltered,
