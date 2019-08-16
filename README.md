@@ -340,6 +340,8 @@ Below, we describe the namespaces that are defined in the search-result.
 | --------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------- |
 | `container`                       | The main container of search-result                        | [SearchResult](/react/components/SearchResult.js)                         |
 | `buttonShowMore`                  | Show the see more button                                   | [ShowMoreLoaderResult](/react/components/loaders/ShowMoreLoaderResult.js) |
+| `showMoreButtonText`                  | Text below the show mnore button                                | [ShowMoreLoaderResult](/react/components/loaders/ShowMoreLoaderResult.js) |
+| `showMoreButtonTextValue`                  | The range part of the text below the show more button                                  | [ShowMoreLoaderResult](/react/components/loaders/ShowMoreLoaderResult.js) |
 | `switch`                          | Layout mode switcher container                             | [SearchResult](/react/components/SearchResult.js)                         |
 | `breadcrumb`                      | Breadcrumb container                                       | [SearchResult](/react/components/SearchResult.js)                         |
 | `filter`                          | Filter option container                                    | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js)         |

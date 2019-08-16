@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from 'vtex.styleguide'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl'
 
 import SearchResult from '../SearchResult'
 import { loaderPropTypes } from '../../constants/propTypes'
@@ -30,20 +30,35 @@ const ShowMoreLoaderResult = props => {
             isLoading={fetchMoreLoading}
             size="small"
           >
-            {showQuantityOnShowMoreButton ? (
-              <FormattedMessage
-                id="store/search-result.show-more-button-with-quantity"
-                values={{
-                  productsLoaded: products.length,
-                  total: recordsFiltered,
-                }}
-              />
-            ) : (
-              <FormattedMessage id="store/search-result.show-more-button" />
-            )}
+            <FormattedMessage id="store/search-result.show-more-button" />
           </Button>
         )}
       </div>
+      {showQuantityOnShowMoreButton && (
+        <div
+          className={`${
+            searchResult.showMoreButtonText
+          } tc t-small pt3 c-muted-2`}
+        >
+          <FormattedMessage
+            id="store/search-result.show-more-button-text"
+            tagName="span"
+            values={{
+              value: (
+                <span className={`${searchResult.showMoreButtonTextValue} b`}>
+                  <FormattedMessage
+                    id="store/search-result.show-more-button-text-value"
+                    values={{
+                      productsLoaded: products.length,
+                      total: recordsFiltered,
+                    }}
+                  />
+                </span>
+              ),
+            }}
+          />
+        </div>
+      )}
     </SearchResult>
   )
 }

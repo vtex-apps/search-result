@@ -27,6 +27,12 @@
   align-self: center;
 }
 
+.showMoreButtonText{
+}
+
+.showMoreButtonTextValue{
+}
+
 .switch {
   -ms-grid-row: 1;
   -ms-grid-column: 6;
