@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from 'vtex.styleguide'
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 
 import SearchResult from '../SearchResult'
 import { loaderPropTypes } from '../../constants/propTypes'
