@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `showProductsCount` prop that controls if the number of products on the page and total quantity of items in a search result is displayed under the `show more` button.
+
 ## [3.27.0] - 2019-08-14
 ### Added
 - Add `rich-text` to `search-result` block.

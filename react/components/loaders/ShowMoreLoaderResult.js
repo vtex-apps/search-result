@@ -11,7 +11,13 @@ import searchResult from '../../searchResult.css'
  * Search Result Component.
  */
 const ShowMoreLoaderResult = props => {
-  const { products, recordsFiltered, onFetchMore, fetchMoreLoading } = props
+  const {
+    products,
+    recordsFiltered,
+    onFetchMore,
+    fetchMoreLoading,
+    showProductsCount,
+  } = props
 
   return (
     <SearchResult {...props}>
@@ -28,6 +34,29 @@ const ShowMoreLoaderResult = props => {
           </Button>
         )}
       </div>
+      {showProductsCount && (
+        <div
+          className={`${searchResult.showingProducts} tc t-small pt3 c-muted-2`}
+        >
+          <FormattedMessage
+            id="store/search-result.showing-products"
+            tagName="span"
+            values={{
+              value: (
+                <span className={`${searchResult.showingProductsCount} b`}>
+                  <FormattedMessage
+                    id="store/search-result.showing-products-count"
+                    values={{
+                      productsLoaded: products.length,
+                      total: recordsFiltered,
+                    }}
+                  />
+                </span>
+              ),
+            }}
+          />
+        </div>
+      )}
     </SearchResult>
   )
 }

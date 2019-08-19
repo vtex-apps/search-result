@@ -27,6 +27,12 @@
   align-self: center;
 }
 
+.showingProducts{
+}
+
+.showingProductsCount{
+}
+
 .switch {
   -ms-grid-row: 1;
   -ms-grid-column: 6;
