@@ -5,13 +5,26 @@ import classNames from 'classnames'
 import SettingsContext from './SettingsContext'
 import useFacetNavigation from '../hooks/useFacetNavigation'
 
+import styles from '../searchResult.css'
+
 const FacetItem = ({ facet, className }) => {
   const { showFacetQuantity } = useContext(SettingsContext)
 
   const navigateToFacet = useFacetNavigation()
 
+  const classes = classNames(
+    styles.filterItem,
+    `${styles.filterItem}--${facet.value}`,
+    { [`${styles.filterItem}--selected`]: facet.selected },
+    className,
+    'lh-copy w-100'
+  )
+
   return (
-    <div className={classNames(className, 'lh-copy w-100')} style={{hyphens: 'auto', wordBreak: 'break-word'}}>
+    <div
+      className={classes}
+      style={{ hyphens: 'auto', wordBreak: 'break-word' }}
+    >
       <Checkbox
         id={facet.value}
         checked={facet.selected}
