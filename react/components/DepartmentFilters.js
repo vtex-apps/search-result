@@ -21,8 +21,14 @@ const DepartmentFilters = ({
 
   const showAllDepartments = tree.every(category => !category.selected)
 
+  const containerClassName = classNames(
+    styles['filter__container'],
+    styles['filter__container'] + '--c',
+    { 'bb b--muted-4': !hideBorder }
+  )
+
   return (
-    <div className={classNames({ 'bb b--muted-4': !hideBorder })}>
+    <div className={containerClassName}>
       {title && (
         <div className={classNames(styles.filter, 'pt4')}>
           <div

@@ -377,11 +377,18 @@ Below, we describe the namespaces that are defined in the search-result.
 | `filterPopupContentContainerOpen` | Filter pop-up content container when it is open            | [Popup](/react/components/Popup.js)                                       |
 | `galleryItem`                     | Gallery item container                                     | [Gallery](/react/Gallery.js)                                              |
 | `searchNotFound`                  | Main container of Search Not Found                         | [NotFoundSearch](/react/NotFoundSearch.js)                                |
+| `filterContainer`                 | Filter container                                           | [FilterNavigator](/react/components/FilterNavigator.js)                   |
+| `filterContainer--title`          | Title's filter container                                   | [FilterNavigator](/react/components/FilterNavigator.js)                   |
+| `filterContainer--selected`       | Selected filters' filter container                         | [SelectedFilters](/react/components/SelectedFilters.js)                   |
+| `filterContainer--c`              | Department's filter container                              | [DepartmentFilters](/react/components/DepartmentFilters.js)               |
+| `filterContainer--priceRange`     | Price range's filter container                             | [PriceRange](/react/components/PriceRange.js)                             |
+| `filterContainer--` + FACET_TYPE  | FACET_TYPE's filter container                              | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js)         |
 | `filterTitle`                     | Filter title container                                     | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js)         |
 | `filterIcon`                      | Filter icon container                                      | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js)         |
 | `galleryTitle`                    | Category name or search term title                         | [Title](/react/Title.js)                                                  |
-| `filterItem`                      | Checkbox and label for Filters (desktop only)              | [SearchFilter](/react/components/SearchFilter.js)                         |
-| `filterItem--selected`            | Checkbox and label for selected Filters (desktop only)     | [SearchFilter](/react/components/SearchFilter.js)                         |
+| `filterItem`                      | Checkbox and label for Filters (desktop only)              | [SearchFilter](/react/components/FacetItem.js)                            |
+| `filterItem--` + FACET_VALUE      | FACET_VALUE's checkbox and label for Filters (desktop only)| [SearchFilter](/react/components/FacetItem.js)                            |
+| `filterItem--selected`            | Checkbox and label for selected Filters (desktop only)     | [SearchFilter](/react/components/FacetItem.js)                            |
 | `selectedFilterItem`              | Checkbox and label for selected Filters (desktop only)     | [SelectedFilters](/react/components/SelectedFilters.js)                   |
 | `orderByButton`              | the "Sort By" button found on search results     | [SelectionListOrderBy](/react/components/SelectionListOrderBy.js)                   |
 | `orderByDropdown`              | the dropdown that appears when the "Sort By" button found on search results is pressed     | [SelectionListOrderBy](/react/components/SelectionListOrderBy.js)                   |

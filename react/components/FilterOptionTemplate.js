@@ -5,12 +5,13 @@ import classNames from 'classnames'
 
 import { IconCaret } from 'vtex.store-icons'
 
-import searchResult from '../searchResult.css'
+import style from '../searchResult.css'
 
 /**
  * Collapsable filters container
  */
 const FilterOptionTemplate = ({
+  id,
   selected = false,
   title,
   collapsable = true,
@@ -37,13 +38,19 @@ const FilterOptionTemplate = ({
     [collapsable, open]
   )
 
-  const containerClassName = classNames(searchResult.filter, 'pv5', {
-    [searchResult.filterSelected]: selected,
-    [searchResult.filterAvailable]: !selected,
+  const containerClassName = classNames(
+    style['filter__container'],
+    { [`${style['filter__container']}--${id}`]: id },
+    'bb b--muted-4'
+  )
+
+  const titleContainerClassName = classNames(style.filter, 'pv5', {
+    [style.filterSelected]: selected,
+    [style.filterAvailable]: !selected,
   })
 
   const titleClassName = classNames(
-    searchResult.filterTitle,
+    style.filterTitle,
     'f5 flex items-center justify-between',
     {
       ttu: selected,
@@ -51,8 +58,8 @@ const FilterOptionTemplate = ({
   )
 
   return (
-    <div className="bb b--muted-4">
-      <div className={containerClassName}>
+    <div className={containerClassName}>
+      <div className={titleContainerClassName}>
         <div
           role="button"
           tabIndex={collapsable ? 0 : undefined}
@@ -66,7 +73,7 @@ const FilterOptionTemplate = ({
             {collapsable && (
               <span
                 className={classNames(
-                  searchResult.filterIcon,
+                  style.filterIcon,
                   'flex items-center ph5 c-muted-3'
                 )}
               >
@@ -85,10 +92,7 @@ const FilterOptionTemplate = ({
         aria-hidden={!open}
       >
         {collapsable ? (
-          <Collapse
-            isOpened={open}
-            theme={{ content: searchResult.filterContent }}
-          >
+          <Collapse isOpened={open} theme={{ content: style.filterContent }}>
             {renderChildren()}
           </Collapse>
         ) : (
@@ -100,6 +104,8 @@ const FilterOptionTemplate = ({
 }
 
 FilterOptionTemplate.propTypes = {
+  /** Identifier to be used by CSS handles */
+  id: PropTypes.string,
   /** Filters to be shown, if no filter is provided, treat the children as simple node */
   filters: PropTypes.arrayOf(PropTypes.object),
   /** Function to handle filter rendering or node if no filter is provided */

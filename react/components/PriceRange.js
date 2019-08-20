@@ -65,6 +65,7 @@ const PriceRange = ({ title, facets, intl, priceRange }) => {
 
   return (
     <FilterOptionTemplate
+      id="priceRange"
       title={getFilterTitle(title, intl)}
       collapsable={false}
     >

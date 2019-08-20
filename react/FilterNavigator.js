@@ -99,7 +99,11 @@ const FilterNavigator = ({
   return (
     <div className={styles.filters}>
       <div className={filterClasses}>
-        <div className="bb b--muted-4">
+        <div
+          className={`${styles['filter__container']} ${
+            styles['filter__container--title']
+          } bb b--muted-4`}
+        >
           <h5 className="t-heading-5 mv5">
             <FormattedMessage id="store/search-result.filter-button.title" />
           </h5>

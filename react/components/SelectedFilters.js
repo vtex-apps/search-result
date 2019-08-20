@@ -18,12 +18,19 @@ const SelectedFilters = ({ filters = [], intl }) => {
   const title = intl.formatMessage({ id: 'store/search.selected-filters' })
   return (
     <FilterOptionTemplate
+      id="selected"
       title={title}
       filters={filters}
       collapsable={false}
       selected
     >
-      {facet => <FacetItem key={facet.name} facet={facet} className={styles.selectedFilterItem} />}
+      {facet => (
+        <FacetItem
+          key={facet.name}
+          facet={facet}
+          className={styles.selectedFilterItem}
+        />
+      )}
     </FilterOptionTemplate>
   )
 }
