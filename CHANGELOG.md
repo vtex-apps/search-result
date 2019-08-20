@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- New CSS handles:
+  - `filterContainer`
+  - `filterContainer--title`
+  - `filterContainer--selectedFilters`
+  - `filterContainer--c`
+  - `filterContainer--b`
+  - `filterContainer--priceRange`
+  - `filterContainer--` + FACET_TYPE
+  - `filterItem--` + FACET_VALUE
 
 ## [3.28.0] - 2019-08-19
 

@@ -381,6 +381,7 @@ Below, we describe the namespaces that are defined in the search-result.
 | `filterContainer--title`          | Title's filter container                                   | [FilterNavigator](/react/components/FilterNavigator.js)                   |
 | `filterContainer--selectedFilters`| Selected filters' filter container                         | [SelectedFilters](/react/components/SelectedFilters.js)                   |
 | `filterContainer--c`              | Department's filter container                              | [DepartmentFilters](/react/components/DepartmentFilters.js)               |
+| `filterContainer--b`              | Brand's filter container                                   | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js)         |
 | `filterContainer--priceRange`     | Price range's filter container                             | [PriceRange](/react/components/PriceRange.js)                             |
 | `filterContainer--` + FACET_TYPE  | FACET_TYPE's filter container                              | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js)         |
 | `filterTitle`                     | Filter title container                                     | [FilterOptionTemplate](/react/components/FilterOptionTemplate.js)         |
