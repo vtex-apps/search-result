@@ -5,7 +5,7 @@ import classNames from 'classnames'
 
 import { IconCaret } from 'vtex.store-icons'
 
-import style from '../searchResult.css'
+import styles from '../searchResult.css'
 
 /**
  * Collapsable filters container
@@ -39,18 +39,18 @@ const FilterOptionTemplate = ({
   )
 
   const containerClassName = classNames(
-    style['filter__container'],
-    { [`${style['filter__container']}--${id}`]: id },
+    styles['filter__container'],
+    { [`${styles['filter__container']}--${id}`]: id },
     'bb b--muted-4'
   )
 
-  const titleContainerClassName = classNames(style.filter, 'pv5', {
-    [style.filterSelected]: selected,
-    [style.filterAvailable]: !selected,
+  const titleContainerClassName = classNames(styles.filter, 'pv5', {
+    [styles.filterSelected]: selected,
+    [styles.filterAvailable]: !selected,
   })
 
   const titleClassName = classNames(
-    style.filterTitle,
+    styles.filterTitle,
     'f5 flex items-center justify-between',
     {
       ttu: selected,
@@ -73,7 +73,7 @@ const FilterOptionTemplate = ({
             {collapsable && (
               <span
                 className={classNames(
-                  style.filterIcon,
+                  styles.filterIcon,
                   'flex items-center ph5 c-muted-3'
                 )}
               >
@@ -92,7 +92,7 @@ const FilterOptionTemplate = ({
         aria-hidden={!open}
       >
         {collapsable ? (
-          <Collapse isOpened={open} theme={{ content: style.filterContent }}>
+          <Collapse isOpened={open} theme={{ content: styles.filterContent }}>
             {renderChildren()}
           </Collapse>
         ) : (
