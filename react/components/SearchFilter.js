@@ -12,7 +12,12 @@ import useSelectedFilters from '../hooks/useSelectedFilters'
 /**
  * Search Filter Component.
  */
-const SearchFilter = ({ title = 'Default Title', facets = [], intl }) => {
+const SearchFilter = ({
+  title = 'Default Title',
+  facets = [],
+  intl,
+  preventRouteChange = false,
+}) => {
   const filtersWithSelected = useSelectedFilters(facets)
 
   const sampleFacet = facets && facets.length > 0 ? facets[0] : null
@@ -23,7 +28,13 @@ const SearchFilter = ({ title = 'Default Title', facets = [], intl }) => {
       title={getFilterTitle(title, intl)}
       filters={filtersWithSelected}
     >
-      {facet => <FacetItem key={facet.name} facet={facet} />}
+      {facet => (
+        <FacetItem
+          key={facet.name}
+          facet={facet}
+          preventRouteChange={preventRouteChange}
+        />
+      )}
     </FilterOptionTemplate>
   )
 }
@@ -35,6 +46,8 @@ SearchFilter.propTypes = {
   facets: PropTypes.arrayOf(facetOptionShape),
   /** Intl instance. */
   intl: intlShape.isRequired,
+  /** Prevent route changes */
+  preventRouteChange: PropTypes.boolean,
 }
 
 export default injectIntl(SearchFilter)

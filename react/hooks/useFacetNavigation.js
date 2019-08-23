@@ -47,11 +47,11 @@ export const buildQueryAndMap = (inputQuery, inputMap, facets) =>
   )
 
 const useFacetNavigation = () => {
-  const { navigate } = useRuntime()
+  const { navigate, setQuery } = useRuntime()
   const { query, map } = useContext(QueryContext)
 
   const navigateToFacet = useCallback(
-    maybeFacets => {
+    (maybeFacets, preventRouteChange = false) => {
       const facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
 
       const { query: currentQuery, map: currentMap } = buildQueryAndMap(
@@ -59,6 +59,14 @@ const useFacetNavigation = () => {
         map,
         facets
       )
+
+      if (preventRouteChange) {
+        setQuery({
+          map: `${currentMap}`,
+          query: `/${currentQuery}`,
+        })
+        return
+      }
 
       const urlParams = new URLSearchParams(window.location.search)
 
@@ -71,7 +79,7 @@ const useFacetNavigation = () => {
         scrollOptions,
       })
     },
-    [navigate, query, map]
+    [query, map, navigate, setQuery]
   )
 
   return navigateToFacet
