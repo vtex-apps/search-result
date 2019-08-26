@@ -2,8 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button } from 'vtex.styleguide'
 import { IconGrid, IconInlineGrid, IconSingleGrid } from 'vtex.store-icons'
+import { prop } from 'ramda'
 
 import searchResult from '../searchResult.css'
+import {
+  useSearchPage,
+  useSearchPageState,
+  useSearchPageStateDispatch,
+} from 'vtex.search-page-context/SearchPageContext'
 
 export const LAYOUT_MODE = [
   {
@@ -67,4 +73,29 @@ LayoutModeSwitcher.propTypes = {
   onChange: PropTypes.func.isRequired,
 }
 
-export default LayoutModeSwitcher
+const withSearchPageContextProps = Component => props => {
+  const { mobileLayout: layoutOptions } = useSearchPage()
+  const { mobileLayout } = useSearchPageState()
+  const dispatch = useSearchPageStateDispatch()
+
+  const onChange = e => {
+    e.preventDefault()
+    const newLayoutIndex =
+      prop('mode1', layoutOptions) === mobileLayout ? 'mode2' : 'mode1'
+    const newLayout = prop(newLayoutIndex, layoutOptions)
+    dispatch({ type: 'SWITCH_LAYOUT', args: { mobileLayout: newLayout } })
+  }
+
+  if (layoutOptions && Object.keys(layoutOptions).length < 2) {
+    return null
+  }
+
+  return (
+    <Component
+      activeMode={props.activeMode || mobileLayout}
+      onChange={props.onChange || onChange}
+    />
+  )
+}
+
+export default withSearchPageContextProps(LayoutModeSwitcher)

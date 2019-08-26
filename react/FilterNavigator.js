@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import { map, flatten, prop } from 'ramda'
+import { map, flatten, prop, pathOr } from 'ramda'
 import React, { useMemo } from 'react'
 import ContentLoader from 'react-content-loader'
 import { FormattedMessage } from 'react-intl'
@@ -20,6 +20,7 @@ import useFacetNavigation from './hooks/useFacetNavigation'
 
 import styles from './searchResult.css'
 import { CATEGORIES_TITLE } from './utils/getFilters'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 /**
  * Wrapper around the filters (selected and available) as well
@@ -35,6 +36,7 @@ const FilterNavigator = ({
   loading = false,
   filters = [],
   hiddenFacets = {},
+  wrapperClass = styles.filters,
 }) => {
   const { isMobile } = useDevice()
 
@@ -62,7 +64,7 @@ const FilterNavigator = ({
 
   if (loading && !isMobile) {
     return (
-      <div className={styles.filters}>
+      <div className={wrapperClass}>
         <ContentLoader
           style={{
             width: '100%',
@@ -84,7 +86,7 @@ const FilterNavigator = ({
 
   if (isMobile) {
     return (
-      <div className={styles.filters}>
+      <div className={wrapperClass}>
         <div className={filterClasses}>
           <FilterSidebar
             filters={filters}
@@ -97,7 +99,7 @@ const FilterNavigator = ({
   }
 
   return (
-    <div className={styles.filters}>
+    <div className={wrapperClass}>
       <div className={filterClasses}>
         <div
           className={`${styles['filter__container']} ${

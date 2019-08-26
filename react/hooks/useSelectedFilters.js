@@ -10,6 +10,9 @@ import QueryContext from '../components/QueryContext'
  */
 const useSelectedFilters = facets => {
   const { query, map } = useContext(QueryContext)
+  if (!query && !map) {
+    return []
+  }
 
   const queryAndMap = zip(
     query

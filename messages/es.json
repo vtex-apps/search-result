@@ -28,7 +28,7 @@
   "store/search-result.show-more-button": "Mostrar más",
   "store/search-result.showing-products": "Mostrando {value}",
   "store/search-result.showing-products-count": "{productsLoaded, number} de {total, number}",
- "store/search-result.filter-button.title": "Filtros",
+  "store/search-result.filter-button.title": "Filtros",
   "store/search-result.filter-breadcrumbs.primary": "Filtros",
   "store/search-result.filter-button.apply": "Aplicar",
   "store/search-result.filter-button.clear": "Limpiar",
@@ -68,5 +68,9 @@
   "store/gallery.gapType.none": "Ninguno",
   "store/gallery.gapType.small": "Pequeño",
   "store/gallery.gapType.medium": "Medio",
-  "store/gallery.gapType.large": "Grande"
+  "store/gallery.gapType.large": "Grande",
+  "admin/editor.search-result-layout-custom.title": "Búsqueda flexible - Resultado de búsqueda personalizado",
+  "admin/editor.search-result-layout.title": "Resultado de búsqueda flexible",
+  "admin/editor.search-result-mobile.title": "Resultado de búsqueda móvil flexible",
+  "admin/editor.search-result-desktop.title": "Resultado de búsqueda de desktop flexible"
 }

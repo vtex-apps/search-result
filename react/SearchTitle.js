@@ -1,16 +1,32 @@
 import classNames from 'classnames'
 import React, { useContext, useMemo } from 'react'
-import { compose, equals, head, last, findLastIndex, findIndex, prop, path } from 'ramda'
+import {
+  compose,
+  equals,
+  head,
+  last,
+  findLastIndex,
+  findIndex,
+  prop,
+  path,
+} from 'ramda'
 
 import QueryContext from './components/QueryContext'
 
 import styles from './searchResult.css'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 const findFT = findIndex(equals('ft'))
 const findProductCluster = findIndex(equals('productClusterIds'))
 const findLastCategory = findLastIndex(equals('c'))
-const isBrandPage = compose(equals('b'), head)
-const getLastName = compose(prop('name'), last)
+const isBrandPage = compose(
+  equals('b'),
+  head
+)
+const getLastName = compose(
+  prop('name'),
+  last
+)
 const breadcrumbName = (index, breadcrumb) => path([index, 'name'], breadcrumb)
 
 const getQueryNameIndex = mapArray => {
@@ -29,24 +45,42 @@ const getQueryNameIndex = mapArray => {
   return lastCategoryIndex
 }
 
-const SearchTitle = ({ breadcrumb = [] }) => {
+const SearchTitle = ({
+  breadcrumb = [],
+  wrapperClass = styles.galleryTitle,
+}) => {
   const { map } = useContext(QueryContext)
 
   const index = useMemo(() => {
+    if (!map) {
+      return -1
+    }
     const mapArray = map.split(',')
     return getQueryNameIndex(mapArray)
   }, [map])
-  
-  const title = index >= 0 ? breadcrumbName(index, breadcrumb) : getLastName(breadcrumb)
+
+  const title =
+    index >= 0 ? breadcrumbName(index, breadcrumb) : getLastName(breadcrumb)
   if (!title) {
     return null
   }
 
   return (
-    <h1 className={classNames(styles.galleryTitle, 't-heading-1')}>
+    <h1 className={classNames(wrapperClass, 't-heading-1')}>
       {decodeURI(title)}
     </h1>
   )
 }
 
-export default SearchTitle
+const withSearchPageContextProps = Component => props => {
+  const { searchQuery } = useSearchPage()
+  const breadcrumb = path(['data', 'productSearch', 'breadcrumb'], searchQuery)
+  return (
+    <Component
+      breadcrumb={props.breadcrumb || breadcrumb}
+      wrapperClass={styles['galleryTitle--layout']}
+    />
+  )
+}
+
+export default withSearchPageContextProps(SearchTitle)

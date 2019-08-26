@@ -39,5 +39,95 @@
   },
   "search-title": {
     "component": "SearchTitle"
+  },
+  "search-result-layout": {
+    "allowed": [
+      "search-result-layout.desktop",
+      "search-result-layout.mobile",
+      "not-found-layout"
+    ],
+    "component": "SearchResultLayout",
+    "render": "lazy"
+  },
+  "search-result-layout.customQuery": {
+    "allowed": [
+      "search-result-layout.desktop",
+      "search-result-layout.mobile",
+      "not-found-layout"
+    ],
+    "component": "SearchResultLayoutCustomQuery",
+    "render": "lazy"
+  },
+  "layout-switcher": {
+    "component": "LayoutModeSwitcher"
+  },
+  "search-content": {
+    "required": ["gallery", "not-found"],
+    "component": "SearchContent"
+  },
+  "fetch-more": {
+    "component": "FetchMore"
+  },
+  "search-result-layout.desktop": {
+    "allowed": [
+      "breadcrumb.search",
+      "filter-navigator.v3",
+      "total-products.v2",
+      "order-by.v2",
+      "search-title.v2",
+      "rich-text",
+      "info-card",
+      "flex-layout",
+      "fetch-more",
+      "search-content",
+      "products-count-per-page"
+    ],
+    "composition": "children",
+    "component": "SearchResultFlexible"
+  },
+  "search-result-layout.mobile": {
+    "allowed": [
+      "breadcrumb.search",
+      "filter-navigator.v3",
+      "total-products.v2",
+      "order-by.v2",
+      "search-title.v2",
+      "rich-text",
+      "info-card",
+      "flex-layout",
+      "layout-switcher",
+      "fetch-more",
+      "search-content",
+      "products-count-per-page"
+    ],
+    "composition": "children",
+    "component": "SearchResultFlexibleMobile"
+  },
+  "not-found-layout": {
+    "allowed": [
+      "breadcrumb.search",
+      "search-title.v2",
+      "rich-text",
+      "info-card",
+      "flex-layout",
+      "not-found"
+    ],
+    "composition": "children",
+    "component": "NotFoundLayout"
+  },
+  "products-count-per-page": {
+    "component": "ProductCountPerPage"
+  },
+  "order-by.v2": {
+    "component": "OrderByFlexible"
+  },
+  "filter-navigator.v3": {
+    "component": "FilterNavigatorFlexible"
+  },
+  "total-products.v2": {
+    "component": "TotalProductsFlexible"
+  },
+  "search-title.v2": {
+    "component": "SearchTitleFlexible"
   }
 }

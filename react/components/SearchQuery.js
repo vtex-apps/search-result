@@ -131,9 +131,10 @@ const SearchQuery = ({
   const extraParams = useMemo(() => {
     return {
       ...variables,
+      maxItemsPerPage,
       page,
     }
-  }, [variables, page])
+  }, [variables, maxItemsPerPage, page])
 
   return (
     <EnhancedParallelQueries

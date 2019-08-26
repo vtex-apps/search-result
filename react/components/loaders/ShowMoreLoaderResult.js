@@ -17,7 +17,13 @@ const ShowMoreLoaderResult = props => {
     onFetchMore,
     fetchMoreLoading,
     showProductsCount,
+    children,
   } = props
+
+  // If it has children, it is a flexible UI
+  if (children) {
+    return children
+  }
 
   return (
     <SearchResult {...props}>
@@ -36,7 +42,9 @@ const ShowMoreLoaderResult = props => {
       </div>
       {showProductsCount && (
         <div
-          className={`${searchResult.showingProducts} tc t-small pt3 c-muted-2`}
+          className={`${
+            searchResult.showingProducts
+          } tc t-small pt3 c-muted-2 mt2`}
         >
           <FormattedMessage
             id="store/search-result.showing-products"

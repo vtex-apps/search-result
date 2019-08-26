@@ -27,10 +27,10 @@
   align-self: center;
 }
 
-.showingProducts{
+.showingProducts {
 }
 
-.showingProductsCount{
+.showingProductsCount {
 }
 
 .switch {
@@ -62,8 +62,10 @@
   grid-row: filters;
 }
 
-.filter__container {}
-.filter__container--title {}
+.filter__container {
+}
+.filter__container--title {
+}
 .filter {
 }
 
@@ -319,4 +321,22 @@
 .categoryGroup {
 }
 .categoryParent {
+}
+
+.filters--layout {
+}
+
+.buttonShowMore--layout {
+}
+
+.galleryTitle--layout {
+}
+
+.totalProducts--layout {
+}
+
+.orderBy--layout {
+}
+
+.container--layout {
 }
