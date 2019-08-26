@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- `SearchResultContainer` would not always stretch to fill its parent width.
+
 ## [3.29.0] - 2019-08-20
 ### Added
 - New CSS handles:
