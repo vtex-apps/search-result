@@ -92,7 +92,7 @@ const SearchResultContainer = props => {
       : InfiniteScrollLoaderResult
 
   return (
-    <Container className="pt3-m pt5-l">
+    <Container className="pt3-m pt5-l w-100">
       <PopupProvider>
         <div id="search-result-anchor" />
         <ResultComponent
