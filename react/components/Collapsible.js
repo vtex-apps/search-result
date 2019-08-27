@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import React, { useState, useRef } from 'react'
 import { injectIntl } from 'react-intl'
-import { useSpring, animated } from 'react-spring'
+import { useSpring, animated } from 'react-spring/web.cjs'
 
 import useMeasure from '../hooks/useMeasure'
 
