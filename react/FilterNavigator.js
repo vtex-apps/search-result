@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import { map, flatten, prop, pathOr } from 'ramda'
-import React, { useMemo } from 'react'
+import { map, flatten, prop } from 'ramda'
+import React, { useMemo, Fragment } from 'react'
 import ContentLoader from 'react-content-loader'
 import { FormattedMessage } from 'react-intl'
 import { ExtensionPoint } from 'vtex.render-runtime'
@@ -20,14 +20,12 @@ import useFacetNavigation from './hooks/useFacetNavigation'
 
 import styles from './searchResult.css'
 import { CATEGORIES_TITLE } from './utils/getFilters'
-import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 /**
  * Wrapper around the filters (selected and available) as well
  * as the popup filters that appear on mobile devices
  */
 const FilterNavigator = ({
-  showFilters,
   priceRange,
   tree = [],
   specificationFilters = [],
@@ -36,7 +34,6 @@ const FilterNavigator = ({
   loading = false,
   filters = [],
   hiddenFacets = {},
-  wrapperClass = styles.filters,
 }) => {
   const { isMobile } = useDevice()
 
@@ -58,48 +55,36 @@ const FilterNavigator = ({
     'flex items-center justify-center flex-auto h-100': isMobile,
   })
 
-  if (!showFilters) {
-    return null
-  }
-
   if (loading && !isMobile) {
     return (
-      <div className={wrapperClass}>
-        <ContentLoader
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-          width="230"
-          height="320"
-          y="0"
-          x="0"
-        >
-          <rect width="100%" height="1em" />
-          <rect width="100%" height="8em" y="1.5em" />
-          <rect width="100%" height="1em" y="10.5em" />
-          <rect width="100%" height="8em" y="12em" />
-        </ContentLoader>
-      </div>
+      <ContentLoader
+        style={{
+          width: '100%',
+          height: '100%',
+        }}
+        width="230"
+        height="320"
+        y="0"
+        x="0"
+      >
+        <rect width="100%" height="1em" />
+        <rect width="100%" height="8em" y="1.5em" />
+        <rect width="100%" height="1em" y="10.5em" />
+        <rect width="100%" height="8em" y="12em" />
+      </ContentLoader>
     )
   }
 
   if (isMobile) {
     return (
-      <div className={wrapperClass}>
-        <div className={filterClasses}>
-          <FilterSidebar
-            filters={filters}
-            tree={tree}
-            priceRange={priceRange}
-          />
-        </div>
+      <div className={filterClasses}>
+        <FilterSidebar filters={filters} tree={tree} priceRange={priceRange} />
       </div>
     )
   }
 
   return (
-    <div className={wrapperClass}>
+    <Fragment>
       <div className={filterClasses}>
         <div
           className={`${styles['filter__container']} ${
@@ -120,7 +105,7 @@ const FilterNavigator = ({
         <AvailableFilters filters={filters} priceRange={priceRange} />
       </div>
       <ExtensionPoint id="shop-review-summary" />
-    </div>
+    </Fragment>
   )
 }
 
@@ -142,8 +127,6 @@ FilterNavigator.propTypes = {
   priceRanges: PropTypes.arrayOf(facetOptionShape),
   /** Current price range filter query parameter */
   priceRange: PropTypes.string,
-  /** Enables or disables filters */
-  showFilters: PropTypes.bool,
   /** Loading indicator */
   loading: PropTypes.bool,
   ...hiddenFacetsSchema,

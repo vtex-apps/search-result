@@ -177,21 +177,21 @@ class SearchResult extends Component {
             breadcrumb={breadcrumbsProps.breadcrumb}
             wrapperClass={styles.galleryTitle}
           />
-          {showFacets && (
-            <ExtensionPoint
-              id="filter-navigator"
-              brands={brands}
-              showFilters={!!map}
-              params={params}
-              priceRange={priceRange}
-              priceRanges={priceRanges}
-              specificationFilters={specificationFilters}
-              tree={tree}
-              loading={showContentLoader}
-              filters={filters}
-              hiddenFacets={hiddenFacets}
-              wrapperClass={styles.filters}
-            />
+          {showFacets && !!map && (
+            <div className={styles.filters}>
+              <ExtensionPoint
+                id="filter-navigator"
+                brands={brands}
+                params={params}
+                priceRange={priceRange}
+                priceRanges={priceRanges}
+                specificationFilters={specificationFilters}
+                tree={tree}
+                loading={showContentLoader}
+                filters={filters}
+                hiddenFacets={hiddenFacets}
+              />
+            </div>
           )}
           <ExtensionPoint
             id="total-products"
@@ -221,11 +221,13 @@ class SearchResult extends Component {
             )}
             {children}
           </div>
-          <ExtensionPoint
-            id="order-by"
-            orderBy={orderBy}
-            wrapperClass={styles.orderBy}
-          />
+          <div className={styles.orderBy}>
+            <ExtensionPoint
+              id="order-by"
+              orderBy={orderBy}
+              wrapperClass={styles.orderBy}
+            />
+          </div>
           {isMobile && shouldDisplayLayoutSwitcher && (
             <div
               className={`${styles.switch} flex justify-center items-center`}

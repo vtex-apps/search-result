@@ -21,24 +21,24 @@ const withSearchPageContextProps = Component => () => {
   const facets = pathOr({}, ['data', 'facets'], searchQuery)
   const { brands, priceRanges, specificationFilters, categoriesTrees } = facets
 
-  if (showFacets === false) {
+  if (showFacets === false || !map) {
     return null
   }
 
   return (
-    <Component
-      brands={brands}
-      showFilters={!!map}
-      params={params}
-      priceRange={priceRange}
-      priceRanges={priceRanges}
-      specificationFilters={specificationFilters}
-      tree={categoriesTrees}
-      loading={showContentLoader}
-      filters={filters}
-      hiddenFacets={hiddenFacets}
-      wrapperClass={styles['filters--layout']}
-    />
+    <div className={styles['filters--layout']}>
+      <Component
+        brands={brands}
+        params={params}
+        priceRange={priceRange}
+        priceRanges={priceRanges}
+        specificationFilters={specificationFilters}
+        tree={categoriesTrees}
+        loading={showContentLoader}
+        filters={filters}
+        hiddenFacets={hiddenFacets}
+      />
+    </div>
   )
 }
 

@@ -72,15 +72,4 @@ const SearchTitle = ({
   )
 }
 
-const withSearchPageContextProps = Component => props => {
-  const { searchQuery } = useSearchPage()
-  const breadcrumb = path(['data', 'productSearch', 'breadcrumb'], searchQuery)
-  return (
-    <Component
-      breadcrumb={props.breadcrumb || breadcrumb}
-      wrapperClass={styles['galleryTitle--layout']}
-    />
-  )
-}
-
-export default withSearchPageContextProps(SearchTitle)
+export default SearchTitle

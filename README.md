@@ -8,6 +8,28 @@ The VTEX Search Result app is a store component that handles with the result of 
 
 :loudspeaker: **Disclaimer:** Don't fork this project; use, contribute, or open issue with your feature request.
 
+### Supported Blocks
+
+This are the current supported blocks in this repository. Blocks not mentioned are deprecated.
+
+| Block name                         | Component                                                            | Description                                                                                                                                         |
+| ---------------------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `gallery`                          | [Gallery](react/Gallery)                                             | Gallery that displays found products                                                                                                                |
+| `not-found`                        | [NotFoundSearch](react/NotFoundSearch)                               | Block containing text and description that search was not found                                                                                     |
+| `search-result-layout`             | [SearchResultLayout](react/SearchResultLayout)                       | Layout block that enables user to build a custom search page                                                                                        |
+| `search-result-layout.customQuery` | [SearchResultLayoutCustomQuery](react/SearchResultLayoutCustomQuery) | Just like `search-result-layout` but accepts a `querySchema` prop to execute custom query.                                                          |
+| `search-result-layout.desktop`     | [SearchResultFlexible](react/SearchResultFlexible)                   | Block used to build layout for desktop.                                                                                                             |
+| `search-result-layout.mobile`      | [SearchResultFlexibleMobile](react/SearchResultFlexibleMobile)       | Block used to build layout for mobile.                                                                                                              |
+| `not-found-layout`                 | [NotFoundLayout](react/NotFoundLayout)                               | Block used to layout when a user searches for a product that does not exist.                                                                        |
+| `layout-switcher`                  | [LayoutModeSwitcherFlexible](react/LayoutModeSwitcherFlexible)       | Enables user to switch between layout modes in mobile                                                                                               |
+| `search-content`                   | [SearchContent](react/SearchContent)                                 | Block that chooses to show the `gallery` block if products are found and `not-found` if filters selected lead to an empty search                    |
+| `fetch-more`                       | [FetchMore](react/FetchMore)                                         | Renders the fetch more button if pagination is of type `show-more`. If it is infinite scroll, shows the `Loader` when bottom of the page is reached |
+| `products-count-per-page`          | [ProductCountPerPage](react/ProductCountPerPage)                     | Shows the total count of products displayed in search at the moment.                                                                                |
+| `order-by.v2`                      | [OrderByFlexible](react/OrderByFlexible)                             | Allows user to pick the type of order of the products displayed.                                                                                    |
+| `filter-navigator.v3`              | [FilterNavigatorFlexible](react/FilterNavigatorFlexible)             | Allows user to apply different filters to search. On mobile, renders a button that shows the sidebar when pressed.                                  |
+| `total-products.v2`                | [TotalProductsFlexible](react/TotalProductsFlexible)                 | Shows the total products count found for that search.                                                                                               |
+| `search-title.v2`                  | [SearchTitleFlexible](react/SearchTitleFlexible)                     | Display search title according to the search context.                                                                                               |
+
 ### Flexible Layout Update
 
 `search-result` now supports a flexible layout and has all its benefits, specially using the `flex-layout` block.

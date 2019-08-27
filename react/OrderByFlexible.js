@@ -12,7 +12,9 @@ const withSearchPageContextProps = Component => () => {
   }
 
   return (
-    <Component orderBy={orderBy} wrapperClass={styles['orderBy--layout']} />
+    <div className={styles['orderBy--layout']}>
+      <Component orderBy={orderBy} />
+    </div>
   )
 }
 

@@ -4,8 +4,6 @@ import { injectIntl, intlShape } from 'react-intl'
 
 import SelectionListOrderBy from './components/SelectionListOrderBy'
 
-import styles from './searchResult.css'
-
 export const SORT_OPTIONS = [
   {
     value: '',
@@ -41,7 +39,7 @@ export const SORT_OPTIONS = [
   },
 ]
 
-const OrderBy = ({ orderBy, wrapperClass = styles.orderBy, intl }) => {
+const OrderBy = ({ orderBy, intl }) => {
   const sortingOptions = useMemo(() => {
     return SORT_OPTIONS.map(({ value, label }) => {
       return {
@@ -51,11 +49,7 @@ const OrderBy = ({ orderBy, wrapperClass = styles.orderBy, intl }) => {
     })
   }, [intl])
 
-  return (
-    <div className={wrapperClass}>
-      <SelectionListOrderBy orderBy={orderBy} options={sortingOptions} />
-    </div>
-  )
+  return <SelectionListOrderBy orderBy={orderBy} options={sortingOptions} />
 }
 
 OrderBy.propTypes = {

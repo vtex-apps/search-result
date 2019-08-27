@@ -59,7 +59,7 @@
     "render": "lazy"
   },
   "layout-switcher": {
-    "component": "LayoutModeSwitcher"
+    "component": "LayoutModeSwitcherFlexible"
   },
   "search-content": {
     "required": ["gallery", "not-found"],
