@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.29.1] - 2019-08-27
 ### Fixed
 - Fix rendering in IE11 by changing how to import from `react-spring` and upgrading `@vtex/css-handles`.
 
