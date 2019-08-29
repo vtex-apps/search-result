@@ -92,6 +92,7 @@ const SearchQuery = ({
       key={variables.query}
       query={productSearchV2}
       variables={variables}
+      ssr={false}
       notifyOnNetworkStatusChange
       partialRefetch
     >
