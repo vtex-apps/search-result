@@ -91,6 +91,7 @@ const SearchQuery = ({
        * https://github.com/apollographql/react-apollo/issues/2202 */
       key={variables.query}
       query={productSearchV2}
+      ssr={false}
       variables={variables}
       notifyOnNetworkStatusChange
       partialRefetch
