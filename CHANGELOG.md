@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.29.2] - 2019-08-29
+
 ## [3.29.1] - 2019-08-27
 ### Fixed
 - Fix rendering in IE11 by changing how to import from `react-spring` and upgrading `@vtex/css-handles`.
