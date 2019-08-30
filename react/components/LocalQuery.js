@@ -1,8 +1,10 @@
 import { path } from 'ramda'
 import React from 'react'
 import { useRuntime } from 'vtex.render-runtime'
-import SearchQuery from './SearchQuery'
+import { Query } from 'react-apollo'
+import { searchMetadata as searchMetadataQuery } from 'vtex.store-resources/Queries'
 
+import SearchQuery from './SearchQuery'
 import { SORT_OPTIONS } from '../OrderBy'
 
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
@@ -26,47 +28,57 @@ const LocalQuery = props => {
   const { page: runtimePage } = useRuntime()
 
   return (
-    <SearchQuery
-      maxItemsPerPage={maxItemsPerPage}
-      query={queryField}
-      map={map}
-      orderBy={orderBy}
-      priceRange={priceRange}
-      hideUnavailableItems={hideUnavailableItems}
-      pageQuery={pageQuery}
-    >
-      {(searchQuery, extraParams) => {
-        return render({
-          ...props,
-          searchQuery: {
-            ...searchQuery,
-            data: {
-              ...(searchQuery.data || {}),
-              products: path(
-                ['data', 'productSearch', 'products'],
-                searchQuery
-              ),
-            },
-            // backwards-compatibility with search-result <= 3.13.x
-            facets: path(['data', 'facets'], searchQuery),
-            products: path(['data', 'products'], searchQuery),
-            recordsFiltered: path(
-              ['data', 'facets', 'recordsFiltered'],
-              searchQuery
-            ),
-          },
-          searchContext: runtimePage,
-          pagesPath: runtimePage,
-          map,
-          orderBy,
-          priceRange,
-          page: extraParams.page,
-          from: extraParams.from,
-          to: extraParams.to,
-          maxItemsPerPage,
-        })
+    <Query query={searchMetadataQuery} variables={{ query: queryField, map }}>
+      {searchMetadataQuery => {
+        return (
+          <SearchQuery
+            maxItemsPerPage={maxItemsPerPage}
+            query={queryField}
+            map={map}
+            orderBy={orderBy}
+            priceRange={priceRange}
+            hideUnavailableItems={hideUnavailableItems}
+            pageQuery={pageQuery}
+          >
+            {(searchQuery, extraParams) => {
+              return render({
+                ...props,
+                searchQuery: {
+                  ...searchQuery,
+                  data: {
+                    ...(searchQuery.data || {}),
+                    products: path(
+                      ['data', 'productSearch', 'products'],
+                      searchQuery
+                    ),
+                  },
+                  // backwards-compatibility with search-result <= 3.13.x
+                  facets: path(['data', 'facets'], searchQuery),
+                  products: path(['data', 'products'], searchQuery),
+                  recordsFiltered: path(
+                    ['data', 'facets', 'recordsFiltered'],
+                    searchQuery
+                  ),
+                },
+                searchMetadata: path(
+                  ['data', 'searchMetadata'],
+                  searchMetadataQuery
+                ),
+                searchContext: runtimePage,
+                pagesPath: runtimePage,
+                map,
+                orderBy,
+                priceRange,
+                page: extraParams.page,
+                from: extraParams.from,
+                to: extraParams.to,
+                maxItemsPerPage,
+              })
+            }}
+          </SearchQuery>
+        )
       }}
-    </SearchQuery>
+    </Query>
   )
 }
 
