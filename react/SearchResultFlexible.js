@@ -1,10 +1,11 @@
-import React, { useMemo, useReducer, useEffect, useRef } from 'react'
+import React, { useMemo, useEffect, useRef } from 'react'
 import ContextProviders from './components/ContextProviders'
 import SearchResultContainer from './components/SearchResultContainer'
 import {
   SearchPageContext,
   SearchPageStateContext,
   SearchPageStateDispatch,
+  useSearchPageStateReducer,
 } from 'vtex.search-page-context/SearchPageContext'
 import { generateBlockClass } from '@vtex/css-handles'
 import { pathOr, isEmpty } from 'ramda'
@@ -19,22 +20,6 @@ const emptyFacets = {
   priceRanges: [],
   specificationFilters: [],
   categoriesTrees: [],
-}
-
-function reducer(state, action) {
-  const args = action.args || {}
-  switch (action.type) {
-    case 'SWITCH_LAYOUT':
-      const { mobileLayout } = args
-      return { ...state, mobileLayout }
-    case 'HIDE_CONTENT_LOADER':
-      return { ...state, showContentLoader: false }
-    case 'SET_FETCHING_MORE':
-      const { isFetchingMore } = args
-      return { ...state, isFetchingMore }
-    default:
-      return state
-  }
 }
 
 const useShowContentLoader = (searchQuery, dispatch) => {
@@ -84,11 +69,8 @@ const SearchResultFlexible = ({
     categoriesTrees &&
     categoriesTrees.length > 0
   const showFacets = showCategories || (!hideFacets && !isEmpty(filters))
-
-  const [state, dispatch] = useReducer(reducer, {
+  const [state, dispatch] = useSearchPageStateReducer({
     mobileLayout: mobileLayout.mode1,
-    showContentLoader: true,
-    isFetchingMore: false,
   })
 
   useShowContentLoader(searchQuery, dispatch)
@@ -153,7 +135,7 @@ const SearchResultFlexible = ({
               orderBy={orderBy}
             >
               {
-                <LoadingOverlay loading={searchQuery.loading}>
+                <LoadingOverlay loading={state.isFetchingMore}>
                   <div
                     className={`flex flex-column flex-grow-1 ${generateBlockClass(
                       styles['container--layout'],
