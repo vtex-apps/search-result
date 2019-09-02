@@ -1,9 +1,8 @@
 import { path } from 'ramda'
 import React from 'react'
 import { useRuntime } from 'vtex.render-runtime'
-import { searchMetadata as searchMetadataQuery } from 'vtex.store-resources/Queries'
-
 import SearchQuery from './SearchQuery'
+
 import { SORT_OPTIONS } from '../OrderBy'
 
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
@@ -56,7 +55,6 @@ const LocalQuery = props => {
               searchQuery
             ),
           },
-          searchMetadata: path(['data', 'searchMetadata'], searchMetadataQuery),
           searchContext: runtimePage,
           pagesPath: runtimePage,
           map,
