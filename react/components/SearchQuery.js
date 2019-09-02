@@ -1,7 +1,10 @@
 import { zip, split, head, join, tail } from 'ramda'
 import React, { useMemo } from 'react'
-import { Query } from 'react-apollo'
-import { productSearchV2 } from 'vtex.store-resources/Queries'
+import { graphql, compose } from 'react-apollo'
+import {
+  productSearchV2 as productSearch,
+  searchMetadata,
+} from 'vtex.store-resources/Queries'
 
 const DEFAULT_PAGE = 1
 
@@ -12,6 +15,53 @@ const splitQuery = split(QUERY_SEPARATOR)
 const splitMap = split(MAP_SEPARATOR)
 const joinQuery = join(QUERY_SEPARATOR)
 const joinMap = join(MAP_SEPARATOR)
+
+const shouldSkipMetadata = map => {
+  const firstMap = head((map || '').split(','))
+  return firstMap !== 'c' && firstMap !== 'b'
+}
+
+const ParallelQueries = ({
+  children,
+  extraParams,
+  productSearch,
+  searchMetadata = {}, //would be undefined when skipped
+}) => {
+  // We need to do this to keep the same format as when we were using the Query component.
+  const searchInfo = useMemo(
+    () => ({
+      ...(productSearch || {}),
+      data: {
+        productSearch: productSearch && productSearch.productSearch,
+        facets: productSearch && productSearch.facets,
+        searchMetadata: searchMetadata && searchMetadata.searchMetadata,
+      },
+    }),
+    [productSearch, searchMetadata]
+  )
+  return children(searchInfo, extraParams)
+}
+
+const productSearchHOC = graphql(productSearch, {
+  name: 'productSearch',
+  options: props => ({
+    variables: props.variables,
+    ssr: false,
+  }),
+})
+
+const searchMetadataHOC = graphql(searchMetadata, {
+  name: 'searchMetadata',
+  skip: props => props.skipSearchMetadata,
+  options: props => ({
+    variables: { query: props.variables.query, map: props.variables.map },
+  }),
+})
+
+const EnhancedParallelQueries = compose(
+  productSearchHOC,
+  searchMetadataHOC
+)(ParallelQueries)
 
 const includeFacets = (map, query) =>
   !!(map && map.length > 0 && query && query.length > 0)
@@ -84,25 +134,15 @@ const SearchQuery = ({
       page,
     }
   }, [variables, page])
+
   return (
-    <Query
-      /** This key fixes an issue where data from the previous query
-       * would persist after changing `variables`, while loading.
-       * https://github.com/apollographql/react-apollo/issues/2202 */
-      key={variables.query}
-      query={productSearchV2}
-      ssr={false}
+    <EnhancedParallelQueries
       variables={variables}
-      notifyOnNetworkStatusChange
-      partialRefetch
+      extraParams={extraParams}
+      skipSearchMetadata={shouldSkipMetadata(map)}
     >
-      {searchQuery => {
-        const safeSearchQuery = searchQuery.error
-          ? { ...searchQuery, data: {} }
-          : searchQuery
-        return children(safeSearchQuery, extraParams)
-      }}
-    </Query>
+      {children}
+    </EnhancedParallelQueries>
   )
 }
 
