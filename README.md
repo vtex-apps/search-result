@@ -21,10 +21,10 @@ This are the current supported blocks in this repository. Blocks not mentioned a
 | `search-result-layout.desktop`     | [SearchResultFlexible](react/SearchResultFlexible)                   | Block used to build layout for desktop.                                                                                                             |
 | `search-result-layout.mobile`      | [SearchResultFlexibleMobile](react/SearchResultFlexibleMobile)       | Block used to build layout for mobile.                                                                                                              |
 | `search-not-found-layout`          | [NotFoundLayout](react/NotFoundLayout)                               | Block used to layout when a user searches for a product that does not exist.                                                                        |
-| `layout-switcher`                  | [LayoutModeSwitcherFlexible](react/LayoutModeSwitcherFlexible)       | Enables user to switch between layout modes in mobile                                                                                               |
+| `search-layout-switcher`           | [LayoutModeSwitcherFlexible](react/LayoutModeSwitcherFlexible)       | Enables user to switch between layout modes in mobile                                                                                               |
 | `search-content`                   | [SearchContent](react/SearchContent)                                 | Block that chooses to show the `gallery` block if products are found and `not-found` if filters selected lead to an empty search                    |
-| `fetch-more`                       | [FetchMore](react/FetchMore)                                         | Renders the fetch more button if pagination is of type `show-more`. If it is infinite scroll, shows the `Loader` when bottom of the page is reached |
-| `products-count-per-page`          | [ProductCountPerPage](react/ProductCountPerPage)                     | Shows the total count of products displayed in search at the moment.                                                                                |
+| `search-fetch-more`                | [FetchMore](react/FetchMore)                                         | Renders the fetch more button if pagination is of type `show-more`. If it is infinite scroll, shows the `Loader` when bottom of the page is reached |
+| `search-products-count-per-page`   | [ProductCountPerPage](react/ProductCountPerPage)                     | Shows the total count of products displayed in search at the moment.                                                                                |
 | `order-by.v2`                      | [OrderByFlexible](react/OrderByFlexible)                             | Allows user to pick the type of order of the products displayed.                                                                                    |
 | `filter-navigator.v3`              | [FilterNavigatorFlexible](react/FilterNavigatorFlexible)             | Allows user to apply different filters to search. On mobile, renders a button that shows the sidebar when pressed.                                  |
 | `total-products.v2`                | [TotalProductsFlexible](react/TotalProductsFlexible)                 | Shows the total products count found for that search.                                                                                               |
@@ -83,13 +83,13 @@ If you want to use the `.customQuery`:
 }
 ```
 
-In order to be used inside the flexbile block, we created: `breadcrumb.search`, `fetch-more`, `search-content`, `products-count-per-page`, `filter-navigator.v3`, `total-products.v2`, `order-by.v2` & `search-title.v2`.
+In order to be used inside the flexbile block, we created: `breadcrumb.search`, `search-fetch-more`, `search-content`, `search-products-count-per-page`, `filter-navigator.v3`, `total-products.v2`, `order-by.v2` & `search-title.v2`.
 
 Noticeable notes:
 
-- `fetch-more` renders the fetch more button or the loading spinner, depending on your pagination type.
+- `search-fetch-more` renders the fetch more button or the loading spinner, depending on your pagination type.
 - `search-content` renders the gallery or the not-found block, depending on the products returned for the specified filters.
-- `products-count-per-page` renders the current products count displayed.
+- `search-products-count-per-page` renders the current products count displayed.
 - All `*.v2` or `.v3` is just a version bump, no changes in behaviour, the changes are that the new components now fetch the data from the search page context and should only be used in the flexible layout. Also changes the wrapper css class, usually by just adding a `--layout` to the previous used class (like `filters` to `filters--layout`).
 
 Read more at the `Max Items Per Page Usage` section.

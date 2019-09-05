@@ -58,14 +58,14 @@
     "component": "SearchResultLayoutCustomQuery",
     "render": "lazy"
   },
-  "layout-switcher": {
+  "search-layout-switcher": {
     "component": "LayoutModeSwitcherFlexible"
   },
   "search-content": {
     "required": ["gallery", "not-found"],
     "component": "SearchContent"
   },
-  "fetch-more": {
+  "search-fetch-more": {
     "component": "FetchMore"
   },
   "search-result-layout.desktop": {
@@ -78,9 +78,9 @@
       "rich-text",
       "info-card",
       "flex-layout",
-      "fetch-more",
+      "search-fetch-more",
       "search-content",
-      "products-count-per-page"
+      "search-products-count-per-page"
     ],
     "composition": "children",
     "component": "SearchResultFlexible"
@@ -95,10 +95,10 @@
       "rich-text",
       "info-card",
       "flex-layout",
-      "layout-switcher",
-      "fetch-more",
+      "search-layout-switcher",
+      "search-fetch-more",
       "search-content",
-      "products-count-per-page"
+      "search-products-count-per-page"
     ],
     "composition": "children",
     "component": "SearchResultFlexibleMobile"
@@ -115,7 +115,7 @@
     "composition": "children",
     "component": "NotFoundLayout"
   },
-  "products-count-per-page": {
+  "search-products-count-per-page": {
     "component": "ProductCountPerPage"
   },
   "order-by.v2": {
