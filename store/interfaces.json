@@ -44,7 +44,7 @@
     "allowed": [
       "search-result-layout.desktop",
       "search-result-layout.mobile",
-      "not-found-layout"
+      "search-not-found-layout"
     ],
     "component": "SearchResultLayout",
     "render": "lazy"
@@ -53,7 +53,7 @@
     "allowed": [
       "search-result-layout.desktop",
       "search-result-layout.mobile",
-      "not-found-layout"
+      "search-not-found-layout"
     ],
     "component": "SearchResultLayoutCustomQuery",
     "render": "lazy"
@@ -103,7 +103,7 @@
     "composition": "children",
     "component": "SearchResultFlexibleMobile"
   },
-  "not-found-layout": {
+  "search-not-found-layout": {
     "allowed": [
       "breadcrumb.search",
       "search-title.v2",

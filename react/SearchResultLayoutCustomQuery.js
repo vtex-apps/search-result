@@ -37,7 +37,7 @@ const ExtensionPointWithProps = ({ id, parentProps, localSearchQueryData }) => (
 
 const SearchResultLayoutCustomQuery = props => {
   const hasMobileBlock = !!useChildBlock({ id: 'search-result-layout.mobile' })
-  const hasCustomNotFound = !!useChildBlock({ id: 'not-found-layout' })
+  const hasCustomNotFound = !!useChildBlock({ id: 'search-not-found-layout' })
   const { isMobile } = useDevice()
 
   if (!props.querySchema) {
@@ -60,7 +60,7 @@ const SearchResultLayoutCustomQuery = props => {
         ) {
           return (
             <ExtensionPointWithProps
-              id="not-found-layout"
+              id="search-not-found-layout"
               parentProps={props}
               localSearchQueryData={localSearchQueryData}
             />

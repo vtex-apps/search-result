@@ -23,11 +23,11 @@ const foundNothing = searchQuery => {
 const SearchResultLayout = props => {
   const { searchQuery } = props
   const hasMobileBlock = !!useChildBlock({ id: 'search-result-layout.mobile' })
-  const hasCustomNotFound = !!useChildBlock({ id: 'not-found-layout' })
+  const hasCustomNotFound = !!useChildBlock({ id: 'search-not-found-layout' })
   const { isMobile } = useDevice()
 
   if (foundNothing(searchQuery) && hasCustomNotFound) {
-    return <ExtensionPoint id="not-found-layout" {...props} />
+    return <ExtensionPoint id="search-not-found-layout" {...props} />
   }
 
   if (hasMobileBlock && isMobile) {

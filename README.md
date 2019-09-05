@@ -20,7 +20,7 @@ This are the current supported blocks in this repository. Blocks not mentioned a
 | `search-result-layout.customQuery` | [SearchResultLayoutCustomQuery](react/SearchResultLayoutCustomQuery) | Just like `search-result-layout` but accepts a `querySchema` prop to execute custom query.                                                          |
 | `search-result-layout.desktop`     | [SearchResultFlexible](react/SearchResultFlexible)                   | Block used to build layout for desktop.                                                                                                             |
 | `search-result-layout.mobile`      | [SearchResultFlexibleMobile](react/SearchResultFlexibleMobile)       | Block used to build layout for mobile.                                                                                                              |
-| `not-found-layout`                 | [NotFoundLayout](react/NotFoundLayout)                               | Block used to layout when a user searches for a product that does not exist.                                                                        |
+| `search-not-found-layout`          | [NotFoundLayout](react/NotFoundLayout)                               | Block used to layout when a user searches for a product that does not exist.                                                                        |
 | `layout-switcher`                  | [LayoutModeSwitcherFlexible](react/LayoutModeSwitcherFlexible)       | Enables user to switch between layout modes in mobile                                                                                               |
 | `search-content`                   | [SearchContent](react/SearchContent)                                 | Block that chooses to show the `gallery` block if products are found and `not-found` if filters selected lead to an empty search                    |
 | `fetch-more`                       | [FetchMore](react/FetchMore)                                         | Renders the fetch more button if pagination is of type `show-more`. If it is infinite scroll, shows the `Loader` when bottom of the page is reached |
@@ -34,11 +34,11 @@ This are the current supported blocks in this repository. Blocks not mentioned a
 
 `search-result` now supports a flexible layout and has all its benefits, specially using the `flex-layout` block.
 
-You now have access to `search-result-layout`, it supports three differents blocks: `search-result-layout.desktop`, `search-result-layout.mobile`, `not-found-layout`.
+You now have access to `search-result-layout`, it supports three differents blocks: `search-result-layout.desktop`, `search-result-layout.mobile`, `search-not-found-layout`.
 
 `search-result-layout.desktop` is rendered when user is using a desktop. The `.mobile` interface is rendered (if provided), when user is using a mobile device. If the `.mobile` is not provided, the `.desktop` will be used.
 
-The `not-found-layout` is used (if provided) when the user searches for a term that returns nothing. Important notice: if the user lands on a search page and adds filters until it reachs a empty search, this block will not be rendered!
+The `search-not-found-layout` is used (if provided) when the user searches for a term that returns nothing. Important notice: if the user lands on a search page and adds filters until it reachs a empty search, this block will not be rendered!
 
 We also created the `search-result-layout.customQuery`. If you want to display a custom search-result, by passing a custom querySchema, this block should be used. `search-result-layout` does not read the values of a `querySchema` prop!
 
