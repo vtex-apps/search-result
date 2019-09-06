@@ -25,13 +25,13 @@ const FetchMore = () => {
   const changeState = () =>
     dispatch({ type: 'SET_FETCHING_MORE', args: { isFetchingMore: true } })
 
-  const isInfinite = pagination === 'infinite-scroll'
+  const isShowMore = pagination === 'show-more'
 
   if (isFetchingMore === undefined) {
     return null
   }
 
-  if (!isInfinite) {
+  if (isShowMore) {
     return (
       <div
         className={classNames(
