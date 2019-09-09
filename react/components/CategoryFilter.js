@@ -41,7 +41,7 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
 
   const lastSelectedCategory = selectedCategories[selectedCategories.length - 1]
 
-  const canDisableRoot = map.split(',').includes('ft')
+  const canDisableRoot = map.split(',').indexOf('c') === -1
 
   const handleRootCategoryClick = () => {
     if (!canDisableRoot) {
@@ -61,7 +61,10 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
       <div
         role="button"
         tabIndex={canDisableRoot ? 0 : -1}
-        className={classNames(styles.categoryParent, 'flex items-center pointer')}
+        className={classNames(
+          styles.categoryParent,
+          'flex items-center pointer'
+        )}
         onClick={handleRootCategoryClick}
         onKeyDown={e => e.key === 'Enter' && handleRootCategoryClick()}
       >
@@ -122,29 +125,29 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
                 mt2: shallow,
               })}
             >
-             <NoSSR>
-              <Collapsible
-                items={lastSelectedCategory.children}
-                maxItems={8}
-                threshold={2}
-                linkClassName="ml3"
-                openLabel="store/filter.more-categories"
-                render={(childCategory, index) => (
-                  <CategoryItem
-                    key={childCategory.id}
-                    className={classNames({
-                      mt2: index === 0 && !shallow,
-                    })}
-                    onClick={() =>
-                      onCategorySelect(
-                        shallow ? [category, childCategory] : childCategory
-                      )
-                    }
-                    label={childCategory.name}
-                  />
-                )}
-              />
-             </NoSSR>
+              <NoSSR>
+                <Collapsible
+                  items={lastSelectedCategory.children}
+                  maxItems={8}
+                  threshold={2}
+                  linkClassName="ml3"
+                  openLabel="store/filter.more-categories"
+                  render={(childCategory, index) => (
+                    <CategoryItem
+                      key={childCategory.id}
+                      className={classNames({
+                        mt2: index === 0 && !shallow,
+                      })}
+                      onClick={() =>
+                        onCategorySelect(
+                          shallow ? [category, childCategory] : childCategory
+                        )
+                      }
+                      label={childCategory.name}
+                    />
+                  )}
+                />
+              </NoSSR>
             </div>
           )}
       </div>
