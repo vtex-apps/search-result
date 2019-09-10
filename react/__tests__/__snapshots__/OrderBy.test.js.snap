@@ -3,76 +3,72 @@
 exports[`<OrderBy /> should match snapshot in mobile 1`] = `
 <DocumentFragment>
   <div
-    class="orderBy"
+    class="orderByDropdown relative pt1 justify-end w-100 w-auto-ns ml-auto"
   >
+    <button
+      class="orderByButton ph3 pv5 mv0 pointer flex items-center justify-end bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100 outline-0 b--transparent pl1"
+    >
+      <span
+        class="filterPopupTitle c-on-base t-action--small ml-auto-ns"
+      >
+        <span
+          class="c-muted-2"
+        >
+          Sort By
+        </span>
+         Sales
+      </span>
+      <span
+        class="filterPopupArrowIcon ph5 pt1"
+      >
+        <div>
+          IconCaret
+        </div>
+      </span>
+    </button>
     <div
-      class="orderByDropdown relative pt1 justify-end w-100 w-auto-ns ml-auto"
+      class="orderByOptionsContainer z-1 absolute bg-base shadow-5 w-100 f5 b--muted-4 br2 ba bw1 br--bottom top-0 right-0-ns dn"
     >
       <button
-        class="orderByButton ph3 pv5 mv0 pointer flex items-center justify-end bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100 outline-0 b--transparent pl1"
+        class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
       >
-        <span
-          class="filterPopupTitle c-on-base t-action--small ml-auto-ns"
-        >
-          <span
-            class="c-muted-2"
-          >
-            Sort By
-          </span>
-           Sales
-        </span>
-        <span
-          class="filterPopupArrowIcon ph5 pt1"
-        >
-          <div>
-            IconCaret
-          </div>
-        </span>
+        Relevance
       </button>
-      <div
-        class="orderByOptionsContainer z-1 absolute bg-base shadow-5 w-100 f5 b--muted-4 br2 ba bw1 br--bottom top-0 right-0-ns dn"
+      <button
+        class="orderByOptionItem bg-light-gray  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
       >
-        <button
-          class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-        >
-          Relevance
-        </button>
-        <button
-          class="orderByOptionItem bg-light-gray  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-        >
-          Sales
-        </button>
-        <button
-          class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-        >
-          Release Date
-        </button>
-        <button
-          class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-        >
-          Discount
-        </button>
-        <button
-          class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-        >
-          Price: High to Low
-        </button>
-        <button
-          class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-        >
-          Price: Low to High
-        </button>
-        <button
-          class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-        >
-          Name, ascending
-        </button>
-        <button
-          class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-        >
-          Name, descending
-        </button>
-      </div>
+        Sales
+      </button>
+      <button
+        class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
+      >
+        Release Date
+      </button>
+      <button
+        class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
+      >
+        Discount
+      </button>
+      <button
+        class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
+      >
+        Price: High to Low
+      </button>
+      <button
+        class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
+      >
+        Price: Low to High
+      </button>
+      <button
+        class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
+      >
+        Name, ascending
+      </button>
+      <button
+        class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
+      >
+        Name, descending
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -81,76 +77,72 @@ exports[`<OrderBy /> should match snapshot in mobile 1`] = `
 exports[`<OrderBy /> should match snapshot in web mod 1`] = `
 <DocumentFragment>
   <div
-    class="orderBy"
+    class="orderByDropdown relative pt1 justify-end w-100 w-auto-ns ml-auto"
   >
+    <button
+      class="orderByButton ph3 pv5 mv0 pointer flex items-center justify-end bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100 outline-0 b--transparent pl1"
+    >
+      <span
+        class="filterPopupTitle c-on-base t-action--small ml-auto-ns"
+      >
+        <span
+          class="c-muted-2"
+        >
+          Sort By
+        </span>
+         Sales
+      </span>
+      <span
+        class="filterPopupArrowIcon ph5 pt1"
+      >
+        <div>
+          IconCaret
+        </div>
+      </span>
+    </button>
     <div
-      class="orderByDropdown relative pt1 justify-end w-100 w-auto-ns ml-auto"
+      class="orderByOptionsContainer z-1 absolute bg-base shadow-5 w-100 f5 b--muted-4 br2 ba bw1 br--bottom top-0 right-0-ns dn"
     >
       <button
-        class="orderByButton ph3 pv5 mv0 pointer flex items-center justify-end bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100 outline-0 b--transparent pl1"
+        class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
       >
-        <span
-          class="filterPopupTitle c-on-base t-action--small ml-auto-ns"
-        >
-          <span
-            class="c-muted-2"
-          >
-            Sort By
-          </span>
-           Sales
-        </span>
-        <span
-          class="filterPopupArrowIcon ph5 pt1"
-        >
-          <div>
-            IconCaret
-          </div>
-        </span>
+        Relevance
       </button>
-      <div
-        class="orderByOptionsContainer z-1 absolute bg-base shadow-5 w-100 f5 b--muted-4 br2 ba bw1 br--bottom top-0 right-0-ns dn"
+      <button
+        class="orderByOptionItem bg-light-gray  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
       >
-        <button
-          class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-        >
-          Relevance
-        </button>
-        <button
-          class="orderByOptionItem bg-light-gray  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-        >
-          Sales
-        </button>
-        <button
-          class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-        >
-          Release Date
-        </button>
-        <button
-          class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-        >
-          Discount
-        </button>
-        <button
-          class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-        >
-          Price: High to Low
-        </button>
-        <button
-          class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-        >
-          Price: Low to High
-        </button>
-        <button
-          class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-        >
-          Name, ascending
-        </button>
-        <button
-          class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-        >
-          Name, descending
-        </button>
-      </div>
+        Sales
+      </button>
+      <button
+        class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
+      >
+        Release Date
+      </button>
+      <button
+        class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
+      >
+        Discount
+      </button>
+      <button
+        class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
+      >
+        Price: High to Low
+      </button>
+      <button
+        class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
+      >
+        Price: Low to High
+      </button>
+      <button
+        class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
+      >
+        Name, ascending
+      </button>
+      <button
+        class="orderByOptionItem hover-bg-muted-5 bg-base  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
+      >
+        Name, descending
+      </button>
     </div>
   </div>
 </DocumentFragment>

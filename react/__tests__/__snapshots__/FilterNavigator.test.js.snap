@@ -1,5 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<FilterNavigator /> should display related categories 1`] = `<DocumentFragment />`;
+exports[`<FilterNavigator /> should display related categories 1`] = `
+<DocumentFragment>
+  <div
+    class="flex items-center justify-center flex-auto h-100"
+  >
+    <button
+      class="filterPopupButton ph3 pv5 mv0 mv0 pointer flex justify-center items-center bn"
+    >
+      <span
+        class="filterPopupTitle c-on-base t-action--small ml-auto"
+      >
+        <span>
+          Filter
+        </span>
+      </span>
+      <span
+        class="filterPopupArrowIcon ml-auto pl3 pt2"
+      >
+        <div>
+          IconFilter
+        </div>
+      </span>
+    </button>
+  </div>
+</DocumentFragment>
+`;
 
-exports[`<FilterNavigator /> should match snapshot with all 1`] = `<DocumentFragment />`;
+exports[`<FilterNavigator /> should match snapshot with all 1`] = `
+<DocumentFragment>
+  <div
+    class="flex items-center justify-center flex-auto h-100"
+  >
+    <button
+      class="filterPopupButton ph3 pv5 mv0 mv0 pointer flex justify-center items-center bn"
+    >
+      <span
+        class="filterPopupTitle c-on-base t-action--small ml-auto"
+      >
+        <span>
+          Filter
+        </span>
+      </span>
+      <span
+        class="filterPopupArrowIcon ml-auto pl3 pt2"
+      >
+        <div>
+          IconFilter
+        </div>
+      </span>
+    </button>
+  </div>
+</DocumentFragment>
+`;
