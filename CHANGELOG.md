@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.31.0] - 2019-09-10
+
 ## [3.30.2] - 2019-09-09
 ### Fixed
 - Only block department navigation when a category facet is present.
