@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.31.1] - 2019-09-10
+
 ### Changed
 - Make shelf render strategy `client`, i.e. component assets are fetched client-side with same priority as server-side blocks.
 
