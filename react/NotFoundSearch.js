@@ -6,8 +6,6 @@ import { range } from 'ramda'
 
 import searchResult from './searchResult.css'
 
-const flexStyle = { flex: 1 }
-
 /**
  * Not found page component, rendered when the search doesn't return any
  * products from the API.
@@ -20,13 +18,10 @@ const NotFoundSearch = ({ term }) => {
           searchResult.searchNotFound
         } flex flex-column-s flex-row-ns justify-center-ns items-center h-auto-s h5-ns`}
       >
-        <div
-          className="flex justify-end-ns justify-center-s ttu f1 ph4 pv4-s pv0-ns c-muted-3 ph9 b"
-          style={flexStyle}
-        >
+        <div className="flex justify-end-ns justify-center-s ttu f1 ph4 pv4-s pv0-ns c-muted-3 ph9 b">
           oops!
         </div>
-        <div className="ph9" style={flexStyle}>
+        <div className="flex flex-column ph9">
           {term ? (
             <FormattedMessage
               id="store/search.empty-products"

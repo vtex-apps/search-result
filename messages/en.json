@@ -27,7 +27,7 @@
 
   "store/search-result.show-more-button": "Show more",
   "store/search-result.showing-products": "Showing {value}",
-  "store/search-result.showing-products-count": "{productsLoaded, number} of {total, number}",  
+  "store/search-result.showing-products-count": "{productsLoaded, number} of {total, number}",
   "store/search-result.filter-button.title": "Filters",
   "store/search-result.filter-breadcrumbs.primary": "Filters",
   "store/search-result.filter-button.apply": "Apply",
@@ -68,5 +68,9 @@
   "store/gallery.gapType.none": "None",
   "store/gallery.gapType.small": "Small",
   "store/gallery.gapType.medium": "Medium",
-  "store/gallery.gapType.large": "Large"
+  "store/gallery.gapType.large": "Large",
+  "admin/editor.search-result-layout-custom.title": "Search Result Custom Flexible Layout",
+  "admin/editor.search-result-layout.title": "Search Result Flexible Layout",
+  "admin/editor.search-result-mobile.title": "Search Result Flexible Layout Mobile",
+  "admin/editor.search-result-desktop.title": "Search Result Flexible Layout Desktop"
 }

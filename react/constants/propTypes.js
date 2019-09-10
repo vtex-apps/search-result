@@ -168,7 +168,7 @@ export const searchResultContainerPropTypes = {
   /** Map param. e.g: c,c */
   map: PropTypes.string,
   /** Search result page. */
-  page: PropTypes.number.isRequired,
+  page: PropTypes.number,
   /** Search result ordernation. */
   orderBy: PropTypes.string,
   /** Price range filter */

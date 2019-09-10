@@ -34,7 +34,6 @@ class SearchResult extends Component {
     // on SSR the getDerivedStateFromProps isn't called
     products: this.props.products,
     recordsFiltered: this.props.recordsFiltered,
-    facetRecordsFiltered: this.props.facetRecordsFiltered,
     brands: this.props.brands,
     map: this.props.map,
     params: this.props.params,
@@ -70,7 +69,6 @@ class SearchResult extends Component {
       const {
         products,
         recordsFiltered,
-        facetRecordsFiltered,
         brands,
         map,
         params,
@@ -84,7 +82,6 @@ class SearchResult extends Component {
       return {
         products,
         recordsFiltered,
-        facetRecordsFiltered,
         brands,
         map,
         params,
@@ -129,7 +126,6 @@ class SearchResult extends Component {
     const {
       mobileLayoutMode,
       recordsFiltered,
-      facetRecordsFiltered,
       products = [],
       brands,
       map,
@@ -141,17 +137,6 @@ class SearchResult extends Component {
       hiddenFacets,
       showLoadingAsOverlay,
     } = this.state
-
-    const term =
-      params && params.term ? decodeURIComponent(params.term) : undefined
-
-    // only show the not found page if the reason for it
-    // isn't because of some applied filter, but that we
-    // *really* don't have any products to show for the
-    // current query
-    if (facetRecordsFiltered === 0 && !loading) {
-      return <ExtensionPoint id="not-found" term={term} />
-    }
 
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
@@ -190,25 +175,28 @@ class SearchResult extends Component {
           <ExtensionPoint
             id="search-title"
             breadcrumb={breadcrumbsProps.breadcrumb}
+            wrapperClass={styles.galleryTitle}
           />
-          {showFacets && (
-            <ExtensionPoint
-              id="filter-navigator"
-              brands={brands}
-              showFilters={!!map}
-              params={params}
-              priceRange={priceRange}
-              priceRanges={priceRanges}
-              specificationFilters={specificationFilters}
-              tree={tree}
-              loading={showContentLoader}
-              filters={filters}
-              hiddenFacets={hiddenFacets}
-            />
+          {showFacets && !!map && (
+            <div className={styles.filters}>
+              <ExtensionPoint
+                id="filter-navigator"
+                brands={brands}
+                params={params}
+                priceRange={priceRange}
+                priceRanges={priceRanges}
+                specificationFilters={specificationFilters}
+                tree={tree}
+                loading={showContentLoader}
+                filters={filters}
+                hiddenFacets={hiddenFacets}
+              />
+            </div>
           )}
           <ExtensionPoint
             id="total-products"
             recordsFiltered={recordsFiltered}
+            wrapperClass={styles.totalProducts}
           />
           <div className={styles.resultGallery}>
             {showContentLoader ? (
@@ -233,7 +221,13 @@ class SearchResult extends Component {
             )}
             {children}
           </div>
-          <ExtensionPoint id="order-by" orderBy={orderBy} />
+          <div className={styles.orderBy}>
+            <ExtensionPoint
+              id="order-by"
+              orderBy={orderBy}
+              wrapperClass={styles.orderBy}
+            />
+          </div>
           {isMobile && shouldDisplayLayoutSwitcher && (
             <div
               className={`${styles.switch} flex justify-center items-center`}

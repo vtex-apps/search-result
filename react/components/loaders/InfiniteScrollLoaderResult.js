@@ -9,7 +9,13 @@ import SearchResult from '../SearchResult'
  * Search Result Component.
  */
 const InfiniteScrollLoaderResult = props => {
-  const { onFetchMore, recordsFiltered, fetchMoreLoading, products } = props
+  const {
+    onFetchMore,
+    recordsFiltered,
+    fetchMoreLoading,
+    products,
+    children,
+  } = props
 
   return (
     <InfiniteScroll
@@ -19,15 +25,17 @@ const InfiniteScrollLoaderResult = props => {
       hasMore={products.length < recordsFiltered}
       useWindow={false}
     >
-      <SearchResult {...props}>
-        {fetchMoreLoading && (
-          <div className="w-100 flex justify-center">
-            <div className="w3 ma0">
-              <Spinner />
+      {children || (
+        <SearchResult {...props}>
+          {fetchMoreLoading && (
+            <div className="w-100 flex justify-center">
+              <div className="w3 ma0">
+                <Spinner />
+              </div>
             </div>
-          </div>
-        )}
-      </SearchResult>
+          )}
+        </SearchResult>
+      )}
     </InfiniteScroll>
   )
 }

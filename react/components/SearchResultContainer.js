@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import { min } from 'ramda'
 
 import { Container } from 'vtex.store-components'
@@ -7,15 +7,44 @@ import { PopupProvider } from './Popup'
 import InfiniteScrollLoaderResult from './loaders/InfiniteScrollLoaderResult'
 import ShowMoreLoaderResult from './loaders/ShowMoreLoaderResult'
 import { searchResultContainerPropTypes } from '../constants/propTypes'
+import {
+  useSearchPageStateDispatch,
+  useSearchPageState,
+} from 'vtex.search-page-context/SearchPageContext'
 
 const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
+
+const useFetchingMore = () => {
+  const [fetchMoreLoading, localSetMore] = useState(false)
+  const { isFetchingMore } = useSearchPageState()
+  const dispatch = useSearchPageStateDispatch()
+  const setFetchMore = useCallback(
+    value => {
+      dispatch({ type: 'SET_FETCHING_MORE', args: { isFetchingMore: value } })
+      localSetMore(value)
+    },
+    [dispatch]
+  )
+  const stateValue =
+    isFetchingMore === undefined ? fetchMoreLoading : isFetchingMore
+  return [stateValue, setFetchMore]
+}
+
+const useFetchMoreOnStateChange = (fetchMore, isFetchingMore) => {
+  const isFetchingRef = useRef(false)
+  const isFetchingPrevious = isFetchingRef.current
+  // Fire fetch more if user just pressed on button, save previous state on ref to not get lost
+  if (isFetchingMore && !isFetchingPrevious) {
+    fetchMore()
+  }
+  isFetchingRef.current = isFetchingMore
+}
 
 /**
  * Search Result Container Component.
  */
 const SearchResultContainer = props => {
   const {
-    showMore = false,
     maxItemsPerPage = 10,
     searchQuery: {
       fetchMore,
@@ -25,7 +54,6 @@ const SearchResultContainer = props => {
           specificationFilters = [],
           priceRanges = [],
           categoriesTrees,
-          recordsFiltered: facetRecordsFiltered,
         } = {},
         productSearch: { products = [], recordsFiltered, breadcrumb = [] } = {},
       } = {},
@@ -33,9 +61,10 @@ const SearchResultContainer = props => {
       variables: { query },
     },
     pagination,
+    children,
   } = props
 
-  const [fetchMoreLoading, setFetchMoreLoading] = useState(false)
+  const [fetchMoreLoading, setFetchMoreLoading] = useFetchingMore()
 
   const fetchMoreLocked = useRef(false)
 
@@ -86,6 +115,8 @@ const SearchResultContainer = props => {
     })
   }
 
+  useFetchMoreOnStateChange(handleFetchMore, fetchMoreLoading)
+
   const ResultComponent =
     pagination === PAGINATION_TYPES[0]
       ? ShowMoreLoaderResult
@@ -97,20 +128,20 @@ const SearchResultContainer = props => {
         <div id="search-result-anchor" />
         <ResultComponent
           {...props}
-          showMore={showMore}
           breadcrumbsProps={{ breadcrumb }}
           onFetchMore={handleFetchMore}
           fetchMoreLoading={fetchMoreLoading}
           query={query}
           loading={loading}
           recordsFiltered={recordsFiltered}
-          facetRecordsFiltered={facetRecordsFiltered}
           products={products}
           brands={brands}
           specificationFilters={specificationFilters}
           priceRanges={priceRanges}
           tree={categoriesTrees}
-        />
+        >
+          {children}
+        </ResultComponent>
       </PopupProvider>
     </Container>
   )

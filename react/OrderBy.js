@@ -4,8 +4,6 @@ import { injectIntl, intlShape } from 'react-intl'
 
 import SelectionListOrderBy from './components/SelectionListOrderBy'
 
-import searchResult from './searchResult.css'
-
 export const SORT_OPTIONS = [
   {
     value: '',
@@ -51,11 +49,7 @@ const OrderBy = ({ orderBy, intl }) => {
     })
   }, [intl])
 
-  return (
-    <div className={searchResult.orderBy}>
-      <SelectionListOrderBy orderBy={orderBy} options={sortingOptions} />
-    </div>
-  )
+  return <SelectionListOrderBy orderBy={orderBy} options={sortingOptions} />
 }
 
 OrderBy.propTypes = {

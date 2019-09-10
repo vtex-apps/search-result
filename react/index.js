@@ -1,12 +1,11 @@
-import React, { Component } from 'react'
-import { withRuntimeContext } from 'vtex.render-runtime'
+import React, { useMemo } from 'react'
+import { useRuntime } from 'vtex.render-runtime'
 
 import SearchResultContainer from './components/SearchResultContainer'
 import { SORT_OPTIONS } from './OrderBy'
 import LocalQuery from './components/LocalQuery'
 import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
-import QueryContext from './components/QueryContext'
-import SettingsContext from './components/SettingsContext'
+import ContextProviders from './components/ContextProviders'
 
 const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
@@ -17,71 +16,60 @@ const DEFAULT_MAX_ITEMS_PER_PAGE = 10
  */
 const trimStartingSlash = value => value && value.replace(/^\//, '')
 
-class SearchResultQueryLoader extends Component {
-  static defaultProps = {
-    orderBy: SORT_OPTIONS[0].value,
-  }
-
-  static uiSchema = {
-    maxItemsPerLine: {
-      'ui:widget': 'radio',
-      'ui:options': {
-        inline: true,
-      },
-    },
-  }
-
-  render() {
-    const {
-      querySchema,
+const SearchResult = props => {
+  const {
+    querySchema,
+    hiddenFacets,
+    pagination,
+    mobileLayout,
+    searchQuery,
+  } = props
+  const { query } = useRuntime()
+  const settings = useMemo(
+    () => ({
       hiddenFacets,
-      showFacetsQuantity,
       pagination,
       mobileLayout,
-      runtime: { query },
-    } = this.props
+    }),
+    [hiddenFacets, mobileLayout, pagination]
+  )
 
-    const settings = {
-      hiddenFacets,
-      showFacetsQuantity,
-      pagination,
-      mobileLayout,
-    }
-
-    const fieldsFromQueryString = {
-      mapField: query.map,
-      queryField: trimStartingSlash(query.query),
-    }
-
-    const areFieldsFromQueryStringValid = !!(
-      fieldsFromQueryString.mapField && fieldsFromQueryString.queryField
-    )
-
-    return !this.props.searchQuery ||
-      (querySchema && querySchema.enableCustomQuery) ? (
-      <LocalQuery
-        {...this.props}
-        {...querySchema}
-        {...(areFieldsFromQueryStringValid ? fieldsFromQueryString : {})}
-        render={props => (
-          <QueryContext.Provider value={props.searchQuery.variables}>
-            <SettingsContext.Provider value={settings}>
-              <SearchResultContainer {...props} />
-            </SettingsContext.Provider>
-          </QueryContext.Provider>
-        )}
-      />
-    ) : (
-      <QueryContext.Provider value={this.props.searchQuery.variables}>
-        <SettingsContext.Provider value={settings}>
-          <SearchResultContainer {...this.props} />
-        </SettingsContext.Provider>
-      </QueryContext.Provider>
-    )
+  const fieldsFromQueryString = {
+    mapField: query.map,
+    queryField: trimStartingSlash(query.query),
   }
+
+  const areFieldsFromQueryStringValid = !!(
+    fieldsFromQueryString.mapField && fieldsFromQueryString.queryField
+  )
+
+  return !searchQuery || (querySchema && querySchema.enableCustomQuery) ? (
+    <LocalQuery
+      {...props}
+      {...querySchema}
+      {...(areFieldsFromQueryStringValid ? fieldsFromQueryString : {})}
+      render={localQueryProps => (
+        <ContextProviders
+          queryVariables={localQueryProps.searchQuery.variables}
+          settings={settings}
+        >
+          <SearchResultContainer {...localQueryProps} />
+        </ContextProviders>
+      )}
+    />
+  ) : (
+    <ContextProviders
+      queryVariables={searchQuery.variables}
+      settings={settings}
+    >
+      <SearchResultContainer {...props} />
+    </ContextProviders>
+  )
 }
 
-const SearchResult = withRuntimeContext(SearchResultQueryLoader)
+SearchResult.defaultProps = {
+  orderBy: SORT_OPTIONS[0].value,
+}
 
 SearchResult.getSchema = props => {
   const querySchema = !props.searchQuery
@@ -213,12 +201,6 @@ SearchResult.getSchema = props => {
           'admin/editor.search-result.pagination.show-more',
           'admin/editor.search-result.pagination.infinite-scroll',
         ],
-        isLayout: true,
-      },
-      showFacetQuantity: {
-        type: 'boolean',
-        title: 'admin/editor.search-result.facet-quantity',
-        default: false,
         isLayout: true,
       },
     },

@@ -68,5 +68,9 @@
   "store/gallery.gapType.none": "None",
   "store/gallery.gapType.small": "Small",
   "store/gallery.gapType.medium": "Medium",
-  "store/gallery.gapType.large": "Large"
+  "store/gallery.gapType.large": "Large",
+  "admin/editor.search-result-layout-custom.title": "Title of Search Result Layout Custom",
+  "admin/editor.search-result-layout.title": "Title of Search Result Layout",
+  "admin/editor.search-result-mobile.title": "Title of Search Result Layout for Mobile",
+  "admin/editor.search-result-desktop.title": "Title of Search Result Layout for Deskptop"
 }
