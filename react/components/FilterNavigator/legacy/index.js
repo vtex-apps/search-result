@@ -20,7 +20,6 @@ import {
 } from '../../../constants/propTypes'
 import useSelectedFilters from './hooks/useSelectedFilters'
 
-import searchResult from './searchResult.css'
 import getFilters from './utils/getFilters'
 
 const getCategories = (tree = []) => {
@@ -35,7 +34,6 @@ const getCategories = (tree = []) => {
  * as the popup filters that appear on mobile devices
  */
 const FilterNavigator = ({
-  showFilters,
   priceRange,
   tree = [],
   specificationFilters = [],
@@ -73,63 +71,53 @@ const FilterNavigator = ({
     'flex justify-center flex-auto bl br b--muted-5': isMobile,
   })
 
-  if (!showFilters) {
-    return null
-  }
-
   if (loading && !isMobile) {
     return (
-      <div className={searchResult.filters}>
-        <ContentLoader
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-          width="230"
-          height="320"
-          y="0"
-          x="0"
-        >
-          <rect width="100%" height="1em" />
-          <rect width="100%" height="8em" y="1.5em" />
-          <rect width="100%" height="1em" y="10.5em" />
-          <rect width="100%" height="8em" y="12em" />
-        </ContentLoader>
-      </div>
+      <ContentLoader
+        style={{
+          width: '100%',
+          height: '100%',
+        }}
+        width="230"
+        height="320"
+        y="0"
+        x="0"
+      >
+        <rect width="100%" height="1em" />
+        <rect width="100%" height="8em" y="1.5em" />
+        <rect width="100%" height="1em" y="10.5em" />
+        <rect width="100%" height="8em" y="12em" />
+      </ContentLoader>
     )
   }
 
   if (isMobile) {
     return (
-      <div className={searchResult.filters}>
-        <div className={filterClasses}>
-          <FilterSidebar
-            filters={filters}
-            preventRouteChange={preventRouteChange}
-          />
-        </div>
+      <div className={filterClasses}>
+        <FilterSidebar
+          filters={filters}
+          preventRouteChange={preventRouteChange}
+        />
       </div>
     )
   }
 
   return (
-    <div className={searchResult.filters}>
-      <div className={filterClasses}>
-        <div className="bb b--muted-4">
-          <h5 className="t-heading-5 mv5">
-            <FormattedMessage id="store/search-result.filter-button.title" />
-          </h5>
-        </div>
-        <SelectedFilters
-          filters={selectedFilters}
-          preventRouteChange={preventRouteChange}
-        />
-        <AvailableFilters
-          filters={filters}
-          priceRange={priceRange}
-          preventRouteChange={preventRouteChange}
-        />
+    <div className={filterClasses}>
+      <div className="bb b--muted-4">
+        <h5 className="t-heading-5 mv5">
+          <FormattedMessage id="store/search-result.filter-button.title" />
+        </h5>
       </div>
+      <SelectedFilters
+        filters={selectedFilters}
+        preventRouteChange={preventRouteChange}
+      />
+      <AvailableFilters
+        filters={filters}
+        priceRange={priceRange}
+        preventRouteChange={preventRouteChange}
+      />
     </div>
   )
 }
@@ -152,8 +140,6 @@ FilterNavigator.propTypes = {
   priceRanges: PropTypes.arrayOf(facetOptionShape),
   /** Current price range filter query parameter */
   priceRange: PropTypes.string,
-  /** Enables or disables filters */
-  showFilters: PropTypes.bool,
   /** Loading indicator */
   loading: PropTypes.bool,
   /** Prevents changing route when setting filters (uses URL search params instead) */
