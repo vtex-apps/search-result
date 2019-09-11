@@ -74,57 +74,51 @@ const FilterNavigator = ({
 
   if (loading && !isMobile) {
     return (
-      <div className={searchResult.filters}>
-        <ContentLoader
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-          width="230"
-          height="320"
-          y="0"
-          x="0"
-        >
-          <rect width="100%" height="1em" />
-          <rect width="100%" height="8em" y="1.5em" />
-          <rect width="100%" height="1em" y="10.5em" />
-          <rect width="100%" height="8em" y="12em" />
-        </ContentLoader>
-      </div>
+      <ContentLoader
+        style={{
+          width: '100%',
+          height: '100%',
+        }}
+        width="230"
+        height="320"
+        y="0"
+        x="0"
+      >
+        <rect width="100%" height="1em" />
+        <rect width="100%" height="8em" y="1.5em" />
+        <rect width="100%" height="1em" y="10.5em" />
+        <rect width="100%" height="8em" y="12em" />
+      </ContentLoader>
     )
   }
 
   if (isMobile) {
     return (
-      <div className={searchResult.filters}>
-        <div className={filterClasses}>
-          <FilterSidebar
-            filters={filters}
-            preventRouteChange={preventRouteChange}
-          />
-        </div>
+      <div className={filterClasses}>
+        <FilterSidebar
+          filters={filters}
+          preventRouteChange={preventRouteChange}
+        />
       </div>
     )
   }
 
   return (
-    <div className={searchResult.filters}>
-      <div className={filterClasses}>
-        <div className="bb b--muted-4">
-          <h5 className="t-heading-5 mv5">
-            <FormattedMessage id="store/search-result.filter-button.title" />
-          </h5>
-        </div>
-        <SelectedFilters
-          filters={selectedFilters}
-          preventRouteChange={preventRouteChange}
-        />
-        <AvailableFilters
-          filters={filters}
-          priceRange={priceRange}
-          preventRouteChange={preventRouteChange}
-        />
+    <div className={filterClasses}>
+      <div className="bb b--muted-4">
+        <h5 className="t-heading-5 mv5">
+          <FormattedMessage id="store/search-result.filter-button.title" />
+        </h5>
       </div>
+      <SelectedFilters
+        filters={selectedFilters}
+        preventRouteChange={preventRouteChange}
+      />
+      <AvailableFilters
+        filters={filters}
+        priceRange={priceRange}
+        preventRouteChange={preventRouteChange}
+      />
     </div>
   )
 }
