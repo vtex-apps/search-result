@@ -20,7 +20,6 @@ import {
 } from '../../../constants/propTypes'
 import useSelectedFilters from './hooks/useSelectedFilters'
 
-import searchResult from './searchResult.css'
 import getFilters from './utils/getFilters'
 
 const getCategories = (tree = []) => {
