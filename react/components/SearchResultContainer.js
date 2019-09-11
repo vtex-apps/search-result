@@ -74,21 +74,25 @@ const SearchResultContainer = props => {
 
   const { setQuery } = useRuntime()
 
-  const handleFetchMore = () => {
+  // ===============================================================
+  const fromRef = useRef((page - 1) * maxItemsPerPage)
+  const toRef = useRef(fromRef.current + maxItemsPerPage - 1)
+
+  //const handleFetchMorePrevious = () => {}
+
+  const handleFetchMore = (from, to, isForward) => {
     if (fetchMoreLocked.current || products.length === 0) {
       return
     }
 
     fetchMoreLocked.current = true
 
-    const to = min(maxItemsPerPage + products.length, recordsFiltered) - 1
-
     setFetchMoreLoading(true)
 
     fetchMore({
       variables: {
-        from: products.length,
-        to,
+        from: from,
+        to: to,
       },
       updateQuery: (prevResult, { fetchMoreResult }) => {
         setFetchMoreLoading(false)
@@ -99,10 +103,15 @@ const SearchResultContainer = props => {
           return {
             search: {
               ...prevResult.search,
-              products: [
-                ...prevResult.search.products,
-                ...fetchMoreResult.search.products,
-              ],
+              products: isForward
+                ? [
+                    ...prevResult.search.products,
+                    ...fetchMoreResult.search.products,
+                  ]
+                : [
+                    ...fetchMoreResult.search.products,
+                    ...prevResult.search.products,
+                  ],
             },
           }
         }
@@ -111,19 +120,36 @@ const SearchResultContainer = props => {
           ...prevResult,
           productSearch: {
             ...prevResult.productSearch,
-            products: [
-              ...prevResult.productSearch.products,
-              ...fetchMoreResult.productSearch.products,
-            ],
+            products: isForward
+              ? [
+                  ...prevResult.productSearch.products,
+                  ...fetchMoreResult.productSearch.products,
+                ]
+              : [
+                  ...fetchMoreResult.productSearch.products,
+                  ...prevResult.productSearch.products,
+                ],
           },
         }
       },
     })
+  }
+
+  const handleFetchMoreLoading = () => {
+    handleFetchMore(fromRef.current, toRef.current, true)
+  }
+
+  const handleFetchMoreNext = () => {
+    const from = toRef.current + 1
+    const to = min(recordsFiltered, from + maxItemsPerPage) - 1
+    handleFetchMore(from, to, true)
+    toRef.current = to
     pageRef.current += 1
     setQuery({ page: pageRef.current }, { replace: true })
   }
+  // ===============================================================
 
-  useFetchMoreOnStateChange(handleFetchMore, fetchMoreLoading)
+  useFetchMoreOnStateChange(handleFetchMoreLoading, fetchMoreLoading)
 
   const ResultComponent =
     pagination === PAGINATION_TYPES[0]
@@ -137,7 +163,7 @@ const SearchResultContainer = props => {
         <ResultComponent
           {...props}
           breadcrumbsProps={{ breadcrumb }}
-          onFetchMore={handleFetchMore}
+          onFetchMore={handleFetchMoreNext}
           fetchMoreLoading={fetchMoreLoading}
           query={query}
           loading={loading}
@@ -147,6 +173,8 @@ const SearchResultContainer = props => {
           specificationFilters={specificationFilters}
           priceRanges={priceRanges}
           tree={categoriesTrees}
+          to={toRef.current}
+          from={fromRef.current}
         >
           {children}
         </ResultComponent>
