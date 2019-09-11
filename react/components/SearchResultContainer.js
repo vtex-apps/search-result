@@ -7,6 +7,7 @@ import { PopupProvider } from './Popup'
 import InfiniteScrollLoaderResult from './loaders/InfiniteScrollLoaderResult'
 import ShowMoreLoaderResult from './loaders/ShowMoreLoaderResult'
 import { searchResultContainerPropTypes } from '../constants/propTypes'
+import { useRuntime } from 'vtex.render-runtime'
 import {
   useSearchPageStateDispatch,
   useSearchPageState,
@@ -61,12 +62,17 @@ const SearchResultContainer = props => {
       variables: { query },
     },
     pagination,
+    page,
     children,
   } = props
+
+  const pageRef = useRef(page)
 
   const [fetchMoreLoading, setFetchMoreLoading] = useFetchingMore()
 
   const fetchMoreLocked = useRef(false)
+
+  const { setQuery } = useRuntime()
 
   const handleFetchMore = () => {
     if (fetchMoreLocked.current || products.length === 0) {
@@ -113,6 +119,8 @@ const SearchResultContainer = props => {
         }
       },
     })
+    pageRef.current += 1
+    setQuery({ page: pageRef.current }, { replace: true })
   }
 
   useFetchMoreOnStateChange(handleFetchMore, fetchMoreLoading)

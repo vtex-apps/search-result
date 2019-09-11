@@ -48,6 +48,7 @@ const SearchResultFlexible = ({
   params,
   priceRange,
   orderBy,
+  page,
 }) => {
   const facets = pathOr(emptyFacets, ['data', 'facets'], searchQuery)
   const { brands, priceRanges, specificationFilters, categoriesTrees } = facets
@@ -133,6 +134,7 @@ const SearchResultFlexible = ({
               priceRange={priceRange}
               hiddenFacets={hiddenFacets}
               orderBy={orderBy}
+              page={page}
             >
               {
                 <LoadingOverlay loading={state.isFetchingMore}>

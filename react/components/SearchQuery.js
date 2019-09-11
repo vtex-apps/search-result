@@ -1,5 +1,5 @@
 import { zip, split, head, join, tail } from 'ramda'
-import React, { useMemo } from 'react'
+import React, { useMemo, useRef } from 'react'
 import { graphql, compose } from 'react-apollo'
 import {
   productSearchV2 as productSearch,
@@ -97,8 +97,9 @@ const SearchQuery = ({
   pageQuery,
   children,
 }) => {
-  const page = pageQuery ? parseInt(pageQuery) : DEFAULT_PAGE
-  const from = (page - 1) * maxItemsPerPage
+  const pageRef = useRef(pageQuery ? parseInt(pageQuery) : DEFAULT_PAGE)
+  const page = pageRef.current
+  const from = (pageRef.current - 1) * maxItemsPerPage
   const to = from + maxItemsPerPage - 1
   const facetsArgs = useFacetsArgs(query, map)
   const variables = useMemo(() => {
