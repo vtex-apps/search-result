@@ -35,7 +35,6 @@ const getCategories = (tree = []) => {
  * as the popup filters that appear on mobile devices
  */
 const FilterNavigator = ({
-  showFilters,
   priceRange,
   tree = [],
   specificationFilters = [],
@@ -72,10 +71,6 @@ const FilterNavigator = ({
   const filterClasses = classNames({
     'flex justify-center flex-auto bl br b--muted-5': isMobile,
   })
-
-  if (!showFilters) {
-    return null
-  }
 
   if (loading && !isMobile) {
     return (
@@ -152,8 +147,6 @@ FilterNavigator.propTypes = {
   priceRanges: PropTypes.arrayOf(facetOptionShape),
   /** Current price range filter query parameter */
   priceRange: PropTypes.string,
-  /** Enables or disables filters */
-  showFilters: PropTypes.bool,
   /** Loading indicator */
   loading: PropTypes.bool,
   /** Prevents changing route when setting filters (uses URL search params instead) */
