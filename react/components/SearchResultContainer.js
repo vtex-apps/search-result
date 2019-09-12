@@ -74,11 +74,8 @@ const SearchResultContainer = props => {
 
   const { setQuery } = useRuntime()
 
-  // ===============================================================
   const fromRef = useRef((page - 1) * maxItemsPerPage)
   const toRef = useRef(fromRef.current + maxItemsPerPage - 1)
-
-  //const handleFetchMorePrevious = () => {}
 
   const handleFetchMore = (from, to, isForward) => {
     if (fetchMoreLocked.current || products.length === 0) {
@@ -91,8 +88,8 @@ const SearchResultContainer = props => {
 
     fetchMore({
       variables: {
-        from: from,
-        to: to,
+        from,
+        to,
       },
       updateQuery: (prevResult, { fetchMoreResult }) => {
         setFetchMoreLoading(false)
@@ -147,7 +144,6 @@ const SearchResultContainer = props => {
     pageRef.current += 1
     setQuery({ page: pageRef.current }, { replace: true })
   }
-  // ===============================================================
 
   useFetchMoreOnStateChange(handleFetchMoreLoading, fetchMoreLoading)
 
