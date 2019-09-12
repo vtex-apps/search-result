@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Clicking on the `load more` button now changes the url. The back and forward feature is working properly to consider the page the user was in
+
+### Fixed
+- Load More feature to consider the current page the user is in
 
 ## [3.32.3] - 2019-09-23
 ### Added
