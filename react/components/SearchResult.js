@@ -114,7 +114,8 @@ class SearchResult extends Component {
 
   render() {
     const {
-      children,
+      fetchNextButton,
+      fetchPreviousButton,
       breadcrumbsProps,
       loading,
       fetchMoreLoading,
@@ -199,6 +200,7 @@ class SearchResult extends Component {
             wrapperClass={styles.totalProducts}
           />
           <div className={styles.resultGallery}>
+            {fetchPreviousButton}
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
                 <div className="w3 ma0">
@@ -219,7 +221,7 @@ class SearchResult extends Component {
                 <ExtensionPoint id="not-found" />
               </div>
             )}
-            {children}
+            {fetchNextButton}
           </div>
           <div className={styles.orderBy}>
             <ExtensionPoint

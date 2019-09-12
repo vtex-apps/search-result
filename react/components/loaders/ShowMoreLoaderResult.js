@@ -15,9 +15,11 @@ const ShowMoreLoaderResult = props => {
     products,
     recordsFiltered,
     onFetchMore,
+    onFetchPrevious,
     fetchMoreLoading,
     showProductsCount,
     children,
+    from,
     to,
   } = props
 
@@ -26,8 +28,22 @@ const ShowMoreLoaderResult = props => {
     return children
   }
 
-  return (
-    <SearchResult {...props}>
+  const fetchPreviousButton = (
+    <div className={`${searchResult.buttonShowMore} w-100 flex justify-center`}>
+      {!!products && from > 0 && (
+        <Button
+          onClick={onFetchPrevious}
+          isLoading={fetchMoreLoading}
+          size="small"
+        >
+          <FormattedMessage id="store/search-result.show-previous-button" />
+        </Button>
+      )}
+    </div>
+  )
+
+  const fetchNextButton = (
+    <div>
       <div
         className={`${searchResult.buttonShowMore} w-100 flex justify-center`}
       >
@@ -66,7 +82,15 @@ const ShowMoreLoaderResult = props => {
           />
         </div>
       )}
-    </SearchResult>
+    </div>
+  )
+
+  return (
+    <SearchResult
+      {...props}
+      fetchNextButton={fetchNextButton}
+      fetchPreviousButton={fetchPreviousButton}
+    />
   )
 }
 

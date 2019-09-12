@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react'
-import { min } from 'ramda'
+import { min, max } from 'ramda'
 
 import { Container } from 'vtex.store-components'
 
@@ -145,6 +145,15 @@ const SearchResultContainer = props => {
     setQuery({ page: pageRef.current }, { replace: true })
   }
 
+  const handleFetchMorePrevious = () => {
+    const to = fromRef.current - 1
+    const from = max(0, to - maxItemsPerPage + 1)
+    handleFetchMore(from, to, false)
+    fromRef.current = from
+    pageRef.current -= 1
+    setQuery({ page: pageRef.current }, { replace: true })
+  }
+
   useFetchMoreOnStateChange(handleFetchMoreLoading, fetchMoreLoading)
 
   const ResultComponent =
@@ -161,6 +170,7 @@ const SearchResultContainer = props => {
           breadcrumbsProps={{ breadcrumb }}
           onFetchMore={handleFetchMoreNext}
           fetchMoreLoading={fetchMoreLoading}
+          onFetchPrevious={handleFetchMorePrevious}
           query={query}
           loading={loading}
           recordsFiltered={recordsFiltered}
