@@ -67,6 +67,8 @@ const SearchResultContainer = props => {
   } = props
 
   const pageRef = useRef(page)
+  const nextPageRef = useRef(page + 1)
+  const previousPageRef = useRef(page - 1)
 
   const [fetchMoreLoading, setFetchMoreLoading] = useFetchingMore()
 
@@ -141,7 +143,8 @@ const SearchResultContainer = props => {
     const to = min(recordsFiltered, from + maxItemsPerPage) - 1
     handleFetchMore(from, to, true)
     toRef.current = to
-    pageRef.current += 1
+    pageRef.current = nextPageRef.current
+    nextPageRef.current += 1
     setQuery({ page: pageRef.current }, { replace: true })
   }
 
@@ -150,7 +153,8 @@ const SearchResultContainer = props => {
     const from = max(0, to - maxItemsPerPage + 1)
     handleFetchMore(from, to, false)
     fromRef.current = from
-    pageRef.current -= 1
+    pageRef.current = previousPageRef.current
+    previousPageRef.current -= 1
     setQuery({ page: pageRef.current }, { replace: true })
   }
 
