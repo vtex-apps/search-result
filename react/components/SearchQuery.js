@@ -16,16 +16,11 @@ const splitMap = split(MAP_SEPARATOR)
 const joinQuery = join(QUERY_SEPARATOR)
 const joinMap = join(MAP_SEPARATOR)
 
-const shouldSkipMetadata = map => {
-  const firstMap = head((map || '').split(','))
-  return firstMap !== 'c' && firstMap !== 'b'
-}
-
 const ParallelQueries = ({
   children,
   extraParams,
   productSearch,
-  searchMetadata = {}, //would be undefined when skipped
+  searchMetadata,
 }) => {
   // We need to do this to keep the same format as when we were using the Query component.
   const searchInfo = useMemo(
@@ -52,7 +47,6 @@ const productSearchHOC = graphql(productSearch, {
 
 const searchMetadataHOC = graphql(searchMetadata, {
   name: 'searchMetadata',
-  skip: props => props.skipSearchMetadata,
   options: props => ({
     variables: { query: props.variables.query, map: props.variables.map },
   }),
@@ -137,11 +131,7 @@ const SearchQuery = ({
   }, [variables, maxItemsPerPage, page])
 
   return (
-    <EnhancedParallelQueries
-      variables={variables}
-      extraParams={extraParams}
-      skipSearchMetadata={shouldSkipMetadata(map)}
-    >
+    <EnhancedParallelQueries variables={variables} extraParams={extraParams}>
       {children}
     </EnhancedParallelQueries>
   )
