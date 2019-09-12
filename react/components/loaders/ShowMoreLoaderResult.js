@@ -18,12 +18,9 @@ const ShowMoreLoaderResult = props => {
     fetchMoreLoading,
     showProductsCount,
     children,
-    from,
     to,
   } = props
 
-  console.log('from', from)
-  console.log('to', to)
   // If it has children, it is a flexible UI
   if (children) {
     return children
