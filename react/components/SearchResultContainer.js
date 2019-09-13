@@ -153,7 +153,8 @@ const SearchResultContainer = props => {
     const from = max(0, to - maxItemsPerPage + 1)
     handleFetchMore(from, to, false)
     fromRef.current = from
-    pageRef.current = previousPageRef.current
+    pageRef.current =
+      previousPageRef.current == 1 ? undefined : previousPageRef.current
     previousPageRef.current -= 1
     setQuery({ page: pageRef.current }, { replace: true })
   }

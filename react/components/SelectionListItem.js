@@ -8,7 +8,7 @@ const SelectionListItem = ({ option, onItemClick, selected }) => {
 
   const handleOptionClick = () => {
     onItemClick()
-    setQuery({ order: option.value })
+    setQuery({ order: option.value, page: undefined })
   }
 
   const highlight = selected ? 'bg-light-gray' : 'hover-bg-muted-5 bg-base'
