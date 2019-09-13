@@ -81,7 +81,7 @@
       "search-fetch-more",
       "search-content",
       "search-products-count-per-page",
-      "blog-search-preview"
+      "search-blog-articles-preview"
     ],
     "composition": "children",
     "component": "SearchResultFlexible"
@@ -100,7 +100,7 @@
       "search-fetch-more",
       "search-content",
       "search-products-count-per-page",
-      "blog-search-preview"
+      "search-blog-articles-preview"
     ],
     "composition": "children",
     "component": "SearchResultFlexibleMobile"

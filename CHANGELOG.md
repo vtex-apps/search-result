@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Added
-- Added `blog-search-preview` to allowed blocks.
+- Added `search-blog-articles-preview` to allowed blocks.
 
 ## [3.31.3] - 2019-09-12
 ### Fixed
