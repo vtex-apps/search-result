@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Clicking on the `load more` button now changes the url. The back and forward feature is working properly to consider the page the user was in.
+- Loading more results of a search result now changes the url. The back and forward feature is working properly to consider the page the user was last in.
 - Added a `show previous` button for when the user is not seeing the search results from the first item.
 
 ### Fixed

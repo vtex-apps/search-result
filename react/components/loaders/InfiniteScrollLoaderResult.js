@@ -37,6 +37,18 @@ const InfiniteScrollLoaderResult = props => {
     </div>
   )
 
+  const loadingSpinner = (
+    <div>
+      {fetchMoreLoading && (
+        <div className="w-100 flex justify-center">
+          <div className="w3 ma0">
+            <Spinner />
+          </div>
+        </div>
+      )}
+    </div>
+  )
+
   return (
     <InfiniteScroll
       style={{ overflow: 'none' }}
@@ -46,15 +58,11 @@ const InfiniteScrollLoaderResult = props => {
       useWindow={false}
     >
       {children || (
-        <SearchResult {...props} fetchPreviousButton={fetchPreviousButton}>
-          {fetchMoreLoading && (
-            <div className="w-100 flex justify-center">
-              <div className="w3 ma0">
-                <Spinner />
-              </div>
-            </div>
-          )}
-        </SearchResult>
+        <SearchResult
+          {...props}
+          fetchPreviousButton={fetchPreviousButton}
+          fetchNextButton={loadingSpinner}
+        />
       )}
     </InfiniteScroll>
   )
