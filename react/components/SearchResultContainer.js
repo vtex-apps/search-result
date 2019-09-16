@@ -4,16 +4,14 @@ import { min, max } from 'ramda'
 import { Container } from 'vtex.store-components'
 
 import { PopupProvider } from './Popup'
-import InfiniteScrollLoaderResult from './loaders/InfiniteScrollLoaderResult'
-import ShowMoreLoaderResult from './loaders/ShowMoreLoaderResult'
 import { searchResultContainerPropTypes } from '../constants/propTypes'
 import { useRuntime } from 'vtex.render-runtime'
 import {
   useSearchPageStateDispatch,
   useSearchPageState,
 } from 'vtex.search-page-context/SearchPageContext'
-
-const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
+import SearchResult from './SearchResult'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 const useFetchingMore = () => {
   const [fetchMoreLoading, localSetMore] = useState(false)
@@ -161,34 +159,46 @@ const SearchResultContainer = props => {
 
   useFetchMoreOnStateChange(handleFetchMoreLoading, fetchMoreLoading)
 
-  const ResultComponent =
-    pagination === PAGINATION_TYPES[0]
-      ? ShowMoreLoaderResult
-      : InfiniteScrollLoaderResult
+  const resultComponent = children || (
+    <SearchResult
+      {...props}
+      breadcrumbsProps={{ breadcrumb }}
+      onFetchMore={handleFetchMoreNext}
+      fetchMoreLoading={fetchMoreLoading}
+      onFetchPrevious={handleFetchMorePrevious}
+      pagination={pagination}
+      query={query}
+      loading={loading}
+      recordsFiltered={recordsFiltered}
+      products={products}
+      brands={brands}
+      specificationFilters={specificationFilters}
+      priceRanges={priceRanges}
+      tree={categoriesTrees}
+      to={toRef.current}
+      from={fromRef.current}
+    />
+  )
+
+  const infiniteScrollComponent = (
+    <InfiniteScroll
+      style={{ overflow: 'none' }}
+      dataLength={products.length}
+      next={handleFetchMoreNext}
+      hasMore={toRef.current + 1 < recordsFiltered}
+      useWindow={false}
+    >
+      {resultComponent}
+    </InfiniteScroll>
+  )
+
+  const isInfiniteScroll = pagination === 'infinite-scroll'
 
   return (
     <Container className="pt3-m pt5-l">
       <PopupProvider>
         <div id="search-result-anchor" />
-        <ResultComponent
-          {...props}
-          breadcrumbsProps={{ breadcrumb }}
-          onFetchMore={handleFetchMoreNext}
-          fetchMoreLoading={fetchMoreLoading}
-          onFetchPrevious={handleFetchMorePrevious}
-          query={query}
-          loading={loading}
-          recordsFiltered={recordsFiltered}
-          products={products}
-          brands={brands}
-          specificationFilters={specificationFilters}
-          priceRanges={priceRanges}
-          tree={categoriesTrees}
-          to={toRef.current}
-          from={fromRef.current}
-        >
-          {children}
-        </ResultComponent>
+        {isInfiniteScroll ? infiniteScrollComponent : resultComponent}
       </PopupProvider>
     </Container>
   )
