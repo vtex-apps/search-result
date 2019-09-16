@@ -10,8 +10,7 @@
       "rich-text"
     ],
     "required": ["gallery"],
-    "component": "index",
-    "render": "client"
+    "component": "index"
   },
   "filter-navigator": {
     "component": "FilterNavigatorLegacy"
