@@ -91,6 +91,7 @@ const SearchResultFlexible = ({
       pagination,
       mobileLayout,
       searchQuery,
+      page,
       maxItemsPerPage,
       map,
       params,
@@ -113,6 +114,7 @@ const SearchResultFlexible = ({
       showFacets,
       filters,
       showProductsCount,
+      page,
     ]
   )
 

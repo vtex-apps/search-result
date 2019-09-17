@@ -29,16 +29,6 @@ const useFetchingMore = () => {
   return [stateValue, setFetchMore]
 }
 
-const useFetchMoreOnStateChange = (fetchMore, isFetchingMore) => {
-  const isFetchingRef = useRef(false)
-  const isFetchingPrevious = isFetchingRef.current
-  // Fire fetch more if user just pressed on button, save previous state on ref to not get lost
-  if (isFetchingMore && !isFetchingPrevious) {
-    fetchMore()
-  }
-  isFetchingRef.current = isFetchingMore
-}
-
 /**
  * Search Result Container Component.
  */
@@ -132,10 +122,6 @@ const SearchResultContainer = props => {
     })
   }
 
-  const handleFetchMoreLoading = () => {
-    handleFetchMore(fromRef.current, toRef.current, true)
-  }
-
   const handleFetchMoreNext = () => {
     const from = toRef.current + 1
     const to = min(recordsFiltered, from + maxItemsPerPage) - 1
@@ -156,8 +142,6 @@ const SearchResultContainer = props => {
     previousPageRef.current -= 1
     setQuery({ page: pageRef.current }, { replace: true })
   }
-
-  useFetchMoreOnStateChange(handleFetchMoreLoading, fetchMoreLoading)
 
   const resultComponent = children || (
     <SearchResult
