@@ -12,7 +12,7 @@ import { pathOr, isEmpty } from 'ramda'
 
 import getFilters from './utils/getFilters'
 import LoadingOverlay from './components/LoadingOverlay'
-import { PAGINATION_TYPE } from './utils/paginationType'
+import { PAGINATION_TYPE } from './constants/paginationType'
 
 import styles from './searchResult.css'
 

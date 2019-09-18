@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { useRuntime } from 'vtex.render-runtime'
 import FetchMoreButton from './components/loaders/FetchMoreButton'
 import LoadingSpinner from './components/loaders/LoadingSpinner'
-import { PAGINATION_TYPE } from './utils/paginationType'
+import { PAGINATION_TYPE } from './constants/paginationType'
 
 import {
   useSearchPageState,

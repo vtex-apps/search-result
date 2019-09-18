@@ -5,7 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { PopupProvider } from './Popup'
 import SearchResult from './SearchResult'
 import { searchResultContainerPropTypes } from '../constants/propTypes'
-import { PAGINATION_TYPE } from '../utils/paginationType'
+import { PAGINATION_TYPE } from '../constants/paginationType'
 import { useRuntime } from 'vtex.render-runtime'
 import { Container } from 'vtex.store-components'
 import {
@@ -176,7 +176,7 @@ const SearchResultContainer = props => {
     </InfiniteScroll>
   )
 
-  const isInfiniteScroll = pagination === PAGINATION_TYPE.INFINITE_SCROLL
+  const isInfiniteScroll = pagination != PAGINATION_TYPE.SHOW_MORE
 
   return (
     <Container className="pt3-m pt5-l">

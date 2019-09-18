@@ -12,7 +12,7 @@ import LayoutModeSwitcher, { LAYOUT_MODE } from './LayoutModeSwitcher'
 import FetchPreviousButton from './loaders/FetchPreviousButton'
 import FetchMoreButton from './loaders/FetchMoreButton'
 import LoadingSpinner from './loaders/LoadingSpinner'
-import { PAGINATION_TYPE } from '../utils/paginationType'
+import { PAGINATION_TYPE } from '../constants/paginationType'
 
 import getFilters from '../utils/getFilters'
 

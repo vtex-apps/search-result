@@ -6,7 +6,7 @@ import { SORT_OPTIONS } from './OrderBy'
 import LocalQuery from './components/LocalQuery'
 import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 import ContextProviders from './components/ContextProviders'
-import { PAGINATION_TYPES } from './utils/paginationType'
+import { PAGINATION_TYPES } from './constants/paginationType'
 
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
 
