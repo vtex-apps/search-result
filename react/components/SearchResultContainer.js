@@ -1,17 +1,16 @@
 import React, { useState, useRef, useCallback } from 'react'
 import { min, max } from 'ramda'
-
-import { Container } from 'vtex.store-components'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 import { PopupProvider } from './Popup'
+import SearchResult from './SearchResult'
 import { searchResultContainerPropTypes } from '../constants/propTypes'
 import { useRuntime } from 'vtex.render-runtime'
+import { Container } from 'vtex.store-components'
 import {
   useSearchPageStateDispatch,
   useSearchPageState,
 } from 'vtex.search-page-context/SearchPageContext'
-import SearchResult from './SearchResult'
-import InfiniteScroll from 'react-infinite-scroll-component'
 
 const useFetchingMore = () => {
   const [fetchMoreLoading, localSetMore] = useState(false)
