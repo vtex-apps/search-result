@@ -8,7 +8,7 @@ const FetchPreviousButton = props => {
   const { products, from, onFetchPrevious, fetchMoreLoading } = props
   return (
     <div className={`${searchResult.buttonShowMore} w-100 flex justify-center`}>
-      {!!products && from > 0 && (
+      {!!products && from > 0 && products.length > 0 && (
         <Button
           onClick={onFetchPrevious}
           isLoading={fetchMoreLoading}
