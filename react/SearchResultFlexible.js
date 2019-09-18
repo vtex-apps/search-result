@@ -12,6 +12,7 @@ import { pathOr, isEmpty } from 'ramda'
 
 import getFilters from './utils/getFilters'
 import LoadingOverlay from './components/LoadingOverlay'
+import { PAGINATION_TYPE } from './utils/paginationType'
 
 import styles from './searchResult.css'
 
@@ -37,7 +38,7 @@ const useShowContentLoader = (searchQuery, dispatch) => {
 const SearchResultFlexible = ({
   children,
   hiddenFacets,
-  pagination = 'infinite-scroll',
+  pagination = PAGINATION_TYPE.INFINITE_SCROLL,
   mobileLayout = { mode1: 'normal' },
   showProductsCount,
   blockClass,

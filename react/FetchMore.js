@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import { useRuntime } from 'vtex.render-runtime'
 import FetchMoreButton from './components/loaders/FetchMoreButton'
 import LoadingSpinner from './components/loaders/LoadingSpinner'
+import { PAGINATION_TYPE } from './utils/paginationType'
 
 import {
   useSearchPageState,
@@ -88,7 +89,7 @@ const FetchMore = () => {
     setQuery({ page: pageRef.current }, { replace: true })
   }
 
-  const isShowMore = pagination === 'show-more'
+  const isShowMore = pagination === PAGINATION_TYPE.SHOW_MORE
 
   if (isFetchingMore === undefined) {
     return null

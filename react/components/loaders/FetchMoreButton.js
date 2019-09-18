@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Button } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
 
@@ -15,7 +15,7 @@ const FetchMoreButton = props => {
   } = props
 
   return (
-    <div>
+    <Fragment>
       <div
         className={`${searchResult.buttonShowMore} w-100 flex justify-center`}
       >
@@ -54,7 +54,7 @@ const FetchMoreButton = props => {
           />
         </div>
       )}
-    </div>
+    </Fragment>
   )
 }
 

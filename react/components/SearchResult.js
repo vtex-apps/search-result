@@ -12,6 +12,7 @@ import LayoutModeSwitcher, { LAYOUT_MODE } from './LayoutModeSwitcher'
 import FetchPreviousButton from './loaders/FetchPreviousButton'
 import FetchMoreButton from './loaders/FetchMoreButton'
 import LoadingSpinner from './loaders/LoadingSpinner'
+import { PAGINATION_TYPE } from '../utils/paginationType'
 
 import getFilters from '../utils/getFilters'
 
@@ -146,8 +147,6 @@ class SearchResult extends Component {
       showLoadingAsOverlay,
     } = this.state
 
-    const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
-
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
@@ -235,7 +234,7 @@ class SearchResult extends Component {
                 <ExtensionPoint id="not-found" />
               </div>
             )}
-            {pagination === PAGINATION_TYPES[0] ? (
+            {pagination === PAGINATION_TYPE.SHOW_MORE ? (
               <FetchMoreButton
                 products={products}
                 to={to}
