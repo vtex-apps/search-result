@@ -88,7 +88,7 @@ const SearchResultLayoutCustomQuery = props => {
 }
 
 SearchResultLayoutCustomQuery.getSchema = () => {
-  const { description, ...schema } = OldSearchResult.getSchema()
+  const { description, ...schema } = OldSearchResult.getSchema({})
   return {
     ...schema,
     title: 'admin/editor.search-result-layout-custom.title',
