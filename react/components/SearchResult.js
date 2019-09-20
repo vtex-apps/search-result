@@ -212,7 +212,7 @@ class SearchResult extends Component {
               products={products}
               from={from}
               onFetchPrevious={onFetchPrevious}
-              fetchMoreLoading={fetchMoreLoading}
+              loading={fetchMoreLoading}
             />
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
@@ -240,11 +240,11 @@ class SearchResult extends Component {
                 to={to}
                 recordsFiltered={recordsFiltered}
                 onFetchMore={onFetchMore}
-                fetchMoreLoading={fetchMoreLoading}
+                loading={fetchMoreLoading}
                 showProductsCount={showProductsCount}
               />
             ) : (
-              <LoadingSpinner fetchMoreLoading={fetchMoreLoading} />
+              <LoadingSpinner loading={fetchMoreLoading} />
             )}
           </div>
           <div className={styles.orderBy}>

@@ -10,7 +10,7 @@ const FetchMoreButton = props => {
     to,
     recordsFiltered,
     onFetchMore,
-    fetchMoreLoading,
+    loading,
     showProductsCount,
   } = props
 
@@ -20,11 +20,7 @@ const FetchMoreButton = props => {
         className={`${searchResult.buttonShowMore} w-100 flex justify-center`}
       >
         {!!products && to + 1 < recordsFiltered && (
-          <Button
-            onClick={onFetchMore}
-            isLoading={fetchMoreLoading}
-            size="small"
-          >
+          <Button onClick={onFetchMore} isLoading={loading} size="small">
             <FormattedMessage id="store/search-result.show-more-button" />
           </Button>
         )}
