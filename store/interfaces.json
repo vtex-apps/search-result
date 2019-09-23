@@ -78,10 +78,14 @@
       "rich-text",
       "info-card",
       "flex-layout",
+      "tab-layout",
+      "tab-list",
+      "tab-content",
       "search-fetch-more",
       "search-content",
       "search-products-count-per-page",
-      "search-blog-articles-preview"
+      "search-blog-articles-preview",
+      "search-blog-articles-list"
     ],
     "composition": "children",
     "component": "SearchResultFlexible"
@@ -96,11 +100,13 @@
       "rich-text",
       "info-card",
       "flex-layout",
+      "tab-layout",
       "search-layout-switcher",
       "search-fetch-more",
       "search-content",
       "search-products-count-per-page",
-      "search-blog-articles-preview"
+      "search-blog-articles-preview",
+      "search-blog-articles-list"
     ],
     "composition": "children",
     "component": "SearchResultFlexibleMobile"

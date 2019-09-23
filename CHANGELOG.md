@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Added `search-blog-articles-list` and `tab-layout` to allowed blocks for custom layouts.
 
 ## [3.32.2] - 2019-09-19
 ### Fixed
