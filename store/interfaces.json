@@ -7,7 +7,9 @@
       "total-products",
       "order-by",
       "search-title",
-      "rich-text"
+      "rich-text",
+      "search-blog-articles-preview",
+      "search-blog-articles-list"
     ],
     "required": ["gallery"],
     "component": "index",
@@ -81,7 +83,8 @@
       "search-fetch-more",
       "search-content",
       "search-products-count-per-page",
-      "search-blog-articles-preview"
+      "search-blog-articles-preview",
+      "search-blog-articles-list"
     ],
     "composition": "children",
     "component": "SearchResultFlexible"
@@ -100,7 +103,8 @@
       "search-fetch-more",
       "search-content",
       "search-products-count-per-page",
-      "search-blog-articles-preview"
+      "search-blog-articles-preview",
+      "search-blog-articles-list"
     ],
     "composition": "children",
     "component": "SearchResultFlexibleMobile"
