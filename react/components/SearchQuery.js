@@ -1,5 +1,5 @@
 import { zip, split, head, join, tail } from 'ramda'
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo, useRef, useEffect } from 'react'
 import { graphql, compose } from 'react-apollo'
 import {
   productSearchV2 as productSearch,
@@ -97,10 +97,18 @@ const SearchQuery = ({
   pageQuery,
   children,
 }) => {
-  const pageRef = useRef(pageQuery ? parseInt(pageQuery) : DEFAULT_PAGE)
-  const page = pageRef.current
-  const from = (pageRef.current - 1) * maxItemsPerPage
-  const to = from + maxItemsPerPage - 1
+  console.log('pageQuery', pageQuery)
+  const page = useRef(pageQuery ? parseInt(pageQuery) : DEFAULT_PAGE)
+  const from = useRef((page.current - 1) * maxItemsPerPage)
+  const to = useRef(from.current + maxItemsPerPage - 1)
+
+  useEffect(() => {
+    console.log('USE-EFFECT-2', pageQuery)
+    page.current = DEFAULT_PAGE
+    from.current = (page.current - 1) * maxItemsPerPage
+    to.current = from.current + maxItemsPerPage - 1
+  }, [map, query, orderBy])
+
   const facetsArgs = useFacetsArgs(query, map)
   const variables = useMemo(() => {
     return {
@@ -108,8 +116,8 @@ const SearchQuery = ({
       map,
       orderBy,
       priceRange,
-      from,
-      to,
+      from: from.current,
+      to: to.current,
       hideUnavailableItems,
       ...facetsArgs,
     }
@@ -127,7 +135,7 @@ const SearchQuery = ({
     return {
       ...variables,
       maxItemsPerPage,
-      page,
+      page: page.current,
     }
   }, [variables, maxItemsPerPage, page])
 

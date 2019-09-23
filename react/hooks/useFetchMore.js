@@ -98,6 +98,7 @@ export const useFetchMore = (
   fetchMore,
   products
 ) => {
+  console.log('page', page)
   const { setQuery } = useRuntime()
   const currentPage = useRef(page)
   const nextPage = useRef(page + 1)
@@ -141,10 +142,19 @@ export const useFetchMore = (
     currentPage.current =
       previousPage.current === 1 ? undefined : previousPage.current // if page === 1 we dont show it on url
     previousPage.current -= 1
-    setQuery({ page: currentPage.current }, { replace: true })
+    setQuery({ page: currentPage.current }, { replace: true, merge: true })
+  }
+
+  const resetPage = () => {
+    currentPage.current = page
+    nextPage.current = page + 1
+    previousPage.current = page - 1
+    currentFrom.current = (page - 1) * maxItemsPerPage
+    currentTo.current = currentFrom.current + maxItemsPerPage - 1
   }
 
   return {
+    resetPage,
     handleFetchMoreNext,
     handleFetchMorePrevious,
     loading,
