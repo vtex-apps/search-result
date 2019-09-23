@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Added `search-blog-articles-list` to allowed blocks.
+- Added `search-blog-articles-list` and `tab-layout` to allowed blocks for custom layouts.
 
 ## [3.32.2] - 2019-09-19
 ### Fixed
