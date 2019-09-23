@@ -79,6 +79,8 @@
       "info-card",
       "flex-layout",
       "tab-layout",
+      "tab-list",
+      "tab-content",
       "search-fetch-more",
       "search-content",
       "search-products-count-per-page",
