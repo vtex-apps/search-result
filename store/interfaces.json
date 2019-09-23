@@ -7,9 +7,7 @@
       "total-products",
       "order-by",
       "search-title",
-      "rich-text",
-      "search-blog-articles-preview",
-      "search-blog-articles-list"
+      "rich-text"
     ],
     "required": ["gallery"],
     "component": "index",
@@ -80,6 +78,7 @@
       "rich-text",
       "info-card",
       "flex-layout",
+      "tab-layout",
       "search-fetch-more",
       "search-content",
       "search-products-count-per-page",
@@ -99,6 +98,7 @@
       "rich-text",
       "info-card",
       "flex-layout",
+      "tab-layout",
       "search-layout-switcher",
       "search-fetch-more",
       "search-content",
