@@ -97,13 +97,11 @@ const SearchQuery = ({
   pageQuery,
   children,
 }) => {
-  console.log('pageQuery', pageQuery)
   const page = useRef(pageQuery ? parseInt(pageQuery) : DEFAULT_PAGE)
   const from = useRef((page.current - 1) * maxItemsPerPage)
   const to = useRef(from.current + maxItemsPerPage - 1)
 
   useEffect(() => {
-    console.log('USE-EFFECT-2', pageQuery)
     page.current = DEFAULT_PAGE
     from.current = (page.current - 1) * maxItemsPerPage
     to.current = from.current + maxItemsPerPage - 1

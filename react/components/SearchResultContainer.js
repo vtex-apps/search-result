@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 import { PopupProvider } from './Popup'
@@ -34,20 +34,12 @@ const SearchResultContainer = props => {
   } = props
 
   const {
-    resetPage,
     handleFetchMoreNext,
     handleFetchMorePrevious,
     loading: fetchMoreLoading,
     from,
     to,
   } = useFetchMore(page, recordsFiltered, maxItemsPerPage, fetchMore, products)
-
-  useEffect(() => {
-    console.log('USE-EFFECT')
-    console.log('query', query)
-    console.log('facets', props.searchQuery.data.facets)
-    resetPage()
-  }, [query, specificationFilters, brands])
 
   const resultComponent = children || (
     <SearchResult

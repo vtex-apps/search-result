@@ -6,7 +6,6 @@ import searchResult from '../../searchResult.css'
 
 const FetchPreviousButton = props => {
   const { products, from, onFetchPrevious, loading } = props
-  console.log('fetch button from', from)
   return (
     <div className={`${searchResult.buttonShowMore} w-100 flex justify-center`}>
       {!!products && from > 0 && products.length > 0 && (

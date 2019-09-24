@@ -98,18 +98,16 @@ export const useFetchMore = (
   fetchMore,
   products
 ) => {
-  console.log('page', page)
   const { setQuery } = useRuntime()
-  const currentPage = useRef(page)
-  const nextPage = useRef(page + 1)
-  const previousPage = useRef(page - 1)
-  const currentFrom = useRef((page - 1) * maxItemsPerPage)
-  const currentTo = useRef(currentFrom.current + maxItemsPerPage - 1)
+  const [nextPage, setNextPage] = useState(page + 1)
+  const [previousPage, setPreviousPage] = useState(page - 1)
+  const [currentFrom, setCurrentFrom] = useState((page - 1) * maxItemsPerPage)
+  const [currentTo, setCurrentTo] = useState(currentFrom + maxItemsPerPage - 1)
   const [loading, setLoading] = useFetchingMore()
   const fetchMoreLocked = useRef(false) // prevents the user from sending two requests at once
 
   const handleFetchMoreNext = () => {
-    const from = currentTo.current + 1
+    const from = currentTo + 1
     const to = min(recordsFiltered, from + maxItemsPerPage) - 1
     handleFetchMore(
       from,
@@ -120,14 +118,13 @@ export const useFetchMore = (
       fetchMore,
       products
     )
-    currentTo.current = to
-    currentPage.current = nextPage.current
-    nextPage.current += 1
-    setQuery({ page: currentPage.current }, { replace: true })
+    setCurrentTo(to)
+    setNextPage(nextPage + 1)
+    setQuery({ page: nextPage }, { replace: true })
   }
 
   const handleFetchMorePrevious = () => {
-    const to = currentFrom.current - 1
+    const to = currentFrom - 1
     const from = max(0, to - maxItemsPerPage + 1)
     handleFetchMore(
       from,
@@ -138,27 +135,16 @@ export const useFetchMore = (
       fetchMore,
       products
     )
-    currentFrom.current = from
-    currentPage.current =
-      previousPage.current === 1 ? undefined : previousPage.current // if page === 1 we dont show it on url
-    previousPage.current -= 1
-    setQuery({ page: currentPage.current }, { replace: true, merge: true })
-  }
-
-  const resetPage = () => {
-    currentPage.current = page
-    nextPage.current = page + 1
-    previousPage.current = page - 1
-    currentFrom.current = (page - 1) * maxItemsPerPage
-    currentTo.current = currentFrom.current + maxItemsPerPage - 1
+    setCurrentFrom(from)
+    setPreviousPage(previousPage - 1)
+    setQuery({ page: previousPage }, { replace: true, merge: true })
   }
 
   return {
-    resetPage,
     handleFetchMoreNext,
     handleFetchMorePrevious,
     loading,
-    from: currentFrom.current,
-    to: currentTo.current,
+    from: currentFrom,
+    to: currentTo,
   }
 }

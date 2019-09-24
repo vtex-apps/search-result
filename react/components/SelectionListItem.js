@@ -4,18 +4,17 @@ import classNames from 'classnames'
 import searchResult from '../searchResult.css'
 
 const SelectionListItem = ({ option, onItemClick, selected }) => {
-  const { setQuery } = useRuntime()
+  const { navigate } = useRuntime()
 
   const handleOptionClick = () => {
     onItemClick()
-    // const urlParams = new URLSearchParams(window.location.search)
-    // urlParams.set('order', option.value)
-    // urlParams.delete('page')
-    setQuery({ order: option.value, page: undefined })
-    // navigate({
-    //   to: window.location.pathname,
-    //   query: urlParams.toString(),
-    // })
+    const urlParams = new URLSearchParams(window.location.search)
+    urlParams.set('order', option.value)
+    urlParams.delete('page')
+    navigate({
+      to: window.location.pathname,
+      query: urlParams.toString(),
+    })
   }
 
   const highlight = selected ? 'bg-light-gray' : 'hover-bg-muted-5 bg-base'
