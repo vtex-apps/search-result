@@ -97,15 +97,17 @@ const SearchQuery = ({
   pageQuery,
   children,
 }) => {
+  /* This is the page of the first query since the component was rendered. 
+  We want this behaviour so we can show the correct items even if the pageQuery
+  changes. It should change only on a new render or if the query or orderby method 
+  change, hence the useEffect that updates its value*/
   const page = useRef(pageQuery ? parseInt(pageQuery) : DEFAULT_PAGE)
-  const from = useRef((page.current - 1) * maxItemsPerPage)
-  const to = useRef(from.current + maxItemsPerPage - 1)
-
   useEffect(() => {
     page.current = DEFAULT_PAGE
-    from.current = (page.current - 1) * maxItemsPerPage
-    to.current = from.current + maxItemsPerPage - 1
   }, [map, query, orderBy])
+
+  const from = (page.current - 1) * maxItemsPerPage
+  const to = from + maxItemsPerPage - 1
 
   const facetsArgs = useFacetsArgs(query, map)
   const variables = useMemo(() => {
@@ -114,8 +116,8 @@ const SearchQuery = ({
       map,
       orderBy,
       priceRange,
-      from: from.current,
-      to: to.current,
+      from,
+      to,
       hideUnavailableItems,
       ...facetsArgs,
     }
