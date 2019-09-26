@@ -87,7 +87,7 @@ const useFacetsArgs = (query, map) => {
   }, [map, query])
 }
 
-const useCurrentPage = ({ page, query, map, orderBy }) => {
+const useCorrectPage = ({ page, query, map, orderBy }) => {
   const pageRef = useRef(page)
   const queryRef = useRef(query)
   const mapRef = useRef(map)
@@ -115,15 +115,14 @@ const SearchQuery = ({
 }) => {
   /* This is the page of the first query since the component was rendered. 
   We want this behaviour so we can show the correct items even if the pageQuery
-  changes. It should change only on a new render or if the query or orderby method 
-  change, hence the useEffect that updates its value*/
-  const page = useCurrentPage({
+  changes. It should change only on a new render or if the query or orderby 
+  change, hence the useCorrectPage that updates its value*/
+  const page = useCorrectPage({
     page: pageQuery ? parseInt(pageQuery) : DEFAULT_PAGE,
     query,
     map,
     orderBy,
   })
-  console.log('page', page)
   const from = (page - 1) * maxItemsPerPage
   const to = from + maxItemsPerPage - 1
 
