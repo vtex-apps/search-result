@@ -1,5 +1,5 @@
 import { zip, split, head, join, tail } from 'ramda'
-import React, { useMemo, useRef, useEffect } from 'react'
+import React, { useMemo, useRef } from 'react'
 import { graphql, compose } from 'react-apollo'
 import {
   productSearchV2 as productSearch,
@@ -87,6 +87,22 @@ const useFacetsArgs = (query, map) => {
   }, [map, query])
 }
 
+const useCurrentPage = ({ page, query, map, orderBy }) => {
+  const pageRef = useRef(page)
+  const queryRef = useRef(query)
+  const mapRef = useRef(map)
+  const orderByRef = useRef(orderBy)
+  const isCurrentDifferent = (ref, currentVal) => ref.current !== currentVal
+  if (
+    isCurrentDifferent(queryRef, query) ||
+    isCurrentDifferent(mapRef, map) ||
+    isCurrentDifferent(orderByRef, orderBy)
+  ) {
+    pageRef.current = DEFAULT_PAGE
+  }
+  return pageRef.current
+}
+
 const SearchQuery = ({
   maxItemsPerPage,
   query,
@@ -101,12 +117,14 @@ const SearchQuery = ({
   We want this behaviour so we can show the correct items even if the pageQuery
   changes. It should change only on a new render or if the query or orderby method 
   change, hence the useEffect that updates its value*/
-  const page = useRef(pageQuery ? parseInt(pageQuery) : DEFAULT_PAGE)
-  useEffect(() => {
-    page.current = DEFAULT_PAGE
-  }, [map, query, orderBy])
-
-  const from = (page.current - 1) * maxItemsPerPage
+  const page = useCurrentPage({
+    page: pageQuery ? parseInt(pageQuery) : DEFAULT_PAGE,
+    query,
+    map,
+    orderBy,
+  })
+  console.log('page', page)
+  const from = (page - 1) * maxItemsPerPage
   const to = from + maxItemsPerPage - 1
 
   const facetsArgs = useFacetsArgs(query, map)
@@ -135,7 +153,7 @@ const SearchQuery = ({
     return {
       ...variables,
       maxItemsPerPage,
-      page: page.current,
+      page,
     }
   }, [variables, maxItemsPerPage, page])
 
