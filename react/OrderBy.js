@@ -39,15 +39,17 @@ export const SORT_OPTIONS = [
   },
 ]
 
-const OrderBy = ({ orderBy, intl }) => {
+const OrderBy = ({ orderBy, intl, customOptions }) => {
   const sortingOptions = useMemo(() => {
-    return SORT_OPTIONS.map(({ value, label }) => {
+    const options = customOptions || SORT_OPTIONS
+
+    return options.map(({ value, label }) => {
       return {
         value: value,
         label: intl.formatMessage({ id: label }),
       }
     })
-  }, [intl])
+  }, [intl, customOptions])
 
   return <SelectionListOrderBy orderBy={orderBy} options={sortingOptions} />
 }
@@ -57,6 +59,13 @@ OrderBy.propTypes = {
   orderBy: PropTypes.string,
   /** Intl instance. */
   intl: intlShape,
+  /** Custom sort options. */
+  customOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    })
+  ),
 }
 
 export default injectIntl(OrderBy)

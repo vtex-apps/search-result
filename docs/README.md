@@ -417,6 +417,58 @@ Notice that the default behavior for your store will be the one defined by the `
 
 Also, you can configure the product summary that is defined on search-result. See [here](https://github.com/vtex-apps/product-summary/blob/master/README.md#configuration) the Product Summary API.
 
+##### `order-by` block
+
+| Prop name       | Type                                       | Description                                                                                  | Default value |
+| --------------- | ------------------------------------------ | -------------------------------------------------------------------------------------------- | ------------- |
+| `customOptions` | `Array(`[OrderByOption](#orderbyoption)`)` | Array of options available in OrderBy. If `null`, [SORT_OPTIONS](#sort_options) will be used | -             |
+
+###### `OrderByOption`
+
+| Prop name | Type      | Description                                                | Default value |
+| --------- | --------- | ---------------------------------------------------------- | ------------- |
+| `value`   | `String!` | String used in query string                                | -             |
+| `label`   | `String!` | String shown in the selection menu. It can be an `intl` id | -             |
+
+###### `SORT_OPTIONS`
+
+```
+SORT_OPTIONS = [
+  {
+    value: '',
+    label: 'store/ordenation.relevance',
+  },
+  {
+    value: 'OrderByTopSaleDESC',
+    label: 'store/ordenation.sales',
+  },
+  {
+    value: 'OrderByReleaseDateDESC',
+    label: 'store/ordenation.release.date',
+  },
+  {
+    value: 'OrderByBestDiscountDESC',
+    label: 'store/ordenation.discount',
+  },
+  {
+    value: 'OrderByPriceDESC',
+    label: 'store/ordenation.price.descending',
+  },
+  {
+    value: 'OrderByPriceASC',
+    label: 'store/ordenation.price.ascending',
+  },
+  {
+    value: 'OrderByNameASC',
+    label: 'store/ordenation.name.ascending',
+  },
+  {
+    value: 'OrderByNameDESC',
+    label: 'store/ordenation.name.descending',
+  },
+]
+```
+
 ### Styles API
 
 This app provides some CSS classes as an API for style customization.

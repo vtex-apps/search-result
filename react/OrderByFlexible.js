@@ -5,7 +5,7 @@ import OrderBy from './OrderBy'
 
 import styles from './searchResult.css'
 
-const withSearchPageContextProps = Component => () => {
+const withSearchPageContextProps = Component => (props) => {
   const { orderBy } = useSearchPage()
   if (orderBy == null) {
     return null
@@ -13,7 +13,7 @@ const withSearchPageContextProps = Component => () => {
 
   return (
     <div className={styles['orderBy--layout']}>
-      <Component orderBy={orderBy} />
+      <Component {...props} orderBy={orderBy} />
     </div>
   )
 }

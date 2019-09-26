@@ -40,7 +40,10 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
   }
 
   const getOptionTitle = useCallback(
-    option => find(propEq('value', option), options).label,
+    option => {
+      const selectedOption = find(propEq('value', option), options)
+      return selectedOption ? selectedOption.label : ''
+    },
     [options]
   )
 
