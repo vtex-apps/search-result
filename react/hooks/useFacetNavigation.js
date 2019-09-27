@@ -68,7 +68,6 @@ const useFacetNavigation = () => {
       navigate({
         to: `/${currentQuery}`,
         query: urlParams.toString(),
-        params: { page: 1 },
         scrollOptions,
       })
     },
