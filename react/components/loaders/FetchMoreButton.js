@@ -25,7 +25,7 @@ const FetchMoreButton = props => {
           </Button>
         )}
       </div>
-      {showProductsCount && (
+      {showProductsCount && recordsFiltered && (
         <div
           className={`${
             searchResult.showingProducts
