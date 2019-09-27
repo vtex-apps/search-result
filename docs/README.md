@@ -419,55 +419,22 @@ Also, you can configure the product summary that is defined on search-result. Se
 
 ##### `order-by` block
 
-| Prop name       | Type                                       | Description                                                                                  | Default value |
-| --------------- | ------------------------------------------ | -------------------------------------------------------------------------------------------- | ------------- |
-| `customOptions` | `Array(`[OrderByOption](#orderbyoption)`)` | Array of options available in OrderBy. If `null`, [SORT_OPTIONS](#sort_options) will be used | -             |
-
-###### `OrderByOption`
-
-| Prop name | Type      | Description                                                | Default value |
-| --------- | --------- | ---------------------------------------------------------- | ------------- |
-| `value`   | `String!` | String used in query string                                | -             |
-| `label`   | `String!` | String shown in the selection menu. It can be an `intl` id | -             |
+| Prop name       | Type            | Description                                                                                                  | Default value |
+| --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
+| `hiddenOptions` | `Array(String)` | Indicates which [sort options](#sort_options) will be hidden. (e.g. `["OrderByNameASC", "OrderByNameDESC"]`) | `[]`          |
 
 ###### `SORT_OPTIONS`
 
-```
-SORT_OPTIONS = [
-  {
-    value: '',
-    label: 'store/ordenation.relevance',
-  },
-  {
-    value: 'OrderByTopSaleDESC',
-    label: 'store/ordenation.sales',
-  },
-  {
-    value: 'OrderByReleaseDateDESC',
-    label: 'store/ordenation.release.date',
-  },
-  {
-    value: 'OrderByBestDiscountDESC',
-    label: 'store/ordenation.discount',
-  },
-  {
-    value: 'OrderByPriceDESC',
-    label: 'store/ordenation.price.descending',
-  },
-  {
-    value: 'OrderByPriceASC',
-    label: 'store/ordenation.price.ascending',
-  },
-  {
-    value: 'OrderByNameASC',
-    label: 'store/ordenation.name.ascending',
-  },
-  {
-    value: 'OrderByNameDESC',
-    label: 'store/ordenation.name.descending',
-  },
-]
-```
+| Option                   | Value                       |
+| ------------------------ | --------------------------- |
+| Relevance                | `""`                        |
+| Top Sales Descending     | `"OrderByTopSaleDESC"`      |
+| Release Date Descending  | `"OrderByReleaseDateDESC"`  |
+| Best Discount Descending | `"OrderByBestDiscountDESC"` |
+| Price Descending         | `"OrderByPriceDESC"`        |
+| Price Ascending          | `"OrderByPriceASC"`         |
+| Name Ascending           | `"OrderByNameASC"`          |
+| Name Descending          | `"OrderByNameDESC"`         |
 
 ### Styles API
 

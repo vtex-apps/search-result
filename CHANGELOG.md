@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- `customOptions` to `OrderBy`
+- `hiddenOptions` to `OrderBy`
 
 ### Changed
 - The title in `SelectionListOrderBy` now returns `''` instead of an error when the value is not found.
