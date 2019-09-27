@@ -11,6 +11,11 @@ const SelectionListItem = ({ option, onItemClick, selected }) => {
     const urlParams = new URLSearchParams(window.location.search)
     urlParams.set('order', option.value)
     urlParams.delete('page')
+    /* Ideally this should be a setQuery since it behaves better in terms of
+    UX and performance, but right now this is not possible because the setQuery
+    alone does not reset the values of useFetchMore, which causes a bug on the
+    fetch more/previous buttons behaviour.
+    */
     navigate({
       to: window.location.pathname,
       query: urlParams.toString(),
