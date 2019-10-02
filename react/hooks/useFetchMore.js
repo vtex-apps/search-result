@@ -127,7 +127,7 @@ export const useFetchMore = (
     setNextPage(nextPage + 1)
     setQuery({ page: nextPage }, { replace: true })
     const promiseResult = await handleFetchMore(
-      from + 3000,
+      from,
       to,
       FETCH_TYPE.NEXT,
       fetchMoreLocked,
