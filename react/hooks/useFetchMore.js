@@ -74,7 +74,6 @@ const handleFetchMore = async (
       }
     },
   }).catch(error => {
-    //console.log('ERROR!!!!!!!!!!')
     setLoading(false)
     fetchMoreLocked.current = false
     return { error: error }
@@ -111,17 +110,15 @@ export const useFetchMore = (
   const [currentTo, setCurrentTo] = useState(currentFrom + maxItemsPerPage - 1)
   const [loading, setLoading] = useFetchingMore()
   const fetchMoreLocked = useRef(false) // prevents the user from sending two requests at once
-
-  // console.log('CHECK STATES')
-  // console.log('nextPage', nextPage)
-  // console.log('previousPage', previousPage)
-  // console.log('currentPage', currentPage)
-  // console.log('currentFrom', currentFrom)
-  // console.log('currentTo', currentTo)
+  /* this is a temporary solution to deal with unexpected 
+  errors when the search result uses infinite scroll. 
+  This should be removed once infinite scrolling is removed */
+  const [infiniteScrollError, setInfiniteScrollError] = useState(false)
 
   const handleFetchMoreNext = async () => {
     const from = currentTo + 1
     const to = min(recordsFiltered, from + maxItemsPerPage) - 1
+    setInfiniteScrollError(false)
     setCurrentTo(to)
     setCurrentPage(nextPage)
     setNextPage(nextPage + 1)
@@ -141,12 +138,14 @@ export const useFetchMore = (
       setCurrentPage(currentPage)
       setNextPage(nextPage)
       setQuery({ page: currentPage }, { replace: true })
+      setInfiniteScrollError(true)
     }
   }
 
   const handleFetchMorePrevious = async () => {
     const to = currentFrom - 1
     const from = max(0, to - maxItemsPerPage + 1)
+    setInfiniteScrollError(false)
     setCurrentFrom(from)
     setCurrentPage(previousPage)
     setPreviousPage(previousPage - 1)
@@ -175,5 +174,6 @@ export const useFetchMore = (
     loading,
     from: currentFrom,
     to: currentTo,
+    infiniteScrollError,
   }
 }
