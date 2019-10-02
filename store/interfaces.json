@@ -68,6 +68,9 @@
   "search-fetch-more": {
     "component": "FetchMore"
   },
+  "search-fetch-previous": {
+    "component": "FetchPrevious"
+  },
   "search-result-layout.desktop": {
     "allowed": [
       "breadcrumb.search",
@@ -81,6 +84,7 @@
       "tab-layout",
       "tab-list",
       "tab-content",
+      "search-fetch-previous",
       "search-fetch-more",
       "search-content",
       "search-products-count-per-page",
@@ -102,6 +106,7 @@
       "flex-layout",
       "tab-layout",
       "search-layout-switcher",
+      "search-fetch-previous",
       "search-fetch-more",
       "search-content",
       "search-products-count-per-page",

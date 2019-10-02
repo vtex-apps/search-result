@@ -63,6 +63,7 @@ const useFacetNavigation = () => {
       const urlParams = new URLSearchParams(window.location.search)
 
       urlParams.set('map', currentMap)
+      urlParams.delete('page')
 
       navigate({
         to: `/${currentQuery}`,

@@ -12,6 +12,7 @@ import { pathOr, isEmpty } from 'ramda'
 
 import getFilters from './utils/getFilters'
 import LoadingOverlay from './components/LoadingOverlay'
+import { PAGINATION_TYPE } from './constants/paginationType'
 
 import styles from './searchResult.css'
 
@@ -37,7 +38,7 @@ const useShowContentLoader = (searchQuery, dispatch) => {
 const SearchResultFlexible = ({
   children,
   hiddenFacets,
-  pagination = 'infinite-scroll',
+  pagination = PAGINATION_TYPE.INFINITE_SCROLL,
   mobileLayout = { mode1: 'normal' },
   showProductsCount,
   blockClass,
@@ -48,6 +49,7 @@ const SearchResultFlexible = ({
   params,
   priceRange,
   orderBy,
+  page,
 }) => {
   const facets = pathOr(emptyFacets, ['data', 'facets'], searchQuery)
   const { brands, priceRanges, specificationFilters, categoriesTrees } = facets
@@ -90,6 +92,7 @@ const SearchResultFlexible = ({
       pagination,
       mobileLayout,
       searchQuery,
+      page,
       maxItemsPerPage,
       map,
       params,
@@ -112,6 +115,7 @@ const SearchResultFlexible = ({
       showFacets,
       filters,
       showProductsCount,
+      page,
     ]
   )
 
@@ -133,6 +137,7 @@ const SearchResultFlexible = ({
               priceRange={priceRange}
               hiddenFacets={hiddenFacets}
               orderBy={orderBy}
+              page={page}
             >
               {
                 <LoadingOverlay loading={state.isFetchingMore}>

@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Loading more results of a search result now changes the url. The back and forward feature is working properly to consider the page the user was last in.
+- Added a `show previous` button for when the user is not seeing the search results from the first item.
+
+### Fixed
+- Load More feature to consider the current page the user is in.
+- Bug that caused productCount of the `fetchMoreButton` to appear before the recordsFiltered was loaded.
 
 ## [3.32.3] - 2019-09-23
 ### Added

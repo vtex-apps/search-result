@@ -1,35 +1,33 @@
 import React from 'react'
 import { path } from 'ramda'
-import { Spinner, Button } from 'vtex.styleguide'
-import { FormattedMessage } from 'react-intl'
 import classNames from 'classnames'
+import FetchMoreButton from './components/loaders/FetchMoreButton'
+import LoadingSpinner from './components/loaders/LoadingSpinner'
+import { PAGINATION_TYPE } from './constants/paginationType'
+import { useFetchMore } from './hooks/useFetchMore'
 
-import {
-  useSearchPageState,
-  useSearchPage,
-  useSearchPageStateDispatch,
-} from 'vtex.search-page-context/SearchPageContext'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import styles from './searchResult.css'
 
 const FetchMore = () => {
-  const { pagination, searchQuery } = useSearchPage()
-  const { isFetchingMore } = useSearchPageState()
-  const dispatch = useSearchPageStateDispatch()
+  const { pagination, searchQuery, maxItemsPerPage, page } = useSearchPage()
   const products = path(['data', 'productSearch', 'products'], searchQuery)
   const recordsFiltered = path(
     ['data', 'productSearch', 'recordsFiltered'],
     searchQuery
   )
+  const fetchMore = path(['fetchMore'], searchQuery)
 
-  const changeState = () =>
-    dispatch({ type: 'SET_FETCHING_MORE', args: { isFetchingMore: true } })
+  const { handleFetchMoreNext, loading, to } = useFetchMore(
+    page,
+    recordsFiltered,
+    maxItemsPerPage,
+    fetchMore,
+    products
+  )
 
-  const isShowMore = pagination === 'show-more'
-
-  if (isFetchingMore === undefined) {
-    return null
-  }
+  const isShowMore = pagination === PAGINATION_TYPE.SHOW_MORE
 
   if (isShowMore) {
     return (
@@ -39,24 +37,19 @@ const FetchMore = () => {
           'w-100 flex justify-center'
         )}
       >
-        {products && products.length < recordsFiltered && (
-          <Button onClick={changeState} isLoading={isFetchingMore} size="small">
-            <FormattedMessage id="store/search-result.show-more-button" />
-          </Button>
-        )}
+        <FetchMoreButton
+          products={products}
+          to={to}
+          recordsFiltered={recordsFiltered}
+          onFetchMore={handleFetchMoreNext}
+          loading={loading}
+          showProductsCount={false}
+        />
       </div>
     )
   }
 
-  return (
-    isFetchingMore && (
-      <div className="w-100 flex justify-center">
-        <div className="w3 ma0">
-          <Spinner />
-        </div>
-      </div>
-    )
-  )
+  return <LoadingSpinner loading={loading} />
 }
 
 export default FetchMore

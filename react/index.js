@@ -6,8 +6,8 @@ import { SORT_OPTIONS } from './OrderBy'
 import LocalQuery from './components/LocalQuery'
 import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 import ContextProviders from './components/ContextProviders'
+import { PAGINATION_TYPES } from './constants/paginationType'
 
-const PAGINATION_TYPES = ['show-more', 'infinite-scroll']
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
 
 /**

@@ -9,6 +9,10 @@ import { generateBlockClass } from '@vtex/css-handles'
 import LoadingOverlay from './LoadingOverlay'
 import { searchResultPropTypes } from '../constants/propTypes'
 import LayoutModeSwitcher, { LAYOUT_MODE } from './LayoutModeSwitcher'
+import FetchPreviousButton from './loaders/FetchPreviousButton'
+import FetchMoreButton from './loaders/FetchMoreButton'
+import LoadingSpinner from './loaders/LoadingSpinner'
+import { PAGINATION_TYPE } from '../constants/paginationType'
 
 import getFilters from '../utils/getFilters'
 
@@ -114,7 +118,11 @@ class SearchResult extends Component {
 
   render() {
     const {
-      children,
+      to,
+      from,
+      onFetchMore,
+      onFetchPrevious,
+      showProductsCount,
       breadcrumbsProps,
       loading,
       fetchMoreLoading,
@@ -122,6 +130,7 @@ class SearchResult extends Component {
       orderBy,
       mobileLayout,
       isMobile,
+      pagination,
     } = this.props
     const {
       mobileLayoutMode,
@@ -199,6 +208,12 @@ class SearchResult extends Component {
             wrapperClass={styles.totalProducts}
           />
           <div className={styles.resultGallery}>
+            <FetchPreviousButton
+              products={products}
+              from={from}
+              onFetchPrevious={onFetchPrevious}
+              loading={fetchMoreLoading}
+            />
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
                 <div className="w3 ma0">
@@ -219,7 +234,18 @@ class SearchResult extends Component {
                 <ExtensionPoint id="not-found" />
               </div>
             )}
-            {children}
+            {pagination === PAGINATION_TYPE.SHOW_MORE ? (
+              <FetchMoreButton
+                products={products}
+                to={to}
+                recordsFiltered={recordsFiltered}
+                onFetchMore={onFetchMore}
+                loading={fetchMoreLoading}
+                showProductsCount={showProductsCount}
+              />
+            ) : (
+              <LoadingSpinner loading={fetchMoreLoading} />
+            )}
           </div>
           <div className={styles.orderBy}>
             <ExtensionPoint

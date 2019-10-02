@@ -1,46 +1,31 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Button } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
 
-import SearchResult from '../SearchResult'
-import { loaderPropTypes } from '../../constants/propTypes'
-
 import searchResult from '../../searchResult.css'
 
-/**
- * Search Result Component.
- */
-const ShowMoreLoaderResult = props => {
+const FetchMoreButton = props => {
   const {
     products,
+    to,
     recordsFiltered,
     onFetchMore,
-    fetchMoreLoading,
+    loading,
     showProductsCount,
-    children,
   } = props
 
-  // If it has children, it is a flexible UI
-  if (children) {
-    return children
-  }
-
   return (
-    <SearchResult {...props}>
+    <Fragment>
       <div
         className={`${searchResult.buttonShowMore} w-100 flex justify-center`}
       >
-        {!!products && products.length < recordsFiltered && (
-          <Button
-            onClick={onFetchMore}
-            isLoading={fetchMoreLoading}
-            size="small"
-          >
+        {!!products && to + 1 < recordsFiltered && (
+          <Button onClick={onFetchMore} isLoading={loading} size="small">
             <FormattedMessage id="store/search-result.show-more-button" />
           </Button>
         )}
       </div>
-      {showProductsCount && (
+      {showProductsCount && recordsFiltered && (
         <div
           className={`${
             searchResult.showingProducts
@@ -65,10 +50,8 @@ const ShowMoreLoaderResult = props => {
           />
         </div>
       )}
-    </SearchResult>
+    </Fragment>
   )
 }
 
-ShowMoreLoaderResult.propTypes = loaderPropTypes
-
-export default ShowMoreLoaderResult
+export default FetchMoreButton

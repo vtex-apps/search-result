@@ -23,7 +23,7 @@ const PriceRange = ({ title, facets, intl, priceRange }) => {
     }
 
     navigateTimeoutId.current = setTimeout(() => {
-      setQuery({ priceRange: `${left} TO ${right}` })
+      setQuery({ priceRange: `${left} TO ${right}`, page: undefined })
     }, DEBOUNCE_TIME)
   }
 

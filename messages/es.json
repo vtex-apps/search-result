@@ -26,6 +26,7 @@
   "admin/editor.search-result.facet-quantity": "Mostrar la cantidad de filtros",
 
   "store/search-result.show-more-button": "Mostrar más",
+  "store/search-result.show-previous-button": "Mostrar anteriores",
   "store/search-result.showing-products": "Mostrando {value}",
   "store/search-result.showing-products-count": "{productsLoaded, number} de {total, number}",
   "store/search-result.filter-button.title": "Filtros",

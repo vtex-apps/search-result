@@ -24,6 +24,7 @@ This are the current supported blocks in this repository. Blocks not mentioned a
 | `search-layout-switcher`           | [LayoutModeSwitcherFlexible](react/LayoutModeSwitcherFlexible)       | Enables user to switch between layout modes in mobile                                                                                               |
 | `search-content`                   | [SearchContent](react/SearchContent)                                 | Block that chooses to show the `gallery` block if products are found and `not-found` if filters selected lead to an empty search                    |
 | `search-fetch-more`                | [FetchMore](react/FetchMore)                                         | Renders the fetch more button if pagination is of type `show-more`. If it is infinite scroll, shows the `Loader` when bottom of the page is reached |
+| `search-fetch-previous`                | [FetchPrevious](react/FetchPrevious)                                         | Renders the fetch previous button. |
 | `search-products-count-per-page`   | [ProductCountPerPage](react/ProductCountPerPage)                     | Shows the total count of products displayed in search at the moment.                                                                                |
 | `order-by.v2`                      | [OrderByFlexible](react/OrderByFlexible)                             | Allows user to pick the type of order of the products displayed.                                                                                    |
 | `filter-navigator.v3`              | [FilterNavigatorFlexible](react/FilterNavigatorFlexible)             | Allows user to apply different filters to search. On mobile, renders a button that shows the sidebar when pressed.                                  |
@@ -83,7 +84,7 @@ If you want to use the `.customQuery`:
 }
 ```
 
-In order to be used inside the flexbile block, we created: `breadcrumb.search`, `search-fetch-more`, `search-content`, `search-products-count-per-page`, `filter-navigator.v3`, `total-products.v2`, `order-by.v2` & `search-title.v2`.
+In order to be used inside the flexible block, we created: `breadcrumb.search`, `search-fetch-more`, `search-fetch-previous`, `search-content`, `search-products-count-per-page`, `filter-navigator.v3`, `total-products.v2`, `order-by.v2` & `search-title.v2`.
 
 Noticeable notes:
 
