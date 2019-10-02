@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+-  problems with the `fetchMore` that is used on the useFetchMore by handling possible errors
 
 ## [3.33.0] - 2019-10-02
 ### Added

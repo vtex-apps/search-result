@@ -11,7 +11,7 @@ export const FETCH_TYPE = {
   PREVIOUS: 'previous',
 }
 
-const handleFetchMore = (
+const handleFetchMore = async (
   from,
   to,
   direction,
@@ -30,7 +30,7 @@ const handleFetchMore = (
 
   setLoading(true)
 
-  fetchMore({
+  return fetchMore({
     variables: {
       from,
       to,
@@ -73,6 +73,11 @@ const handleFetchMore = (
         },
       }
     },
+  }).catch(error => {
+    //console.log('ERROR!!!!!!!!!!')
+    setLoading(false)
+    fetchMoreLocked.current = false
+    return { error: error }
   })
 }
 
@@ -99,6 +104,7 @@ export const useFetchMore = (
   products
 ) => {
   const { setQuery } = useRuntime()
+  const [currentPage, setCurrentPage] = useState(page)
   const [nextPage, setNextPage] = useState(page + 1)
   const [previousPage, setPreviousPage] = useState(page - 1)
   const [currentFrom, setCurrentFrom] = useState((page - 1) * maxItemsPerPage)
@@ -106,11 +112,22 @@ export const useFetchMore = (
   const [loading, setLoading] = useFetchingMore()
   const fetchMoreLocked = useRef(false) // prevents the user from sending two requests at once
 
-  const handleFetchMoreNext = () => {
+  // console.log('CHECK STATES')
+  // console.log('nextPage', nextPage)
+  // console.log('previousPage', previousPage)
+  // console.log('currentPage', currentPage)
+  // console.log('currentFrom', currentFrom)
+  // console.log('currentTo', currentTo)
+
+  const handleFetchMoreNext = async () => {
     const from = currentTo + 1
     const to = min(recordsFiltered, from + maxItemsPerPage) - 1
-    handleFetchMore(
-      from,
+    setCurrentTo(to)
+    setCurrentPage(nextPage)
+    setNextPage(nextPage + 1)
+    setQuery({ page: nextPage }, { replace: true })
+    const promiseResult = await handleFetchMore(
+      from + 3000,
       to,
       FETCH_TYPE.NEXT,
       fetchMoreLocked,
@@ -118,15 +135,23 @@ export const useFetchMore = (
       fetchMore,
       products
     )
-    setCurrentTo(to)
-    setNextPage(nextPage + 1)
-    setQuery({ page: nextPage }, { replace: true })
+    //if error, rollback
+    if (promiseResult && promiseResult.error) {
+      setCurrentTo(currentTo)
+      setCurrentPage(currentPage)
+      setNextPage(nextPage)
+      setQuery({ page: currentPage }, { replace: true })
+    }
   }
 
-  const handleFetchMorePrevious = () => {
+  const handleFetchMorePrevious = async () => {
     const to = currentFrom - 1
     const from = max(0, to - maxItemsPerPage + 1)
-    handleFetchMore(
+    setCurrentFrom(from)
+    setCurrentPage(previousPage)
+    setPreviousPage(previousPage - 1)
+    setQuery({ page: previousPage }, { replace: true, merge: true })
+    const promiseResult = await handleFetchMore(
       from,
       to,
       FETCH_TYPE.PREVIOUS,
@@ -135,9 +160,13 @@ export const useFetchMore = (
       fetchMore,
       products
     )
-    setCurrentFrom(from)
-    setPreviousPage(previousPage - 1)
-    setQuery({ page: previousPage }, { replace: true, merge: true })
+    //if error, rollback
+    if (promiseResult && promiseResult.error) {
+      setCurrentFrom(currentFrom)
+      setCurrentPage(currentPage)
+      setPreviousPage(previousPage)
+      setQuery({ page: currentPage }, { replace: true, merge: true })
+    }
   }
 
   return {
