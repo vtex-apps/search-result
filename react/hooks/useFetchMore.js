@@ -11,6 +11,8 @@ export const FETCH_TYPE = {
   PREVIOUS: 'previous',
 }
 
+let updateQueryError = false
+
 const handleFetchMore = async (
   from,
   to,
@@ -40,7 +42,8 @@ const handleFetchMore = async (
       fetchMoreLocked.current = false
 
       if (!prevResult || !fetchMoreResult) {
-        return { error: 'Error in prevResult or fetchMoreResult' }
+        updateQueryError = true
+        return
       }
 
       // backwards compatibility
@@ -80,6 +83,7 @@ const handleFetchMore = async (
   }).catch(error => {
     setLoading(false)
     fetchMoreLocked.current = false
+    updateQueryError = true
     return { error: error }
   })
 }
@@ -134,15 +138,17 @@ export const useFetchMore = (
       fetchMoreLocked,
       setLoading,
       fetchMore,
-      products
+      products,
+      updateQueryError
     )
     //if error, rollback
-    if (promiseResult && promiseResult.error) {
+    if (promiseResult && updateQueryError) {
       setCurrentTo(currentTo)
       setCurrentPage(currentPage)
       setNextPage(nextPage)
       setQuery({ page: currentPage }, { replace: true })
       setInfiniteScrollError(true)
+      updateQueryError = false
     }
   }
 
@@ -161,14 +167,17 @@ export const useFetchMore = (
       fetchMoreLocked,
       setLoading,
       fetchMore,
-      products
+      products,
+      updateQueryError
     )
     //if error, rollback
-    if (promiseResult && promiseResult.error) {
+    if (promiseResult && updateQueryError) {
       setCurrentFrom(currentFrom)
       setCurrentPage(currentPage)
       setPreviousPage(previousPage)
       setQuery({ page: currentPage }, { replace: true, merge: true })
+      setInfiniteScrollError(true)
+      updateQueryError = false
     }
   }
 
