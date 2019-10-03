@@ -39,6 +39,10 @@ const handleFetchMore = async (
       setLoading(false)
       fetchMoreLocked.current = false
 
+      if (!prevResult || !fetchMoreResult) {
+        return { error: 'Error in prevResult or fetchMoreResult' }
+      }
+
       // backwards compatibility
       if (prevResult.search) {
         return {
