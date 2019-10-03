@@ -20,7 +20,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - Load More feature to consider the current page the user is in.
-- Bug that caused productCount of the `fetchMoreButton` to appear before the recordsFiltered was loaded.
 
 ## [3.32.3] - 2019-09-23
 ### Added
