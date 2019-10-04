@@ -20,6 +20,10 @@ const FacetItem = ({ facet, className }) => {
     'lh-copy w-100'
   )
 
+  const facetLabel = showFacetQuantity
+    ? `${facet.name} (${facet.quantity})`
+    : facet.name
+
   return (
     <div
       className={classes}
@@ -28,9 +32,8 @@ const FacetItem = ({ facet, className }) => {
       <Checkbox
         id={facet.value}
         checked={facet.selected}
-        label={
-          showFacetQuantity ? `${facet.name} (${facet.quantity})` : facet.name
-        }
+        title={facetLabel}
+        label={facetLabel}
         name={facet.name}
         onChange={() => navigateToFacet(facet)}
         value={facet.name}

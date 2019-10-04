@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Tooltip to filters
+
 ## [3.33.0] - 2019-10-02
 ### Added
 - Loading more results of a search result now changes the url. The back and forward feature is working properly to consider the page the user was last in.
