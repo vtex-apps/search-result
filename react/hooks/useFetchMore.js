@@ -11,8 +11,6 @@ export const FETCH_TYPE = {
   PREVIOUS: 'previous',
 }
 
-let updateQueryError = false
-
 const handleFetchMore = async (
   from,
   to,
@@ -20,7 +18,8 @@ const handleFetchMore = async (
   fetchMoreLocked,
   setLoading,
   fetchMore,
-  products
+  products,
+  updateQueryError
 ) => {
   if (fetchMoreLocked.current || products.length === 0) {
     return
@@ -42,7 +41,7 @@ const handleFetchMore = async (
       fetchMoreLocked.current = false
 
       if (!prevResult || !fetchMoreResult) {
-        updateQueryError = true
+        updateQueryError.current = true
         return
       }
 
@@ -83,7 +82,7 @@ const handleFetchMore = async (
   }).catch(error => {
     setLoading(false)
     fetchMoreLocked.current = false
-    updateQueryError = true
+    updateQueryError.current = true
     return { error: error }
   })
 }
@@ -122,6 +121,7 @@ export const useFetchMore = (
   errors when the search result uses infinite scroll. 
   This should be removed once infinite scrolling is removed */
   const [infiniteScrollError, setInfiniteScrollError] = useState(false)
+  const updateQueryError = useRef(false)
 
   const handleFetchMoreNext = async () => {
     const from = currentTo + 1
@@ -142,13 +142,13 @@ export const useFetchMore = (
       updateQueryError
     )
     //if error, rollback
-    if (promiseResult && updateQueryError) {
+    if (promiseResult && updateQueryError.current) {
       setCurrentTo(currentTo)
       setCurrentPage(currentPage)
       setNextPage(nextPage)
       setQuery({ page: currentPage }, { replace: true })
       setInfiniteScrollError(true)
-      updateQueryError = false
+      updateQueryError.current = false
     }
   }
 
@@ -171,13 +171,13 @@ export const useFetchMore = (
       updateQueryError
     )
     //if error, rollback
-    if (promiseResult && updateQueryError) {
+    if (promiseResult && updateQueryError.current) {
       setCurrentFrom(currentFrom)
       setCurrentPage(currentPage)
       setPreviousPage(previousPage)
       setQuery({ page: currentPage }, { replace: true, merge: true })
       setInfiniteScrollError(true)
-      updateQueryError = false
+      updateQueryError.current = false
     }
   }
 
