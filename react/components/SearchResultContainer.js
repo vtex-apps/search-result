@@ -39,6 +39,7 @@ const SearchResultContainer = props => {
     loading: fetchMoreLoading,
     from,
     to,
+    infiniteScrollError,
   } = useFetchMore(page, recordsFiltered, maxItemsPerPage, fetchMore, products)
 
   const resultComponent = children || (
@@ -59,6 +60,7 @@ const SearchResultContainer = props => {
       tree={categoriesTrees}
       to={to}
       from={from}
+      infiniteScrollError={infiniteScrollError}
     />
   )
 

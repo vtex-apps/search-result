@@ -11,14 +11,15 @@ export const FETCH_TYPE = {
   PREVIOUS: 'previous',
 }
 
-const handleFetchMore = (
+const handleFetchMore = async (
   from,
   to,
   direction,
   fetchMoreLocked,
   setLoading,
   fetchMore,
-  products
+  products,
+  updateQueryError
 ) => {
   if (fetchMoreLocked.current || products.length === 0) {
     return
@@ -30,7 +31,7 @@ const handleFetchMore = (
 
   setLoading(true)
 
-  fetchMore({
+  return fetchMore({
     variables: {
       from,
       to,
@@ -38,6 +39,11 @@ const handleFetchMore = (
     updateQuery: (prevResult, { fetchMoreResult }) => {
       setLoading(false)
       fetchMoreLocked.current = false
+
+      if (!prevResult || !fetchMoreResult) {
+        updateQueryError.current = true
+        return
+      }
 
       // backwards compatibility
       if (prevResult.search) {
@@ -73,6 +79,11 @@ const handleFetchMore = (
         },
       }
     },
+  }).catch(error => {
+    setLoading(false)
+    fetchMoreLocked.current = false
+    updateQueryError.current = true
+    return { error: error }
   })
 }
 
@@ -99,45 +110,75 @@ export const useFetchMore = (
   products
 ) => {
   const { setQuery } = useRuntime()
+  const [currentPage, setCurrentPage] = useState(page)
   const [nextPage, setNextPage] = useState(page + 1)
   const [previousPage, setPreviousPage] = useState(page - 1)
   const [currentFrom, setCurrentFrom] = useState((page - 1) * maxItemsPerPage)
   const [currentTo, setCurrentTo] = useState(currentFrom + maxItemsPerPage - 1)
   const [loading, setLoading] = useFetchingMore()
   const fetchMoreLocked = useRef(false) // prevents the user from sending two requests at once
+  /* this is a temporary solution to deal with unexpected 
+  errors when the search result uses infinite scroll. 
+  This should be removed once infinite scrolling is removed */
+  const [infiniteScrollError, setInfiniteScrollError] = useState(false)
+  const updateQueryError = useRef(false) //TODO: refactor this ref
 
-  const handleFetchMoreNext = () => {
+  const handleFetchMoreNext = async () => {
     const from = currentTo + 1
     const to = min(recordsFiltered, from + maxItemsPerPage) - 1
-    handleFetchMore(
+    setInfiniteScrollError(false)
+    setCurrentTo(to)
+    setCurrentPage(nextPage)
+    setNextPage(nextPage + 1)
+    setQuery({ page: nextPage }, { replace: true })
+    const promiseResult = await handleFetchMore(
       from,
       to,
       FETCH_TYPE.NEXT,
       fetchMoreLocked,
       setLoading,
       fetchMore,
-      products
+      products,
+      updateQueryError
     )
-    setCurrentTo(to)
-    setNextPage(nextPage + 1)
-    setQuery({ page: nextPage }, { replace: true })
+    //if error, rollback
+    if (promiseResult && updateQueryError.current) {
+      setCurrentTo(currentTo)
+      setCurrentPage(currentPage)
+      setNextPage(nextPage)
+      setQuery({ page: currentPage }, { replace: true })
+      setInfiniteScrollError(true)
+      updateQueryError.current = false
+    }
   }
 
-  const handleFetchMorePrevious = () => {
+  const handleFetchMorePrevious = async () => {
     const to = currentFrom - 1
     const from = max(0, to - maxItemsPerPage + 1)
-    handleFetchMore(
+    setInfiniteScrollError(false)
+    setCurrentFrom(from)
+    setCurrentPage(previousPage)
+    setPreviousPage(previousPage - 1)
+    setQuery({ page: previousPage }, { replace: true, merge: true })
+    const promiseResult = await handleFetchMore(
       from,
       to,
       FETCH_TYPE.PREVIOUS,
       fetchMoreLocked,
       setLoading,
       fetchMore,
-      products
+      products,
+      updateQueryError
     )
-    setCurrentFrom(from)
-    setPreviousPage(previousPage - 1)
-    setQuery({ page: previousPage }, { replace: true, merge: true })
+    //if error, rollback
+    if (promiseResult && updateQueryError.current) {
+      setCurrentFrom(currentFrom)
+      setCurrentPage(currentPage)
+      setPreviousPage(previousPage)
+      setQuery({ page: currentPage }, { replace: true, merge: true })
+      setInfiniteScrollError(true)
+      updateQueryError.current = false
+    }
   }
 
   return {
@@ -146,5 +187,6 @@ export const useFetchMore = (
     loading,
     from: currentFrom,
     to: currentTo,
+    infiniteScrollError,
   }
 }

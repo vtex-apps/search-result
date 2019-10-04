@@ -131,6 +131,7 @@ class SearchResult extends Component {
       mobileLayout,
       isMobile,
       pagination,
+      infiniteScrollError,
     } = this.props
     const {
       mobileLayoutMode,
@@ -234,7 +235,7 @@ class SearchResult extends Component {
                 <ExtensionPoint id="not-found" />
               </div>
             )}
-            {pagination === PAGINATION_TYPE.SHOW_MORE ? (
+            {pagination === PAGINATION_TYPE.SHOW_MORE || infiniteScrollError ? (
               <FetchMoreButton
                 products={products}
                 to={to}
