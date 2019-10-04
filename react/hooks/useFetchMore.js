@@ -121,7 +121,7 @@ export const useFetchMore = (
   errors when the search result uses infinite scroll. 
   This should be removed once infinite scrolling is removed */
   const [infiniteScrollError, setInfiniteScrollError] = useState(false)
-  const updateQueryError = useRef(false)
+  const updateQueryError = useRef(false) //TODO: refactor this ref
 
   const handleFetchMoreNext = async () => {
     const from = currentTo + 1
