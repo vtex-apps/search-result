@@ -56,9 +56,7 @@ const SearchResultFlexible = ({
   //removed it since the flexible search release
   if (pagination === PAGINATION_TYPE.INFINITE_SCROLL) {
     pagination = PAGINATION_TYPE.SHOW_MORE
-    console.warn(
-      'Infinite scroll was deprecated and we have removed it since the flexible search release'
-    )
+    console.warn('Infinite scroll cannot be used in flexible search')
   }
   pagination =
     pagination === PAGINATION_TYPE.INFINITE_SCROLL
