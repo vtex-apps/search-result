@@ -1,5 +1,5 @@
 import React from 'react'
-import { useChildBlock, ExtensionPoint } from 'vtex.render-runtime'
+import { useChildBlock, ExtensionPoint, useRuntime } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
 import { path, compose, equals, pathOr, isEmpty } from 'ramda'
 
@@ -16,6 +16,8 @@ const isFtOnly = compose(
   equals('ft'),
   path(['variables', 'map'])
 )
+
+const trimStartingSlash = value => value && value.replace(/^\//, '')
 
 const foundNothing = searchQuery => {
   const { loading } = searchQuery || {}
@@ -39,6 +41,16 @@ const SearchResultLayoutCustomQuery = props => {
   const hasMobileBlock = !!useChildBlock({ id: 'search-result-layout.mobile' })
   const hasCustomNotFound = !!useChildBlock({ id: 'search-not-found-layout' })
   const { isMobile } = useDevice()
+  const { query } = useRuntime()
+
+  const fieldsFromQueryString = {
+    mapField: query.map,
+    queryField: trimStartingSlash(query.query),
+  }
+
+  const areFieldsFromQueryStringValid = !!(
+    fieldsFromQueryString.mapField && fieldsFromQueryString.queryField
+  )
 
   if (!props.querySchema) {
     // No valid Query schema provided!
@@ -48,8 +60,12 @@ const SearchResultLayoutCustomQuery = props => {
   return (
     <LocalQuery
       maxItemsPerPage={props.querySchema.maxItemsPerPage}
-      queryField={props.querySchema.queryField}
-      mapField={props.querySchema.mapField}
+      {...(areFieldsFromQueryStringValid
+        ? fieldsFromQueryString
+        : {
+            queryField: props.querySchema.queryField,
+            mapField: props.querySchema.mapField,
+          })}
       orderByField={props.querySchema.orderByField}
       hideUnavailableItems={props.querySchema.hideUnavailableItems}
       query={props.query}
@@ -71,6 +87,21 @@ const SearchResultLayoutCustomQuery = props => {
             <ExtensionPointWithProps
               id="search-result-layout.mobile"
               parentProps={props}
+              localSearchQueryData={localSearchQueryData}
+            />
+          )
+        }
+        if (areFieldsFromQueryStringValid) {
+          return (
+            <ExtensionPointWithProps
+              id="search-result-layout.desktop"
+              parentProps={{
+                ...props,
+                querySchema: {
+                  ...props.querySchema,
+                  ...fieldsFromQueryString,
+                },
+              }}
               localSearchQueryData={localSearchQueryData}
             />
           )

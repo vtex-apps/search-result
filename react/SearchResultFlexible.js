@@ -42,6 +42,7 @@ const SearchResultFlexible = ({
   mobileLayout = { mode1: 'normal' },
   showProductsCount,
   blockClass,
+  preventRouteChange = false,
   // Below are set by SearchContext
   searchQuery,
   maxItemsPerPage,
@@ -112,21 +113,23 @@ const SearchResultFlexible = ({
       showFacets,
       filters,
       showProductsCount,
+      preventRouteChange,
     }),
     [
       hiddenFacets,
-      map,
-      maxItemsPerPage,
-      mobileLayout,
-      orderBy,
       pagination,
+      mobileLayout,
+      searchQuery,
+      page,
+      maxItemsPerPage,
+      map,
       params,
       priceRange,
-      searchQuery,
+      orderBy,
       showFacets,
       filters,
       showProductsCount,
-      page,
+      preventRouteChange,
     ]
   )
 
