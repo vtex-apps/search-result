@@ -107,7 +107,7 @@ Free search: https://storetheme.vtex.com/shirt?map=ft. Falls on: `store.search`.
 Departament: https://storetheme.vtex.com/decoration/d. Falls on: `store.search#department`.
 Category: https://storetheme.vtex.com/bags/necessaire. Falls on: `store.search#category Subcategory: https://storetheme.vtex.com/decoration/smartphones/bateria. Falls on:`store.search#subcategory`. Brand: https://storetheme.vtex.com/kawasaki/b. Falls on:`store.search#brand`.
 
-Now for option (b), when we want to show the `search-result` block outse of a search page, like in the home page, the same parameters must be passed on a different way.
+Now for option (b), when we want to show the `search-result` block outside of a search page, like in the home page, the same parameters must be passed on a different way.
 
 At our example, we want to show a `search-result` inside a `store.home`. We put this inside our blocks.json:
 
