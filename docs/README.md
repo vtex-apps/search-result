@@ -8,6 +8,93 @@ The VTEX Search Result app is a store component that handles with the result of 
 
 :loudspeaker: **Disclaimer:** Don't fork this project; use, contribute, or open issue with your feature request.
 
+### Supported Blocks
+
+This are the current supported blocks in this repository. Blocks not mentioned are deprecated.
+
+| Block name                         | Component                                                            | Description                                                                                                                                         |
+| ---------------------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `gallery`                          | [Gallery](react/Gallery)                                             | Gallery that displays found products                                                                                                                |
+| `not-found`                        | [NotFoundSearch](react/NotFoundSearch)                               | Block containing text and description that search was not found                                                                                     |
+| `search-result-layout`             | [SearchResultLayout](react/SearchResultLayout)                       | Layout block that enables user to build a custom search page                                                                                        |
+| `search-result-layout.customQuery` | [SearchResultLayoutCustomQuery](react/SearchResultLayoutCustomQuery) | Just like `search-result-layout` but accepts a `querySchema` prop to execute custom query.                                                          |
+| `search-result-layout.desktop`     | [SearchResultFlexible](react/SearchResultFlexible)                   | Block used to build layout for desktop.                                                                                                             |
+| `search-result-layout.mobile`      | [SearchResultFlexibleMobile](react/SearchResultFlexibleMobile)       | Block used to build layout for mobile.                                                                                                              |
+| `search-not-found-layout`          | [NotFoundLayout](react/NotFoundLayout)                               | Block used to layout when a user searches for a product that does not exist.                                                                        |
+| `search-layout-switcher`           | [LayoutModeSwitcherFlexible](react/LayoutModeSwitcherFlexible)       | Enables user to switch between layout modes in mobile                                                                                               |
+| `search-content`                   | [SearchContent](react/SearchContent)                                 | Block that chooses to show the `gallery` block if products are found and `not-found` if filters selected lead to an empty search                    |
+| `search-fetch-more`                | [FetchMore](react/FetchMore)                                         | Renders the fetch more button if pagination is of type `show-more`. If it is infinite scroll, shows the `Loader` when bottom of the page is reached |
+| `search-fetch-previous`                | [FetchPrevious](react/FetchPrevious)                                         | Renders the fetch previous button. |
+| `search-products-count-per-page`   | [ProductCountPerPage](react/ProductCountPerPage)                     | Shows the total count of products displayed in search at the moment.                                                                                |
+| `order-by.v2`                      | [OrderByFlexible](react/OrderByFlexible)                             | Allows user to pick the type of order of the products displayed.                                                                                    |
+| `filter-navigator.v3`              | [FilterNavigatorFlexible](react/FilterNavigatorFlexible)             | Allows user to apply different filters to search. On mobile, renders a button that shows the sidebar when pressed.                                  |
+| `total-products.v2`                | [TotalProductsFlexible](react/TotalProductsFlexible)                 | Shows the total products count found for that search.                                                                                               |
+| `search-title.v2`                  | [SearchTitleFlexible](react/SearchTitleFlexible)                     | Display search title according to the search context.                                                                                               |
+
+### Flexible Layout Update
+
+`search-result` now supports a flexible layout and has all its benefits, specially using the `flex-layout` block.
+
+You now have access to `search-result-layout`, it supports three differents blocks: `search-result-layout.desktop`, `search-result-layout.mobile`, `search-not-found-layout`.
+
+`search-result-layout.desktop` is rendered when user is using a desktop. The `.mobile` interface is rendered (if provided), when user is using a mobile device. If the `.mobile` is not provided, the `.desktop` will be used.
+
+The `search-not-found-layout` is used (if provided) when the user searches for a term that returns nothing. Important notice: if the user lands on a search page and adds filters until it reachs a empty search, this block will not be rendered!
+
+We also created the `search-result-layout.customQuery`. If you want to display a custom search-result, by passing a custom querySchema, this block should be used. `search-result-layout` does not read the values of a `querySchema` prop!
+
+To pass parameters to the search displayed at `search-result-layout` you should use the `context` props in `store.search`. Example:
+
+```js
+"store.search": {
+    "blocks": [
+      "search-result-layout"
+    ],
+    "props": {
+        "context": {
+           "orderByField": "OrderByReleaseDateDESC",
+            "hideUnavailableItems": true,
+            "maxItemsPerPage": 8
+        }
+     }
+  },
+```
+
+If you want to use the `.customQuery`:
+
+```json
+"store.home": {
+  "blocks": [
+    "carousel#home",
+     "shelf#home",
+    "search-result-layout.customQuery#home"
+  ]
+},
+"search-result-layout.customQuery#home": {
+  "props": {
+    "querySchema": {
+      "orderByField": "OrderByReleaseDateDESC",
+      "hideUnavailableItems": true,
+      "maxItemsPerPage": 8,
+      "queryField": "clothing",
+      "mapField": "c"
+    }
+  },
+  "blocks": ["search-result-layout.desktop"]
+}
+```
+
+In order to be used inside the flexible block, we created: `breadcrumb.search`, `search-fetch-more`, `search-fetch-previous`, `search-content`, `search-products-count-per-page`, `filter-navigator.v3`, `total-products.v2`, `order-by.v2` & `search-title.v2`.
+
+Noticeable notes:
+
+- `search-fetch-more` renders the fetch more button. Infinite-scroll was deprecated.
+- `search-content` renders the gallery or the not-found block, depending on the products returned for the specified filters.
+- `search-products-count-per-page` renders the current products count displayed.
+- All `*.v2` or `.v3` is just a version bump, no changes in behaviour, the changes are that the new components now fetch the data from the search page context and should only be used in the flexible layout. Also changes the wrapper css class, usually by just adding a `--layout` to the previous used class (like `filters` to `filters--layout`).
+
+Read more at the `Max Items Per Page Usage` section.
+
 ## Important Note
 
 We ask for users, from now on, to use the `filter-navigator.v2` block if you want to keep updated with the most up to date Filter Navigator in your search-result.
@@ -32,6 +119,7 @@ Or via Storefront.
 
 ## Max Items Per Page Usage
 
+Disclaimer: this notice is deprecated, please use the `search-result-layout` block.
 A `search-result` block may appear in two different contexts, (a) in a search result page (store.search) or (b) as a block in your home page (store.home).
 
 In case of (a) we can configure the search parameters in a search context in the following way:
@@ -99,7 +187,7 @@ In case of (a) we can configure the search parameters in a search context in the
   }
 ```
 
-Note that only in this case, the parameters must be passed in the `context` prop of the `store.search` block. Also remember that we have different `store.search` blocks e you may configure them in different ways.
+Note that only in this case, the parameters must be passed in the `context` prop of the `store.search` block. Also remember that we have different `store.search` blocks and you may configure them in different ways.
 You may configure a brand search (ended with /b), have 6 items per page, while a department search page, that number may be 12.
 
 Search examples:

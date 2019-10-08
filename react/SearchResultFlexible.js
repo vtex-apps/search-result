@@ -38,7 +38,7 @@ const useShowContentLoader = (searchQuery, dispatch) => {
 const SearchResultFlexible = ({
   children,
   hiddenFacets,
-  pagination = PAGINATION_TYPE.INFINITE_SCROLL,
+  pagination = PAGINATION_TYPE.SHOW_MORE,
   mobileLayout = { mode1: 'normal' },
   showProductsCount,
   blockClass,
@@ -51,6 +51,19 @@ const SearchResultFlexible = ({
   orderBy,
   page,
 }) => {
+  //This makes infinite scroll unavailable.
+  //Infinite scroll was deprecated and we have
+  //removed it since the flexible search release
+  if (pagination === PAGINATION_TYPE.INFINITE_SCROLL) {
+    pagination = PAGINATION_TYPE.SHOW_MORE
+    console.warn(
+      'Infinite scroll was deprecated and we have removed it since the flexible search release'
+    )
+  }
+  pagination =
+    pagination === PAGINATION_TYPE.INFINITE_SCROLL
+      ? PAGINATION_TYPE.SHOW_MORE
+      : pagination
   const facets = pathOr(emptyFacets, ['data', 'facets'], searchQuery)
   const { brands, priceRanges, specificationFilters, categoriesTrees } = facets
   const filters = useMemo(
