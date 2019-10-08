@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.33.2] - 2019-10-08
+
 ## [3.33.1] - 2019-10-04
 ### Fixed
 -  problems with the `fetchMore` that is used on the useFetchMore by handling possible errors
