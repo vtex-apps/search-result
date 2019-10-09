@@ -1,4 +1,5 @@
 import React from 'react'
+import { PropTypes } from 'prop-types'
 
 const config = { isMobile: false }
 
@@ -9,6 +10,16 @@ export const withRuntimeContext = Comp => {
     render() {
       return <Comp runtime={this.runtime} {...this.props} />
     }
+  }
+}
+
+export class NoSSR extends React.Component {
+  static propTypes = {
+    children: PropTypes.element,
+  }
+
+  render() {
+    return this.props.children
   }
 }
 
