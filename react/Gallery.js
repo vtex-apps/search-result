@@ -14,6 +14,8 @@ import GalleryRow from './components/GalleryRow'
 
 /** Layout with two column */
 const TWO_COLUMN_ITEMS = 2
+/** Layout with one column */
+const ONE_COLUMN_ITEMS = 1
 
 /**
  * Canonical gallery that displays a list of given products.
@@ -39,6 +41,8 @@ const Gallery = ({
   const itemsPerRow =
     layoutMode === 'small'
       ? TWO_COLUMN_ITEMS
+      : isMobile
+      ? ONE_COLUMN_ITEMS
       : getItemsPerRow() || maxItemsPerRow
 
   const rows = useMemo(() => splitEvery(itemsPerRow, products), [
