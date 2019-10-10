@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const useDevice = () => {
-  return { isMobile: true }
+  return { isMobile: false }
 }
 
 export const withDevice = WrappedComponent => {
