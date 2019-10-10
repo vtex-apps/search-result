@@ -20,7 +20,7 @@ import useFacetNavigation, {
 
 import searchResult from '../searchResult.css'
 
-const FilterSidebar = ({ filters, tree, priceRange }) => {
+const FilterSidebar = ({ filters, tree, priceRange, preventRouteChange }) => {
   const queryContext = useContext(QueryContext)
   const [open, setOpen] = useState(false)
 
@@ -54,7 +54,7 @@ const FilterSidebar = ({ filters, tree, priceRange }) => {
   }
 
   const handleApply = () => {
-    navigateToFacet(filterOperations)
+    navigateToFacet(filterOperations, preventRouteChange)
   }
 
   const handleUpdateCategories = maybeCategories => {

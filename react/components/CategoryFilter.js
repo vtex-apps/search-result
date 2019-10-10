@@ -28,7 +28,12 @@ const getSelectedCategories = rootCategory => {
   return selectedCategories
 }
 
-const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
+const CategoryFilter = ({
+  category,
+  shallow = false,
+  onCategorySelect,
+  preventRouteChange = false,
+}) => {
   const { map } = useContext(QueryContext)
 
   const selectedCategories = getSelectedCategories(category)
@@ -36,7 +41,7 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
   const handleUnselectCategories = index => {
     const categoriesToRemove = selectedCategories.slice(index)
 
-    onCategorySelect(categoriesToRemove)
+    onCategorySelect(categoriesToRemove, preventRouteChange)
   }
 
   const lastSelectedCategory = selectedCategories[selectedCategories.length - 1]

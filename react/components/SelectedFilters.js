@@ -10,7 +10,11 @@ import styles from '../searchResult.css'
 /**
  * Search Filter Component.
  */
-const SelectedFilters = ({ filters = [], intl }) => {
+const SelectedFilters = ({
+  filters = [],
+  intl,
+  preventRouteChange = false,
+}) => {
   if (!filters.length) {
     return null
   }
@@ -29,6 +33,7 @@ const SelectedFilters = ({ filters = [], intl }) => {
           key={facet.name}
           facet={facet}
           className={styles.selectedFilterItem}
+          preventRouteChange={preventRouteChange}
         />
       )}
     </FilterOptionTemplate>
@@ -40,6 +45,8 @@ SelectedFilters.propTypes = {
   filters: PropTypes.arrayOf(facetOptionShape).isRequired,
   /** Intl instance. */
   intl: intlShape,
+  /** Prevent route changes */
+  preventRouteChange: PropTypes.boolean,
 }
 
 export default injectIntl(SelectedFilters)

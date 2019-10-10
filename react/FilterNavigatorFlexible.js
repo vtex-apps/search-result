@@ -16,6 +16,7 @@ const withSearchPageContextProps = Component => () => {
     filters,
     showFacets,
     showContentLoader,
+    preventRouteChange,
   } = useSearchPage()
 
   const facets = pathOr({}, ['data', 'facets'], searchQuery)
@@ -28,6 +29,7 @@ const withSearchPageContextProps = Component => () => {
   return (
     <div className={styles['filters--layout']}>
       <Component
+        preventRouteChange={preventRouteChange}
         brands={brands}
         params={params}
         priceRange={priceRange}

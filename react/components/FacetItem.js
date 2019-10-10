@@ -7,7 +7,7 @@ import useFacetNavigation from '../hooks/useFacetNavigation'
 
 import styles from '../searchResult.css'
 
-const FacetItem = ({ facet, className }) => {
+const FacetItem = ({ facet, className, preventRouteChange = false }) => {
   const { showFacetQuantity } = useContext(SettingsContext)
 
   const navigateToFacet = useFacetNavigation()
@@ -32,7 +32,7 @@ const FacetItem = ({ facet, className }) => {
           showFacetQuantity ? `${facet.name} (${facet.quantity})` : facet.name
         }
         name={facet.name}
-        onChange={() => navigateToFacet(facet)}
+        onChange={() => navigateToFacet(facet, preventRouteChange)}
         value={facet.name}
       />
     </div>
