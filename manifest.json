@@ -1,7 +1,7 @@
 {
   "name": "search-result",
   "vendor": "vtex",
-  "version": "3.33.3",
+  "version": "3.33.4",
   "title": "VTEX Search Result",
   "description": "A search result wrapper component",
   "mustUpdateAt": "2019-04-25",
@@ -32,7 +32,7 @@
     "vtex.device-detector": "0.x",
     "vtex.rich-text": "0.x",
     "vtex.flex-layout": "0.x",
-    "vtex.tab-layout": "0.x", 
+    "vtex.tab-layout": "0.x",
     "vtex.search-page-context": "0.x",
     "vtex.blog-interfaces": "0.x"
   },
