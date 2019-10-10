@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fix
+- Changes on price-range in the current search would not trigger a reload and would not provide any feedback to the user, resulting in bad UX.
+- If a change on price-range was made in a certain search-result page, the pagination would not reset.
 
 ## [3.34.0] - 2019-10-10
 ### Added
