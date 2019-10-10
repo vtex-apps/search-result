@@ -35,6 +35,7 @@ const FilterNavigator = ({
   filters = [],
   preventRouteChange = false,
   hiddenFacets = {},
+  initiallyCollapsed = false,
 }) => {
   const { isMobile } = useDevice()
 
@@ -118,6 +119,7 @@ const FilterNavigator = ({
           filters={filters}
           priceRange={priceRange}
           preventRouteChange={preventRouteChange}
+          initiallyCollapsed={initiallyCollapsed}
         />
       </div>
       <ExtensionPoint id="shop-review-summary" />

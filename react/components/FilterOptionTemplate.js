@@ -17,8 +17,9 @@ const FilterOptionTemplate = ({
   collapsable = true,
   children,
   filters,
+  initiallyCollapsed = false,
 }) => {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(!initiallyCollapsed)
 
   const renderChildren = () => {
     if (typeof children !== 'function') {
@@ -116,6 +117,7 @@ FilterOptionTemplate.propTypes = {
   collapsable: PropTypes.bool,
   /** Whether it represents the selected filters */
   selected: PropTypes.bool,
+  initiallyCollapsed: PropTypes.bool,
 }
 
 export default FilterOptionTemplate
