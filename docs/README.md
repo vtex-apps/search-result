@@ -397,12 +397,14 @@ Notice that the default behavior for your store will be the one defined by the `
 | Prop name            | Type      | Description                                                                                                                                                    | Default value |
 | -------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | `preventRouteChange` | `Boolean` | Prevents route change when selecting filters, using the query string instead. Intended for `search-result` blocks inserted on custom pages with static routes. | `false`       |
+| `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed. | `false`       |
 
 ##### `filter-navigator.v2` block
 
 | Prop name            | Type      | Description                                                                                                                                                    | Default value |
 | -------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | `preventRouteChange` | `Boolean` | Prevents route change when selecting filters, using the query string instead. Intended for `search-result` blocks inserted on custom pages with static routes. | `false`       |
+| `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed. | `false`       |
 
 
 Also, you can configure the product summary that is defined on search-result. See [here](https://github.com/vtex-apps/product-summary/blob/master/README.md#configuration) the Product Summary API.
