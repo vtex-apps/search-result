@@ -16,6 +16,7 @@ const SearchFilter = ({
   facets = [],
   intl,
   preventRouteChange = false,
+  initiallyCollapsed = false,
 }) => {
   const filtersWithSelected = useSelectedFilters(facets)
 
@@ -26,6 +27,7 @@ const SearchFilter = ({
       id={sampleFacet ? sampleFacet.map : null}
       title={getFilterTitle(title, intl)}
       filters={filtersWithSelected}
+      initiallyCollapsed={initiallyCollapsed}
     >
       {facet => (
         <FacetItem
@@ -47,6 +49,7 @@ SearchFilter.propTypes = {
   intl: intlShape.isRequired,
   /** Prevent route changes */
   preventRouteChange: PropTypes.boolean,
+  initiallyCollapsed: PropTypes.boolean,
 }
 
 export default injectIntl(SearchFilter)

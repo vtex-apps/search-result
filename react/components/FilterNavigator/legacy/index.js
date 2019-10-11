@@ -42,6 +42,7 @@ const FilterNavigator = ({
   loading = false,
   hiddenFacets = {},
   preventRouteChange = false,
+  initiallyCollapsed = false,
 }) => {
   const { isMobile } = useDevice()
 
@@ -117,6 +118,7 @@ const FilterNavigator = ({
         filters={filters}
         priceRange={priceRange}
         preventRouteChange={preventRouteChange}
+        initiallyCollapsed={initiallyCollapsed}
       />
     </div>
   )
