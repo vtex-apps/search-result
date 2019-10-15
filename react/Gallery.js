@@ -30,12 +30,17 @@ const Gallery = ({
   showingFacets,
 }) => {
   const { isMobile } = useDevice()
+  const hasMultipleRows = products.length > maxItemsPerRow
 
   const layoutMode = isMobile ? mobileLayoutMode : 'normal'
 
   const getItemsPerRow = () => {
     const maxItems = Math.floor(width / minItemWidth)
-    return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
+    return hasMultipleRows
+      ? maxItemsPerRow <= maxItems
+        ? maxItemsPerRow
+        : maxItems
+      : products.length
   }
 
   const itemsPerRow =
