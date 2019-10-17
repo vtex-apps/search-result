@@ -25,6 +25,7 @@ const Gallery = ({
   mobileLayoutMode = LAYOUT_MODE[0].value,
   maxItemsPerRow = 5,
   minItemWidth = 240,
+  maxItemWidth = 280,
   width,
   summary,
   showingFacets,
@@ -57,7 +58,7 @@ const Gallery = ({
 
   const galleryClasses = classNames(
     searchResult.gallery,
-    'flex flex-row flex-wrap items-stretch bn ph1 na4',
+    'flex flex-row flex-wrap justify-around items-stretch bn ph1 na4',
     {
       'justify-center': !showingFacets,
       'pl9-l': showingFacets,
@@ -69,6 +70,7 @@ const Gallery = ({
       {rows.map((rowProducts, index) => (
         <GalleryRow
           key={index.toString()}
+          maxItemWidth={maxItemWidth}
           widthAvailable={width != null}
           products={rowProducts}
           summary={summary}
@@ -94,6 +96,8 @@ Gallery.propTypes = {
   mobileLayoutMode: PropTypes.oneOf(pluck('value', LAYOUT_MODE)),
   /** Min Item Width. */
   minItemWidth: PropTypes.number,
+  /** Max Item Width. */
+  maxItemWidth: PropTypes.number,
   showingFacets: PropTypes.bool,
 }
 
