@@ -6,11 +6,11 @@ exports[`<OrderBy /> should match snapshot 1`] = `
     style="position: absolute; width: 0px; height: 0px; visibility: hidden; display: none;"
   />
   <div
-    class="gallery flex flex-row flex-wrap items-stretch bn ph1 na4 justify-center"
+    class="gallery flex flex-row flex-wrap justify-around items-stretch bn ph1 na4 justify-center"
   >
     <div
       class="galleryItem pa4"
-      style="flex-basis: 20%; max-width: 20%;"
+      style="flex-basis: 20%; max-width: 280px;"
     >
       <div>
          Extension Point: product-summary 
@@ -18,7 +18,7 @@ exports[`<OrderBy /> should match snapshot 1`] = `
     </div>
     <div
       class="galleryItem pa4"
-      style="flex-basis: 20%; max-width: 20%;"
+      style="flex-basis: 20%; max-width: 280px;"
     >
       <div>
          Extension Point: product-summary 
@@ -26,7 +26,7 @@ exports[`<OrderBy /> should match snapshot 1`] = `
     </div>
     <div
       class="galleryItem pa4"
-      style="flex-basis: 20%; max-width: 20%;"
+      style="flex-basis: 20%; max-width: 280px;"
     >
       <div>
          Extension Point: product-summary 
@@ -34,7 +34,7 @@ exports[`<OrderBy /> should match snapshot 1`] = `
     </div>
     <div
       class="galleryItem pa4"
-      style="flex-basis: 20%; max-width: 20%;"
+      style="flex-basis: 20%; max-width: 280px;"
     >
       <div>
          Extension Point: product-summary 
@@ -42,7 +42,7 @@ exports[`<OrderBy /> should match snapshot 1`] = `
     </div>
     <div
       class="galleryItem pa4"
-      style="flex-basis: 20%; max-width: 20%;"
+      style="flex-basis: 20%; max-width: 280px;"
     >
       <div>
          Extension Point: product-summary 
@@ -50,7 +50,7 @@ exports[`<OrderBy /> should match snapshot 1`] = `
     </div>
     <div
       class="galleryItem pa4"
-      style="flex-basis: 20%; max-width: 20%;"
+      style="flex-basis: 20%; max-width: 280px;"
     >
       <div>
          Extension Point: product-summary 
@@ -58,7 +58,7 @@ exports[`<OrderBy /> should match snapshot 1`] = `
     </div>
     <div
       class="galleryItem pa4"
-      style="flex-basis: 20%; max-width: 20%;"
+      style="flex-basis: 20%; max-width: 280px;"
     >
       <div>
          Extension Point: product-summary 
@@ -66,7 +66,7 @@ exports[`<OrderBy /> should match snapshot 1`] = `
     </div>
     <div
       class="galleryItem pa4"
-      style="flex-basis: 20%; max-width: 20%;"
+      style="flex-basis: 20%; max-width: 280px;"
     >
       <div>
          Extension Point: product-summary 
