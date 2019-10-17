@@ -50,6 +50,7 @@ const GalleryRow = ({
   rowIndex,
   widthAvailable,
   itemsPerRow,
+  maxItemWidth,
 }) => {
   const [ref, inView] = useInView({
     // inView will be true when at least 10% of the row is viewed by user
@@ -62,7 +63,7 @@ const GalleryRow = ({
   })
   const style = {
     flexBasis: `${100 / itemsPerRow}%`,
-    maxWidth: `${100 / itemsPerRow}%`,
+    maxWidth: `${maxItemWidth}px`,
   }
   return products.map(product => {
     return (
