@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- `product-summary` blocks rendered by `Gallery` would be stretched and result in a weird clickable area.
+
+### Added
+- New `maxItemWidth` prop to `Gallery` component.
 
 ## [3.35.3] - 2019-10-16
 ### Fixed
