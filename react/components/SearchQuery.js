@@ -1,9 +1,9 @@
 import { zip, split, head, join, tail } from 'ramda'
-import React, { useMemo, useRef } from 'react'
-import { graphql, compose } from 'react-apollo'
+import { useMemo, useRef } from 'react'
+import { useQuery } from 'react-apollo'
 import {
-  productSearchV2 as productSearch,
-  searchMetadata,
+  productSearchV2 as productSearchQuery,
+  searchMetadata as searchMetadataQuery,
 } from 'vtex.store-resources/Queries'
 
 const DEFAULT_PAGE = 1
@@ -15,47 +15,6 @@ const splitQuery = split(QUERY_SEPARATOR)
 const splitMap = split(MAP_SEPARATOR)
 const joinQuery = join(QUERY_SEPARATOR)
 const joinMap = join(MAP_SEPARATOR)
-
-const ParallelQueries = ({
-  children,
-  extraParams,
-  productSearch,
-  searchMetadata,
-}) => {
-  // We need to do this to keep the same format as when we were using the Query component.
-  const searchInfo = useMemo(
-    () => ({
-      ...(productSearch || {}),
-      data: {
-        productSearch: productSearch && productSearch.productSearch,
-        facets: productSearch && productSearch.facets,
-        searchMetadata: searchMetadata && searchMetadata.searchMetadata,
-      },
-    }),
-    [productSearch, searchMetadata]
-  )
-  return children(searchInfo, extraParams)
-}
-
-const productSearchHOC = graphql(productSearch, {
-  name: 'productSearch',
-  options: props => ({
-    variables: props.variables,
-    ssr: false,
-  }),
-})
-
-const searchMetadataHOC = graphql(searchMetadata, {
-  name: 'searchMetadata',
-  options: props => ({
-    variables: { query: props.variables.query, map: props.variables.map },
-  }),
-})
-
-const EnhancedParallelQueries = compose(
-  productSearchHOC,
-  searchMetadataHOC
-)(ParallelQueries)
 
 const includeFacets = (map, query) =>
   !!(map && map.length > 0 && query && query.length > 0)
@@ -156,11 +115,31 @@ const SearchQuery = ({
     }
   }, [variables, maxItemsPerPage, page])
 
-  return (
-    <EnhancedParallelQueries variables={variables} extraParams={extraParams}>
-      {children}
-    </EnhancedParallelQueries>
+  const productSearchResult = useQuery(productSearchQuery, {
+    ssr: false,
+    variables,
+  })
+  const { data: { searchMetadata } = {} } = useQuery(searchMetadataQuery, {
+    variables: {
+      query: variables.query,
+      map: variables.map,
+    },
+  })
+
+  const searchInfo = useMemo(
+    () => ({
+      ...(productSearchResult || {}),
+      data: {
+        productSearch:
+          productSearchResult.data && productSearchResult.data.productSearch,
+        facets: productSearchResult.data && productSearchResult.data.facets,
+        searchMetadata,
+      },
+    }),
+    [productSearchResult, searchMetadata]
   )
+
+  return children(searchInfo, extraParams)
 }
 
 export default SearchQuery
