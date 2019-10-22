@@ -48,8 +48,8 @@ SearchFilter.propTypes = {
   /** Intl instance. */
   intl: intlShape.isRequired,
   /** Prevent route changes */
-  preventRouteChange: PropTypes.boolean,
-  initiallyCollapsed: PropTypes.boolean,
+  preventRouteChange: PropTypes.bool,
+  initiallyCollapsed: PropTypes.bool,
 }
 
 export default injectIntl(SearchFilter)
