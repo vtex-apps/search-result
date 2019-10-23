@@ -147,6 +147,7 @@ FilterNavigator.propTypes = {
   priceRange: PropTypes.string,
   /** Loading indicator */
   loading: PropTypes.bool,
+  initiallyCollapsed: PropTypes.bool,
   ...hiddenFacetsSchema,
 }
 

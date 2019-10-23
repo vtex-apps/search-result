@@ -50,7 +50,8 @@ AvailableFilters.propTypes = {
   /** Price range query parameter */
   priceRange: PropTypes.string,
   /** Prevent route changes */
-  preventRouteChange: PropTypes.boolean,
+  preventRouteChange: PropTypes.bool,
+  initiallyCollapsed: PropTypes.bool,
 }
 
 export default AvailableFilters
