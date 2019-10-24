@@ -41,7 +41,7 @@ You now have access to `search-result-layout`, it supports three different block
 
 The `search-not-found-layout` is used (if provided) when the user searches for a term that returns nothing. 
 
-> **Important notice:** if the user lands on a search page and adds filters until it reachs a empty search, this block will not be rendered!
+> **Important notice:** if the user lands on a search page and adds filters until it reachs a empty search, this block will not be rendered! Instead, the `not-found` component, **which is currently not flexible**, will.
 
 We also created the `search-result-layout.customQuery`. If you want to display a custom search-result, by passing a custom querySchema, this block should be used. `search-result-layout` does not read the values of a `querySchema` prop!
 
