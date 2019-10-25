@@ -18,13 +18,19 @@ const FetchMore = () => {
     searchQuery
   )
   const fetchMore = path(['fetchMore'], searchQuery)
+  const queryData = {
+    query: path(['variables', 'query'], searchQuery),
+    map: path(['variables', 'map'], searchQuery),
+    orderBy: path(['variables', 'orderBy'], searchQuery),
+  }
 
   const { handleFetchMoreNext, loading, to } = useFetchMore(
     page,
     recordsFiltered,
     maxItemsPerPage,
     fetchMore,
-    products
+    products,
+    queryData
   )
 
   const isShowMore = pagination === PAGINATION_TYPE.SHOW_MORE

@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import { min, max } from 'ramda'
 import { useRuntime } from 'vtex.render-runtime'
 import {
@@ -107,7 +107,8 @@ export const useFetchMore = (
   recordsFiltered,
   maxItemsPerPage,
   fetchMore,
-  products
+  products,
+  queryData
 ) => {
   const { setQuery } = useRuntime()
   const [currentPage, setCurrentPage] = useState(page)
@@ -116,12 +117,24 @@ export const useFetchMore = (
   const [currentFrom, setCurrentFrom] = useState((page - 1) * maxItemsPerPage)
   const [currentTo, setCurrentTo] = useState(currentFrom + maxItemsPerPage - 1)
   const [loading, setLoading] = useFetchingMore()
+  const isFirstRender = useRef(true)
   const fetchMoreLocked = useRef(false) // prevents the user from sending two requests at once
   /* this is a temporary solution to deal with unexpected 
   errors when the search result uses infinite scroll. 
   This should be removed once infinite scrolling is removed */
   const [infiniteScrollError, setInfiniteScrollError] = useState(false)
   const updateQueryError = useRef(false) //TODO: refactor this ref
+
+  useEffect(() => {
+    if (!isFirstRender.current) {
+      setCurrentPage(1)
+      setNextPage(2)
+      setPreviousPage(0)
+      setCurrentFrom(0)
+      setCurrentTo(maxItemsPerPage - 1)
+    }
+    isFirstRender.current = false
+  }, [queryData.query, queryData.map, queryData.orderBy, maxItemsPerPage])
 
   const handleFetchMoreNext = async () => {
     const from = currentTo + 1

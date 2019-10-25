@@ -16,13 +16,19 @@ const FetchPrevious = () => {
   )
 
   const fetchMore = path(['fetchMore'], searchQuery)
+  const queryData = {
+    query: path(['variables', 'query'], searchQuery),
+    map: path(['variables', 'map'], searchQuery),
+    orderBy: path(['variables', 'orderBy'], searchQuery),
+  }
 
   const { handleFetchMorePrevious, loading, from } = useFetchMore(
     page,
     recordsFiltered,
     maxItemsPerPage,
     fetchMore,
-    products
+    products,
+    queryData
   )
 
   return (

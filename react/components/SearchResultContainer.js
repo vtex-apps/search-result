@@ -26,12 +26,18 @@ const SearchResultContainer = props => {
         productSearch: { products = [], recordsFiltered, breadcrumb = [] } = {},
       } = {},
       loading,
-      variables: { query },
+      variables: { query, map, orderBy },
     },
     pagination,
     page,
     children,
   } = props
+
+  const queryData = {
+    query,
+    map,
+    orderBy,
+  }
 
   const {
     handleFetchMoreNext,
@@ -40,7 +46,14 @@ const SearchResultContainer = props => {
     from,
     to,
     infiniteScrollError,
-  } = useFetchMore(page, recordsFiltered, maxItemsPerPage, fetchMore, products)
+  } = useFetchMore(
+    page,
+    recordsFiltered,
+    maxItemsPerPage,
+    fetchMore,
+    products,
+    queryData
+  )
 
   const resultComponent = children || (
     <SearchResult
