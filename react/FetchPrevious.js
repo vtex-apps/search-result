@@ -20,6 +20,7 @@ const FetchPrevious = () => {
     query: path(['variables', 'query'], searchQuery),
     map: path(['variables', 'map'], searchQuery),
     orderBy: path(['variables', 'orderBy'], searchQuery),
+    priceRange: path(['variables', 'priceRange'], searchQuery),
   }
 
   const { handleFetchMorePrevious, loading, from } = useFetchMore(

@@ -26,7 +26,7 @@ const SearchResultContainer = props => {
         productSearch: { products = [], recordsFiltered, breadcrumb = [] } = {},
       } = {},
       loading,
-      variables: { query, map, orderBy },
+      variables: { query, map, orderBy, priceRange },
     },
     pagination,
     page,
@@ -37,6 +37,7 @@ const SearchResultContainer = props => {
     query,
     map,
     orderBy,
+    priceRange,
   }
 
   const {

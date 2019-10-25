@@ -134,7 +134,13 @@ export const useFetchMore = (
       setCurrentTo(maxItemsPerPage - 1)
     }
     isFirstRender.current = false
-  }, [queryData.query, queryData.map, queryData.orderBy, maxItemsPerPage])
+  }, [
+    queryData.query,
+    queryData.map,
+    queryData.orderBy,
+    queryData.priceRange,
+    maxItemsPerPage,
+  ])
 
   const handleFetchMoreNext = async () => {
     const from = currentTo + 1
