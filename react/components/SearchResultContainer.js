@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 import { PopupProvider } from './Popup'
@@ -7,6 +7,7 @@ import { searchResultContainerPropTypes } from '../constants/propTypes'
 import { useFetchMore } from '../hooks/useFetchMore'
 import { PAGINATION_TYPE } from '../constants/paginationType'
 import { Container } from 'vtex.store-components'
+import { useSearchPageStateDispatch } from 'vtex.search-page-context/SearchPageContext'
 
 /**
  * Search Result Container Component.
@@ -55,6 +56,12 @@ const SearchResultContainer = props => {
     products,
     queryData
   )
+
+  const dispatch = useSearchPageStateDispatch()
+
+  useEffect(() => {
+    dispatch({ type: 'SET_FETCHING_MORE', args: { isFetchingMore: loading } })
+  }, [loading, dispatch])
 
   const resultComponent = children || (
     <SearchResult
