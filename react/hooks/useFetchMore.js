@@ -102,14 +102,15 @@ const useFetchingMore = () => {
   return [stateValue, setFetchMore]
 }
 
-export const useFetchMore = (
-  page,
-  recordsFiltered,
-  maxItemsPerPage,
-  fetchMore,
-  products,
-  queryData
-) => {
+export const useFetchMore = props => {
+  const {
+    page,
+    recordsFiltered,
+    maxItemsPerPage,
+    fetchMore,
+    products,
+    queryData: { query, map, orderBy, priceRange },
+  } = props
   const { setQuery } = useRuntime()
   const [currentPage, setCurrentPage] = useState(page)
   const [nextPage, setNextPage] = useState(page + 1)
@@ -134,13 +135,7 @@ export const useFetchMore = (
       setCurrentTo(maxItemsPerPage - 1)
     }
     isFirstRender.current = false
-  }, [
-    queryData.query,
-    queryData.map,
-    queryData.orderBy,
-    queryData.priceRange,
-    maxItemsPerPage,
-  ])
+  }, [maxItemsPerPage, query, map, orderBy, priceRange])
 
   const handleFetchMoreNext = async () => {
     const from = currentTo + 1

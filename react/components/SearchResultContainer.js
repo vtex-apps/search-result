@@ -40,7 +40,6 @@ const SearchResultContainer = props => {
     orderBy,
     priceRange,
   }
-
   const {
     handleFetchMoreNext,
     handleFetchMorePrevious,
@@ -48,14 +47,14 @@ const SearchResultContainer = props => {
     from,
     to,
     infiniteScrollError,
-  } = useFetchMore(
+  } = useFetchMore({
     page,
     recordsFiltered,
     maxItemsPerPage,
     fetchMore,
     products,
-    queryData
-  )
+    queryData,
+  })
 
   const dispatch = useSearchPageStateDispatch()
 

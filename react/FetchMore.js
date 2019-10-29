@@ -25,14 +25,14 @@ const FetchMore = () => {
     priceRange: path(['variables', 'priceRange'], searchQuery),
   }
 
-  const { handleFetchMoreNext, loading, to } = useFetchMore(
+  const { handleFetchMoreNext, loading, to } = useFetchMore({
     page,
     recordsFiltered,
     maxItemsPerPage,
     fetchMore,
     products,
-    queryData
-  )
+    queryData,
+  })
 
   const isShowMore = pagination === PAGINATION_TYPE.SHOW_MORE
 

@@ -23,14 +23,14 @@ const FetchPrevious = () => {
     priceRange: path(['variables', 'priceRange'], searchQuery),
   }
 
-  const { handleFetchMorePrevious, loading, from } = useFetchMore(
+  const { handleFetchMorePrevious, loading, from } = useFetchMore({
     page,
     recordsFiltered,
     maxItemsPerPage,
     fetchMore,
     products,
-    queryData
-  )
+    queryData,
+  })
 
   return (
     <div
