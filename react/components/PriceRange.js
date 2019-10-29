@@ -13,7 +13,7 @@ const DEBOUNCE_TIME = 500 // ms
 
 /** Price range slider component */
 const PriceRange = ({ title, facets, intl, priceRange }) => {
-  const { culture, navigate } = useRuntime()
+  const { culture, setQuery } = useRuntime()
 
   const navigateTimeoutId = useRef()
 
@@ -23,14 +23,7 @@ const PriceRange = ({ title, facets, intl, priceRange }) => {
     }
 
     navigateTimeoutId.current = setTimeout(() => {
-      const urlParams = new URLSearchParams(window.location.search)
-      urlParams.set('priceRange', `${left} TO ${right}`)
-      urlParams.delete('page')
-
-      navigate({
-        to: window.location.pathname,
-        query: urlParams.toString(),
-      })
+      setQuery({ priceRange: `${left} TO ${right}`, page: undefined })
     }, DEBOUNCE_TIME)
   }
 

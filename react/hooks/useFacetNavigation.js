@@ -64,6 +64,7 @@ const useFacetNavigation = () => {
         setQuery({
           map: `${currentMap}`,
           query: `/${currentQuery}`,
+          page: undefined,
         })
         return
       }
