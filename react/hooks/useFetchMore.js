@@ -12,7 +12,7 @@ export const FETCH_TYPE = {
 }
 
 function reducer(state, action) {
-  const { maxItemsPerPage, to, from } = action.args
+  const { maxItemsPerPage, to, from, rollbackState } = action.args
   switch (action.type) {
     case 'RESET':
       return {
@@ -38,9 +38,7 @@ function reducer(state, action) {
       }
 
     case 'ROLLBACK':
-      return {
-        ...state,
-      }
+      return rollbackState
   }
 }
 
@@ -170,6 +168,7 @@ export const useFetchMore = props => {
   }, [maxItemsPerPage, query, map, orderBy, priceRange])
 
   const handleFetchMoreNext = async () => {
+    const rollbackState = pageState
     const from = pageState.to + 1
     const to = min(recordsFiltered, from + maxItemsPerPage) - 1
     setInfiniteScrollError(false)
@@ -187,7 +186,7 @@ export const useFetchMore = props => {
     )
     //if error, rollback
     if (promiseResult && updateQueryError.current) {
-      pageDispatch({ type: 'ROLLBACK' })
+      pageDispatch({ type: 'ROLLBACK', args: { rollbackState } })
       setQuery({ page: pageState.page }, { replace: true })
       setInfiniteScrollError(true)
       updateQueryError.current = false
@@ -195,6 +194,7 @@ export const useFetchMore = props => {
   }
 
   const handleFetchMorePrevious = async () => {
+    const rollbackState = pageState
     const to = pageState.from - 1
     const from = max(0, to - maxItemsPerPage + 1)
     setInfiniteScrollError(false)
@@ -212,7 +212,7 @@ export const useFetchMore = props => {
     )
     //if error, rollback
     if (promiseResult && updateQueryError.current) {
-      pageDispatch({ type: 'ROLLBACK' })
+      pageDispatch({ type: 'ROLLBACK', args: { rollbackState } })
       setQuery({ page: pageState.page }, { replace: true, merge: true })
       setInfiniteScrollError(true)
       updateQueryError.current = false
