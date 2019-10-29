@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react'
+import { useState, useRef, useCallback, useEffect, useReducer } from 'react'
 import { min, max } from 'ramda'
 import { useRuntime } from 'vtex.render-runtime'
 import {
@@ -9,6 +9,39 @@ import {
 export const FETCH_TYPE = {
   NEXT: 'next',
   PREVIOUS: 'previous',
+}
+
+function reducer(state, action) {
+  const { maxItemsPerPage, to, from } = action.args
+  switch (action.type) {
+    case 'RESET':
+      return {
+        page: 1,
+        nextPage: 2,
+        previousPage: 0,
+        from: 0,
+        to: maxItemsPerPage - 1,
+      }
+    case 'NEXT_PAGE':
+      return {
+        ...state,
+        page: state.nextPage,
+        nextPage: state.nextPage + 1,
+        to,
+      }
+    case 'PREVIOUS_PAGE':
+      return {
+        ...state,
+        page: state.previousPage,
+        previousPage: state.previousPage - 1,
+        from,
+      }
+
+    case 'ROLLBACK':
+      return {
+        ...state,
+      }
+  }
 }
 
 const handleFetchMore = async (
@@ -112,11 +145,14 @@ export const useFetchMore = props => {
     queryData: { query, map, orderBy, priceRange },
   } = props
   const { setQuery } = useRuntime()
-  const [currentPage, setCurrentPage] = useState(page)
-  const [nextPage, setNextPage] = useState(page + 1)
-  const [previousPage, setPreviousPage] = useState(page - 1)
-  const [currentFrom, setCurrentFrom] = useState((page - 1) * maxItemsPerPage)
-  const [currentTo, setCurrentTo] = useState(currentFrom + maxItemsPerPage - 1)
+  const initialState = {
+    page,
+    nextPage: page + 1,
+    previousPage: page - 1,
+    from: (page - 1) * maxItemsPerPage,
+    to: page * maxItemsPerPage - 1,
+  }
+  const [pageState, pageDispatch] = useReducer(reducer, initialState)
   const [loading, setLoading] = useFetchingMore()
   const isFirstRender = useRef(true)
   const fetchMoreLocked = useRef(false) // prevents the user from sending two requests at once
@@ -128,23 +164,17 @@ export const useFetchMore = props => {
 
   useEffect(() => {
     if (!isFirstRender.current) {
-      setCurrentPage(1)
-      setNextPage(2)
-      setPreviousPage(0)
-      setCurrentFrom(0)
-      setCurrentTo(maxItemsPerPage - 1)
+      pageDispatch({ type: 'RESET', args: { maxItemsPerPage } })
     }
     isFirstRender.current = false
   }, [maxItemsPerPage, query, map, orderBy, priceRange])
 
   const handleFetchMoreNext = async () => {
-    const from = currentTo + 1
+    const from = pageState.to + 1
     const to = min(recordsFiltered, from + maxItemsPerPage) - 1
     setInfiniteScrollError(false)
-    setCurrentTo(to)
-    setCurrentPage(nextPage)
-    setNextPage(nextPage + 1)
-    setQuery({ page: nextPage }, { replace: true })
+    pageDispatch({ type: 'NEXT_PAGE', args: { to } })
+    setQuery({ page: pageState.nextPage }, { replace: true })
     const promiseResult = await handleFetchMore(
       from,
       to,
@@ -157,23 +187,19 @@ export const useFetchMore = props => {
     )
     //if error, rollback
     if (promiseResult && updateQueryError.current) {
-      setCurrentTo(currentTo)
-      setCurrentPage(currentPage)
-      setNextPage(nextPage)
-      setQuery({ page: currentPage }, { replace: true })
+      pageDispatch({ type: 'ROLLBACK' })
+      setQuery({ page: pageState.page }, { replace: true })
       setInfiniteScrollError(true)
       updateQueryError.current = false
     }
   }
 
   const handleFetchMorePrevious = async () => {
-    const to = currentFrom - 1
+    const to = pageState.from - 1
     const from = max(0, to - maxItemsPerPage + 1)
     setInfiniteScrollError(false)
-    setCurrentFrom(from)
-    setCurrentPage(previousPage)
-    setPreviousPage(previousPage - 1)
-    setQuery({ page: previousPage }, { replace: true, merge: true })
+    pageDispatch({ type: 'PREVIOUS_PAGE', args: { from } })
+    setQuery({ page: pageState.previousPage }, { replace: true, merge: true })
     const promiseResult = await handleFetchMore(
       from,
       to,
@@ -186,10 +212,8 @@ export const useFetchMore = props => {
     )
     //if error, rollback
     if (promiseResult && updateQueryError.current) {
-      setCurrentFrom(currentFrom)
-      setCurrentPage(currentPage)
-      setPreviousPage(previousPage)
-      setQuery({ page: currentPage }, { replace: true, merge: true })
+      pageDispatch({ type: 'ROLLBACK' })
+      setQuery({ page: pageState.page }, { replace: true, merge: true })
       setInfiniteScrollError(true)
       updateQueryError.current = false
     }
@@ -199,8 +223,8 @@ export const useFetchMore = props => {
     handleFetchMoreNext,
     handleFetchMorePrevious,
     loading,
-    from: currentFrom,
-    to: currentTo,
+    from: pageState.from,
+    to: pageState.to,
     infiniteScrollError,
   }
 }
