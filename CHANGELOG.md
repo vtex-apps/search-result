@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Fixed
 - Search result pagination to work properly with `setQuery`.
-- Loading interface on flexible SR when an operation used `setQUery`.
+- Loading interface on flexible Search Result when an operation used `setQUery`.
 
 ## [3.35.4] - 2019-10-23
 ### Fixed
