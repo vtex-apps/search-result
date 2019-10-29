@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.35.5] - 2019-10-29
 ### Fixed
 - Search result pagination to work properly with `setQuery`.
 - Loading interface on flexible Search Result when an operation used `setQUery`.
