@@ -28,6 +28,7 @@ const Gallery = ({
   width,
   summary,
   showingFacets,
+  useDefaultDistribution = true
 }) => {
   const { isMobile } = useDevice()
 
@@ -38,7 +39,7 @@ const Gallery = ({
     return maxItemsPerRow <= maxItems ? maxItemsPerRow : maxItems
   }
 
-  const itemsPerRow =
+  const itemsPerRow = !useDefaultDistribution ? maxItemsPerRow :
     layoutMode === 'small'
       ? TWO_COLUMN_ITEMS
       : isMobile
@@ -90,6 +91,7 @@ Gallery.propTypes = {
   /** Min Item Width. */
   minItemWidth: PropTypes.number,
   showingFacets: PropTypes.bool,
+  useDefaultDistribution: PropTypes.bool
 }
 
 export default withResizeDetector(Gallery)
