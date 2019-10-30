@@ -19,33 +19,6 @@ const joinMap = join(MAP_SEPARATOR)
 const includeFacets = (map, query) =>
   !!(map && map.length > 0 && query && query.length > 0)
 
-const useFacetsArgs = (query, map) => {
-  return useMemo(() => {
-    const queryArray = splitQuery(query)
-    const mapArray = splitMap(map)
-    const queryAndMap = zip(queryArray, mapArray)
-    const relevantArgs = [
-      head(queryAndMap),
-      ...tail(queryAndMap).filter(
-        ([_, tupleMap]) => tupleMap === 'c' || tupleMap === 'ft'
-      ),
-    ]
-    const finalMap = []
-    const finalQuery = []
-    relevantArgs.forEach(([tupleQuery, tupleMap]) => {
-      finalQuery.push(tupleQuery)
-      finalMap.push(tupleMap)
-    })
-    const facetQuery = joinQuery(finalQuery)
-    const facetMap = joinMap(finalMap)
-    return {
-      facetQuery,
-      facetMap,
-      withFacets: includeFacets(facetMap, facetQuery),
-    }
-  }, [map, query])
-}
-
 const useCorrectPage = ({ page, query, map, orderBy }) => {
   const pageRef = useRef(page)
   const queryRef = useRef(query)
@@ -85,7 +58,11 @@ const SearchQuery = ({
   const from = (page - 1) * maxItemsPerPage
   const to = from + maxItemsPerPage - 1
 
-  const facetsArgs = useFacetsArgs(query, map)
+  const facetsArgs = {
+    facetQuery: query,
+    facetMap: map,
+    includeFacets: includeFacets(map, query),
+  }
   const variables = useMemo(() => {
     return {
       query,
