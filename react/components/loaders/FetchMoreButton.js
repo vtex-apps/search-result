@@ -1,8 +1,21 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { Button } from 'vtex.styleguide'
 import { FormattedMessage } from 'react-intl'
 
 import searchResult from '../../searchResult.css'
+
+const useShowButton = (to, products, loading, recordsFiltered) => {
+  const [showButton, setShowButton] = useState(
+    !!products && to + 1 < recordsFiltered
+  )
+  useEffect(() => {
+    if (!loading) {
+      setShowButton(!!products && to + 1 < recordsFiltered)
+    }
+  }, [to, products, loading, recordsFiltered])
+
+  return showButton
+}
 
 const FetchMoreButton = props => {
   const {
@@ -13,13 +26,14 @@ const FetchMoreButton = props => {
     loading,
     showProductsCount,
   } = props
+  const showButton = useShowButton(to, products, loading, recordsFiltered)
 
   return (
     <Fragment>
       <div
         className={`${searchResult.buttonShowMore} w-100 flex justify-center`}
       >
-        {!!products && to + 1 < recordsFiltered && (
+        {showButton && (
           <Button onClick={onFetchMore} isLoading={loading} size="small">
             <FormattedMessage id="store/search-result.show-more-button" />
           </Button>
