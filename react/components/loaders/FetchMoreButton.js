@@ -4,6 +4,19 @@ import { FormattedMessage } from 'react-intl'
 
 import searchResult from '../../searchResult.css'
 
+const useShowButton = (to, products, loading, recordsFiltered) => {
+  const [showButton, setShowButton] = useState(
+    !!products && to + 1 < recordsFiltered
+  )
+  useEffect(() => {
+    if (!loading) {
+      setShowButton(!!products && to + 1 < recordsFiltered)
+    }
+  }, [to, products, loading, recordsFiltered])
+
+  return showButton
+}
+
 const FetchMoreButton = props => {
   const {
     products,
@@ -13,15 +26,7 @@ const FetchMoreButton = props => {
     loading,
     showProductsCount,
   } = props
-
-  const [showButton, setShowButton] = useState(
-    !!products && to + 1 < recordsFiltered
-  )
-  useEffect(() => {
-    if (!loading) {
-      setShowButton(!!products && to + 1 < recordsFiltered)
-    }
-  }, [to, products, loading, recordsFiltered])
+  const showButton = useShowButton(to, products, loading, recordsFiltered)
 
   return (
     <Fragment>
