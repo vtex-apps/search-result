@@ -7,8 +7,6 @@ import {
   facets as facetsQuery,
 } from 'vtex.store-resources/Queries'
 
-console.log('teste facetsQuery:', facetsQuery)
-
 const DEFAULT_PAGE = 1
 
 const QUERY_SEPARATOR = '/'

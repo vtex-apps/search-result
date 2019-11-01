@@ -34,8 +34,6 @@ const SearchResultContainer = props => {
     children,
   } = props
 
-  console.log('teste props: ', props)
-
   const queryData = {
     query,
     map,

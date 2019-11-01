@@ -52,9 +52,7 @@ const SearchResultFlexible = ({
   orderBy,
   page,
   facetsLoading,
-  // ...rest
 }) => {
-  // console.log('teste rest: ', rest)
   //This makes infinite scroll unavailable.
   //Infinite scroll was deprecated and we have
   //removed it since the flexible search release

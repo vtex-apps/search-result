@@ -27,8 +27,6 @@ const withSearchPageContextProps = Component => () => {
     return null
   }
 
-  console.log('teste facetsLoading FLEX', facetsLoading)
-
   return (
     <div className={styles['filters--layout']}>
       <Component

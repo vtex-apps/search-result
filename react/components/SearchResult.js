@@ -135,7 +135,6 @@ class SearchResult extends Component {
       facetsLoading,
     } = this.props
 
-    console.log('teste facetsLoading:', facetsLoading)
     const {
       mobileLayoutMode,
       recordsFiltered,
