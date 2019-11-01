@@ -3,8 +3,8 @@ import { useMemo, useRef } from 'react'
 import { useQuery } from 'react-apollo'
 import {
   productSearchV2 as productSearchQuery,
-  productSearchNoSimulations,
   searchMetadata as searchMetadataQuery,
+  productSearchNoSimulations,
 } from 'vtex.store-resources/Queries'
 
 const DEFAULT_PAGE = 1
@@ -140,26 +140,19 @@ const SearchQuery = ({
 
   const searchInfo = useMemo(
     () => ({
-      ...(productSearchNoSimulationsResult || {}),
       ...(productSearchResult || {}),
+      ...(productSearchNoSimulationsResult || {}),
       data: {
         productSearch:
-          productSearchResult.data && productSearchResult.data.productSearch,
+          (productSearchResult.data &&
+            productSearchResult.data.productSearch) ||
+          (productSearchNoSimulationsResult.data &&
+            productSearchNoSimulationsResult.data),
         facets: productSearchResult.data && productSearchResult.data.facets,
         searchMetadata,
-        simulated: !!(
-          quickSearch &&
-          productSearchNoSimulationsResult.data &&
-          !productSearchResult.data
-        ),
       },
     }),
-    [
-      productSearchResult,
-      searchMetadata,
-      productSearchNoSimulationsResult,
-      quickSearch,
-    ]
+    [productSearchResult, searchMetadata, productSearchNoSimulationsResult]
   )
 
   return children(searchInfo, extraParams)
