@@ -74,7 +74,7 @@ const useCombinedRefetch = (productRefetch, facetsRefetch) => {
       return {
         ...searchRefetchResult,
         data: {
-          ...searchRefetchResult.data,
+          ...(searchRefetchResult.data || {}),
           facets: facetsRefetchResult.data && facetsRefetchResult.data.facets,
         },
         errors: searchRefetchResult.errors || facetsRefetchResult.errors,
