@@ -3,6 +3,7 @@ import { useMemo, useRef } from 'react'
 import { useQuery } from 'react-apollo'
 import {
   productSearchV2 as productSearchQuery,
+  productSearchNoSimulations,
   searchMetadata as searchMetadataQuery,
 } from 'vtex.store-resources/Queries'
 
@@ -71,6 +72,7 @@ const SearchQuery = ({
   hideUnavailableItems,
   pageQuery,
   children,
+  quickSearch,
 }) => {
   /* This is the page of the first query since the component was rendered. 
   We want this behaviour so we can show the correct items even if the pageQuery
@@ -115,10 +117,20 @@ const SearchQuery = ({
     }
   }, [variables, maxItemsPerPage, page])
 
+  const productSearchNoSimulationsResult = useQuery(
+    productSearchNoSimulations,
+    {
+      ssr: false,
+      variables,
+      skip: !quickSearch,
+    }
+  )
+
   const productSearchResult = useQuery(productSearchQuery, {
     ssr: false,
     variables,
   })
+
   const { data: { searchMetadata } = {} } = useQuery(searchMetadataQuery, {
     variables: {
       query: variables.query,
@@ -128,15 +140,26 @@ const SearchQuery = ({
 
   const searchInfo = useMemo(
     () => ({
+      ...(productSearchNoSimulationsResult || {}),
       ...(productSearchResult || {}),
       data: {
         productSearch:
           productSearchResult.data && productSearchResult.data.productSearch,
         facets: productSearchResult.data && productSearchResult.data.facets,
         searchMetadata,
+        simulated: !!(
+          quickSearch &&
+          productSearchNoSimulationsResult.data &&
+          !productSearchResult.data
+        ),
       },
     }),
-    [productSearchResult, searchMetadata]
+    [
+      productSearchResult,
+      searchMetadata,
+      productSearchNoSimulationsResult,
+      quickSearch,
+    ]
   )
 
   return children(searchInfo, extraParams)
