@@ -7,6 +7,8 @@ import {
   facets as facetsQuery,
 } from 'vtex.store-resources/Queries'
 
+console.log('teste facetsQuery:', facetsQuery)
+
 const DEFAULT_PAGE = 1
 
 const QUERY_SEPARATOR = '/'
@@ -130,7 +132,8 @@ const useQueries = (variables, facetsArgs) => {
   const refetch = useCombinedRefetch(searchRefetch, facetsRefetch)
 
   return {
-    loading: searchLoading || facetsLoading,
+    loading: searchLoading,
+    facetsLoading,
     data: {
       productSearch:
         productSearchResult.data && productSearchResult.data.productSearch,
@@ -178,19 +181,24 @@ const SearchQuery = ({
       withFacets: false,
     }
   }, [query, map, orderBy, priceRange, from, to, hideUnavailableItems])
+
+  const {
+    data,
+    loading,
+    refetch,
+    productSearchResult,
+    facetsLoading,
+  } = useQueries(variables, facetsArgs)
+
   const extraParams = useMemo(() => {
     return {
       ...variables,
       ...facetsArgs,
       maxItemsPerPage,
       page,
+      facetsLoading,
     }
-  }, [variables, facetsArgs, maxItemsPerPage, page])
-
-  const { data, loading, refetch, productSearchResult } = useQueries(
-    variables,
-    facetsArgs
-  )
+  }, [variables, facetsArgs, maxItemsPerPage, page, facetsLoading])
 
   const searchInfo = useMemo(
     () => ({

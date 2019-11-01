@@ -51,7 +51,10 @@ const SearchResultFlexible = ({
   priceRange,
   orderBy,
   page,
+  facetsLoading,
+  // ...rest
 }) => {
+  // console.log('teste rest: ', rest)
   //This makes infinite scroll unavailable.
   //Infinite scroll was deprecated and we have
   //removed it since the flexible search release
@@ -114,6 +117,7 @@ const SearchResultFlexible = ({
       filters,
       showProductsCount,
       preventRouteChange,
+      facetsLoading,
     }),
     [
       hiddenFacets,
@@ -130,6 +134,7 @@ const SearchResultFlexible = ({
       filters,
       showProductsCount,
       preventRouteChange,
+      facetsLoading,
     ]
   )
 
@@ -152,6 +157,7 @@ const SearchResultFlexible = ({
               hiddenFacets={hiddenFacets}
               orderBy={orderBy}
               page={page}
+              facetsLoading={facetsLoading}
             >
               {
                 <LoadingOverlay loading={state.isFetchingMore}>

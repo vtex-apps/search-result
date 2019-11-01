@@ -132,7 +132,10 @@ class SearchResult extends Component {
       isMobile,
       pagination,
       infiniteScrollError,
+      facetsLoading,
     } = this.props
+
+    console.log('teste facetsLoading:', facetsLoading)
     const {
       mobileLayoutMode,
       recordsFiltered,
@@ -150,6 +153,7 @@ class SearchResult extends Component {
 
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
+    const showFacetsContentLoader = facetsLoading && !fetchMoreLoading
     const showContentLoader = showLoading && !showLoadingAsOverlay
     const shouldDisplayLayoutSwitcher = !!mobileLayout.mode2
 
@@ -197,7 +201,7 @@ class SearchResult extends Component {
                 priceRanges={priceRanges}
                 specificationFilters={specificationFilters}
                 tree={tree}
-                loading={showContentLoader}
+                loading={showFacetsContentLoader}
                 filters={filters}
                 hiddenFacets={hiddenFacets}
               />

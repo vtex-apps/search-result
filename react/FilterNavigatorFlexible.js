@@ -17,6 +17,7 @@ const withSearchPageContextProps = Component => () => {
     showFacets,
     showContentLoader,
     preventRouteChange,
+    facetsLoading,
   } = useSearchPage()
 
   const facets = pathOr({}, ['data', 'facets'], searchQuery)
@@ -25,6 +26,8 @@ const withSearchPageContextProps = Component => () => {
   if (showFacets === false || !map) {
     return null
   }
+
+  console.log('teste facetsLoading FLEX', facetsLoading)
 
   return (
     <div className={styles['filters--layout']}>
@@ -36,7 +39,7 @@ const withSearchPageContextProps = Component => () => {
         priceRanges={priceRanges}
         specificationFilters={specificationFilters}
         tree={categoriesTrees}
-        loading={showContentLoader}
+        loading={facetsLoading && showContentLoader}
         filters={filters}
         hiddenFacets={hiddenFacets}
       />
