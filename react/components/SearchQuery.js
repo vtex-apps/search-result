@@ -1,4 +1,4 @@
-import { zip, split, head, join, tail } from 'ramda'
+import { path, zip, split, head, join, tail } from 'ramda'
 import { useMemo, useRef } from 'react'
 import { useQuery } from 'react-apollo'
 import {
@@ -98,6 +98,7 @@ const SearchQuery = ({
       to,
       hideUnavailableItems,
       ...facetsArgs,
+      skipBreadcrumbs: quickSearch,
     }
   }, [
     query,
@@ -108,6 +109,7 @@ const SearchQuery = ({
     to,
     hideUnavailableItems,
     facetsArgs,
+    quickSearch,
   ])
   const extraParams = useMemo(() => {
     return {
@@ -130,6 +132,16 @@ const SearchQuery = ({
     ssr: false,
     variables,
   })
+
+  if (quickSearch && productSearchNoSimulationsResult.data) {
+    productSearchResult.data.productSearch = {
+      ...productSearchResult.data.productSearch,
+      breadcrumb: path(
+        ['data', 'productSearchNoSimulations', 'breadcrumb'],
+        productSearchNoSimulationsResult
+      ),
+    }
+  }
 
   const { data: { searchMetadata } = {} } = useQuery(searchMetadataQuery, {
     variables: {
