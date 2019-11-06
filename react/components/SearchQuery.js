@@ -133,7 +133,11 @@ const SearchQuery = ({
     variables,
   })
 
-  if (quickSearch && productSearchNoSimulationsResult.data) {
+  if (
+    quickSearch &&
+    productSearchNoSimulationsResult.data &&
+    productSearchResult.data
+  ) {
     productSearchResult.data.productSearch = {
       ...productSearchResult.data.productSearch,
       breadcrumb: path(
@@ -152,8 +156,9 @@ const SearchQuery = ({
 
   const searchInfo = useMemo(
     () => ({
-      ...(productSearchResult || {}),
-      ...(productSearchNoSimulationsResult || {}),
+      ...(quickSearch
+        ? productSearchNoSimulationsResult || {}
+        : productSearchResult || {}),
       data: {
         productSearch:
           path(['data', 'productSearch'], productSearchResult) ||
@@ -165,7 +170,12 @@ const SearchQuery = ({
         searchMetadata,
       },
     }),
-    [productSearchResult, searchMetadata, productSearchNoSimulationsResult]
+    [
+      productSearchResult,
+      searchMetadata,
+      productSearchNoSimulationsResult,
+      quickSearch,
+    ]
   )
 
   return children(searchInfo, extraParams)
