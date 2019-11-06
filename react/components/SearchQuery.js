@@ -157,7 +157,10 @@ const SearchQuery = ({
       data: {
         productSearch:
           path(['data', 'productSearch'], productSearchResult) ||
-          path(['data', 'productSearchNoSimulations'], productSearchResult),
+          path(
+            ['data', 'productSearchNoSimulations'],
+            productSearchNoSimulationsResult
+          ),
         facets: productSearchResult.data && productSearchResult.data.facets,
         searchMetadata,
       },
