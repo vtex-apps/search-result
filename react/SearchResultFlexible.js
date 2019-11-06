@@ -51,6 +51,7 @@ const SearchResultFlexible = ({
   priceRange,
   orderBy,
   page,
+  facetsLoading,
 }) => {
   //This makes infinite scroll unavailable.
   //Infinite scroll was deprecated and we have
@@ -114,6 +115,7 @@ const SearchResultFlexible = ({
       filters,
       showProductsCount,
       preventRouteChange,
+      facetsLoading,
     }),
     [
       hiddenFacets,
@@ -130,6 +132,7 @@ const SearchResultFlexible = ({
       filters,
       showProductsCount,
       preventRouteChange,
+      facetsLoading,
     ]
   )
 
@@ -152,6 +155,7 @@ const SearchResultFlexible = ({
               hiddenFacets={hiddenFacets}
               orderBy={orderBy}
               page={page}
+              facetsLoading={facetsLoading}
             >
               {
                 <LoadingOverlay loading={state.isFetchingMore}>

@@ -63,6 +63,7 @@ const LocalQuery = props => {
           page: extraParams.page,
           from: extraParams.from,
           to: extraParams.to,
+          facetsLoading: extraParams.facetsLoading,
           maxItemsPerPage,
         })
       }}

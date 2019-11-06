@@ -1,9 +1,10 @@
 import { zip, split, head, join, tail } from 'ramda'
-import { useMemo, useRef } from 'react'
+import { useMemo, useRef, useCallback } from 'react'
 import { useQuery } from 'react-apollo'
 import {
   productSearchV2 as productSearchQuery,
   searchMetadata as searchMetadataQuery,
+  facets as facetsQuery,
 } from 'vtex.store-resources/Queries'
 
 const DEFAULT_PAGE = 1
@@ -46,6 +47,43 @@ const useFacetsArgs = (query, map) => {
   }, [map, query])
 }
 
+const useCombinedRefetch = (productRefetch, facetsRefetch) => {
+  return useCallback(
+    async refetchVariables => {
+      const [searchRefetchResult, facetsRefetchResult] = await Promise.all([
+        productRefetch &&
+          productRefetch(
+            refetchVariables
+              ? {
+                  ...refetchVariables,
+                  withFacets: false,
+                }
+              : undefined
+          ),
+        facetsRefetch &&
+          facetsRefetch(
+            refetchVariables
+              ? {
+                  query: refetchVariables.facetQuery,
+                  map: refetchVariables.facetMap,
+                  hideUnavailableItems: refetchVariables.hideUnavailableItems,
+                }
+              : undefined
+          ),
+      ])
+      return {
+        ...searchRefetchResult,
+        data: {
+          ...(searchRefetchResult.data || {}),
+          facets: facetsRefetchResult.data && facetsRefetchResult.data.facets,
+        },
+        errors: searchRefetchResult.errors || facetsRefetchResult.errors,
+      }
+    },
+    [productRefetch, facetsRefetch]
+  )
+}
+
 const useCorrectPage = ({ page, query, map, orderBy }) => {
   const pageRef = useRef(page)
   const queryRef = useRef(query)
@@ -60,6 +98,49 @@ const useCorrectPage = ({ page, query, map, orderBy }) => {
     pageRef.current = DEFAULT_PAGE
   }
   return pageRef.current
+}
+
+const useQueries = (variables, facetsArgs) => {
+  const productSearchResult = useQuery(productSearchQuery, {
+    ssr: false,
+    variables,
+  })
+  const { refetch: searchRefetch, loading: searchLoading } = productSearchResult
+  const { data: { searchMetadata } = {} } = useQuery(searchMetadataQuery, {
+    variables: {
+      query: variables.query,
+      map: variables.map,
+    },
+  })
+
+  const {
+    data: { facets } = {},
+    loading: facetsLoading,
+    refetch: facetsRefetch,
+  } = useQuery(facetsQuery, {
+    variables: {
+      query: facetsArgs.facetQuery,
+      map: facetsArgs.facetMap,
+      hideUnavailableItems: variables.hideUnavailableItems,
+    },
+    skip: !facetsArgs.withFacets,
+    ssr: false,
+  })
+
+  const refetch = useCombinedRefetch(searchRefetch, facetsRefetch)
+
+  return {
+    loading: searchLoading,
+    facetsLoading,
+    data: {
+      productSearch:
+        productSearchResult.data && productSearchResult.data.productSearch,
+      facets,
+      searchMetadata,
+    },
+    productSearchResult,
+    refetch,
+  }
 }
 
 const SearchQuery = ({
@@ -95,48 +176,36 @@ const SearchQuery = ({
       from,
       to,
       hideUnavailableItems,
-      ...facetsArgs,
+      withFacets: false,
     }
-  }, [
-    query,
-    map,
-    orderBy,
-    priceRange,
-    from,
-    to,
-    hideUnavailableItems,
-    facetsArgs,
-  ])
+  }, [query, map, orderBy, priceRange, from, to, hideUnavailableItems])
+
+  const {
+    data,
+    loading,
+    refetch,
+    productSearchResult,
+    facetsLoading,
+  } = useQueries(variables, facetsArgs)
+
   const extraParams = useMemo(() => {
     return {
       ...variables,
+      ...facetsArgs,
       maxItemsPerPage,
       page,
+      facetsLoading,
     }
-  }, [variables, maxItemsPerPage, page])
-
-  const productSearchResult = useQuery(productSearchQuery, {
-    ssr: false,
-    variables,
-  })
-  const { data: { searchMetadata } = {} } = useQuery(searchMetadataQuery, {
-    variables: {
-      query: variables.query,
-      map: variables.map,
-    },
-  })
+  }, [variables, facetsArgs, maxItemsPerPage, page, facetsLoading])
 
   const searchInfo = useMemo(
     () => ({
       ...(productSearchResult || {}),
-      data: {
-        productSearch:
-          productSearchResult.data && productSearchResult.data.productSearch,
-        facets: productSearchResult.data && productSearchResult.data.facets,
-        searchMetadata,
-      },
+      data,
+      loading,
+      refetch,
     }),
-    [productSearchResult, searchMetadata]
+    [data, loading, productSearchResult, refetch]
   )
 
   return children(searchInfo, extraParams)
