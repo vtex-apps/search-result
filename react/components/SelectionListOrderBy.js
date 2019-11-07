@@ -86,7 +86,7 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
           {getOptionTitle(orderBy)}
         </span>
         <span className={`${searchResult.filterPopupArrowIcon} ph5 pt1`}>
-          <IconCaret orientation="down" size={10} />
+          <IconCaret orientation={showDropdown ? 'up' : 'down'} size={10} />
         </span>
       </button>
 
