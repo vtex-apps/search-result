@@ -417,6 +417,25 @@ Notice that the default behavior for your store will be the one defined by the `
 
 Also, you can configure the product summary that is defined on search-result. See [here](https://github.com/vtex-apps/product-summary/blob/master/README.md#configuration) the Product Summary API.
 
+##### `order-by` block
+
+| Prop name       | Type            | Description                                                                                                  | Default value |
+| --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
+| `hiddenOptions` | `Array(String)` | Indicates which [sort options](#sort_options) will be hidden. (e.g. `["OrderByNameASC", "OrderByNameDESC"]`) | `[]`          |
+
+###### `SORT_OPTIONS`
+
+| Option                   | Value                       |
+| ------------------------ | --------------------------- |
+| Relevance                | `""`                        |
+| Top Sales Descending     | `"OrderByTopSaleDESC"`      |
+| Release Date Descending  | `"OrderByReleaseDateDESC"`  |
+| Best Discount Descending | `"OrderByBestDiscountDESC"` |
+| Price Descending         | `"OrderByPriceDESC"`        |
+| Price Ascending          | `"OrderByPriceASC"`         |
+| Name Ascending           | `"OrderByNameASC"`          |
+| Name Descending          | `"OrderByNameDESC"`         |
+
 ### Styles API
 
 This app provides some CSS classes as an API for style customization.
