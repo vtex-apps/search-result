@@ -32,7 +32,8 @@
     "vtex.flex-layout": "0.x",
     "vtex.tab-layout": "0.x",
     "vtex.search-page-context": "0.x",
-    "vtex.blog-interfaces": "0.x"
+    "vtex.blog-interfaces": "0.x",
+    "vtex.responsive-values": "0.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
