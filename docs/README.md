@@ -358,15 +358,22 @@ These properties can be changed in the `blocks.json` file of your theme.
 
 ##### QuerySchema
 
-| Prop name              | Type      | Description                                                                                                                                                                                                                                              | Default value |
-| ---------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| `maxItemsPerPage`      | `Number`  | Maximum number of items per search page                                                                                                                                                                                                                  | 10            |
-| `queryField`           | `String`  | Query field                                                                                                                                                                                                                                              | N/A           |
-| `mapField`             | `String`  | Map field                                                                                                                                                                                                                                                | N/A           |
-| `restField`            | `String`  | Other Query Strings                                                                                                                                                                                                                                      | N/A           |
-| `orderByField`         | `Enum`    | Order by field (values: `OrderByTopSaleDESC`, `OrderByReleaseDateDESC`, `OrderByBestDiscountDESC`, `OrderByPriceDESC`, `OrderByPriceASC`, `OrderByNameASC`, `OrderByNameDESC` or `''` (by relevance))                                                    | `''`          |
-| `hideUnavailableItems` | `Boolean` | Set if unavailable items should show on search                                                                                                                                                                                                           | `false`       |
-| `skusFilter`           | `Enum`    | Set if you want to filter the SKUs returned in products query which has a performance benefit. Set to "FIRST_AVAILABLE" if you don't need information about all SKUs of a product inside your gallery. Only supported value for now is "FIRST_AVAILABLE" | N/A           |
+| Prop name              | Type             | Description                                                                                                                                                                                           | Default value     |
+| ---------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| `maxItemsPerPage`      | `Number`         | Maximum number of items per search page                                                                                                                                                               | 10                |
+| `queryField`           | `String`         | Query field                                                                                                                                                                                           | N/A               |
+| `mapField`             | `String`         | Map field                                                                                                                                                                                             | N/A               |
+| `restField`            | `String`         | Other Query Strings                                                                                                                                                                                   | N/A               |
+| `orderByField`         | `Enum`           | Order by field (values: `OrderByTopSaleDESC`, `OrderByReleaseDateDESC`, `OrderByBestDiscountDESC`, `OrderByPriceDESC`, `OrderByPriceASC`, `OrderByNameASC`, `OrderByNameDESC` or `''` (by relevance)) | `''`              |
+| `hideUnavailableItems` | `Boolean`        | Set if unavailable items should show on search                                                                                                                                                        | `false`           |
+| `skusFilter`           | `SkusFilterEnum` | Control SKUs returned for each product in the query. The less SKUs needed to be returned, the more performant your shelf query will be.                                                               | `"ALL_AVAILABLE"` |
+
+`SkusFilterEnum`:
+| Name | Value | Description |
+| ---- | ----- | ----------- |
+| First Available | `FIRST_AVAILABLE` | Most performant, ideal if you do not have a SKU selector in your shelf. Will return only the first available SKU for that product in your shelf query. |
+| All Available | `ALL_AVAILABLE` | A bit better performace, will only return SKUs that are available, ideal if you have a SKU selector but still want a better performance. |
+| All | `ALL` | Returns all SKUs related to that product, least performant option. |
 
 ##### HiddenFacets
 

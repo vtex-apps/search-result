@@ -109,9 +109,10 @@ SearchResult.getSchema = props => {
               description:
                 'admin/editor.search-result.query.skusFilter.description',
               type: 'string',
-              default: 'ALL',
-              enum: ['ALL', 'FIRST_AVAILABLE'],
+              default: 'ALL_AVAILABLE',
+              enum: ['ALL_AVAILABLE', 'ALL', 'FIRST_AVAILABLE'],
               enumNames: [
+                'admin/editor.search-result.query.skusFilter.all-available',
                 'admin/editor.search-result.query.skusFilter.none',
                 'admin/editor.search-result.query.skusFilter.first-available',
               ],
