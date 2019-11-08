@@ -1,8 +1,6 @@
 import React from 'react'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import { path } from 'ramda'
-import { Spinner } from 'vtex.styleguide'
-
 import {
   useSearchPage,
   useSearchPageState,
@@ -13,19 +11,12 @@ const SearchContent = () => {
   const { mobileLayout, showContentLoader } = useSearchPageState()
   const products = path(['data', 'productSearch', 'products'], searchQuery)
 
-  if (showContentLoader === undefined) {
+  /* No need to show the spinner if it is loading because
+   the LoadingOverlay already takes care of this */
+  if (showContentLoader === undefined || showContentLoader) {
     return null
   }
 
-  if (showContentLoader) {
-    return (
-      <div className="w-100 flex justify-center">
-        <div className="w3 ma0">
-          <Spinner />
-        </div>
-      </div>
-    )
-  }
   if (!products || products.length === 0) {
     return <ExtensionPoint id="not-found" />
   }

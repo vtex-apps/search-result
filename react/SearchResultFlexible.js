@@ -136,6 +136,7 @@ const SearchResultFlexible = ({
     ]
   )
 
+  const showLoading = searchQuery.loading && !state.isFetchingMore
   return (
     <SearchPageContext.Provider value={context}>
       <SearchPageStateContext.Provider value={state}>
@@ -158,7 +159,7 @@ const SearchResultFlexible = ({
               facetsLoading={facetsLoading}
             >
               {
-                <LoadingOverlay loading={state.isFetchingMore}>
+                <LoadingOverlay loading={showLoading}>
                   <div
                     className={`flex flex-column flex-grow-1 ${generateBlockClass(
                       styles['container--layout'],
