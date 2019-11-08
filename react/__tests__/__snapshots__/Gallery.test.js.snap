@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<OrderBy /> should match snapshot 1`] = `
+exports[`<Gallery /> should match snapshot 1`] = `
 <DocumentFragment>
   <div
     style="position: absolute; width: 0px; height: 0px; visibility: hidden; display: none;"
