@@ -25,11 +25,11 @@ export const LAYOUT_MODE = [
 const LayoutIcon = ({ mode }) => {
   switch (mode) {
     case 'small':
-      return <IconGrid size={20} />
+      return <IconSingleGrid size={20} />
     case 'inline':
       return <IconInlineGrid size={20} />
     case 'normal':
-      return <IconSingleGrid size={20} />
+      return <IconGrid size={20} />
     default: {
       // eslint-disable-next-line no-undef
       if (process.env.NODE_ENV === 'development') {
