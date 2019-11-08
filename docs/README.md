@@ -24,7 +24,7 @@ This are the current supported blocks in this repository. Blocks not mentioned a
 | `search-layout-switcher`           | [LayoutModeSwitcherFlexible](react/LayoutModeSwitcherFlexible)       | Enables user to switch between layout modes in mobile                                                                                               |
 | `search-content`                   | [SearchContent](react/SearchContent)                                 | Block that chooses to show the `gallery` block if products are found and `not-found` if filters selected lead to an empty search                    |
 | `search-fetch-more`                | [FetchMore](react/FetchMore)                                         | Renders the fetch more button if pagination is of type `show-more`. If it is infinite scroll, shows the `Loader` when bottom of the page is reached |
-| `search-fetch-previous`                | [FetchPrevious](react/FetchPrevious)                                         | Renders the fetch previous button. |
+| `search-fetch-previous`            | [FetchPrevious](react/FetchPrevious)                                 | Renders the fetch previous button.                                                                                                                  |
 | `search-products-count-per-page`   | [ProductCountPerPage](react/ProductCountPerPage)                     | Shows the total count of products displayed in search at the moment.                                                                                |
 | `order-by.v2`                      | [OrderByFlexible](react/OrderByFlexible)                             | Allows user to pick the type of order of the products displayed.                                                                                    |
 | `filter-navigator.v3`              | [FilterNavigatorFlexible](react/FilterNavigatorFlexible)             | Allows user to apply different filters to search. On mobile, renders a button that shows the sidebar when pressed.                                  |
@@ -39,7 +39,7 @@ You now have access to `search-result-layout`, it supports three different block
 
 `search-result-layout.desktop` is rendered when user is using a desktop. The `.mobile` interface is rendered (if provided), when user is using a mobile device. If the `.mobile` is not provided, the `.desktop` will be used.
 
-The `search-not-found-layout` is used (if provided) when the user searches for a term that returns nothing. 
+The `search-not-found-layout` is used (if provided) when the user searches for a term that returns nothing.
 
 > **Important notice:** if the user lands on a search page and adds filters until it reachs a empty search, this block will not be rendered! Instead, the `not-found` component, **which is currently not flexible**, will.
 
@@ -56,7 +56,8 @@ To pass parameters to the search displayed at `search-result-layout` you should 
         "context": {
            "orderByField": "OrderByReleaseDateDESC",
             "hideUnavailableItems": true,
-            "maxItemsPerPage": 8
+            "maxItemsPerPage": 8,
+            "skusFilter": "FIRST_AVAILABLE"
         }
      }
   },
@@ -79,7 +80,8 @@ If you want to use the `.customQuery`:
       "hideUnavailableItems": true,
       "maxItemsPerPage": 8,
       "queryField": "clothing",
-      "mapField": "c"
+      "mapField": "c",
+      "skusFilter": "FIRST_AVAILABLE"
     }
   },
   "blocks": ["search-result-layout.desktop"]
@@ -135,7 +137,8 @@ In case of (a) we can configure the search parameters in a search context in the
         "context": {
            "orderByField": "OrderByReleaseDateDESC",
             "hideUnavailableItems": true,
-            "maxItemsPerPage": 8
+            "maxItemsPerPage": 8,
+            "skusFilter": "FIRST_AVAILABLE"
         }
      }
   },
@@ -147,7 +150,8 @@ In case of (a) we can configure the search parameters in a search context in the
         "context": {
            "orderByField": "OrderByReleaseDateDESC",
             "hideUnavailableItems": true,
-            "maxItemsPerPage": 8
+            "maxItemsPerPage": 8,
+            "skusFilter": "FIRST_AVAILABLE"
         }
      }
   },
@@ -159,7 +163,8 @@ In case of (a) we can configure the search parameters in a search context in the
         "context": {
            "orderByField": "OrderByReleaseDateDESC",
             "hideUnavailableItems": true,
-            "maxItemsPerPage": 8
+            "maxItemsPerPage": 8,
+            "skusFilter": "FIRST_AVAILABLE"
         }
      }
   },
@@ -171,7 +176,8 @@ In case of (a) we can configure the search parameters in a search context in the
         "context": {
            "orderByField": "OrderByReleaseDateDESC",
             "hideUnavailableItems": true,
-            "maxItemsPerPage": 8
+            "maxItemsPerPage": 8,
+            "skusFilter": "FIRST_AVAILABLE"
         }
      }
   },
@@ -183,7 +189,8 @@ In case of (a) we can configure the search parameters in a search context in the
         "context": {
            "orderByField": "OrderByReleaseDateDESC",
             "hideUnavailableItems": true,
-            "maxItemsPerPage": 8
+            "maxItemsPerPage": 8,
+            "skusFilter": "FIRST_AVAILABLE"
         }
      }
   }
@@ -226,7 +233,8 @@ Now, to change the search done by this block, we must pass its parameters direct
     "querySchema": {
       "orderByField": "OrderByReleaseDateDESC",
       "hideUnavailableItems": true,
-      "maxItemsPerPage": 8
+      "maxItemsPerPage": 8,
+      "skusFilter": "FIRST_AVAILABLE"
     }
   }
 }
@@ -350,14 +358,15 @@ These properties can be changed in the `blocks.json` file of your theme.
 
 ##### QuerySchema
 
-| Prop name              | Type      | Description                                                                                                                                                                                           | Default value |
-| ---------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| `maxItemsPerPage`      | `Number`  | Maximum number of items per search page                                                                                                                                                               | 10            |
-| `queryField`           | `String`  | Query field                                                                                                                                                                                           | N/A           |
-| `mapField`             | `String`  | Map field                                                                                                                                                                                             | N/A           |
-| `restField`            | `String`  | Other Query Strings                                                                                                                                                                                   | N/A           |
-| `orderByField`         | `Enum`    | Order by field (values: `OrderByTopSaleDESC`, `OrderByReleaseDateDESC`, `OrderByBestDiscountDESC`, `OrderByPriceDESC`, `OrderByPriceASC`, `OrderByNameASC`, `OrderByNameDESC` or `''` (by relevance)) | `''`          |
-| `hideUnavailableItems` | `Boolean` | Set if unavailable items should show on search                                                                                                                                                        | `false`       |
+| Prop name              | Type      | Description                                                                                                                                                                                                                                              | Default value |
+| ---------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `maxItemsPerPage`      | `Number`  | Maximum number of items per search page                                                                                                                                                                                                                  | 10            |
+| `queryField`           | `String`  | Query field                                                                                                                                                                                                                                              | N/A           |
+| `mapField`             | `String`  | Map field                                                                                                                                                                                                                                                | N/A           |
+| `restField`            | `String`  | Other Query Strings                                                                                                                                                                                                                                      | N/A           |
+| `orderByField`         | `Enum`    | Order by field (values: `OrderByTopSaleDESC`, `OrderByReleaseDateDESC`, `OrderByBestDiscountDESC`, `OrderByPriceDESC`, `OrderByPriceASC`, `OrderByNameASC`, `OrderByNameDESC` or `''` (by relevance))                                                    | `''`          |
+| `hideUnavailableItems` | `Boolean` | Set if unavailable items should show on search                                                                                                                                                                                                           | `false`       |
+| `skusFilter`           | `Enum`    | Set if you want to filter the SKUs returned in products query which has a performance benefit. Set to "FIRST_AVAILABLE" if you don't need information about all SKUs of a product inside your gallery. Only supported value for now is "FIRST_AVAILABLE" | N/A           |
 
 ##### HiddenFacets
 
@@ -397,15 +406,14 @@ Notice that the default behavior for your store will be the one defined by the `
 | Prop name            | Type      | Description                                                                                                                                                    | Default value |
 | -------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | `preventRouteChange` | `Boolean` | Prevents route change when selecting filters, using the query string instead. Intended for `search-result` blocks inserted on custom pages with static routes. | `false`       |
-| `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed. | `false`       |
+| `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed.                                                                                                                  | `false`       |
 
 ##### `filter-navigator.v2` block
 
 | Prop name            | Type      | Description                                                                                                                                                    | Default value |
 | -------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | `preventRouteChange` | `Boolean` | Prevents route change when selecting filters, using the query string instead. Intended for `search-result` blocks inserted on custom pages with static routes. | `false`       |
-| `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed. | `false`       |
-
+| `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed.                                                                                                                  | `false`       |
 
 Also, you can configure the product summary that is defined on search-result. See [here](https://github.com/vtex-apps/product-summary/blob/master/README.md#configuration) the Product Summary API.
 

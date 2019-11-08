@@ -104,6 +104,18 @@ SearchResult.getSchema = props => {
               type: 'boolean',
               default: false,
             },
+            skusFilter: {
+              title: 'admin/editor.search-result.query.skusFilter',
+              description:
+                'admin/editor.search-result.query.skusFilter.description',
+              type: 'string',
+              default: 'ALL',
+              enum: ['ALL', 'FIRST_AVAILABLE'],
+              enumNames: [
+                'admin/editor.search-result.query.skusFilter.none',
+                'admin/editor.search-result.query.skusFilter.first-available',
+              ],
+            },
           },
         },
       }

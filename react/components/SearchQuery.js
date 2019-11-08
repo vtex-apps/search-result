@@ -151,6 +151,7 @@ const SearchQuery = ({
   priceRange,
   hideUnavailableItems,
   pageQuery,
+  skusFilter,
   children,
 }) => {
   /* This is the page of the first query since the component was rendered. 
@@ -177,8 +178,18 @@ const SearchQuery = ({
       to,
       hideUnavailableItems,
       withFacets: false,
+      skusFilter,
     }
-  }, [query, map, orderBy, priceRange, from, to, hideUnavailableItems])
+  }, [
+    query,
+    map,
+    orderBy,
+    priceRange,
+    from,
+    to,
+    hideUnavailableItems,
+    skusFilter,
+  ])
 
   const {
     data,
