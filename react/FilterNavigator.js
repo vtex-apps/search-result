@@ -113,7 +113,6 @@ const FilterNavigator = ({
           tree={tree}
           isVisible={!hiddenFacets.categories}
           onCategorySelect={navigateToFacet}
-          preventRouteChange={preventRouteChange}
         />
         <AvailableFilters
           filters={filters}
