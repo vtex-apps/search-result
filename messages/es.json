@@ -9,6 +9,7 @@
   "admin/editor.search-result.query.skusFilter.description": "¡Establecer el primer iten disponible agiliza su consulta!",
   "admin/editor.search-result.query.skusFilter.none": "Ninguno",
   "admin/editor.search-result.query.skusFilter.first-available": "Primero disponible",
+  "admin/editor.search-result.query.skusFilter.all-available": "Todos disponibles",
   "admin/editor.search-result.pagination.title": "Tipo de paginación",
   "admin/editor.search-result.pagination.show-more": "Mostrar más",
   "admin/editor.search-result.pagination.infinite-scroll": "Desplazamiento infinito",

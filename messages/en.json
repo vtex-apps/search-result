@@ -9,6 +9,7 @@
   "admin/editor.search-result.query.skusFilter.description": "Setting the first available filter makes your query much faster!",
   "admin/editor.search-result.query.skusFilter.none": "None",
   "admin/editor.search-result.query.skusFilter.first-available": "First Available",
+  "admin/editor.search-result.query.skusFilter.all-available": "All Available",
   "admin/editor.search-result.pagination.title": "Pagination type",
   "admin/editor.search-result.pagination.show-more": "Show more",
   "admin/editor.search-result.pagination.infinite-scroll": "Infinite scrolling",
