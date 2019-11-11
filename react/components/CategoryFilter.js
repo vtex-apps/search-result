@@ -28,13 +28,9 @@ const getSelectedCategories = rootCategory => {
   return selectedCategories
 }
 
-const CategoryFilter = ({
-  category,
-  shallow = false,
-  onCategorySelect,
-  preventRouteChange = false,
-}) => {
+const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
   const { map } = useContext(QueryContext)
+  const preventRouteChange = false
 
   const selectedCategories = getSelectedCategories(category)
 
@@ -54,7 +50,7 @@ const CategoryFilter = ({
     }
 
     if (shallow) {
-      onCategorySelect(category)
+      onCategorySelect(category, preventRouteChange)
     } else {
       // deselect root category
       handleUnselectCategories(0)
