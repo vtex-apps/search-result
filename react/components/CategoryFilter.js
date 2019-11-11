@@ -10,6 +10,10 @@ import CategoryItem from './CategoryItem'
 
 import styles from '../searchResult.css'
 
+/* Since Category isn't really on the same abstraction level as the other 
+facets, it was decided that it should not have support for preventRouteChange */
+const PREVENT_ROUTE_CHANGE = false
+
 const getSelectedCategories = rootCategory => {
   let node = rootCategory.children
   const selectedCategories = [rootCategory]
@@ -30,14 +34,13 @@ const getSelectedCategories = rootCategory => {
 
 const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
   const { map } = useContext(QueryContext)
-  const preventRouteChange = false
 
   const selectedCategories = getSelectedCategories(category)
 
   const handleUnselectCategories = index => {
     const categoriesToRemove = selectedCategories.slice(index)
 
-    onCategorySelect(categoriesToRemove, preventRouteChange)
+    onCategorySelect(categoriesToRemove, PREVENT_ROUTE_CHANGE)
   }
 
   const lastSelectedCategory = selectedCategories[selectedCategories.length - 1]
@@ -50,7 +53,7 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
     }
 
     if (shallow) {
-      onCategorySelect(category, preventRouteChange)
+      onCategorySelect(category, PREVENT_ROUTE_CHANGE)
     } else {
       // deselect root category
       handleUnselectCategories(0)
