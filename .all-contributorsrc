@@ -1,3 +1,24 @@
 {
-  "files": ["docs/README.md"]
+  "projectName": "search-result",
+  "projectOwner": "vtex-apps",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "docs/README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "none",
+  "contributors": [
+    {
+      "login": "grupo-exito-ecommerce",
+      "name": "grupo-exito-ecommerce",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/46934781?v=4",
+      "profile": "https://github.com/grupo-exito-ecommerce",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
 }
