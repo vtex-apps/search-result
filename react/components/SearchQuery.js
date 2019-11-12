@@ -1,4 +1,3 @@
-import { zip, split, head, join, tail } from 'ramda'
 import { useMemo, useRef, useCallback } from 'react'
 import { useQuery } from 'react-apollo'
 import {
@@ -9,43 +8,8 @@ import {
 
 const DEFAULT_PAGE = 1
 
-const QUERY_SEPARATOR = '/'
-const MAP_SEPARATOR = ','
-
-const splitQuery = split(QUERY_SEPARATOR)
-const splitMap = split(MAP_SEPARATOR)
-const joinQuery = join(QUERY_SEPARATOR)
-const joinMap = join(MAP_SEPARATOR)
-
 const includeFacets = (map, query) =>
   !!(map && map.length > 0 && query && query.length > 0)
-
-const useFacetsArgs = (query, map) => {
-  return useMemo(() => {
-    const queryArray = splitQuery(query)
-    const mapArray = splitMap(map)
-    const queryAndMap = zip(queryArray, mapArray)
-    const relevantArgs = [
-      head(queryAndMap),
-      ...tail(queryAndMap).filter(
-        ([_, tupleMap]) => tupleMap === 'c' || tupleMap === 'ft'
-      ),
-    ]
-    const finalMap = []
-    const finalQuery = []
-    relevantArgs.forEach(([tupleQuery, tupleMap]) => {
-      finalQuery.push(tupleQuery)
-      finalMap.push(tupleMap)
-    })
-    const facetQuery = joinQuery(finalQuery)
-    const facetMap = joinMap(finalMap)
-    return {
-      facetQuery,
-      facetMap,
-      withFacets: includeFacets(facetMap, facetQuery),
-    }
-  }, [map, query])
-}
 
 const useCombinedRefetch = (productRefetch, facetsRefetch) => {
   return useCallback(
@@ -167,7 +131,11 @@ const SearchQuery = ({
   const from = (page - 1) * maxItemsPerPage
   const to = from + maxItemsPerPage - 1
 
-  const facetsArgs = useFacetsArgs(query, map)
+  const facetsArgs = {
+    facetQuery: query,
+    facetMap: map,
+    withFacets: includeFacets(map, query),
+  }
   const variables = useMemo(() => {
     return {
       query,
