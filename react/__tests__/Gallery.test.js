@@ -6,7 +6,7 @@ import { products, summary } from 'GalleryMocks'
 
 import Gallery from '../Gallery'
 
-describe('<OrderBy />', () => {
+describe('<Gallery />', () => {
   const renderComponent = customProps => {
     const props = {
       products,

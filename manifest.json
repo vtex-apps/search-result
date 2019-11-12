@@ -5,9 +5,7 @@
   "title": "VTEX Search Result",
   "description": "A search result wrapper component",
   "mustUpdateAt": "2019-04-25",
-  "registries": [
-    "smartcheckout"
-  ],
+  "registries": ["smartcheckout"],
   "scripts": {
     "postreleasy": "vtex publish --verbose"
   },
@@ -34,7 +32,8 @@
     "vtex.flex-layout": "0.x",
     "vtex.tab-layout": "0.x",
     "vtex.search-page-context": "0.x",
-    "vtex.blog-interfaces": "0.x"
+    "vtex.blog-interfaces": "0.x",
+    "vtex.responsive-values": "0.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
