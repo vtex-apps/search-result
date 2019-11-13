@@ -47,5 +47,5 @@
     "regenerator-runtime": "^0.13.1",
     "typescript": "3.5.2"
   },
-  "version": "3.39.0"
+  "version": "3.39.1"
 }
