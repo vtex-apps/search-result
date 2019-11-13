@@ -5,6 +5,7 @@ import {
   useSearchPageStateDispatch,
   useSearchPageState,
 } from 'vtex.search-page-context/SearchPageContext'
+import { productSearchV2 as productSearchQuery } from 'vtex.store-resources/Queries'
 
 export const FETCH_TYPE = {
   NEXT: 'next',
@@ -133,6 +134,36 @@ const useFetchingMore = () => {
   return [stateValue, setFetchMore]
 }
 
+const preFetchNext = (
+  client,
+  variables,
+  pageState,
+  maxItemsPerPage,
+  recordsFiltered
+) => {
+  client
+    .query({
+      query: productSearchQuery,
+      variables: {
+        ...variables,
+        from: pageState.to + 1,
+        to: min(recordsFiltered, pageState.to + 1 + maxItemsPerPage) - 1,
+      },
+    })
+    .then(result => {
+      client.writeQuery({
+        query: productSearchQuery,
+        data: result.data,
+        variables: {
+          ...variables,
+          from: pageState.to + 1,
+          to: min(recordsFiltered, pageState.to + 1 + maxItemsPerPage) - 1,
+        },
+      })
+      console.log('resultt', result)
+    })
+}
+
 export const useFetchMore = props => {
   const {
     page,
@@ -140,7 +171,8 @@ export const useFetchMore = props => {
     maxItemsPerPage,
     fetchMore,
     products,
-    queryData: { query, map, orderBy, priceRange },
+    variables,
+    client,
   } = props
   const { setQuery } = useRuntime()
   const initialState = {
@@ -161,11 +193,22 @@ export const useFetchMore = props => {
   const updateQueryError = useRef(false) //TODO: refactor this ref
 
   useEffect(() => {
+    console.log('entrou useEffect')
+    preFetchNext(client, variables, pageState, maxItemsPerPage, recordsFiltered)
+  }, [client, variables, pageState, maxItemsPerPage, recordsFiltered])
+
+  useEffect(() => {
     if (!isFirstRender.current) {
       pageDispatch({ type: 'RESET', args: { maxItemsPerPage } })
     }
     isFirstRender.current = false
-  }, [maxItemsPerPage, query, map, orderBy, priceRange])
+  }, [
+    maxItemsPerPage,
+    variables.query,
+    variables.map,
+    variables.orderBy,
+    variables.priceRange,
+  ])
 
   const handleFetchMoreNext = async () => {
     const rollbackState = pageState

@@ -26,19 +26,14 @@ const SearchResultContainer = props => {
         productSearch: { products = [], recordsFiltered, breadcrumb = [] } = {},
       } = {},
       loading,
-      variables: { query, map, orderBy, priceRange },
+      variables,
+      client,
     },
     pagination,
     page,
     children,
   } = props
 
-  const queryData = {
-    query,
-    map,
-    orderBy,
-    priceRange,
-  }
   const {
     handleFetchMoreNext,
     handleFetchMorePrevious,
@@ -52,7 +47,8 @@ const SearchResultContainer = props => {
     maxItemsPerPage,
     fetchMore,
     products,
-    queryData,
+    variables,
+    client,
   })
 
   const resultComponent = children || (
@@ -63,7 +59,7 @@ const SearchResultContainer = props => {
       fetchMoreLoading={fetchMoreLoading}
       onFetchPrevious={handleFetchMorePrevious}
       pagination={pagination}
-      query={query}
+      query={variables.query}
       loading={loading}
       recordsFiltered={recordsFiltered}
       products={products}
