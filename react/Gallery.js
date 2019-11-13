@@ -27,7 +27,7 @@ const Gallery = ({
     tablet: 3,
     phone: 2,
   },
-  minItemWidth = 170,
+  minItemWidth = 240,
   width,
   summary,
   showingFacets,
