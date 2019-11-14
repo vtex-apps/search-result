@@ -38,6 +38,30 @@ export const buildQueryAndMap = (inputQuery, inputMap, facets) =>
         }
       }
 
+      if (facet.map === 'c') {
+        const mapArray = map.split(',')
+        const lastCategoryIndex = mapArray.lastIndexOf('c')
+        if (
+          lastCategoryIndex >= 0 &&
+          lastCategoryIndex !== mapArray.length - 1
+        ) {
+          // Corner case: if we are adding a category but there are other filter other than category applied. Add the new category filter to the right of the other categories.
+          const queryArray = query.split('/')
+          return {
+            query: [
+              ...queryArray.slice(0, lastCategoryIndex + 1),
+              facet.value,
+              ...queryArray.slice(lastCategoryIndex + 1),
+            ].join('/'),
+            map: [
+              ...mapArray.slice(0, lastCategoryIndex + 1),
+              facet.map,
+              ...mapArray.slice(lastCategoryIndex + 1),
+            ].join(','),
+          }
+        }
+      }
+
       return {
         query: `${query}/${facet.value}`,
         map: `${map},${facet.map}`,
