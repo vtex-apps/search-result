@@ -38,18 +38,27 @@ const Gallery = ({
   const layoutMode = isMobile ? mobileLayoutMode : 'normal'
 
   const getItemsPerRow = () => {
-    const maxItems = Math.floor(width / minItemWidth)
-    return responsiveMaxItemsPerRow <= maxItems
+    const maxItemsPerMinWidth = Math.floor(width / minItemWidth)
+
+    if (isMobile) {
+      if (layoutMode === 'normal') {
+        return ONE_COLUMN_LAYOUT
+      }
+
+      const maxItemsOnMobile =
+        maxItemsPerMinWidth >= 2 ? maxItemsPerMinWidth : 2
+
+      return responsiveMaxItemsPerRow <= maxItemsOnMobile
+        ? responsiveMaxItemsPerRow
+        : maxItemsOnMobile
+    }
+
+    return responsiveMaxItemsPerRow <= maxItemsPerMinWidth
       ? responsiveMaxItemsPerRow
-      : maxItems
+      : maxItemsPerMinWidth
   }
 
-  const itemsPerRow =
-    (layoutMode === 'small'
-      ? getItemsPerRow()
-      : isMobile
-      ? ONE_COLUMN_LAYOUT
-      : getItemsPerRow()) || responsiveMaxItemsPerRow
+  const itemsPerRow = getItemsPerRow() || responsiveMaxItemsPerRow
 
   const rows = useMemo(() => splitEvery(itemsPerRow, products), [
     itemsPerRow,

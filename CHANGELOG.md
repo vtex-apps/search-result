@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Mininum of items to be displayed on `small` mobile layout mode should be 2, and always 1 when on `normal` mode.
 
 ## [3.39.1] - 2019-11-13
 ### Fixed
