@@ -58,7 +58,7 @@ const Gallery = ({
       : maxItemsPerMinWidth
   }
 
-  const itemsPerRow = getItemsPerRow() || ONE_COLUMN_LAYOUT
+  const itemsPerRow = getItemsPerRow() || responsiveMaxItemsPerRow
 
   const rows = useMemo(() => splitEvery(itemsPerRow, products), [
     itemsPerRow,
