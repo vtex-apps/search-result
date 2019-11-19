@@ -34,6 +34,7 @@ const ExtensionPointWithProps = ({ id, parentProps, localSearchQueryData }) => (
     params={localSearchQueryData.params}
     priceRange={localSearchQueryData.priceRange}
     orderBy={localSearchQueryData.orderBy}
+    page={localSearchQueryData.page}
   />
 )
 
