@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
  - The `search-bar` on whitelist in the `search-not-found-layout`
 
+
+## [3.39.4] - 2019-11-21
+### Added
+- Search query default values
+
 ## [3.39.3] - 2019-11-19
 ### Fixed
 - Fetch More button problem on `CustomQuery`.
