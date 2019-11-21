@@ -1,7 +1,9 @@
-import { useMemo, useRef, useCallback } from 'react'
+import { path } from 'ramda'
+import { useMemo, useRef, useCallback, useState, useEffect } from 'react'
 import { useQuery } from 'react-apollo'
 import {
   productSearchV2 as productSearchQuery,
+  productSearchNoSimulations,
   searchMetadata as searchMetadataQuery,
   facets as facetsQuery,
 } from 'vtex.store-resources/Queries'
@@ -64,12 +66,141 @@ const useCorrectPage = ({ page, query, map, orderBy }) => {
   return pageRef.current
 }
 
-const useQueries = (variables, facetsArgs) => {
+const useProductQuery = (variables, usePublicSearch) => {
+  const withSimulationDoneRef = useRef(false)
+  const noSimulationDoneRef = useRef(false)
+  const productsRef = useRef(undefined)
+  const [finalProducts, setFinalProducts] = useState(undefined)
+
+  useEffect(() => {
+    if (variables) {
+      noSimulationDoneRef.current = false
+      withSimulationDoneRef.current = false
+    }
+  }, [variables])
+
   const productSearchResult = useQuery(productSearchQuery, {
     ssr: false,
     variables,
+    onCompleted: data => {
+      withSimulationDoneRef.current = true
+      if (!noSimulationDoneRef.current) {
+        productsRef.current = path(['productSearch', 'products'], data)
+        setFinalProducts(productsRef.current)
+        return
+      }
+
+      if (productsRef.current) {
+        const products = productsRef.current
+        const newProducts = data.productSearch && data.productSearch.products
+        if (newProducts && products.length !== newProducts.length) {
+          productsRef.current = newProducts
+          setFinalProducts(productsRef.current)
+          return
+        }
+        const areEqual = products.every(
+          (p, i) => p.productId === newProducts[i].productId
+        )
+        if (!areEqual) {
+          productsRef.current = newProducts
+          setFinalProducts(productsRef.current)
+          return
+        }
+        for (let i = 0; i < products.length; i++) {
+          products[i] = { ...products[i] }
+
+          products[i].priceRange = newProducts[i].priceRange
+          products[i].items.forEach((item, itemIndex) => {
+            if (item.itemId !== newProducts[i].items[itemIndex].itemId) {
+              item = newProducts[i].items[itemIndex]
+            } else {
+              item.sellers.forEach((seller, sellerIndex) => {
+                seller.commertialOffer =
+                  newProducts[i].items[itemIndex].sellers[
+                    sellerIndex
+                  ].commertialOffer
+              })
+            }
+          })
+        }
+        productsRef.current = products
+        setFinalProducts([...productsRef.current])
+      }
+    },
   })
-  const { refetch: searchRefetch, loading: searchLoading } = productSearchResult
+
+  const {
+    data: noSimulationData = {},
+    loading: noSimulationLoading,
+  } = useQuery(productSearchNoSimulations, {
+    ssr: false,
+    variables: {
+      query: variables.query,
+      map: variables.map,
+      orderBy: variables.orderBy,
+      priceRange: variables.priceRange,
+      from: variables.from,
+      to: variables.to,
+      hideUnavailableItems: variables.hideUnavailableItems,
+      skusFilter: variables.skusFilter,
+    },
+    onCompleted: data => {
+      noSimulationDoneRef.current = true
+      if (!withSimulationDoneRef.current) {
+        productsRef.current = path(
+          ['productSearchNoSimulations', 'products'],
+          data
+        )
+        setFinalProducts(productsRef.current)
+      }
+    },
+    skip: !usePublicSearch,
+  })
+
+  const result = usePublicSearch
+    ? {
+        breadcrumb: path(
+          ['productSearchNoSimulations', 'breadcrumb'],
+          noSimulationData
+        ),
+        recordsFiltered: path(
+          ['productSearchNoSimulations', 'recordsFiltered'],
+          noSimulationData
+        ),
+        loading: noSimulationLoading,
+        products: finalProducts,
+      }
+    : {
+        breadcrumb: path(
+          ['data', 'productSearch', 'breadcrumb'],
+          productSearchResult
+        ),
+        recordsFiltered: path(
+          ['data', 'productSearch', 'recordsFiltered'],
+          productSearchResult
+        ),
+        loading: productSearchResult.loading,
+        products: path(
+          ['data', 'productSearch', 'products'],
+          productSearchResult
+        ),
+      }
+
+  return {
+    ...result,
+    productSearchResult,
+  }
+}
+
+const useQueries = (variables, facetsArgs, usePublicSearch) => {
+  const {
+    breadcrumb,
+    recordsFiltered,
+    loading,
+    productSearchResult,
+    products,
+  } = useProductQuery(variables, usePublicSearch)
+
   const { data: { searchMetadata } = {} } = useQuery(searchMetadataQuery, {
     variables: {
       query: variables.query,
@@ -91,17 +222,22 @@ const useQueries = (variables, facetsArgs) => {
     ssr: false,
   })
 
-  const refetch = useCombinedRefetch(searchRefetch, facetsRefetch)
+  const refetch = useCombinedRefetch(productSearchResult.refetch, facetsRefetch)
+
+  const data = {
+    productSearch: {
+      breadcrumb,
+      recordsFiltered,
+      products,
+    },
+    facets,
+    searchMetadata,
+  }
 
   return {
-    loading: searchLoading,
+    loading,
     facetsLoading,
-    data: {
-      productSearch:
-        productSearchResult.data && productSearchResult.data.productSearch,
-      facets,
-      searchMetadata,
-    },
+    data,
     productSearchResult,
     refetch,
   }
@@ -117,6 +253,7 @@ const SearchQuery = ({
   pageQuery,
   skusFilter,
   children,
+  usePublicSearch,
 }) => {
   /* This is the page of the first query since the component was rendered. 
   We want this behaviour so we can show the correct items even if the pageQuery
@@ -147,6 +284,7 @@ const SearchQuery = ({
       hideUnavailableItems,
       withFacets: false,
       skusFilter,
+      skipBreadcrumb: !!usePublicSearch,
     }
   }, [
     query,
@@ -157,6 +295,7 @@ const SearchQuery = ({
     to,
     hideUnavailableItems,
     skusFilter,
+    usePublicSearch,
   ])
 
   const {
@@ -165,7 +304,7 @@ const SearchQuery = ({
     refetch,
     productSearchResult,
     facetsLoading,
-  } = useQueries(variables, facetsArgs)
+  } = useQueries(variables, facetsArgs, usePublicSearch)
 
   const extraParams = useMemo(() => {
     return {

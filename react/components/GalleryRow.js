@@ -2,12 +2,23 @@ import React, { useRef, useEffect, memo } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { usePixel } from 'vtex.pixel-manager/PixelContext'
 import classNames from 'classnames'
+import { path } from 'ramda'
 
 import GalleryItem from './GalleryItem'
 import { normalizeProduct } from '../constants/productHelpers'
 
 import searchResult from '../searchResult.css'
 import { useQuery } from './QueryContext'
+
+const pathToSkippedSimulation = [
+  '0',
+  'items',
+  '0',
+  'sellers',
+  '0',
+  'commertialOffer',
+  'skippedSimulation',
+]
 
 const useProductImpression = (
   products,
@@ -26,7 +37,14 @@ const useProductImpression = (
   }, [map, query])
 
   useEffect(() => {
-    if (!products || viewed.current || !inView || !widthAvailable) {
+    const skippedSimulation = path(pathToSkippedSimulation, products)
+    if (
+      !products ||
+      viewed.current ||
+      !inView ||
+      !widthAvailable ||
+      skippedSimulation
+    ) {
       return
     }
     const normalizedProducts = products.map(normalizeProduct)
@@ -40,7 +58,7 @@ const useProductImpression = (
       impressions,
     })
     viewed.current = true
-  }, [push, products, inView, viewed, rowIndex, itemsPerRow, widthAvailable])
+  }, [push, products, inView, rowIndex, itemsPerRow, widthAvailable])
 }
 
 const GalleryRow = ({
