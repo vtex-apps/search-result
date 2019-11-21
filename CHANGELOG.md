@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Makes productSearch query without simulation if quickSearch is enabled
+- Makes productSearch query without simulation if lazyPrice is enabled
 
 ## [3.39.0] - 2019-11-12
 ### Added

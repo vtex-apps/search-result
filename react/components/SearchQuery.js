@@ -66,7 +66,7 @@ const useCorrectPage = ({ page, query, map, orderBy }) => {
   return pageRef.current
 }
 
-const useProductQuery = (variables, usePublicSearch) => {
+const useProductQuery = (variables, lazyPrice) => {
   const withSimulationDoneRef = useRef(false)
   const noSimulationDoneRef = useRef(false)
   const productsRef = useRef(undefined)
@@ -154,10 +154,10 @@ const useProductQuery = (variables, usePublicSearch) => {
         setFinalProducts(productsRef.current)
       }
     },
-    skip: !usePublicSearch,
+    skip: !lazyPrice,
   })
 
-  const result = usePublicSearch
+  const result = lazyPrice
     ? {
         breadcrumb: path(
           ['productSearchNoSimulations', 'breadcrumb'],
@@ -192,14 +192,14 @@ const useProductQuery = (variables, usePublicSearch) => {
   }
 }
 
-const useQueries = (variables, facetsArgs, usePublicSearch) => {
+const useQueries = (variables, facetsArgs, lazyPrice) => {
   const {
     breadcrumb,
     recordsFiltered,
     loading,
     productSearchResult,
     products,
-  } = useProductQuery(variables, usePublicSearch)
+  } = useProductQuery(variables, lazyPrice)
 
   const { data: { searchMetadata } = {} } = useQuery(searchMetadataQuery, {
     variables: {
@@ -253,7 +253,7 @@ const SearchQuery = ({
   pageQuery,
   skusFilter,
   children,
-  usePublicSearch,
+  lazyPrice,
 }) => {
   /* This is the page of the first query since the component was rendered. 
   We want this behaviour so we can show the correct items even if the pageQuery
@@ -284,7 +284,7 @@ const SearchQuery = ({
       hideUnavailableItems,
       withFacets: false,
       skusFilter,
-      skipBreadcrumb: !!usePublicSearch,
+      skipBreadcrumb: !!lazyPrice,
     }
   }, [
     query,
@@ -295,7 +295,7 @@ const SearchQuery = ({
     to,
     hideUnavailableItems,
     skusFilter,
-    usePublicSearch,
+    lazyPrice,
   ])
 
   const {
@@ -304,7 +304,7 @@ const SearchQuery = ({
     refetch,
     productSearchResult,
     facetsLoading,
-  } = useQueries(variables, facetsArgs, usePublicSearch)
+  } = useQueries(variables, facetsArgs, lazyPrice)
 
   const extraParams = useMemo(() => {
     return {
