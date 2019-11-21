@@ -7,6 +7,7 @@ import {
 } from 'vtex.store-resources/Queries'
 
 const DEFAULT_PAGE = 1
+const DEFAULT_SKU_FILTER = 'ALL_AVAILABLE'
 
 const includeFacets = (map, query) =>
   !!(map && map.length > 0 && query && query.length > 0)
@@ -144,9 +145,9 @@ const SearchQuery = ({
       priceRange,
       from,
       to,
-      hideUnavailableItems,
+      hideUnavailableItems: !!hideUnavailableItems,
       withFacets: false,
-      skusFilter,
+      skusFilter: skusFilter || DEFAULT_SKU_FILTER,
     }
   }, [
     query,
