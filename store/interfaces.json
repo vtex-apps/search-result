@@ -123,7 +123,8 @@
       "rich-text",
       "info-card",
       "flex-layout",
-      "not-found"
+      "not-found",
+      "search-bar"
     ],
     "composition": "children",
     "component": "NotFoundLayout"
