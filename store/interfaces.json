@@ -10,7 +10,7 @@
       "rich-text"
     ],
     "required": ["gallery"],
-    "component": "index",
+    "component": "SearchResultV2",
     "render": "client"
   },
   "filter-navigator": {
