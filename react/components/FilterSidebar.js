@@ -55,6 +55,7 @@ const FilterSidebar = ({ filters, tree, priceRange, preventRouteChange }) => {
 
   const handleApply = () => {
     navigateToFacet(filterOperations, preventRouteChange)
+    setOpen(false)
   }
 
   const handleUpdateCategories = maybeCategories => {
