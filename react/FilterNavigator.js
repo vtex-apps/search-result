@@ -82,6 +82,7 @@ const FilterNavigator = ({
       <div className={styles.filters}>
         <div className={filterClasses}>
           <FilterSidebar
+            selectedFilters={selectedFilters}
             filters={filters}
             tree={tree}
             priceRange={priceRange}

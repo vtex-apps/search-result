@@ -20,7 +20,13 @@ import useFacetNavigation, {
 
 import searchResult from '../searchResult.css'
 
-const FilterSidebar = ({ filters, tree, priceRange, preventRouteChange }) => {
+const FilterSidebar = ({
+  selectedFilters,
+  filters,
+  tree,
+  priceRange,
+  preventRouteChange,
+}) => {
   const queryContext = useContext(QueryContext)
   const [open, setOpen] = useState(false)
 
@@ -49,12 +55,14 @@ const FilterSidebar = ({ filters, tree, priceRange, preventRouteChange }) => {
     setOpen(true)
   }
 
-  const handleClearFilters = () => {
-    setFilterOperations([])
-  }
-
   const handleApply = () => {
     navigateToFacet(filterOperations, preventRouteChange)
+    setOpen(false)
+  }
+
+  const handleClearFilters = () => {
+    setFilterOperations(selectedFilters) // this is necessary to unselect the selected checkboxes
+    navigateToFacet(selectedFilters, preventRouteChange)
     setOpen(false)
   }
 
@@ -90,9 +98,7 @@ const FilterSidebar = ({ filters, tree, priceRange, preventRouteChange }) => {
     <Fragment>
       <button
         className={classNames(
-          `${
-            searchResult.filterPopupButton
-          } ph3 pv5 mv0 mv0 pointer flex justify-center items-center`,
+          `${searchResult.filterPopupButton} ph3 pv5 mv0 mv0 pointer flex justify-center items-center`,
           {
             'bb b--muted-1': open,
             bn: !open,
@@ -101,9 +107,7 @@ const FilterSidebar = ({ filters, tree, priceRange, preventRouteChange }) => {
         onClick={handleOpen}
       >
         <span
-          className={`${
-            searchResult.filterPopupTitle
-          } c-on-base t-action--small ml-auto`}
+          className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}
         >
           <FormattedMessage id="store/search-result.filter-action.title" />
         </span>
@@ -125,9 +129,7 @@ const FilterSidebar = ({ filters, tree, priceRange, preventRouteChange }) => {
           />
         </QueryContext.Provider>
         <div
-          className={`${
-            searchResult.filterButtonsBox
-          } bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base`}
+          className={`${searchResult.filterButtonsBox} bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base`}
         >
           <div className="bottom-0 fl w-50 pl4 pr2">
             <Button
