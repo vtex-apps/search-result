@@ -7,6 +7,8 @@ import {
   SearchPageStateDispatch,
   useSearchPageStateReducer,
 } from 'vtex.search-page-context/SearchPageContext'
+import { useCssHandles } from 'vtex.css-handles'
+
 import { generateBlockClass } from '@vtex/css-handles'
 import { pathOr, isEmpty } from 'ramda'
 
@@ -22,6 +24,8 @@ const emptyFacets = {
   specificationFilters: [],
   categoriesTrees: [],
 }
+
+const CSS_HANDLES = ['loadingOverlay']
 
 const useShowContentLoader = (searchQuery, dispatch) => {
   const loadingRef = useRef(true)
@@ -76,6 +80,7 @@ const SearchResultFlexible = ({
       }),
     [brands, hiddenFacets, priceRanges, specificationFilters]
   )
+  const handles = useCssHandles(CSS_HANDLES)
 
   const hideFacets = !map
   const showCategories =
@@ -161,7 +166,9 @@ const SearchResultFlexible = ({
               {
                 <LoadingOverlay loading={showLoading}>
                   <div
-                    className={`flex flex-column flex-grow-1 ${generateBlockClass(
+                    className={`${
+                      handles.loadingOverlay
+                    } flex flex-column flex-grow-1 ${generateBlockClass(
                       styles['container--layout'],
                       blockClass
                     )}`}

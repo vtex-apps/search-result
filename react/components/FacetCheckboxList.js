@@ -1,12 +1,15 @@
 import classNames from 'classnames'
 import React from 'react'
 import { Checkbox } from 'vtex.styleguide'
+import { useCssHandles } from 'vtex.css-handles'
 
 import useSelectedFilters from '../hooks/useSelectedFilters'
-import styles from '../searchResult.css'
+
+const CSS_HANDLES = ['filterAccordionItemBox']
 
 const FacetCheckboxList = ({ facets, onFilterCheck }) => {
   const facetsWithSelected = useSelectedFilters(facets)
+  const handles = useCssHandles(CSS_HANDLES)
 
   return facetsWithSelected.map(facet => {
     const { name } = facet
@@ -14,7 +17,7 @@ const FacetCheckboxList = ({ facets, onFilterCheck }) => {
     return (
       <div
         className={classNames(
-          styles.filterAccordionItemBox,
+          handles.filterAccordionItemBox,
           'pr4 pt3 items-center flex bb b--muted-5'
         )}
         key={name}

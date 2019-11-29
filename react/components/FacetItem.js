@@ -1,21 +1,21 @@
 import React, { useContext } from 'react'
 import { Checkbox } from 'vtex.styleguide'
+import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import classNames from 'classnames'
 
 import SettingsContext from './SettingsContext'
 import useFacetNavigation from '../hooks/useFacetNavigation'
 
-import styles from '../searchResult.css'
+const CSS_HANDLES = ['filterItem']
 
 const FacetItem = ({ facet, className, preventRouteChange = false }) => {
   const { showFacetQuantity } = useContext(SettingsContext)
-
+  const handles = useCssHandles(CSS_HANDLES)
   const navigateToFacet = useFacetNavigation()
 
   const classes = classNames(
-    styles.filterItem,
-    `${styles.filterItem}--${facet.value}`,
-    { [`${styles.filterItem}--selected`]: facet.selected },
+    applyModifiers(handles.filterItem, facet.value),
+    { [`${handles.filterItem}--selected`]: facet.selected },
     className,
     'lh-copy w-100'
   )

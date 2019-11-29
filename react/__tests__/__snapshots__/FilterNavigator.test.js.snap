@@ -6,7 +6,7 @@ exports[`<FilterNavigator /> should display related categories 1`] = `
     class=""
   >
     <div
-      class="filter__container filter__container--title bb b--muted-4"
+      class="filter__container--title bb b--muted-4"
     >
       <h5
         class="t-heading-5 mv5"
@@ -17,7 +17,7 @@ exports[`<FilterNavigator /> should display related categories 1`] = `
       </h5>
     </div>
     <div
-      class="filter__container filter__container--c bb b--muted-4"
+      class="filter__container--c bb b--muted-4"
     >
       <div
         class="filter pt4"
@@ -178,7 +178,7 @@ exports[`<FilterNavigator /> should match snapshot with all 1`] = `
     class=""
   >
     <div
-      class="filter__container filter__container--title bb b--muted-4"
+      class="filter__container--title bb b--muted-4"
     >
       <h5
         class="t-heading-5 mv5"
@@ -189,7 +189,7 @@ exports[`<FilterNavigator /> should match snapshot with all 1`] = `
       </h5>
     </div>
     <div
-      class="filter__container filter__container--c bb b--muted-4"
+      class="filter__container--c bb b--muted-4"
     >
       <div
         class="filter pt4"
