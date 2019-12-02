@@ -1,11 +1,8 @@
 import React, { useMemo } from 'react'
 import { SearchPageContext } from 'vtex.search-page-context/SearchPageContext'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
-import { generateBlockClass } from '@vtex/css-handles'
 
 const CSS_HANDLES = ['notFound']
-
-//import styles from './searchResult.css'
 
 const NotFoundLayout = ({
   children,
