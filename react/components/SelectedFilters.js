@@ -46,7 +46,7 @@ SelectedFilters.propTypes = {
   /** Intl instance. */
   intl: intlShape,
   /** Prevent route changes */
-  preventRouteChange: PropTypes.boolean,
+  preventRouteChange: PropTypes.bool,
 }
 
 export default injectIntl(SelectedFilters)

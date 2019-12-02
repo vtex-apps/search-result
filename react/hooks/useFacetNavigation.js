@@ -1,8 +1,8 @@
 import { zip } from 'ramda'
-import { useCallback, useContext } from 'react'
+import { useCallback } from 'react'
 import { useRuntime } from 'vtex.render-runtime'
+import { useQuery } from '../components/QueryContext'
 
-import QueryContext from '../components/QueryContext'
 import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
 
 const scrollOptions = {
@@ -72,7 +72,7 @@ export const buildQueryAndMap = (inputQuery, inputMap, facets) =>
 
 const useFacetNavigation = () => {
   const { navigate, setQuery } = useRuntime()
-  const { query, map } = useContext(QueryContext)
+  const { query, map } = useQuery()
 
   const navigateToFacet = useCallback(
     (maybeFacets, preventRouteChange = false) => {
