@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react'
 import { SearchPageContext } from 'vtex.search-page-context/SearchPageContext'
-import { useCssHandles, applyModifiers } from 'vtex.css-handles'
+import { generateBlockClass } from '@vtex/css-handles'
 
-const CSS_HANDLES = ['notFound']
+import styles from './searchResult.css'
 
 const NotFoundLayout = ({
   children,
@@ -12,6 +12,7 @@ const NotFoundLayout = ({
   params,
   priceRange,
   orderBy,
+  blockClass,
 }) => {
   const context = useMemo(
     () => ({
@@ -24,14 +25,13 @@ const NotFoundLayout = ({
     }),
     [map, maxItemsPerPage, orderBy, params, priceRange, searchQuery]
   )
-  const handles = useCssHandles(CSS_HANDLES)
 
   return (
     <SearchPageContext.Provider value={context}>
       <div
-        className={`${applyModifiers(
-          handles.notFound,
-          'layout'
+        className={`${generateBlockClass(
+          styles['notFound--layout'],
+          blockClass
         )} flex flex-column flex-grow-1`}
       >
         {children}
