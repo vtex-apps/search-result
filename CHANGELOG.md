@@ -9,7 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
  - The `search-bar` on whitelist in the `search-not-found-layout`
+ 
+## [3.39.6] - 2019-11-27
+### Fixed
+- Clear filters button on mobile.
 
+## [3.39.5] - 2019-11-26
+### Fixed
+- Clicking on the `Apply` button on the filter side bar on mobile now closes the sidebar.
 
 ## [3.39.4] - 2019-11-21
 ### Added
