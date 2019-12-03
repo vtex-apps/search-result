@@ -10,7 +10,7 @@ export const useCssHandles = cssHandles => {
 }
 
 export function applyModifiers(baseClass, modifier) {
-  return `${baseClass}--${modifier}`
+  return `${baseClass} ${baseClass}--${modifier}`
 }
 
 export const withCssHandles = () => Comp => {
