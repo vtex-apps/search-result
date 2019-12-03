@@ -466,11 +466,9 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 }
 ```
 
-#### CSS namespaces
+#### Customization
 
-Below, we describe the namespaces that are defined in the search-result.
-
-| Token name                            | 
+| CSS handles                           | 
 | ------------------------------------- |
 | `container`                           |
 | `buttonShowMore`                      |

@@ -28,7 +28,7 @@ const NotFoundSearch = ({ term }) => {
         className={`${handles.searchNotFound} flex flex-column-s flex-row-ns justify-center-ns items-center h-auto-s h5-ns`}
       >
         <div
-          className={` ${handles.searchNotFoundOops} flex justify-end-ns justify-center-s ttu f1 ph4 pv4-s pv0-ns c-muted-3 ph9 b`}
+          className={`${handles.searchNotFoundOops} flex justify-end-ns justify-center-s ttu f1 ph4 pv4-s pv0-ns c-muted-3 ph9 b`}
         >
           oops!
         </div>

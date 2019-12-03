@@ -15,7 +15,7 @@ const LoadingSpinner = props => {
       <div
         className={`${handles.loadingSpinnerOuterContainer} w-100 flex justify-center`}
       >
-        <div className={`${handles.loadingSpinnerOuterContainer} w3 ma0`}>
+        <div className={`${handles.loadingSpinnerInnerContainer} w3 ma0`}>
           <Spinner />
         </div>
       </div>
