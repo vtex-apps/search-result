@@ -9,6 +9,7 @@ import { useCssHandles } from 'vtex.css-handles'
 
 import SelectionListItem from './SelectionListItem'
 import useOutsideClick from '../hooks/useOutsideClick'
+import styles from '../searchResult.css'
 
 const CSS_HANDLES = [
   'orderByButton',
@@ -66,7 +67,7 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
   )
 
   const contentClass = classNames(
-    handles.orderByOptionsContainer,
+    styles.orderByOptionsContainer,
     'z-1 absolute bg-base shadow-5 w-100 f5 b--muted-4 br2 ba bw1 br--bottom top-0 right-0-ns',
     {
       db: showDropdown,

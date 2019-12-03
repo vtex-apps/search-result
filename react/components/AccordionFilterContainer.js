@@ -3,19 +3,15 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
-import { useCssHandles } from 'vtex.css-handles'
 
 import AccordionFilterItem from './AccordionFilterItem'
 import DepartmentFilters from './DepartmentFilters'
 import AccordionFilterGroup from './AccordionFilterGroup'
 import AccordionFilterPriceRange from './AccordionFilterPriceRange'
 
+import styles from '../searchResult.css'
+
 const CATEGORIES_TITLE = 'store/search.filter.title.categories'
-const CSS_HANDLES = [
-  'accordionFilterItemOptions',
-  'accordionFilter',
-  'filterAccordionBreadcrumbs',
-]
 
 const AccordionFilterContainer = ({
   filters,
@@ -26,7 +22,6 @@ const AccordionFilterContainer = ({
   priceRange,
 }) => {
   const [openItem, setOpenItem] = useState(null)
-  const handles = useCssHandles(CSS_HANDLES)
 
   const handleOpen = id => e => {
     e.preventDefault()
@@ -49,15 +44,15 @@ const AccordionFilterContainer = ({
   const departmentsOpen = openItem === CATEGORIES_TITLE
 
   const itemClassName = classNames(
-    handles.accordionFilterItemOptions,
+    styles.accordionFilterItemOptions,
     'ph5 pt3 h-100 overflow-scroll'
   )
 
   return (
-    <div className={classNames(handles.accordionFilter, 'h-100')}>
+    <div className={classNames(styles.accordionFilter, 'h-100')}>
       <div
         className={classNames(
-          handles.filterAccordionBreadcrumbs,
+          styles.filterAccordionBreadcrumbs,
           'pointer flex flex-row items-center pa5 bg-base w-100 z-max bb b--muted-4'
         )}
       >
