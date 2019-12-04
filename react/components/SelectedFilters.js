@@ -5,7 +5,9 @@ import { intlShape, injectIntl } from 'react-intl'
 import FacetItem from './FacetItem'
 import FilterOptionTemplate from './FilterOptionTemplate'
 import { facetOptionShape } from '../constants/propTypes'
-import styles from '../searchResult.css'
+import { useCssHandles } from 'vtex.css-handles'
+
+const CSS_HANDLES = ['selectedFilterItem']
 
 /**
  * Search Filter Component.
@@ -15,6 +17,7 @@ const SelectedFilters = ({
   intl,
   preventRouteChange = false,
 }) => {
+  const handles = useCssHandles(CSS_HANDLES)
   if (!filters.length) {
     return null
   }
@@ -32,7 +35,7 @@ const SelectedFilters = ({
         <FacetItem
           key={facet.name}
           facet={facet}
-          className={styles.selectedFilterItem}
+          className={handles.selectedFilterItem}
           preventRouteChange={preventRouteChange}
         />
       )}

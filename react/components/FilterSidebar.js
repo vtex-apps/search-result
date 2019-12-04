@@ -10,6 +10,7 @@ import React, {
 import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 import { IconFilter } from 'vtex.store-icons'
+import { useCssHandles } from 'vtex.css-handles'
 
 import QueryContext from './QueryContext'
 import AccordionFilterContainer from './AccordionFilterContainer'
@@ -18,7 +19,14 @@ import useFacetNavigation, {
   buildQueryAndMap,
 } from '../hooks/useFacetNavigation'
 
-import searchResult from '../searchResult.css'
+import styles from '../searchResult.css'
+
+const CSS_HANDLES = [
+  'filterPopupButton',
+  'filterPopupTitle',
+  'filterPopupArrowIcon',
+  'filterButtonsBox',
+]
 
 const FilterSidebar = ({
   selectedFilters,
@@ -29,6 +37,7 @@ const FilterSidebar = ({
 }) => {
   const queryContext = useContext(QueryContext)
   const [open, setOpen] = useState(false)
+  const handles = useCssHandles(CSS_HANDLES)
 
   const [filterOperations, setFilterOperations] = useState([])
   const [categoryTreeOperations, setCategoryTreeOperations] = useState([])
@@ -98,7 +107,7 @@ const FilterSidebar = ({
     <Fragment>
       <button
         className={classNames(
-          `${searchResult.filterPopupButton} ph3 pv5 mv0 mv0 pointer flex justify-center items-center`,
+          `${styles.filterPopupButton} ph3 pv5 mv0 mv0 pointer flex justify-center items-center`,
           {
             'bb b--muted-1': open,
             bn: !open,
@@ -107,13 +116,11 @@ const FilterSidebar = ({
         onClick={handleOpen}
       >
         <span
-          className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}
+          className={`${handles.filterPopupTitle} c-on-base t-action--small ml-auto`}
         >
           <FormattedMessage id="store/search-result.filter-action.title" />
         </span>
-        <span
-          className={`${searchResult.filterPopupArrowIcon} ml-auto pl3 pt2`}
-        >
+        <span className={`${handles.filterPopupArrowIcon} ml-auto pl3 pt2`}>
           <IconFilter size={16} viewBox="0 0 17 17" />
         </span>
       </button>
@@ -129,7 +136,7 @@ const FilterSidebar = ({
           />
         </QueryContext.Provider>
         <div
-          className={`${searchResult.filterButtonsBox} bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base`}
+          className={`${styles.filterButtonsBox} bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base`}
         >
           <div className="bottom-0 fl w-50 pl4 pr2">
             <Button

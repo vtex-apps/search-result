@@ -5,13 +5,23 @@ import classNames from 'classnames'
 import { find, propEq } from 'ramda'
 import { IconCaret } from 'vtex.store-icons'
 import { useDevice } from 'vtex.device-detector'
+import { useCssHandles } from 'vtex.css-handles'
 
 import SelectionListItem from './SelectionListItem'
 import useOutsideClick from '../hooks/useOutsideClick'
-import searchResult from '../searchResult.css'
+import styles from '../searchResult.css'
+
+const CSS_HANDLES = [
+  'orderByButton',
+  'orderByOptionsContainer',
+  'orderByDropdown',
+  'filterPopupTitle',
+  'filterPopupArrowIcon',
+]
 
 const SelectionListOrderBy = ({ intl, orderBy, options }) => {
   const [showDropdown, setShowDropdown] = useState(false)
+  const handles = useCssHandles(CSS_HANDLES)
 
   const orderByRef = useRef(null)
 
@@ -48,7 +58,7 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
   )
 
   const btClass = classNames(
-    searchResult.orderByButton,
+    handles.orderByButton,
     'ph3 pv5 mv0 pointer flex items-center justify-end bg-base c-on-base t-action--small bt br bl bb-0 br2 br--top bw1 w-100 outline-0',
     {
       'b--muted-4': showDropdown && isMobile,
@@ -57,7 +67,7 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
   )
 
   const contentClass = classNames(
-    searchResult.orderByOptionsContainer,
+    styles.orderByOptionsContainer,
     'z-1 absolute bg-base shadow-5 w-100 f5 b--muted-4 br2 ba bw1 br--bottom top-0 right-0-ns',
     {
       db: showDropdown,
@@ -66,7 +76,7 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
   )
 
   const dropdownSort = classNames(
-    searchResult.orderByDropdown,
+    handles.orderByDropdown,
     'relative pt1 justify-end w-100 w-auto-ns ml-auto'
   )
 
@@ -75,7 +85,7 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
       <button onClick={handleDropdownBtClick} className={btClass}>
         <span
           className={classNames(
-            searchResult.filterPopupTitle,
+            handles.filterPopupTitle,
             'c-on-base t-action--small ml-auto-ns'
           )}
         >
@@ -88,7 +98,7 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
           </span>{' '}
           {getOptionTitle(orderBy)}
         </span>
-        <span className={`${searchResult.filterPopupArrowIcon} ph5 pt1`}>
+        <span className={`${handles.filterPopupArrowIcon} ph5 pt1`}>
           <IconCaret orientation={showDropdown ? 'up' : 'down'} size={10} />
         </span>
       </button>

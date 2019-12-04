@@ -7,7 +7,9 @@ import { searchResultContainerPropTypes } from '../constants/propTypes'
 import { useFetchMore } from '../hooks/useFetchMore'
 import { PAGINATION_TYPE } from '../constants/paginationType'
 import { Container } from 'vtex.store-components'
+import { useCssHandles } from 'vtex.css-handles'
 
+const CSS_HANDLES = ['searchResultContainer']
 /**
  * Search Result Container Component.
  */
@@ -54,6 +56,7 @@ const SearchResultContainer = props => {
     products,
     queryData,
   })
+  const handles = useCssHandles(CSS_HANDLES)
 
   const resultComponent = children || (
     <SearchResult
@@ -92,7 +95,7 @@ const SearchResultContainer = props => {
   const isInfiniteScroll = pagination != PAGINATION_TYPE.SHOW_MORE
 
   return (
-    <Container className="pt3-m pt5-l">
+    <Container className={`${handles.searchResultContainer} pt3-m pt5-l`}>
       <PopupProvider>
         <div id="search-result-anchor" />
         {isInfiniteScroll ? infiniteScrollComponent : resultComponent}

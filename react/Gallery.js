@@ -5,17 +5,18 @@ import { pluck, splitEvery } from 'ramda'
 
 import { useDevice } from 'vtex.device-detector'
 import { useResponsiveValue } from 'vtex.responsive-values'
+import { useCssHandles } from 'vtex.css-handles'
 
 import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 import { productShape } from './constants/propTypes'
 import withResizeDetector from './components/withResizeDetector'
 
-import searchResult from './searchResult.css'
 import GalleryRow from './components/GalleryRow'
 
 /** Layout with one column */
 const ONE_COLUMN_LAYOUT = 1
 
+const CSS_HANDLES = ['gallery']
 /**
  * Canonical gallery that displays a list of given products.
  */
@@ -33,6 +34,7 @@ const Gallery = ({
   showingFacets,
 }) => {
   const { isMobile } = useDevice()
+  const handles = useCssHandles(CSS_HANDLES)
   const responsiveMaxItemsPerRow = useResponsiveValue(maxItemsPerRow)
 
   const layoutMode = isMobile ? mobileLayoutMode : 'normal'
@@ -66,7 +68,7 @@ const Gallery = ({
   ])
 
   const galleryClasses = classNames(
-    searchResult.gallery,
+    handles.gallery,
     'flex flex-row flex-wrap items-stretch bn ph1 na4',
     {
       'justify-center': !showingFacets,

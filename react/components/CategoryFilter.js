@@ -3,12 +3,22 @@ import React, { useContext } from 'react'
 import { injectIntl } from 'react-intl'
 import { IconClose } from 'vtex.styleguide'
 import { NoSSR } from 'vtex.render-runtime'
+import { useCssHandles } from 'vtex.css-handles'
 
 import QueryContext from './QueryContext'
 import Collapsible from './Collapsible'
 import CategoryItem from './CategoryItem'
 
-import styles from '../searchResult.css'
+const CSS_HANDLES = [
+  'categoryGroup',
+  'categoryParent',
+  'categoryItemName',
+  'selectedCategoryIcon',
+  'categoryItemChildrenContainer',
+  'selectedCategory',
+  'selectedCategoryName',
+  'selectedCategoryIcon',
+]
 
 const getSelectedCategories = rootCategory => {
   let node = rootCategory.children
@@ -30,6 +40,7 @@ const getSelectedCategories = rootCategory => {
 
 const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
   const { map } = useContext(QueryContext)
+  const handles = useCssHandles(CSS_HANDLES)
 
   const selectedCategories = getSelectedCategories(category)
 
@@ -57,26 +68,28 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
   }
 
   return (
-    <div className={classNames(styles.categoryGroup, 'mt4')}>
+    <div className={classNames(handles.categoryGroup, 'mt4')}>
       <div
         role="button"
         tabIndex={canDisableRoot ? 0 : -1}
         className={classNames(
-          styles.categoryParent,
+          handles.categoryParent,
           'flex items-center pointer'
         )}
         onClick={handleRootCategoryClick}
         onKeyDown={e => e.key === 'Enter' && handleRootCategoryClick()}
       >
         <div className="flex-grow-1 dim">
-          <span className={classNames(styles.categoryItemName, 'f5 c-on-base')}>
+          <span
+            className={classNames(handles.categoryItemName, 'f5 c-on-base')}
+          >
             {category.name}
           </span>
         </div>
         {!shallow && canDisableRoot && (
           <span
             className={classNames(
-              styles.selectedCategoryIcon,
+              handles.selectedCategoryIcon,
               'flex items-center c-muted-3'
             )}
           >
@@ -86,7 +99,7 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
       </div>
       <div
         className={classNames(
-          styles.categoryItemChildrenContainer,
+          handles.categoryItemChildrenContainer,
           'pl5 pl0-ns'
         )}
       >
@@ -96,7 +109,7 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
             role="button"
             tabIndex={0}
             className={classNames(
-              styles.selectedCategory,
+              handles.selectedCategory,
               'mt5 mt4-ns flex items-center justify-between pointer f5 f6-ns'
             )}
             onClick={() => handleUnselectCategories(index + 1)}
@@ -104,12 +117,12 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
               e.key === 'Enter' && handleUnselectCategories(index + 1)
             }
           >
-            <span className={styles.selectedCategoryName}>
+            <span className={handles.selectedCategoryName}>
               {subCategory.name}
             </span>
             <span
               className={classNames(
-                styles.selectedCategoryIcon,
+                handles.selectedCategoryIcon,
                 'flex items-center c-muted-3'
               )}
             >

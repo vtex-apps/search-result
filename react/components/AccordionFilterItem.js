@@ -3,12 +3,20 @@ import PropTypes from 'prop-types'
 import { intlShape, injectIntl } from 'react-intl'
 import classNames from 'classnames'
 import { Tag } from 'vtex.styleguide'
-
+import { useCssHandles } from 'vtex.css-handles'
 import { IconCaret } from 'vtex.store-icons'
 
 import { getFilterTitle } from '../constants/SearchHelpers'
 
-import styles from '../searchResult.css'
+const CSS_HANDLES = [
+  'accordionFilterItem',
+  'filterAccordionItemBox',
+  'accordionFilterItemActive',
+  'accordionFilterItemHidden',
+  'accordionFilterItemTitle',
+  'accordionFilterItemTag',
+  'accordionFilterItemIcon',
+]
 
 const AccordionFilterItem = ({
   title,
@@ -19,6 +27,7 @@ const AccordionFilterItem = ({
   intl,
   children,
 }) => {
+  const handles = useCssHandles(CSS_HANDLES)
   const handleKeyDown = e => {
     if (e.key === ' ') {
       onOpen(e)
@@ -33,12 +42,12 @@ const AccordionFilterItem = ({
             role="button"
             tabIndex={0}
             className={classNames(
-              styles.accordionFilterItem,
-              styles.filterAccordionItemBox,
+              handles.accordionFilterItem,
+              handles.filterAccordionItemBox,
               't-body pr5 pv3 pointer bb b--muted-5',
               {
-                [styles.accordionFilterItemActive]: open,
-                [`${styles.accordionFilterItemHidden} dn`]: !show,
+                [handles.accordionFilterItemActive]: open,
+                [`${handles.accordionFilterItemHidden} dn`]: !show,
               }
             )}
             onKeyDown={handleKeyDown}
@@ -50,20 +59,20 @@ const AccordionFilterItem = ({
                 't-heading-5': !open,
               })}
             >
-              <span className={styles.accordionFilterItemTitle}>
+              <span className={handles.accordionFilterItemTitle}>
                 {getFilterTitle(title, intl)}
               </span>
               {quantitySelected !== 0 && (
                 <div
                   className={classNames(
-                    styles.accordionFilterItemTag,
+                    handles.accordionFilterItemTag,
                     'dib ml3'
                   )}
                 >
                   <Tag>{quantitySelected}</Tag>
                 </div>
               )}
-              <span className={`${styles.accordionFilterItemIcon} fr`}>
+              <span className={`${handles.accordionFilterItemIcon} fr`}>
                 <IconCaret orientation="down" size={10} />
               </span>
             </div>
