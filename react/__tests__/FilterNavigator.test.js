@@ -7,6 +7,20 @@ import categoriesTree from 'categoriesTree'
 import FilterNavigator from '../FilterNavigator'
 import QueryContext from '../components/QueryContext'
 
+import { useRuntime } from '../__mocks__/vtex.render-runtime'
+const mockUseRuntime = useRuntime
+
+const mockNavigate = jest.fn()
+const mockSetQuery = jest.fn()
+beforeEach(() => {
+  jest.clearAllMocks()
+  
+  mockUseRuntime.mockImplementation(() => ({
+    navigate: mockNavigate,
+    setQuery: mockSetQuery,
+  }))
+})
+
 describe('<FilterNavigator />', () => {
   const renderComponent = (customProps = { query: 'clothing' }) => {
     const props = {

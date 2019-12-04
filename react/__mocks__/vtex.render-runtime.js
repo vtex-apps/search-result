@@ -27,9 +27,7 @@ export const setMobileState = isMobile => {
   config.isMobile = isMobile
 }
 
-export const useRuntime = () => {
-  return { hints: { mobile: false, desktop: true } }
-}
+export const useRuntime = jest.fn()
 
 export const ExtensionPoint = ({ id }) => <div> Extension Point: {id} </div>
 
