@@ -34,7 +34,7 @@ describe('<SearchFooter /> component', () => {
 
     fireEvent.click(firstLink)
 
-    // // Expect getLinkProps has been called
+    // Expect getLinkProps has been called
     expect(getLinkProps).toBeCalledTimes(1)
   })
 
