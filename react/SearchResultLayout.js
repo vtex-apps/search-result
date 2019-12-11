@@ -21,6 +21,7 @@ const foundNothing = searchQuery => {
 }
 
 const SearchResultLayout = props => {
+  console.log('props', props)
   const { searchQuery } = props
   const hasMobileBlock = !!useChildBlock({ id: 'search-result-layout.mobile' })
   const hasCustomNotFound = !!useChildBlock({ id: 'search-not-found-layout' })
