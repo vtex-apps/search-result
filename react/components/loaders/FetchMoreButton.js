@@ -1,8 +1,13 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { Button } from 'vtex.styleguide'
+import { useCssHandles } from 'vtex.css-handles'
 import { FormattedMessage } from 'react-intl'
 
-import searchResult from '../../searchResult.css'
+const CSS_HANDLES = [
+  'buttonShowMore',
+  'showingProducts',
+  'showingProductsCount',
+]
 
 const useShowButton = (to, products, loading, recordsFiltered) => {
   const [showButton, setShowButton] = useState(
@@ -27,12 +32,11 @@ const FetchMoreButton = props => {
     showProductsCount,
   } = props
   const showButton = useShowButton(to, products, loading, recordsFiltered)
+  const handles = useCssHandles(CSS_HANDLES)
 
   return (
     <Fragment>
-      <div
-        className={`${searchResult.buttonShowMore} w-100 flex justify-center`}
-      >
+      <div className={`${handles.buttonShowMore} w-100 flex justify-center`}>
         {showButton && (
           <Button onClick={onFetchMore} isLoading={loading} size="small">
             <FormattedMessage id="store/search-result.show-more-button" />
@@ -41,16 +45,14 @@ const FetchMoreButton = props => {
       </div>
       {showProductsCount && recordsFiltered && (
         <div
-          className={`${
-            searchResult.showingProducts
-          } tc t-small pt3 c-muted-2 mt2`}
+          className={`${handles.showingProducts} tc t-small pt3 c-muted-2 mt2`}
         >
           <FormattedMessage
             id="store/search-result.showing-products"
             tagName="span"
             values={{
               value: (
-                <span className={`${searchResult.showingProductsCount} b`}>
+                <span className={`${handles.showingProductsCount} b`}>
                   <FormattedMessage
                     id="store/search-result.showing-products-count"
                     values={{

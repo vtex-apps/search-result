@@ -4,9 +4,19 @@ import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
 
 import { IconCaret } from 'vtex.store-icons'
+import { useCssHandles } from 'vtex.css-handles'
 
 import styles from '../searchResult.css'
 
+const CSS_HANDLES = [
+  'filter__container',
+  'filter',
+  'filterSelected',
+  'filterAvailable',
+  'filterTitle',
+  'filterIcon',
+  'filterContent',
+]
 /**
  * Collapsable filters container
  */
@@ -20,6 +30,7 @@ const FilterOptionTemplate = ({
   initiallyCollapsed = false,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
+  const handles = useCssHandles(CSS_HANDLES)
 
   const renderChildren = () => {
     if (typeof children !== 'function') {
@@ -40,18 +51,18 @@ const FilterOptionTemplate = ({
   )
 
   const containerClassName = classNames(
-    styles['filter__container'],
+    handles.filter__container,
     { [`${styles['filter__container']}--${id}`]: id },
     'bb b--muted-4'
   )
 
-  const titleContainerClassName = classNames(styles.filter, 'pv5', {
-    [styles.filterSelected]: selected,
-    [styles.filterAvailable]: !selected,
+  const titleContainerClassName = classNames(handles.filter, 'pv5', {
+    [handles.filterSelected]: selected,
+    [handles.filterAvailable]: !selected,
   })
 
   const titleClassName = classNames(
-    styles.filterTitle,
+    handles.filterTitle,
     'f5 flex items-center justify-between',
     {
       ttu: selected,
@@ -74,7 +85,7 @@ const FilterOptionTemplate = ({
             {collapsable && (
               <span
                 className={classNames(
-                  styles.filterIcon,
+                  handles.filterIcon,
                   'flex items-center ph5 c-muted-3'
                 )}
               >
@@ -93,7 +104,7 @@ const FilterOptionTemplate = ({
         aria-hidden={!open}
       >
         {collapsable ? (
-          <Collapse isOpened={open} theme={{ content: styles.filterContent }}>
+          <Collapse isOpened={open} theme={{ content: handles.filterContent }}>
             {renderChildren()}
           </Collapse>
         ) : (

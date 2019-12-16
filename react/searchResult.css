@@ -27,12 +27,6 @@
   align-self: center;
 }
 
-.showingProducts {
-}
-
-.showingProductsCount {
-}
-
 .switch {
   -ms-grid-row: 1;
   -ms-grid-column: 6;
@@ -63,10 +57,6 @@
 }
 
 .filter__container {
-}
-.filter__container--title {
-}
-.filter {
 }
 
 .resultGallery {
@@ -153,40 +143,10 @@
   display: flex;
 }
 
-.accordionFilterItemHidden {
-}
-
-.accordionFilterItem {
-}
-
-.filterAccordionItemBox {
-}
-
-.accordionFilterItemTitle {
-}
-
-.accordionFilterItemIcon {
-}
-
-.filterSelected {
-}
-
-.filterAvailable {
-}
-
 .filterPopupTitle {
 }
 
 .filterPopupArrowIcon {
-}
-
-.footerButton {
-}
-
-.layoutSwitcher {
-}
-
-.buttonShowMore {
 }
 
 .filterPopup {
@@ -204,60 +164,12 @@
 .filterPopupContentContainerOpen {
 }
 
-.galleryItem {
-}
-
-.searchNotFound {
-}
-
-.filterTitle {
-}
-
-.filterIcon {
-}
-
-.orderByButton {
-}
-
-.orderByDropdown {
-}
-
 .orderByOptionsContainer {
   min-width: 180px;
 }
 
 .orderByOptionItem {
   min-width: 180px;
-}
-
-.filterContent {
-}
-
-.selectedCategory {
-}
-
-.selectedCategoryIcon {
-}
-
-.selectedCategoryName {
-}
-
-.shallowCategoryItem {
-}
-
-.categoryItem {
-}
-
-.categoryItemName {
-}
-
-.categoryItemChildrenContainer {
-}
-
-.categoryItemChildren {
-}
-
-.accordionFilterItemTag {
 }
 
 @media only screen and (max-width: 64.1em) {
@@ -311,17 +223,6 @@
 
 .filterPopupOpen {
   overflow: hidden;
-}
-
-.filterItem {
-}
-.selectedFilterItem {
-}
-.categoriesContainer {
-}
-.categoryGroup {
-}
-.categoryParent {
 }
 
 .filters--layout {

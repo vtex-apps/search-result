@@ -6,13 +6,13 @@ export default class LoadingOverlay extends Component {
   static propTypes = {
     children: PropTypes.node,
     loading: PropTypes.bool,
-  };
+  }
 
   static defaultProps = {
     loading: false,
-  };
+  }
 
-  root_ = React.createRef();
+  root_ = React.createRef()
 
   handleClick = e => {
     e.stopPropagation()
@@ -48,7 +48,10 @@ export default class LoadingOverlay extends Component {
     return (
       <div className="relative justify-center flex" ref={this.root_}>
         {loading && (
-          <div className="absolute w-100 h-100 z-2" style={{ background: 'rgba(255, 255, 255, .6)' }}>
+          <div
+            className="absolute w-100 h-100 z-2"
+            style={{ background: 'rgba(255, 255, 255, .6)' }}
+          >
             <div className="absolute top-0 bottom-0 left-0 right-0 flex justify-center pt11">
               <Spinner />
             </div>
@@ -59,4 +62,3 @@ export default class LoadingOverlay extends Component {
     )
   }
 }
-

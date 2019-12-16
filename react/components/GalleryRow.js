@@ -1,13 +1,15 @@
 import React, { useRef, useEffect, memo } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { usePixel } from 'vtex.pixel-manager/PixelContext'
+import { useCssHandles } from 'vtex.css-handles'
 import classNames from 'classnames'
 
 import GalleryItem from './GalleryItem'
 import { normalizeProduct } from '../constants/productHelpers'
 
-import searchResult from '../searchResult.css'
 import { useQuery } from './QueryContext'
+
+const CSS_HANDLES = ['galleryItem']
 
 const useProductImpression = (
   products,
@@ -51,6 +53,7 @@ const GalleryRow = ({
   widthAvailable,
   itemsPerRow,
 }) => {
+  const handles = useCssHandles(CSS_HANDLES)
   const [ref, inView] = useInView({
     // inView will be true when at least 10% of the row is viewed by user
     threshold: 0.1,
@@ -69,7 +72,7 @@ const GalleryRow = ({
       <div
         key={product.productId}
         style={style}
-        className={classNames(searchResult.galleryItem, 'pa4')}
+        className={classNames(handles.galleryItem, 'pa4')}
         ref={ref}
       >
         <GalleryItem

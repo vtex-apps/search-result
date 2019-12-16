@@ -4,6 +4,18 @@ import { render, fireEvent } from '@vtex/test-tools/react'
 
 import OrderBy from '../OrderBy'
 import { setMobileState } from 'vtex.render-runtime'
+import { useRuntime } from '../__mocks__/vtex.render-runtime'
+const mockUseRuntime = useRuntime
+
+const mockSetQuery = jest.fn()
+beforeEach(() => {
+  jest.clearAllMocks()
+  
+  mockUseRuntime.mockImplementation(() => ({
+    setQuery: mockSetQuery,
+  }))
+})
+
 
 describe('<OrderBy />', () => {
   const renderComponent = customProps => mobile => {

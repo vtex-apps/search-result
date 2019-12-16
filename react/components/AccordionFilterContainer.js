@@ -7,9 +7,9 @@ import { IconCaret } from 'vtex.store-icons'
 import AccordionFilterItem from './AccordionFilterItem'
 import DepartmentFilters from './DepartmentFilters'
 import AccordionFilterGroup from './AccordionFilterGroup'
+import AccordionFilterPriceRange from './AccordionFilterPriceRange'
 
 import styles from '../searchResult.css'
-import AccordionFilterPriceRange from './AccordionFilterPriceRange'
 
 const CATEGORIES_TITLE = 'store/search.filter.title.categories'
 

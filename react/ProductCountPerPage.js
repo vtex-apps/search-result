@@ -3,11 +3,13 @@ import { path } from 'ramda'
 import { FormattedMessage } from 'react-intl'
 
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
+import { useCssHandles } from 'vtex.css-handles'
 
-import searchResult from './searchResult.css'
+const CSS_HANDLES = ['showingProducts', 'showingProductsCount']
 
 const ProductCountPerPage = () => {
   const { searchQuery } = useSearchPage()
+  const handles = useCssHandles(CSS_HANDLES)
   const products =
     path(['data', 'productSearch', 'products'], searchQuery) || []
   const recordsFiltered = path(
@@ -20,13 +22,13 @@ const ProductCountPerPage = () => {
   }
 
   return (
-    <div className={`${searchResult.showingProducts} tc t-small pt3 c-muted-2`}>
+    <div className={`${handles.showingProducts} tc t-small pt3 c-muted-2`}>
       <FormattedMessage
         id="store/search-result.showing-products"
         tagName="span"
         values={{
           value: (
-            <span className={`${searchResult.showingProductsCount} b`}>
+            <span className={`${handles.showingProductsCount} b`}>
               <FormattedMessage
                 id="store/search-result.showing-products-count"
                 values={{

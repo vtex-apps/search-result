@@ -10,6 +10,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
  - The `search-bar` on whitelist in the `search-not-found-layout`
  
+## [3.39.9] - 2019-12-12
+### Changed
+- Some dependency versions. Update with `yarn upgrade`.
+
+## [3.39.8] - 2019-12-04
+### Added
+- New CSS handles and updated some of the old ones. 
+
+## [3.39.7] - 2019-12-04
+### Fixed
+- Make `search-result` respect the continuous C theorem.
+
 ## [3.39.6] - 2019-11-27
 ### Fixed
 - Clear filters button on mobile.

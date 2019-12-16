@@ -1,10 +1,13 @@
 import React from 'react'
 import { useRuntime } from 'vtex.render-runtime'
 import classNames from 'classnames'
-import searchResult from '../searchResult.css'
+import { useCssHandles } from 'vtex.css-handles'
+
+const CSS_HANDLES = ['orderByOptionItem']
 
 const SelectionListItem = ({ option, onItemClick, selected }) => {
   const { setQuery } = useRuntime()
+  const handles = useCssHandles(CSS_HANDLES)
 
   const handleOptionClick = () => {
     onItemClick()
@@ -16,7 +19,7 @@ const SelectionListItem = ({ option, onItemClick, selected }) => {
   return (
     <button
       className={classNames(
-        searchResult.orderByOptionItem,
+        handles.orderByOptionItem,
         highlight,
         ' c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns'
       )}

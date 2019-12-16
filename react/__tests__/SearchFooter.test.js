@@ -29,10 +29,10 @@ describe('<SearchFooter /> component', () => {
   })
 
   it('should return link', () => {
-    const { getByTestId, getLinkProps } = renderComponent()
-    const mainDiv = getByTestId('page-button')
+    const { getAllByTestId, getLinkProps } = renderComponent()
+    const firstLink = getAllByTestId('page-button')[0]
 
-    fireEvent.click(mainDiv)
+    fireEvent.click(firstLink)
 
     // Expect getLinkProps has been called
     expect(getLinkProps).toBeCalledTimes(1)

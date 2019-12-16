@@ -6,6 +6,7 @@ import ContentLoader from 'react-content-loader'
 import { FormattedMessage } from 'react-intl'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
+import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import FilterSidebar from './components/FilterSidebar'
 import SelectedFilters from './components/SelectedFilters'
 import AvailableFilters from './components/AvailableFilters'
@@ -20,6 +21,8 @@ import useFacetNavigation from './hooks/useFacetNavigation'
 
 import styles from './searchResult.css'
 import { CATEGORIES_TITLE } from './utils/getFilters'
+
+const CSS_HANDLES = ['filter__container']
 
 /**
  * Wrapper around the filters (selected and available) as well
@@ -38,6 +41,7 @@ const FilterNavigator = ({
   initiallyCollapsed = false,
 }) => {
   const { isMobile } = useDevice()
+  const handles = useCssHandles(CSS_HANDLES)
 
   const navigateToFacet = useFacetNavigation()
 
@@ -97,9 +101,10 @@ const FilterNavigator = ({
     <Fragment>
       <div className={filterClasses}>
         <div
-          className={`${styles['filter__container']} ${
-            styles['filter__container--title']
-          } bb b--muted-4`}
+          className={`${applyModifiers(
+            handles.filter__container,
+            'title'
+          )} bb b--muted-4`}
         >
           <h5 className="t-heading-5 mv5">
             <FormattedMessage id="store/search-result.filter-button.title" />

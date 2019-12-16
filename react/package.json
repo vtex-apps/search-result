@@ -26,7 +26,8 @@
     "slugify": "^1.3.4"
   },
   "devDependencies": {
-    "@vtex/test-tools": "^0.1.4",
+    "@testing-library/react-hooks": "^2.0.1",
+    "@vtex/test-tools": "^1.2.0",
     "apollo-cache-inmemory": "^1.2.2",
     "apollo-client": "^2.5.1",
     "apollo-client-preset": "^1.0.8",
@@ -43,9 +44,9 @@
     "prettier": "^1.16.4",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-testing-library": "^6.0.0",
+    "react-test-renderer": "^16.7.0",
     "regenerator-runtime": "^0.13.1",
-    "typescript": "3.5.2"
+    "typescript": "3.7.3"
   },
-  "version": "3.39.5"
+  "version": "3.39.9"
 }

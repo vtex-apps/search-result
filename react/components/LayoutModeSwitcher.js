@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button } from 'vtex.styleguide'
 import { IconGrid, IconInlineGrid, IconSingleGrid } from 'vtex.store-icons'
+import { useCssHandles } from 'vtex.css-handles'
 
-import searchResult from '../searchResult.css'
+const CSS_HANDLES = ['layoutSwitcher']
 
 export const LAYOUT_MODE = [
   {
@@ -41,11 +42,10 @@ const LayoutIcon = ({ mode }) => {
 }
 
 const LayoutModeSwitcher = ({ activeMode, onChange }) => {
+  const handles = useCssHandles(CSS_HANDLES)
   return (
     <div
-      className={`${
-        searchResult.layoutSwitcher
-      } h-100 flex justify-center items-center pl4`}
+      className={`${handles.layoutSwitcher} h-100 flex justify-center items-center pl4`}
     >
       <Button
         variation="tertiary"
