@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Add a new props to `filter-navigator.v3` blocks the mobile validation
 
 ## [3.39.10] - 2019-12-23
 ### Changed
