@@ -39,6 +39,7 @@ const FilterNavigator = ({
   preventRouteChange = false,
   hiddenFacets = {},
   initiallyCollapsed = false,
+  alwaysOnDesktopView = false,
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -81,7 +82,7 @@ const FilterNavigator = ({
     )
   }
 
-  if (isMobile) {
+  if (isMobile && !alwaysOnDesktopView) {
     return (
       <div className={styles.filters}>
         <div className={filterClasses}>
