@@ -6,7 +6,7 @@ import FilterNavigator from './FilterNavigator'
 
 import styles from './searchResult.css'
 
-const withSearchPageContextProps = Component => () => {
+const withSearchPageContextProps = Component => ({ alwaysOnDesktopView }) => {
   const {
     searchQuery,
     map,
@@ -40,6 +40,7 @@ const withSearchPageContextProps = Component => () => {
         loading={facetsLoading && showContentLoader}
         filters={filters}
         hiddenFacets={hiddenFacets}
+        alwaysOnDesktopView={alwaysOnDesktopView}
       />
     </div>
   )
