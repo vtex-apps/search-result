@@ -423,6 +423,7 @@ Notice that the default behavior for your store will be the one defined by the `
 | `preventRouteChange`  | `Boolean` | Prevents route change when selecting filters, using the query string instead. Intended for `search-result` blocks inserted on custom pages with static routes. | `false`       |
 | `initiallyCollapsed`  | `Boolean` | Makes the search filters start out collapsed.                                                                                                                  | `false`       |
 | `alwaysOnDesktopView` | `Boolean` | Block filter's layout mode on Desktop.                                                                                                                         | `false`       |
+
 ##### `filter-navigator.v3` block
 
 | Prop name             | Type      | Description                            | Default value |
