@@ -370,11 +370,11 @@ These properties can be changed in the `blocks.json` file of your theme.
 | `skusFilter`           | `SkusFilterEnum` | Control SKUs returned for each product in the query. The less SKUs needed to be returned, the more performant your shelf query will be.                                                               | `"ALL_AVAILABLE"` |
 
 `SkusFilterEnum`:
-| Name | Value | Description |
-| ---- | ----- | ----------- |
+| Name            | Value             | Description                                                                                                                                            |
+| --------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | First Available | `FIRST_AVAILABLE` | Most performant, ideal if you do not have a SKU selector in your shelf. Will return only the first available SKU for that product in your shelf query. |
-| All Available | `ALL_AVAILABLE` | A bit better performace, will only return SKUs that are available, ideal if you have a SKU selector but still want a better performance. |
-| All | `ALL` | Returns all SKUs related to that product, least performant option. |
+| All Available   | `ALL_AVAILABLE`   | A bit better performace, will only return SKUs that are available, ideal if you have a SKU selector but still want a better performance.               |
+| All             | `ALL`             | Returns all SKUs related to that product, least performant option.                                                                                     |
 
 ##### HiddenFacets
 
@@ -422,6 +422,11 @@ Notice that the default behavior for your store will be the one defined by the `
 | -------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | `preventRouteChange` | `Boolean` | Prevents route change when selecting filters, using the query string instead. Intended for `search-result` blocks inserted on custom pages with static routes. | `false`       |
 | `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed.                                                                                                                  | `false`       |
+##### `filter-navigator.v3` block
+
+| Prop name             | Type      | Description                            | Default value |
+| --------------------- | --------- | -------------------------------------- | ------------- |
+| `alwaysOnDesktopView` | `Boolean` | Block filter's layout mode on Desktop. | `false`       |
 
 Also, you can configure the product summary that is defined on search-result. See [here](https://github.com/vtex-apps/product-summary/blob/master/README.md#configuration) the Product Summary API.
 
