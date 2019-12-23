@@ -47,7 +47,7 @@
       "search-not-found-layout"
     ],
     "component": "SearchResultLayout",
-    "render": "lazy"
+    "render": "client"
   },
   "search-result-layout.customQuery": {
     "allowed": [
@@ -56,7 +56,7 @@
       "search-not-found-layout"
     ],
     "component": "SearchResultLayoutCustomQuery",
-    "render": "lazy"
+    "render": "client"
   },
   "search-layout-switcher": {
     "component": "LayoutModeSwitcherFlexible"
