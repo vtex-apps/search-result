@@ -56,6 +56,7 @@ To pass parameters to the search displayed at `search-result-layout` you should 
         "context": {
            "orderByField": "OrderByReleaseDateDESC",
             "hideUnavailableItems": true,
+            "ignoreSpecificationFilters": false,
             "maxItemsPerPage": 8,
             "skusFilter": "FIRST_AVAILABLE"
         }
@@ -78,6 +79,7 @@ If you want to use the `.customQuery`:
     "querySchema": {
       "orderByField": "OrderByReleaseDateDESC",
       "hideUnavailableItems": true,
+      "ignoreSpecificationFilters": false,
       "maxItemsPerPage": 8,
       "queryField": "clothing",
       "mapField": "c",
@@ -137,6 +139,7 @@ In case of (a) we can configure the search parameters in a search context in the
         "context": {
            "orderByField": "OrderByReleaseDateDESC",
             "hideUnavailableItems": true,
+            "ignoreSpecificationFilters": false,
             "maxItemsPerPage": 8,
             "skusFilter": "FIRST_AVAILABLE"
         }
@@ -150,6 +153,7 @@ In case of (a) we can configure the search parameters in a search context in the
         "context": {
            "orderByField": "OrderByReleaseDateDESC",
             "hideUnavailableItems": true,
+            "ignoreSpecificationFilters": false,
             "maxItemsPerPage": 8,
             "skusFilter": "FIRST_AVAILABLE"
         }
@@ -163,6 +167,7 @@ In case of (a) we can configure the search parameters in a search context in the
         "context": {
            "orderByField": "OrderByReleaseDateDESC",
             "hideUnavailableItems": true,
+            "ignoreSpecificationFilters": false,
             "maxItemsPerPage": 8,
             "skusFilter": "FIRST_AVAILABLE"
         }
@@ -176,6 +181,7 @@ In case of (a) we can configure the search parameters in a search context in the
         "context": {
            "orderByField": "OrderByReleaseDateDESC",
             "hideUnavailableItems": true,
+            "ignoreSpecificationFilters": false,
             "maxItemsPerPage": 8,
             "skusFilter": "FIRST_AVAILABLE"
         }
@@ -189,6 +195,7 @@ In case of (a) we can configure the search parameters in a search context in the
         "context": {
            "orderByField": "OrderByReleaseDateDESC",
             "hideUnavailableItems": true,
+            "ignoreSpecificationFilters": false,
             "maxItemsPerPage": 8,
             "skusFilter": "FIRST_AVAILABLE"
         }
@@ -233,6 +240,7 @@ Now, to change the search done by this block, we must pass its parameters direct
     "querySchema": {
       "orderByField": "OrderByReleaseDateDESC",
       "hideUnavailableItems": true,
+      "ignoreSpecificationFilters": false,
       "maxItemsPerPage": 8,
       "skusFilter": "FIRST_AVAILABLE"
     }
@@ -366,6 +374,7 @@ These properties can be changed in the `blocks.json` file of your theme.
 | `restField`            | `String`         | Other Query Strings                                                                                                                                                                                   | N/A               |
 | `orderByField`         | `Enum`           | Order by field (values: `OrderByTopSaleDESC`, `OrderByReleaseDateDESC`, `OrderByBestDiscountDESC`, `OrderByPriceDESC`, `OrderByPriceASC`, `OrderByNameASC`, `OrderByNameDESC` or `''` (by relevance)) | `''`              |
 | `hideUnavailableItems` | `Boolean`        | Set if unavailable items should show on search                                                                                                                                                        | `false`           |
+| `ignoreSpecificationFilters` | `Boolean`        | Set if specificationFilters will be ignored when getting the facets. If set to `true`, you will be able to filter your search result with facets of the same specification filters, making it possible to make an `or` filter. If set to `false`, you won't be able to filter by `or` but the facets will be smarter and will only show the facets that will have at least one result.                                                                                                                                                        | `true`           |
 | `skusFilter`           | `SkusFilterEnum` | Control SKUs returned for each product in the query. The less SKUs needed to be returned, the more performant your shelf query will be.                                                               | `"ALL_AVAILABLE"` |
 
 `SkusFilterEnum`:
