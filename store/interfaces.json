@@ -105,6 +105,7 @@
       "info-card",
       "flex-layout",
       "tab-layout",
+      "drawer",
       "search-layout-switcher",
       "search-fetch-previous",
       "search-fetch-more",

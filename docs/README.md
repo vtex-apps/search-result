@@ -2,7 +2,6 @@
 
 [![Build Status](https://api.travis-ci.org/vtex-apps/search-result.svg?branch=master)](https://travis-ci.org/vtex-apps/search-result) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-
 ## Description
 
 The VTEX Search Result app is a store component that handles with the result of our [_Search API_](https://documenter.getpostman.com/view/845/vtex-search-api/Hs43#8b71745e-00f9-6c98-b776-f4468ecb7a5e), and this app is used by store theme.
@@ -371,7 +370,7 @@ These properties can be changed in the `blocks.json` file of your theme.
 
 `SkusFilterEnum`:
 | Name | Value | Description |
-| ---- | ----- | ----------- |
+| --------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | First Available | `FIRST_AVAILABLE` | Most performant, ideal if you do not have a SKU selector in your shelf. Will return only the first available SKU for that product in your shelf query. |
 | All Available | `ALL_AVAILABLE` | A bit better performace, will only return SKUs that are available, ideal if you have a SKU selector but still want a better performance. |
 | All | `ALL` | Returns all SKUs related to that product, least performant option. |
@@ -418,10 +417,17 @@ Notice that the default behavior for your store will be the one defined by the `
 
 ##### `filter-navigator.v2` block
 
-| Prop name            | Type      | Description                                                                                                                                                    | Default value |
-| -------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| `preventRouteChange` | `Boolean` | Prevents route change when selecting filters, using the query string instead. Intended for `search-result` blocks inserted on custom pages with static routes. | `false`       |
-| `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed.                                                                                                                  | `false`       |
+| Prop name             | Type      | Description                                                                                                                                                    | Default value |
+| --------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `preventRouteChange`  | `Boolean` | Prevents route change when selecting filters, using the query string instead. Intended for `search-result` blocks inserted on custom pages with static routes. | `false`       |
+| `initiallyCollapsed`  | `Boolean` | Makes the search filters start out collapsed.                                                                                                                  | `false`       |
+| `alwaysOnDesktopView` | `Boolean` | Block filter's layout mode on Desktop.                                                                                                                         | `false`       |
+
+##### `filter-navigator.v3` block
+
+| Prop name | Type                      | Description                                                                                       | Default value |
+| --------- | ------------------------- | ------------------------------------------------------------------------------------------------- | ------------- |
+| `layout`  | `responsive` or `desktop` | Which layout should it use. One might use `desktop` when adding filter-navigator inside a drawer. | `responsive`  |
 
 Also, you can configure the product summary that is defined on search-result. See [here](https://github.com/vtex-apps/product-summary/blob/master/README.md#configuration) the Product Summary API.
 
@@ -468,7 +474,7 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 
 #### Customization
 
-| CSS handles                           | 
+| CSS handles                           |
 | ------------------------------------- |
 | `container`                           |
 | `buttonShowMore`                      |
@@ -540,7 +546,7 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 | `loadingOverlay`                      |
 | `searchResultContainer`               |
 | `loadingSpinnerOuterContainer`        |
-| `loadingSpinnerInnerContainer`        | 
+| `loadingSpinnerInnerContainer`        |
 
 ## Troubleshooting
 
@@ -569,6 +575,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

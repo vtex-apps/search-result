@@ -1,12 +1,13 @@
 import React from 'react'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
+import { useDevice } from 'vtex.device-detector'
 import { pathOr } from 'ramda'
 
 import FilterNavigator from './FilterNavigator'
 
 import styles from './searchResult.css'
 
-const withSearchPageContextProps = Component => () => {
+const withSearchPageContextProps = Component => ({ layout }) => {
   const {
     searchQuery,
     map,
@@ -19,6 +20,7 @@ const withSearchPageContextProps = Component => () => {
     preventRouteChange,
     facetsLoading,
   } = useSearchPage()
+  const { isMobile } = useDevice()
 
   const facets = pathOr({}, ['data', 'facets'], searchQuery)
   const { brands, priceRanges, specificationFilters, categoriesTrees } = facets
@@ -28,7 +30,11 @@ const withSearchPageContextProps = Component => () => {
   }
 
   return (
-    <div className={styles['filters--layout']}>
+    <div
+      className={`${styles['filters--layout']} ${
+        layout === 'desktop' && isMobile ? 'w-100 mh5' : ''
+      }`}
+    >
       <Component
         preventRouteChange={preventRouteChange}
         brands={brands}
@@ -40,6 +46,7 @@ const withSearchPageContextProps = Component => () => {
         loading={facetsLoading && showContentLoader}
         filters={filters}
         hiddenFacets={hiddenFacets}
+        layout={layout}
       />
     </div>
   )

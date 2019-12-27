@@ -24,6 +24,11 @@ import { CATEGORIES_TITLE } from './utils/getFilters'
 
 const CSS_HANDLES = ['filter__container']
 
+const LAYOUT_TYPES = {
+  responsive: 'responsive',
+  desktop: 'desktop',
+}
+
 /**
  * Wrapper around the filters (selected and available) as well
  * as the popup filters that appear on mobile devices
@@ -39,9 +44,13 @@ const FilterNavigator = ({
   preventRouteChange = false,
   hiddenFacets = {},
   initiallyCollapsed = false,
+  layout = LAYOUT_TYPES.responsive,
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
+  const mobileLayout =
+    (isMobile && layout === LAYOUT_TYPES.responsive) ||
+    layout === LAYOUT_TYPES.mobile
 
   const navigateToFacet = useFacetNavigation()
 
@@ -58,10 +67,10 @@ const FilterNavigator = ({
   ).filter(facet => facet.selected)
 
   const filterClasses = classNames({
-    'flex items-center justify-center flex-auto h-100': isMobile,
+    'flex items-center justify-center flex-auto h-100': mobileLayout,
   })
 
-  if (loading && !isMobile) {
+  if (loading && !mobileLayout) {
     return (
       <ContentLoader
         style={{
@@ -81,7 +90,7 @@ const FilterNavigator = ({
     )
   }
 
-  if (isMobile) {
+  if (mobileLayout) {
     return (
       <div className={styles.filters}>
         <div className={filterClasses}>
@@ -152,6 +161,7 @@ FilterNavigator.propTypes = {
   priceRange: PropTypes.string,
   /** Loading indicator */
   loading: PropTypes.bool,
+  layout: PropTypes.oneOf(Object.values(LAYOUT_TYPES)),
   initiallyCollapsed: PropTypes.bool,
   ...hiddenFacetsSchema,
 }
