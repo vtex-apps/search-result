@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.40.0] - 2019-12-27
+### Added
+- New prop `layout` to `filter-navigator.v3`.
+- Allow `drawer` on `search-result-layout.mobile`.
+
+## [3.39.10] - 2019-12-23
+### Changed
+- Change flexible layout render values to `client`.
+
 ## [3.39.9] - 2019-12-12
 ### Changed
 - Some dependency versions. Update with `yarn upgrade`.
