@@ -149,7 +149,7 @@ const SearchQuery = ({
       from,
       to,
       hideUnavailableItems: !!hideUnavailableItems,
-      facetsBehavior: !!facetsBehavior,
+      facetsBehavior,
       withFacets: false,
       skusFilter: skusFilter || DEFAULT_SKU_FILTER,
     }
