@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Search input for facets.
+- Prop `orderFacetsBy` to `SearchResultFlexible`.
+
+### Fixed
+- `showFacetQuantity` was not working on mobile.
+
 ## [3.45.1] - 2020-01-28
 ### Changed
 - Ordination value of "Relevance" from empty string to `OrderByScoreDESC`.

@@ -52,6 +52,7 @@
   "store/filter.less-items": "Ver menos",
   "store/search.filter.title.brands": "Marcas",
   "store/search.filter.title.price-ranges": "Faixa de Preço",
+  "store/search.filter.search-placeholder": "Busque por {filterName}",
   "store/search.text": "Exibindo {from}-{to} de {recordsFiltered} resultados",
   "store/search.selected-filters": "Filtrar por:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {Produto} other {Produtos}}</span>",

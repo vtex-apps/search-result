@@ -52,6 +52,7 @@
   "store/filter.less-items": "See less",
   "store/search.filter.title.brands": "Brands",
   "store/search.filter.title.price-ranges": "Price Ranges",
+  "store/search.filter.search-placeholder": "Search by {filterName}",
   "store/search.text": "Showing {from}-{to} from {recordsFiltered} records",
   "store/search.selected-filters": "Filter by:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {Product} other {Products}}</span>",

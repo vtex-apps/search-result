@@ -361,8 +361,19 @@ These properties can be changed in the `blocks.json` file of your theme.
 | `pagination`        | `Enum`         | Pagination type (values: 'show-more' or 'infinite-scroll')                                                                           | `infinity-scroll` |
 | `mobileLayout`      | `MobileLayout` | Control mobile layout                                                                                                                | N/A               |
 | `showFacetQuantity` | `Boolean`      | If quantity of items filtered by facet should appear besides its name on `filter-navigator`                                          | `false`           |
+| `showFacetSearch`   | `Boolean`      | If true, a search input will be shown for each filter                                                                                | `false`           |
+| `orderFacetsBy`     | `String`       | Indicates which [facet sort option](#facet-sort-options) will be used                                                                | N/A               |
 | `blockClass`        | `String`       | Unique class name to be appended to block classes                                                                                    | `""`              |
 | `showProductsCount` | `Boolean`      | controls if the quantity of loaded products and total number of items of a search result are displayed under the `show more` button. | `false`           |
+
+##### Facet sort options
+
+| Option              | Value          |
+| ------------------- | -------------- |
+| Name Ascending      | `NameASC`      |
+| Name Descending     | `NameDESC`     |
+| Quantity Ascending  | `QuantityASC`  |
+| Quantity Descending | `QuantityDESC` |
 
 ##### QuerySchema
 

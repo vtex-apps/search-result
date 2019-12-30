@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types'
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useContext } from 'react'
 import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
 
 import { IconCaret } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
+import { Input } from 'vtex.styleguide'
+import { defineMessages, injectIntl, intlShape } from 'react-intl'
+
+import SettingsContext from './SettingsContext'
 
 import styles from '../searchResult.css'
 
@@ -16,7 +20,16 @@ const CSS_HANDLES = [
   'filterTitle',
   'filterIcon',
   'filterContent',
+  'filterSearch',
 ]
+
+const messages = defineMessages({
+  searchPlaceHolder: {
+    id: 'store/search.filter.search-placeholder',
+    defaultMessage: '',
+  },
+})
+
 /**
  * Collapsable filters container
  */
@@ -28,16 +41,45 @@ const FilterOptionTemplate = ({
   children,
   filters,
   initiallyCollapsed = false,
+  intl,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
+  const [searchTerm, setSearchTerm] = useState('')
   const handles = useCssHandles(CSS_HANDLES)
+
+  const { orderFacetsBy, showFacetSearch } = useContext(SettingsContext)
+
+  const sortFacets = useCallback(
+    (a, b) => {
+      switch (orderFacetsBy) {
+        case 'QuantityDESC':
+          return b.quantity - a.quantity
+        case 'QuantityASC':
+          return a.quantity - b.quantity
+        case 'NameASC':
+          return a.name > b.name ? 1 : -1
+        case 'NameDESC':
+          return a.name > b.name ? -1 : 1
+        default:
+          return 0
+      }
+    },
+    [orderFacetsBy]
+  )
 
   const renderChildren = () => {
     if (typeof children !== 'function') {
       return children
     }
 
-    return filters.map(children)
+    return filters
+      .filter(
+        filter =>
+          searchTerm === '' ||
+          filter.name.toLowerCase().indexOf(searchTerm) > -1
+      )
+      .sort(sortFacets)
+      .map(children)
   }
 
   const handleKeyDown = useCallback(
@@ -105,6 +147,16 @@ const FilterOptionTemplate = ({
       >
         {collapsable ? (
           <Collapse isOpened={open} theme={{ content: handles.filterContent }}>
+            <div className={classNames('mb3', handles.filterSearch)}>
+              {showFacetSearch ? (
+                <Input
+                  onChange={e => setSearchTerm(e.target.value.toLowerCase())}
+                  placeholder={intl.formatMessage(messages.searchPlaceHolder, {
+                    filterName: title,
+                  })}
+                />
+              ) : null}
+            </div>
             {renderChildren()}
           </Collapse>
         ) : (
@@ -129,6 +181,8 @@ FilterOptionTemplate.propTypes = {
   /** Whether it represents the selected filters */
   selected: PropTypes.bool,
   initiallyCollapsed: PropTypes.bool,
+  /** Intl instance */
+  intl: intlShape,
 }
 
-export default FilterOptionTemplate
+export default injectIntl(FilterOptionTemplate)

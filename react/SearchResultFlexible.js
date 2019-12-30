@@ -57,6 +57,9 @@ const SearchResultFlexible = ({
   orderBy,
   page,
   facetsLoading,
+  showFacetQuantity = false,
+  showFacetSearch = false,
+  orderFacetsBy,
 }) => {
   //This makes infinite scroll unavailable.
   //Infinite scroll was deprecated and we have
@@ -103,8 +106,17 @@ const SearchResultFlexible = ({
       pagination,
       mobileLayout,
       showFacetQuantity,
+      orderFacetsBy,
+      showFacetSearch,
     }),
-    [hiddenFacets, mobileLayout, pagination, showFacetQuantity]
+    [
+      hiddenFacets,
+      mobileLayout,
+      pagination,
+      showFacetQuantity,
+      orderFacetsBy,
+      showFacetSearch,
+    ]
   )
 
   const context = useMemo(
