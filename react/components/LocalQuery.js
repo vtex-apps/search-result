@@ -14,7 +14,7 @@ const LocalQuery = props => {
     mapField = '',
     orderByField = SORT_OPTIONS[0].value,
     hideUnavailableItems,
-    ignoreSpecificationFilters,
+    facetsBehavior,
     skusFilter,
     query: {
       order: orderBy = orderByField,
@@ -35,7 +35,7 @@ const LocalQuery = props => {
       orderBy={orderBy}
       priceRange={priceRange}
       hideUnavailableItems={hideUnavailableItems}
-      ignoreSpecificationFilters={ignoreSpecificationFilters}
+      facetsBehavior={facetsBehavior}
       pageQuery={pageQuery}
       skusFilter={skusFilter}
     >
