@@ -32,6 +32,7 @@ const useCombinedRefetch = (productRefetch, facetsRefetch) => {
                   query: refetchVariables.facetQuery,
                   map: refetchVariables.facetMap,
                   hideUnavailableItems: refetchVariables.hideUnavailableItems,
+                  behavior: refetchVariables.facetsBehavior,
                 }
               : undefined
           ),
@@ -87,6 +88,7 @@ const useQueries = (variables, facetsArgs) => {
       query: facetsArgs.facetQuery,
       map: facetsArgs.facetMap,
       hideUnavailableItems: variables.hideUnavailableItems,
+      behavior: variables.facetsBehavior,
     },
     skip: !facetsArgs.withFacets,
     ssr: false,
@@ -115,6 +117,7 @@ const SearchQuery = ({
   orderBy,
   priceRange,
   hideUnavailableItems,
+  facetsBehavior,
   pageQuery,
   skusFilter,
   children,
@@ -146,6 +149,7 @@ const SearchQuery = ({
       from,
       to,
       hideUnavailableItems: !!hideUnavailableItems,
+      facetsBehavior,
       withFacets: false,
       skusFilter: skusFilter || DEFAULT_SKU_FILTER,
     }
@@ -157,6 +161,7 @@ const SearchQuery = ({
     from,
     to,
     hideUnavailableItems,
+    facetsBehavior,
     skusFilter,
   ])
 

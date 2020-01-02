@@ -69,6 +69,7 @@ const SearchResultLayoutCustomQuery = props => {
           })}
       orderByField={props.querySchema.orderByField}
       hideUnavailableItems={props.querySchema.hideUnavailableItems}
+      facetsBehavior={props.querySchema.facetsBehavior}
       skusFilter={props.querySchema.skusFilter}
       query={props.query}
       render={localSearchQueryData => {
