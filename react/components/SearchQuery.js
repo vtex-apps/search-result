@@ -8,6 +8,7 @@ import {
 
 const DEFAULT_PAGE = 1
 const DEFAULT_SKU_FILTER = 'ALL_AVAILABLE'
+const DEFAULT_FACETS_BEHAVIOR = 'Static'
 
 const includeFacets = (map, query) =>
   !!(map && map.length > 0 && query && query.length > 0)
@@ -149,7 +150,7 @@ const SearchQuery = ({
       from,
       to,
       hideUnavailableItems: !!hideUnavailableItems,
-      facetsBehavior,
+      facetsBehavior: facetsBehavior || DEFAULT_FACETS_BEHAVIOR,
       withFacets: false,
       skusFilter: skusFilter || DEFAULT_SKU_FILTER,
     }
