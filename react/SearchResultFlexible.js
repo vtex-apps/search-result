@@ -47,6 +47,7 @@ const SearchResultFlexible = ({
   showProductsCount,
   blockClass,
   preventRouteChange = false,
+  showFacetQuantity = false,
   // Below are set by SearchContext
   searchQuery,
   maxItemsPerPage,
@@ -100,8 +101,9 @@ const SearchResultFlexible = ({
       hiddenFacets,
       pagination,
       mobileLayout,
+      showFacetQuantity,
     }),
-    [hiddenFacets, mobileLayout, pagination]
+    [hiddenFacets, mobileLayout, pagination, showFacetQuantity]
   )
 
   const context = useMemo(
