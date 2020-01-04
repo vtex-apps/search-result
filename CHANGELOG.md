@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- `showFacetQuantity` settings to `SearchResultFlexible` component. 
+
 ## [3.41.1] - 2020-01-02
 ### Fixed
 - Added default value for `facetsBehavior` variable.
