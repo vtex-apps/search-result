@@ -7,6 +7,7 @@ import { FormattedMessage } from 'react-intl'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
+
 import FilterSidebar from './components/FilterSidebar'
 import SelectedFilters from './components/SelectedFilters'
 import AvailableFilters from './components/AvailableFilters'
@@ -75,8 +76,8 @@ const FilterNavigator = ({
       <div className="mv5">
         <ContentLoader
           style={{
-            width: '100%',
-            height: '100%',
+            width: "230px",
+            height: "320px",
           }}
           width="230"
           height="320"
