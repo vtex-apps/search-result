@@ -43,7 +43,7 @@ const withSearchPageContextProps = Component => ({ layout }) => {
         priceRanges={priceRanges}
         specificationFilters={specificationFilters}
         tree={categoriesTrees}
-        loading={facetsLoading && showContentLoader}
+        loading={facetsLoading}
         filters={filters}
         hiddenFacets={hiddenFacets}
         layout={layout}

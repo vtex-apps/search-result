@@ -7,6 +7,7 @@ import { FormattedMessage } from 'react-intl'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
+
 import FilterSidebar from './components/FilterSidebar'
 import SelectedFilters from './components/SelectedFilters'
 import AvailableFilters from './components/AvailableFilters'
@@ -72,21 +73,23 @@ const FilterNavigator = ({
 
   if (loading && !mobileLayout) {
     return (
-      <ContentLoader
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
-        width="230"
-        height="320"
-        y="0"
-        x="0"
-      >
-        <rect width="100%" height="1em" />
-        <rect width="100%" height="8em" y="1.5em" />
-        <rect width="100%" height="1em" y="10.5em" />
-        <rect width="100%" height="8em" y="12em" />
-      </ContentLoader>
+      <div className="mv5">
+        <ContentLoader
+          style={{
+            width: "230px",
+            height: "320px",
+          }}
+          width="230"
+          height="320"
+          y="0"
+          x="0"
+        >
+          <rect width="100%" height="1em" />
+          <rect width="100%" height="8em" y="1.5em" />
+          <rect width="100%" height="1em" y="10.5em" />
+          <rect width="100%" height="8em" y="12em" />
+        </ContentLoader>
+      </div>
     )
   }
 
