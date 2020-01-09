@@ -72,21 +72,23 @@ const FilterNavigator = ({
 
   if (loading && !mobileLayout) {
     return (
-      <ContentLoader
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
-        width="230"
-        height="320"
-        y="0"
-        x="0"
-      >
-        <rect width="100%" height="1em" />
-        <rect width="100%" height="8em" y="1.5em" />
-        <rect width="100%" height="1em" y="10.5em" />
-        <rect width="100%" height="8em" y="12em" />
-      </ContentLoader>
+      <div className="mv5">
+        <ContentLoader
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+          width="230"
+          height="320"
+          y="0"
+          x="0"
+        >
+          <rect width="100%" height="1em" />
+          <rect width="100%" height="8em" y="1.5em" />
+          <rect width="100%" height="1em" y="10.5em" />
+          <rect width="100%" height="8em" y="12em" />
+        </ContentLoader>
+      </div>
     )
   }
 
