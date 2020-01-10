@@ -185,6 +185,7 @@ const SearchQuery = ({
   const searchInfo = useMemo(
     () => ({
       ...(productSearchResult || {}),
+      variables,
       data,
       loading,
       refetch,
