@@ -22,6 +22,13 @@ export const facetOptionShape = PropTypes.shape({
   name: PropTypes.string.isRequired,
 })
 
+export const facetQueryArgsShape = PropTypes.shape({
+  /** Search query field */
+  query: PropTypes.string.isRequired,
+  /** Search map field */
+  map: PropTypes.string,
+})
+
 export const productShape = PropTypes.shape({
   /** Product's id. */
   productId: PropTypes.string.isRequired,

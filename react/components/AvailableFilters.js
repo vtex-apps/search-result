@@ -6,6 +6,7 @@ import PriceRange from './PriceRange'
 
 const AvailableFilters = ({
   filters = [],
+  queryArgs = {},
   priceRange,
   preventRouteChange = false,
   initiallyCollapsed = false,
@@ -30,6 +31,7 @@ const AvailableFilters = ({
             key={title}
             title={title}
             facets={facets}
+            queryArgs={queryArgs}
             oneSelectedCollapse={oneSelectedCollapse}
             preventRouteChange={preventRouteChange}
             initiallyCollapsed={initiallyCollapsed}

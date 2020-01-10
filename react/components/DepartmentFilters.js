@@ -14,6 +14,7 @@ const CSS_HANDLES = [
 ]
 
 const DepartmentFilters = ({
+  map,
   title,
   isVisible,
   tree,
@@ -61,6 +62,7 @@ const DepartmentFilters = ({
             render={category => (
               <CategoryFilter
                 key={category.id}
+                  map={map}
                 category={category}
                 shallow
                 onCategorySelect={onCategorySelect}
@@ -69,6 +71,7 @@ const DepartmentFilters = ({
           />
         ) : (
             <CategoryFilter
+            map={map}
               category={tree.find(category => category.selected)}
               onCategorySelect={onCategorySelect}
             />
