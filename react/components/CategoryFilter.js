@@ -2,7 +2,6 @@ import classNames from 'classnames'
 import React, { useContext } from 'react'
 import { injectIntl } from 'react-intl'
 import { IconClose } from 'vtex.styleguide'
-import { NoSSR } from 'vtex.render-runtime'
 import { useCssHandles } from 'vtex.css-handles'
 
 import QueryContext from './QueryContext'
@@ -138,29 +137,27 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
                 mt2: shallow,
               })}
             >
-              <NoSSR>
-                <Collapsible
-                  items={lastSelectedCategory.children}
-                  maxItems={8}
-                  threshold={2}
-                  linkClassName="ml3"
-                  openLabel="store/filter.more-categories"
-                  render={(childCategory, index) => (
-                    <CategoryItem
-                      key={childCategory.id}
-                      className={classNames({
-                        mt2: index === 0 && !shallow,
-                      })}
-                      onClick={() =>
-                        onCategorySelect(
-                          shallow ? [category, childCategory] : childCategory
-                        )
-                      }
-                      label={childCategory.name}
-                    />
-                  )}
-                />
-              </NoSSR>
+              <Collapsible
+                items={lastSelectedCategory.children}
+                maxItems={8}
+                threshold={2}
+                linkClassName="ml3"
+                openLabel="store/filter.more-categories"
+                render={(childCategory, index) => (
+                  <CategoryItem
+                    key={childCategory.id}
+                    className={classNames({
+                      mt2: index === 0 && !shallow,
+                    })}
+                    onClick={() =>
+                      onCategorySelect(
+                        shallow ? [category, childCategory] : childCategory
+                      )
+                    }
+                    label={childCategory.name}
+                  />
+                )}
+              />
             </div>
           )}
       </div>

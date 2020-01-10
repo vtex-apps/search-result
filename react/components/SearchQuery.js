@@ -69,7 +69,6 @@ const useCorrectPage = ({ page, query, map, orderBy }) => {
 
 const useQueries = (variables, facetsArgs) => {
   const productSearchResult = useQuery(productSearchQuery, {
-    ssr: false,
     variables,
   })
   const { refetch: searchRefetch, loading: searchLoading } = productSearchResult
@@ -92,7 +91,6 @@ const useQueries = (variables, facetsArgs) => {
       behavior: variables.facetsBehavior,
     },
     skip: !facetsArgs.withFacets,
-    ssr: false,
   })
 
   const refetch = useCombinedRefetch(searchRefetch, facetsRefetch)
