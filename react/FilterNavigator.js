@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import { map, flatten, prop } from 'ramda'
+import { flatten } from 'ramda'
 import React, { useMemo, Fragment } from 'react'
 import ContentLoader from 'react-content-loader'
 import { FormattedMessage } from 'react-intl'
@@ -45,7 +45,7 @@ const FilterNavigator = ({
   preventRouteChange = false,
   hiddenFacets = {},
   initiallyCollapsed = false,
-  layout = LAYOUT_TYPES.responsive,
+  queryArgs = {},
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -53,18 +53,23 @@ const FilterNavigator = ({
     (isMobile && layout === LAYOUT_TYPES.responsive) ||
     layout === LAYOUT_TYPES.mobile
 
-  const navigateToFacet = useFacetNavigation()
+  const navigateToFacet = useFacetNavigation(queryArgs.map)
 
   const selectedFilters = useSelectedFilters(
     useMemo(() => {
       const options = [
-        ...map(prop('facets'), specificationFilters),
+        ...specificationFilters.map(filter => {
+          return filter.facets.map(facet => {
+            return { ...facet, title: filter.name }
+          })
+        }),
         ...brands,
         ...priceRanges,
       ]
 
       return flatten(options)
-    }, [brands, priceRanges, specificationFilters])
+    }, [brands, priceRanges, specificationFilters]),
+    queryArgs
   ).filter(facet => facet.selected)
 
   const filterClasses = classNames({
@@ -98,6 +103,8 @@ const FilterNavigator = ({
       <div className={styles.filters}>
         <div className={filterClasses}>
           <FilterSidebar
+            query={queryArgs.query}
+            map={queryArgs.map}
             selectedFilters={selectedFilters}
             filters={filters}
             tree={tree}
@@ -123,10 +130,12 @@ const FilterNavigator = ({
           </h5>
         </div>
         <SelectedFilters
+          map={queryArgs.map}
           filters={selectedFilters}
           preventRouteChange={preventRouteChange}
         />
         <DepartmentFilters
+          map={queryArgs.map}
           title={CATEGORIES_TITLE}
           tree={tree}
           isVisible={!hiddenFacets.categories}
@@ -134,6 +143,7 @@ const FilterNavigator = ({
         />
         <AvailableFilters
           filters={filters}
+          queryArgs={queryArgs}
           priceRange={priceRange}
           preventRouteChange={preventRouteChange}
           initiallyCollapsed={initiallyCollapsed}

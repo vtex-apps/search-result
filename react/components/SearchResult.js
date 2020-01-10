@@ -39,7 +39,6 @@ class SearchResult extends Component {
     products: this.props.products,
     recordsFiltered: this.props.recordsFiltered,
     brands: this.props.brands,
-    map: this.props.map,
     params: this.props.params,
     priceRange: this.props.priceRange,
     priceRanges: this.props.priceRanges,
@@ -74,7 +73,6 @@ class SearchResult extends Component {
         products,
         recordsFiltered,
         brands,
-        map,
         params,
         priceRange,
         priceRanges,
@@ -87,7 +85,6 @@ class SearchResult extends Component {
         products,
         recordsFiltered,
         brands,
-        map,
         params,
         priceRange,
         priceRanges,
@@ -140,7 +137,6 @@ class SearchResult extends Component {
       recordsFiltered,
       products = [],
       brands,
-      map,
       params,
       priceRange,
       priceRanges,
@@ -149,6 +145,12 @@ class SearchResult extends Component {
       hiddenFacets,
       showLoadingAsOverlay,
     } = this.state
+
+    const queryArgs = this.props.searchQuery.facets
+      ? this.props.searchQuery.facets.queryArgs
+      : { query: null, map: null }
+
+    const { map } = queryArgs
 
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
@@ -203,6 +205,7 @@ class SearchResult extends Component {
                 loading={showFacetsContentLoader}
                 filters={filters}
                 hiddenFacets={hiddenFacets}
+                queryArgs={queryArgs}
               />
             </div>
           )}
@@ -274,7 +277,4 @@ class SearchResult extends Component {
   }
 }
 
-export default compose(
-  withRuntimeContext,
-  withDevice
-)(SearchResult)
+export default compose(withRuntimeContext, withDevice)(SearchResult)
