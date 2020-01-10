@@ -13,6 +13,7 @@ const CSS_HANDLES = ['selectedFilterItem']
  * Search Filter Component.
  */
 const SelectedFilters = ({
+  map,
   filters = [],
   intl,
   preventRouteChange = false,
@@ -33,7 +34,9 @@ const SelectedFilters = ({
     >
       {facet => (
         <FacetItem
+          map={map}
           key={facet.name}
+          facetTitle={facet.title}
           facet={facet}
           className={handles.selectedFilterItem}
           preventRouteChange={preventRouteChange}
@@ -44,6 +47,9 @@ const SelectedFilters = ({
 }
 
 SelectedFilters.propTypes = {
+  filterTitle: PropTypes.string,
+  /** Legacy search map */
+  map: PropTypes.string,
   /** Selected filters. */
   filters: PropTypes.arrayOf(facetOptionShape).isRequired,
   /** Intl instance. */

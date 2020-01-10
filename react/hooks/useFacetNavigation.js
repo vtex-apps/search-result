@@ -5,108 +5,163 @@ import { useQuery } from '../components/QueryContext'
 
 import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
 
+const SPEC_FILTER = 'specificationFilter'
+const MAP_CATEGORY_CHAR = 'c'
+const MAP_QUERY_KEY = 'map'
+const MAP_VALUES_SEP = ','
+const PATH_SEPARATOR = '/'
+const SPACE_REPLACER = '-'
+const FILTER_TITLE_SEP = '_'
+
 const scrollOptions = {
   baseElementId: 'search-result-anchor',
   top: -HEADER_SCROLL_OFFSET,
 }
 
-const removeElementAtIndex = (str, index, separator) =>
-  str
-    .split(separator)
-    .filter((_, i) => i !== index)
-    .join(separator)
+const selectedFacets = {}
 
-export const buildQueryAndMap = (inputQuery, inputMap, facets) =>
-  facets.reduce(
+const storeSelectedFacets = selectedFacet => {
+  if (selectedFacet) {
+    selectedFacets[selectedFacet.value] = selectedFacet
+  }
+}
+
+const removeSelectedFacets = selectedFacet => {
+  if (selectedFacet) {
+    delete selectedFacets[selectedFacet.value]
+  }
+}
+
+const isLegacySearchFormat = (query, mapSegments, pathSegments) => {
+  return (
+    query.includes(SPEC_FILTER) ||
+    (mapSegments && mapSegments.length === pathSegments.length)
+  )
+}
+
+const removeElementAtIndex = (str, index) => str.filter((_, i) => i !== index)
+
+const newFacetPathName = (facet, isLegacySearch) => {
+  if (isLegacySearch && facet.selected) {
+    return facet.value
+  }
+
+  return facet.map && facet.map.includes(SPEC_FILTER)
+    ? `${facet.title
+        .replace(/\s/g, SPACE_REPLACER)
+        .toLowerCase()}${FILTER_TITLE_SEP}${facet.value.replace(
+        /\s/g,
+        SPACE_REPLACER
+      )}`
+    : facet.value
+}
+
+const removeMapForNewURLFormat = queryAndMap => {
+  return queryAndMap.map.filter(
+    mapValue =>
+      mapValue !== MAP_CATEGORY_CHAR && !mapValue.includes(SPEC_FILTER)
+  )
+}
+
+export const buildQueryAndMap = (
+  querySegments,
+  mapSegments,
+  facets,
+  isLegacySearch
+) => {
+  const queryAndMap = facets.reduce(
     ({ query, map }, facet) => {
+      const facetValue = newFacetPathName(facet, isLegacySearch)
       if (facet.selected) {
-        const facetIndex = zip(
-          query
-            .toLowerCase()
-            .split('/')
-            .map(decodeURIComponent),
-          map.split(',')
-        ).findIndex(
-          ([value, valueMap]) =>
-            value === decodeURIComponent(facet.value).toLowerCase() &&
-            valueMap === facet.map
+        const facetIndex = zip(query, map).findIndex(
+          ([value, valueMap]) => value === facetValue && valueMap === facet.map
         )
-
+        removeSelectedFacets(facet[facetIndex])
         return {
-          query: removeElementAtIndex(query, facetIndex, '/'),
-          map: removeElementAtIndex(map, facetIndex, ','),
+          query: removeElementAtIndex(query, facetIndex, PATH_SEPARATOR),
+          map: removeElementAtIndex(map, facetIndex, MAP_VALUES_SEP),
         }
       }
 
-      if (facet.map === 'c') {
-        const mapArray = map.split(',')
-        const lastCategoryIndex = mapArray.lastIndexOf('c')
-        if (
-          lastCategoryIndex >= 0 &&
-          lastCategoryIndex !== mapArray.length - 1
-        ) {
+      if (facet.map === MAP_CATEGORY_CHAR) {
+        const lastCategoryIndex = map.lastIndexOf(MAP_CATEGORY_CHAR)
+        if (lastCategoryIndex >= 0 && lastCategoryIndex !== map.length - 1) {
           // Corner case: if we are adding a category but there are other filter other than category applied. Add the new category filter to the right of the other categories.
-          const queryArray = query.split('/')
           return {
             query: [
-              ...queryArray.slice(0, lastCategoryIndex + 1),
+              ...query.slice(0, lastCategoryIndex + 1),
               facet.value,
-              ...queryArray.slice(lastCategoryIndex + 1),
-            ].join('/'),
+              ...query.slice(lastCategoryIndex + 1),
+            ],
             map: [
-              ...mapArray.slice(0, lastCategoryIndex + 1),
+              ...map.slice(0, lastCategoryIndex + 1),
               facet.map,
-              ...mapArray.slice(lastCategoryIndex + 1),
-            ].join(','),
+              ...map.slice(lastCategoryIndex + 1),
+            ],
           }
         }
       }
 
       return {
-        query: `${query}/${facet.value}`,
-        map: `${map},${facet.map}`,
+        query: [...query, facetValue],
+        map: [...map, facet.map],
       }
     },
-    { query: inputQuery, map: inputMap }
+    { query: querySegments, map: mapSegments }
   )
+  return {
+    query: queryAndMap.query.join(PATH_SEPARATOR),
+    map: removeMapForNewURLFormat(queryAndMap).join(MAP_VALUES_SEP),
+  }
+}
 
-const useFacetNavigation = () => {
-  const { navigate, setQuery } = useRuntime()
-  const { query, map } = useQuery()
+const useFacetNavigation = (map, selectedFacet) => {
+  const { navigate } = useRuntime()
+  const { query, map: queryMap } = useQuery()
+  storeSelectedFacets(selectedFacet)
 
-  const navigateToFacet = useCallback(
-    (maybeFacets, preventRouteChange = false) => {
-      const facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
+  const navigateToFacet = useCallback(maybeFacets => {
+    const facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
 
-      const { query: currentQuery, map: currentMap } = buildQueryAndMap(
-        query,
-        map,
-        facets
-      )
+    const querySegments = query.split(PATH_SEPARATOR)
+    const mapSegments = map.split(MAP_VALUES_SEP)
 
-      if (preventRouteChange) {
-        setQuery({
-          map: `${currentMap}`,
-          query: `/${currentQuery}`,
-          page: undefined,
-        })
-        return
-      }
+    const isLegacySearch = isLegacySearchFormat(
+      query,
+      queryMap.split(MAP_VALUES_SEP),
+      querySegments
+    )
 
-      const urlParams = new URLSearchParams(window.location.search)
+    const { query: currentQuery, map: currentMap } = buildQueryAndMap(
+      querySegments,
+      mapSegments,
+      facets,
+      isLegacySearch
+    )
 
-      urlParams.set('map', currentMap)
-      urlParams.delete('page')
-      urlParams.delete('query')
+    const urlParams = new URLSearchParams(window.location.search)
+    urlParams.set(MAP_QUERY_KEY, currentMap)
+    if (!currentMap) {
+      urlParams.delete(MAP_QUERY_KEY)
+    }
 
-      navigate({
-        to: `/${currentQuery}`,
-        query: urlParams.toString(),
-        scrollOptions,
-      })
-    },
-    [query, map, navigate, setQuery]
-  )
+    const fieldsNotNormalizable = [...facets, ...Object.values(selectedFacets)]
+      .filter(facet => facet.map !== 'c')
+      .map(facet => newFacetPathName(facet, isLegacySearch))
+      .join(PATH_SEPARATOR)
+    const modifiersIgnore = {
+      [fieldsNotNormalizable]: {
+        path: fieldsNotNormalizable,
+      },
+    }
+
+    navigate({
+      to: `${PATH_SEPARATOR}${currentQuery}`,
+      query: urlParams.toString(),
+      scrollOptions,
+      modifiersIgnore,
+    })
+  })
 
   return navigateToFacet
 }

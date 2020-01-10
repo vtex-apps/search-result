@@ -29,6 +29,7 @@ const CSS_HANDLES = [
 ]
 
 const FilterSidebar = ({
+  map,
   selectedFilters,
   filters,
   tree,
@@ -44,9 +45,9 @@ const FilterSidebar = ({
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const currentTree = useCategoryTree(tree, categoryTreeOperations)
 
-  const navigateToFacet = useFacetNavigation()
+  const navigateToFacet = useFacetNavigation(map)
 
-  const handleFilterCheck = filter => {
+  const handleFilterCheck = (title, filter) => {
     if (!filterOperations.includes(filter)) {
       setFilterOperations(filterOperations.concat(filter))
     } else {
@@ -95,13 +96,13 @@ const FilterSidebar = ({
   }
 
   const context = useMemo(() => {
-    const { query, map } = queryContext
+    const { query } = queryContext
 
     return {
       ...queryContext,
       ...buildQueryAndMap(query, map, filterOperations),
     }
-  }, [filterOperations, queryContext])
+  }, [filterOperations, map, queryContext])
 
   return (
     <Fragment>
@@ -128,6 +129,7 @@ const FilterSidebar = ({
       <Sidebar onOutsideClick={handleClose} isOpen={open}>
         <QueryContext.Provider value={context}>
           <AccordionFilterContainer
+            map={map}
             filters={filters}
             tree={currentTree}
             onFilterCheck={handleFilterCheck}

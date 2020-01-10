@@ -1,15 +1,12 @@
 import { zip } from 'ramda'
-import { useContext } from 'react'
-
-import QueryContext from '../components/QueryContext'
 
 /**
  * This hook is required because we make the facets query
  * with only the categories and fulltext parameters, so we
  * need to calculate manually if the other filters are selected
  */
-const useSelectedFilters = facets => {
-  const { query, map } = useContext(QueryContext)
+const useSelectedFilters = (facets, queryArgs) => {
+  const { query, map } = queryArgs
   if (!query && !map) {
     return []
   }

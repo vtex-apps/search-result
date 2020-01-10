@@ -14,6 +14,7 @@ import styles from '../searchResult.css'
 const CATEGORIES_TITLE = 'store/search.filter.title.categories'
 
 const AccordionFilterContainer = ({
+  map,
   filters,
   intl,
   onFilterCheck,
@@ -92,6 +93,7 @@ const AccordionFilterContainer = ({
       >
         <div className={itemClassName}>
           <DepartmentFilters
+            map={map}
             tree={tree}
             isVisible={tree.length > 0}
             onCategorySelect={onCategorySelect}
@@ -139,6 +141,8 @@ const AccordionFilterContainer = ({
 }
 
 AccordionFilterContainer.propTypes = {
+  /** Legacy search map */
+  map: PropTypes.string,
   /** Current available filters */
   filters: PropTypes.arrayOf(PropTypes.object),
   /** Intl instance */

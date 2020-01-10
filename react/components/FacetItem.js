@@ -8,11 +8,19 @@ import useFacetNavigation from '../hooks/useFacetNavigation'
 
 const CSS_HANDLES = ['filterItem']
 
-const FacetItem = ({ facet, className, preventRouteChange = false }) => {
+const FacetItem = ({
+  map,
+  facetTitle,
+  facet,
+  className,
+  preventRouteChange = false,
+}) => {
   const { showFacetQuantity } = useContext(SettingsContext)
   const handles = useCssHandles(CSS_HANDLES)
-  const navigateToFacet = useFacetNavigation()
-
+  const navigateToFacet = useFacetNavigation(
+    map,
+    facet.selected && { ...facet, title: facetTitle }
+  )
   const classes = classNames(
     applyModifiers(handles.filterItem, facet.value),
     { [`${handles.filterItem}--selected`]: facet.selected },
@@ -32,7 +40,9 @@ const FacetItem = ({ facet, className, preventRouteChange = false }) => {
           showFacetQuantity ? `${facet.name} (${facet.quantity})` : facet.name
         }
         name={facet.name}
-        onChange={() => navigateToFacet(facet, preventRouteChange)}
+        onChange={() =>
+          navigateToFacet({ ...facet, title: facetTitle }, preventRouteChange)
+        }
         value={facet.name}
       />
     </div>
