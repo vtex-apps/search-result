@@ -190,7 +190,7 @@ const SearchQuery = ({
       loading,
       refetch,
     }),
-    [data, loading, productSearchResult, refetch]
+    [data, loading, productSearchResult, refetch, variables]
   )
 
   return children(searchInfo, extraParams)
