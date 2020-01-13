@@ -1,7 +1,6 @@
 import classNames from 'classnames'
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { NoSSR } from 'vtex.render-runtime'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 
 import Collapsible from './Collapsible'
@@ -54,28 +53,26 @@ const DepartmentFilters = ({
         )}
       >
         {showAllDepartments ? (
-          <NoSSR>
-            <Collapsible
-              maxItems={8}
-              threshold={2}
-              items={tree}
-              openLabel="store/filter.more-departments"
-              render={category => (
-                <CategoryFilter
-                  key={category.id}
-                  category={category}
-                  shallow
-                  onCategorySelect={onCategorySelect}
-                />
-              )}
-            />
-          </NoSSR>
-        ) : (
-          <CategoryFilter
-            category={tree.find(category => category.selected)}
-            onCategorySelect={onCategorySelect}
+          <Collapsible
+            maxItems={8}
+            threshold={2}
+            items={tree}
+            openLabel="store/filter.more-departments"
+            render={category => (
+              <CategoryFilter
+                key={category.id}
+                category={category}
+                shallow
+                onCategorySelect={onCategorySelect}
+              />
+            )}
           />
-        )}
+        ) : (
+            <CategoryFilter
+              category={tree.find(category => category.selected)}
+              onCategorySelect={onCategorySelect}
+            />
+          )}
       </div>
     </div>
   )

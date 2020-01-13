@@ -28,7 +28,7 @@ const emptyFacets = {
 const CSS_HANDLES = ['loadingOverlay']
 
 const useShowContentLoader = (searchQuery, dispatch) => {
-  const loadingRef = useRef(true)
+  const loadingRef = useRef(searchQuery.loading)
   const previousLoading = loadingRef.current
   const isLoading = searchQuery && searchQuery.loading
   useEffect(() => {
@@ -92,6 +92,7 @@ const SearchResultFlexible = ({
   const showFacets = showCategories || (!hideFacets && !isEmpty(filters))
   const [state, dispatch] = useSearchPageStateReducer({
     mobileLayout: mobileLayout.mode1,
+    showContentLoader: searchQuery.loading,
   })
 
   useShowContentLoader(searchQuery, dispatch)
