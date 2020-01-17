@@ -74,7 +74,9 @@ export const buildQueryAndMap = (
       const facetValue = newFacetPathName(facet, isLegacySearch)
       if (facet.selected) {
         const facetIndex = zip(query, map).findIndex(
-          ([value, valueMap]) => value === facetValue && valueMap === facet.map
+          ([value, valueMap]) =>
+            value.toLowerCase() === facetValue.toLowerCase() &&
+            valueMap === facet.map
         )
         removeSelectedFacets(facet[facetIndex])
         return {
