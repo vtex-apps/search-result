@@ -46,6 +46,7 @@ const FilterNavigator = ({
   hiddenFacets = {},
   initiallyCollapsed = false,
   queryArgs = {},
+  layout = LAYOUT_TYPES.responsive,
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
