@@ -26,6 +26,7 @@ describe('<FilterNavigator />', () => {
     const props = {
       map: 'c',
       tree: categoriesTree,
+      queryArgs: { query: customProps.query, map: 'c' },
       ...customProps,
     }
 
