@@ -23,7 +23,7 @@ import useFacetNavigation from './hooks/useFacetNavigation'
 import styles from './searchResult.css'
 import { CATEGORIES_TITLE } from './utils/getFilters'
 
-const CSS_HANDLES = ['filter__container']
+const CSS_HANDLES = ['filter__container', 'filterMessage']
 
 const LAYOUT_TYPES = {
   responsive: 'responsive',
@@ -118,7 +118,7 @@ const FilterNavigator = ({
             'title'
           )} bb b--muted-4`}
         >
-          <h5 className="t-heading-5 mv5">
+          <h5 className={`${handles.filterMessage} t-heading-5 mv5`}>
             <FormattedMessage id="store/search-result.filter-button.title" />
           </h5>
         </div>

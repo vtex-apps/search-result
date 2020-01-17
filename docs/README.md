@@ -505,6 +505,7 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 | `dropdownMobile`                      |
 | `accordionFilterItemActive`           |
 | `totalProducts`                       |
+| `totalProductsMessage`                |
 | `orderBy`                             |
 | `accordionFilterItemHidden`           |
 | `accordionFilterItem`                 |
@@ -515,6 +516,7 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 | `filterSelected`                      |
 | `filterPopupTitle`                    |
 | `filterPopupArrowIcon`                |
+| `filterMessage`                       |
 | `footerButton`                        |
 | `layoutSwitcher`                      |
 | `filterPopup`                         |

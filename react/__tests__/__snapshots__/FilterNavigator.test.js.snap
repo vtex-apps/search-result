@@ -9,7 +9,7 @@ exports[`<FilterNavigator /> should display related categories 1`] = `
       class="filter__container filter__container--title bb b--muted-4"
     >
       <h5
-        class="t-heading-5 mv5"
+        class="filterMessage t-heading-5 mv5"
       >
         <span>
           Filters
@@ -181,7 +181,7 @@ exports[`<FilterNavigator /> should match snapshot with all 1`] = `
       class="filter__container filter__container--title bb b--muted-4"
     >
       <h5
-        class="t-heading-5 mv5"
+        class="filterMessage t-heading-5 mv5"
       >
         <span>
           Filters
