@@ -20,7 +20,6 @@ const CSS_HANDLES = [
   'filterTitle',
   'filterIcon',
   'filterContent',
-  'filterSearch',
 ]
 
 /**
@@ -121,11 +120,9 @@ const FilterOptionTemplate = ({
       >
         {collapsable ? (
           <Collapse isOpened={open} theme={{ content: handles.filterContent }}>
-            <div className={classNames('mb3', handles.filterSearch)}>
-              {showFacetSearch ? (
-                <SearchFilterBar title={title} handleChange={setSearchTerm} />
-              ) : null}
-            </div>
+            {showFacetSearch ? (
+              <SearchFilterBar title={title} handleChange={setSearchTerm} />
+            ) : null}
             {renderChildren()}
           </Collapse>
         ) : (
