@@ -51,6 +51,7 @@
   "store/search.text": "Mostrar {from}-{to} de {recordsFiltered} resultados",
   "store/search.selected-filters": "Filtrado por:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {Producto} other {Productos}}</span>",
+  "store/search.total-products-2": "{recordsFiltered} <span> {recordsFiltered, plural, one {Producto} other {Productos}}</span>",
   "store/search.empty-products": "No hemos encontrado ningún resultado para \"{term}\"",
   "store/search.what-do-i-do": "¿Qué hago?",
   "store/search.what-to-do.1": "Compruebe los términos introducidos.",

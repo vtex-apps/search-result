@@ -18,7 +18,7 @@ const TotalProducts = ({
     >
       <FormattedMessage
         tagName="span"
-        id="store/search.total-products"
+        id="store/search.total-products-2"
         values={{
           recordsFiltered,
           // eslint-disable-next-line react/display-name
