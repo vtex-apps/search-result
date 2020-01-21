@@ -23,7 +23,13 @@ const withSearchPageContextProps = Component => ({ layout }) => {
   const { isMobile } = useDevice()
 
   const facets = pathOr({}, ['data', 'facets'], searchQuery)
-  const { brands, priceRanges, specificationFilters, categoriesTrees } = facets
+  const {
+    brands,
+    priceRanges,
+    specificationFilters,
+    categoriesTrees,
+    queryArgs,
+  } = facets
 
   if (showFacets === false || !map) {
     return null
@@ -47,6 +53,7 @@ const withSearchPageContextProps = Component => ({ layout }) => {
         filters={filters}
         hiddenFacets={hiddenFacets}
         layout={layout}
+        queryArgs={queryArgs}
       />
     </div>
   )
