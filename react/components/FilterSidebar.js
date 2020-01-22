@@ -72,7 +72,7 @@ const FilterSidebar = ({
 
   const handleClearFilters = () => {
     setFilterOperations(selectedFilters) // this is necessary to unselect the selected checkboxes
-    navigateToFacet(selectedFilters, preventRouteChange)
+    navigateToFacet(selectedFilters)
     setOpen(false)
   }
 

@@ -62,7 +62,7 @@ const DepartmentFilters = ({
             render={category => (
               <CategoryFilter
                 key={category.id}
-                  map={map}
+                map={map}
                 category={category}
                 shallow
                 onCategorySelect={onCategorySelect}
@@ -70,12 +70,12 @@ const DepartmentFilters = ({
             )}
           />
         ) : (
-            <CategoryFilter
+          <CategoryFilter
             map={map}
-              category={tree.find(category => category.selected)}
-              onCategorySelect={onCategorySelect}
-            />
-          )}
+            category={tree.find(category => category.selected)}
+            onCategorySelect={onCategorySelect}
+          />
+        )}
       </div>
     </div>
   )
