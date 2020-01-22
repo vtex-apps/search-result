@@ -30,6 +30,18 @@ const LAYOUT_TYPES = {
   desktop: 'desktop',
 }
 
+const storeSelectedCategoryTreeForNavigation = (tree, navigationObj) => {
+  for (const node of tree) {
+    if (!node.selected) {
+      continue
+    }
+    navigationObj.storeSelectedFacets(node)
+    if (node.children) {
+      storeSelectedCategoryTreeForNavigation(node.children, navigationObj)
+    }
+  }
+}
+
 /**
  * Wrapper around the filters (selected and available) as well
  * as the popup filters that appear on mobile devices
@@ -67,11 +79,18 @@ const FilterNavigator = ({
         ...brands,
         ...priceRanges,
       ]
-
       return flatten(options)
     }, [brands, priceRanges, specificationFilters]),
     queryArgs
-  ).filter(facet => facet.selected)
+  ).reduce((acc, facet) => {
+    if (facet.selected) {
+      navigateToFacet.storeSelectedFacets(facet)
+      acc.push(facet)
+    }
+    return acc
+  }, [])
+
+  storeSelectedCategoryTreeForNavigation(tree, navigateToFacet)
 
   const filterClasses = classNames({
     'flex items-center justify-center flex-auto h-100': mobileLayout,

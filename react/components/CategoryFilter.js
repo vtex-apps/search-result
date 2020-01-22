@@ -62,7 +62,7 @@ const CategoryFilter = ({
     }
 
     if (shallow) {
-      onCategorySelect(map)
+      onCategorySelect()
     } else {
       // deselect root category
       handleUnselectCategories(0)

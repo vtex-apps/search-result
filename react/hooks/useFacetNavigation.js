@@ -32,20 +32,9 @@ const removeSelectedFacets = selectedFacet => {
   }
 }
 
-const isLegacySearchFormat = (query, mapSegments, pathSegments) => {
-  return (
-    query.includes(SPEC_FILTER) ||
-    (mapSegments && mapSegments.length === pathSegments.length)
-  )
-}
-
 const removeElementAtIndex = (str, index) => str.filter((_, i) => i !== index)
 
-const newFacetPathName = (facet, isLegacySearch) => {
-  if (isLegacySearch && facet.selected) {
-    return facet.value
-  }
-
+const newFacetPathName = facet => {
   return facet.map && facet.map.includes(SPEC_FILTER)
     ? `${facet.title
         .replace(/\s/g, SPACE_REPLACER)
@@ -63,15 +52,49 @@ const removeMapForNewURLFormat = queryAndMap => {
   )
 }
 
-export const buildQueryAndMap = (
-  querySegments,
-  mapSegments,
-  facets,
-  isLegacySearch
-) => {
+const getCleanUrlParams = currentMap => {
+  const urlParams = new URLSearchParams(window.location.search)
+  urlParams.set(MAP_QUERY_KEY, currentMap)
+  if (!currentMap) {
+    urlParams.delete(MAP_QUERY_KEY)
+  }
+  return urlParams
+}
+
+const getStaticPathSegments = facets => {
+  const fieldsNotNormalizable = [...facets, ...Object.values(selectedFacets)]
+    .filter(facet => facet.map !== 'c')
+    .map(facet => newFacetPathName(facet))
+    .join(PATH_SEPARATOR)
+  const modifiersIgnore = {
+    [fieldsNotNormalizable]: {
+      path: fieldsNotNormalizable,
+    },
+  }
+  return modifiersIgnore
+}
+
+const convertSegmentsToNewURLs = (querySegments, mapSegments, facetsLookup) => {
+  const facets = Object.values(facetsLookup)
+  const newQuerySegments = querySegments.map(querySegment => {
+    const selectedFacet = facets.find(
+      facet => facet.value.toLowerCase() === querySegment.toLowerCase()
+    )
+    const newSegment = selectedFacet
+      ? selectedFacet.newFacetPathName
+        ? selectedFacet.newFacetPathName
+        : newFacetPathName(selectedFacet)
+      : querySegment
+    return newSegment
+  })
+  return { map: mapSegments, query: newQuerySegments }
+}
+
+export const buildQueryAndMap = (querySegments, mapSegments, facets) => {
   const queryAndMap = facets.reduce(
     ({ query, map }, facet) => {
-      const facetValue = newFacetPathName(facet, isLegacySearch)
+      const facetValue = newFacetPathName(facet)
+      facet.newQuerySegment = facetValue
       if (facet.selected) {
         const facetIndex = zip(query, map).findIndex(
           ([value, valueMap]) =>
@@ -92,7 +115,7 @@ export const buildQueryAndMap = (
           return {
             query: [
               ...query.slice(0, lastCategoryIndex + 1),
-              facet.value,
+              facetValue,
               ...query.slice(lastCategoryIndex + 1),
             ],
             map: [
@@ -117,10 +140,9 @@ export const buildQueryAndMap = (
   }
 }
 
-const useFacetNavigation = (map, selectedFacet) => {
+const useFacetNavigation = map => {
   const { navigate } = useRuntime()
-  const { query, map: queryMap } = useQuery()
-  storeSelectedFacets(selectedFacet)
+  const { query } = useQuery()
 
   const navigateToFacet = useCallback(maybeFacets => {
     const facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
@@ -128,34 +150,22 @@ const useFacetNavigation = (map, selectedFacet) => {
     const querySegments = query.split(PATH_SEPARATOR)
     const mapSegments = map.split(MAP_VALUES_SEP)
 
-    const isLegacySearch = isLegacySearchFormat(
-      query,
-      queryMap.split(MAP_VALUES_SEP),
-      querySegments
-    )
+    const {
+      query: newQuerySegments,
+      map: newMapSegments,
+    } = convertSegmentsToNewURLs(querySegments, mapSegments, selectedFacets)
 
     const { query: currentQuery, map: currentMap } = buildQueryAndMap(
-      querySegments,
-      mapSegments,
-      facets,
-      isLegacySearch
+      newQuerySegments,
+      newMapSegments,
+      facets
     )
 
-    const urlParams = new URLSearchParams(window.location.search)
-    urlParams.set(MAP_QUERY_KEY, currentMap)
-    if (!currentMap) {
-      urlParams.delete(MAP_QUERY_KEY)
-    }
-
-    const fieldsNotNormalizable = [...facets, ...Object.values(selectedFacets)]
-      .filter(facet => facet.map !== 'c')
-      .map(facet => newFacetPathName(facet, isLegacySearch))
-      .join(PATH_SEPARATOR)
-    const modifiersIgnore = {
-      [fieldsNotNormalizable]: {
-        path: fieldsNotNormalizable,
-      },
-    }
+    const urlParams = getCleanUrlParams(currentMap)
+    const modifiersIgnore = getStaticPathSegments([
+      ...Object.values(selectedFacets),
+      ...facets,
+    ])
 
     navigate({
       to: `${PATH_SEPARATOR}${currentQuery}`,
@@ -165,6 +175,7 @@ const useFacetNavigation = (map, selectedFacet) => {
     })
   })
 
+  navigateToFacet.storeSelectedFacets = storeSelectedFacets
   return navigateToFacet
 }
 
