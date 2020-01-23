@@ -16,6 +16,7 @@ const LocalQuery = props => {
     hideUnavailableItems,
     facetsBehavior,
     skusFilter,
+    simulationBehavior,
     query: {
       order: orderBy = orderByField,
       page: pageQuery,
@@ -38,6 +39,7 @@ const LocalQuery = props => {
       facetsBehavior={facetsBehavior}
       pageQuery={pageQuery}
       skusFilter={skusFilter}
+      simulationBehavior={simulationBehavior}
     >
       {(searchQuery, extraParams) => {
         return render({
