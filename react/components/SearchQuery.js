@@ -119,6 +119,7 @@ const SearchQuery = ({
   facetsBehavior,
   pageQuery,
   skusFilter,
+  simulationBehavior,
   children,
 }) => {
   /* This is the page of the first query since the component was rendered. 
@@ -151,6 +152,7 @@ const SearchQuery = ({
       facetsBehavior: facetsBehavior || DEFAULT_FACETS_BEHAVIOR,
       withFacets: false,
       skusFilter: skusFilter || DEFAULT_SKU_FILTER,
+      simulationBehavior: simulationBehavior || 'default',
     }
   }, [
     query,
@@ -162,6 +164,7 @@ const SearchQuery = ({
     hideUnavailableItems,
     facetsBehavior,
     skusFilter,
+    simulationBehavior,
   ])
 
   const {

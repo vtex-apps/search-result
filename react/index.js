@@ -117,6 +117,18 @@ SearchResult.getSchema = props => {
                 'admin/editor.search-result.query.skusFilter.first-available',
               ],
             },
+            simulationBehavior: {
+              title: 'admin/editor.search-result.query.simulationBehavior',
+              description:
+                'admin/editor.search-result.query.simulationBehavior.description',
+              type: 'string',
+              default: 'default',
+              enum: ['default', 'skip'],
+              enumNames: [
+                'admin/editor.search-result.query.simulationBehavior.default',
+                'admin/editor.search-result.query.simulationBehavior.skip',
+              ],
+            },
           },
         },
       }

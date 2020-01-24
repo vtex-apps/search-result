@@ -376,6 +376,7 @@ These properties can be changed in the `blocks.json` file of your theme.
 | `hideUnavailableItems` | `Boolean`        | Set if unavailable items should show on search                                                                                                                                                        | `false`           |
 | `facetsBehavior` | `String`        | Set if specificationFilters will be ignored when getting the facets. If set to `Static`, you will be able to filter your search result with facets of the same specification filters, making it possible to make an `or` filter. If set to `Dynamic`, you won't be able to filter by `or` but the facets will be smarter and will only show the facets that will have at least one result.                                                                                                                                                        | `Static`           |
 | `skusFilter`           | `SkusFilterEnum` | Control SKUs returned for each product in the query. The less SKUs needed to be returned, the more performant your shelf query will be.                                                               | `"ALL_AVAILABLE"` |
+| `simulationBehavior`           | `SimulationBehaviorEnum` | Set to "skip" value if you want faster queries and do not care about most up to date prices or stock.                                                               | `"default"` |
 
 `SkusFilterEnum`:
 | Name | Value | Description |
@@ -383,6 +384,12 @@ These properties can be changed in the `blocks.json` file of your theme.
 | First Available | `FIRST_AVAILABLE` | Most performant, ideal if you do not have a SKU selector in your shelf. Will return only the first available SKU for that product in your shelf query. |
 | All Available | `ALL_AVAILABLE` | A bit better performace, will only return SKUs that are available, ideal if you have a SKU selector but still want a better performance. |
 | All | `ALL` | Returns all SKUs related to that product, least performant option. |
+
+`SimulationBehaviorEnum`:
+| Name | Value | Description |
+| --------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Default | `default` | Does not change anything, catalog will simulate all skus and deliver most up to date prices and stock. |
+| Skip Simulation | `skip` | Catalog will not simulate any sku making the query faster but prices and stock will have the value of the last indexation. |
 
 ##### HiddenFacets
 
