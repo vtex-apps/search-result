@@ -1,5 +1,5 @@
 import React from 'react'
-import { defineMessages, injectIntl } from 'react-intl'
+import { defineMessages, useIntl } from 'react-intl'
 import { Input } from 'vtex.styleguide'
 import classNames from 'classnames'
 import { useCssHandles } from 'vtex.css-handles'
@@ -13,8 +13,9 @@ const messages = defineMessages({
   },
 })
 
-const SearchFilterBar = ({ title, handleChange, intl }) => {
+const SearchFilterBar = ({ title, handleChange }) => {
   const handles = useCssHandles(CSS_HANDLES)
+  const intl = useIntl()
 
   return (
     <div className={classNames('mb3', handles.filterSearch)}>
@@ -28,4 +29,4 @@ const SearchFilterBar = ({ title, handleChange, intl }) => {
   )
 }
 
-export default injectIntl(SearchFilterBar)
+export default SearchFilterBar
