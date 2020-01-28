@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useMemo } from 'react'
 import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
 
@@ -7,7 +7,11 @@ import { IconCaret } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
 
 import styles from '../searchResult.css'
-import { useSortFacets, useSettings } from '../constants/SearchHelpers'
+import {
+  useSettings,
+  sortFacets,
+  filterFacetsByName,
+} from '../constants/SearchHelpers'
 import SearchFilterBar from './SearchFilterBar'
 
 const CSS_HANDLES = [
@@ -36,21 +40,18 @@ const FilterOptionTemplate = ({
   const [searchTerm, setSearchTerm] = useState('')
   const handles = useCssHandles(CSS_HANDLES)
   const { orderFacetsBy, showFacetSearch } = useSettings()
-  const sortFunc = useSortFacets(orderFacetsBy)
+
+  const filteredAndOrderedFilters = useMemo(
+    () => sortFacets(filterFacetsByName(filters, searchTerm), orderFacetsBy),
+    [searchTerm, filters, orderFacetsBy]
+  )
 
   const renderChildren = () => {
     if (typeof children !== 'function') {
       return children
     }
 
-    return filters
-      .filter(
-        filter =>
-          searchTerm === '' ||
-          filter.name.toLowerCase().indexOf(searchTerm) > -1
-      )
-      .sort(sortFunc)
-      .map(children)
+    return filteredAndOrderedFilters.map(children)
   }
 
   const handleKeyDown = useCallback(
