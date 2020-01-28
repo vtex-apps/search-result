@@ -57,7 +57,6 @@ const SearchResultFlexible = ({
   orderBy,
   page,
   facetsLoading,
-  showFacetQuantity = false,
   showFacetSearch = false,
   orderFacetsBy,
 }) => {

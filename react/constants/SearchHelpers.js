@@ -1,4 +1,5 @@
-import { useCallback } from 'react'
+import { useCallback, useContext } from 'react'
+import SettingsContext from '../components/SettingsContext'
 
 export function getFilterTitle(title = '', intl) {
   return intl.messages[title] ? intl.formatMessage({ id: title }) : title
@@ -22,6 +23,10 @@ export function useSortFacets(orderFacetsBy) {
     },
     [orderFacetsBy]
   )
+}
+
+export function useSettings() {
+  return useContext(SettingsContext)
 }
 
 export const HEADER_SCROLL_OFFSET = 90

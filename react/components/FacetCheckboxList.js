@@ -1,18 +1,15 @@
 import classNames from 'classnames'
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { Checkbox } from 'vtex.styleguide'
 
 import useSelectedFilters from '../hooks/useSelectedFilters'
 import styles from '../searchResult.css'
-import { useSortFacets } from '../constants/SearchHelpers'
-import SettingsContext from './SettingsContext'
+import { useSortFacets, useSettings } from '../constants/SearchHelpers'
 import SearchFilterBar from './SearchFilterBar'
 
 const FacetCheckboxList = ({ facets, onFilterCheck, title }) => {
   const facetsWithSelected = useSelectedFilters(facets)
-  const { orderFacetsBy, showFacetSearch, showFacetQuantity } = useContext(
-    SettingsContext
-  )
+  const { orderFacetsBy, showFacetSearch, showFacetQuantity } = useSettings()
   const [searchTerm, setSearchTerm] = useState('')
   const sortFunc = useSortFacets(orderFacetsBy)
 

@@ -1,15 +1,13 @@
 import PropTypes from 'prop-types'
-import React, { useState, useCallback, useContext } from 'react'
+import React, { useState, useCallback } from 'react'
 import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
 
 import { IconCaret } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
 
-import SettingsContext from './SettingsContext'
-
 import styles from '../searchResult.css'
-import { useSortFacets } from '../constants/SearchHelpers'
+import { useSortFacets, useSettings } from '../constants/SearchHelpers'
 import SearchFilterBar from './SearchFilterBar'
 
 const CSS_HANDLES = [
@@ -37,7 +35,7 @@ const FilterOptionTemplate = ({
   const [open, setOpen] = useState(!initiallyCollapsed)
   const [searchTerm, setSearchTerm] = useState('')
   const handles = useCssHandles(CSS_HANDLES)
-  const { orderFacetsBy, showFacetSearch } = useContext(SettingsContext)
+  const { orderFacetsBy, showFacetSearch } = useSettings()
   const sortFunc = useSortFacets(orderFacetsBy)
 
   const renderChildren = () => {
