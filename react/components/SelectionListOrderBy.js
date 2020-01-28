@@ -52,7 +52,7 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
   const getOptionTitle = useCallback(
     option => {
       const selectedOption = find(propEq('value', option), options)
-      return selectedOption ? selectedOption.label : options[0].label // this should return to empty string after this https://github.com/vtex-apps/store/pull/407
+      return selectedOption ? selectedOption.label : ''
     },
     [options]
   )
