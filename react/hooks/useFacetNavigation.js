@@ -2,16 +2,15 @@ import { zip } from 'ramda'
 import { useCallback } from 'react'
 import { useRuntime } from 'vtex.render-runtime'
 import { useQuery } from '../components/QueryContext'
-
+import { newFacetPathName } from '../utils/slug'
 import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
-
-const SPEC_FILTER = 'specificationFilter'
-const MAP_CATEGORY_CHAR = 'c'
-const MAP_QUERY_KEY = 'map'
-const MAP_VALUES_SEP = ','
-const PATH_SEPARATOR = '/'
-const SPACE_REPLACER = '-'
-const FILTER_TITLE_SEP = '_'
+import {
+  MAP_CATEGORY_CHAR,
+  MAP_QUERY_KEY,
+  MAP_VALUES_SEP,
+  PATH_SEPARATOR,
+  SPEC_FILTER,
+} from '../constants'
 
 const scrollOptions = {
   baseElementId: 'search-result-anchor',
@@ -33,17 +32,6 @@ const removeSelectedFacets = selectedFacet => {
 }
 
 const removeElementAtIndex = (str, index) => str.filter((_, i) => i !== index)
-
-const newFacetPathName = facet => {
-  return facet.map && facet.map.includes(SPEC_FILTER)
-    ? `${facet.title
-        .replace(/\s/g, SPACE_REPLACER)
-        .toLowerCase()}${FILTER_TITLE_SEP}${facet.value.replace(
-        /\s/g,
-        SPACE_REPLACER
-      )}`
-    : facet.value
-}
 
 const removeMapForNewURLFormat = queryAndMap => {
   return queryAndMap.map.filter(
