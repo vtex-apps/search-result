@@ -31,7 +31,8 @@ const removeSelectedFacets = selectedFacet => {
   }
 }
 
-const removeElementAtIndex = (str, index) => str.filter((_, i) => i !== index)
+const removeElementAtIndex = (strArray, index) =>
+  strArray.filter((_, i) => i !== index)
 
 const removeMapForNewURLFormat = queryAndMap => {
   return queryAndMap.map.filter(
@@ -51,7 +52,7 @@ const getCleanUrlParams = currentMap => {
 
 const getStaticPathSegments = facets => {
   const fieldsNotNormalizable = [...facets, ...Object.values(selectedFacets)]
-    .filter(facet => facet.map !== 'c')
+    .filter(facet => facet.map.includes(SPEC_FILTER))
     .map(facet => newFacetPathName(facet))
     .join(PATH_SEPARATOR)
   const modifiersIgnore = {
@@ -86,13 +87,13 @@ export const buildQueryAndMap = (querySegments, mapSegments, facets) => {
       if (facet.selected) {
         const facetIndex = zip(query, map).findIndex(
           ([value, valueMap]) =>
-            value.toLowerCase() === facetValue.toLowerCase() &&
-            valueMap === facet.map
+            encodeURIComponent(value).toLowerCase() ===
+              facetValue.toLowerCase() && valueMap === facet.map
         )
-        removeSelectedFacets(facet[facetIndex])
+        removeSelectedFacets(facet)
         return {
-          query: removeElementAtIndex(query, facetIndex, PATH_SEPARATOR),
-          map: removeElementAtIndex(map, facetIndex, MAP_VALUES_SEP),
+          query: removeElementAtIndex(querySegments, facetIndex),
+          map: removeElementAtIndex(mapSegments, facetIndex),
         }
       }
 
