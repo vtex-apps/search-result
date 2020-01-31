@@ -87,8 +87,9 @@ export const buildQueryAndMap = (querySegments, mapSegments, facets) => {
       if (facet.selected) {
         const facetIndex = zip(query, map).findIndex(
           ([value, valueMap]) =>
-            encodeURIComponent(value).toLowerCase() ===
-              facetValue.toLowerCase() && valueMap === facet.map
+            decodeURIComponent(value).toLowerCase() ===
+              decodeURIComponent(facetValue).toLowerCase() &&
+            valueMap === facet.map
         )
         removeSelectedFacets(facet)
         return {
