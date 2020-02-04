@@ -514,6 +514,7 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 | `totalProducts`                       |
 | `totalProductsMessage`                |
 | `orderBy`                             |
+| `orderByText`                         |
 | `accordionFilterItemHidden`           |
 | `accordionFilterItem`                 |
 | `accordionFilterItemBox`              |
@@ -542,6 +543,7 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 | `filterContainer--` + FACET_TYPE      |
 | `filterTitle`                         |
 | `filterIcon`                          |
+| `filterTemplateOverflow`              |
 | `galleryTitle`                        |
 | `filterItem`                          |
 | `filterItem--` + FACET_VALUE          |
