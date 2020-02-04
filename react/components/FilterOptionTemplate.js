@@ -16,6 +16,7 @@ const CSS_HANDLES = [
   'filterTitle',
   'filterIcon',
   'filterContent',
+  'filterTemplateOverflow',
 ]
 /**
  * Collapsable filters container
@@ -96,7 +97,7 @@ const FilterOptionTemplate = ({
         </div>
       </div>
       <div
-        className={classNames({
+        className={classNames(handles.filterTemplateOverflow, {
           'overflow-y-auto': collapsable,
           pb5: !collapsable || open,
         })}

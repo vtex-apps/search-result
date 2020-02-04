@@ -15,6 +15,7 @@ const CSS_HANDLES = [
   'orderByButton',
   'orderByOptionsContainer',
   'orderByDropdown',
+  'orderByText',
   'filterPopupTitle',
   'filterPopupArrowIcon',
 ]
@@ -90,7 +91,7 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
           )}
         >
           <span
-            className={classNames('c-muted-2', {
+            className={classNames(handles.orderByText, 'c-muted-2', {
               'dn dib-ns': !orderBy.length,
             })}
           >
