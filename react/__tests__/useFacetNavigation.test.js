@@ -2,9 +2,12 @@ import useFacetNavigation from '../hooks/useFacetNavigation'
 import { renderHook, act } from '@testing-library/react-hooks'
 
 jest.mock('../components/QueryContext')
+jest.mock('../components/FilterNavigatorContext')
 const { useQuery } = require('../components/QueryContext')
 
 import { useRuntime } from '../__mocks__/vtex.render-runtime'
+import { useFilterNavigator } from '../components/FilterNavigatorContext'
+
 const mockUseRuntime = useRuntime
 
 const mockNavigate = jest.fn()
@@ -24,10 +27,12 @@ it('navigating to another category facet', () => {
   const map = 'c'
   useQuery.mockImplementation(() => ({
     query: 'clothing',
+  }))
+  useFilterNavigator.mockImplementation(() => ({
     map,
   }))
 
-  const { result } = renderHook(() => useFacetNavigation(map))
+  const { result } = renderHook(() => useFacetNavigation([]))
   act(() => {
     result.current({ map: 'c', value: 'shorts' })
   })
@@ -40,10 +45,12 @@ it('joins categories', () => {
   const map = 'c,b'
   useQuery.mockImplementation(() => ({
     query: 'clothing/Brand',
+  }))
+  useFilterNavigator.mockImplementation(() => ({
     map,
   }))
 
-  const { result } = renderHook(() => useFacetNavigation(map))
+  const { result } = renderHook(() => useFacetNavigation([]))
   act(() => {
     result.current({ map: 'c', value: 'shorts' })
   })
@@ -57,10 +64,12 @@ it('pass array of facets as args work', () => {
   const map = 'c,b'
   useQuery.mockImplementation(() => ({
     query: 'clothing/Brand',
+  }))
+  useFilterNavigator.mockImplementation(() => ({
     map,
   }))
 
-  const { result } = renderHook(() => useFacetNavigation(map))
+  const { result } = renderHook(() => useFacetNavigation([]))
   act(() => {
     result.current([
       { map: 'b', value: 'OtherBrand', title: '' },

@@ -8,6 +8,7 @@ import FilterNavigator from '../FilterNavigator'
 import QueryContext from '../components/QueryContext'
 
 import { useRuntime } from '../__mocks__/vtex.render-runtime'
+import FilterNavigatorContext from '../components/FilterNavigatorContext'
 const mockUseRuntime = useRuntime
 
 const mockNavigate = jest.fn()
@@ -34,7 +35,11 @@ describe('<FilterNavigator />', () => {
       <QueryContext.Provider
         value={{ query: customProps.query, map: props.map }}
       >
-        <FilterNavigator {...props} />
+        <FilterNavigatorContext.Provider
+          value={{ query: customProps.query, map: props.map }}
+        >
+          <FilterNavigator {...props} />
+        </FilterNavigatorContext.Provider>
       </QueryContext.Provider>
     )
   }
