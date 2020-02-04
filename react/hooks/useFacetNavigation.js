@@ -2,6 +2,7 @@ import { zip } from 'ramda'
 import { useCallback } from 'react'
 import { useRuntime } from 'vtex.render-runtime'
 import { useQuery } from '../components/QueryContext'
+import { useFilterNavigator } from '../components/FilterNavigatorContext'
 import { newFacetPathName } from '../utils/slug'
 import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
 import {
@@ -15,20 +16,6 @@ import {
 const scrollOptions = {
   baseElementId: 'search-result-anchor',
   top: -HEADER_SCROLL_OFFSET,
-}
-
-const selectedFacets = {}
-
-const storeSelectedFacets = selectedFacet => {
-  if (selectedFacet) {
-    selectedFacets[selectedFacet.value] = selectedFacet
-  }
-}
-
-const removeSelectedFacets = selectedFacet => {
-  if (selectedFacet) {
-    delete selectedFacets[selectedFacet.value]
-  }
 }
 
 const removeElementAtIndex = (strArray, index) =>
@@ -51,7 +38,7 @@ const getCleanUrlParams = currentMap => {
 }
 
 const getStaticPathSegments = facets => {
-  const fieldsNotNormalizable = [...facets, ...Object.values(selectedFacets)]
+  const fieldsNotNormalizable = facets
     .filter(facet => facet.map.includes(SPEC_FILTER))
     .map(facet => newFacetPathName(facet))
     .join(PATH_SEPARATOR)
@@ -63,8 +50,11 @@ const getStaticPathSegments = facets => {
   return modifiersIgnore
 }
 
-const convertSegmentsToNewURLs = (querySegments, mapSegments, facetsLookup) => {
-  const facets = Object.values(facetsLookup)
+export const convertSegmentsToNewURLs = (
+  querySegments,
+  mapSegments,
+  facets
+) => {
   const newQuerySegments = querySegments.map(querySegment => {
     const selectedFacet = facets.find(
       facet => facet.value.toLowerCase() === querySegment.toLowerCase()
@@ -79,7 +69,12 @@ const convertSegmentsToNewURLs = (querySegments, mapSegments, facetsLookup) => {
   return { map: mapSegments, query: newQuerySegments }
 }
 
-export const buildQueryAndMap = (querySegments, mapSegments, facets) => {
+const buildQueryAndMap = (
+  querySegments,
+  mapSegments,
+  facets,
+  selectedFacets
+) => {
   const queryAndMap = facets.reduce(
     ({ query, map }, facet) => {
       const facetValue = newFacetPathName(facet)
@@ -91,7 +86,9 @@ export const buildQueryAndMap = (querySegments, mapSegments, facets) => {
               decodeURIComponent(facetValue).toLowerCase() &&
             valueMap === facet.map
         )
-        removeSelectedFacets(facet)
+        selectedFacets = selectedFacets.filter(
+          selectedFacet => selectedFacet.value !== facet.value
+        )
         return {
           query: removeElementAtIndex(querySegments, facetIndex),
           map: removeElementAtIndex(mapSegments, facetIndex),
@@ -130,30 +127,40 @@ export const buildQueryAndMap = (querySegments, mapSegments, facets) => {
   }
 }
 
-const useFacetNavigation = map => {
+export const buildNewQueryMap = (query, map, facets, selectedFacets) => {
+  const querySegments = (query && query.split(PATH_SEPARATOR)) || []
+  const mapSegments = (map && map.split(MAP_VALUES_SEP)) || []
+
+  const {
+    query: newQuerySegments,
+    map: newMapSegments,
+  } = convertSegmentsToNewURLs(querySegments, mapSegments, selectedFacets)
+
+  return buildQueryAndMap(
+    newQuerySegments,
+    newMapSegments,
+    facets,
+    selectedFacets
+  )
+}
+
+const useFacetNavigation = selectedFacets => {
   const { navigate } = useRuntime()
   const { query } = useQuery()
+  const { map } = useFilterNavigator()
 
   const navigateToFacet = useCallback(maybeFacets => {
     const facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
-
-    const querySegments = query.split(PATH_SEPARATOR)
-    const mapSegments = map.split(MAP_VALUES_SEP)
-
-    const {
-      query: newQuerySegments,
-      map: newMapSegments,
-    } = convertSegmentsToNewURLs(querySegments, mapSegments, selectedFacets)
-
-    const { query: currentQuery, map: currentMap } = buildQueryAndMap(
-      newQuerySegments,
-      newMapSegments,
-      facets
+    const { query: currentQuery, map: currentMap } = buildNewQueryMap(
+      query,
+      map,
+      facets,
+      selectedFacets
     )
 
     const urlParams = getCleanUrlParams(currentMap)
     const modifiersIgnore = getStaticPathSegments([
-      ...Object.values(selectedFacets),
+      ...selectedFacets,
       ...facets,
     ])
 
@@ -165,7 +172,6 @@ const useFacetNavigation = map => {
     })
   })
 
-  navigateToFacet.storeSelectedFacets = storeSelectedFacets
   return navigateToFacet
 }
 

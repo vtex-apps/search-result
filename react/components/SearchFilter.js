@@ -4,7 +4,7 @@ import { injectIntl, intlShape } from 'react-intl'
 
 import FilterOptionTemplate from './FilterOptionTemplate'
 import FacetItem from './FacetItem'
-import { facetOptionShape, facetQueryArgsShape } from '../constants/propTypes'
+import { facetOptionShape } from '../constants/propTypes'
 import { getFilterTitle } from '../constants/SearchHelpers'
 import useSelectedFilters from '../hooks/useSelectedFilters'
 
@@ -14,12 +14,12 @@ import useSelectedFilters from '../hooks/useSelectedFilters'
 const SearchFilter = ({
   title = 'Default Title',
   facets = [],
-  queryArgs = {},
   intl,
   preventRouteChange = false,
   initiallyCollapsed = false,
+  navigateToFacet,
 }) => {
-  const filtersWithSelected = useSelectedFilters(facets, queryArgs)
+  const filtersWithSelected = useSelectedFilters(facets)
 
   const sampleFacet = facets && facets.length > 0 ? facets[0] : null
   const facetTitle = getFilterTitle(title, intl)
@@ -33,11 +33,11 @@ const SearchFilter = ({
     >
       {facet => (
         <FacetItem
-          map={queryArgs.map}
           key={facet.name}
           facetTitle={facetTitle}
           facet={facet}
           preventRouteChange={preventRouteChange}
+          navigateToFacet={navigateToFacet}
         />
       )}
     </FilterOptionTemplate>
@@ -49,12 +49,12 @@ SearchFilter.propTypes = {
   title: PropTypes.string.isRequired,
   /** SearchFilter's options. */
   facets: PropTypes.arrayOf(facetOptionShape),
-  queryArgs: PropTypes.objectOf(facetQueryArgsShape),
   /** Intl instance. */
   intl: intlShape.isRequired,
   /** Prevent route changes */
   preventRouteChange: PropTypes.bool,
   initiallyCollapsed: PropTypes.bool,
+  navigateToFacet: PropTypes.func,
 }
 
 export default injectIntl(SearchFilter)

@@ -13,6 +13,7 @@ import FetchPreviousButton from './loaders/FetchPreviousButton'
 import FetchMoreButton from './loaders/FetchMoreButton'
 import LoadingSpinner from './loaders/LoadingSpinner'
 import { PAGINATION_TYPE } from '../constants/paginationType'
+import FilterNavigatorContext from './FilterNavigatorContext'
 
 import getFilters from '../utils/getFilters'
 
@@ -148,7 +149,7 @@ class SearchResult extends Component {
 
     const queryArgs = this.props.searchQuery.facets
       ? this.props.searchQuery.facets.queryArgs
-      : { query: null, map: null }
+      : { query: '', map: '' }
 
     const { map } = queryArgs
 
@@ -194,19 +195,20 @@ class SearchResult extends Component {
           />
           {showFacets && !!map && (
             <div className={styles.filters}>
-              <ExtensionPoint
-                id="filter-navigator"
-                brands={brands}
-                params={params}
-                priceRange={priceRange}
-                priceRanges={priceRanges}
-                specificationFilters={specificationFilters}
-                tree={tree}
-                loading={showFacetsContentLoader}
-                filters={filters}
-                hiddenFacets={hiddenFacets}
-                queryArgs={queryArgs}
-              />
+              <FilterNavigatorContext.Provider value={queryArgs}>
+                <ExtensionPoint
+                  id="filter-navigator"
+                  brands={brands}
+                  params={params}
+                  priceRange={priceRange}
+                  priceRanges={priceRanges}
+                  specificationFilters={specificationFilters}
+                  tree={tree}
+                  loading={showFacetsContentLoader}
+                  filters={filters}
+                  hiddenFacets={hiddenFacets}
+                />
+              </FilterNavigatorContext.Provider>
             </div>
           )}
           <ExtensionPoint

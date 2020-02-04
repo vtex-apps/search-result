@@ -1,12 +1,13 @@
 import { zip } from 'ramda'
+import { useFilterNavigator } from '../components/FilterNavigatorContext'
 
 /**
  * This hook is required because we make the facets query
  * with only the categories and fulltext parameters, so we
  * need to calculate manually if the other filters are selected
  */
-const useSelectedFilters = (facets, queryArgs) => {
-  const { query, map } = queryArgs
+const useSelectedFilters = facets => {
+  const { query, map } = useFilterNavigator()
   if (!query && !map) {
     return []
   }

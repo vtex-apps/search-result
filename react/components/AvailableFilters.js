@@ -6,10 +6,10 @@ import PriceRange from './PriceRange'
 
 const AvailableFilters = ({
   filters = [],
-  queryArgs = {},
   priceRange,
   preventRouteChange = false,
   initiallyCollapsed = false,
+  navigateToFacet,
 }) =>
   filters.map(filter => {
     const { type, title, facets, oneSelectedCollapse = false } = filter
@@ -31,10 +31,10 @@ const AvailableFilters = ({
             key={title}
             title={title}
             facets={facets}
-            queryArgs={queryArgs}
             oneSelectedCollapse={oneSelectedCollapse}
             preventRouteChange={preventRouteChange}
             initiallyCollapsed={initiallyCollapsed}
+            navigateToFacet={navigateToFacet}
           />
         )
     }

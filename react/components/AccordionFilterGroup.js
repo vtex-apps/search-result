@@ -12,9 +12,8 @@ const AccordionFilterGroup = ({
   open,
   onOpen,
   onFilterCheck,
-  queryArgs,
 }) => {
-  const filters = useSelectedFilters(facets, queryArgs)
+  const filters = useSelectedFilters(facets)
 
   const quantitySelected = filters.filter(facet => facet.selected).length
 

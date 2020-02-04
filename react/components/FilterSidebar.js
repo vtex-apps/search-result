@@ -1,23 +1,16 @@
 import classNames from 'classnames'
 import produce from 'immer'
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  useMemo,
-  Fragment,
-} from 'react'
+import React, { useState, useEffect, useMemo, Fragment } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 import { IconFilter } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
 
-import QueryContext from './QueryContext'
+import QueryContext, { useQuery } from './QueryContext'
+import { useFilterNavigator } from './FilterNavigatorContext'
 import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
-import useFacetNavigation, {
-  buildQueryAndMap,
-} from '../hooks/useFacetNavigation'
+import { buildNewQueryMap } from '../hooks/useFacetNavigation'
 
 import styles from '../searchResult.css'
 
@@ -29,14 +22,15 @@ const CSS_HANDLES = [
 ]
 
 const FilterSidebar = ({
-  map,
   selectedFilters,
   filters,
   tree,
   priceRange,
   preventRouteChange,
+  navigateToFacet,
 }) => {
-  const queryContext = useContext(QueryContext)
+  const queryContext = useQuery()
+  const { map } = useFilterNavigator()
   const [open, setOpen] = useState(false)
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -44,8 +38,6 @@ const FilterSidebar = ({
   const [categoryTreeOperations, setCategoryTreeOperations] = useState([])
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const currentTree = useCategoryTree(tree, categoryTreeOperations)
-
-  const navigateToFacet = useFacetNavigation(map)
 
   const handleFilterCheck = (title, filter) => {
     if (!filterOperations.includes(filter)) {
@@ -100,9 +92,10 @@ const FilterSidebar = ({
 
     return {
       ...queryContext,
-      ...buildQueryAndMap(query, map, filterOperations),
+      ...buildNewQueryMap(query, map, filterOperations, selectedFilters),
+      map,
     }
-  }, [filterOperations, map, queryContext])
+  }, [filterOperations, map, queryContext, selectedFilters])
 
   return (
     <Fragment>

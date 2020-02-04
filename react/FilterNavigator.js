@@ -30,14 +30,15 @@ const LAYOUT_TYPES = {
   desktop: 'desktop',
 }
 
-const storeSelectedCategoryTreeForNavigation = (tree, navigationObj) => {
+const getSelectedCategories = tree => {
   for (const node of tree) {
     if (!node.selected) {
-      continue
+      return []
     }
-    navigationObj.storeSelectedFacets(node)
     if (node.children) {
-      storeSelectedCategoryTreeForNavigation(node.children, navigationObj)
+      return [node, ...getSelectedCategories(node.children)]
+    } else {
+      return [node]
     }
   }
 }
@@ -57,7 +58,6 @@ const FilterNavigator = ({
   preventRouteChange = false,
   hiddenFacets = {},
   initiallyCollapsed = false,
-  queryArgs = {},
   layout = LAYOUT_TYPES.responsive,
 }) => {
   const { isMobile } = useDevice()
@@ -65,8 +65,6 @@ const FilterNavigator = ({
   const mobileLayout =
     (isMobile && layout === LAYOUT_TYPES.responsive) ||
     layout === LAYOUT_TYPES.mobile
-
-  const navigateToFacet = useFacetNavigation(queryArgs.map)
 
   const selectedFilters = useSelectedFilters(
     useMemo(() => {
@@ -80,17 +78,20 @@ const FilterNavigator = ({
         ...priceRanges,
       ]
       return flatten(options)
-    }, [brands, priceRanges, specificationFilters]),
-    queryArgs
+    }, [brands, priceRanges, specificationFilters])
   ).reduce((acc, facet) => {
     if (facet.selected) {
-      navigateToFacet.storeSelectedFacets(facet)
       acc.push(facet)
     }
     return acc
   }, [])
 
-  storeSelectedCategoryTreeForNavigation(tree, navigateToFacet)
+  const selectedCategories = getSelectedCategories(tree)
+  const navigateToFacet = useFacetNavigation(
+    useMemo(() => {
+      return selectedFilters.concat(selectedCategories)
+    }, [selectedFilters, selectedCategories])
+  )
 
   const filterClasses = classNames({
     'flex items-center justify-center flex-auto h-100': mobileLayout,
@@ -101,8 +102,8 @@ const FilterNavigator = ({
       <div className="mv5">
         <ContentLoader
           style={{
-            width: "230px",
-            height: "320px",
+            width: '230px',
+            height: '320px',
           }}
           width="230"
           height="320"
@@ -123,13 +124,12 @@ const FilterNavigator = ({
       <div className={styles.filters}>
         <div className={filterClasses}>
           <FilterSidebar
-            query={queryArgs.query}
-            map={queryArgs.map}
             selectedFilters={selectedFilters}
             filters={filters}
             tree={tree}
             priceRange={priceRange}
             preventRouteChange={preventRouteChange}
+            navigateToFacet={navigateToFacet}
           />
         </div>
       </div>
@@ -144,18 +144,18 @@ const FilterNavigator = ({
             handles.filter__container,
             'title'
           )} bb b--muted-4`}
+          // eslint-disable-next-line prettier/prettier
         >
           <h5 className={`${handles.filterMessage} t-heading-5 mv5`}>
             <FormattedMessage id="store/search-result.filter-button.title" />
           </h5>
         </div>
         <SelectedFilters
-          map={queryArgs.map}
           filters={selectedFilters}
           preventRouteChange={preventRouteChange}
+          navigateToFacet={navigateToFacet}
         />
         <DepartmentFilters
-          map={queryArgs.map}
           title={CATEGORIES_TITLE}
           tree={tree}
           isVisible={!hiddenFacets.categories}
@@ -163,10 +163,10 @@ const FilterNavigator = ({
         />
         <AvailableFilters
           filters={filters}
-          queryArgs={queryArgs}
           priceRange={priceRange}
           preventRouteChange={preventRouteChange}
           initiallyCollapsed={initiallyCollapsed}
+          navigateToFacet={navigateToFacet}
         />
       </div>
       <ExtensionPoint id="shop-review-summary" />

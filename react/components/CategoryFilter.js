@@ -3,6 +3,7 @@ import React from 'react'
 import { injectIntl } from 'react-intl'
 import { IconClose } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
+import { useFilterNavigator } from './FilterNavigatorContext'
 
 import Collapsible from './Collapsible'
 import CategoryItem from './CategoryItem'
@@ -36,12 +37,8 @@ const getSelectedCategories = rootCategory => {
   return selectedCategories
 }
 
-const CategoryFilter = ({
-  map,
-  category,
-  shallow = false,
-  onCategorySelect,
-}) => {
+const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
+  const { map } = useFilterNavigator()
   const handles = useCssHandles(CSS_HANDLES)
 
   const selectedCategories = getSelectedCategories(category)
