@@ -53,7 +53,7 @@
   "store/search.filter.title.brands": "Brands",
   "store/search.filter.title.price-ranges": "Price Ranges",
   "store/search.text": "Showing {from}-{to} from {recordsFiltered} records",
-  "store/search.selected-filters": "Filter by:",
+  "store/search.selected-filters": "Filtered by:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {Product} other {Products}}</span>",
   "store/search.total-products-2": "{recordsFiltered} <span>{recordsFiltered, plural, one {Product} other {Products}}</span>",
   "store/search.empty-products": "We didn't find any result related to \"{term}\"",
