@@ -1,16 +1,23 @@
 import classNames from 'classnames'
 import produce from 'immer'
-import React, { useState, useEffect, useMemo, Fragment } from 'react'
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useMemo,
+  Fragment,
+} from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 import { IconFilter } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
 
-import QueryContext, { useQuery } from './QueryContext'
-import { useFilterNavigator } from './FilterNavigatorContext'
+import QueryContext from './QueryContext'
 import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
-import { buildNewQueryMap } from '../hooks/useFacetNavigation'
+import useFacetNavigation, {
+  buildQueryAndMap,
+} from '../hooks/useFacetNavigation'
 
 import styles from '../searchResult.css'
 
@@ -27,10 +34,8 @@ const FilterSidebar = ({
   tree,
   priceRange,
   preventRouteChange,
-  navigateToFacet,
 }) => {
-  const queryContext = useQuery()
-  const { map } = useFilterNavigator()
+  const queryContext = useContext(QueryContext)
   const [open, setOpen] = useState(false)
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -39,7 +44,9 @@ const FilterSidebar = ({
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const currentTree = useCategoryTree(tree, categoryTreeOperations)
 
-  const handleFilterCheck = (title, filter) => {
+  const navigateToFacet = useFacetNavigation()
+
+  const handleFilterCheck = filter => {
     if (!filterOperations.includes(filter)) {
       setFilterOperations(filterOperations.concat(filter))
     } else {
@@ -64,7 +71,7 @@ const FilterSidebar = ({
 
   const handleClearFilters = () => {
     setFilterOperations(selectedFilters) // this is necessary to unselect the selected checkboxes
-    navigateToFacet(selectedFilters)
+    navigateToFacet(selectedFilters, preventRouteChange)
     setOpen(false)
   }
 
@@ -88,14 +95,13 @@ const FilterSidebar = ({
   }
 
   const context = useMemo(() => {
-    const { query } = queryContext
+    const { query, map } = queryContext
 
     return {
       ...queryContext,
-      ...buildNewQueryMap(query, map, filterOperations, selectedFilters),
-      map,
+      ...buildQueryAndMap(query, map, filterOperations),
     }
-  }, [filterOperations, map, queryContext, selectedFilters])
+  }, [filterOperations, queryContext])
 
   return (
     <Fragment>
@@ -122,7 +128,6 @@ const FilterSidebar = ({
       <Sidebar onOutsideClick={handleClose} isOpen={open}>
         <QueryContext.Provider value={context}>
           <AccordionFilterContainer
-            map={map}
             filters={filters}
             tree={currentTree}
             onFilterCheck={handleFilterCheck}

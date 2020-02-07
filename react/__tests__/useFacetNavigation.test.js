@@ -2,12 +2,9 @@ import useFacetNavigation from '../hooks/useFacetNavigation'
 import { renderHook, act } from '@testing-library/react-hooks'
 
 jest.mock('../components/QueryContext')
-jest.mock('../components/FilterNavigatorContext')
 const { useQuery } = require('../components/QueryContext')
 
 import { useRuntime } from '../__mocks__/vtex.render-runtime'
-import { useFilterNavigator } from '../components/FilterNavigatorContext'
-
 const mockUseRuntime = useRuntime
 
 const mockNavigate = jest.fn()
@@ -22,65 +19,69 @@ beforeEach(() => {
 })
 
 it('navigating to another category facet', () => {
-  // The new idea here is that we event though we pass the map=c,c,c to navigate we dont have it in our response anymore.
-  // This state is recordered and sent by search-graphql so we can know where we are in catalog search
-  const map = 'c'
   useQuery.mockImplementation(() => ({
     query: 'clothing',
+    map: 'c'
   }))
-  useFilterNavigator.mockImplementation(() => ({
-    map,
-  }))
-
-  const { result } = renderHook(() => useFacetNavigation([]))
+  
+  const { result } = renderHook(() => useFacetNavigation())
   act(() => {
     result.current({ map: 'c', value: 'shorts' })
   })
 
   const navigateCall = mockNavigate.mock.calls[0][0]
   expect(navigateCall.to).toBe('/clothing/shorts')
+  expect(navigateCall.query).toBe('map=c%2Cc')
 })
 
 it('joins categories', () => {
-  const map = 'c,b'
   useQuery.mockImplementation(() => ({
     query: 'clothing/Brand',
+    map: 'c,b'
   }))
-  useFilterNavigator.mockImplementation(() => ({
-    map,
-  }))
-
-  const { result } = renderHook(() => useFacetNavigation([]))
+  
+  const { result } = renderHook(() => useFacetNavigation())
   act(() => {
     result.current({ map: 'c', value: 'shorts' })
   })
 
   const navigateCall = mockNavigate.mock.calls[0][0]
   expect(navigateCall.to).toBe('/clothing/shorts/Brand')
-  expect(navigateCall.query).toBe('map=b')
+  expect(navigateCall.query).toBe('map=c%2Cc%2Cb')
 })
 
 it('pass array of facets as args work', () => {
-  const map = 'c,b'
   useQuery.mockImplementation(() => ({
     query: 'clothing/Brand',
+    map: 'c,b'
   }))
-  useFilterNavigator.mockImplementation(() => ({
-    map,
-  }))
-
-  const { result } = renderHook(() => useFacetNavigation([]))
+  
+  const { result } = renderHook(() => useFacetNavigation())
   act(() => {
-    result.current([
-      { map: 'b', value: 'OtherBrand', title: '' },
-      { map: 'specificationFilter_100', value: 'Mens', title: 'gender' },
-      { map: 'c', value: 'shorts', title: '' },
-    ])
+    result.current([{ map: 'b', value: 'OtherBrand' }, { map: 'specificationFilter_100', value: 'Mens' }, {map: 'c', value: 'shorts'}])
   })
 
   const navigateCall = mockNavigate.mock.calls[0][0]
-  expect(navigateCall.to).toBe('/clothing/shorts/Brand/OtherBrand/gender_Mens')
-  expect(navigateCall.query).toBe('map=b%2Cb')
+  expect(navigateCall.to).toBe('/clothing/shorts/Brand/OtherBrand/Mens')
+  expect(navigateCall.query).toBe('map=c%2Cc%2Cb%2Cb%2CspecificationFilter_100')
 })
 
-// We've removed the concept of preventRouteChange since the urls should be transformed to the new urls format.
+
+it('if preventRouteChange call setQuery and not navigate', () => {
+  useQuery.mockImplementation(() => ({
+    query: 'clothing/Brand',
+    map: 'c,b'
+  }))
+  
+  const { result } = renderHook(() => useFacetNavigation())
+  act(() => {
+    result.current({ map: 'c', value: 'shorts' }, true)
+  })
+
+  const setQueryCall = mockSetQuery.mock.calls[0][0]
+  expect(setQueryCall.query).toBe('/clothing/shorts/Brand')
+  expect(setQueryCall.map).toBe('c,c,b')
+  expect(setQueryCall.page).toBe(undefined)
+  expect(mockNavigate.mock.calls.length).toBe(0)
+
+})
