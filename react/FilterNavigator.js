@@ -41,6 +41,7 @@ const getSelectedCategories = tree => {
       return [node]
     }
   }
+  return []
 }
 
 /**
