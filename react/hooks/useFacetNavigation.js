@@ -168,7 +168,7 @@ const useFacetNavigation = selectedFacets => {
       to: `${PATH_SEPARATOR}${currentQuery}`,
       query: urlParams.toString(),
       scrollOptions,
-      modifiersIgnore,
+      modifiersOptions: modifiersIgnore,
     })
   })
 
