@@ -4,12 +4,15 @@ import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import classNames from 'classnames'
 
 import SettingsContext from './SettingsContext'
+import useFacetNavigation from '../hooks/useFacetNavigation'
 
 const CSS_HANDLES = ['filterItem']
 
-const FacetItem = ({ navigateToFacet, facetTitle, facet, className }) => {
+const FacetItem = ({ facet, className, preventRouteChange = false }) => {
   const { showFacetQuantity } = useContext(SettingsContext)
   const handles = useCssHandles(CSS_HANDLES)
+  const navigateToFacet = useFacetNavigation()
+
   const classes = classNames(
     applyModifiers(handles.filterItem, facet.value),
     { [`${handles.filterItem}--selected`]: facet.selected },
@@ -29,7 +32,7 @@ const FacetItem = ({ navigateToFacet, facetTitle, facet, className }) => {
           showFacetQuantity ? `${facet.name} (${facet.quantity})` : facet.name
         }
         name={facet.name}
-        onChange={() => navigateToFacet({ ...facet, title: facetTitle })}
+        onChange={() => navigateToFacet(facet, preventRouteChange)}
         value={facet.name}
       />
     </div>

@@ -1,5 +1,7 @@
 import { zip } from 'ramda'
-import { useFilterNavigator } from '../components/FilterNavigatorContext'
+import { useContext } from 'react'
+
+import QueryContext from '../components/QueryContext'
 
 /**
  * This hook is required because we make the facets query
@@ -7,7 +9,7 @@ import { useFilterNavigator } from '../components/FilterNavigatorContext'
  * need to calculate manually if the other filters are selected
  */
 const useSelectedFilters = facets => {
-  const { query, map } = useFilterNavigator()
+  const { query, map } = useContext(QueryContext)
   if (!query && !map) {
     return []
   }

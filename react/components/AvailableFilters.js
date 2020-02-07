@@ -9,7 +9,6 @@ const AvailableFilters = ({
   priceRange,
   preventRouteChange = false,
   initiallyCollapsed = false,
-  navigateToFacet,
 }) =>
   filters.map(filter => {
     const { type, title, facets, oneSelectedCollapse = false } = filter
@@ -34,7 +33,6 @@ const AvailableFilters = ({
             oneSelectedCollapse={oneSelectedCollapse}
             preventRouteChange={preventRouteChange}
             initiallyCollapsed={initiallyCollapsed}
-            navigateToFacet={navigateToFacet}
           />
         )
     }
