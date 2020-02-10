@@ -4,19 +4,22 @@ import PropTypes from 'prop-types'
 import { pluck, splitEvery } from 'ramda'
 
 import { useDevice } from 'vtex.device-detector'
+import { ProductListContext } from 'vtex.product-list-context'
 import { useResponsiveValue } from 'vtex.responsive-values'
 import { useCssHandles } from 'vtex.css-handles'
 
 import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 import { productShape } from './constants/propTypes'
 import withResizeDetector from './components/withResizeDetector'
-
 import GalleryRow from './components/GalleryRow'
+import ProductListEventCaller from './utils/ProductListEventCaller'
 
 /** Layout with one column */
 const ONE_COLUMN_LAYOUT = 1
 
 const CSS_HANDLES = ['gallery']
+
+const { ProductListProvider } = ProductListContext
 /**
  * Canonical gallery that displays a list of given products.
  */
@@ -77,19 +80,22 @@ const Gallery = ({
   )
 
   return (
-    <div className={galleryClasses}>
-      {rows.map((rowProducts, index) => (
-        <GalleryRow
-          key={index.toString()}
-          widthAvailable={width != null}
-          products={rowProducts}
-          summary={summary}
-          displayMode={layoutMode}
-          rowIndex={index}
-          itemsPerRow={itemsPerRow}
-        />
-      ))}
-    </div>
+    <ProductListProvider>
+      <div className={galleryClasses}>
+        {rows.map((rowProducts, index) => (
+          <GalleryRow
+            key={index.toString()}
+            widthAvailable={width != null}
+            products={rowProducts}
+            summary={summary}
+            displayMode={layoutMode}
+            rowIndex={index}
+            itemsPerRow={itemsPerRow}
+          />
+        ))}
+      </div>
+      <ProductListEventCaller />
+    </ProductListProvider>
   )
 }
 
