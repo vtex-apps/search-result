@@ -22,11 +22,13 @@ const removeElementAtIndex = (strArray, index) =>
   strArray.filter((_, i) => i !== index)
 
 const removeMapForNewURLFormat = (queryAndMap, selectedFacets) => {
-  return queryAndMap.map.filter(
-    mapValue =>
-      selectedFacets.findIndex(facet => facet.map === mapValue) === -1 ||
-      (mapValue !== MAP_CATEGORY_CHAR && !mapValue.includes(SPEC_FILTER))
-  )
+  const mapsToFilter = selectedFacets.reduce((acc, facet) => {
+    return facet.map === MAP_CATEGORY_CHAR ||
+      facet.newQuerySegments !== facet.value
+      ? acc.concat(facet.map)
+      : acc
+  }, [])
+  return queryAndMap.map.filter(map => !mapsToFilter.includes(map))
 }
 
 const getCleanUrlParams = currentMap => {
@@ -43,6 +45,9 @@ const getStaticPathSegments = facets => {
     .filter(facet => facet.map.includes(SPEC_FILTER))
     .map(facet => newFacetPathName(facet))
     .join(PATH_SEPARATOR)
+  if (!fieldsNotNormalizable) {
+    return {}
+  }
   const modifiersIgnore = {
     [fieldsNotNormalizable]: {
       path: fieldsNotNormalizable,
@@ -61,8 +66,8 @@ export const convertSegmentsToNewURLs = (
       facet => facet.value.toLowerCase() === querySegment.toLowerCase()
     )
     const newSegment = selectedFacet
-      ? selectedFacet.newFacetPathName
-        ? selectedFacet.newFacetPathName
+      ? selectedFacet.newQuerySegment
+        ? selectedFacet.newQuerySegment
         : newFacetPathName(selectedFacet)
       : querySegment
     return newSegment
@@ -94,6 +99,8 @@ const buildQueryAndMap = (
           query: removeElementAtIndex(querySegments, facetIndex),
           map: removeElementAtIndex(mapSegments, facetIndex),
         }
+      } else {
+        selectedFacets.push(facet)
       }
 
       if (facet.map === MAP_CATEGORY_CHAR) {
