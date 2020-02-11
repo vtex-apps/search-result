@@ -21,6 +21,15 @@ const scrollOptions = {
 const removeElementAtIndex = (strArray, index) =>
   strArray.filter((_, i) => i !== index)
 
+const upsert = (array, item) => {
+  const foundItemIndex = array.findIndex(e => e.name === item.name)
+  if (!foundItemIndex) {
+    array.push(item)
+  } else {
+    array[foundItemIndex] = item
+  }
+}
+
 const removeMapForNewURLFormat = (queryAndMap, selectedFacets) => {
   const mapsToFilter = selectedFacets.reduce((acc, facet) => {
     return facet.map === MAP_CATEGORY_CHAR ||
@@ -100,7 +109,7 @@ const buildQueryAndMap = (
           map: removeElementAtIndex(mapSegments, facetIndex),
         }
       } else {
-        selectedFacets.push(facet)
+        upsert(selectedFacets, facet)
       }
 
       if (facet.map === MAP_CATEGORY_CHAR) {
