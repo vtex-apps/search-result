@@ -23,7 +23,7 @@ const removeElementAtIndex = (strArray, index) =>
 
 const upsert = (array, item) => {
   const foundItemIndex = array.findIndex(e => e.name === item.name)
-  if (!foundItemIndex) {
+  if (foundItemIndex === -1) {
     array.push(item)
   } else {
     array[foundItemIndex] = item
@@ -33,7 +33,8 @@ const upsert = (array, item) => {
 const removeMapForNewURLFormat = (queryAndMap, selectedFacets) => {
   const mapsToFilter = selectedFacets.reduce((acc, facet) => {
     return facet.map === MAP_CATEGORY_CHAR ||
-      facet.newQuerySegments !== facet.value
+      (facet.newQuerySegment &&
+        facet.newQuerySegment.toLowerCase() !== facet.value.toLowerCase())
       ? acc.concat(facet.map)
       : acc
   }, [])
