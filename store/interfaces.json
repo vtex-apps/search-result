@@ -112,7 +112,8 @@
       "search-blog-articles-list"
     ],
     "composition": "children",
-    "component": "SearchResultFlexibleMobile"
+    "component": "SearchResultFlexibleMobile",
+    "device": "mobile"
   },
   "search-not-found-layout": {
     "allowed": [

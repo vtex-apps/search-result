@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Make `search-result-layout.mobile` only come to runtime if device is of type mobile.
 
 ## [3.47.1] - 2020-02-10
 ### Fixed
