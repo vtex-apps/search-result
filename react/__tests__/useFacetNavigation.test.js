@@ -72,15 +72,25 @@ it('pass array of facets as args work', () => {
   const { result } = renderHook(() => useFacetNavigation([]))
   act(() => {
     result.current([
-      { map: 'b', value: 'OtherBrand', title: '' },
-      { map: 'specificationFilter_100', value: 'Mens', title: 'gender' },
-      { map: 'c', value: 'shorts', title: '' },
+      {
+        map: 'b',
+        value: 'OtherBrand',
+        title: '',
+        newQuerySegment: 'otherbrand',
+      },
+      {
+        map: 'specificationFilter_100',
+        value: 'Mens',
+        title: 'gender',
+        newQuerySegment: 'gender_Mens',
+      },
+      { map: 'c', value: 'shorts', title: '', newQuerySegment: 'shorts' },
     ])
   })
 
   const navigateCall = mockNavigate.mock.calls[0][0]
-  expect(navigateCall.to).toBe('/clothing/shorts/Brand/OtherBrand/gender_Mens')
-  expect(navigateCall.query).toBe('map=b%2Cb')
+  expect(navigateCall.to).toBe('/clothing/shorts/Brand/otherbrand/gender_Mens')
+  expect(navigateCall.query).toBe('map=b%2Cb%2CspecificationFilter_100')
 })
 
 // We've removed the concept of preventRouteChange since the urls should be transformed to the new urls format.
