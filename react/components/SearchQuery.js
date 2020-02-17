@@ -1,10 +1,9 @@
 import { useMemo, useRef, useCallback } from 'react'
 import { useQuery } from 'react-apollo'
-import {
-  productSearchV2 as productSearchQuery,
-  searchMetadata as searchMetadataQuery,
-  facets as facetsQuery,
-} from 'vtex.store-resources/Queries'
+
+import productSearchQuery from 'vtex.store-resources/QueryProductSearchV2'
+import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadata'
+import facetsQuery from 'vtex.store-resources/QueryFacets'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_SKU_FILTER = 'ALL_AVAILABLE'
