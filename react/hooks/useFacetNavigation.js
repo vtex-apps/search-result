@@ -179,16 +179,14 @@ const useFacetNavigation = selectedFacets => {
     )
 
     const urlParams = getCleanUrlParams(currentMap)
-    const modifiersIgnore = getStaticPathSegments([
-      ...selectedFacets,
-      ...facets,
-    ])
 
     navigate({
       to: `${PATH_SEPARATOR}${currentQuery}`,
       query: urlParams.toString(),
       scrollOptions,
-      modifiersOptions: modifiersIgnore,
+      modifiersOptions: {
+        LOWERCASE: false,
+      },
     })
   })
 
