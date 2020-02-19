@@ -1,7 +1,8 @@
 {
-  "name": "search-result",
+  "name": "search-result-3-x-copy",
+  "impersonate": "vtex.search-result@3.x",
   "vendor": "vtex",
-  "version": "3.44.0",
+  "version": "0.0.1",
   "title": "VTEX Search Result",
   "description": "A search result wrapper component",
   "mustUpdateAt": "2019-04-25",
