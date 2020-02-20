@@ -378,14 +378,18 @@ These properties can be changed in the `blocks.json` file of your theme.
 | `skusFilter`           | `SkusFilterEnum` | Control SKUs returned for each product in the query. The less SKUs needed to be returned, the more performant your shelf query will be.                                                               | `"ALL_AVAILABLE"` |
 | `simulationBehavior`           | `SimulationBehaviorEnum` | Set to "skip" value if you want faster queries and do not care about most up to date prices or stock.                                                               | `"default"` |
 
+
 `SkusFilterEnum`:
+
 | Name | Value | Description |
 | --------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | First Available | `FIRST_AVAILABLE` | Most performant, ideal if you do not have a SKU selector in your shelf. Will return only the first available SKU for that product in your shelf query. |
 | All Available | `ALL_AVAILABLE` | A bit better performace, will only return SKUs that are available, ideal if you have a SKU selector but still want a better performance. |
 | All | `ALL` | Returns all SKUs related to that product, least performant option. |
 
+
 `SimulationBehaviorEnum`:
+
 | Name | Value | Description |
 | --------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Default | `default` | Does not change anything, catalog will simulate all skus and deliver most up to date prices and stock. |
