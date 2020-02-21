@@ -20,6 +20,7 @@ const DepartmentFilters = ({
   tree,
   onCategorySelect,
   hideBorder = false,
+  preventRouteChange,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   if (!isVisible) {
@@ -66,6 +67,7 @@ const DepartmentFilters = ({
                 category={category}
                 shallow
                 onCategorySelect={onCategorySelect}
+                preventRouteChange={preventRouteChange}
               />
             )}
           />
@@ -74,6 +76,7 @@ const DepartmentFilters = ({
             map={map}
             category={tree.find(category => category.selected)}
             onCategorySelect={onCategorySelect}
+            preventRouteChange={preventRouteChange}
           />
         )}
       </div>

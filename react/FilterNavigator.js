@@ -85,12 +85,7 @@ const FilterNavigator = ({
       ]
       return flatten(options)
     }, [brands, priceRanges, specificationFilters])
-  ).reduce((acc, facet) => {
-    if (facet.selected) {
-      acc.push(facet)
-    }
-    return acc
-  }, [])
+  ).filter(facet => facet.selected)
 
   const selectedCategories = getSelectedCategories(tree)
   const navigateToFacet = useFacetNavigation(
@@ -166,6 +161,7 @@ const FilterNavigator = ({
           tree={tree}
           isVisible={!hiddenFacets.categories}
           onCategorySelect={navigateToFacet}
+          preventRouteChange={preventRouteChange}
         />
         <AvailableFilters
           filters={filters}

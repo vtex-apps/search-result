@@ -7,7 +7,13 @@ import SettingsContext from './SettingsContext'
 
 const CSS_HANDLES = ['filterItem']
 
-const FacetItem = ({ navigateToFacet, facetTitle, facet, className }) => {
+const FacetItem = ({
+  navigateToFacet,
+  facetTitle,
+  facet,
+  className,
+  preventRouteChange,
+}) => {
   const { showFacetQuantity } = useContext(SettingsContext)
   const handles = useCssHandles(CSS_HANDLES)
   const classes = classNames(
@@ -29,7 +35,9 @@ const FacetItem = ({ navigateToFacet, facetTitle, facet, className }) => {
           showFacetQuantity ? `${facet.name} (${facet.quantity})` : facet.name
         }
         name={facet.name}
-        onChange={() => navigateToFacet({ ...facet, title: facetTitle })}
+        onChange={() =>
+          navigateToFacet({ ...facet, title: facetTitle }, preventRouteChange)
+        }
         value={facet.name}
       />
     </div>

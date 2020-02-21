@@ -10,7 +10,6 @@ import {
   MAP_QUERY_KEY,
   MAP_VALUES_SEP,
   PATH_SEPARATOR,
-  SPEC_FILTER,
 } from '../constants'
 
 const scrollOptions = {
@@ -50,22 +49,6 @@ const getCleanUrlParams = currentMap => {
   return urlParams
 }
 
-const getStaticPathSegments = facets => {
-  const fieldsNotNormalizable = facets
-    .filter(facet => facet.map.includes(SPEC_FILTER))
-    .map(facet => newFacetPathName(facet))
-    .join(PATH_SEPARATOR)
-  if (!fieldsNotNormalizable) {
-    return {}
-  }
-  const modifiersIgnore = {
-    [fieldsNotNormalizable]: {
-      path: fieldsNotNormalizable,
-    },
-  }
-  return modifiersIgnore
-}
-
 export const convertSegmentsToNewURLs = (
   querySegments,
   mapSegments,
@@ -89,11 +72,14 @@ const buildQueryAndMap = (
   querySegments,
   mapSegments,
   facets,
-  selectedFacets
+  selectedFacets,
+  preventRouteChange
 ) => {
   const queryAndMap = facets.reduce(
     ({ query, map }, facet) => {
-      const facetValue = newFacetPathName(facet)
+      const facetValue = preventRouteChange
+        ? facet.value
+        : newFacetPathName(facet)
       facet.newQuerySegment = facetValue
       if (facet.selected) {
         const facetIndex = zip(query, map).findIndex(
@@ -141,54 +127,74 @@ const buildQueryAndMap = (
   )
   return {
     query: queryAndMap.query.join(PATH_SEPARATOR),
-    map: removeMapForNewURLFormat(queryAndMap, selectedFacets).join(
-      MAP_VALUES_SEP
-    ),
+    map: preventRouteChange
+      ? queryAndMap.map
+      : removeMapForNewURLFormat(queryAndMap, selectedFacets).join(
+          MAP_VALUES_SEP
+        ),
   }
 }
 
-export const buildNewQueryMap = (query, map, facets, selectedFacets) => {
+export const buildNewQueryMap = (
+  query,
+  map,
+  facets,
+  selectedFacets,
+  preventRouteChange
+) => {
   const querySegments = (query && query.split(PATH_SEPARATOR)) || []
   const mapSegments = (map && map.split(MAP_VALUES_SEP)) || []
 
-  const {
-    query: newQuerySegments,
-    map: newMapSegments,
-  } = convertSegmentsToNewURLs(querySegments, mapSegments, selectedFacets)
+  const { query: newQuerySegments, map: newMapSegments } = preventRouteChange
+    ? { map: mapSegments, query: querySegments }
+    : convertSegmentsToNewURLs(querySegments, mapSegments, selectedFacets)
 
   return buildQueryAndMap(
     newQuerySegments,
     newMapSegments,
     facets,
-    selectedFacets
+    selectedFacets,
+    preventRouteChange
   )
 }
 
 const useFacetNavigation = selectedFacets => {
-  const { navigate } = useRuntime()
+  const { navigate, setQuery } = useRuntime()
   const { query } = useQuery()
   const { map } = useFilterNavigator()
 
-  const navigateToFacet = useCallback(maybeFacets => {
-    const facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
-    const { query: currentQuery, map: currentMap } = buildNewQueryMap(
-      query,
-      map,
-      facets,
-      selectedFacets
-    )
+  const navigateToFacet = useCallback(
+    (maybeFacets, preventRouteChange = false) => {
+      const facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
+      const { query: currentQuery, map: currentMap } = buildNewQueryMap(
+        query,
+        map,
+        facets,
+        selectedFacets,
+        preventRouteChange
+      )
 
-    const urlParams = getCleanUrlParams(currentMap)
+      if (preventRouteChange) {
+        setQuery({
+          map: `${currentMap}`,
+          query: `/${currentQuery}`,
+          page: undefined,
+        })
+        return
+      }
 
-    navigate({
-      to: `${PATH_SEPARATOR}${currentQuery}`,
-      query: urlParams.toString(),
-      scrollOptions,
-      modifiersOptions: {
-        LOWERCASE: false,
-      },
-    })
-  })
+      const urlParams = getCleanUrlParams(currentMap)
+
+      navigate({
+        to: `${PATH_SEPARATOR}${currentQuery}`,
+        query: urlParams.toString(),
+        scrollOptions,
+        modifiersOptions: {
+          LOWERCASE: false,
+        },
+      })
+    }
+  )
 
   return navigateToFacet
 }

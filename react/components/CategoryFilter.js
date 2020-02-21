@@ -37,7 +37,12 @@ const getSelectedCategories = rootCategory => {
   return selectedCategories
 }
 
-const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
+const CategoryFilter = ({
+  category,
+  shallow = false,
+  onCategorySelect,
+  preventRouteChange,
+}) => {
   const { map } = useFilterNavigator()
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -46,7 +51,7 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
   const handleUnselectCategories = index => {
     const categoriesToRemove = selectedCategories.slice(index)
 
-    onCategorySelect(categoriesToRemove)
+    onCategorySelect(categoriesToRemove, preventRouteChange)
   }
 
   const lastSelectedCategory = selectedCategories[selectedCategories.length - 1]
@@ -151,7 +156,8 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
                     })}
                     onClick={() =>
                       onCategorySelect(
-                        shallow ? [category, childCategory] : childCategory
+                        shallow ? [category, childCategory] : childCategory,
+                        preventRouteChange
                       )
                     }
                     label={childCategory.name}
