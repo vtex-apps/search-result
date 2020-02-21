@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useContext } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { pluck, splitEvery } from 'ramda'
@@ -13,6 +13,7 @@ import { productShape } from './constants/propTypes'
 import withResizeDetector from './components/withResizeDetector'
 import GalleryRow from './components/GalleryRow'
 import ProductListEventCaller from './utils/ProductListEventCaller'
+import SettingsContext from './components/SettingsContext'
 
 /** Layout with one column */
 const ONE_COLUMN_LAYOUT = 1
@@ -37,6 +38,7 @@ const Gallery = ({
   showingFacets,
 }) => {
   const { isMobile } = useDevice()
+  const { trackingId = 'Search result' } = useContext(SettingsContext) || {}
   const handles = useCssHandles(CSS_HANDLES)
   const responsiveMaxItemsPerRow = useResponsiveValue(maxItemsPerRow)
 
@@ -80,7 +82,7 @@ const Gallery = ({
   )
 
   return (
-    <ProductListProvider>
+    <ProductListProvider listName={trackingId}>
       <div className={galleryClasses}>
         {rows.map((rowProducts, index) => (
           <GalleryRow
@@ -113,6 +115,7 @@ Gallery.propTypes = {
   /** Min Item Width. */
   minItemWidth: PropTypes.number,
   showingFacets: PropTypes.bool,
+  trackingId: PropTypes.string,
 }
 
 export default withResizeDetector(Gallery)

@@ -33,7 +33,10 @@
   "admin/editor.search-result.showTitle": "Mostrar el título de la categoría o el término de búsqueda en la parte superior de la galería",
   "admin/editor.search-result.gap.title": "Espacio entre los elementos de la galería",
   "admin/editor.search-result.facet-quantity": "Mostrar la cantidad de filtros",
-
+  "admin.editor.search-result.advanced-settings.title": "Configuraciones avanzadas",
+  "admin/editor.shelf.advanced-properties.tracking-id.title": "Nombre del Resultado de búsqueda en el GTM",
+  "admin/editor.shelf.advanced-properties.tracking-id.description": "Nombre para mostrar en Google Analytics. Se no se pasa nada, usará solo \"Search result\"",
+  
   "store/search-result.show-more-button": "Mostrar más",
   "store/search-result.show-previous-button": "Mostrar anteriores",
   "store/search-result.showing-products": "Mostrando {value}",
