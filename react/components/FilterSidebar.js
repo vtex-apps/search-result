@@ -24,8 +24,10 @@ import styles from '../searchResult.css'
 const CSS_HANDLES = [
   'filterPopupButton',
   'filterPopupTitle',
-  'filterPopupArrowIcon',
   'filterButtonsBox',
+  'filterPopupArrowIcon',
+  'filterClearButtonWrapper',
+  'filterApplytButtonWrapper',
 ]
 
 const FilterSidebar = ({
@@ -138,7 +140,9 @@ const FilterSidebar = ({
         <div
           className={`${styles.filterButtonsBox} bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base`}
         >
-          <div className="bottom-0 fl w-50 pl4 pr2">
+          <div
+            className={`${handles.filterClearButtonWrapper} bottom-0 fl w-50 pl4 pr2`}
+          >
             <Button
               block
               variation="tertiary"
@@ -148,7 +152,9 @@ const FilterSidebar = ({
               <FormattedMessage id="store/search-result.filter-button.clear" />
             </Button>
           </div>
-          <div className="bottom-0 fr w-50 pr4 pl2">
+          <div
+            className={`${handles.filterApplytButtonWrapper} bottom-0 fr w-50 pr4 pl2`}
+          >
             <Button
               block
               variation="secondary"
