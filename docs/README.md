@@ -363,6 +363,7 @@ These properties can be changed in the `blocks.json` file of your theme.
 | `showFacetQuantity` | `Boolean`      | If quantity of items filtered by facet should appear besides its name on `filter-navigator`                                          | `false`           |
 | `blockClass`        | `String`       | Unique class name to be appended to block classes                                                                                    | `""`              |
 | `showProductsCount` | `Boolean`      | controls if the quantity of loaded products and total number of items of a search result are displayed under the `show more` button. | `false`           |
+| `trackingId` | `string` | Name to show in the Google Analytics | If nothing is passed it will just use `'Search result'` | 
 
 ##### QuerySchema
 

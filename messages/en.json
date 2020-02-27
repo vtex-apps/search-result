@@ -33,6 +33,9 @@
   "admin/editor.search-result.showTitle": "Show category title or search term above the gallery",
   "admin/editor.search-result.gap.title": "Gap between gallery items",
   "admin/editor.search-result.facet-quantity": "Show filter item quantity",
+  "admin.editor.search-result.advanced-settings.title": "Advanced settings",
+  "admin.editor.search-result.advanced-settings.trackingId.title": "GTM Search Result name",
+  "admin.editor.search-result.advanced-settings.trackingId.description": "Name to show in the Google Analytics. If nothing is passed it will use just \"Search result\"",
 
   "store/search-result.show-more-button": "Show more",
   "store/search-result.show-previous-button": "Show previous",
