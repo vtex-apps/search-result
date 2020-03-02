@@ -1,10 +1,10 @@
 import classNames from 'classnames'
-import React, { useContext } from 'react'
+import React from 'react'
 import { injectIntl } from 'react-intl'
 import { IconClose } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
+import { useFilterNavigator } from './FilterNavigatorContext'
 
-import QueryContext from './QueryContext'
 import Collapsible from './Collapsible'
 import CategoryItem from './CategoryItem'
 
@@ -37,8 +37,13 @@ const getSelectedCategories = rootCategory => {
   return selectedCategories
 }
 
-const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
-  const { map } = useContext(QueryContext)
+const CategoryFilter = ({
+  category,
+  shallow = false,
+  onCategorySelect,
+  preventRouteChange,
+}) => {
+  const { map } = useFilterNavigator()
   const handles = useCssHandles(CSS_HANDLES)
 
   const selectedCategories = getSelectedCategories(category)
@@ -46,7 +51,7 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
   const handleUnselectCategories = index => {
     const categoriesToRemove = selectedCategories.slice(index)
 
-    onCategorySelect(categoriesToRemove)
+    onCategorySelect(categoriesToRemove, preventRouteChange)
   }
 
   const lastSelectedCategory = selectedCategories[selectedCategories.length - 1]
@@ -59,7 +64,7 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
     }
 
     if (shallow) {
-      onCategorySelect(category)
+      onCategorySelect()
     } else {
       // deselect root category
       handleUnselectCategories(0)
@@ -151,7 +156,8 @@ const CategoryFilter = ({ category, shallow = false, onCategorySelect }) => {
                     })}
                     onClick={() =>
                       onCategorySelect(
-                        shallow ? [category, childCategory] : childCategory
+                        shallow ? [category, childCategory] : childCategory,
+                        preventRouteChange
                       )
                     }
                     label={childCategory.name}

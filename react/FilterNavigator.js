@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import { map, flatten, prop } from 'ramda'
+import { flatten } from 'ramda'
 import React, { useMemo, Fragment } from 'react'
 import ContentLoader from 'react-content-loader'
 import { FormattedMessage } from 'react-intl'
@@ -22,12 +22,31 @@ import useFacetNavigation from './hooks/useFacetNavigation'
 
 import styles from './searchResult.css'
 import { CATEGORIES_TITLE } from './utils/getFilters'
+import { newFacetPathName } from './utils/slug'
 
 const CSS_HANDLES = ['filter__container', 'filterMessage']
 
 const LAYOUT_TYPES = {
   responsive: 'responsive',
   desktop: 'desktop',
+}
+
+const getSelectedCategories = tree => {
+  for (const node of tree) {
+    if (!node.selected) {
+      return []
+    }
+    if (node.children) {
+      return [node, ...getSelectedCategories(node.children)]
+    } else {
+      return [node]
+    }
+  }
+  return []
+}
+
+const newNamedFacet = facet => {
+  return { ...facet, newQuerySegment: newFacetPathName(facet) }
 }
 
 /**
@@ -53,19 +72,27 @@ const FilterNavigator = ({
     (isMobile && layout === LAYOUT_TYPES.responsive) ||
     layout === LAYOUT_TYPES.mobile
 
-  const navigateToFacet = useFacetNavigation()
-
   const selectedFilters = useSelectedFilters(
     useMemo(() => {
       const options = [
-        ...map(prop('facets'), specificationFilters),
+        ...specificationFilters.map(filter => {
+          return filter.facets.map(facet => {
+            return newNamedFacet({ ...facet, title: filter.name })
+          })
+        }),
         ...brands,
         ...priceRanges,
       ]
-
       return flatten(options)
     }, [brands, priceRanges, specificationFilters])
   ).filter(facet => facet.selected)
+
+  const selectedCategories = getSelectedCategories(tree)
+  const navigateToFacet = useFacetNavigation(
+    useMemo(() => {
+      return selectedFilters.concat(selectedCategories)
+    }, [selectedFilters, selectedCategories])
+  )
 
   const filterClasses = classNames({
     'flex items-center justify-center flex-auto h-100': mobileLayout,
@@ -76,8 +103,8 @@ const FilterNavigator = ({
       <div className="mv5">
         <ContentLoader
           style={{
-            width: "230px",
-            height: "320px",
+            width: '230px',
+            height: '320px',
           }}
           width="230"
           height="320"
@@ -103,6 +130,7 @@ const FilterNavigator = ({
             tree={tree}
             priceRange={priceRange}
             preventRouteChange={preventRouteChange}
+            navigateToFacet={navigateToFacet}
           />
         </div>
       </div>
@@ -117,6 +145,7 @@ const FilterNavigator = ({
             handles.filter__container,
             'title'
           )} bb b--muted-4`}
+          // eslint-disable-next-line prettier/prettier
         >
           <h5 className={`${handles.filterMessage} t-heading-5 mv5`}>
             <FormattedMessage id="store/search-result.filter-button.title" />
@@ -125,18 +154,21 @@ const FilterNavigator = ({
         <SelectedFilters
           filters={selectedFilters}
           preventRouteChange={preventRouteChange}
+          navigateToFacet={navigateToFacet}
         />
         <DepartmentFilters
           title={CATEGORIES_TITLE}
           tree={tree}
           isVisible={!hiddenFacets.categories}
           onCategorySelect={navigateToFacet}
+          preventRouteChange={preventRouteChange}
         />
         <AvailableFilters
           filters={filters}
           priceRange={priceRange}
           preventRouteChange={preventRouteChange}
           initiallyCollapsed={initiallyCollapsed}
+          navigateToFacet={navigateToFacet}
         />
       </div>
       <ExtensionPoint id="shop-review-summary" />

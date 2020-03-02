@@ -14,11 +14,13 @@ const CSS_HANDLES = [
 ]
 
 const DepartmentFilters = ({
+  map,
   title,
   isVisible,
   tree,
   onCategorySelect,
   hideBorder = false,
+  preventRouteChange,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   if (!isVisible) {
@@ -61,18 +63,22 @@ const DepartmentFilters = ({
             render={category => (
               <CategoryFilter
                 key={category.id}
+                map={map}
                 category={category}
                 shallow
                 onCategorySelect={onCategorySelect}
+                preventRouteChange={preventRouteChange}
               />
             )}
           />
         ) : (
-            <CategoryFilter
-              category={tree.find(category => category.selected)}
-              onCategorySelect={onCategorySelect}
-            />
-          )}
+          <CategoryFilter
+            map={map}
+            category={tree.find(category => category.selected)}
+            onCategorySelect={onCategorySelect}
+            preventRouteChange={preventRouteChange}
+          />
+        )}
       </div>
     </div>
   )
