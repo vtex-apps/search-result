@@ -515,7 +515,7 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 | `dropdownMobile`                      |
 | `filterAccordionBreadcrumbs`          |
 | `filterAccordionItemBox`              |
-| `filterApplytButtonWrapper`           |
+| `filterApplyButtonWrapper`           |
 | `filterAvailable`                     |
 | `filterButtonsBox`                    |
 | `filterClearButtonWrapper`            |

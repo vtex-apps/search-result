@@ -20,7 +20,7 @@ const CSS_HANDLES = [
   'filterButtonsBox',
   'filterPopupArrowIcon',
   'filterClearButtonWrapper',
-  'filterApplytButtonWrapper',
+  'filterApplyButtonWrapper',
 ]
 
 const FilterSidebar = ({
@@ -148,7 +148,7 @@ const FilterSidebar = ({
             </Button>
           </div>
           <div
-            className={`${handles.filterApplytButtonWrapper} bottom-0 fr w-50 pr4 pl2`}
+            className={`${handles.filterApplyButtonWrapper} bottom-0 fr w-50 pr4 pl2`}
           >
             <Button
               block
