@@ -34,8 +34,8 @@
   "admin/editor.search-result.gap.title": "Espaço entre os itens da galeria",
   "admin/editor.search-result.facet-quantity": "Mostrar quantidade dos filtros",
   "admin.editor.search-result.advanced-settings.title": "Configurações avançadas",
-  "admin/editor.shelf.advanced-properties.tracking-id.title": "Nome do Resultado de pesquisa no GTM",
-  "admin/editor.shelf.advanced-properties.tracking-id.description": "Nome a ser exibido no Google Analytics. Se nada for adicionado, ele usará apenas \"Search result\"",
+  "admin.editor.search-result.advanced-settings.trackingId.title": "Nome do Resultado de pesquisa no GTM",
+  "admin.editor.search-result.advanced-settings.trackingId.description": "Nome a ser exibido no Google Analytics. Se nada for adicionado, ele usará apenas \"Search result\"",
 
   "store/search-result.show-more-button": "Mostrar mais",
   "store/search-result.show-previous-button": "Mostrar anteriores",
