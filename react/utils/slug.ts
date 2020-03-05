@@ -28,6 +28,7 @@ export function searchSlugify(str: string) {
 }
 
 export const newFacetPathName = (facet: any) => {
+  console.log('facet', facet)
   if (facet.map && facet.map.includes(SPEC_FILTER)) {
     return `${searchSlugify(
       facet.title

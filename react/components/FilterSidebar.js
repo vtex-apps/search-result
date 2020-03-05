@@ -91,13 +91,19 @@ const FilterSidebar = ({
 
   const context = useMemo(() => {
     const { query } = queryContext
-
+    console.log('preventRouteChange', preventRouteChange)
     return {
       ...queryContext,
-      ...buildNewQueryMap(query, map, filterOperations, selectedFilters),
+      ...buildNewQueryMap(
+        query,
+        map,
+        filterOperations,
+        selectedFilters,
+        preventRouteChange
+      ),
       map,
     }
-  }, [filterOperations, map, queryContext, selectedFilters])
+  }, [filterOperations, map, queryContext, selectedFilters, preventRouteChange])
 
   return (
     <Fragment>
