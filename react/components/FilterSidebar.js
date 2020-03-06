@@ -42,13 +42,17 @@ const FilterSidebar = ({
   const currentTree = useCategoryTree(tree, categoryTreeOperations)
 
   const handleFilterCheck = (title, filter) => {
-    if (!filterOperations.includes(filter)) {
+    console.log('operations BEFORE', filterOperations)
+    if (!filterOperations.find(x => x.name === filter.name)) {
+      console.log('CONDI1')
       setFilterOperations(filterOperations.concat(filter))
     } else {
+      console.log('CONDI1')
       setFilterOperations(
         filterOperations.filter(facet => facet.value !== filter.value)
       )
     }
+    console.log('operations AFTER', filterOperations)
   }
 
   const handleClose = () => {
@@ -61,6 +65,7 @@ const FilterSidebar = ({
 
   const handleApply = () => {
     navigateToFacet(filterOperations, preventRouteChange)
+    setFilterOperations([])
     setOpen(false)
   }
 
@@ -91,7 +96,6 @@ const FilterSidebar = ({
 
   const context = useMemo(() => {
     const { query } = queryContext
-    console.log('preventRouteChange', preventRouteChange)
     return {
       ...queryContext,
       ...buildNewQueryMap(
