@@ -449,6 +449,7 @@ Notice that the default behavior for your store will be the one defined by the `
 | Prop name | Type                      | Description                                                                                       | Default value |
 | --------- | ------------------------- | ------------------------------------------------------------------------------------------------- | ------------- |
 | `layout`  | `responsive` or `desktop` | Which layout should it use. One might use `desktop` when adding filter-navigator inside a drawer. | `responsive`  |
+| `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed.                                                                                                                  | `false`       |
 
 Also, you can configure the product summary that is defined on search-result. See [here](https://github.com/vtex-apps/product-summary/blob/master/README.md#configuration) the Product Summary API.
 
