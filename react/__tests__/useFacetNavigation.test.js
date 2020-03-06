@@ -3,7 +3,6 @@ import { renderHook, act } from '@testing-library/react-hooks'
 
 jest.mock('../components/QueryContext')
 jest.mock('../components/FilterNavigatorContext')
-const { useQuery } = require('../components/QueryContext')
 
 import { useRuntime } from '../__mocks__/vtex.render-runtime'
 import { useFilterNavigator } from '../components/FilterNavigatorContext'
@@ -14,7 +13,7 @@ const mockNavigate = jest.fn()
 const mockSetQuery = jest.fn()
 beforeEach(() => {
   jest.clearAllMocks()
-  
+
   mockUseRuntime.mockImplementation(() => ({
     navigate: mockNavigate,
     setQuery: mockSetQuery,
@@ -25,11 +24,9 @@ it('navigating to another category facet', () => {
   // The new idea here is that we event though we pass the map=c,c,c to navigate we dont have it in our response anymore.
   // This state is recordered and sent by search-graphql so we can know where we are in catalog search
   const map = 'c'
-  useQuery.mockImplementation(() => ({
-    query: 'clothing',
-  }))
   useFilterNavigator.mockImplementation(() => ({
     map,
+    query: 'clothing',
   }))
 
   const { result } = renderHook(() => useFacetNavigation([]))
@@ -43,11 +40,9 @@ it('navigating to another category facet', () => {
 
 it('joins categories', () => {
   const map = 'c,b'
-  useQuery.mockImplementation(() => ({
-    query: 'clothing/Brand',
-  }))
   useFilterNavigator.mockImplementation(() => ({
     map,
+    query: 'clothing/Brand',
   }))
 
   const { result } = renderHook(() => useFacetNavigation([]))
@@ -62,11 +57,9 @@ it('joins categories', () => {
 
 it('pass array of facets as args work', () => {
   const map = 'c,b'
-  useQuery.mockImplementation(() => ({
-    query: 'clothing/Brand',
-  }))
   useFilterNavigator.mockImplementation(() => ({
     map,
+    query: 'clothing/Brand',
   }))
 
   const { result } = renderHook(() => useFacetNavigation([]))
