@@ -4,7 +4,7 @@ import { Checkbox } from 'vtex.styleguide'
 
 import styles from '../searchResult.css'
 
-const FacetCheckboxList = ({ title, facets, onFilterCheck }) => {
+const FacetCheckboxList = ({ facets, onFilterCheck }) => {
   return facets.map(facet => {
     const { name } = facet
 
@@ -23,7 +23,7 @@ const FacetCheckboxList = ({ title, facets, onFilterCheck }) => {
           id={name}
           label={name}
           name={name}
-          onChange={() => onFilterCheck(title, facet)}
+          onChange={() => onFilterCheck(facet)}
           value={name}
         />
       </div>
