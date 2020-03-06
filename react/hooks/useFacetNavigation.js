@@ -125,14 +125,15 @@ const buildQueryAndMap = (
     },
     { query: querySegments, map: mapSegments }
   )
-  return {
+  const newQueryMap = {
     query: queryAndMap.query.join(PATH_SEPARATOR),
     map: preventRouteChange
-      ? queryAndMap.map
+      ? queryAndMap.map.join(MAP_VALUES_SEP)
       : removeMapForNewURLFormat(queryAndMap, selectedFacets).join(
           MAP_VALUES_SEP
         ),
   }
+  return newQueryMap
 }
 
 export const buildNewQueryMap = (
@@ -160,8 +161,7 @@ export const buildNewQueryMap = (
 
 const useFacetNavigation = selectedFacets => {
   const { navigate, setQuery } = useRuntime()
-  const { query } = useQuery()
-  const { map } = useFilterNavigator()
+  const { map, query } = useFilterNavigator()
 
   const navigateToFacet = useCallback(
     (maybeFacets, preventRouteChange = false) => {

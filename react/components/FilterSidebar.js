@@ -6,8 +6,9 @@ import { Button } from 'vtex.styleguide'
 import { IconFilter } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
 
-import QueryContext, { useQuery } from './QueryContext'
-import { useFilterNavigator } from './FilterNavigatorContext'
+import FilterNavigatorContext, {
+  useFilterNavigator,
+} from './FilterNavigatorContext'
 import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
 import { buildNewQueryMap } from '../hooks/useFacetNavigation'
@@ -31,8 +32,7 @@ const FilterSidebar = ({
   preventRouteChange,
   navigateToFacet,
 }) => {
-  const queryContext = useQuery()
-  const { map } = useFilterNavigator()
+  const filterContext = useFilterNavigator()
   const [open, setOpen] = useState(false)
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -41,8 +41,14 @@ const FilterSidebar = ({
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const currentTree = useCategoryTree(tree, categoryTreeOperations)
 
+  const isFilterSelected = (filterOperations, filter) => {
+    return filterOperations.find(
+      filterOperation =>
+        filter.value === filterOperation.value && filter.map === filter.map
+    )
+  }
   const handleFilterCheck = (title, filter) => {
-    if (!filterOperations.includes(filter)) {
+    if (!isFilterSelected(filterOperations, filter)) {
       setFilterOperations(filterOperations.concat(filter))
     } else {
       setFilterOperations(
@@ -90,14 +96,19 @@ const FilterSidebar = ({
   }
 
   const context = useMemo(() => {
-    const { query } = queryContext
+    const { query, map } = filterContext
 
     return {
-      ...queryContext,
-      ...buildNewQueryMap(query, map, filterOperations, selectedFilters),
-      map,
+      ...filterContext,
+      ...buildNewQueryMap(
+        query,
+        map,
+        filterOperations,
+        selectedFilters,
+        preventRouteChange
+      ),
     }
-  }, [filterOperations, map, queryContext, selectedFilters])
+  }, [filterOperations, filterContext, selectedFilters, preventRouteChange])
 
   return (
     <Fragment>
@@ -122,16 +133,15 @@ const FilterSidebar = ({
       </button>
 
       <Sidebar onOutsideClick={handleClose} isOpen={open}>
-        <QueryContext.Provider value={context}>
+        <FilterNavigatorContext.Provider value={context}>
           <AccordionFilterContainer
-            map={map}
             filters={filters}
             tree={currentTree}
             onFilterCheck={handleFilterCheck}
             onCategorySelect={handleUpdateCategories}
             priceRange={priceRange}
           />
-        </QueryContext.Provider>
+        </FilterNavigatorContext.Provider>
         <div
           className={`${styles.filterButtonsBox} bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base`}
         >
