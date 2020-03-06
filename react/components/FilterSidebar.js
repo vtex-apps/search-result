@@ -47,7 +47,7 @@ const FilterSidebar = ({
         filter.value === filterOperation.value && filter.map === filter.map
     )
   }
-  const handleFilterCheck = (title, filter) => {
+  const handleFilterCheck = filter => {
     if (!isFilterSelected(filterOperations, filter)) {
       setFilterOperations(filterOperations.concat(filter))
     } else {

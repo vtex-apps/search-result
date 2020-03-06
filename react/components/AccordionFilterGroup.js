@@ -26,11 +26,7 @@ const AccordionFilterGroup = ({
       quantitySelected={quantitySelected}
     >
       <div className={className}>
-        <FacetCheckboxList
-          title={title}
-          onFilterCheck={onFilterCheck}
-          facets={filters}
-        />
+        <FacetCheckboxList onFilterCheck={onFilterCheck} facets={filters} />
       </div>
     </AccordionFilterItem>
   )
