@@ -8,7 +8,7 @@ import FilterNavigatorContext from './components/FilterNavigatorContext'
 
 import styles from './searchResult.css'
 
-const withSearchPageContextProps = Component => ({ layout }) => {
+const withSearchPageContextProps = Component => ({ layout, initiallyCollapsed }) => {
   const {
     searchQuery,
     map,
@@ -39,7 +39,7 @@ const withSearchPageContextProps = Component => ({ layout }) => {
     <div
       className={`${styles['filters--layout']} ${
         layout === 'desktop' && isMobile ? 'w-100 mh5' : ''
-      }`}
+        }`}
     >
       <FilterNavigatorContext.Provider value={queryArgs}>
         <Component
@@ -54,6 +54,7 @@ const withSearchPageContextProps = Component => ({ layout }) => {
           filters={filters}
           hiddenFacets={hiddenFacets}
           layout={layout}
+          initiallyCollapsed={initiallyCollapsed}
         />
       </FilterNavigatorContext.Provider>
     </div>
