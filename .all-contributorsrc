@@ -18,7 +18,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ygorneves10",
+      "name": "Ygor Neves",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/39542011?v=4",
+      "profile": "https://github.com/ygorneves10",
+      "contributions": [
+        "code"
+      ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "skipCi": true
 }
