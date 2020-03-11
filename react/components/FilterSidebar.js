@@ -98,9 +98,14 @@ const FilterSidebar = ({
   const context = useMemo(() => {
     const { query, map } = filterContext
 
+    // This should be done properly later. Right now preventRouteChange is always set to true
+    // because we need the queries and map as they used to be to detect the selected
+    // filters. The change to the URL is applied only when navigate is called.
+    // The way this is done will be changed and preventRouteChange will probably
+    // not be necessary on the buildNewQueryMap function anymore.
     return {
       ...filterContext,
-      ...buildNewQueryMap(query, map, filterOperations, selectedFilters, true), // This should be done properly later
+      ...buildNewQueryMap(query, map, filterOperations, selectedFilters, true),
     }
   }, [filterOperations, filterContext, selectedFilters])
 
