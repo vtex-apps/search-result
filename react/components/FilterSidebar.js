@@ -100,15 +100,9 @@ const FilterSidebar = ({
 
     return {
       ...filterContext,
-      ...buildNewQueryMap(
-        query,
-        map,
-        filterOperations,
-        selectedFilters,
-        preventRouteChange
-      ),
+      ...buildNewQueryMap(query, map, filterOperations, selectedFilters, true), // This should be done properly later
     }
-  }, [filterOperations, filterContext, selectedFilters, preventRouteChange])
+  }, [filterOperations, filterContext, selectedFilters])
 
   return (
     <Fragment>
