@@ -1,5 +1,5 @@
 import React from 'react'
-import { injectIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
 
 import AccordionFilterItem from './AccordionFilterItem'
 import FacetCheckboxList from './FacetCheckboxList'
@@ -15,10 +15,10 @@ const AccordionFilterGroup = ({
   open,
   onOpen,
   onFilterCheck,
-  intl,
 }) => {
   const filters = useSelectedFilters(facets)
   const quantitySelected = filters.filter(facet => facet.selected).length
+  const intl = useIntl()
   const facetTitle = getFilterTitle(title, intl)
 
   return (
@@ -40,4 +40,4 @@ const AccordionFilterGroup = ({
   )
 }
 
-export default injectIntl(AccordionFilterGroup)
+export default AccordionFilterGroup
