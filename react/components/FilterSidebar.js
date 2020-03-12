@@ -47,6 +47,7 @@ const FilterSidebar = ({
         filter.value === filterOperation.value && filter.map === filter.map
     )
   }
+
   const handleFilterCheck = filter => {
     if (!isFilterSelected(filterOperations, filter)) {
       setFilterOperations(filterOperations.concat(filter))
@@ -105,7 +106,7 @@ const FilterSidebar = ({
     // not be necessary on the buildNewQueryMap function anymore.
     return {
       ...filterContext,
-      ...buildNewQueryMap(query, map, filterOperations, selectedFilters, true),
+      ...buildNewQueryMap(query, map, filterOperations, selectedFilters),
     }
   }, [filterOperations, filterContext, selectedFilters])
 
