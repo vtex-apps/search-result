@@ -28,7 +28,11 @@ const upsert = (array, item) => {
   }
 }
 
-const compareFacetWithQueryValues = (querySegment, mapSegment, facet) => {
+export const compareFacetWithQueryValues = (
+  querySegment,
+  mapSegment,
+  facet
+) => {
   return (
     decodeURIComponent(querySegment).toLowerCase() ===
       decodeURIComponent(facet.value).toLowerCase() && mapSegment === facet.map
@@ -99,8 +103,8 @@ const buildQueryAndMap = (
             selectedFacet.map !== facet.map
         )
         return {
-          query: removeElementAtIndex(querySegments, facetIndex),
-          map: removeElementAtIndex(mapSegments, facetIndex),
+          query: removeElementAtIndex(query, facetIndex),
+          map: removeElementAtIndex(map, facetIndex),
         }
       } else {
         upsert(selectedFacets, facet)
