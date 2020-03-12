@@ -69,6 +69,7 @@ const FilterSidebar = ({
   const handleApply = () => {
     navigateToFacet(filterOperations, preventRouteChange)
     setOpen(false)
+    setFilterOperations([])
   }
 
   const handleClearFilters = () => {

@@ -175,14 +175,13 @@ const useFacetNavigation = selectedFacets => {
         return
       }
 
-      const newQuery = replaceQueryForNewQueryFormat(
-        currentQuery,
-        currentMap,
-        selectedFacets
-      )
+      const newQuery = replaceQueryForNewQueryFormat(currentQuery, currentMap, [
+        ...selectedFacets,
+        ...facets,
+      ])
 
       const urlParams = getCleanUrlParams(
-        removeMapForNewURLFormat(currentMap, selectedFacets)
+        removeMapForNewURLFormat(currentMap, [...selectedFacets, ...facets])
       )
 
       navigate({
