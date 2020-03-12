@@ -20,7 +20,9 @@ const removeElementAtIndex = (strArray, index) =>
   strArray.filter((_, i) => i !== index)
 
 const upsert = (array, item) => {
-  const foundItemIndex = array.findIndex(e => e.name === item.name)
+  const foundItemIndex = array.findIndex(
+    e => e.value === item.value && e.map === item.map
+  )
   if (foundItemIndex === -1) {
     array.push(item)
   } else {
