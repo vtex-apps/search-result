@@ -20,7 +20,9 @@ const removeElementAtIndex = (strArray, index) =>
   strArray.filter((_, i) => i !== index)
 
 const upsert = (array, item) => {
-  const foundItemIndex = array.findIndex(e => e.name === item.name)
+  const foundItemIndex = array.findIndex(
+    e => e.value === item.value && e.map === item.map
+  )
   if (foundItemIndex === -1) {
     array.push(item)
   } else {
@@ -28,7 +30,40 @@ const upsert = (array, item) => {
   }
 }
 
-const removeMapForNewURLFormat = (queryAndMap, selectedFacets) => {
+export const compareFacetWithQueryValues = (
+  querySegment,
+  mapSegment,
+  facet
+) => {
+  return (
+    decodeURIComponent(querySegment).toLowerCase() ===
+      decodeURIComponent(facet.value).toLowerCase() && mapSegment === facet.map
+  )
+}
+
+const replaceQueryForNewQueryFormat = (
+  queryString,
+  mapString,
+  selectedFacets
+) => {
+  const queryArray = queryString.split(PATH_SEPARATOR)
+  const mapArray = mapString.split(MAP_VALUES_SEP)
+  const newQueryFormatArray = zip(queryArray, mapArray).map(
+    ([querySegment, mapSegment]) => {
+      const facetForQuery = selectedFacets.find(facet => {
+        return compareFacetWithQueryValues(querySegment, mapSegment, facet)
+      })
+      if (!facetForQuery) {
+        return querySegment
+      }
+      return newFacetPathName(facetForQuery)
+    }
+  )
+  return newQueryFormatArray.join(PATH_SEPARATOR)
+}
+
+const removeMapForNewURLFormat = (map, selectedFacets) => {
+  const mapArray = map.split(MAP_VALUES_SEP)
   const mapsToFilter = selectedFacets.reduce((acc, facet) => {
     return facet.map === MAP_CATEGORY_CHAR ||
       (facet.newQuerySegment &&
@@ -36,7 +71,9 @@ const removeMapForNewURLFormat = (queryAndMap, selectedFacets) => {
       ? acc.concat(facet.map)
       : acc
   }, [])
-  return queryAndMap.map.filter(map => !mapsToFilter.includes(map))
+  return mapArray
+    .filter(map => !mapsToFilter.includes(map))
+    .join(MAP_VALUES_SEP)
 }
 
 const getCleanUrlParams = currentMap => {
@@ -48,51 +85,28 @@ const getCleanUrlParams = currentMap => {
   return urlParams
 }
 
-export const convertSegmentsToNewURLs = (
-  querySegments,
-  mapSegments,
-  facets
-) => {
-  const newQuerySegments = querySegments.map(querySegment => {
-    const selectedFacet = facets.find(
-      facet => facet.value.toLowerCase() === querySegment.toLowerCase()
-    )
-    const newSegment = selectedFacet
-      ? selectedFacet.newQuerySegment
-        ? selectedFacet.newQuerySegment
-        : newFacetPathName(selectedFacet)
-      : querySegment
-    return newSegment
-  })
-  return { map: mapSegments, query: newQuerySegments }
-}
-
 const buildQueryAndMap = (
   querySegments,
   mapSegments,
   facets,
-  selectedFacets,
-  preventRouteChange
+  selectedFacets
 ) => {
   const queryAndMap = facets.reduce(
     ({ query, map }, facet) => {
-      const facetValue = preventRouteChange
-        ? facet.value
-        : newFacetPathName(facet)
-      facet.newQuerySegment = facetValue
+      const facetValue = facet.value
+      facet.newQuerySegment = newFacetPathName(facet)
       if (facet.selected) {
-        const facetIndex = zip(query, map).findIndex(
-          ([value, valueMap]) =>
-            decodeURIComponent(value).toLowerCase() ===
-              decodeURIComponent(facetValue).toLowerCase() &&
-            valueMap === facet.map
+        const facetIndex = zip(query, map).findIndex(([value, valueMap]) =>
+          compareFacetWithQueryValues(value, valueMap, facet)
         )
         selectedFacets = selectedFacets.filter(
-          selectedFacet => selectedFacet.value !== facet.value
+          selectedFacet =>
+            selectedFacet.value !== facet.value &&
+            selectedFacet.map !== facet.map
         )
         return {
-          query: removeElementAtIndex(querySegments, facetIndex),
-          map: removeElementAtIndex(mapSegments, facetIndex),
+          query: removeElementAtIndex(query, facetIndex),
+          map: removeElementAtIndex(map, facetIndex),
         }
       } else {
         upsert(selectedFacets, facet)
@@ -126,36 +140,16 @@ const buildQueryAndMap = (
   )
   const newQueryMap = {
     query: queryAndMap.query.join(PATH_SEPARATOR),
-    map: preventRouteChange
-      ? queryAndMap.map.join(MAP_VALUES_SEP)
-      : removeMapForNewURLFormat(queryAndMap, selectedFacets).join(
-          MAP_VALUES_SEP
-        ),
+    map: queryAndMap.map.join(MAP_VALUES_SEP),
   }
   return newQueryMap
 }
 
-export const buildNewQueryMap = (
-  query,
-  map,
-  facets,
-  selectedFacets,
-  preventRouteChange
-) => {
+export const buildNewQueryMap = (query, map, facets, selectedFacets) => {
   const querySegments = (query && query.split(PATH_SEPARATOR)) || []
   const mapSegments = (map && map.split(MAP_VALUES_SEP)) || []
 
-  const { query: newQuerySegments, map: newMapSegments } = preventRouteChange
-    ? { map: mapSegments, query: querySegments }
-    : convertSegmentsToNewURLs(querySegments, mapSegments, selectedFacets)
-
-  return buildQueryAndMap(
-    newQuerySegments,
-    newMapSegments,
-    facets,
-    selectedFacets,
-    preventRouteChange
-  )
+  return buildQueryAndMap(querySegments, mapSegments, facets, selectedFacets)
 }
 
 const useFacetNavigation = selectedFacets => {
@@ -169,8 +163,7 @@ const useFacetNavigation = selectedFacets => {
         query,
         map,
         facets,
-        selectedFacets,
-        preventRouteChange
+        selectedFacets
       )
 
       if (preventRouteChange) {
@@ -182,10 +175,17 @@ const useFacetNavigation = selectedFacets => {
         return
       }
 
-      const urlParams = getCleanUrlParams(currentMap)
+      const newQuery = replaceQueryForNewQueryFormat(currentQuery, currentMap, [
+        ...selectedFacets,
+        ...facets,
+      ])
+
+      const urlParams = getCleanUrlParams(
+        removeMapForNewURLFormat(currentMap, [...selectedFacets, ...facets])
+      )
 
       navigate({
-        to: `${PATH_SEPARATOR}${currentQuery}`,
+        to: `${PATH_SEPARATOR}${newQuery}`,
         query: urlParams.toString(),
         scrollOptions,
         modifiersOptions: {

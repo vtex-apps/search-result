@@ -41,12 +41,13 @@ const FilterSidebar = ({
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const currentTree = useCategoryTree(tree, categoryTreeOperations)
 
-  const isFilterSelected = (filterOperations, filter) => {
-    return filterOperations.find(
+  const isFilterSelected = (filters, filter) => {
+    return filters.find(
       filterOperation =>
         filter.value === filterOperation.value && filter.map === filter.map
     )
   }
+
   const handleFilterCheck = filter => {
     if (!isFilterSelected(filterOperations, filter)) {
       setFilterOperations(filterOperations.concat(filter))
@@ -68,11 +69,11 @@ const FilterSidebar = ({
   const handleApply = () => {
     navigateToFacet(filterOperations, preventRouteChange)
     setOpen(false)
+    setFilterOperations([])
   }
 
   const handleClearFilters = () => {
-    setFilterOperations(selectedFilters) // this is necessary to unselect the selected checkboxes
-    navigateToFacet(selectedFilters, preventRouteChange)
+    setFilterOperations([])
     setOpen(false)
   }
 
@@ -97,15 +98,9 @@ const FilterSidebar = ({
 
   const context = useMemo(() => {
     const { query, map } = filterContext
-
-    // This should be done properly later. Right now preventRouteChange is always set to true
-    // because we need the queries and map as they used to be to detect the selected
-    // filters. The change to the URL is applied only when navigate is called.
-    // The way this is done will be changed and preventRouteChange will probably
-    // not be necessary on the buildNewQueryMap function anymore.
     return {
       ...filterContext,
-      ...buildNewQueryMap(query, map, filterOperations, selectedFilters, true),
+      ...buildNewQueryMap(query, map, filterOperations, selectedFilters),
     }
   }, [filterOperations, filterContext, selectedFilters])
 
