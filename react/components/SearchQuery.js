@@ -6,8 +6,13 @@ import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadata'
 import facetsQuery from 'vtex.store-resources/QueryFacets'
 
 const DEFAULT_PAGE = 1
-const DEFAULT_SKU_FILTER = 'ALL_AVAILABLE'
-const DEFAULT_FACETS_BEHAVIOR = 'Static'
+
+const DEFAULT_QUERY_VALUES = {
+  facetsBehavior: 'Static',
+  installmentCriteria: 'MAX_WITHOUT_INTEREST',
+  skusFilter: 'ALL_AVAILABLE',
+  simulationBehavior: 'default',
+}
 
 const includeFacets = (map, query) =>
   !!(map && map.length > 0 && query && query.length > 0)
@@ -119,6 +124,7 @@ const SearchQuery = ({
   pageQuery,
   skusFilter,
   simulationBehavior,
+  installmentCriteria,
   children,
 }) => {
   /* This is the page of the first query since the component was rendered. 
@@ -148,10 +154,11 @@ const SearchQuery = ({
       from,
       to,
       hideUnavailableItems: !!hideUnavailableItems,
-      facetsBehavior: facetsBehavior || DEFAULT_FACETS_BEHAVIOR,
+      facetsBehavior: facetsBehavior || DEFAULT_QUERY_VALUES.facetsBehavior,
       withFacets: false,
-      skusFilter: skusFilter || DEFAULT_SKU_FILTER,
-      simulationBehavior: simulationBehavior || 'default',
+      skusFilter: skusFilter || DEFAULT_QUERY_VALUES.skusFilter,
+      simulationBehavior: simulationBehavior || DEFAULT_QUERY_VALUES.simulationBehavior,
+      installmentCriteria: installmentCriteria || DEFAULT_QUERY_VALUES.installmentCriteria,
     }
   }, [
     query,
@@ -164,6 +171,7 @@ const SearchQuery = ({
     facetsBehavior,
     skusFilter,
     simulationBehavior,
+    installmentCriteria,
   ])
 
   const {
