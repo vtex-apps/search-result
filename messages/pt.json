@@ -29,11 +29,12 @@
   "admin/editor.search-result.showTitle": "Mostrar titulo da categoria ou termo de busca em cima da galeria",
   "admin/editor.search-result.gap.title": "Espaço entre os itens da galeria",
   "admin/editor.search-result.facet-quantity": "Mostrar quantidade dos filtros",
-
   "store/search-result.show-more-button": "Mostrar mais",
   "store/search-result.show-previous-button": "Mostrar anteriores",
   "store/search-result.showing-products": "Mostrando {value}",
   "store/search-result.showing-products-count": "{productsLoaded, number} de {total, number}",
+  "store/search-result.showing-all-products": "Você viu todos os produtos desta lista {value}",
+  "store/search-result.showing-all-products-count": "({total, number})",
   "store/search-result.filter-button.title": "Filtros",
   "store/search-result.filter-breadcrumbs.primary": "Filtros",
   "store/search-result.filter-button.apply": "Aplicar",
