@@ -167,10 +167,7 @@ class SearchResult extends Component {
     })
 
     const showCategories =
-      hiddenFacets &&
-      hiddenFacets.categories === false &&
-      tree &&
-      tree.length > 0
+      hiddenFacets && !hiddenFacets.categories && tree && tree.length > 0
 
     const showFacets = showCategories || (!hideFacets && !isEmpty(filters))
 
