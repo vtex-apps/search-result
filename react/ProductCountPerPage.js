@@ -74,7 +74,7 @@ const ProductCountPerPage = props => {
       </div>
       {showProductCountProgressBar === 'show' && productsLoadedPercentage && (
         <div
-          className={`${handles.progressBar} relative flex bg-action-secondary items-center mt4 br-pill w-50 h1`}
+          className={`${handles.progressBar} relative flex bg-action-secondary items-center mt4 br-pill w-50 w-30-m w-25-l h1`}
         >
           <span
             className={`${handles.progressBarFiller} absolute br-pill bg-action-primary h1`}
