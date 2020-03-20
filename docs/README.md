@@ -493,6 +493,7 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 | ------------------------------------- |
 | `container`                           |
 | `buttonShowMore`                      |
+| `showingProductsContainer`            |
 | `showingProducts`                     |
 | `showingProductsCount`                |
 | `switch`                              |
