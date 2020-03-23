@@ -281,9 +281,9 @@ Check out the [**Product Summary documentation**](https://vtex.io/docs/component
 | --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
 | `hiddenOptions` | `[string]` | Indicates which sorting options will be hidden. (e.g. `["OrderByNameASC", "OrderByNameDESC"]`) | `undefined`       |
 
-The sorting options are:
+###### `SORT_OPTIONS`
 
-| Sort option              | Value                       |
+| Option                   | Value                       |
 | ------------------------ | --------------------------- |
 | Relevance                | `"OrderByScoreDESC"`        |
 | Top Sales Descending     | `"OrderByTopSaleDESC"`      |
