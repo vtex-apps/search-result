@@ -30,6 +30,7 @@ This are the current supported blocks in this repository. Blocks not mentioned a
 | `filter-navigator.v3`              | [FilterNavigatorFlexible](react/FilterNavigatorFlexible)             | Allows user to apply different filters to search. On mobile, renders a button that shows the sidebar when pressed.                                  |
 | `total-products.v2`                | [TotalProductsFlexible](react/TotalProductsFlexible)                 | Shows the total products count found for that search.                                                                                               |
 | `search-title.v2`                  | [SearchTitleFlexible](react/SearchTitleFlexible)                     | Display search title according to the search context.                                                                                               |
+| `search-products-progress-bar`     | [SearchProductsProgressBar](react/SearchProductsProgressBar)         | Shows a progress bar based on the products shown.                                                                                                   |
 
 ### Flexible Layout Update
 
@@ -445,12 +446,6 @@ Also, you can configure the product summary that is defined on search-result. Se
 | Prop name       | Type            | Description                                                                                                  | Default value |
 | --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
 | `hiddenOptions` | `Array(String)` | Indicates which [sort options](#sort_options) will be hidden. (e.g. `["OrderByNameASC", "OrderByNameDESC"]`) | `[]`          |
-
-##### `search-products-count-per-page` block
-
-| Prop name                     | Type   | Description                                                                        | Default value |
-| ----------------------------- | ------ | ---------------------------------------------------------------------------------- | ------------- |
-| `showProductCountProgressBar` | `Enum` | Indicates if ProductCount ProgressBar will be hidden. (values: 'show' or 'hidden') | `hidden`      |
 
 ###### `SORT_OPTIONS`
 
