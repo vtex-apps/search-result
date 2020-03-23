@@ -5,17 +5,9 @@ import { FormattedMessage } from 'react-intl'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { useCssHandles } from 'vtex.css-handles'
 
-const CSS_HANDLES = [
-  'showingProducts',
-  'showingProductsCount',
-  'showingProductsContainer',
-  'showingAllProductsCount',
-  'progressBar',
-  'progressBarFiller',
-]
+const CSS_HANDLES = ['showingProducts', 'showingProductsCount']
 
-const ProductCountPerPage = props => {
-  const { showProductCountProgressBar = 'hidden' } = props
+const ProductCountPerPage = () => {
   const { searchQuery } = useSearchPage()
 
   const handles = useCssHandles(CSS_HANDLES)
@@ -29,6 +21,7 @@ const ProductCountPerPage = props => {
   const productsLoadedPercentage = Math.round(
     (100 * products.length) / recordsFiltered
   )
+
   if (products.length === 0) {
     return null
   }
@@ -47,41 +40,27 @@ const ProductCountPerPage = props => {
 
   return (
     <div
-      className={`${handles.showingProductsContainer} flex flex-column justify-center items-center`}
-    >
-      <div
-        className={`
+      className={`
         ${handles.showingProducts} tc t-small pt3 c-muted-2
       `}
-      >
-        <FormattedMessage
-          id={showingProducts.showingProductsId}
-          tagName="span"
-          values={{
-            value: (
-              <span className={`${handles.showingProductsCount} b`}>
-                <FormattedMessage
-                  id={showingProducts.showingProductsCountId}
-                  values={{
-                    productsLoaded: products.length,
-                    total: recordsFiltered,
-                  }}
-                />
-              </span>
-            ),
-          }}
-        />
-      </div>
-      {showProductCountProgressBar === 'show' && productsLoadedPercentage && (
-        <div
-          className={`${handles.progressBar} relative flex bg-action-secondary items-center mt4 br-pill w-50 w-30-m w-25-l h1`}
-        >
-          <span
-            className={`${handles.progressBarFiller} absolute br-pill bg-action-primary h1`}
-            style={{ width: `${productsLoadedPercentage}%` }}
-          />
-        </div>
-      )}
+    >
+      <FormattedMessage
+        id={showingProducts.showingProductsId}
+        tagName="span"
+        values={{
+          value: (
+            <span className={`${handles.showingProductsCount} b`}>
+              <FormattedMessage
+                id={showingProducts.showingProductsCountId}
+                values={{
+                  productsLoaded: products.length,
+                  total: recordsFiltered,
+                }}
+              />
+            </span>
+          ),
+        }}
+      />
     </div>
   )
 }
