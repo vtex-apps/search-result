@@ -26,7 +26,7 @@ const SearchProductsProgressBar = () => {
 
   return (
     <div
-      className={`${handles.showingProductsContainer} flex justify-center items-center`}
+      className={`${handles.progressBarContainer} flex justify-center items-center`}
     >
       {productsLoadedPercentage && (
         <div
