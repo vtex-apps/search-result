@@ -3,7 +3,7 @@ import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { useCssHandles } from 'vtex.css-handles'
 
 const CSS_HANDLES = [
-  'showingProductsContainer',
+  'progressBarContainer',
   'progressBar',
   'progressBarFiller',
 ]
