@@ -27,15 +27,15 @@ const ProductCountPerPage = () => {
   }
 
   const showingProducts =
-    productsLoadedPercentage !== 100
+    productsLoadedPercentage === 100
       ? {
-          showingProductsId: 'store/search-result.showing-products',
-          showingProductsCountId: 'store/search-result.showing-products-count',
-        }
-      : {
           showingProductsId: 'store/search-result.showing-all-products',
           showingProductsCountId:
             'store/search-result.showing-all-products-count',
+        }
+      : {
+          showingProductsId: 'store/search-result.showing-products',
+          showingProductsCountId: 'store/search-result.showing-products-count',
         }
 
   return (
