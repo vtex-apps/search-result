@@ -488,7 +488,9 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 | ------------------------------------- |
 | `container`                           |
 | `buttonShowMore`                      |
-| `showingProductsContainer`            |
+| `progressBarContainer `               |
+| `progressBar`                         |
+| `progressBarFiller`                   |
 | `showingProducts`                     |
 | `showingProductsCount`                |
 | `switch`                              |
