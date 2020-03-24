@@ -14,12 +14,8 @@ const SearchProductsProgressBar = () => {
   const { searchQuery } = useSearchPage()
 
   const handles = useCssHandles(CSS_HANDLES)
-  const products =
-    path(['data', 'productSearch', 'products'], searchQuery) || []
-  const recordsFiltered = path(
-    ['data', 'productSearch', 'recordsFiltered'],
-    searchQuery
-  )
+  const products = searchQuery?.data?.productSearch?.products ?? []
+  const recordsFiltered = searchQuery?.data?.productSearch?.recordsFiltered ?? 0
 
   const productsLoadedPercentage = Math.round(
     (100 * products.length) / recordsFiltered
