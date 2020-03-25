@@ -7,7 +7,7 @@
 
 # Search Result
 
-The VTEX Search Result app is responsible for handling the result fetched in the [VTEX Search API_](https://documenter.getpostman.com/view/845/vtex-search-api/Hs43#8b71745e-00f9-6c98-b776-f4468ecb7a5e) and displaying it to users.
+VTEX Search Result app is responsible for handling the result fetched by the [VTEX Search API_](https://documenter.getpostman.com/view/845/vtex-search-api/Hs43#8b71745e-00f9-6c98-b776-f4468ecb7a5e) and displaying it to users.
 
 Therefore, the app exports all store blocks expected in a search results page, such as the result filters and the product gallery.
 
@@ -397,4 +397,3 @@ Thanks goes out to these wonderful people ([emoji key](https://allcontributors.o
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
 ----
-
