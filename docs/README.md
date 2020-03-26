@@ -380,6 +380,7 @@ These properties can be changed in the `blocks.json` file of your theme.
 | `facetsBehavior` | `String`        | Set if specificationFilters will be ignored when getting the facets. If set to `Static`, you will be able to filter your search result with facets of the same specification filters, making it possible to make an `or` filter. If set to `Dynamic`, you won't be able to filter by `or` but the facets will be smarter and will only show the facets that will have at least one result.                                                                                                                                                        | `Static`           |
 | `skusFilter`           | `SkusFilterEnum` | Control SKUs returned for each product in the query. The less SKUs needed to be returned, the more performant your shelf query will be.                                                               | `"ALL_AVAILABLE"` |
 | `simulationBehavior`           | `SimulationBehaviorEnum` | Set to "skip" value if you want faster queries and do not care about most up to date prices or stock.                                                               | `"default"` |
+| `installmentCriteria`               | `InstallmentCriteriaEnum`                 | ControlControl what price to be shown when price has different installments options.                                                                                                    | `"MAX_WITHOUT_INTEREST"` |
 
 
 `SkusFilterEnum`:
@@ -397,6 +398,13 @@ These properties can be changed in the `blocks.json` file of your theme.
 | --------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Default | `default` | Does not change anything, catalog will simulate all skus and deliver most up to date prices and stock. |
 | Skip Simulation | `skip` | Catalog will not simulate any sku making the query faster but prices and stock will have the value of the last indexation. |
+
+`InstallmentCriteriaEnum`:
+
+| Name | Value | Description |
+| ---- | ----- | ----------- |
+| Maximum without interest | `MAX_WITHOUT_INTEREST` | Will display the maximum installment option with no interest. |
+| Maximum | `MAX_WITH_INTEREST` | Will display the maximum installment option having interest or not. |
 
 ##### HiddenFacets
 
