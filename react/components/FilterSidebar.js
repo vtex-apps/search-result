@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import produce from 'immer'
 import React, { useState, useEffect, useMemo, Fragment } from 'react'
 import { FormattedMessage } from 'react-intl'
+import { ExtensionPoint } from 'vtex.render-runtime'
 import { Button } from 'vtex.styleguide'
 import { IconFilter } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
@@ -135,6 +136,7 @@ const FilterSidebar = ({
             onCategorySelect={handleUpdateCategories}
             priceRange={priceRange}
           />
+          <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>
         <div
           className={`${styles.filterButtonsBox} bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base`}
