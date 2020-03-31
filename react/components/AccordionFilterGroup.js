@@ -1,8 +1,11 @@
 import React from 'react'
+import { useIntl } from 'react-intl'
 
 import AccordionFilterItem from './AccordionFilterItem'
 import FacetCheckboxList from './FacetCheckboxList'
 import useSelectedFilters from '../hooks/useSelectedFilters'
+
+import { getFilterTitle } from '../constants/SearchHelpers'
 
 const AccordionFilterGroup = ({
   className,
@@ -14,8 +17,9 @@ const AccordionFilterGroup = ({
   onFilterCheck,
 }) => {
   const filters = useSelectedFilters(facets)
-
   const quantitySelected = filters.filter(facet => facet.selected).length
+  const intl = useIntl()
+  const facetTitle = getFilterTitle(title, intl)
 
   return (
     <AccordionFilterItem
@@ -26,7 +30,11 @@ const AccordionFilterGroup = ({
       quantitySelected={quantitySelected}
     >
       <div className={className}>
-        <FacetCheckboxList onFilterCheck={onFilterCheck} facets={filters} />
+        <FacetCheckboxList
+          onFilterCheck={onFilterCheck}
+          facets={filters}
+          facetTitle={facetTitle}
+        />
       </div>
     </AccordionFilterItem>
   )

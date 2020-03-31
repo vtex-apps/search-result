@@ -12,7 +12,7 @@ exports[`<OrderBy /> should match snapshot in mobile 1`] = `
         class="filterPopupTitle c-on-base t-action--small ml-auto-ns"
       >
         <span
-          class="c-muted-2"
+          class="orderByText c-muted-2"
         >
           Sort By
         </span>
@@ -86,7 +86,7 @@ exports[`<OrderBy /> should match snapshot in web mod 1`] = `
         class="filterPopupTitle c-on-base t-action--small ml-auto-ns"
       >
         <span
-          class="c-muted-2"
+          class="orderByText c-muted-2"
         >
           Sort By
         </span>

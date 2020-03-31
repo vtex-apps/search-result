@@ -23,6 +23,7 @@ const SearchResult = props => {
     pagination,
     mobileLayout,
     searchQuery,
+    trackingId,
   } = props
   const { query } = useRuntime()
   const settings = useMemo(
@@ -30,8 +31,9 @@ const SearchResult = props => {
       hiddenFacets,
       pagination,
       mobileLayout,
+      trackingId,
     }),
-    [hiddenFacets, mobileLayout, pagination]
+    [hiddenFacets, mobileLayout, pagination, trackingId]
   )
 
   const fieldsFromQueryString = {
@@ -117,6 +119,29 @@ SearchResult.getSchema = props => {
                 'admin/editor.search-result.query.skusFilter.first-available',
               ],
             },
+            simulationBehavior: {
+              title: 'admin/editor.search-result.query.simulationBehavior',
+              description:
+                'admin/editor.search-result.query.simulationBehavior.description',
+              type: 'string',
+              default: 'default',
+              enum: ['default', 'skip'],
+              enumNames: [
+                'admin/editor.search-result.query.simulationBehavior.default',
+                'admin/editor.search-result.query.simulationBehavior.skip',
+              ],
+            },
+            installmentCriteria: {
+              title: 'admin/editor.search-result.query.installmentCriteria.title',
+              description: 'admin/editor.search-result.query.installmentCriteria.description',
+              type: 'string',
+              default: 'MAX_WITHOUT_INTEREST',
+              enum: ['MAX_WITHOUT_INTEREST', 'MAX_WITH_INTEREST'],
+              enumNames: [
+                'admin/editor.search-result.query.installmentCriteria.max-without-interest',
+                'admin/editor.search-result.query.installmentCriteria.max-with-interest'
+              ]
+            },
           },
         },
       }
@@ -126,6 +151,24 @@ SearchResult.getSchema = props => {
     title: 'admin/editor.search-result.title',
     description: 'admin/editor.search-result.description',
     type: 'object',
+    dependencies: {
+      advancedSettings: {
+        oneOf: [
+          {
+            properties: {
+              advancedSettings: {
+                enum: [true],
+              },
+              trackingId: {
+                title: 'admin.editor.search-result.advanced-settings.trackingId.title',
+                description: 'admin.editor.search-result.advanced-settings.trackingId.description',
+                type: 'string',
+              },
+            },
+          },
+        ],
+      },
+    },
     properties: {
       ...querySchema,
       mobileLayout: {
@@ -215,6 +258,10 @@ SearchResult.getSchema = props => {
           'admin/editor.search-result.pagination.infinite-scroll',
         ],
         isLayout: true,
+      },
+      advancedSettings: {
+        title: 'admin.editor.search-result.advanced-settings.title',
+        type: 'boolean',
       },
     },
   }

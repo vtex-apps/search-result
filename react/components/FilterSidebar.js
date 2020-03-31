@@ -1,31 +1,27 @@
 import classNames from 'classnames'
 import produce from 'immer'
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  useMemo,
-  Fragment,
-} from 'react'
+import React, { useState, useEffect, useMemo, Fragment } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 import { IconFilter } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
 
-import QueryContext from './QueryContext'
+import FilterNavigatorContext, {
+  useFilterNavigator,
+} from './FilterNavigatorContext'
 import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
-import useFacetNavigation, {
-  buildQueryAndMap,
-} from '../hooks/useFacetNavigation'
+import { buildNewQueryMap } from '../hooks/useFacetNavigation'
 
 import styles from '../searchResult.css'
 
 const CSS_HANDLES = [
   'filterPopupButton',
   'filterPopupTitle',
-  'filterPopupArrowIcon',
   'filterButtonsBox',
+  'filterPopupArrowIcon',
+  'filterClearButtonWrapper',
+  'filterApplyButtonWrapper',
 ]
 
 const FilterSidebar = ({
@@ -34,8 +30,9 @@ const FilterSidebar = ({
   tree,
   priceRange,
   preventRouteChange,
+  navigateToFacet,
 }) => {
-  const queryContext = useContext(QueryContext)
+  const filterContext = useFilterNavigator()
   const [open, setOpen] = useState(false)
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -44,10 +41,15 @@ const FilterSidebar = ({
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const currentTree = useCategoryTree(tree, categoryTreeOperations)
 
-  const navigateToFacet = useFacetNavigation()
+  const isFilterSelected = (filters, filter) => {
+    return filters.find(
+      filterOperation =>
+        filter.value === filterOperation.value && filter.map === filter.map
+    )
+  }
 
   const handleFilterCheck = filter => {
-    if (!filterOperations.includes(filter)) {
+    if (!isFilterSelected(filterOperations, filter)) {
       setFilterOperations(filterOperations.concat(filter))
     } else {
       setFilterOperations(
@@ -67,11 +69,11 @@ const FilterSidebar = ({
   const handleApply = () => {
     navigateToFacet(filterOperations, preventRouteChange)
     setOpen(false)
+    setFilterOperations([])
   }
 
   const handleClearFilters = () => {
-    setFilterOperations(selectedFilters) // this is necessary to unselect the selected checkboxes
-    navigateToFacet(selectedFilters, preventRouteChange)
+    setFilterOperations([])
     setOpen(false)
   }
 
@@ -95,13 +97,12 @@ const FilterSidebar = ({
   }
 
   const context = useMemo(() => {
-    const { query, map } = queryContext
-
+    const { query, map } = filterContext
     return {
-      ...queryContext,
-      ...buildQueryAndMap(query, map, filterOperations),
+      ...filterContext,
+      ...buildNewQueryMap(query, map, filterOperations, selectedFilters),
     }
-  }, [filterOperations, queryContext])
+  }, [filterOperations, filterContext, selectedFilters])
 
   return (
     <Fragment>
@@ -126,7 +127,7 @@ const FilterSidebar = ({
       </button>
 
       <Sidebar onOutsideClick={handleClose} isOpen={open}>
-        <QueryContext.Provider value={context}>
+        <FilterNavigatorContext.Provider value={context}>
           <AccordionFilterContainer
             filters={filters}
             tree={currentTree}
@@ -134,11 +135,13 @@ const FilterSidebar = ({
             onCategorySelect={handleUpdateCategories}
             priceRange={priceRange}
           />
-        </QueryContext.Provider>
+        </FilterNavigatorContext.Provider>
         <div
           className={`${styles.filterButtonsBox} bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base`}
         >
-          <div className="bottom-0 fl w-50 pl4 pr2">
+          <div
+            className={`${handles.filterClearButtonWrapper} bottom-0 fl w-50 pl4 pr2`}
+          >
             <Button
               block
               variation="tertiary"
@@ -148,7 +151,9 @@ const FilterSidebar = ({
               <FormattedMessage id="store/search-result.filter-button.clear" />
             </Button>
           </div>
-          <div className="bottom-0 fr w-50 pr4 pl2">
+          <div
+            className={`${handles.filterApplyButtonWrapper} bottom-0 fr w-50 pr4 pl2`}
+          >
             <Button
               block
               variation="secondary"

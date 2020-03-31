@@ -10,8 +10,7 @@
       "rich-text"
     ],
     "required": ["gallery"],
-    "component": "index",
-    "render": "client"
+    "component": "index"
   },
   "filter-navigator": {
     "component": "FilterNavigatorLegacy"
@@ -46,8 +45,7 @@
       "search-result-layout.mobile",
       "search-not-found-layout"
     ],
-    "component": "SearchResultLayout",
-    "render": "client"
+    "component": "SearchResultLayout"
   },
   "search-result-layout.customQuery": {
     "allowed": [
@@ -55,8 +53,7 @@
       "search-result-layout.mobile",
       "search-not-found-layout"
     ],
-    "component": "SearchResultLayoutCustomQuery",
-    "render": "client"
+    "component": "SearchResultLayoutCustomQuery"
   },
   "search-layout-switcher": {
     "component": "LayoutModeSwitcherFlexible"
@@ -115,7 +112,8 @@
       "search-blog-articles-list"
     ],
     "composition": "children",
-    "component": "SearchResultFlexibleMobile"
+    "component": "SearchResultFlexibleMobile",
+    "device": "mobile"
   },
   "search-not-found-layout": {
     "allowed": [

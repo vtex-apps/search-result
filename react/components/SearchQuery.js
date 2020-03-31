@@ -1,14 +1,18 @@
 import { useMemo, useRef, useCallback } from 'react'
 import { useQuery } from 'react-apollo'
-import {
-  productSearchV2 as productSearchQuery,
-  searchMetadata as searchMetadataQuery,
-  facets as facetsQuery,
-} from 'vtex.store-resources/Queries'
+
+import productSearchQuery from 'vtex.store-resources/QueryProductSearchV2'
+import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadata'
+import facetsQuery from 'vtex.store-resources/QueryFacets'
 
 const DEFAULT_PAGE = 1
-const DEFAULT_SKU_FILTER = 'ALL_AVAILABLE'
-const DEFAULT_FACETS_BEHAVIOR = 'Static'
+
+const DEFAULT_QUERY_VALUES = {
+  facetsBehavior: 'Static',
+  installmentCriteria: 'MAX_WITHOUT_INTEREST',
+  skusFilter: 'ALL_AVAILABLE',
+  simulationBehavior: 'default',
+}
 
 const includeFacets = (map, query) =>
   !!(map && map.length > 0 && query && query.length > 0)
@@ -69,7 +73,6 @@ const useCorrectPage = ({ page, query, map, orderBy }) => {
 
 const useQueries = (variables, facetsArgs) => {
   const productSearchResult = useQuery(productSearchQuery, {
-    ssr: false,
     variables,
   })
   const { refetch: searchRefetch, loading: searchLoading } = productSearchResult
@@ -92,7 +95,6 @@ const useQueries = (variables, facetsArgs) => {
       behavior: variables.facetsBehavior,
     },
     skip: !facetsArgs.withFacets,
-    ssr: false,
   })
 
   const refetch = useCombinedRefetch(searchRefetch, facetsRefetch)
@@ -121,6 +123,8 @@ const SearchQuery = ({
   facetsBehavior,
   pageQuery,
   skusFilter,
+  simulationBehavior,
+  installmentCriteria,
   children,
 }) => {
   /* This is the page of the first query since the component was rendered. 
@@ -150,9 +154,11 @@ const SearchQuery = ({
       from,
       to,
       hideUnavailableItems: !!hideUnavailableItems,
-      facetsBehavior: facetsBehavior || DEFAULT_FACETS_BEHAVIOR,
+      facetsBehavior: facetsBehavior || DEFAULT_QUERY_VALUES.facetsBehavior,
       withFacets: false,
-      skusFilter: skusFilter || DEFAULT_SKU_FILTER,
+      skusFilter: skusFilter || DEFAULT_QUERY_VALUES.skusFilter,
+      simulationBehavior: simulationBehavior || DEFAULT_QUERY_VALUES.simulationBehavior,
+      installmentCriteria: installmentCriteria || DEFAULT_QUERY_VALUES.installmentCriteria,
     }
   }, [
     query,
@@ -164,6 +170,8 @@ const SearchQuery = ({
     hideUnavailableItems,
     facetsBehavior,
     skusFilter,
+    simulationBehavior,
+    installmentCriteria,
   ])
 
   const {
@@ -187,11 +195,12 @@ const SearchQuery = ({
   const searchInfo = useMemo(
     () => ({
       ...(productSearchResult || {}),
+      variables,
       data,
       loading,
       refetch,
     }),
-    [data, loading, productSearchResult, refetch]
+    [data, loading, productSearchResult, refetch, variables]
   )
 
   return children(searchInfo, extraParams)

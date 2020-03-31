@@ -1,6 +1,8 @@
 # VTEX Search Result
 
-[![Build Status](https://api.travis-ci.org/vtex-apps/search-result.svg?branch=master)](https://travis-ci.org/vtex-apps/search-result) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![Build Status](https://api.travis-ci.org/vtex-apps/search-result.svg?branch=master)](https://travis-ci.org/vtex-apps/search-result) <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Description
 
@@ -364,26 +366,46 @@ These properties can be changed in the `blocks.json` file of your theme.
 | `showFacetQuantity` | `Boolean`      | If quantity of items filtered by facet should appear besides its name on `filter-navigator`                                          | `false`           |
 | `blockClass`        | `String`       | Unique class name to be appended to block classes                                                                                    | `""`              |
 | `showProductsCount` | `Boolean`      | controls if the quantity of loaded products and total number of items of a search result are displayed under the `show more` button. | `false`           |
+| `trackingId` | `string` | Name to show in the Google Analytics | If nothing is passed it will just use `'Search result'` | 
 
 ##### QuerySchema
 
-| Prop name              | Type             | Description                                                                                                                                                                                                                                                                                                                                                                                | Default value     |
-| ---------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- |
-| `maxItemsPerPage`      | `Number`         | Maximum number of items per search page                                                                                                                                                                                                                                                                                                                                                    | 10                |
-| `queryField`           | `String`         | Query field                                                                                                                                                                                                                                                                                                                                                                                | N/A               |
-| `mapField`             | `String`         | Map field                                                                                                                                                                                                                                                                                                                                                                                  | N/A               |
-| `restField`            | `String`         | Other Query Strings                                                                                                                                                                                                                                                                                                                                                                        | N/A               |
-| `orderByField`         | `Enum`           | Order by field (values: `OrderByTopSaleDESC`, `OrderByReleaseDateDESC`, `OrderByBestDiscountDESC`, `OrderByPriceDESC`, `OrderByPriceASC`, `OrderByNameASC`, `OrderByNameDESC` or `''` (by relevance))                                                                                                                                                                                      | `''`              |
-| `hideUnavailableItems` | `Boolean`        | Set if unavailable items should show on search                                                                                                                                                                                                                                                                                                                                             | `false`           |
-| `facetsBehavior`       | `String`         | Set if specificationFilters will be ignored when getting the facets. If set to `Static`, you will be able to filter your search result with facets of the same specification filters, making it possible to make an `or` filter. If set to `Dynamic`, you won't be able to filter by `or` but the facets will be smarter and will only show the facets that will have at least one result. | `Static`          |
-| `skusFilter`           | `SkusFilterEnum` | Control SKUs returned for each product in the query. The less SKUs needed to be returned, the more performant your shelf query will be.                                                                                                                                                                                                                                                    | `"ALL_AVAILABLE"` |
+| Prop name              | Type             | Description                                                                                                                                                                                           | Default value     |
+| ---------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| `maxItemsPerPage`      | `Number`         | Maximum number of items per search page. The maximum value of this prop is `50`, if a number bigger than this one is passed, the query will fail.                                                                                                                                                               | 10                |
+| `queryField`           | `String`         | Query field                                                                                                                                                                                           | N/A               |
+| `mapField`             | `String`         | Map field                                                                                                                                                                                             | N/A               |
+| `restField`            | `String`         | Other Query Strings                                                                                                                                                                                   | N/A               |
+| `orderByField`         | `Enum`           | Order by field (values: `OrderByTopSaleDESC`, `OrderByReleaseDateDESC`, `OrderByBestDiscountDESC`, `OrderByPriceDESC`, `OrderByPriceASC`, `OrderByNameASC`, `OrderByNameDESC` or `OrderByScoreDESC` (by relevance)) | `OrderByScoreDESC`              |
+| `hideUnavailableItems` | `Boolean`        | Set if unavailable items should show on search                                                                                                                                                        | `false`           |
+| `facetsBehavior` | `String`        | Set if specificationFilters will be ignored when getting the facets. If set to `Static`, you will be able to filter your search result with facets of the same specification filters, making it possible to make an `or` filter. If set to `Dynamic`, you won't be able to filter by `or` but the facets will be smarter and will only show the facets that will have at least one result.                                                                                                                                                        | `Static`           |
+| `skusFilter`           | `SkusFilterEnum` | Control SKUs returned for each product in the query. The less SKUs needed to be returned, the more performant your shelf query will be.                                                               | `"ALL_AVAILABLE"` |
+| `simulationBehavior`           | `SimulationBehaviorEnum` | Set to "skip" value if you want faster queries and do not care about most up to date prices or stock.                                                               | `"default"` |
+| `installmentCriteria`               | `InstallmentCriteriaEnum`                 | Control what price to be shown when price has different installments options.                                                                                                    | `"MAX_WITHOUT_INTEREST"` |
+
 
 `SkusFilterEnum`:
+
 | Name | Value | Description |
 | --------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | First Available | `FIRST_AVAILABLE` | Most performant, ideal if you do not have a SKU selector in your shelf. Will return only the first available SKU for that product in your shelf query. |
 | All Available | `ALL_AVAILABLE` | A bit better performace, will only return SKUs that are available, ideal if you have a SKU selector but still want a better performance. |
 | All | `ALL` | Returns all SKUs related to that product, least performant option. |
+
+
+`SimulationBehaviorEnum`:
+
+| Name | Value | Description |
+| --------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Default | `default` | Does not change anything, catalog will simulate all skus and deliver most up to date prices and stock. |
+| Skip Simulation | `skip` | Catalog will not simulate any sku making the query faster but prices and stock will have the value of the last indexation. |
+
+`InstallmentCriteriaEnum`:
+
+| Name | Value | Description |
+| ---- | ----- | ----------- |
+| Maximum without interest | `MAX_WITHOUT_INTEREST` | Will display the maximum installment option with no interest. |
+| Maximum | `MAX_WITH_INTEREST` | Will display the maximum installment option having interest or not. |
 
 ##### HiddenFacets
 
@@ -438,6 +460,7 @@ Notice that the default behavior for your store will be the one defined by the `
 | Prop name | Type                      | Description                                                                                       | Default value |
 | --------- | ------------------------- | ------------------------------------------------------------------------------------------------- | ------------- |
 | `layout`  | `responsive` or `desktop` | Which layout should it use. One might use `desktop` when adding filter-navigator inside a drawer. | `responsive`  |
+| `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed.                                                                                                                  | `false`       |
 
 Also, you can configure the product summary that is defined on search-result. See [here](https://github.com/vtex-apps/product-summary/blob/master/README.md#configuration) the Product Summary API.
 
@@ -451,7 +474,7 @@ Also, you can configure the product summary that is defined on search-result. Se
 
 | Option                   | Value                       |
 | ------------------------ | --------------------------- |
-| Relevance                | `""`                        |
+| Relevance                | `"OrderByScoreDESC"`        |
 | Top Sales Descending     | `"OrderByTopSaleDESC"`      |
 | Release Date Descending  | `"OrderByReleaseDateDESC"`  |
 | Best Discount Descending | `"OrderByBestDiscountDESC"` |
@@ -508,58 +531,82 @@ To use this CSS API, you must add the `styles` builder and create an app styling
 | `accordionFilterItemOptions`          |
 | `dropdownMobile`                      |
 | `accordionFilterItemActive`           |
-| `totalProducts`                       |
-| `orderBy`                             |
-| `accordionFilterItemHidden`           |
-| `accordionFilterItem`                 |
 | `accordionFilterItemBox`              |
-| `accordionFilterItemTitle`            |
+| `accordionFilterItemHidden`           |
 | `accordionFilterItemIcon`             |
-| `filterAvailable`                     |
-| `filterSelected`                      |
-| `filterPopupTitle`                    |
-| `filterPopupArrowIcon`                |
-| `footerButton`                        |
-| `layoutSwitcher`                      |
-| `filterPopup`                         |
-| `filterPopupOpen`                     |
-| `filterPopupContent`                  |
-| `filterPopupContentContainer`         |
-| `filterPopupContentContainerOpen`     |
-| `galleryItem`                         |
-| `searchNotFound`                      |
-| `filterContainer`                     |
-| `filterContainer--title`              |
-| `filterContainer--selectedFilters`    |
-| `filterContainer--c`                  |
-| `filterContainer--b`                  |
-| `filterContainer--priceRange`         |
-| `filterContainer--` + FACET_TYPE      |
-| `filterTitle`                         |
-| `filterIcon`                          |
-| `galleryTitle`                        |
-| `filterItem`                          |
-| `filterItem--` + FACET_VALUE          |
-| `filterItem--selected`                |
-| `selectedFilterItem`                  |
-| `orderByButton`                       |
-| `orderByDropdown`                     |
-| `orderByOptionsContainer`             |
-| `orderByOptionItem`                   |
+| `accordionFilterItemOptions`          |
+| `accordionFilterItemTitle`            |
+| `accordionFilterItem`                 |
+| `accordionFilter`                     |
+| `border`                              |
+| `breadcrumb`                          |
+| `buttonShowMore`                      |
 | `categoriesContainer`                 |
 | `categoryGroup`                       |
 | `categoryParent`                      |
-| `searchNotFoundOops`                  |
+| `container`                           |
+| `dropdownMobile`                      |
+| `filterAccordionBreadcrumbs`          |
+| `filterAccordionItemBox`              |
+| `filterApplyButtonWrapper`           |
+| `filterAvailable`                     |
+| `filterButtonsBox`                    |
+| `filterClearButtonWrapper`            |
+| `filterContainer--` + FACET_TYPE      |
+| `filterContainer--b`                  |
+| `filterContainer--c`                  |
+| `filterContainer--priceRange`         |
+| `filterContainer--selectedFilters`    |
+| `filterContainer--title`              |
+| `filterContainer`                     |
+| `filterIcon`                          |
+| `filterItem--` + FACET_VALUE          |
+| `filterItem--selected`                |
+| `filterItem`                          |
+| `filterMessage`                       |
+| `filterPopupArrowIcon`                |
+| `filterPopupButton`                   |
+| `filterPopupContentContainerOpen`     |
+| `filterPopupContentContainer`         |
+| `filterPopupContent`                  |
+| `filterPopupFooter`                   |
+| `filterPopupOpen`                     |
+| `filterPopupTitle`                    |
+| `filterPopup`                         |
+| `filterSelected`                      |
+| `filterTemplateOverflow`              |
+| `filterTitle`                         |
+| `filter`                              |
+| `footerButton`                        |
+| `galleryItem`                         |
+| `galleryTitle`                        |
+| `gallery`                             |
+| `layoutSwitcher`                      |
+| `loadingOverlay`                      |
+| `loadingSpinnerInnerContainer`        |
+| `loadingSpinnerOuterContainer`        |
+| `orderByButton`                       |
+| `orderByDropdown`                     |
+| `orderByOptionItem`                   |
+| `orderByOptionsContainer`             |
+| `orderByText`                         |
+| `orderBy`                             |
+| `resultGallery`                       |
 | `searchNotFoundInfo`                  |
-| `searchNotFoundWhatDoIDo`             |
-| `searchNotFoundWhatToDoDots`          |
-| `searchNotFoundWhatToDoDotsContainer` |
+| `searchNotFoundOops`                  |
 | `searchNotFoundTerm`                  |
 | `searchNotFoundTextListLine`          |
-| `loadingOverlay`                      |
+| `searchNotFoundWhatDoIDo`             |
+| `searchNotFoundWhatToDoDotsContainer` |
+| `searchNotFoundWhatToDoDots`          |
+| `searchNotFound`                      |
 | `searchResultContainer`               |
-| `loadingSpinnerOuterContainer`        |
-| `loadingSpinnerInnerContainer`        |
+| `selectedFilterItem`                  |
+| `showingProductsCount`                |
+| `showingProducts`                     |
+| `switch`                              |
+| `totalProductsMessage`                |
+| `totalProducts`                       |
 
 ## Troubleshooting
 
@@ -582,13 +629,13 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/grupo-exito-ecommerce"><img src="https://avatars2.githubusercontent.com/u/46934781?v=4" width="100px;" alt="grupo-exito-ecommerce"/><br /><sub><b>grupo-exito-ecommerce</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=grupo-exito-ecommerce" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/grupo-exito-ecommerce"><img src="https://avatars2.githubusercontent.com/u/46934781?v=4" width="100px;" alt=""/><br /><sub><b>grupo-exito-ecommerce</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=grupo-exito-ecommerce" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/ygorneves10"><img src="https://avatars1.githubusercontent.com/u/39542011?v=4" width="100px;" alt=""/><br /><sub><b>Ygor Neves</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=ygorneves10" title="Code">💻</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

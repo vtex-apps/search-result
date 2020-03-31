@@ -6,9 +6,124 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- New block `search-products-progress-bar`.
+
+## [3.52.0] - 2020-03-26
+### Added
+- Support `installmentCriteria` prop in search query.
+
+## [3.51.4] - 2020-03-20
+### Fixed
+- Problem that caused category filters to not appear when you were in page with category tree but all the other facets were in `hiddenFacets`.
+
+## [3.51.3] - 2020-03-16
+### Fixed
+- Facets selection switch on mobile
+
+## [3.51.2] - 2020-03-11
+### Fixed
+- Facets not showing "checked" when clicked on mobile.
+
+## [3.51.1] - 2020-03-11
+### Fixed
+- Fixed mobile facets breaking when `preventRouteChange` wasn't being used.
 
 ### Added
-- New block `search-products-progress-bar`,
+- Updated `CODEOWNERS` file with responsible teams for each directory.
+
+## [3.51.0] - 2020-03-09
+### Added
+- Prop `initiallyCollapsed` to `filter-navigator.v3`, allow filters start out collapsed.
+
+## [3.50.2] - 2020-03-06
+### Fixed
+- Filter selection on FilterSidebar
+
+## [3.50.1] - 2020-03-03
+### Fixed
+- Typo on `filterApplyButtonWrapper`.
+- `trackingId` messages keys.
+
+## [3.50.0] - 2020-03-02
+### Added
+- New search URL structure for specification filters and categories.
+
+### Fixed
+- Error causing the `productImpression` event to not be sent on some cases.
+
+## [3.49.0] - 2020-02-27
+### Added
+- Handles to the wrapper of the action buttons of `FilterSidebar`.
+
+## [3.48.0] - 2020-02-27
+### Added
+- `trackingId` prop to the Search Result.
+
+## [3.47.3] - 2020-02-18
+### Changed
+- Import search queries directly.
+
+## [3.47.2] - 2020-02-14
+### Changed
+- Make `search-result-layout.mobile` only come to runtime if device is of type mobile.
+
+## [3.47.1] - 2020-02-10
+### Fixed
+- Error causing the `productImpression` event to not be sent on some cases.
+
+## [3.47.0] - 2020-02-07 [YANKED]
+### Changed
+- New search URL structure for specification filters and categories.
+
+## [3.46.1] - 2020-02-06
+### Changed
+- "Filter by" message to "Filtered by".
+
+## [3.46.0] - 2020-02-04
+### Added
+- `filterTemplateOverflow` and `orderByText` handles.
+
+## [3.45.2] - 2020-01-28
+### Changed
+- The fallback value of orderby label to empty string again.
+
+## [3.45.1] - 2020-01-28
+### Changed
+- Ordination value of "Relevance" from empty string to `OrderByScoreDESC`.
+
+## [3.45.0] - 2020-01-24
+### Added
+- Param `simulationBehavior` in search query.
+
+## [3.44.1] - 2020-01-22
+### Fixed
+- Issues with the message change on some languages.
+
+## [3.44.0] - 2020-01-17
+### Added
+- Two new css handles: `totalProductsMessage` and `filtersMessage`.
+
+## [3.43.2] - 2020-01-13
+### Fixed
+- Prevent searchQuery object not reflecting new variables passed.
+
+## [3.43.1] - 2020-01-13
+### Fixed
+- `maxItemsPerPage` description on README.
+
+## [3.43.0] - 2020-01-13
+### Changed
+- Enable server side rendering.
+
+## [3.42.1] - 2020-01-09
+### Fixed
+- Fix issues related to FilterNavigator loading state.
+
+## [3.42.0] - 2020-01-04
+
+### Added
+- `showFacetQuantity` settings to `SearchResultFlexible` component. 
 
 ## [3.41.1] - 2020-01-02
 ### Fixed

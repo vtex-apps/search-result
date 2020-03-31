@@ -13,6 +13,7 @@ import FetchPreviousButton from './loaders/FetchPreviousButton'
 import FetchMoreButton from './loaders/FetchMoreButton'
 import LoadingSpinner from './loaders/LoadingSpinner'
 import { PAGINATION_TYPE } from '../constants/paginationType'
+import FilterNavigatorContext from './FilterNavigatorContext'
 
 import getFilters from '../utils/getFilters'
 
@@ -39,7 +40,6 @@ class SearchResult extends Component {
     products: this.props.products,
     recordsFiltered: this.props.recordsFiltered,
     brands: this.props.brands,
-    map: this.props.map,
     params: this.props.params,
     priceRange: this.props.priceRange,
     priceRanges: this.props.priceRanges,
@@ -74,7 +74,6 @@ class SearchResult extends Component {
         products,
         recordsFiltered,
         brands,
-        map,
         params,
         priceRange,
         priceRanges,
@@ -87,7 +86,6 @@ class SearchResult extends Component {
         products,
         recordsFiltered,
         brands,
-        map,
         params,
         priceRange,
         priceRanges,
@@ -140,7 +138,6 @@ class SearchResult extends Component {
       recordsFiltered,
       products = [],
       brands,
-      map,
       params,
       priceRange,
       priceRanges,
@@ -149,6 +146,12 @@ class SearchResult extends Component {
       hiddenFacets,
       showLoadingAsOverlay,
     } = this.state
+
+    const queryArgs = this.props.searchQuery.facets
+      ? this.props.searchQuery.facets.queryArgs
+      : { query: '', map: '' }
+
+    const { map } = queryArgs
 
     const hideFacets = !map || !map.length
     const showLoading = loading && !fetchMoreLoading
@@ -164,10 +167,7 @@ class SearchResult extends Component {
     })
 
     const showCategories =
-      hiddenFacets &&
-      hiddenFacets.categories === false &&
-      tree &&
-      tree.length > 0
+      hiddenFacets && !hiddenFacets.categories && tree && tree.length > 0
 
     const showFacets = showCategories || (!hideFacets && !isEmpty(filters))
 
@@ -192,18 +192,20 @@ class SearchResult extends Component {
           />
           {showFacets && !!map && (
             <div className={styles.filters}>
-              <ExtensionPoint
-                id="filter-navigator"
-                brands={brands}
-                params={params}
-                priceRange={priceRange}
-                priceRanges={priceRanges}
-                specificationFilters={specificationFilters}
-                tree={tree}
-                loading={showFacetsContentLoader}
-                filters={filters}
-                hiddenFacets={hiddenFacets}
-              />
+              <FilterNavigatorContext.Provider value={queryArgs}>
+                <ExtensionPoint
+                  id="filter-navigator"
+                  brands={brands}
+                  params={params}
+                  priceRange={priceRange}
+                  priceRanges={priceRanges}
+                  specificationFilters={specificationFilters}
+                  tree={tree}
+                  loading={showFacetsContentLoader}
+                  filters={filters}
+                  hiddenFacets={hiddenFacets}
+                />
+              </FilterNavigatorContext.Provider>
             </div>
           )}
           <ExtensionPoint
@@ -274,7 +276,4 @@ class SearchResult extends Component {
   }
 }
 
-export default compose(
-  withRuntimeContext,
-  withDevice
-)(SearchResult)
+export default compose(withRuntimeContext, withDevice)(SearchResult)

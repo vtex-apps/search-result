@@ -13,9 +13,11 @@ const CSS_HANDLES = ['selectedFilterItem']
  * Search Filter Component.
  */
 const SelectedFilters = ({
+  map,
   filters = [],
   intl,
   preventRouteChange = false,
+  navigateToFacet,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   if (!filters.length) {
@@ -33,10 +35,13 @@ const SelectedFilters = ({
     >
       {facet => (
         <FacetItem
+          map={map}
           key={facet.name}
+          facetTitle={facet.title}
           facet={facet}
           className={handles.selectedFilterItem}
           preventRouteChange={preventRouteChange}
+          navigateToFacet={navigateToFacet}
         />
       )}
     </FilterOptionTemplate>
@@ -44,12 +49,16 @@ const SelectedFilters = ({
 }
 
 SelectedFilters.propTypes = {
+  filterTitle: PropTypes.string,
+  /** Legacy search map */
+  map: PropTypes.string,
   /** Selected filters. */
   filters: PropTypes.arrayOf(facetOptionShape).isRequired,
   /** Intl instance. */
   intl: intlShape,
   /** Prevent route changes */
   preventRouteChange: PropTypes.bool,
+  navigateToFacet: PropTypes.func,
 }
 
 export default injectIntl(SelectedFilters)
