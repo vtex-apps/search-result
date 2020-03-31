@@ -11,7 +11,6 @@ import styles from './searchResult.css'
 const withSearchPageContextProps = Component => ({
   layout,
   initiallyCollapsed,
-  sidebarCloseIconProps,
 }) => {
   const {
     searchQuery,
@@ -59,7 +58,6 @@ const withSearchPageContextProps = Component => ({
           hiddenFacets={hiddenFacets}
           layout={layout}
           initiallyCollapsed={initiallyCollapsed}
-          sidebarCloseIconProps={sidebarCloseIconProps}
         />
       </FilterNavigatorContext.Provider>
     </div>
