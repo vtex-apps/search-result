@@ -11,6 +11,7 @@ import FilterNavigatorContext, {
 } from './FilterNavigatorContext'
 import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
+import SidebarCloseButton from './SidebarCloseButton'
 import { buildNewQueryMap } from '../hooks/useFacetNavigation'
 
 import styles from '../searchResult.css'
@@ -31,6 +32,7 @@ const FilterSidebar = ({
   priceRange,
   preventRouteChange,
   navigateToFacet,
+  sidebarCloseIconProps,
 }) => {
   const filterContext = useFilterNavigator()
   const [open, setOpen] = useState(false)
@@ -135,6 +137,12 @@ const FilterSidebar = ({
             onCategorySelect={handleUpdateCategories}
             priceRange={priceRange}
           />
+          {sidebarCloseIconProps && (
+            <SidebarCloseButton
+              iconProps={sidebarCloseIconProps}
+              onClose={handleClose}
+            />
+          )}
         </FilterNavigatorContext.Provider>
         <div
           className={`${styles.filterButtonsBox} bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base`}

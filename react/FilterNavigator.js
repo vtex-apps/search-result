@@ -55,6 +55,7 @@ const newNamedFacet = facet => {
  */
 const FilterNavigator = ({
   priceRange,
+  sidebarCloseIconProps,
   tree = [],
   specificationFilters = [],
   priceRanges = [],
@@ -131,6 +132,7 @@ const FilterNavigator = ({
             priceRange={priceRange}
             preventRouteChange={preventRouteChange}
             navigateToFacet={navigateToFacet}
+            sidebarCloseIconProps={sidebarCloseIconProps}
           />
         </div>
       </div>
