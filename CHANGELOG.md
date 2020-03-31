@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- `SidebarCloseButton` component.
+- New block `sidebar-close-button`.
 
 ## [3.52.0] - 2020-03-26
 ### Added
