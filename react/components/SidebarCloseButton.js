@@ -4,9 +4,8 @@ import { IconClose } from 'vtex.store-icons'
 
 const CSS_HANDLES = ['closeIconButton']
 
-const SidebarCloseButton = ({ iconProps, onClose }) => {
+const SidebarCloseButton = ({ size = 30, type = 'line', onClose }) => {
   const handles = useCssHandles(CSS_HANDLES)
-  const { size = 30, type = 'line' } = iconProps
 
   return (
     <button

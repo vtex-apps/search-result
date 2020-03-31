@@ -8,7 +8,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - `SidebarCloseButton` component.
-- `sidebarCloseIconProps` prop on `filter-navigator.v2` and `filter-navigator.v3`.
 
 ## [3.52.0] - 2020-03-26
 ### Added
