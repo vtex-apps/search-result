@@ -1,4 +1,5 @@
 import React from 'react'
+import { path } from 'ramda'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -12,8 +13,12 @@ const SearchProductsProgressBar = () => {
   const { searchQuery } = useSearchPage()
 
   const handles = useCssHandles(CSS_HANDLES)
-  const products = searchQuery?.data?.productSearch?.products ?? []
-  const recordsFiltered = searchQuery?.data?.productSearch?.recordsFiltered ?? 0
+  const products =
+    path(['data', 'productSearch', 'products'], searchQuery) || []
+  const recordsFiltered = path(
+    ['data', 'productSearch', 'recordsFiltered'],
+    searchQuery
+  )
 
   const productsLoadedPercentage = Math.round(
     (100 * products.length) / recordsFiltered
