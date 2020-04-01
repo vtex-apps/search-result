@@ -179,7 +179,7 @@ Below you may find all available props to configure your search data (be it by u
 
 Now it is time to structure the `search-result-layout` block (or the `search-result-layout.customQuery`).  They both necessarily require a child: the `search-result-layout.desktop`. But you can also provide others, such as the `search-result-layout.mobile` and the `search-not-found-layout`. 
  
-Since these are layout blocks, you will need to use the [Flex Layout](https://vtex.io/docs/apps/layout-blocks/vtex.flex-layout@0.14.0) blocks to build your search results page for desktop, mobile or not found. 
+Since these are layout blocks, you can use [Flex Layout](https://vtex.io/docs/apps/layout-blocks/vtex.flex-layout@0.14.0) blocks to build your search results page for desktop and mobile.
 
 ### Step 4 - Defining your search results page layouts and behavior
 
