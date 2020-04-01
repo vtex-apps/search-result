@@ -10,7 +10,7 @@
 
 VTEX Search Result app is responsible for handling the result fetched by the [VTEX Search API](https://documenter.getpostman.com/view/845/vtex-search-api/Hs43#8b71745e-00f9-6c98-b776-f4468ecb7a5e) and displaying it to users.
 
-Therefore, the app exports all store blocks expected in a search results page, such as the filters and the product gallery.
+The app therefore exports all store blocks expected in a search results page, such as the filters and the product gallery.
 
 ![search-result](https://user-images.githubusercontent.com/52087100/77557721-d96b6580-6e98-11ea-9178-77c8c4a6408e.png)
 
@@ -39,8 +39,6 @@ Now, you are able to use all the blocks exported by the `search-result` app. Che
 | `gallery`  | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Displays the gallery with all the products found in the search.                                                                                                                                                                                               | `not-found` | Block containing a text and a description for the page that was not found in the search. It must be declared as a child of `search-not-found-layout`.  | 
 | `search-content`          | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Decides, behind the scenes, which block will be displayed: either the `gallery` block (if products are found) or the `not-found` block (if the selected filters lead to an empty search results page). This means that both `gallery` and `not-found` must be declared as `search-content` children.                    |
 | `store.not-found#search`    | When configured, it displays a 404 error message whenever the server is not able to return what the browser request was or when it is configured to not handle that request.  |  
-| `search-fetch-more`          | Renders the `Fetch more` button if pagination is of type `show-more`. If it is set to infinite scroll, it shows the `Loader` when the bottom of the page is reached |
-| `search-fetch-previous`     | Renders the `Fetch previous` button if pagination is of type `show-more`. If it is set to infinite scroll, shows the `Loader` when the bottom of the page is reached. | 
 | `search-products-count-per-page` | Displays the total number of products being displayed in the search results page. | 
 | `order-by.v2`            | Allows users to choose the product ordination in the search results page.  | 
 | `filter-navigator.v3`        | Allows users to apply different filters to the search. On mobile, renders a button that, when clicked on, displays all available filters in a sidebar. | 
@@ -201,7 +199,6 @@ Structure the `search-result-layout` or the `search-result-layout.customQuery`, 
     "flex-layout.row#result"
   ],
   "props": {
-    "pagination": "show-more",
     "preventRouteChange": true
   }
 },
@@ -212,10 +209,8 @@ Structure the `search-result-layout` or the `search-result-layout.customQuery`, 
 | Prop name           | Type           | Description                                                                                                                          | Default value     |
 | ------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ----------------- |
 | `hiddenFacets`      | `Array` | Indicates which filters should be hidden. Possible props and their respective values can be found below.                                                                                                     | `undefined`.              
-| `pagination`        | `Enum`         | Pagination type of the search results page. Possible values are: `show-more` (in order to display a button to fetch results or `infinite-scroll` (results are loaded according to scrolling).                                                                            | `infinite-scroll` |
 | `showFacetQuantity` | `Boolean`      | Whether the result amount in each filter should appear besides its name on the `filter-navigator.v3` block as (`true`) or (`false`)      | `false`           |
 | `blockClass`        | `String`       | Unique block ID to be used in [CSS customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization#using-the-blockclass-property)                                                                                    | `undefined`              |
-| `showProductsCount` | `Boolean`      | Whether the amount of loaded results in a search results page and the total amount of results fetched by the search should be displayed under the `show more` button (`true`) or not (`false`). | `false`           |
 | `trackingId` | `string` | ID to be used in Google Analytics to track store metrics based on the Search Result block. |  `Search result` | 
 | `mobileLayout`      | `Array` | Controls how the search results page will be displayed to users when using the mobile layout. Possible props and their respective values can be found below.                                                                                                                | `undefined`              |
 
@@ -259,7 +254,7 @@ Below you can find the existing props for each of the blocks, in addition to the
 
 - **`gallery` block**
 
-The gallery block does have its own props, but it has its own inner block structure that must be configured using a `product-summary-shelf`. 
+The gallery block does not have its own props, but it has its own inner block structure that must be configured using a `product-summary-shelf`. 
 
 This means that any `gallery` block implementation created must have a `product-summary-shelf` that in turn must also have its own inner block structure that can be configured. 
 
@@ -315,11 +310,11 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `dropdownMobile`                      |
 | `filterAccordionBreadcrumbs`          |
 | `filterAccordionItemBox`              |
-| `filterApplyButtonWrapper`           |
+| `filterApplyButtonWrapper`            |
 | `filterAvailable`                     |
 | `filterButtonsBox`                    |
 | `filterClearButtonWrapper`            |
-| `filterContainer--`     |
+| `filterContainer--` + FACET_TYPE      |
 | `filterContainer--b`                  |
 | `filterContainer--c`                  |
 | `filterContainer--priceRange`         |
@@ -327,7 +322,7 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `filterContainer--title`              |
 | `filterContainer`                     |
 | `filterIcon`                          |
-| `filterItem--`          |
+| `filterItem--` + FACET_VALUE          |
 | `filterItem--selected`                |
 | `filterItem`                          |
 | `filterMessage`                       |
