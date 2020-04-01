@@ -8,7 +8,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-VTEX Search Result app is responsible for handling the result fetched by the [VTEX Search API_](https://documenter.getpostman.com/view/845/vtex-search-api/Hs43#8b71745e-00f9-6c98-b776-f4468ecb7a5e) and displaying it to users.
+VTEX Search Result app is responsible for handling the result fetched by the [VTEX Search API](https://documenter.getpostman.com/view/845/vtex-search-api/Hs43#8b71745e-00f9-6c98-b776-f4468ecb7a5e) and displaying it to users.
 
 Therefore, the app exports all store blocks expected in a search results page, such as the filters and the product gallery.
 
