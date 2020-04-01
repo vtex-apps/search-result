@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- New README.md documentation
+
 ## [3.53.0] - 2020-03-31
 ### Added
 - New block `sidebar-close-button`.
