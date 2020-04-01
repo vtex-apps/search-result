@@ -61,15 +61,14 @@ According to the desired store page, add the `search-result-layout` block or the
 
 *or* 
 
-```json
-"store.home": {
-  "blocks": [
-    "carousel#home",
-    "shelf#home",
-    "search-result-layout.customQuery#home"
-  ]
-}
-```
+```diff
+ "store.home": {
+   "blocks": [
+     "carousel#home",
+     "shelf#home",
++    "search-result-layout.customQuery#home"
+   ]
+ }
 
 Now, before declaring all desired blocks for your search result layout, your first need to define how you want the search results to be fetched. 
 
