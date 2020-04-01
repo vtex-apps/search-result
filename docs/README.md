@@ -21,7 +21,7 @@ Therefore, the app exports all store blocks expected in a search results page, s
 In your theme's `manifest.json`, add the Search Result app as a dependency: 
 
 ```json
-  dependencies: {
+  "dependencies": {
     "vtex.search-result": "3.x"
   }
 ```
