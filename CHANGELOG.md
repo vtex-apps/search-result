@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.53.0] - 2020-03-31
+### Added
+- New block `sidebar-close-button`.
+
+## [3.52.0] - 2020-03-26
+### Added
+- Support `installmentCriteria` prop in search query.
+
 ## [3.51.4] - 2020-03-20
 ### Fixed
 - Problem that caused category filters to not appear when you were in page with category tree but all the other facets were in `hiddenFacets`.

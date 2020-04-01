@@ -131,6 +131,17 @@ SearchResult.getSchema = props => {
                 'admin/editor.search-result.query.simulationBehavior.skip',
               ],
             },
+            installmentCriteria: {
+              title: 'admin/editor.search-result.query.installmentCriteria.title',
+              description: 'admin/editor.search-result.query.installmentCriteria.description',
+              type: 'string',
+              default: 'MAX_WITHOUT_INTEREST',
+              enum: ['MAX_WITHOUT_INTEREST', 'MAX_WITH_INTEREST'],
+              enumNames: [
+                'admin/editor.search-result.query.installmentCriteria.max-without-interest',
+                'admin/editor.search-result.query.installmentCriteria.max-with-interest'
+              ]
+            },
           },
         },
       }

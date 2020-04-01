@@ -165,7 +165,7 @@ or
   
   ```
 
-Below you may find all available props to configure your search data (be it by using a context or a custom query):
+Below you may find all available props to configure your search data (be it by using a context or a custom query through the `querySchema` block):
 
 | Prop name              | Type             | Description                                                                                                                                                                                           | Default value     |
 | ---------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
@@ -175,10 +175,11 @@ Below you may find all available props to configure your search data (be it by u
 | `facetsBehavior` |  `String`        | Defines the behavior filters will have. When set to `dynamic`, it restricts the results according to the filters that user have already selected. If set to `Static`, all filters will continue to be displayed to the user, even is no results exist.                                                                                                                                                  | `Static`           |
 | `skusFilter`           | `Enum` | Controls SKUs returned for each product in the query. The less SKUs needed to be returned, the more performant your shelf query will be. Available value options: `FIRST_AVAILABLE` (returns only the first available SKU), `ALL_AVAILABLE` (only returns available SKUs) and `ALL` (returns all product's SKUs).                                                            | `ALL_AVAILABLE` |
 | `simulationBehavior`     | `Enum` | Defines whether the search data will be up-to-date (`default`) or fetched using the Cache (`skip`). The last option should be used only if you prefer faster queries over no having the most up-to-date prices or inventory.                                                               | `default` |
+| `installmentCriteria`               | `Enum`                 | Controls what price should be shown when there are different installments options for it. Possible values are: `MAX_WITHOUT_INTEREST` (displayes the maximum installment option with no interest attached) or `MAX_WITH_INTEREST` (displayes the maximum installment option whether it has interest attached or not).                                 | `"MAX_WITHOUT_INTEREST"` |
 
 Now it is time to structure the `search-result-layout` block (or the `search-result-layout.customQuery`).  They both necessarily require a child: the `search-result-layout.desktop`. But you can also provide others, such as the `search-result-layout.mobile` and the `search-not-found-layout`. 
  
-Since these are layout blocks, you can use [Flex Layout](https://vtex.io/docs/apps/layout-blocks/vtex.flex-layout@0.14.0) blocks to build your search results page for desktop and mobile.
+Since these are layout blocks, you can use [Flex Layout](https://vtex.io/docs/apps/layout-blocks/vtex.flex-layout@0.14.0) blocks to build your search results page.
 
 ### Step 4 - Defining your search results page layouts and behavior
 
@@ -205,40 +206,41 @@ Structure the `search-result-layout` or the `search-result-layout.customQuery`, 
 },
 ```
 
-**Available props for `search-result-layout.desktop`, `search-result-layout.mobile` and `search-not-found-layout`**: 
+#### **Available props for `search-result-layout.desktop`, `search-result-layout.mobile` and `search-not-found-layout`**: 
 
 | Prop name           | Type           | Description                                                                                                                          | Default value     |
 | ------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ----------------- |
-| `hiddenFacets`      | `Array` | Indicates which filters should be hidden. Possible props and their respective values can be found below.                                                                                                     | `undefined`.              
+| `hiddenFacets`      | `Object` | Indicates which filters should be hidden. Possible props and their respective values can be found below.                                                                                                     | `undefined`.              
 | `showFacetQuantity` | `Boolean`      | Whether the result amount in each filter should appear besides its name on the `filter-navigator.v3` block as (`true`) or (`false`)      | `false`           |
 | `blockClass`        | `String`       | Unique block ID to be used in [CSS customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization#using-the-blockclass-property)                                                                                    | `undefined`              |
 | `trackingId` | `string` | ID to be used in Google Analytics to track store metrics based on the Search Result block. |  `Search result` | 
-| `mobileLayout`      | `Array` | Controls how the search results page will be displayed to users when using the mobile layout. Possible props and their respective values can be found below.                                                                                                                | `undefined`              |
+| `mobileLayout`      | `Object` | Controls how the search results page will be displayed to users when using the mobile layout. Possible props and their respective values can be found below.                                                                                                                | `undefined`              |
 
-- **`mobileLayout` array** 
+- **`mobileLayout` Object:** 
 
 | Prop name | Type   | Description                                                           | Default value |
 | --------- | ------ | --------------------------------------------------------------------- | ------------- |
 | `mode1`   | `Enum` | Defines the default layout for the mobile search results page. Possible values are: `normal`, `small` or `inline`.  | `normal`      |
 | `mode2`   | `Enum` | Defines which layout will be set for the mobile search results page when users click on the layout selector button. Possible values also are: `normal`, `small` or `inline`. | `small`       |
 
-- **`HiddenFacets` array:**
+
+- **`HiddenFacets` Object:**
 
 | Prop name              | Type                   | Description                 | Default value |
 | ---------------------- | ---------------------- | --------------------------- | ------------- |
 | `brands`            | `Boolean`      | Whether Brand filters should be hidden (`true`) or not (`false`).       | `false`         |
 | `categories`           | `Boolean`       | Whether Category filters should be hidden (`true`) or not (`false`). | `false`         |
 | `priceRange`           | `Boolean`              | Whether Price filters should be hidden (`true`) or not (`false`). | `false`         |
-| `specificationFilters` | `Array` | Indicates which Specification filters should be hidden. | `undefined`    |
+| `specificationFilters` | `Object` | Indicates which Specification filters should be hidden. | `undefined`    |
 
-- **`SpecificationFilters` array:**
+- **`SpecificationFilters` Object:**
 
 | Prop name       | Type                      | Description                                           | Default value |
 | --------------- | ------------------------- | ----------------------------------------------------- | ------------- |
 | `hideAll`       | `Boolean`      | Whether specification filters should be hidden (`true`) or not (`false`).    | `false`         |
-| `hiddenFilters` | `Array` | Array of specification filters that should be hidden. | `undefined`       |
+| `hiddenFilters` | `[String]` | String array of specification filters that should be hidden. | `undefined`       |
 
--  **`HiddenFilters` array:**
+-  **`HiddenFilters` String array:**
 
 | Prop name | Type    | Description                         | Default value |
 | --------- | ------- | ----------------------------------- | ------------- |
