@@ -263,7 +263,7 @@ The gallery block does have its own props, but it has its own inner block struct
 
 This means that any `gallery` block implementation created must have a `product-summary-shelf` that in turn must also have its own inner block structure that can be configured. 
 
-Don't to check out the [**Product Summary documentation**](https://vtex.io/docs/components/content-blocks/vtex.product-summary@2.52.3).  
+Check out the [**Product Summary documentation**](https://vtex.io/docs/components/content-blocks/vtex.product-summary@2.52.3).  
 
 - **`filter-navigator.v3` block**
 
