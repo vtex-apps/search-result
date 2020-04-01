@@ -47,7 +47,7 @@ Now, you are able to use all the blocks exported by the `search-result` app. Che
 | `total-products.v2`        | Displays the total amount of products found for that search. | 
 | `search-title.v2`         | Displays a title for the search that was done. |                                                                                              |
 
-:information_source: The Search Result app data may be displayed on two different pages of your store's theme: either **search page** (`store.search`) or on the **home page** (`store.home`). When added to the search page, the block that is used must be the `search-result-layout`, since it fetches data provided by the template's current search context. If you want to add the app to the home page, the block that must be used is the `search-result-layout.customQuery`. 
+:information_source: The Search Result app data may be displayed on **search pages** (`store.search`) or any other desired page. When added to the search page, the block that is used must be the `search-result-layout`, since it fetches data provided by the template's current search context. If you want to add the app to another page, the block that must be used is the `search-result-layout.customQuery`. 
 
 ### Step 2 - Adding the Search Result to page templates
 
