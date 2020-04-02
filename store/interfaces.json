@@ -20,7 +20,7 @@
   },
   "filter-navigator.v2": {
     "component": "FilterNavigator",
-    "allowed": ["shop-review-summary"]
+    "allowed": ["shop-review-summary", "sidebar-close-button"]
   },
   "gallery": {
     "required": ["product-summary"],
@@ -137,12 +137,16 @@
     "component": "OrderByFlexible"
   },
   "filter-navigator.v3": {
-    "component": "FilterNavigatorFlexible"
+    "component": "FilterNavigatorFlexible",
+    "allowed": ["sidebar-close-button"]
   },
   "total-products.v2": {
     "component": "TotalProductsFlexible"
   },
   "search-title.v2": {
     "component": "SearchTitleFlexible"
+  },
+  "sidebar-close-button": {
+    "component": "SidebarCloseButton"
   }
 }
