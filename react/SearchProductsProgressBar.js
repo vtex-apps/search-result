@@ -3,11 +3,7 @@ import { path } from 'ramda'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { useCssHandles } from 'vtex.css-handles'
 
-const CSS_HANDLES = [
-  'progressBarContainer',
-  'progressBar',
-  'progressBarFiller',
-]
+const CSS_HANDLES = ['progressBarContainer', 'progressBar', 'progressBarFiller']
 
 const SearchProductsProgressBar = () => {
   const { searchQuery } = useSearchPage()

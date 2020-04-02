@@ -1,11 +1,11 @@
-
-
 📢 Use this project, [contribute](https://github.com/vtex-apps/minicart) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
 
 # Search Result
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 VTEX Search Result app is responsible for handling the result fetched by the [VTEX Search API](https://documenter.getpostman.com/view/845/vtex-search-api/Hs43#8b71745e-00f9-6c98-b776-f4468ecb7a5e) and displaying it to users.
@@ -14,9 +14,9 @@ The app therefore exports all store blocks expected in a search results page, su
 
 ![search-result](https://user-images.githubusercontent.com/52087100/77557721-d96b6580-6e98-11ea-9178-77c8c4a6408e.png)
 
-## Configuration 
+## Configuration
 
-### Step 1 - Adding the Search Result app to your theme's dependencies 
+### Step 1 - Adding the Search Result app to your theme's dependencies
 
 In your theme's `manifest.json`, add the Search Result app as a dependency: 
 
