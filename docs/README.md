@@ -28,7 +28,7 @@ In your theme's `manifest.json`, add the Search Result app as a dependency:
 
 Now, you are able to use all the blocks exported by the `search-result` app. Check out the full list below:
 
-| Block name       | Description  |
+| Block name   | Description  |
 | -------- | ------------------------ |
 | `search-result-layout`     |  ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red)  Layout block that enables you to build the search result page using its 3 children blocks: `search-result-layout.desktop`, `search-result-layout.mobile` and `search-not-found-layout` . It must be used in the `store.search` template since it uses the context provided by the VTEX Search API.                                                                                 |
 | `search-result-layout.customQuery` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Used instead of `search-result-layout` in scenarios in which the search result will be declared in a template that doesn't fetch Search context, such as Home. It accepts a `querySchema` prop that executes search custom queries. It also supports three children blocks: `search-result-layout.desktop`, `search-result-layout.mobile` and `search-not-found-layout` .
@@ -49,6 +49,7 @@ Now, you are able to use all the blocks exported by the `search-result` app. Che
 | `search-fetch-previous`         | Displays the "Show Previous" button. This button isn't rendered when the user is on the first page. |                                                                                              |
 | `search-products-count-per-page`         | Displays the quantity of products currently on the page. |                                                                                              |
 | `sidebar-close-button`         | Displays an `X` button on the filter sidebar on mobile. |                                                                                              |
+| `search-title.v2`         | Displays a title for the search that was done. |         
 
 :information_source: The Search Result app data may be displayed on **search pages** (`store.search`) or any other desired page. When added to the search page, the block that is used must be the `search-result-layout`, since it fetches data provided by the template's current search context. If you want to add the app to another page, the block that must be used is the `search-result-layout.customQuery`. 
 
