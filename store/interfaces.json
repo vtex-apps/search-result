@@ -131,7 +131,7 @@
     "component": "ProductCountPerPage"
   },
   "search-products-progress-bar": {
-    "component": "SearchProductsProgressBar"
+    "component": "ProductsProgressBar"
   },
   "order-by.v2": {
     "component": "OrderByFlexible"

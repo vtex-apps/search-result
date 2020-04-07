@@ -5,7 +5,7 @@ import { useCssHandles } from 'vtex.css-handles'
 
 const CSS_HANDLES = ['progressBarContainer', 'progressBar', 'progressBarFiller']
 
-const SearchProductsProgressBar = () => {
+const ProductsProgressBar = () => {
   const { searchQuery } = useSearchPage()
 
   const handles = useCssHandles(CSS_HANDLES)
@@ -39,4 +39,4 @@ const SearchProductsProgressBar = () => {
   )
 }
 
-export default SearchProductsProgressBar
+export default ProductsProgressBar
