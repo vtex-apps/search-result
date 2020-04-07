@@ -1,11 +1,29 @@
 import React from 'react'
 import { path } from 'ramda'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, defineMessages } from 'react-intl'
 
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { useCssHandles } from 'vtex.css-handles'
 
 const CSS_HANDLES = ['showingProducts', 'showingProductsCount']
+
+const showingAllProductsMessages = defineMessages({
+  showingProducts: {
+    id: 'store/search-result.showing-all-products',
+  },
+  showingProductsCount: {
+    id: 'store/search-result.showing-all-products-count',
+  },
+})
+
+const showingProductsMessages = defineMessages({
+  showingProducts: {
+    id: 'store/search-result.showing-products',
+  },
+  showingProductsCount: {
+    id: 'store/search-result.showing-products-count',
+  },
+})
 
 const ProductCountPerPage = () => {
   const { searchQuery } = useSearchPage()
@@ -22,17 +40,10 @@ const ProductCountPerPage = () => {
     return null
   }
 
-  const showingProductsMessages =
+  const messages =
     products.length === recordsFiltered
-      ? {
-          showingProductsId: 'store/search-result.showing-all-products',
-          showingProductsCountId:
-            'store/search-result.showing-all-products-count',
-        }
-      : {
-          showingProductsId: 'store/search-result.showing-products',
-          showingProductsCountId: 'store/search-result.showing-products-count',
-        }
+      ? showingAllProductsMessages
+      : showingProductsMessages
 
   return (
     <div
@@ -41,13 +52,13 @@ const ProductCountPerPage = () => {
       `}
     >
       <FormattedMessage
-        id={showingProductsMessages.showingProductsId}
+        id={messages.showingProducts.id}
         tagName="span"
         values={{
           value: (
             <span className={`${handles.showingProductsCount} b`}>
               <FormattedMessage
-                id={showingProductsMessages.showingProductsCountId}
+                id={messages.showingProductsCount.id}
                 values={{
                   productsLoaded: products.length,
                   total: recordsFiltered,
