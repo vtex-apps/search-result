@@ -41,6 +41,7 @@ Now, you are able to use all the blocks exported by the `search-result` app. Che
 | `search-content`          | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Decides, behind the scenes, which block will be displayed: either the `gallery` block (if products are found) or the `not-found` block (if the selected filters lead to an empty search results page). This means that both `gallery` and `not-found` must be declared as `search-content` children.                    |
 | `store.not-found#search`    | When configured, it displays a 404 error message whenever the server is not able to return what the browser request was or when it is configured to not handle that request.  |  
 | `search-products-count-per-page` | Displays the total number of products being displayed in the search results page. | 
+| `search-products-progress-bar` | Displays a progress bar of products being displayed in the search results page. |
 | `order-by.v2`            | Allows users to choose the product ordination in the search results page.  | 
 | `filter-navigator.v3`        | Allows users to apply different filters to the search. On mobile, renders a button that, when clicked on, displays all available filters in a sidebar. | 
 | `total-products.v2`        | Displays the total amount of products found for that search. | 
