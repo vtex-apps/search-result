@@ -300,6 +300,8 @@ The "Show More" button that is used to load the results of the next search page.
 The "Show Previous" button that is used to load the results of the previous search page. This block is not rendered if there is no previous page. Does not need any prop.
 - **`search-products-count-per-page` block**
 Shows the product count per search page. Does not need any prop.
+- **`search-products-progress-bar` block**
+Shows a progress bar of search results. Does not need any prop.
 - **`sidebar-close-button` block**
 Close button rendered on the top right of the mobile filter sidebar.
 
