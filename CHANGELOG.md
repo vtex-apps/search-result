@@ -14,7 +14,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added missing blocks on README and fixed some nitpicks.
 
 ## [3.53.1] - 2020-04-01
-
 ### Fixed
 - New README.md documentation
 
