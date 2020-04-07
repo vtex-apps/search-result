@@ -29,7 +29,14 @@ it('navigating to another category facet', () => {
     query: 'clothing',
   }))
 
-  const { result } = renderHook(() => useFacetNavigation([]))
+  const { result } = renderHook(() =>
+    useFacetNavigation([
+      {
+        map,
+        value: 'clothing',
+      },
+    ])
+  )
   act(() => {
     result.current({ map: 'c', value: 'shorts' })
   })
@@ -45,13 +52,18 @@ it('joins categories', () => {
     query: 'clothing/Brand',
   }))
 
-  const { result } = renderHook(() => useFacetNavigation([]))
+  const selectedFacets = [
+    { map: 'c', value: 'clothing' },
+    { map: 'b', value: 'Brand' },
+  ]
+
+  const { result } = renderHook(() => useFacetNavigation(selectedFacets))
   act(() => {
     result.current({ map: 'c', value: 'shorts' })
   })
 
   const navigateCall = mockNavigate.mock.calls[0][0]
-  expect(navigateCall.to).toBe('/clothing/shorts/Brand')
+  expect(navigateCall.to).toBe('/clothing/shorts/brand')
   expect(navigateCall.query).toBe('map=b')
 })
 
@@ -61,6 +73,11 @@ it('pass array of facets as args work', () => {
     map,
     query: 'clothing/Brand',
   }))
+
+  const selectedFacets = [
+    { map: 'c', value: 'clothing' },
+    { map: 'b', value: 'Brand' },
+  ]
 
   const facets = [
     {
@@ -75,13 +92,13 @@ it('pass array of facets as args work', () => {
     },
     { map: 'c', value: 'shorts', title: '', newQuerySegment: 'shorts' },
   ]
-  const { result } = renderHook(() => useFacetNavigation(facets))
+  const { result } = renderHook(() => useFacetNavigation(selectedFacets))
   act(() => {
     result.current(facets)
   })
 
   const navigateCall = mockNavigate.mock.calls[0][0]
-  expect(navigateCall.to).toBe('/clothing/shorts/Brand/otherbrand/gender_Mens')
+  expect(navigateCall.to).toBe('/clothing/shorts/brand/otherbrand/gender_Mens')
   expect(navigateCall.query).toBe('map=b%2Cb')
 })
 
