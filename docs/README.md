@@ -97,33 +97,37 @@ For example:
         "simulationBehavior": "skip"
       }
     }
-  },
+  }
+}
 ```
 
 or 
 
 ```json
 {
-"store.home": {
-  "blocks": [
-    "carousel#home",
-     "shelf#home",
-    "search-result-layout.customQuery#home"
-  ]
-},
-"search-result-layout.customQuery#home": {
-  "props": {
-    "querySchema": {
-      "skusFilter": "FIRST_AVAILABLE",
-      "simulationBehavior": "skip"
-    }
+  "store.home": {
+    "blocks": [
+      "carousel#home",
+      "shelf#home",
+      "search-result-layout.customQuery#home"
+    ]
   },
+  "search-result-layout.customQuery#home": {
+    "props": {
+      "querySchema": {
+        "skusFilter": "FIRST_AVAILABLE",
+        "simulationBehavior": "skip"
+      }
+    }
+  }
+}
 ```
 
 :warning: **You must define the query for the following search pages: brand, department, category and subcategory**. This will allow you to define custom behaviors for each of your store's possible search pages. For example:
 
 ```json
-"store.search": {
+{
+  "store.search": {
     "blocks": ["search-result-layout"],
     "props": {
         "context": {
@@ -168,8 +172,8 @@ or
         }
      }
   }
-  
-  ```
+}
+```
 
 Below you may find all available props to configure your search data (be it by using a context or a custom query through the `querySchema` block):
 
@@ -192,24 +196,25 @@ Since these are layout blocks, you can use [Flex Layout](https://vtex.io/docs/ap
 Structure the `search-result-layout` or the `search-result-layout.customQuery`, according to your store's scenario, by declaring their children and then configuring them using [Flex Layout](https://vtex.io/docs/apps/layout-blocks/vtex.flex-layout@0.14.0) blocks and their props. For example:
 
 ```json
-"search-result-layout":  {
-  "blocks": [
-    "search-result-layout.desktop",
-    "search-result-layout.mobile",
-    "search-not-found-layout"
- ]
-},
-
-"search-result-layout.desktop": {
-  "children": [
-    "flex-layout.row#searchbread",
-    "flex-layout.row#searchtitle",
-    "flex-layout.row#result"
-  ],
-  "props": {
-    "preventRouteChange": true
+{
+  "search-result-layout": {
+    "blocks": [
+      "search-result-layout.desktop",
+      "search-result-layout.mobile",
+      "search-not-found-layout"
+    ]
+  },
+  "search-result-layout.desktop": {
+    "children": [
+      "flex-layout.row#searchbread",
+      "flex-layout.row#searchtitle",
+      "flex-layout.row#result"
+    ],
+    "props": {
+      "preventRouteChange": true
+    }
   }
-},
+}
 ```
 
 #### **Available props for `search-result-layout.desktop`, `search-result-layout.mobile` and `search-not-found-layout`**: 
