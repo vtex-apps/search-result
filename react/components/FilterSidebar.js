@@ -15,6 +15,7 @@ import Sidebar from './SideBar'
 import { buildNewQueryMap } from '../hooks/useFacetNavigation'
 
 import styles from '../searchResult.css'
+import { getFullText } from '../utils/compatibilityLayer'
 
 const CSS_HANDLES = [
   'filterPopupButton',
@@ -99,9 +100,11 @@ const FilterSidebar = ({
 
   const context = useMemo(() => {
     const { query, map } = filterContext
+    const fullText = getFullText(query, map)
+
     return {
       ...filterContext,
-      ...buildNewQueryMap(query, map, filterOperations, selectedFilters),
+      ...buildNewQueryMap(fullText, filterOperations, selectedFilters),
     }
   }, [filterOperations, filterContext, selectedFilters])
 

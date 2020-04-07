@@ -17,7 +17,6 @@ import {
   paramShape,
   hiddenFacetsSchema,
 } from './constants/propTypes'
-import useSelectedFilters from './hooks/useSelectedFilters'
 import useFacetNavigation from './hooks/useFacetNavigation'
 
 import styles from './searchResult.css'
@@ -34,7 +33,7 @@ const LAYOUT_TYPES = {
 const getSelectedCategories = tree => {
   for (const node of tree) {
     if (!node.selected) {
-      return []
+      continue
     }
     if (node.children) {
       return [node, ...getSelectedCategories(node.children)]
@@ -72,20 +71,20 @@ const FilterNavigator = ({
     (isMobile && layout === LAYOUT_TYPES.responsive) ||
     layout === LAYOUT_TYPES.mobile
 
-  const selectedFilters = useSelectedFilters(
-    useMemo(() => {
-      const options = [
-        ...specificationFilters.map(filter => {
-          return filter.facets.map(facet => {
-            return newNamedFacet({ ...facet, title: filter.name })
-          })
-        }),
-        ...brands,
-        ...priceRanges,
-      ]
-      return flatten(options)
-    }, [brands, priceRanges, specificationFilters])
-  ).filter(facet => facet.selected)
+  const selectedFilters = useMemo(() => {
+    const options = [
+      ...specificationFilters.map(filter => {
+        return filter.facets.map(facet => {
+          return newNamedFacet({ ...facet, title: filter.name })
+        })
+      }),
+      ...brands,
+      ...priceRanges,
+    ]
+    return flatten(options)
+  }, [brands, priceRanges, specificationFilters]).filter(
+    facet => facet.selected
+  )
 
   const selectedCategories = getSelectedCategories(tree)
   const navigateToFacet = useFacetNavigation(
@@ -96,82 +95,80 @@ const FilterNavigator = ({
 
   const filterClasses = classNames({
     'flex items-center justify-center flex-auto h-100': mobileLayout,
+    dn: loading,
   })
-
-  if (loading && !mobileLayout) {
-    return (
-      <div className="mv5">
-        <ContentLoader
-          style={{
-            width: '230px',
-            height: '320px',
-          }}
-          width="230"
-          height="320"
-          y="0"
-          x="0"
-        >
-          <rect width="100%" height="1em" />
-          <rect width="100%" height="8em" y="1.5em" />
-          <rect width="100%" height="1em" y="10.5em" />
-          <rect width="100%" height="8em" y="12em" />
-        </ContentLoader>
-      </div>
-    )
-  }
-
-  if (mobileLayout) {
-    return (
-      <div className={styles.filters}>
-        <div className={filterClasses}>
-          <FilterSidebar
-            selectedFilters={selectedFilters}
-            filters={filters}
-            tree={tree}
-            priceRange={priceRange}
-            preventRouteChange={preventRouteChange}
-            navigateToFacet={navigateToFacet}
-          />
-        </div>
-      </div>
-    )
-  }
 
   return (
     <Fragment>
-      <div className={filterClasses}>
-        <div
-          className={`${applyModifiers(
-            handles.filter__container,
-            'title'
-          )} bb b--muted-4`}
-          // eslint-disable-next-line prettier/prettier
-        >
-          <h5 className={`${handles.filterMessage} t-heading-5 mv5`}>
-            <FormattedMessage id="store/search-result.filter-button.title" />
-          </h5>
+      {loading && !mobileLayout ? (
+        <div className="mv5">
+          <ContentLoader
+            style={{
+              width: '230px',
+              height: '320px',
+            }}
+            width="230"
+            height="320"
+            y="0"
+            x="0"
+          >
+            <rect width="100%" height="1em" />
+            <rect width="100%" height="8em" y="1.5em" />
+            <rect width="100%" height="1em" y="10.5em" />
+            <rect width="100%" height="8em" y="12em" />
+          </ContentLoader>
         </div>
-        <SelectedFilters
-          filters={selectedFilters}
-          preventRouteChange={preventRouteChange}
-          navigateToFacet={navigateToFacet}
-        />
-        <DepartmentFilters
-          title={CATEGORIES_TITLE}
-          tree={tree}
-          isVisible={!hiddenFacets.categories}
-          onCategorySelect={navigateToFacet}
-          preventRouteChange={preventRouteChange}
-        />
-        <AvailableFilters
-          filters={filters}
-          priceRange={priceRange}
-          preventRouteChange={preventRouteChange}
-          initiallyCollapsed={initiallyCollapsed}
-          navigateToFacet={navigateToFacet}
-        />
-      </div>
-      <ExtensionPoint id="shop-review-summary" />
+      ) : null}
+
+      {mobileLayout ? (
+        <div className={styles.filters}>
+          <div className={filterClasses}>
+            <FilterSidebar
+              selectedFilters={selectedFilters.concat(selectedCategories)}
+              filters={filters}
+              tree={tree}
+              priceRange={priceRange}
+              preventRouteChange={preventRouteChange}
+              navigateToFacet={navigateToFacet}
+            />
+          </div>
+        </div>
+      ) : (
+        <Fragment>
+          <div className={filterClasses}>
+            <div
+              className={`${applyModifiers(
+                handles.filter__container,
+                'title'
+              )} bb b--muted-4`}
+            >
+              <h5 className={`${handles.filterMessage} t-heading-5 mv5`}>
+                <FormattedMessage id="store/search-result.filter-button.title" />
+              </h5>
+            </div>
+            <SelectedFilters
+              filters={selectedFilters}
+              preventRouteChange={preventRouteChange}
+              navigateToFacet={navigateToFacet}
+            />
+            <DepartmentFilters
+              title={CATEGORIES_TITLE}
+              tree={tree}
+              isVisible={!hiddenFacets.categories}
+              onCategorySelect={navigateToFacet}
+              preventRouteChange={preventRouteChange}
+            />
+            <AvailableFilters
+              filters={filters}
+              priceRange={priceRange}
+              preventRouteChange={preventRouteChange}
+              initiallyCollapsed={initiallyCollapsed}
+              navigateToFacet={navigateToFacet}
+            />
+          </div>
+          <ExtensionPoint id="shop-review-summary" />
+        </Fragment>
+      )}
     </Fragment>
   )
 }

@@ -147,9 +147,10 @@ class SearchResult extends Component {
       showLoadingAsOverlay,
     } = this.state
 
-    const queryArgs = this.props.searchQuery.facets
-      ? this.props.searchQuery.facets.queryArgs
-      : { query: '', map: '' }
+    const queryArgs =
+      this.props.searchQuery.facets && this.props.searchQuery.facets.queryArgs
+        ? this.props.searchQuery.facets.queryArgs
+        : { query: '', map: '' }
 
     const { map } = queryArgs
 
