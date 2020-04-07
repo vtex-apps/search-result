@@ -18,16 +18,12 @@ const ProductCountPerPage = () => {
     searchQuery
   )
 
-  const productsLoadedPercentage = Math.round(
-    (100 * products.length) / recordsFiltered
-  )
-
   if (products.length === 0) {
     return null
   }
 
-  const showingProducts =
-    productsLoadedPercentage === 100
+  const showingProductsMessages =
+    products.length === recordsFiltered
       ? {
           showingProductsId: 'store/search-result.showing-all-products',
           showingProductsCountId:
@@ -45,13 +41,13 @@ const ProductCountPerPage = () => {
       `}
     >
       <FormattedMessage
-        id={showingProducts.showingProductsId}
+        id={showingProductsMessages.showingProductsId}
         tagName="span"
         values={{
           value: (
             <span className={`${handles.showingProductsCount} b`}>
               <FormattedMessage
-                id={showingProducts.showingProductsCountId}
+                id={showingProductsMessages.showingProductsCountId}
                 values={{
                   productsLoaded: products.length,
                   total: recordsFiltered,
