@@ -9,7 +9,10 @@ import {
   MAP_QUERY_KEY,
   MAP_VALUES_SEP,
   PATH_SEPARATOR,
+  FULLTEXT_QUERY_KEY,
 } from '../constants'
+import useSearchState from './useSearchState'
+import { getFullText } from '../utils/compatibilityLayer'
 
 const scrollOptions = {
   baseElementId: 'search-result-anchor',
@@ -145,9 +148,14 @@ const buildQueryAndMap = (
   return newQueryMap
 }
 
-export const buildNewQueryMap = (query, map, facets, selectedFacets) => {
-  const querySegments = (query && query.split(PATH_SEPARATOR)) || []
-  const mapSegments = (map && map.split(MAP_VALUES_SEP)) || []
+export const buildNewQueryMap = (fullText, facets, selectedFacets) => {
+  let querySegments = selectedFacets.map(facet => facet.value)
+  let mapSegments = selectedFacets.map(facet => facet.map)
+
+  if (fullText) {
+    querySegments.push(fullText)
+    mapSegments.push(FULLTEXT_QUERY_KEY)
+  }
 
   return buildQueryAndMap(querySegments, mapSegments, facets, selectedFacets)
 }
@@ -155,23 +163,30 @@ export const buildNewQueryMap = (query, map, facets, selectedFacets) => {
 const useFacetNavigation = selectedFacets => {
   const { navigate, setQuery } = useRuntime()
   const { map, query } = useFilterNavigator()
+  const { fuzzy, operator, searchState } = useSearchState()
+
+  const fullText = getFullText(query, map)
 
   const navigateToFacet = useCallback(
     (maybeFacets, preventRouteChange = false) => {
       const facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
       const { query: currentQuery, map: currentMap } = buildNewQueryMap(
-        query,
-        map,
+        fullText,
         facets,
         selectedFacets
       )
 
       if (preventRouteChange) {
-        setQuery({
+        const queries = {
           map: `${currentMap}`,
           query: `/${currentQuery}`,
           page: undefined,
-        })
+          fuzzy: fuzzy || undefined,
+          operator: operator || undefined,
+          searchState: searchState || undefined,
+        }
+
+        setQuery(queries)
         return
       }
 
@@ -183,6 +198,16 @@ const useFacetNavigation = selectedFacets => {
       const urlParams = getCleanUrlParams(
         removeMapForNewURLFormat(currentMap, [...selectedFacets, ...facets])
       )
+
+      if (fuzzy) {
+        urlParams.set('fuzzy', fuzzy)
+      }
+      if (operator) {
+        urlParams.set('operator', operator)
+      }
+      if (searchState) {
+        urlParams.set('searchState', searchState)
+      }
 
       navigate({
         to: `${PATH_SEPARATOR}${newQuery}`,

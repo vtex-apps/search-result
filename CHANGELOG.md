@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- A compatibility layer to handle the new search protocol.
+- `fuzzy`, `operator` and `searchState` props.
+
+### Changed
+- `FilterNavigator` children are not remounted each time a new facet is selected.
+- When the user selects a new `priceRange`, the `facets` query will be reloaded.
+- `FilterNavigator` now uses the `selected` property.
 
 ## [3.54.0] - 2020-04-07
 ### Added

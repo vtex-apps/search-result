@@ -6,7 +6,6 @@ import FilterOptionTemplate from './FilterOptionTemplate'
 import FacetItem from './FacetItem'
 import { facetOptionShape } from '../constants/propTypes'
 import { getFilterTitle } from '../constants/SearchHelpers'
-import useSelectedFilters from '../hooks/useSelectedFilters'
 
 /**
  * Search Filter Component.
@@ -19,8 +18,6 @@ const SearchFilter = ({
   initiallyCollapsed = false,
   navigateToFacet,
 }) => {
-  const filtersWithSelected = useSelectedFilters(facets)
-
   const sampleFacet = facets && facets.length > 0 ? facets[0] : null
   const facetTitle = getFilterTitle(title, intl)
 
@@ -28,7 +25,7 @@ const SearchFilter = ({
     <FilterOptionTemplate
       id={sampleFacet ? sampleFacet.map : null}
       title={facetTitle}
-      filters={filtersWithSelected}
+      filters={facets}
       initiallyCollapsed={initiallyCollapsed}
     >
       {facet => (

@@ -5,6 +5,7 @@ import {
   useSearchPageStateDispatch,
   useSearchPageState,
 } from 'vtex.search-page-context/SearchPageContext'
+import useSearchState from './useSearchState'
 
 export const FETCH_TYPE = {
   NEXT: 'next',
@@ -50,7 +51,10 @@ const handleFetchMore = async (
   setLoading,
   fetchMore,
   products,
-  updateQueryError
+  updateQueryError,
+  fuzzy,
+  operator,
+  searchState
 ) => {
   if (fetchMoreLocked.current || products.length === 0) {
     return
@@ -66,6 +70,9 @@ const handleFetchMore = async (
     variables: {
       from,
       to,
+      fuzzy,
+      operator,
+      searchState,
     },
     updateQuery: (prevResult, { fetchMoreResult }) => {
       setLoading(false)
@@ -143,6 +150,7 @@ export const useFetchMore = props => {
     queryData: { query, map, orderBy, priceRange },
   } = props
   const { setQuery } = useRuntime()
+  const { fuzzy, operator, searchState } = useSearchState()
   const initialState = {
     page,
     nextPage: page + 1,
@@ -173,7 +181,17 @@ export const useFetchMore = props => {
     const to = min(recordsFiltered, from + maxItemsPerPage) - 1
     setInfiniteScrollError(false)
     pageDispatch({ type: 'NEXT_PAGE', args: { to } })
-    setQuery({ page: pageState.nextPage }, { replace: true })
+
+    setQuery(
+      {
+        page: pageState.nextPage,
+        fuzzy: fuzzy || undefined,
+        operator: operator || undefined,
+        searchState: searchState || undefined,
+      },
+      { replace: true }
+    )
+
     const promiseResult = await handleFetchMore(
       from,
       to,
@@ -182,7 +200,10 @@ export const useFetchMore = props => {
       setLoading,
       fetchMore,
       products,
-      updateQueryError
+      updateQueryError,
+      fuzzy,
+      operator,
+      searchState
     )
     //if error, rollback
     if (promiseResult && updateQueryError.current) {
@@ -199,7 +220,17 @@ export const useFetchMore = props => {
     const from = max(0, to - maxItemsPerPage + 1)
     setInfiniteScrollError(false)
     pageDispatch({ type: 'PREVIOUS_PAGE', args: { from } })
-    setQuery({ page: pageState.previousPage }, { replace: true, merge: true })
+
+    setQuery(
+      {
+        page: pageState.previousPage,
+        fuzzy: fuzzy || undefined,
+        operator: operator || undefined,
+        searchState: searchState || undefined,
+      },
+      { replace: true, merge: true }
+    )
+
     const promiseResult = await handleFetchMore(
       from,
       to,
@@ -208,7 +239,10 @@ export const useFetchMore = props => {
       setLoading,
       fetchMore,
       products,
-      updateQueryError
+      updateQueryError,
+      fuzzy,
+      operator,
+      searchState
     )
     //if error, rollback
     if (promiseResult && updateQueryError.current) {
