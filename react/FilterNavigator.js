@@ -89,7 +89,7 @@ const FilterNavigator = ({
   const selectedCategories = getSelectedCategories(tree)
   const navigateToFacet = useFacetNavigation(
     useMemo(() => {
-      return selectedFilters.concat(selectedCategories)
+      return selectedCategories.concat(selectedFilters)
     }, [selectedFilters, selectedCategories])
   )
 
@@ -124,7 +124,7 @@ const FilterNavigator = ({
         <div className={styles.filters}>
           <div className={filterClasses}>
             <FilterSidebar
-              selectedFilters={selectedFilters.concat(selectedCategories)}
+              selectedFilters={selectedCategories.concat(selectedFilters)}
               filters={filters}
               tree={tree}
               priceRange={priceRange}

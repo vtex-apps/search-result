@@ -179,7 +179,7 @@ const SearchQuery = ({
   operator: operatorQuery,
   fuzzy: fuzzyQuery,
   searchState: searchStateQuery,
-  __unstableProductOrigin,
+  __unstableProductOriginVtex,
 }) => {
   /* This is the page of the first query since the component was rendered. 
   We want this behaviour so we can show the correct items even if the pageQuery
@@ -224,7 +224,7 @@ const SearchQuery = ({
       operator,
       fuzzy,
       searchState,
-      productOrigin: __unstableProductOrigin,
+      productOriginVtex: __unstableProductOriginVtex,
       hideUnavailableItems: !!hideUnavailableItems,
       facetsBehavior: facetsBehavior || DEFAULT_QUERY_VALUES.facetsBehavior,
       withFacets: false,
@@ -250,7 +250,7 @@ const SearchQuery = ({
     operator,
     fuzzy,
     searchState,
-    __unstableProductOrigin,
+    __unstableProductOriginVtex,
   ])
 
   const {
