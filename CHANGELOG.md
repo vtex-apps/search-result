@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.55.1] - 2020-04-09
+
 ### Fixed
 - The order in which the facets are sent to the `normalizeQueryMap` in the `vtex.store` app.
 - Change from `productOrigin` to `productOriginVtex`
