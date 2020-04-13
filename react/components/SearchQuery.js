@@ -27,44 +27,58 @@ const includeFacets = (map, query) =>
 const useCombinedRefetch = (productRefetch, facetsRefetch) => {
   return useCallback(
     async refetchVariables => {
-      const { query, map, priceRange, facetQuery, facetMap } = refetchVariables
+      let productVariables, facetsVariables
 
-      /* Some custom components may call the refetch function following the old protocol.
-      This code guarantees that the refetchVariables  will follow the new search-protocol */
-      const [selectedFacets, fullText] = buildSelectedFacetsAndFullText(
-        query,
-        map,
-        priceRange
-      )
-      const [
-        facetSelectedFacets,
-        facetFullText,
-      ] = buildSelectedFacetsAndFullText(facetQuery, facetMap, priceRange)
-      refetchVariables = { ...refetchVariables, selectedFacets, fullText }
+      if (refetchVariables) {
+        const {
+          query,
+          map,
+          priceRange,
+          facetQuery,
+          facetMap,
+        } = refetchVariables
+
+        productVariables = {
+          ...refetchVariables,
+          withFacets: false,
+        }
+
+        facetsVariables = {
+          query: refetchVariables.facetQuery,
+          map: refetchVariables.facetMap,
+          hideUnavailableItems: refetchVariables.hideUnavailableItems,
+          behavior: refetchVariables.facetsBehavior,
+        }
+
+        /* Some custom components may call the refetch function following the old protocol.
+          This code guarantees that the refetchVariables  will follow the new search-protocol */
+        if (query && map) {
+          const [selectedFacets, fullText] = buildSelectedFacetsAndFullText(
+            query,
+            map,
+            priceRange
+          )
+
+          productVariables = { ...productVariables, selectedFacets, fullText }
+        }
+
+        if (facetQuery && facetMap) {
+          const [
+            facetSelectedFacets,
+            facetFullText,
+          ] = buildSelectedFacetsAndFullText(facetQuery, facetMap, priceRange)
+
+          facetsVariables = {
+            ...facetsVariables,
+            selectedFacets: facetSelectedFacets,
+            fullText: facetFullText,
+          }
+        }
+      }
 
       const [searchRefetchResult, facetsRefetchResult] = await Promise.all([
-        productRefetch &&
-          productRefetch(
-            refetchVariables
-              ? {
-                  ...refetchVariables,
-                  withFacets: false,
-                }
-              : undefined
-          ),
-        facetsRefetch &&
-          facetsRefetch(
-            refetchVariables
-              ? {
-                  query: refetchVariables.facetQuery,
-                  map: refetchVariables.facetMap,
-                  hideUnavailableItems: refetchVariables.hideUnavailableItems,
-                  behavior: refetchVariables.facetsBehavior,
-                  selectedFacets: facetSelectedFacets,
-                  fullText: facetFullText,
-                }
-              : undefined
-          ),
+        productRefetch && productRefetch(productVariables),
+        facetsRefetch && facetsRefetch(facetsVariables),
       ])
       return {
         ...searchRefetchResult,
