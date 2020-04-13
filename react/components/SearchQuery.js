@@ -27,6 +27,21 @@ const includeFacets = (map, query) =>
 const useCombinedRefetch = (productRefetch, facetsRefetch) => {
   return useCallback(
     async refetchVariables => {
+      const { query, map, priceRange, facetQuery, facetMap } = refetchVariables
+
+      /* Some custom components may call the refetch function following the old protocol.
+      This code guarantees that the refetchVariables  will follow the new search-protocol */
+      const [selectedFacets, fullText] = buildSelectedFacetsAndFullText(
+        query,
+        map,
+        priceRange
+      )
+      const [
+        facetSelectedFacets,
+        facetFullText,
+      ] = buildSelectedFacetsAndFullText(facetQuery, facetMap, priceRange)
+      refetchVariables = { ...refetchVariables, selectedFacets, fullText }
+
       const [searchRefetchResult, facetsRefetchResult] = await Promise.all([
         productRefetch &&
           productRefetch(
@@ -45,6 +60,8 @@ const useCombinedRefetch = (productRefetch, facetsRefetch) => {
                   map: refetchVariables.facetMap,
                   hideUnavailableItems: refetchVariables.hideUnavailableItems,
                   behavior: refetchVariables.facetsBehavior,
+                  selectedFacets: facetSelectedFacets,
+                  fullText: facetFullText,
                 }
               : undefined
           ),
@@ -142,7 +159,14 @@ const useQueries = (variables, facetsArgs) => {
   const refetch = useCombinedRefetch(searchRefetch, facetsRefetch)
 
   const detatachedFilters =
-    facets && facets.facets ? detachFiltersByType(facets.facets) : {}
+    facets && facets.facets
+      ? detachFiltersByType(facets.facets)
+      : {
+          brands: [],
+          specificationFilters: [],
+          categoriesTrees: [],
+          priceRanges: [],
+        }
 
   const selectedFacetsOutput = path(['queryArgs', 'selectedFacets'], facets)
   const queryArgs =
