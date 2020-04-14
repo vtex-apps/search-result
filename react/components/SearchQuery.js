@@ -159,6 +159,7 @@ const useQueries = (variables, facetsArgs) => {
   } = useQuery(facetsQuery, {
     variables: {
       query: facetsArgs.facetQuery,
+      map: facetsArgs.facetMap,
       fullText: variables.fullText,
       selectedFacets: variables.selectedFacets,
       hideUnavailableItems: variables.hideUnavailableItems,

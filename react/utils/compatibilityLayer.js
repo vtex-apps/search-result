@@ -19,7 +19,7 @@ export const buildSelectedFacetsAndFullText = (query, map, priceRange) => {
   let fullText
 
   const selectedFacets =
-    queryValues.length === mapValues.length
+    queryValues.length >= mapValues.length
       ? mapValues.map((map, i) => {
           if (map === 'ft') {
             fullText = decodeURI(queryValues[i])
