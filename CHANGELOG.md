@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.55.2] - 2020-04-15
+
 ### Fixed
 - Guarantee that the `refetchVariables` will follow the `search-protocol`.
 - Send an empty filter when the `facets` query is not ready.
