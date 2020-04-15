@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Use empty array instead of undefined in specificationFilters.
+
 ## [3.55.2] - 2020-04-15
 
 ### Fixed
