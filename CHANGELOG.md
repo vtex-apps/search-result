@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Guarantee that the `refetchVariables` will follow the `search-protocol`.
+- Send an empty filter when the `facets` query is not ready.
+- Funcion `buildSelectedFacetsAndFullText` now cases where map is lesser than query.
+
 ## [3.55.1] - 2020-04-09
 
 ### Fixed

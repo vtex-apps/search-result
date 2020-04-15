@@ -27,27 +27,58 @@ const includeFacets = (map, query) =>
 const useCombinedRefetch = (productRefetch, facetsRefetch) => {
   return useCallback(
     async refetchVariables => {
+      let productVariables, facetsVariables
+
+      if (refetchVariables) {
+        const {
+          query,
+          map,
+          priceRange,
+          facetQuery,
+          facetMap,
+        } = refetchVariables
+
+        productVariables = {
+          ...refetchVariables,
+          withFacets: false,
+        }
+
+        facetsVariables = {
+          query: refetchVariables.facetQuery,
+          map: refetchVariables.facetMap,
+          hideUnavailableItems: refetchVariables.hideUnavailableItems,
+          behavior: refetchVariables.facetsBehavior,
+        }
+
+        /* Some custom components may call the refetch function following the old protocol.
+          This code guarantees that the refetchVariables  will follow the new search-protocol */
+        if (query && map) {
+          const [selectedFacets, fullText] = buildSelectedFacetsAndFullText(
+            query,
+            map,
+            priceRange
+          )
+
+          productVariables = { ...productVariables, selectedFacets, fullText }
+        }
+
+        if (facetQuery && facetMap) {
+          const [
+            facetSelectedFacets,
+            facetFullText,
+          ] = buildSelectedFacetsAndFullText(facetQuery, facetMap, priceRange)
+
+          facetsVariables = {
+            ...facetsVariables,
+            selectedFacets: facetSelectedFacets,
+            fullText: facetFullText,
+          }
+        }
+      }
+
       const [searchRefetchResult, facetsRefetchResult] = await Promise.all([
-        productRefetch &&
-          productRefetch(
-            refetchVariables
-              ? {
-                  ...refetchVariables,
-                  withFacets: false,
-                }
-              : undefined
-          ),
-        facetsRefetch &&
-          facetsRefetch(
-            refetchVariables
-              ? {
-                  query: refetchVariables.facetQuery,
-                  map: refetchVariables.facetMap,
-                  hideUnavailableItems: refetchVariables.hideUnavailableItems,
-                  behavior: refetchVariables.facetsBehavior,
-                }
-              : undefined
-          ),
+        productRefetch && productRefetch(productVariables),
+        facetsRefetch && facetsRefetch(facetsVariables),
       ])
       return {
         ...searchRefetchResult,
@@ -128,6 +159,7 @@ const useQueries = (variables, facetsArgs) => {
   } = useQuery(facetsQuery, {
     variables: {
       query: facetsArgs.facetQuery,
+      map: facetsArgs.facetMap,
       fullText: variables.fullText,
       selectedFacets: variables.selectedFacets,
       hideUnavailableItems: variables.hideUnavailableItems,
@@ -142,7 +174,14 @@ const useQueries = (variables, facetsArgs) => {
   const refetch = useCombinedRefetch(searchRefetch, facetsRefetch)
 
   const detatachedFilters =
-    facets && facets.facets ? detachFiltersByType(facets.facets) : {}
+    facets && facets.facets
+      ? detachFiltersByType(facets.facets)
+      : {
+          brands: [],
+          specificationFilters: [],
+          categoriesTrees: [],
+          priceRanges: [],
+        }
 
   const selectedFacetsOutput = path(['queryArgs', 'selectedFacets'], facets)
   const queryArgs =
