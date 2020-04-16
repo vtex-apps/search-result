@@ -24,7 +24,7 @@ const DepartmentFilters = ({
   maxItemsCategory,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
-  if (!isVisible) {
+  if (!isVisible || tree.length === 0) {
     return null
   }
 

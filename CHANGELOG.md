@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Cover cases where the category tree is empty in the `FilterNavigator`.
+
 ## [3.57.0] - 2020-05-04
 ### Added
 - New CSS handles: `filtersWrapper` and `filtersWrapperMobile`.
