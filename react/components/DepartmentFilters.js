@@ -20,6 +20,8 @@ const DepartmentFilters = ({
   onCategorySelect,
   hideBorder = false,
   preventRouteChange,
+  maxItemsDepartment,
+  maxItemsCategory,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   if (!isVisible) {
@@ -55,7 +57,7 @@ const DepartmentFilters = ({
       >
         {showAllDepartments ? (
           <Collapsible
-            maxItems={8}
+            maxItems={maxItemsDepartment}
             threshold={2}
             items={tree}
             openLabel="store/filter.more-departments"
@@ -66,6 +68,7 @@ const DepartmentFilters = ({
                 shallow
                 onCategorySelect={onCategorySelect}
                 preventRouteChange={preventRouteChange}
+                maxItemsCategory={maxItemsCategory}
               />
             )}
           />
@@ -74,6 +77,7 @@ const DepartmentFilters = ({
             category={tree.find(category => category.selected)}
             onCategorySelect={onCategorySelect}
             preventRouteChange={preventRouteChange}
+            maxItemsCategory={maxItemsCategory}
           />
         )}
       </div>

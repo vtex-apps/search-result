@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- New prop `maxItemsDepartment` to `filter-navigator.v3`.
+- New prop `maxItemsCategory` to `filter-navigator.v3`.
 
 ## [3.55.3] - 2020-04-15
 
