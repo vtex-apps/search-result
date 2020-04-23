@@ -11,6 +11,8 @@ import styles from './searchResult.css'
 const withSearchPageContextProps = Component => ({
   layout,
   initiallyCollapsed,
+  maxItemsDepartment,
+  maxItemsCategory,
 }) => {
   const {
     searchQuery,
@@ -58,6 +60,8 @@ const withSearchPageContextProps = Component => ({
           hiddenFacets={hiddenFacets}
           layout={layout}
           initiallyCollapsed={initiallyCollapsed}
+          maxItemsDepartment={maxItemsDepartment}
+          maxItemsCategory={maxItemsCategory}
         />
       </FilterNavigatorContext.Provider>
     </div>

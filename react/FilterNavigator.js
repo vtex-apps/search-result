@@ -64,6 +64,8 @@ const FilterNavigator = ({
   hiddenFacets = {},
   initiallyCollapsed = false,
   layout = LAYOUT_TYPES.responsive,
+  maxItemsDepartment = 8,
+  maxItemsCategory = 8,
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -157,6 +159,8 @@ const FilterNavigator = ({
               isVisible={!hiddenFacets.categories}
               onCategorySelect={navigateToFacet}
               preventRouteChange={preventRouteChange}
+              maxItemsDepartment={maxItemsDepartment}
+              maxItemsCategory={maxItemsCategory}
             />
             <AvailableFilters
               filters={filters}

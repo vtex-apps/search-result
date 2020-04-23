@@ -42,6 +42,7 @@ const CategoryFilter = ({
   shallow = false,
   onCategorySelect,
   preventRouteChange,
+  maxItemsCategory,
 }) => {
   const { map } = useFilterNavigator()
   const handles = useCssHandles(CSS_HANDLES)
@@ -144,7 +145,7 @@ const CategoryFilter = ({
             >
               <Collapsible
                 items={lastSelectedCategory.children}
-                maxItems={8}
+                maxItems={maxItemsCategory}
                 threshold={2}
                 linkClassName="ml3"
                 openLabel="store/filter.more-categories"
