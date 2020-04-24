@@ -263,7 +263,7 @@ const SearchQuery = ({
       operator,
       fuzzy,
       searchState,
-      productOriginVtex: __unstableProductOriginVtex,
+      productOriginVtex: !!__unstableProductOriginVtex,
       hideUnavailableItems: !!hideUnavailableItems,
       facetsBehavior: facetsBehavior || DEFAULT_QUERY_VALUES.facetsBehavior,
       withFacets: false,
