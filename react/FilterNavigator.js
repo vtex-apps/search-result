@@ -23,7 +23,7 @@ import styles from './searchResult.css'
 import { CATEGORIES_TITLE } from './utils/getFilters'
 import { newFacetPathName } from './utils/slug'
 
-const CSS_HANDLES = ['filter__container', 'filterMessage']
+const CSS_HANDLES = ['filter__container', 'filterMessage', 'filtersWrapper']
 
 const LAYOUT_TYPES = {
   responsive: 'responsive',
@@ -137,7 +137,7 @@ const FilterNavigator = ({
         </div>
       ) : (
         <Fragment>
-          <div className={filterClasses}>
+          <div className={handles.filtersWrapper}>
             <div
               className={`${applyModifiers(
                 handles.filter__container,
