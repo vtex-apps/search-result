@@ -23,7 +23,7 @@ import styles from './searchResult.css'
 import { CATEGORIES_TITLE } from './utils/getFilters'
 import { newFacetPathName } from './utils/slug'
 
-const CSS_HANDLES = ['filter__container', 'filterMessage', 'filtersWrapper']
+const CSS_HANDLES = ['filter__container', 'filterMessage', 'filtersWrapper'] as const
 
 const LAYOUT_TYPES = {
   responsive: 'responsive',
