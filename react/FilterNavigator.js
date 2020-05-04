@@ -137,7 +137,7 @@ const FilterNavigator = ({
         </div>
       ) : (
         <Fragment>
-          <div className={handles.filtersWrapper}>
+          <div className={`${filterClasses} ${handles.filtersWrapper}`}>
             <div
               className={`${applyModifiers(
                 handles.filter__container,
