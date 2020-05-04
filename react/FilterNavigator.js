@@ -23,7 +23,12 @@ import styles from './searchResult.css'
 import { CATEGORIES_TITLE } from './utils/getFilters'
 import { newFacetPathName } from './utils/slug'
 
-const CSS_HANDLES = ['filter__container', 'filterMessage', 'filtersWrapper']
+const CSS_HANDLES = [
+  'filter__container',
+  'filterMessage',
+  'filtersWrapper',
+  'filtersWrapperMobile',
+]
 
 const LAYOUT_TYPES = {
   responsive: 'responsive',
@@ -124,7 +129,7 @@ const FilterNavigator = ({
 
       {mobileLayout ? (
         <div className={styles.filters}>
-          <div className={filterClasses}>
+          <div className={`${filterClasses} ${handles.filtersWrapperMobile}`}>
             <FilterSidebar
               selectedFilters={selectedCategories.concat(selectedFilters)}
               filters={filters}
