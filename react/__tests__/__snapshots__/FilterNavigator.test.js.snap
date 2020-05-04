@@ -3,7 +3,7 @@
 exports[`<FilterNavigator /> should display related categories 1`] = `
 <DocumentFragment>
   <div
-    class=""
+    class=" filtersWrapper"
   >
     <div
       class="filter__container filter__container--title bb b--muted-4"
@@ -175,7 +175,7 @@ exports[`<FilterNavigator /> should display related categories 1`] = `
 exports[`<FilterNavigator /> should match snapshot with all 1`] = `
 <DocumentFragment>
   <div
-    class=""
+    class=" filtersWrapper"
   >
     <div
       class="filter__container filter__container--title bb b--muted-4"
