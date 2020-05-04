@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- new css handles: `filtersWrapper`
+- New CSS handle: `filtersWrapper`.
 
 ## [3.56.2] - 2020-04-30
 ### Fixed
