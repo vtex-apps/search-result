@@ -84,21 +84,23 @@ const AccordionFilterContainer = ({
         )}
       </div>
 
-      <AccordionFilterItem
-        title={CATEGORIES_TITLE}
-        open={departmentsOpen}
-        show={!openItem || departmentsOpen}
-        onOpen={handleOpen(CATEGORIES_TITLE)}
-      >
-        <div className={itemClassName}>
-          <DepartmentFilters
-            tree={tree}
-            isVisible={tree.length > 0}
-            onCategorySelect={onCategorySelect}
-            hideBorder
-          />
-        </div>
-      </AccordionFilterItem>
+      {tree.length > 0 && (
+        <AccordionFilterItem
+          title={CATEGORIES_TITLE}
+          open={departmentsOpen}
+          show={!openItem || departmentsOpen}
+          onOpen={handleOpen(CATEGORIES_TITLE)}
+        >
+          <div className={itemClassName}>
+            <DepartmentFilters
+              tree={tree}
+              isVisible={tree.length > 0}
+              onCategorySelect={onCategorySelect}
+              hideBorder
+            />
+          </div>
+        </AccordionFilterItem>
+      )}
 
       {nonEmptyFilters.map(filter => {
         const { type, title } = filter
