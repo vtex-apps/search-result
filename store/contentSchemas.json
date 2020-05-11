@@ -1,0 +1,26 @@
+{
+  "definitions": {
+    "OrderBy": {
+      "title": "admin/editor.search-result.ordination.sort-by",
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "app:vtex.native-types#/definitions/text",
+          "title": "admin/editor.search-result.ordination.sort-by",
+          "default": "store/ordenation.sort-by"
+        }
+      }
+    },
+    "TotalProducts": {
+      "title": "admin/editor.search-result.total-products",
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "app:vtex.native-types#/definitions/text",
+          "title": "admin/editor.search-result.total-products",
+          "default": "store/search.total-products-2"
+        }
+      }
+    }
+  }
+}

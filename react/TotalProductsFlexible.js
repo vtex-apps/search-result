@@ -6,7 +6,7 @@ import TotalProducts from './TotalProducts'
 
 import styles from './searchResult.css'
 
-const withSearchPageContextProps = Component => () => {
+const withSearchPageContextProps = Component => ({ message }) => {
   const { searchQuery } = useSearchPage()
   const recordsFiltered = path(
     ['data', 'productSearch', 'recordsFiltered'],
@@ -14,10 +14,17 @@ const withSearchPageContextProps = Component => () => {
   )
   return (
     <Component
+      message={message}
       recordsFiltered={recordsFiltered}
       wrapperClass={styles['totalProducts--layout']}
     />
   )
 }
 
-export default withSearchPageContextProps(TotalProducts)
+const TotalProductsFlexible = withSearchPageContextProps(TotalProducts)
+
+TotalProductsFlexible.schema = {
+  title: 'admin/editor.search-result.total-products',
+}
+
+export default TotalProductsFlexible

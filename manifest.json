@@ -21,6 +21,7 @@
     "vtex.store-graphql": "2.x",
     "vtex.store-resources": "0.x",
     "vtex.store-components": "3.x",
+    "vtex.native-types": "0.x",
     "vtex.breadcrumb": "1.x",
     "vtex.product-summary": "2.x",
     "vtex.shelf": "1.x",

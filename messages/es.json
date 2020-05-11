@@ -40,7 +40,9 @@
   "admin.editor.search-result.advanced-settings.title": "Configuraciones avanzadas",
   "admin.editor.search-result.advanced-settings.trackingId.title": "Nombre del Resultado de búsqueda en el GTM",
   "admin.editor.search-result.advanced-settings.trackingId.description": "Nombre para mostrar en Google Analytics. Se no se pasa nada, usará solo \"Search result\"",
-  
+  "admin/editor.search-result.ordination.sort-by": "Ordenar por",
+  "admin/editor.search-result.total-products": "Productos totales",
+
   "store/search-result.show-more-button": "Mostrar más",
   "store/search-result.show-previous-button": "Mostrar anteriores",
   "store/search-result.showing-products": "Mostrando {value}",

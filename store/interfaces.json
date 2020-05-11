@@ -134,14 +134,20 @@
     "component": "ProductsProgressBar"
   },
   "order-by.v2": {
-    "component": "OrderByFlexible"
+    "component": "OrderByFlexible",
+    "content": {
+      "$ref": "app:vtex.search-result#/definitions/OrderBy"
+    }
   },
   "filter-navigator.v3": {
     "component": "FilterNavigatorFlexible",
     "allowed": ["sidebar-close-button"]
   },
   "total-products.v2": {
-    "component": "TotalProductsFlexible"
+    "component": "TotalProductsFlexible",
+    "content": {
+      "$ref": "app:vtex.search-result#/definitions/TotalProducts"
+    }
   },
   "search-title.v2": {
     "component": "SearchTitleFlexible"
