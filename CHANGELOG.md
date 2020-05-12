@@ -6,11 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Support for customization of `TotalProductsFlexible` and `OrderByFlexible` components via site-editor.
 
 ## [3.57.1] - 2020-05-06
-
 ### Fixed
-
 - Cover cases where the category tree is empty in the `FilterNavigator`.
 
 ## [3.57.0] - 2020-05-04
