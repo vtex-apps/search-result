@@ -13,9 +13,7 @@ exports[`<OrderBy /> should match snapshot in mobile 1`] = `
       >
         <span
           class="orderByText c-muted-2"
-        >
-          Sort By
-        </span>
+        />
          Sales
       </span>
       <span
@@ -87,9 +85,7 @@ exports[`<OrderBy /> should match snapshot in web mod 1`] = `
       >
         <span
           class="orderByText c-muted-2"
-        >
-          Sort By
-        </span>
+        />
          Sales
       </span>
       <span
