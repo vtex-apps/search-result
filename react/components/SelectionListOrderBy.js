@@ -21,7 +21,12 @@ const CSS_HANDLES = [
   'filterPopupArrowIcon',
 ]
 
-const SelectionListOrderBy = ({ intl, message, orderBy, options }) => {
+const SelectionListOrderBy = ({
+  intl,
+  message = 'store/ordenation.sort-by',
+  orderBy,
+  options,
+}) => {
   const [showDropdown, setShowDropdown] = useState(false)
   const handles = useCssHandles(CSS_HANDLES)
 

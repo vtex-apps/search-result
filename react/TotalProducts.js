@@ -9,7 +9,7 @@ import styles from './searchResult.css'
 const CSS_HANDLES = ['totalProductsMessage']
 
 const TotalProducts = ({
-  message,
+  message = 'store/search.total-products-2',
   recordsFiltered,
   wrapperClass = styles.totalProducts,
 }) => {
