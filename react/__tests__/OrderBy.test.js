@@ -10,12 +10,11 @@ const mockUseRuntime = useRuntime
 const mockSetQuery = jest.fn()
 beforeEach(() => {
   jest.clearAllMocks()
-  
+
   mockUseRuntime.mockImplementation(() => ({
     setQuery: mockSetQuery,
   }))
 })
-
 
 describe('<OrderBy />', () => {
   const renderComponent = customProps => mobile => {
@@ -23,6 +22,7 @@ describe('<OrderBy />', () => {
 
     const props = {
       orderBy: 'OrderByTopSaleDESC',
+      message: 'Sort By',
       ...customProps,
     }
 
