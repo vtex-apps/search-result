@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.58.2] - 2020-05-13
 ### Fixed
 - `TotalProducts` and `OrderBy` would not render expected text due to the default message id defined in `contentSchemas.json` being modified.
 
