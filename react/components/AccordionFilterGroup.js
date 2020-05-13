@@ -26,7 +26,7 @@ const AccordionFilterGroup = ({
   const quantitySelected = filters.filter(facet => facet.selected).length
   const intl = useIntl()
   const facetTitle = getFilterTitle(title, intl)
-  const slugifyFacetTitle = searchSlugify(facetTitle)
+  const slugifiedFacetTitle = searchSlugify(facetTitle)
 
   return (
     <AccordionFilterItem
@@ -37,7 +37,7 @@ const AccordionFilterGroup = ({
       quantitySelected={quantitySelected}
     >
       <div className={classNames(
-          applyModifiers(handles.accordionFilterOpen, slugifyFaceTitle),
+          applyModifiers(handles.accordionFilterOpen, slugifiedFacetTitle),
           className
         )}>
         <FacetCheckboxList

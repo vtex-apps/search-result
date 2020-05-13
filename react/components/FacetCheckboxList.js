@@ -15,7 +15,7 @@ const FacetCheckboxList = ({ facets, onFilterCheck, facetTitle }) => {
     return (
       <div
         className={classNames(
-          applyModifiers(styles.filterAccordionItemBox, slugifyName),
+          applyModifiers(styles.filterAccordionItemBox, slugifiedName),
           'pr4 pt3 items-center flex bb b--muted-5'
         )}
         key={name}
