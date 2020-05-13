@@ -26,7 +26,7 @@ const AccordionFilterGroup = ({
   const quantitySelected = filters.filter(facet => facet.selected).length
   const intl = useIntl()
   const facetTitle = getFilterTitle(title, intl)
-  const slugifyFaceTitle = searchSlugify(facetTitle)
+  const slugifyFacetTitle = searchSlugify(facetTitle)
 
   return (
     <AccordionFilterItem
