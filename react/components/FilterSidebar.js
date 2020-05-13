@@ -75,6 +75,10 @@ const FilterSidebar = ({
   }
 
   const handleClearFilters = () => {
+    /* This navigateToFacet is a hack to solve the problem of this
+     function not updating the checkbox status, giving the impression
+     that the 'clean' button was not working */
+    navigateToFacet([], preventRouteChange)
     setFilterOperations([])
     setOpen(false)
   }
