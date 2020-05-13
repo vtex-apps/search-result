@@ -2,13 +2,13 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import classNames from 'classnames'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
-import slugify from 'slugify'
 
 import AccordionFilterItem from './AccordionFilterItem'
 import FacetCheckboxList from './FacetCheckboxList'
 import useSelectedFilters from '../hooks/useSelectedFilters'
 
 import { getFilterTitle } from '../constants/SearchHelpers'
+import { searchSlugify } from '../utils/slug'
 
 const CSS_HANDLES = ['accordionFilterOpened']
 
@@ -26,7 +26,7 @@ const AccordionFilterGroup = ({
   const quantitySelected = filters.filter(facet => facet.selected).length
   const intl = useIntl()
   const facetTitle = getFilterTitle(title, intl)
-  const slugFaceTitle = slugify(facetTitle, { lower: true, remove: /[*+~.()'"!:@]/g })
+  const slugifyFaceTitle = searchSlugify(facetTitle)
 
   return (
     <AccordionFilterItem
@@ -37,7 +37,7 @@ const AccordionFilterGroup = ({
       quantitySelected={quantitySelected}
     >
       <div className={classNames(
-          applyModifiers(handles.accordionFilterOpened, slugFaceTitle),
+          applyModifiers(handles.accordionFilterOpened, slugifyFaceTitle),
           className
         )}>
         <FacetCheckboxList
