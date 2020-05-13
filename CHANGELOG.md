@@ -6,12 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- `TotalProducts` and `OrderBy` would not render expected text due to the default message id defined in `contentSchemas.json` being modified.
 
-## [3.58.1] - 2020-05-12
+## [3.58.1] - 2020-05-12 [YANKED]
 ### Fixed
 - Bug causing `TotalProducts` and `OrderBy` not to appear on non flexible components.
 
-## [3.58.0] - 2020-05-12
+## [3.58.0] - 2020-05-12 [YANKED]
 ### Added
 - Support for customization of `TotalProductsFlexible` and `OrderByFlexible` components via site-editor.
 
