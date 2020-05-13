@@ -1,12 +1,12 @@
 import React from 'react'
-import { ExtensionPoint } from 'vtex.render-runtime'
+// import { ExtensionPoint } from 'vtex.render-runtime'
 import { path } from 'ramda'
 import {
   useSearchPage,
   useSearchPageState,
 } from 'vtex.search-page-context/SearchPageContext'
 
-const SearchContent = () => {
+const SearchContent = ({ Gallery, NotFound }) => {
   const { searchQuery, showFacets } = useSearchPage()
   const { mobileLayout, showContentLoader } = useSearchPageState()
   const products = path(['data', 'productSearch', 'products'], searchQuery)
@@ -18,17 +18,24 @@ const SearchContent = () => {
   }
 
   if (!products || products.length === 0) {
-    return <ExtensionPoint id="not-found" />
+    // return <ExtensionPoint id="not-found" />
+    return <NotFound />
   }
 
   return (
-    <ExtensionPoint
-      id="gallery"
+    <Gallery
       products={products}
       className="bn"
       mobileLayoutMode={mobileLayout}
       showingFacets={showFacets}
     />
+    // <ExtensionPoint
+    //   id="gallery"
+    //   products={products}
+    //   className="bn"
+    //   mobileLayoutMode={mobileLayout}
+    //   showingFacets={showFacets}
+    // />
   )
 }
 

@@ -9,7 +9,12 @@ import { PropTypes } from 'prop-types'
 /**
  * Normalizes the item received in the props to adapt to the extension point prop.
  */
-const GalleryItem = ({ item, displayMode, summary }) => {
+const GalleryItem = ({
+  item,
+  displayMode,
+  summary,
+  ProductSummary: ProductSummarySlot,
+}) => {
   const { push } = usePixel()
 
   const product = useMemo(
@@ -23,13 +28,19 @@ const GalleryItem = ({ item, displayMode, summary }) => {
   )
 
   return (
-    <ExtensionPoint
-      id="product-summary"
+    <ProductSummarySlot
       {...summary}
       product={product}
       displayMode={displayMode}
       actionOnClick={handleClick}
     />
+    // <ExtensionPoint
+    //   id="product-summary"
+    //   {...summary}
+    //   product={product}
+    //   displayMode={displayMode}
+    //   actionOnClick={handleClick}
+    // />
   )
 }
 

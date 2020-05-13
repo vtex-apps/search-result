@@ -36,6 +36,7 @@ const Gallery = ({
   width,
   summary,
   showingFacets,
+  ProductSummary,
 }) => {
   const { isMobile } = useDevice()
   const { trackingId = 'Search result' } = useContext(SettingsContext) || {}
@@ -93,6 +94,7 @@ const Gallery = ({
             displayMode={layoutMode}
             rowIndex={index}
             itemsPerRow={itemsPerRow}
+            ProductSummary={ProductSummary}
           />
         ))}
       </div>

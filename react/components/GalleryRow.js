@@ -8,7 +8,13 @@ import GalleryItem from './GalleryItem'
 
 const CSS_HANDLES = ['galleryItem']
 
-const GalleryRow = ({ products, summary, displayMode, itemsPerRow }) => {
+const GalleryRow = ({
+  products,
+  summary,
+  displayMode,
+  itemsPerRow,
+  ProductSummary,
+}) => {
   const handles = useCssHandles(CSS_HANDLES)
 
   const style = {
@@ -26,6 +32,7 @@ const GalleryRow = ({ products, summary, displayMode, itemsPerRow }) => {
           item={product}
           summary={summary}
           displayMode={displayMode}
+          ProductSummary={ProductSummary}
         />
       </div>
     )

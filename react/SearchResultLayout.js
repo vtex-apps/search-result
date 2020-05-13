@@ -10,10 +10,7 @@ const noProducts = compose(
   pathOr([], ['data', 'productSearch', 'products'])
 )
 
-const isFtOnly = compose(
-  equals('ft'),
-  path(['variables', 'map'])
-)
+const isFtOnly = compose(equals('ft'), path(['variables', 'map']))
 
 const foundNothing = searchQuery => {
   const { loading } = searchQuery || {}
@@ -21,20 +18,23 @@ const foundNothing = searchQuery => {
 }
 
 const SearchResultLayout = props => {
-  const { searchQuery } = props
+  const { searchQuery, DesktopLayout, MobileLayout, NotFound } = props
   const hasMobileBlock = !!useChildBlock({ id: 'search-result-layout.mobile' })
   const hasCustomNotFound = !!useChildBlock({ id: 'search-not-found-layout' })
   const { isMobile } = useDevice()
 
   if (foundNothing(searchQuery) && hasCustomNotFound) {
-    return <ExtensionPoint id="search-not-found-layout" {...props} />
+    return <NotFound {...props} />
+    // return <ExtensionPoint id="search-not-found-layout" {...props} />
   }
 
   if (hasMobileBlock && isMobile) {
-    return <ExtensionPoint id="search-result-layout.mobile" {...props} />
+    return <MobileLayout {...props} />
+    // return <ExtensionPoint id="search-result-layout.mobile" {...props} />
   }
 
-  return <ExtensionPoint id="search-result-layout.desktop" {...props} />
+  return <DesktopLayout {...props} />
+  // return <ExtensionPoint id="search-result-layout.desktop" {...props} />
 }
 
 SearchResultLayout.getSchema = () => {
