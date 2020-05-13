@@ -10,7 +10,7 @@ import useSelectedFilters from '../hooks/useSelectedFilters'
 import { getFilterTitle } from '../constants/SearchHelpers'
 import { searchSlugify } from '../utils/slug'
 
-const CSS_HANDLES = ['accordionFilterOpened']
+const CSS_HANDLES = ['accordionFilterOpen']
 
 const AccordionFilterGroup = ({
   className,
