@@ -10,10 +10,7 @@ const noProducts = compose(
   pathOr([], ['data', 'productSearch', 'products'])
 )
 
-const isFtOnly = compose(
-  equals('ft'),
-  path(['variables', 'map'])
-)
+const isFtOnly = compose(equals('ft'), path(['variables', 'map']))
 
 const foundNothing = searchQuery => {
   const { loading } = searchQuery || {}

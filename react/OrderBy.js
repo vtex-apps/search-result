@@ -45,7 +45,7 @@ const OrderBy = ({ orderBy, message, intl, hiddenOptions = [] }) => {
       option => !hiddenOptions.includes(option.value)
     ).map(({ value, label }) => {
       return {
-        value: value,
+        value,
         label: intl.formatMessage({ id: label }),
       }
     })

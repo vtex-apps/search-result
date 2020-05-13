@@ -5,6 +5,7 @@ import {
   useSearchPageStateDispatch,
   useSearchPageState,
 } from 'vtex.search-page-context/SearchPageContext'
+
 import useSearchState from './useSearchState'
 
 export const FETCH_TYPE = {
@@ -40,6 +41,8 @@ function reducer(state, action) {
 
     case 'ROLLBACK':
       return rollbackState
+
+    // no default
   }
 }
 
@@ -121,7 +124,7 @@ const handleFetchMore = async (
     setLoading(false)
     fetchMoreLocked.current = false
     updateQueryError.current = true
-    return { error: error }
+    return { error }
   })
 }
 
@@ -166,7 +169,7 @@ export const useFetchMore = props => {
   errors when the search result uses infinite scroll. 
   This should be removed once infinite scrolling is removed */
   const [infiniteScrollError, setInfiniteScrollError] = useState(false)
-  const updateQueryError = useRef(false) //TODO: refactor this ref
+  const updateQueryError = useRef(false) // TODO: refactor this ref
 
   useEffect(() => {
     if (!isFirstRender.current) {
@@ -205,7 +208,8 @@ export const useFetchMore = props => {
       operator,
       searchState
     )
-    //if error, rollback
+    // if error, rollback
+    // eslint-disable-next-line vtex/prefer-early-return
     if (promiseResult && updateQueryError.current) {
       pageDispatch({ type: 'ROLLBACK', args: { rollbackState } })
       setQuery({ page: pageState.page }, { replace: true })
@@ -244,7 +248,8 @@ export const useFetchMore = props => {
       operator,
       searchState
     )
-    //if error, rollback
+    // if error, rollback
+    // eslint-disable-next-line vtex/prefer-early-return
     if (promiseResult && updateQueryError.current) {
       pageDispatch({ type: 'ROLLBACK', args: { rollbackState } })
       setQuery({ page: pageState.page }, { replace: true, merge: true })

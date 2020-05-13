@@ -32,7 +32,8 @@ export const newFacetPathName = (facet: any) => {
     return `${searchSlugify(
       facet.title
     )}${FILTER_TITLE_SEP}${facet.value.replace(/\s/g, SPACE_REPLACER)}`
-  } else if (facet.map === MAP_CATEGORY_CHAR || facet.map === MAP_BRAND_CHAR) {
+  }
+  if (facet.map === MAP_CATEGORY_CHAR || facet.map === MAP_BRAND_CHAR) {
     return facet.value.toLowerCase()
   }
   return facet.value

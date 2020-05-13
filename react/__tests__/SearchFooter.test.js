@@ -5,7 +5,7 @@ import React from 'react'
 import SearchFooter from '../components/SearchFooter'
 
 describe('<SearchFooter /> component', () => {
-  const getLinkProps = jest.fn().mockImplementation(pageNumber => {
+  const mockedGetLinkProps = jest.fn().mockImplementation(pageNumber => {
     return {
       page: `mockedPage${pageNumber}`,
       params: 'mockedParams',
@@ -17,10 +17,13 @@ describe('<SearchFooter /> component', () => {
       page: 1,
       maxItemsPerPage: 5,
       runtime: { navigate: () => {} },
-      getLinkProps,
+      getLinkProps: mockedGetLinkProps,
       ...customProps,
     }
-    return { ...render(<SearchFooter {...props} />), getLinkProps }
+    return {
+      ...render(<SearchFooter {...props} />),
+      getLinkProps: mockedGetLinkProps,
+    }
   }
 
   it('should be rendered', () => {
@@ -30,7 +33,7 @@ describe('<SearchFooter /> component', () => {
 
   it('should return link', () => {
     const { getAllByTestId, getLinkProps } = renderComponent()
-    const firstLink = getAllByTestId('page-button')[0]
+    const [firstLink] = getAllByTestId('page-button')
 
     fireEvent.click(firstLink)
 

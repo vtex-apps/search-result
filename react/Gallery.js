@@ -2,7 +2,6 @@ import React, { useMemo, useContext } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { pluck, splitEvery } from 'ramda'
-
 import { useDevice } from 'vtex.device-detector'
 import { ProductListContext } from 'vtex.product-list-context'
 import { useResponsiveValue } from 'vtex.responsive-values'

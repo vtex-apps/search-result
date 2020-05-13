@@ -120,7 +120,7 @@ const SelectionListOrderBy = ({
 SelectionListOrderBy.propTypes = {
   /** Current Ordernation  */
   orderBy: PropTypes.string,
-  /** Sort Options*/
+  /** Sort Options */
   options: PropTypes.arrayOf(
     PropTypes.shape({
       /** Label to Option */

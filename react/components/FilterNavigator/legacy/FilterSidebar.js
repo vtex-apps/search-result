@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { map, flatten, filter, prop, compose } from 'ramda'
 import React, { useRef, useState, useEffect, Fragment, useContext } from 'react'
 import { FormattedMessage } from 'react-intl'
-
 import { useRuntime } from 'vtex.render-runtime'
 import { Button } from 'vtex.styleguide'
 import { IconFilter } from 'vtex.store-icons'
@@ -12,7 +11,6 @@ import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
 import { facetOptionShape } from '../../../constants/propTypes'
 import useSelectedFilters from './hooks/useSelectedFilters'
-
 import searchResult from './searchResult.css'
 import QueryContext from '../../QueryContext'
 
@@ -23,12 +21,7 @@ const FilterSidebar = ({ filters, preventRouteChange = false }) => {
   const [open, setOpen] = useState(false)
   const selectedFiltersFromProps = filter(
     prop('selected'),
-    useSelectedFilters(
-      compose(
-        flatten,
-        map(prop('facets'))
-      )(filters)
-    )
+    useSelectedFilters(compose(flatten, map(prop('facets')))(filters))
   )
 
   const [selectedFilters, setSelectedFilters] = useState(
@@ -46,6 +39,7 @@ const FilterSidebar = ({ filters, preventRouteChange = false }) => {
   const isOptionSelected = opt =>
     !!selectedFilters.find(facet => facet.value === opt.value)
 
+  // eslint-disable-next-line no-shadow
   const handleFilterCheck = filter => {
     if (!isOptionSelected(filter)) {
       setSelectedFilters(selectedFilters.concat(filter))
@@ -70,16 +64,16 @@ const FilterSidebar = ({ filters, preventRouteChange = false }) => {
 
   const handleApply = () => {
     const query = selectedFilters.map(facet => facet.value).join('/')
-    const map = selectedFilters.map(facet => facet.map).join(',')
+    const maps = selectedFilters.map(facet => facet.map).join(',')
 
     if (preventRouteChange) {
       setQuery({
-        map: `${mapField},${map}`,
+        map: `${mapField},${maps}`,
         query: `/${queryField}/${query}`,
       })
     } else {
       const urlParams = new URLSearchParams(window.location.search)
-      urlParams.set('map', map)
+      urlParams.set('map', maps)
 
       navigate({
         to: `/${query}`,
@@ -94,9 +88,7 @@ const FilterSidebar = ({ filters, preventRouteChange = false }) => {
     <Fragment>
       <button
         className={classNames(
-          `${
-            searchResult.filterPopupButton
-          } ph3 pv5 mv0 mv0 pointer flex justify-center items-center`,
+          `${searchResult.filterPopupButton} ph3 pv5 mv0 mv0 pointer flex justify-center items-center`,
           {
             'bb b--muted-1': open,
             bn: !open,
@@ -105,9 +97,7 @@ const FilterSidebar = ({ filters, preventRouteChange = false }) => {
         onClick={handleOpen}
       >
         <span
-          className={`${
-            searchResult.filterPopupTitle
-          } c-on-base t-action--small ml-auto`}
+          className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}
         >
           <FormattedMessage id="store/search-result.filter-action.title" />
         </span>
@@ -126,9 +116,7 @@ const FilterSidebar = ({ filters, preventRouteChange = false }) => {
           isOptionSelected={isOptionSelected}
         />
         <div
-          className={`${
-            searchResult.filterButtonsBox
-          } bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base`}
+          className={`${searchResult.filterButtonsBox} bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base`}
         >
           <div className="bottom-0 fl w-50 pl4 pr2">
             <Button

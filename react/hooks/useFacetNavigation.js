@@ -1,6 +1,7 @@
 import { zip } from 'ramda'
 import { useCallback } from 'react'
 import { useRuntime } from 'vtex.render-runtime'
+
 import { useFilterNavigator } from '../components/FilterNavigatorContext'
 import { newFacetPathName } from '../utils/slug'
 import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
@@ -111,9 +112,8 @@ const buildQueryAndMap = (
           query: removeElementAtIndex(query, facetIndex),
           map: removeElementAtIndex(map, facetIndex),
         }
-      } else {
-        upsert(selectedFacets, facet)
       }
+      upsert(selectedFacets, facet)
 
       if (facet.map === MAP_CATEGORY_CHAR) {
         const lastCategoryIndex = map.lastIndexOf(MAP_CATEGORY_CHAR)
@@ -149,8 +149,8 @@ const buildQueryAndMap = (
 }
 
 export const buildNewQueryMap = (fullText, facets, selectedFacets) => {
-  let querySegments = selectedFacets.map(facet => facet.value)
-  let mapSegments = selectedFacets.map(facet => facet.map)
+  const querySegments = selectedFacets.map(facet => facet.value)
+  const mapSegments = selectedFacets.map(facet => facet.map)
 
   if (fullText) {
     querySegments.push(fullText)
@@ -217,7 +217,8 @@ const useFacetNavigation = selectedFacets => {
           LOWERCASE: false,
         },
       })
-    }
+    },
+    [fullText, fuzzy, navigate, operator, searchState, selectedFacets, setQuery]
   )
 
   return navigateToFacet

@@ -3,8 +3,8 @@ import React from 'react'
 import { injectIntl } from 'react-intl'
 import { IconClose } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
-import { useFilterNavigator } from './FilterNavigatorContext'
 
+import { useFilterNavigator } from './FilterNavigatorContext'
 import Collapsible from './Collapsible'
 import CategoryItem from './CategoryItem'
 
@@ -24,7 +24,7 @@ const getSelectedCategories = rootCategory => {
   const selectedCategories = [rootCategory]
 
   while (node) {
-    const category = node.find(category => category.selected)
+    const category = node.find(cat => cat.selected)
 
     if (!category) {
       break

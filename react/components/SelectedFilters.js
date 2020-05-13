@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { intlShape, injectIntl } from 'react-intl'
+import { useCssHandles } from 'vtex.css-handles'
 
 import FacetItem from './FacetItem'
 import FilterOptionTemplate from './FilterOptionTemplate'
 import { facetOptionShape } from '../constants/propTypes'
-import { useCssHandles } from 'vtex.css-handles'
 
 const CSS_HANDLES = ['selectedFilterItem']
 

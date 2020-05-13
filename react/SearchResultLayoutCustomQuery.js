@@ -4,7 +4,6 @@ import { useDevice } from 'vtex.device-detector'
 import { path, compose, equals, pathOr, isEmpty } from 'ramda'
 
 import LocalQuery from './components/LocalQuery'
-
 import OldSearchResult from './index'
 
 const noProducts = compose(
@@ -12,10 +11,7 @@ const noProducts = compose(
   pathOr([], ['data', 'productSearch', 'products'])
 )
 
-const isFtOnly = compose(
-  equals('ft'),
-  path(['variables', 'map'])
-)
+const isFtOnly = compose(equals('ft'), path(['variables', 'map']))
 
 const trimStartingSlash = value => value && value.replace(/^\//, '')
 

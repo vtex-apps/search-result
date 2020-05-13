@@ -1,13 +1,12 @@
 import React from 'react'
 import { path } from 'ramda'
 import classNames from 'classnames'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
+
 import FetchMoreButton from './components/loaders/FetchMoreButton'
 import LoadingSpinner from './components/loaders/LoadingSpinner'
 import { PAGINATION_TYPE } from './constants/paginationType'
 import { useFetchMore } from './hooks/useFetchMore'
-
-import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
-
 import styles from './searchResult.css'
 
 const FetchMore = () => {

@@ -1,10 +1,10 @@
 import React from 'react'
 import { path } from 'ramda'
 import classNames from 'classnames'
-import FetchPreviousButton from './components/loaders/FetchPreviousButton'
-import { useFetchMore } from './hooks/useFetchMore'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
+import FetchPreviousButton from './components/loaders/FetchPreviousButton'
+import { useFetchMore } from './hooks/useFetchMore'
 import styles from './searchResult.css'
 
 const FetchPrevious = () => {

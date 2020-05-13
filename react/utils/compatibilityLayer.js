@@ -1,4 +1,5 @@
 import { groupBy, pathOr, zipObj } from 'ramda'
+
 import { PATH_SEPARATOR, MAP_VALUES_SEP } from '../constants'
 
 export const getFullText = (query, map) => {
@@ -59,7 +60,7 @@ export const detachFiltersByType = facets => {
 
   const brands = pathOr([], ['BRAND', 0, 'facets'], groupedFilters)
 
-  const specificationFilters = groupedFilters['TEXT'] || []
+  const specificationFilters = groupedFilters.TEXT || []
 
   const categoriesTrees = pathOr(
     [],

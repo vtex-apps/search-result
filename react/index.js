@@ -132,15 +132,17 @@ SearchResult.getSchema = props => {
               ],
             },
             installmentCriteria: {
-              title: 'admin/editor.search-result.query.installmentCriteria.title',
-              description: 'admin/editor.search-result.query.installmentCriteria.description',
+              title:
+                'admin/editor.search-result.query.installmentCriteria.title',
+              description:
+                'admin/editor.search-result.query.installmentCriteria.description',
               type: 'string',
               default: 'MAX_WITHOUT_INTEREST',
               enum: ['MAX_WITHOUT_INTEREST', 'MAX_WITH_INTEREST'],
               enumNames: [
                 'admin/editor.search-result.query.installmentCriteria.max-without-interest',
-                'admin/editor.search-result.query.installmentCriteria.max-with-interest'
-              ]
+                'admin/editor.search-result.query.installmentCriteria.max-with-interest',
+              ],
             },
           },
         },
@@ -160,8 +162,10 @@ SearchResult.getSchema = props => {
                 enum: [true],
               },
               trackingId: {
-                title: 'admin.editor.search-result.advanced-settings.trackingId.title',
-                description: 'admin.editor.search-result.advanced-settings.trackingId.description',
+                title:
+                  'admin.editor.search-result.advanced-settings.trackingId.title',
+                description:
+                  'admin.editor.search-result.advanced-settings.trackingId.description',
                 type: 'string',
               },
             },

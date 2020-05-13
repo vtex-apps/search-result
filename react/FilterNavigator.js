@@ -18,7 +18,6 @@ import {
   hiddenFacetsSchema,
 } from './constants/propTypes'
 import useFacetNavigation from './hooks/useFacetNavigation'
-
 import styles from './searchResult.css'
 import { CATEGORIES_TITLE } from './utils/getFilters'
 import { newFacetPathName } from './utils/slug'
@@ -42,9 +41,8 @@ const getSelectedCategories = tree => {
     }
     if (node.children) {
       return [node, ...getSelectedCategories(node.children)]
-    } else {
-      return [node]
     }
+    return [node]
   }
   return []
 }

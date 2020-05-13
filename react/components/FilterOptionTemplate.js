@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React, { useState, useCallback } from 'react'
 import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
-
 import { IconCaret } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -43,6 +42,7 @@ const FilterOptionTemplate = ({
 
   const handleKeyDown = useCallback(
     e => {
+      // eslint-disable-next-line vtex/prefer-early-return
       if (e.key === ' ' && collapsable) {
         e.preventDefault()
         setOpen(!open)
@@ -53,7 +53,7 @@ const FilterOptionTemplate = ({
 
   const containerClassName = classNames(
     handles.filter__container,
-    { [`${styles['filter__container']}--${id}`]: id },
+    { [`${styles.filter__container}--${id}`]: id },
     'bb b--muted-4'
   )
 

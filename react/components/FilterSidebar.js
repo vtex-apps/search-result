@@ -13,7 +13,6 @@ import FilterNavigatorContext, {
 import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
 import { buildNewQueryMap } from '../hooks/useFacetNavigation'
-
 import styles from '../searchResult.css'
 import { getFullText } from '../utils/compatibilityLayer'
 
@@ -45,8 +44,7 @@ const FilterSidebar = ({
 
   const isFilterSelected = (filters, filter) => {
     return filters.find(
-      filterOperation =>
-        filter.value === filterOperation.value && filter.map === filter.map
+      filterOperation => filter.value === filterOperation.value
     )
   }
 
@@ -192,7 +190,7 @@ const updateTree = categories =>
     }
 
     categories.forEach(category => {
-      let selectedIndex = currentLevel.findIndex(
+      const selectedIndex = currentLevel.findIndex(
         cat => cat.value === category.value
       )
 

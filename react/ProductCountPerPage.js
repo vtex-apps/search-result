@@ -1,7 +1,6 @@
 import React from 'react'
 import { path } from 'ramda'
 import { FormattedMessage, defineMessages } from 'react-intl'
-
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { useCssHandles } from 'vtex.css-handles'
 

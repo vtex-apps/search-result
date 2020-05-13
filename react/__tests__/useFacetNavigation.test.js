@@ -1,11 +1,11 @@
-import useFacetNavigation from '../hooks/useFacetNavigation'
 import { renderHook, act } from '@testing-library/react-hooks'
+
+import useFacetNavigation from '../hooks/useFacetNavigation'
+import { useRuntime } from '../__mocks__/vtex.render-runtime'
+import { useFilterNavigator } from '../components/FilterNavigatorContext'
 
 jest.mock('../components/QueryContext')
 jest.mock('../components/FilterNavigatorContext')
-
-import { useRuntime } from '../__mocks__/vtex.render-runtime'
-import { useFilterNavigator } from '../components/FilterNavigatorContext'
 
 const mockUseRuntime = useRuntime
 
@@ -20,7 +20,7 @@ beforeEach(() => {
   }))
 })
 
-it('navigating to another category facet', () => {
+test('navigating to another category facet', () => {
   // The new idea here is that we event though we pass the map=c,c,c to navigate we dont have it in our response anymore.
   // This state is recordered and sent by search-graphql so we can know where we are in catalog search
   const map = 'c'
@@ -41,11 +41,11 @@ it('navigating to another category facet', () => {
     result.current({ map: 'c', value: 'shorts' })
   })
 
-  const navigateCall = mockNavigate.mock.calls[0][0]
+  const [[navigateCall]] = mockNavigate.mock.calls
   expect(navigateCall.to).toBe('/clothing/shorts')
 })
 
-it('joins categories', () => {
+test('joins categories', () => {
   const map = 'c,b'
   useFilterNavigator.mockImplementation(() => ({
     map,
@@ -62,12 +62,12 @@ it('joins categories', () => {
     result.current({ map: 'c', value: 'shorts' })
   })
 
-  const navigateCall = mockNavigate.mock.calls[0][0]
+  const [[navigateCall]] = mockNavigate.mock.calls
   expect(navigateCall.to).toBe('/clothing/shorts/brand')
   expect(navigateCall.query).toBe('map=b')
 })
 
-it('pass array of facets as args work', () => {
+test('pass array of facets as args work', () => {
   const map = 'c,b'
   useFilterNavigator.mockImplementation(() => ({
     map,
@@ -97,7 +97,7 @@ it('pass array of facets as args work', () => {
     result.current(facets)
   })
 
-  const navigateCall = mockNavigate.mock.calls[0][0]
+  const [[navigateCall]] = mockNavigate.mock.calls
   expect(navigateCall.to).toBe('/clothing/shorts/brand/otherbrand/gender_Mens')
   expect(navigateCall.query).toBe('map=b%2Cb')
 })

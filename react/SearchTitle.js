@@ -12,21 +12,13 @@ import {
 } from 'ramda'
 
 import QueryContext from './components/QueryContext'
-
 import styles from './searchResult.css'
-import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 const findFT = findIndex(equals('ft'))
 const findProductCluster = findIndex(equals('productClusterIds'))
 const findLastCategory = findLastIndex(equals('c'))
-const isBrandPage = compose(
-  equals('b'),
-  head
-)
-const getLastName = compose(
-  prop('name'),
-  last
-)
+const isBrandPage = compose(equals('b'), head)
+const getLastName = compose(prop('name'), last)
 const breadcrumbName = (index, breadcrumb) => path([index, 'name'], breadcrumb)
 
 const getQueryNameIndex = mapArray => {

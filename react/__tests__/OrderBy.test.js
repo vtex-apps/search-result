@@ -1,10 +1,11 @@
 /* eslint-env jest */
 import React from 'react'
 import { render, fireEvent } from '@vtex/test-tools/react'
+import { setMobileState } from 'vtex.render-runtime'
 
 import OrderBy from '../OrderBy'
-import { setMobileState } from 'vtex.render-runtime'
 import { useRuntime } from '../__mocks__/vtex.render-runtime'
+
 const mockUseRuntime = useRuntime
 
 const mockSetQuery = jest.fn()
@@ -28,6 +29,10 @@ describe('<OrderBy />', () => {
 
     return render(<OrderBy {...props} />)
   }
+
+  afterEach(() => {
+    setMobileState(false)
+  })
 
   it('should shown dropdown box on mobile mode', () => {
     const { container } = renderComponent()(true)
@@ -56,9 +61,5 @@ describe('<OrderBy />', () => {
     const { asFragment } = renderComponent()(true)
 
     expect(asFragment()).toMatchSnapshot()
-  })
-
-  afterEach(() => {
-    setMobileState(false)
   })
 })

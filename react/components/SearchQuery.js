@@ -1,16 +1,15 @@
 import { useMemo, useRef, useCallback } from 'react'
 import { useQuery } from 'react-apollo'
-
 import productSearchQuery from 'vtex.store-resources/QueryProductSearchV3'
 import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadataV2'
 import facetsQuery from 'vtex.store-resources/QueryFacetsV2'
+import { path } from 'ramda'
 
 import {
   buildSelectedFacetsAndFullText,
   detachFiltersByType,
   buildQueryArgsFromSelectedFacets,
 } from '../utils/compatibilityLayer'
-import { path } from 'ramda'
 
 const DEFAULT_PAGE = 1
 
@@ -27,7 +26,8 @@ const includeFacets = (map, query) =>
 const useCombinedRefetch = (productRefetch, facetsRefetch) => {
   return useCallback(
     async refetchVariables => {
-      let productVariables, facetsVariables
+      let productVariables
+      let facetsVariables
 
       if (refetchVariables) {
         const {
@@ -223,10 +223,10 @@ const SearchQuery = ({
   /* This is the page of the first query since the component was rendered. 
   We want this behaviour so we can show the correct items even if the pageQuery
   changes. It should change only on a new render or if the query or orderby 
-  change, hence the useCorrectPage that updates its value*/
+  change, hence the useCorrectPage that updates its value */
   const shouldReset = useShouldResetPage(query, map, orderBy)
   const page = useCorrectPage(
-    pageQuery ? parseInt(pageQuery) : DEFAULT_PAGE,
+    pageQuery ? parseInt(pageQuery, 10) : DEFAULT_PAGE,
     shouldReset
   )
   const { fuzzy, operator, searchState } = useCorrectSearchStateVariables(

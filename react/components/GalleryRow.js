@@ -1,6 +1,4 @@
-import React, { useRef, useEffect, memo } from 'react'
-import { useInView } from 'react-intersection-observer'
-import { usePixel } from 'vtex.pixel-manager/PixelContext'
+import React, { memo } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import classNames from 'classnames'
 

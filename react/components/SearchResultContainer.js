@@ -1,13 +1,13 @@
 import React from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import { Container } from 'vtex.store-components'
+import { useCssHandles } from 'vtex.css-handles'
 
 import { PopupProvider } from './Popup'
 import SearchResult from './SearchResult'
 import { searchResultContainerPropTypes } from '../constants/propTypes'
 import { useFetchMore } from '../hooks/useFetchMore'
 import { PAGINATION_TYPE } from '../constants/paginationType'
-import { Container } from 'vtex.store-components'
-import { useCssHandles } from 'vtex.css-handles'
 
 const CSS_HANDLES = ['searchResultContainer']
 /**
@@ -92,7 +92,7 @@ const SearchResultContainer = props => {
     </InfiniteScroll>
   )
 
-  const isInfiniteScroll = pagination != PAGINATION_TYPE.SHOW_MORE
+  const isInfiniteScroll = pagination !== PAGINATION_TYPE.SHOW_MORE
 
   return (
     <Container className={`${handles.searchResultContainer} pt3-m pt5-l`}>

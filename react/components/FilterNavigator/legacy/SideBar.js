@@ -37,12 +37,19 @@ class Sidebar extends Component {
     if (typeof document === 'undefined') {
       return null
     }
-    const scrimClasses = classNames('fixed dim bg-base--inverted top-0 z-9999 w-100 vh-100 o-40 left-0', {
-      dn: !isOpen,
-    })
+    const scrimClasses = classNames(
+      'fixed dim bg-base--inverted top-0 z-9999 w-100 vh-100 o-40 left-0',
+      {
+        dn: !isOpen,
+      }
+    )
     return ReactDOM.createPortal(
       <OutsideClickHandler onOutsideClick={onOutsideClick}>
-        <div style={{ willChange: 'opacity' }} className={scrimClasses} onClick={onOutsideClick} />
+        <div
+          style={{ willChange: 'opacity' }}
+          className={scrimClasses}
+          onClick={onOutsideClick}
+        />
         <Animation
           className={`${searchResult.sidebar} w-80 w-auto-ns h-100 fixed top-0 right-0 z-9999 bg-base shadow-2 flex flex-column`}
           isActive={isOpen}

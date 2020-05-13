@@ -5,7 +5,6 @@ import { pathOr } from 'ramda'
 
 import FilterNavigator from './FilterNavigator'
 import FilterNavigatorContext from './components/FilterNavigatorContext'
-
 import styles from './searchResult.css'
 
 const withSearchPageContextProps = Component => ({

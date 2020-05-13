@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React, { useState, useCallback } from 'react'
 import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
-
 import { IconCaret } from 'vtex.store-icons'
 
 import searchResult from './searchResult.css'
@@ -29,6 +28,7 @@ const FilterOptionTemplate = ({
 
   const handleKeyDown = useCallback(
     e => {
+      // eslint-disable-next-line vtex/prefer-early-return
       if (e.key === ' ') {
         e.preventDefault()
         setOpen(!open)

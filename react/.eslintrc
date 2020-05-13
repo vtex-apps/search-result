@@ -1,8 +1,39 @@
 {
-  "extends": "vtex-react",
+  "extends": "vtex-react/io",
   "env": {
     "browser": true,
     "es6": true,
     "jest": true
-  }
+  },
+  "rules": {
+    "react/jsx-filename-extension": "off",
+    "no-restricted-imports": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "max-params": "off",
+    "no-shadow": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.js", "*.jsx"],
+      "parser": "babel-eslint",
+      "parserOptions": {
+        "sourceType": "module"
+      }
+    },
+    {
+      "files": ["__mocks__/**/*"],
+      "rules": {
+        "react/prefer-stateless-function": "off",
+        "jsx-a11y/anchor-is-valid": "off",
+        "react/display-name": "off"
+      }
+    },
+    {
+      "files": ["__tests__/**/*"],
+      "rules": {
+        "jest/no-mocks-import": "off"
+      }
+    }
+  ]
 }

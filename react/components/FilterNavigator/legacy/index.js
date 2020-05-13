@@ -19,7 +19,6 @@ import {
   hiddenFacetsSchema,
 } from '../../../constants/propTypes'
 import useSelectedFilters from './hooks/useSelectedFilters'
-
 import getFilters from './utils/getFilters'
 
 const getCategories = (tree = []) => {
@@ -76,8 +75,8 @@ const FilterNavigator = ({
     return (
       <ContentLoader
         style={{
-          width: "230px",
-          height: "320px",
+          width: '230px',
+          height: '320px',
         }}
         width="230"
         height="320"

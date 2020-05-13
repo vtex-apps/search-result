@@ -1,7 +1,6 @@
 /* eslint-env jest */
 import React from 'react'
 import { render } from '@vtex/test-tools/react'
-
 import { products, summary } from 'GalleryMocks'
 
 import Gallery from '../Gallery'

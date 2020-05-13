@@ -4,7 +4,6 @@ import { useIntl } from 'react-intl'
 import AccordionFilterItem from './AccordionFilterItem'
 import FacetCheckboxList from './FacetCheckboxList'
 import useSelectedFilters from '../hooks/useSelectedFilters'
-
 import { getFilterTitle } from '../constants/SearchHelpers'
 
 const AccordionFilterGroup = ({

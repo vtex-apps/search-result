@@ -2,9 +2,9 @@ import React, { useMemo, useCallback, memo } from 'react'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import { usePixel } from 'vtex.pixel-manager/PixelContext'
 import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
+import { PropTypes } from 'prop-types'
 
 import { productShape } from '../constants/propTypes'
-import { PropTypes } from 'prop-types'
 
 /**
  * Normalizes the item received in the props to adapt to the extension point prop.

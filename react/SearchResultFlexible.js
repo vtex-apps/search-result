@@ -1,6 +1,4 @@
 import React, { useMemo, useEffect, useRef } from 'react'
-import ContextProviders from './components/ContextProviders'
-import SearchResultContainer from './components/SearchResultContainer'
 import {
   SearchPageContext,
   SearchPageStateContext,
@@ -8,14 +6,14 @@ import {
   useSearchPageStateReducer,
 } from 'vtex.search-page-context/SearchPageContext'
 import { useCssHandles } from 'vtex.css-handles'
-
 import { generateBlockClass } from '@vtex/css-handles'
 import { pathOr, isEmpty } from 'ramda'
 
+import SearchResultContainer from './components/SearchResultContainer'
+import ContextProviders from './components/ContextProviders'
 import getFilters from './utils/getFilters'
 import LoadingOverlay from './components/LoadingOverlay'
 import { PAGINATION_TYPE } from './constants/paginationType'
-
 import styles from './searchResult.css'
 
 const emptyFacets = {
@@ -32,6 +30,7 @@ const useShowContentLoader = (searchQuery, dispatch) => {
   const previousLoading = loadingRef.current
   const isLoading = searchQuery && searchQuery.loading
   useEffect(() => {
+    // eslint-disable-next-line vtex/prefer-early-return
     if (previousLoading && !isLoading) {
       loadingRef.current = false
       dispatch({ type: 'HIDE_CONTENT_LOADER' })
@@ -59,9 +58,9 @@ const SearchResultFlexible = ({
   facetsLoading,
   trackingId,
 }) => {
-  //This makes infinite scroll unavailable.
-  //Infinite scroll was deprecated and we have
-  //removed it since the flexible search release
+  // This makes infinite scroll unavailable.
+  // Infinite scroll was deprecated and we have
+  // removed it since the flexible search release
   if (pagination === PAGINATION_TYPE.INFINITE_SCROLL) {
     pagination = PAGINATION_TYPE.SHOW_MORE
     console.warn('Infinite scroll cannot be used in flexible search')
