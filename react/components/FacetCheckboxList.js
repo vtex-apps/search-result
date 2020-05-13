@@ -10,7 +10,7 @@ import { searchSlugify } from '../utils/slug'
 const FacetCheckboxList = ({ facets, onFilterCheck, facetTitle }) => {
   return facets.map(facet => {
     const { name } = facet
-    const slugifyName = searchSlugify(name)
+    const slugifiedName = searchSlugify(name)
 
     return (
       <div
