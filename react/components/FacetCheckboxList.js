@@ -1,17 +1,21 @@
 import classNames from 'classnames'
 import React from 'react'
 import { Checkbox } from 'vtex.styleguide'
+import { applyModifiers } from 'vtex.css-handles'
 
 import styles from '../searchResult.css'
+
+import { searchSlugify } from '../utils/slug'
 
 const FacetCheckboxList = ({ facets, onFilterCheck, facetTitle }) => {
   return facets.map(facet => {
     const { name } = facet
+    const slugifiedName = searchSlugify(name)
 
     return (
       <div
         className={classNames(
-          styles.filterAccordionItemBox,
+          applyModifiers(styles.filterAccordionItemBox, slugifiedName),
           'pr4 pt3 items-center flex bb b--muted-5'
         )}
         key={name}
