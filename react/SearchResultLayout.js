@@ -4,6 +4,7 @@ import { useDevice } from 'vtex.device-detector'
 import { path, compose, equals, pathOr, isEmpty } from 'ramda'
 
 import OldSearchResult from './index'
+import { removeTreePath } from './utils/removeTreePath'
 
 const noProducts = compose(
   isEmpty,
@@ -27,14 +28,14 @@ const SearchResultLayout = props => {
   const { isMobile } = useDevice()
 
   if (foundNothing(searchQuery) && hasCustomNotFound) {
-    return <ExtensionPoint id="search-not-found-layout" {...props} />
+    return <ExtensionPoint id="search-not-found-layout" {...removeTreePath(props)} />
   }
 
   if (hasMobileBlock && isMobile) {
-    return <ExtensionPoint id="search-result-layout.mobile" {...props} />
+    return <ExtensionPoint id="search-result-layout.mobile" {...removeTreePath(props)} />
   }
 
-  return <ExtensionPoint id="search-result-layout.desktop" {...props} />
+  return <ExtensionPoint id="search-result-layout.desktop" {...removeTreePath(props)} />
 }
 
 SearchResultLayout.getSchema = () => {
