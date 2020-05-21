@@ -23,7 +23,7 @@ const getFilters = ({
     hiddenFacets
   )
     ? specificationFilters
-        .filter(spec => !contains(spec.name, hiddenFacetsNames))
+        .filter(spec => !contains(spec.name, hiddenFacetsNames) && !spec.hidden)
         .map(spec => ({
           type: SPECIFICATION_FILTERS_TYPE,
           title: spec.name,
