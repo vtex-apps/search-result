@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- Allows specification filters of type `number`.
+
 ## [3.59.0] - 2020-05-18
 ### Added
 - Add specific classes to `filterGroup` and `filterItem` of the `filterAccordion` (filter mobile)
