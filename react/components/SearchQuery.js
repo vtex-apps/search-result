@@ -194,7 +194,11 @@ const useQueries = (variables, facetsArgs) => {
     data: {
       productSearch:
         productSearchResult.data && productSearchResult.data.productSearch,
-      facets: { ...detatachedFilters, queryArgs },
+      facets: {
+        ...detatachedFilters,
+        queryArgs,
+        breadcrumb: facets && facets.breadcrumb,
+      },
       searchMetadata,
     },
     productSearchResult,
