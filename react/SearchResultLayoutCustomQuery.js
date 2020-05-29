@@ -6,6 +6,7 @@ import { path, compose, equals, pathOr, isEmpty } from 'ramda'
 import LocalQuery from './components/LocalQuery'
 
 import OldSearchResult from './index'
+import { removeTreePath } from './utils/removeTreePath'
 
 const noProducts = compose(
   isEmpty,
@@ -24,19 +25,21 @@ const foundNothing = searchQuery => {
   return isFtOnly(searchQuery) && !loading && noProducts(searchQuery)
 }
 
-const ExtensionPointWithProps = ({ id, parentProps, localSearchQueryData }) => (
-  <ExtensionPoint
-    id={id}
-    {...parentProps}
-    searchQuery={localSearchQueryData.searchQuery}
-    maxItemsPerPage={localSearchQueryData.maxItemsPerPage}
-    map={localSearchQueryData.map}
-    params={localSearchQueryData.params}
-    priceRange={localSearchQueryData.priceRange}
-    orderBy={localSearchQueryData.orderBy}
-    page={localSearchQueryData.page}
-  />
-)
+const ExtensionPointWithProps = ({ id, parentProps, localSearchQueryData }) => {
+  return (
+    <ExtensionPoint
+      id={id}
+      {...removeTreePath(parentProps)}
+      searchQuery={localSearchQueryData.searchQuery}
+      maxItemsPerPage={localSearchQueryData.maxItemsPerPage}
+      map={localSearchQueryData.map}
+      params={localSearchQueryData.params}
+      priceRange={localSearchQueryData.priceRange}
+      orderBy={localSearchQueryData.orderBy}
+      page={localSearchQueryData.page}
+    />
+  )
+}
 
 const SearchResultLayoutCustomQuery = props => {
   const hasMobileBlock = !!useChildBlock({ id: 'search-result-layout.mobile' })
@@ -64,9 +67,9 @@ const SearchResultLayoutCustomQuery = props => {
       {...(areFieldsFromQueryStringValid
         ? fieldsFromQueryString
         : {
-            queryField: props.querySchema.queryField,
-            mapField: props.querySchema.mapField,
-          })}
+          queryField: props.querySchema.queryField,
+          mapField: props.querySchema.mapField,
+        })}
       orderByField={props.querySchema.orderByField}
       hideUnavailableItems={props.querySchema.hideUnavailableItems}
       facetsBehavior={props.querySchema.facetsBehavior}
