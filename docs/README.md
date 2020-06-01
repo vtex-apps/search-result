@@ -343,6 +343,8 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `dropdownMobile`                      |
 | `filter`                              |
 | `filterAccordionBreadcrumbs`          |
+| `filterBreadcrumbsItem`               |
+| `filterBreadcrumbsItemName`           |
 | `filterAccordionItemBox`              |
 | `filterApplyButtonWrapper`            |
 | `filterAvailable`                     |
