@@ -24,12 +24,14 @@ const SelectedFilters = ({
     return null
   }
 
+  const visibleFilters = filters.filter(filter => !filter.hidden)
+
   const title = intl.formatMessage({ id: 'store/search.selected-filters' })
   return (
     <FilterOptionTemplate
       id="selectedFilters"
       title={title}
-      filters={filters}
+      filters={visibleFilters}
       collapsable={false}
       selected
     >

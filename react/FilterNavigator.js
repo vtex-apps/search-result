@@ -82,7 +82,10 @@ const FilterNavigator = ({
     const options = [
       ...specificationFilters.map(filter => {
         return filter.facets.map(facet => {
-          return newNamedFacet({ ...facet, title: filter.name })
+          return {
+            ...newNamedFacet({ ...facet, title: filter.name }),
+            hidden: filter.hidden,
+          }
         })
       }),
       ...brands,
