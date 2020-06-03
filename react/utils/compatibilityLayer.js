@@ -14,7 +14,7 @@ export const buildSelectedFacetsAndFullText = (query, map, priceRange) => {
   }
 
   const queryValues = query.split('/')
-  const mapValues = map.split(',')
+  const mapValues = decodeURIComponent(map).split(',')
 
   let fullText
 
