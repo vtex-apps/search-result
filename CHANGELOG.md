@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Accept `facets` breadcrumb as fallback.
+
 ## [3.60.4] - 2020-06-15
 ### Fixed
 - crashes happening when clicking on a department filter on mobile.
