@@ -8,7 +8,9 @@ import AccordionFilterItem from './AccordionFilterItem'
 import DepartmentFilters from './DepartmentFilters'
 import AccordionFilterGroup from './AccordionFilterGroup'
 import AccordionFilterPriceRange from './AccordionFilterPriceRange'
+import { useCssHandles } from 'vtex.css-handles'
 
+const CSS_HANDLES = ['filterBreadcrumbsItem', 'filterBreadcrumbsItemName']
 import styles from '../searchResult.css'
 
 const CATEGORIES_TITLE = 'store/search.filter.title.categories'
@@ -22,6 +24,7 @@ const AccordionFilterContainer = ({
   priceRange,
 }) => {
   const [openItem, setOpenItem] = useState(null)
+  const handles = useCssHandles(CSS_HANDLES)
 
   const handleOpen = id => e => {
     e.preventDefault()
@@ -75,9 +78,13 @@ const AccordionFilterContainer = ({
           </div>
         </div>
         {openItem && (
-          <div className="pa4 flex items-center">
+          <div
+            className={`${handles.filterBreadcrumbsItem} pv4 flex items-center`}
+          >
             <IconCaret orientation="right" size={13} />
-            <div className="pl3 t-heading-4 c-on-base">
+            <div
+              className={`${handles.filterBreadcrumbsItemName} pl3 t-heading-4 c-on-base`}
+            >
               {intl.formatMessage({ id: openItem })}
             </div>
           </div>
