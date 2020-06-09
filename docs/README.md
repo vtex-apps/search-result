@@ -325,6 +325,7 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 
 | CSS handles                           |
 | ------------------------------------- |
+| `accordionFilter`                     |
 | `accordionFilterItemActive`           |
 | `accordionFilterItemBox`              |
 | `accordionFilterItemHidden`           |
@@ -332,7 +333,7 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `accordionFilterItemOptions`          |
 | `accordionFilterItemTitle`            |
 | `accordionFilterItem`                 |
-| `accordionFilter`                     |
+| `accordionFilterOpen`                 |
 | `border`                              |
 | `breadcrumb`                          |
 | `buttonShowMore`                      |
@@ -345,12 +346,12 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `filterAccordionBreadcrumbs`          |
 | `filterBreadcrumbsItem`               |
 | `filterBreadcrumbsItemName`           |
-| `filterAccordionItemBox`              |
+| `filterAccordionItemBox` + {facetValue}              |
 | `filterApplyButtonWrapper`            |
 | `filterAvailable`                     |
 | `filterButtonsBox`                    |
 | `filterClearButtonWrapper`            |
-| `filterContainer--` + FACET_TYPE      |
+| `filterContainer--` + {FacetType}      |
 | `filterContainer--b`                  |
 | `filterContainer--c`                  |
 | `filterContainer--priceRange`         |
@@ -358,7 +359,7 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `filterContainer--title`              |
 | `filterContainer`                     |
 | `filterIcon`                          |
-| `filterItem--` + FACET_VALUE          |
+| `filterItem--` + {facetValue}          |
 | `filterItem--selected`                |
 | `filterItem`                          |
 | `filterMessage`                       |
