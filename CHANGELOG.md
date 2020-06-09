@@ -6,11 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Fixed CSS Handles table in README.md file (added the `--` between Handle and its modifier).
+
 
 ## [3.60.1] - 2020-06-09
-
 ### Fixed
-- Updated README.md file with missing Handles
+- Updated README.md file with missing Handles.
 
 ## [3.60.0] - 2020-06-05
 ### Added
