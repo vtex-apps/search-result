@@ -75,6 +75,9 @@ const SearchResultLayoutCustomQuery = props => {
       facetsBehavior={props.querySchema.facetsBehavior}
       skusFilter={props.querySchema.skusFilter}
       query={props.query}
+      __unstableProductOriginVtex={
+        props.querySchema.__unstableProductOriginVtex
+      }
       render={localSearchQueryData => {
         if (
           foundNothing(localSearchQueryData.searchQuery) &&
