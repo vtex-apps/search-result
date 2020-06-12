@@ -24,6 +24,7 @@ const LocalQuery = props => {
       map = mapField,
     } = {},
     render,
+    __unstableProductOriginVtex,
   } = props
 
   const { page: runtimePage } = useRuntime()
@@ -40,6 +41,7 @@ const LocalQuery = props => {
       pageQuery={pageQuery}
       skusFilter={skusFilter}
       simulationBehavior={simulationBehavior}
+      __unstableProductOriginVtex={__unstableProductOriginVtex}
     >
       {(searchQuery, extraParams) => {
         return render({

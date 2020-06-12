@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- `__unstableProductOriginVtex` prop to the `SearchResultLayoutCustomQuery`.
+
 ## [3.60.2] - 2020-06-09
 ### Fixed
 - Fixed CSS Handles table in README.md file (added the `--` between Handle and its modifier).
