@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.60.5] - 2020-06-15
+
 ### Added
 - Accept `facets` breadcrumb as fallback.
 
