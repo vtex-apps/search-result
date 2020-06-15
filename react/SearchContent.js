@@ -10,10 +10,11 @@ const SearchContent = () => {
   const { searchQuery, showFacets } = useSearchPage()
   const { mobileLayout, showContentLoader } = useSearchPageState()
   const products = path(['data', 'productSearch', 'products'], searchQuery)
+  const redirect = path(['data', 'productSearch', 'redirect'], searchQuery)
 
   /* No need to show the spinner if it is loading because
    the LoadingOverlay already takes care of this */
-  if (showContentLoader === undefined || showContentLoader) {
+  if (showContentLoader === undefined || showContentLoader || redirect) {
     return null
   }
 

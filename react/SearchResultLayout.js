@@ -1,7 +1,7 @@
 import React from 'react'
 import { useChildBlock, ExtensionPoint } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
-import { path, compose, equals, pathOr, isEmpty } from 'ramda'
+import { path, compose, equals, pathOr, isEmpty, isNil } from 'ramda'
 
 import OldSearchResult from './index'
 import { removeTreePath } from './utils/removeTreePath'
@@ -16,6 +16,11 @@ const isFtOnly = compose(
   path(['variables', 'map'])
 )
 
+const noRedirect = compose(
+  isNil,
+  path(['data', 'productSearch', 'redirect'])
+)
+
 const foundNothing = searchQuery => {
   const { loading } = searchQuery || {}
   return isFtOnly(searchQuery) && !loading && noProducts(searchQuery)
@@ -27,7 +32,11 @@ const SearchResultLayout = props => {
   const hasCustomNotFound = !!useChildBlock({ id: 'search-not-found-layout' })
   const { isMobile } = useDevice()
 
-  if (foundNothing(searchQuery) && hasCustomNotFound) {
+  if (
+    foundNothing(searchQuery) &&
+    hasCustomNotFound &&
+    noRedirect(searchQuery)
+  ) {
     return <ExtensionPoint id="search-not-found-layout" {...removeTreePath(props)} />
   }
 

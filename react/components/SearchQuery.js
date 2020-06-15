@@ -1,5 +1,6 @@
-import { useMemo, useRef, useCallback } from 'react'
+import { useMemo, useRef, useCallback, useEffect } from 'react'
 import { useQuery } from 'react-apollo'
+import { path } from 'ramda'
 
 import productSearchQuery from 'vtex.store-resources/QueryProductSearchV3'
 import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadataV2'
@@ -10,7 +11,7 @@ import {
   detachFiltersByType,
   buildQueryArgsFromSelectedFacets,
 } from '../utils/compatibilityLayer'
-import { path } from 'ramda'
+import useRedirect from '../hooks/useRedirect'
 
 const DEFAULT_PAGE = 1
 
@@ -188,8 +189,13 @@ const useQueries = (variables, facetsArgs) => {
     selectedFacetsOutput &&
     buildQueryArgsFromSelectedFacets(selectedFacetsOutput)
 
+  const redirect = path(
+    ['data', 'productSearch', 'redirect'],
+    productSearchResult
+  )
+
   return {
-    loading: searchLoading,
+    loading: searchLoading || redirect,
     facetsLoading,
     data: {
       productSearch:
@@ -239,6 +245,7 @@ const SearchQuery = ({
     searchStateQuery,
     shouldReset
   )
+  const { setRedirect } = useRedirect()
 
   const from = (page - 1) * maxItemsPerPage
   const to = from + maxItemsPerPage - 1
@@ -303,6 +310,12 @@ const SearchQuery = ({
     productSearchResult,
     facetsLoading,
   } = useQueries(variables, facetsArgs)
+
+  const redirectUrl = path(['productSearch', 'redirect'], data)
+
+  useEffect(() => {
+    setRedirect(redirectUrl)
+  }, [redirectUrl, setRedirect])
 
   const extraParams = useMemo(() => {
     return {
