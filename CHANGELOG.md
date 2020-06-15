@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- crashes happening when clicking on a department filter on mobile.
 
 ## [3.60.3] - 2020-06-12
 
@@ -26,7 +28,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New CSS handles: `filterBreadcrumbsItem` and `filterBreadcrumbsItemName`.
 
 ## [3.59.5] - 2020-06-03
-
 ### Fixed
 - Decode map before split it in `selectedFacets`.
 

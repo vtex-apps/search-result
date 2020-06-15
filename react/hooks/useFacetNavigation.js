@@ -95,7 +95,8 @@ const buildQueryAndMap = (
   selectedFacets
 ) => {
   const queryAndMap = facets.reduce(
-    ({ query, map }, facet) => {
+    // The spread on facet is important so we can assign facet.newQuerySegment
+    ({ query, map }, { ...facet }) => {
       const facetValue = facet.value
       facet.newQuerySegment = newFacetPathName(facet)
       if (facet.selected) {
