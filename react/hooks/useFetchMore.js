@@ -178,7 +178,7 @@ export const useFetchMore = props => {
   const handleFetchMoreNext = async () => {
     const rollbackState = pageState
     const from = pageState.to + 1
-    const to = min(recordsFiltered, from + maxItemsPerPage) - 1
+    const to = from + maxItemsPerPage - 1
     setInfiniteScrollError(false)
     pageDispatch({ type: 'NEXT_PAGE', args: { to } })
 
