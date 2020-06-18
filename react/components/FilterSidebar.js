@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import produce from 'immer'
-import React, { useState, useEffect, useMemo, Fragment } from 'react'
+import React, { useState, useEffect, useMemo, Fragment, useRef } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import { Button } from 'vtex.styleguide'
@@ -12,6 +12,14 @@ import FilterNavigatorContext, {
 } from './FilterNavigatorContext'
 import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
+import {
+  MAP_CATEGORY_CHAR,
+  MAP_VALUES_SEP,
+  PATH_SEPARATOR,
+  PRODUCT_CLUSTER_IDS,
+  DEPARTMENT,
+  CATEGORY,
+} from '../constants'
 import { buildNewQueryMap } from '../hooks/useFacetNavigation'
 
 import styles from '../searchResult.css'
@@ -37,6 +45,7 @@ const FilterSidebar = ({
   const filterContext = useFilterNavigator()
   const [open, setOpen] = useState(false)
   const handles = useCssHandles(CSS_HANDLES)
+  const shouldClear = useRef(false)
 
   const [filterOperations, setFilterOperations] = useState([])
   const [categoryTreeOperations, setCategoryTreeOperations] = useState([])
@@ -74,13 +83,28 @@ const FilterSidebar = ({
     setFilterOperations([])
   }
 
+  const isCategoryDepartmentCluster = term => {
+    return (
+      term === MAP_CATEGORY_CHAR ||
+      term === PRODUCT_CLUSTER_IDS ||
+      term === CATEGORY ||
+      term === DEPARTMENT
+    )
+  }
+
   const handleClearFilters = () => {
-    /* This navigateToFacet is a hack to solve the problem of this
-     function not updating the checkbox status, giving the impression
-     that the 'clean' button was not working */
-    navigateToFacet([], preventRouteChange)
-    setFilterOperations([])
-    setOpen(false)
+    shouldClear.current = true
+    // Gets the previously selected facets that should be cleared
+    const selectedFacets = selectedFilters.filter(
+      facet => !isCategoryDepartmentCluster(facet.key) && facet.selected
+    )
+
+    // Should not clear categories, departments and clusterIds
+    const selectedRest = filterOperations.filter(facet =>
+      isCategoryDepartmentCluster(facet.key)
+    )
+
+    setFilterOperations([...selectedFacets, ...selectedRest])
   }
 
   const handleUpdateCategories = maybeCategories => {
@@ -88,7 +112,11 @@ const FilterSidebar = ({
       ? maybeCategories
       : [maybeCategories]
 
-    const categoriesSelected = filterOperations.filter(op => op.map === 'c')
+    /* There is no need to compare with CATEGORY and DEPARTMENT since
+     they are seen as a normal facet in the new VTEX search */
+    const categoriesSelected = filterOperations.filter(
+      op => op.map === MAP_CATEGORY_CHAR
+    )
     const newCategories = [...categoriesSelected, ...categories]
 
     // Just save the newest operation here to be recorded at the category tree hook and update the tree
@@ -97,18 +125,43 @@ const FilterSidebar = ({
     // Save all filters along with the new categories, appended to the old ones
     setFilterOperations(filters => {
       return filters
-        .filter(operations => operations.map !== 'c')
+        .filter(operations => operations.map !== MAP_CATEGORY_CHAR)
         .concat(newCategories)
     })
   }
 
   const context = useMemo(() => {
+    const filterCategoryDepartmentCluster = context => {
+      const query = context.query.split(PATH_SEPARATOR)
+      const map = context.map.split(MAP_VALUES_SEP)
+      const newQuery = []
+      const newMap = []
+      for (let i = 0; i < map.length; i++) {
+        if (isCategoryDepartmentCluster(map[i])) {
+          newQuery.push(query[i])
+          newMap.push(map[i])
+        }
+      }
+      return {
+        query: newQuery.join(PATH_SEPARATOR),
+        map: newMap.join(MAP_VALUES_SEP),
+      }
+    }
+
     const { query, map } = filterContext
     const fullText = getFullText(query, map)
 
+    /* This removes the previously selected stuff from the context when you click on 'clear'.
+    It is important to notice that it keeps categories, departments and clusterIds since they
+    are important to show the correct facets. */
+    if (shouldClear.current) {
+      shouldClear.current = false
+      return filterCategoryDepartmentCluster(filterContext)
+    }
+
     return {
       ...filterContext,
-      ...buildNewQueryMap(fullText, filterOperations, selectedFilters),
+      ...buildNewQueryMap(fullText, filterOperations, [...selectedFilters]),
     }
   }, [filterOperations, filterContext, selectedFilters])
 
