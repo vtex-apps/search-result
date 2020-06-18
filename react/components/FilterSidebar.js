@@ -12,18 +12,15 @@ import FilterNavigatorContext, {
 } from './FilterNavigatorContext'
 import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
-import {
-  MAP_CATEGORY_CHAR,
-  MAP_VALUES_SEP,
-  PATH_SEPARATOR,
-  PRODUCT_CLUSTER_IDS,
-  DEPARTMENT,
-  CATEGORY,
-} from '../constants'
+import { MAP_CATEGORY_CHAR } from '../constants'
 import { buildNewQueryMap } from '../hooks/useFacetNavigation'
 
 import styles from '../searchResult.css'
 import { getFullText } from '../utils/compatibilityLayer'
+import {
+  isCategoryDepartmentOrCollection,
+  filterCategoryDepartmentAndCollection,
+} from '../utils/queryAndMapUtils'
 
 const CSS_HANDLES = [
   'filterPopupButton',
@@ -83,25 +80,16 @@ const FilterSidebar = ({
     setFilterOperations([])
   }
 
-  const isCategoryDepartmentCluster = term => {
-    return (
-      term === MAP_CATEGORY_CHAR ||
-      term === PRODUCT_CLUSTER_IDS ||
-      term === CATEGORY ||
-      term === DEPARTMENT
-    )
-  }
-
   const handleClearFilters = () => {
     shouldClear.current = true
     // Gets the previously selected facets that should be cleared
     const selectedFacets = selectedFilters.filter(
-      facet => !isCategoryDepartmentCluster(facet.key) && facet.selected
+      facet => !isCategoryDepartmentOrCollection(facet.key) && facet.selected
     )
 
     // Should not clear categories, departments and clusterIds
     const selectedRest = filterOperations.filter(facet =>
-      isCategoryDepartmentCluster(facet.key)
+      isCategoryDepartmentOrCollection(facet.key)
     )
 
     setFilterOperations([...selectedFacets, ...selectedRest])
@@ -131,23 +119,6 @@ const FilterSidebar = ({
   }
 
   const context = useMemo(() => {
-    const filterCategoryDepartmentCluster = context => {
-      const query = context.query.split(PATH_SEPARATOR)
-      const map = context.map.split(MAP_VALUES_SEP)
-      const newQuery = []
-      const newMap = []
-      for (let i = 0; i < map.length; i++) {
-        if (isCategoryDepartmentCluster(map[i])) {
-          newQuery.push(query[i])
-          newMap.push(map[i])
-        }
-      }
-      return {
-        query: newQuery.join(PATH_SEPARATOR),
-        map: newMap.join(MAP_VALUES_SEP),
-      }
-    }
-
     const { query, map } = filterContext
     const fullText = getFullText(query, map)
 
@@ -156,9 +127,11 @@ const FilterSidebar = ({
     are important to show the correct facets. */
     if (shouldClear.current) {
       shouldClear.current = false
-      return filterCategoryDepartmentCluster(filterContext)
+      return filterCategoryDepartmentAndCollection(filterContext)
     }
 
+    /* The spread on selectedFilters was necessary because buildNewQueryMap
+     changes the object but we do not want that on mobile */
     return {
       ...filterContext,
       ...buildNewQueryMap(fullText, filterOperations, [...selectedFilters]),

@@ -1,6 +1,6 @@
 import { zip } from 'ramda'
 import { useFilterNavigator } from '../components/FilterNavigatorContext'
-import { MAP_CATEGORY_CHAR, DEPARTMENT, CATEGORY } from '../constants'
+import { isSameMap } from '../utils/queryAndMapUtils'
 
 /**
  * This hook is required because we make the facets query
@@ -21,26 +21,13 @@ const useSelectedFilters = facets => {
     map.split(',')
   )
 
-  /* With the addition of the new VTEX search, it is possible to have different maps.
-  This function checks the equivalent possibilities for the 'c' map */
-  const checkMap = (slugMap, facetMap) => {
-    if (slugMap === MAP_CATEGORY_CHAR) {
-      return (
-        facetMap === MAP_CATEGORY_CHAR ||
-        facetMap === DEPARTMENT ||
-        facetMap === CATEGORY
-      )
-    }
-    return slugMap === facetMap
-  }
-
   return facets.map(facet => {
     const currentFacetSlug = decodeURIComponent(facet.value).toLowerCase()
 
     const isSelected =
       queryAndMap.find(
         ([slug, slugMap]) =>
-          slug === currentFacetSlug && checkMap(slugMap, facet.map)
+          slug === currentFacetSlug && isSameMap(slugMap, facet.map)
       ) !== undefined
 
     return {
