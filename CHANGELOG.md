@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Fixing check if layout prop is set to mobile, however it will be 
+always false. Probably causing troubles setting `mobileLayout` value
 
 ## [3.60.6] - 2020-06-16
 

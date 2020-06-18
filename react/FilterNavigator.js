@@ -33,6 +33,7 @@ const CSS_HANDLES = [
 const LAYOUT_TYPES = {
   responsive: 'responsive',
   desktop: 'desktop',
+  mobile: 'mobile'
 }
 
 const getSelectedCategories = tree => {
