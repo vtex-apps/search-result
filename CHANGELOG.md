@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Search redirect.
+
 ## [3.60.6] - 2020-06-16
 
 ### Fixed
