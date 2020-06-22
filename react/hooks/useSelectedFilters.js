@@ -1,5 +1,6 @@
 import { zip } from 'ramda'
 import { useFilterNavigator } from '../components/FilterNavigatorContext'
+import { isSameMap } from '../utils/queryAndMapUtils'
 
 /**
  * This hook is required because we make the facets query
@@ -25,7 +26,8 @@ const useSelectedFilters = facets => {
 
     const isSelected =
       queryAndMap.find(
-        ([slug, slugMap]) => slug === currentFacetSlug && slugMap === facet.map
+        ([slug, slugMap]) =>
+          slug === currentFacetSlug && isSameMap(slugMap, facet.map)
       ) !== undefined
 
     return {
