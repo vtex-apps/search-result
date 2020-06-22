@@ -279,7 +279,7 @@ Check out the [**Product Summary documentation**](https://vtex.io/docs/component
 
 | Prop name | Type                      | Description                                                                                       | Default value |
 | --------- | ------------------------- | ------------------------------------------------------------------------------------------------- | ------------- |
-| `layout`  | `Enum` | Whether the Filter Navigator layout should be responsive (`responsive`), mobile (`mobile`) or desktop (`desktop`). You may use `desktop` when the Filter Navigator was configured to be displayed in a [drawer](https://vtex.io/docs/components/content-blocks/vtex.store-drawer@0.9.0). | `responsive`  |
+| `layout`  | `enum` | Whether the Filter Navigator layout is designed to work with mobile devices (`mobile`), desktop (`desktop`), or if it should adapt itself to work with both - mobile and desktop (`responsive`). You may use `desktop` when the Filter Navigator was already configured to be displayed in a [drawer](https://vtex.io/docs/components/content-blocks/vtex.store-drawer). | `responsive`  |
 | `maxItemsDepartment` | `number`                 | Maximum number of departments to be displayed before the See More button is triggered.          | `8`             |
 | `maxItemsCategory`   | `number`                 | Maximum number of category items to be displayed before the See More button is triggered.     | `8`             |
 | `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed (`true`) or open (`false`). | `false` |
