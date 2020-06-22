@@ -18,8 +18,8 @@ import { buildNewQueryMap } from '../hooks/useFacetNavigation'
 import styles from '../searchResult.css'
 import { getFullText } from '../utils/compatibilityLayer'
 import {
-  isCategoryDepartmentOrCollection,
-  filterCategoryDepartmentAndCollection,
+  isCategoryDepartmentCollectionOrFT,
+  filterCategoryDepartmentCollectionAndFT,
 } from '../utils/queryAndMapUtils'
 
 const CSS_HANDLES = [
@@ -84,12 +84,12 @@ const FilterSidebar = ({
     shouldClear.current = true
     // Gets the previously selected facets that should be cleared
     const selectedFacets = selectedFilters.filter(
-      facet => !isCategoryDepartmentOrCollection(facet.key) && facet.selected
+      facet => !isCategoryDepartmentCollectionOrFT(facet.key) && facet.selected
     )
 
     // Should not clear categories, departments and clusterIds
     const selectedRest = filterOperations.filter(facet =>
-      isCategoryDepartmentOrCollection(facet.key)
+      isCategoryDepartmentCollectionOrFT(facet.key)
     )
 
     setFilterOperations([...selectedFacets, ...selectedRest])
@@ -127,7 +127,7 @@ const FilterSidebar = ({
     are important to show the correct facets. */
     if (shouldClear.current) {
       shouldClear.current = false
-      return filterCategoryDepartmentAndCollection(filterContext)
+      return filterCategoryDepartmentCollectionAndFT(filterContext)
     }
 
     /* The spread on selectedFilters was necessary because buildNewQueryMap
