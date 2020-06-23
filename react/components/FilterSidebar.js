@@ -16,7 +16,7 @@ import { MAP_CATEGORY_CHAR } from '../constants'
 import { buildNewQueryMap } from '../hooks/useFacetNavigation'
 
 import styles from '../searchResult.css'
-import { getFullText } from '../utils/compatibilityLayer'
+import { getFullTextAndCollection } from '../utils/compatibilityLayer'
 import {
   isCategoryDepartmentCollectionOrFT,
   filterCategoryDepartmentCollectionAndFT,
@@ -120,7 +120,7 @@ const FilterSidebar = ({
 
   const context = useMemo(() => {
     const { query, map } = filterContext
-    const fullText = getFullText(query, map)
+    const fullTextAndCollection = getFullTextAndCollection(query, map)
 
     /* This removes the previously selected stuff from the context when you click on 'clear'.
     It is important to notice that it keeps categories, departments and clusterIds since they
@@ -134,7 +134,9 @@ const FilterSidebar = ({
      changes the object but we do not want that on mobile */
     return {
       ...filterContext,
-      ...buildNewQueryMap(fullText, filterOperations, [...selectedFilters]),
+      ...buildNewQueryMap(fullTextAndCollection, filterOperations, [
+        ...selectedFilters,
+      ]),
     }
   }, [filterOperations, filterContext, selectedFilters])
 

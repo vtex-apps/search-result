@@ -10,9 +10,10 @@ import {
   MAP_VALUES_SEP,
   PATH_SEPARATOR,
   FULLTEXT_QUERY_KEY,
+  PRODUCT_CLUSTER_IDS,
 } from '../constants'
 import useSearchState from './useSearchState'
-import { getFullText } from '../utils/compatibilityLayer'
+import { getFullTextAndCollection } from '../utils/compatibilityLayer'
 
 const scrollOptions = {
   baseElementId: 'search-result-anchor',
@@ -149,13 +150,24 @@ const buildQueryAndMap = (
   return newQueryMap
 }
 
-export const buildNewQueryMap = (fullText, facets, selectedFacets) => {
+export const buildNewQueryMap = (
+  fullTextAndCollection,
+  facets,
+  selectedFacets
+) => {
   let querySegments = selectedFacets.map(facet => facet.value)
   let mapSegments = selectedFacets.map(facet => facet.map)
+
+  const { ft: fullText, productClusterIds: collection } = fullTextAndCollection
 
   if (fullText) {
     querySegments.push(fullText)
     mapSegments.push(FULLTEXT_QUERY_KEY)
+  }
+
+  if (collection) {
+    querySegments.push(collection)
+    mapSegments.push(PRODUCT_CLUSTER_IDS)
   }
 
   return buildQueryAndMap(querySegments, mapSegments, facets, selectedFacets)
@@ -166,13 +178,13 @@ const useFacetNavigation = selectedFacets => {
   const { map, query } = useFilterNavigator()
   const { fuzzy, operator, searchState } = useSearchState()
 
-  const fullText = getFullText(query, map)
+  const fullTextAndCollection = getFullTextAndCollection(query, map)
 
   const navigateToFacet = useCallback(
     (maybeFacets, preventRouteChange = false) => {
       const facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
       const { query: currentQuery, map: currentMap } = buildNewQueryMap(
-        fullText,
+        fullTextAndCollection,
         facets,
         selectedFacets
       )
