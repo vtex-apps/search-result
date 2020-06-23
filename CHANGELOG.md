@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Navigation on collections page.
 
 ## [3.62.1] - 2020-06-22
 ### Fixed
@@ -31,7 +33,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.60.4] - 2020-06-15
 ### Fixed
-- crashes happening when clicking on a department filter on mobile.
+- Crashes happening when clicking on a department filter on mobile.
 
 ## [3.60.3] - 2020-06-12
 
