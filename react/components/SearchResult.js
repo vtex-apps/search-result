@@ -242,14 +242,18 @@ class SearchResult extends Component {
               </div>
             )}
             {pagination === PAGINATION_TYPE.SHOW_MORE || infiniteScrollError ? (
-              <FetchMoreButton
-                products={products}
-                to={to}
-                recordsFiltered={recordsFiltered}
-                onFetchMore={onFetchMore}
-                loading={fetchMoreLoading}
-                showProductsCount={showProductsCount}
-              />
+              <>
+                <FetchMoreButton
+                  products={products}
+                  to={to}
+                  recordsFiltered={recordsFiltered}
+                  onFetchMore={onFetchMore}
+                  loading={fetchMoreLoading}
+                  showProductsCount={showProductsCount}
+                />
+                <ExtensionPoint id="search-products-count-per-page" />
+                <ExtensionPoint id="search-products-progress-bar" />
+              </>
             ) : (
               <LoadingSpinner loading={fetchMoreLoading} />
             )}

@@ -7,7 +7,9 @@
       "total-products",
       "order-by",
       "search-title",
-      "rich-text"
+      "rich-text",
+      "search-products-count-per-page",
+      "search-products-progress-bar"
     ],
     "required": ["gallery"],
     "component": "index"
