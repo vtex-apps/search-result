@@ -5,32 +5,22 @@ import { useCssHandles } from 'vtex.css-handles'
 
 const CSS_HANDLES = ['progressBarContainer', 'progressBar', 'progressBarFiller']
 
-const ProductsProgressBar = ({
-  recordsFiltered: recordsFilteredProp,
-  products: productsProp,
-}) => {
+const ProductsProgressBar = props => {
   const { searchQuery } = useSearchPage()
-  let productsLoadedPercentage
-
   const handles = useCssHandles(CSS_HANDLES)
   const products =
-    path(['data', 'productSearch', 'products'], searchQuery) || []
-  const recordsFiltered = path(
-    ['data', 'productSearch', 'recordsFiltered'],
-    searchQuery
+    path(['data', 'productSearch', 'products'], searchQuery) ||
+    props.products ||
+    []
+  const recordsFiltered =
+    path(['data', 'productSearch', 'recordsFiltered'], searchQuery) ||
+    props.recordsFiltered ||
+    0
+
+  const productsLoadedPercentage = Math.round(
+    (100 * products.length) / recordsFiltered
   )
-
-  if (!recordsFiltered || !products.length) {
-    productsLoadedPercentage = Math.round(
-      (100 * productsProp.length) / recordsFilteredProp
-    )
-  } else {
-    productsLoadedPercentage = Math.round(
-      (100 * products.length) / recordsFiltered
-    )
-  }
-
-  if (products.length === 0 && productsProp.length === 0) {
+  if (products.length === 0) {
     return null
   }
 
