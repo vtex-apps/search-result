@@ -1,4 +1,4 @@
-import { zip } from 'ramda'
+import { zip, isNil } from 'ramda'
 import { useFilterNavigator } from '../components/FilterNavigatorContext'
 import { isSameMap } from '../utils/queryAndMapUtils'
 
@@ -9,7 +9,7 @@ import { isSameMap } from '../utils/queryAndMapUtils'
  */
 const useSelectedFilters = facets => {
   const { query, map } = useFilterNavigator()
-  if (!query && !map) {
+  if (isNil(query) && isNil(!map)) {
     return []
   }
 
