@@ -251,8 +251,11 @@ class SearchResult extends Component {
                   loading={fetchMoreLoading}
                   showProductsCount={showProductsCount}
                 />
-                <ExtensionPoint id="search-products-count-per-page" />
-                <ExtensionPoint id="search-products-progress-bar" />
+                <ExtensionPoint
+                  id="search-products-progress-bar"
+                  recordsFiltered={recordsFiltered}
+                  products={products}
+                />
               </>
             ) : (
               <LoadingSpinner loading={fetchMoreLoading} />

@@ -8,7 +8,6 @@
       "order-by",
       "search-title",
       "rich-text",
-      "search-products-count-per-page",
       "search-products-progress-bar"
     ],
     "required": ["gallery"],
