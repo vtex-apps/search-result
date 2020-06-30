@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { useContext, useMemo } from 'react'
+import React, { useEffect, useState, useContext, useMemo } from 'react'
 import {
   compose,
   equals,
@@ -59,15 +59,17 @@ const SearchTitle = ({
     return null
   }
 
-  const stripHtml = html => {
+  const [ParseTitle, setTitle] = useState('')
+
+  useEffect(() => {
     const tmp = document.createElement('DIV')
-    tmp.innerHTML = html
-    return tmp.textContent || tmp.innerText || ''
-  }
+    tmp.innerHTML = title
+    setTitle(tmp.textContent || tmp.innerText || '')
+  }, [title])
 
   return (
     <h1 className={classNames(wrapperClass, 't-heading-1')}>
-      {stripHtml(decodeURI(title))}
+      {decodeURI(ParseTitle)}
     </h1>
   )
 }
