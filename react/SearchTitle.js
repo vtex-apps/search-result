@@ -19,14 +19,8 @@ import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 const findFT = findIndex(equals('ft'))
 const findProductCluster = findIndex(equals('productClusterIds'))
 const findLastCategory = findLastIndex(equals('c'))
-const isBrandPage = compose(
-  equals('b'),
-  head
-)
-const getLastName = compose(
-  prop('name'),
-  last
-)
+const isBrandPage = compose(equals('b'), head)
+const getLastName = compose(prop('name'), last)
 const breadcrumbName = (index, breadcrumb) => path([index, 'name'], breadcrumb)
 
 const getQueryNameIndex = mapArray => {
@@ -65,9 +59,15 @@ const SearchTitle = ({
     return null
   }
 
+  const stripHtml = html => {
+    const tmp = document.createElement('DIV')
+    tmp.innerHTML = html
+    return tmp.textContent || tmp.innerText || ''
+  }
+
   return (
     <h1 className={classNames(wrapperClass, 't-heading-1')}>
-      {decodeURI(title)}
+      {stripHtml(decodeURI(title))}
     </h1>
   )
 }
