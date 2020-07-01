@@ -24,8 +24,13 @@ const SearchResultContainer = props => {
           specificationFilters = [],
           priceRanges = [],
           categoriesTrees,
+          breadcrumb: facetsBreadcrumb = [],
         } = {},
-        productSearch: { products = [], recordsFiltered, breadcrumb = [] } = {},
+        productSearch: {
+          products = [],
+          recordsFiltered,
+          breadcrumb: productBreadcrumb = [],
+        } = {},
       } = {},
       loading,
       variables: { query, map, orderBy, priceRange },
@@ -57,6 +62,8 @@ const SearchResultContainer = props => {
     queryData,
   })
   const handles = useCssHandles(CSS_HANDLES)
+
+  const breadcrumb = productBreadcrumb || facetsBreadcrumb
 
   const resultComponent = children || (
     <SearchResult
