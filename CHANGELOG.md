@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Fixed
-- `SearchResult` doesn't use the `facets` breadcrumb as fallback.
+- `SearchResult` use the `facets` breadcrumb as fallback.
 
 ## [3.63.0] - 2020-06-29
 ### Added
