@@ -9,6 +9,8 @@ import { IconCaret } from 'vtex.store-icons'
 import { getFilterTitle } from '../constants/SearchHelpers'
 
 const CSS_HANDLES = [
+  'accordionFilterContainer',
+  'accordionFilterContent',
   'accordionFilterItem',
   'filterAccordionItemBox',
   'accordionFilterItemActive',
@@ -37,7 +39,7 @@ const AccordionFilterItem = ({
   return (
     <Fragment>
       {!open && (
-        <div className="pl7">
+        <div className={`${handles.accordionFilterContainer} pl7`}>
           <div
             role="button"
             tabIndex={0}
@@ -54,10 +56,13 @@ const AccordionFilterItem = ({
             onClick={onOpen}
           >
             <div
-              className={classNames('pv4 c-on-base', {
-                't-small': open,
-                't-heading-5': !open,
-              })}
+              className={classNames(
+                `${handles.accordionFilterContent} pv4 c-on-base`,
+                {
+                  't-small': open,
+                  't-heading-5': !open,
+                }
+              )}
             >
               <span className={handles.accordionFilterItemTitle}>
                 {getFilterTitle(title, intl)}
