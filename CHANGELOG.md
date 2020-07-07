@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - New CSS handles on filter navigator mobile.
 
+## [3.63.1] - 2020-07-01
+
+### Fixed
+- `SearchResult` use the `facets` breadcrumb as fallback.
+
+## [3.63.0] - 2020-06-29
+### Added
+- Be able to use `search-products-progress-bar` in `search-result`
+
 ## [3.62.2] - 2020-06-23
 ### Fixed
 - Navigation on collections page.
