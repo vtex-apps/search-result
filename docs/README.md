@@ -326,6 +326,8 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | CSS handles                           |
 | ------------------------------------- |
 | `accordionFilter`                     |
+| `accordionFilterContainer`            |
+| `accordionFilterContent`              |
 | `accordionFilterItemActive`           |
 | `accordionFilterItemBox`              |
 | `accordionFilterItemHidden`           |
