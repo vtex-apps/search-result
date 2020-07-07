@@ -57,7 +57,7 @@ const AccordionFilterItem = ({
           >
             <div
               className={classNames(
-                `${handles.accordionFilterContent} pv4 c-on-base`,
+                handles.accordionFilterContent, 'pv4 c-on-base',
                 {
                   't-small': open,
                   't-heading-5': !open,
