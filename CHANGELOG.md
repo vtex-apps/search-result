@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.63.2] - 2020-07-08
+
 ### Fixed
 - `SearchTitle` crashing when `breadcrumb` prop is `null`.
 
