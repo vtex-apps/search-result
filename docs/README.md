@@ -326,6 +326,8 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | CSS handles                           |
 | ------------------------------------- |
 | `accordionFilter`                     |
+| `accordionFilterContainer`            |
+| `accordionFilterContent`              |
 | `accordionFilterItemActive`           |
 | `accordionFilterItemBox`              |
 | `accordionFilterItemHidden`           |
@@ -344,22 +346,24 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `dropdownMobile`                      |
 | `filter`                              |
 | `filterAccordionBreadcrumbs`          |
+| `filterBreadcrumbsContent`            |
+| `filterBreadcrumbsText`               |
 | `filterBreadcrumbsItem`               |
 | `filterBreadcrumbsItemName`           |
-| `filterAccordionItemBox--{facetValue}`              |
+| `filterAccordionItemBox--{facetValue}`|
 | `filterApplyButtonWrapper`            |
 | `filterAvailable`                     |
 | `filterButtonsBox`                    |
 | `filterClearButtonWrapper`            |
-| `filterContainer--{facetType}`      |
+| `filterContainer--{facetType}`        |
 | `filterContainer--b`                  |
 | `filterContainer--c`                  |
 | `filterContainer--priceRange`         |
-| `filterContainer--{selectedFilters}`    |
-| `filterContainer--{title}`              |
+| `filterContainer--{selectedFilters}`  |
+| `filterContainer--{title}`            |
 | `filterContainer`                     |
 | `filterIcon`                          |
-| `filterItem--{facetValue}`          |
+| `filterItem--{facetValue}`            |
 | `filterItem--selected`                |
 | `filterItem`                          |
 | `filterMessage`                       |

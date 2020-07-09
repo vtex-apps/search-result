@@ -10,7 +10,12 @@ import AccordionFilterGroup from './AccordionFilterGroup'
 import AccordionFilterPriceRange from './AccordionFilterPriceRange'
 import { useCssHandles } from 'vtex.css-handles'
 
-const CSS_HANDLES = ['filterBreadcrumbsItem', 'filterBreadcrumbsItemName']
+const CSS_HANDLES = [
+  'filterBreadcrumbsItem',
+  'filterBreadcrumbsItemName',
+  'filterBreadcrumbsContent',
+  'filterBreadcrumbsText',
+]
 import styles from '../searchResult.css'
 
 const CATEGORIES_TITLE = 'store/search.filter.title.categories'
@@ -62,15 +67,18 @@ const AccordionFilterContainer = ({
         <div
           role="button"
           tabIndex={0}
-          className="pv4 flex items-center"
+          className={`${handles.filterBreadcrumbsContent} pv4 flex items-center`}
           onClick={() => setOpenItem(null)}
           onKeyDown={handleKeyDown}
         >
           <div
-            className={classNames('t-heading-4', {
-              'c-muted-2': openItem,
-              'c-on-base': !openItem,
-            })}
+            className={classNames(
+              `${handles.filterBreadcrumbsText} t-heading-4`,
+              {
+                'c-muted-2': openItem,
+                'c-on-base': !openItem,
+              }
+            )}
           >
             {intl.formatMessage({
               id: 'store/search-result.filter-breadcrumbs.primary',
