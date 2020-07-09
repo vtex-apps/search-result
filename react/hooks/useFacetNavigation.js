@@ -165,7 +165,9 @@ export const buildNewQueryMap = (
     mapSegments.push(FULLTEXT_QUERY_KEY)
   }
 
-  if (collection) {
+  // In search-resolver@v1.x, the productClusterIds is sent as a hidden facet, but in 0.x it is not.
+  // This way, we only need to push the collection when it is not in the mapSegments.
+  if (collection && mapSegments.indexOf(PRODUCT_CLUSTER_IDS) === -1) {
     querySegments.push(collection)
     mapSegments.push(PRODUCT_CLUSTER_IDS)
   }
