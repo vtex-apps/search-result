@@ -7,6 +7,7 @@ import LocalQuery from './components/LocalQuery'
 import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 import ContextProviders from './components/ContextProviders'
 import { PAGINATION_TYPES } from './constants/paginationType'
+import { SearchPageContext } from 'vtex.search-page-context/SearchPageContext'
 
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
 
@@ -51,21 +52,27 @@ const SearchResult = props => {
       {...querySchema}
       {...(areFieldsFromQueryStringValid ? fieldsFromQueryString : {})}
       render={localQueryProps => (
-        <ContextProviders
-          queryVariables={localQueryProps.searchQuery.variables}
-          settings={settings}
+        <SearchPageContext.Provider
+          value={{ searchQuery: localQueryProps.searchQuery }}
         >
-          <SearchResultContainer {...localQueryProps} />
-        </ContextProviders>
+          <ContextProviders
+            queryVariables={localQueryProps.searchQuery.variables}
+            settings={settings}
+          >
+            <SearchResultContainer {...localQueryProps} />
+          </ContextProviders>
+        </SearchPageContext.Provider>
       )}
     />
   ) : (
-    <ContextProviders
-      queryVariables={searchQuery.variables}
-      settings={settings}
-    >
-      <SearchResultContainer {...props} />
-    </ContextProviders>
+    <SearchPageContext.Provider value={{ searchQuery: searchQuery }}>
+      <ContextProviders
+        queryVariables={searchQuery.variables}
+        settings={settings}
+      >
+        <SearchResultContainer {...props} />
+      </ContextProviders>
+    </SearchPageContext.Provider>
   )
 }
 
@@ -132,15 +139,17 @@ SearchResult.getSchema = props => {
               ],
             },
             installmentCriteria: {
-              title: 'admin/editor.search-result.query.installmentCriteria.title',
-              description: 'admin/editor.search-result.query.installmentCriteria.description',
+              title:
+                'admin/editor.search-result.query.installmentCriteria.title',
+              description:
+                'admin/editor.search-result.query.installmentCriteria.description',
               type: 'string',
               default: 'MAX_WITHOUT_INTEREST',
               enum: ['MAX_WITHOUT_INTEREST', 'MAX_WITH_INTEREST'],
               enumNames: [
                 'admin/editor.search-result.query.installmentCriteria.max-without-interest',
-                'admin/editor.search-result.query.installmentCriteria.max-with-interest'
-              ]
+                'admin/editor.search-result.query.installmentCriteria.max-with-interest',
+              ],
             },
           },
         },
@@ -160,8 +169,10 @@ SearchResult.getSchema = props => {
                 enum: [true],
               },
               trackingId: {
-                title: 'admin.editor.search-result.advanced-settings.trackingId.title',
-                description: 'admin.editor.search-result.advanced-settings.trackingId.description',
+                title:
+                  'admin.editor.search-result.advanced-settings.trackingId.title',
+                description:
+                  'admin.editor.search-result.advanced-settings.trackingId.description',
                 type: 'string',
               },
             },

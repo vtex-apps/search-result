@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- `Pricerange` event was not adding `fuzzy`, `operator` and `searchState` to the URL.
+- `fuzzy`, `operator` and `searchState` were being reset in any search interaction.
+
+### Added
+- `SearchResult` now adds `fuzzy`, `operator` and `searchState` to the URL.
+
 ## [3.63.2] - 2020-07-08
 
 ### Fixed

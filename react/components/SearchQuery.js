@@ -121,23 +121,20 @@ const useCorrectSearchStateVariables = (
   fuzzy,
   operator,
   searchState,
-  shouldReset
+  fullText
 ) => {
-  const fuzzyRef = useRef(fuzzy)
-  const operatorRef = useRef(operator)
-  const searchStateRef = useRef(searchState)
+  const fullTextRef = useRef(fullText)
+  const shouldReset = isCurrentDifferent(fullTextRef, fullText)
 
-  if (shouldReset) {
-    fuzzyRef.current = undefined
-    operatorRef.current = undefined
-    searchStateRef.current = undefined
+  const result = {
+    fuzzy: shouldReset ? undefined : fuzzy,
+    operator: shouldReset ? undefined : operator,
+    searchState: shouldReset ? undefined : searchState,
   }
 
-  return {
-    fuzzy: fuzzyRef.current,
-    operator: operatorRef.current,
-    searchState: searchStateRef.current,
-  }
+  fullTextRef.current = fullText
+
+  return result
 }
 
 const useQueries = (variables, facetsArgs) => {
@@ -230,6 +227,12 @@ const SearchQuery = ({
   searchState: searchStateQuery,
   __unstableProductOriginVtex,
 }) => {
+  const [selectedFacets, fullText] = buildSelectedFacetsAndFullText(
+    query,
+    map,
+    priceRange
+  )
+
   /* This is the page of the first query since the component was rendered. 
   We want this behaviour so we can show the correct items even if the pageQuery
   changes. It should change only on a new render or if the query or orderby 
@@ -243,7 +246,7 @@ const SearchQuery = ({
     fuzzyQuery,
     operatorQuery,
     searchStateQuery,
-    shouldReset
+    fullText
   )
   const { setRedirect } = useRedirect()
 
@@ -255,12 +258,6 @@ const SearchQuery = ({
     facetMap: map,
     withFacets: includeFacets(map, query),
   }
-
-  const [selectedFacets, fullText] = buildSelectedFacetsAndFullText(
-    query,
-    map,
-    priceRange
-  )
 
   const variables = useMemo(() => {
     return {

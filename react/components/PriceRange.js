@@ -8,6 +8,7 @@ import { formatCurrency } from 'vtex.format-currency'
 import { facetOptionShape } from '../constants/propTypes'
 import { getFilterTitle } from '../constants/SearchHelpers'
 import FilterOptionTemplate from './FilterOptionTemplate'
+import useSearchState from '../hooks/useSearchState'
 
 const DEBOUNCE_TIME = 500 // ms
 
@@ -17,13 +18,21 @@ const PriceRange = ({ title, facets, intl, priceRange }) => {
 
   const navigateTimeoutId = useRef()
 
+  const { fuzzy, operator, searchState } = useSearchState()
+
   const handleChange = ([left, right]) => {
     if (navigateTimeoutId.current) {
       clearTimeout(navigateTimeoutId.current)
     }
 
     navigateTimeoutId.current = setTimeout(() => {
-      setQuery({ priceRange: `${left} TO ${right}`, page: undefined })
+      setQuery({
+        priceRange: `${left} TO ${right}`,
+        page: undefined,
+        fuzzy: fuzzy || undefined,
+        operator: operator || undefined,
+        searchState: searchState || undefined,
+      })
     }, DEBOUNCE_TIME)
   }
 
