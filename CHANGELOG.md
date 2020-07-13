@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Temporarily remove `fuzzy`, `operator` and `searchState` from `handleFetchMoreNext` and `handleFetchMorePrevious`. They are causing a bug where the pagination is being reset.
+
 ## [3.65.0] - 2020-07-13
 ### Added
 - New CSS handles on `order-by` selected item.
