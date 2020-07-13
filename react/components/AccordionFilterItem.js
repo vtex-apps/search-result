@@ -39,7 +39,12 @@ const AccordionFilterItem = ({
   return (
     <Fragment>
       {!open && (
-        <div className={`${handles.accordionFilterContainer} pl7`}>
+        <div
+          className={`${applyModifiers(
+            handles.accordionFilterContainer,
+            title
+          )} pl7`}
+        >
           <div
             role="button"
             tabIndex={0}
