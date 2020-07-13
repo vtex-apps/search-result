@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { intlShape, injectIntl } from 'react-intl'
 import classNames from 'classnames'
 import { Tag } from 'vtex.styleguide'
-import { useCssHandles } from 'vtex.css-handles'
+import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import { IconCaret } from 'vtex.store-icons'
 
 import { getFilterTitle } from '../constants/SearchHelpers'
@@ -45,7 +45,7 @@ const AccordionFilterItem = ({
             tabIndex={0}
             className={classNames(
               handles.accordionFilterItem,
-              handles.filterAccordionItemBox,
+              applyModifiers(handles.filterAccordionItemBox, title),
               't-body pr5 pv3 pointer bb b--muted-5',
               {
                 [handles.accordionFilterItemActive]: open,
@@ -57,7 +57,8 @@ const AccordionFilterItem = ({
           >
             <div
               className={classNames(
-                handles.accordionFilterContent, 'pv4 c-on-base',
+                handles.accordionFilterContent,
+                'pv4 c-on-base',
                 {
                   't-small': open,
                   't-heading-5': !open,
