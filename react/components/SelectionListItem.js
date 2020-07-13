@@ -21,7 +21,7 @@ const SelectionListItem = ({ option, onItemClick, selected }) => {
       className={classNames(
         handles.orderByOptionItem,
         highlight,
-        selected && handles.orderByOptionSelected,
+        applyModifiers(handles.orderByOptionItem, selected ? 'selected : ''),
         ' c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns'
       )}
       key={option.value}
