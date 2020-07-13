@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.65.1] - 2020-07-13
+
 ### Fixed
 - Temporarily remove `fuzzy`, `operator` and `searchState` from `handleFetchMoreNext` and `handleFetchMorePrevious`. They are causing a bug where the pagination is being reset.
 
