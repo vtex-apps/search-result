@@ -392,7 +392,7 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `orderByButton`                       |
 | `orderByDropdown`                     |
 | `orderByOptionItem`                   |
-| `orderByOptionItem--{selectedItem}`         |
+| `orderByOptionItem--selected`         |
 | `orderByOptionsContainer`             |
 | `orderByText`                         |
 | `orderBy`                             |
