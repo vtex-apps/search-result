@@ -171,7 +171,7 @@ const useQueries = (variables, facetsArgs) => {
 
   const refetch = useCombinedRefetch(searchRefetch, facetsRefetch)
 
-  const detatachedFilters =
+  const detachedFilters =
     facets && facets.facets
       ? detachFiltersByType(facets.facets)
       : {
@@ -198,7 +198,7 @@ const useQueries = (variables, facetsArgs) => {
       productSearch:
         productSearchResult.data && productSearchResult.data.productSearch,
       facets: {
-        ...detatachedFilters,
+        ...detachedFilters,
         queryArgs,
         breadcrumb: facets && facets.breadcrumb,
       },

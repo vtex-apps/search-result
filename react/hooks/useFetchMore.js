@@ -185,9 +185,6 @@ export const useFetchMore = props => {
     setQuery(
       {
         page: pageState.nextPage,
-        fuzzy: fuzzy || undefined,
-        operator: operator || undefined,
-        searchState: searchState || undefined,
       },
       { replace: true }
     )
@@ -224,9 +221,6 @@ export const useFetchMore = props => {
     setQuery(
       {
         page: pageState.previousPage,
-        fuzzy: fuzzy || undefined,
-        operator: operator || undefined,
-        searchState: searchState || undefined,
       },
       { replace: true, merge: true }
     )
