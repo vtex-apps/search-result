@@ -1,9 +1,9 @@
 import React from 'react'
 import { useRuntime } from 'vtex.render-runtime'
 import classNames from 'classnames'
-import { useCssHandles } from 'vtex.css-handles'
+import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 
-const CSS_HANDLES = ['orderByOptionItem', 'orderByOptionSelected']
+const CSS_HANDLES = ['orderByOptionItem']
 
 const SelectionListItem = ({ option, onItemClick, selected }) => {
   const { setQuery } = useRuntime()
@@ -19,9 +19,8 @@ const SelectionListItem = ({ option, onItemClick, selected }) => {
   return (
     <button
       className={classNames(
-        handles.orderByOptionItem,
         highlight,
-        applyModifiers(handles.orderByOptionItem, selected ? 'selected : ''),
+        applyModifiers(handles.orderByOptionItem, selected ? 'selected' : ''),
         ' c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns'
       )}
       key={option.value}
