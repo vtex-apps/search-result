@@ -14,7 +14,9 @@ const LocalQuery = props => {
     mapField = '',
     orderByField = SORT_OPTIONS[0].value,
     hideUnavailableItems,
+    facetsBehavior,
     skusFilter,
+    simulationBehavior,
     query: {
       order: orderBy = orderByField,
       page: pageQuery,
@@ -22,6 +24,7 @@ const LocalQuery = props => {
       map = mapField,
     } = {},
     render,
+    __unstableProductOriginVtex,
   } = props
 
   const { page: runtimePage } = useRuntime()
@@ -34,8 +37,11 @@ const LocalQuery = props => {
       orderBy={orderBy}
       priceRange={priceRange}
       hideUnavailableItems={hideUnavailableItems}
+      facetsBehavior={facetsBehavior}
       pageQuery={pageQuery}
       skusFilter={skusFilter}
+      simulationBehavior={simulationBehavior}
+      __unstableProductOriginVtex={__unstableProductOriginVtex}
     >
       {(searchQuery, extraParams) => {
         return render({

@@ -1,24 +1,25 @@
 import classNames from 'classnames'
 import React from 'react'
 import { Checkbox } from 'vtex.styleguide'
+import { applyModifiers } from 'vtex.css-handles'
 
-import useSelectedFilters from '../hooks/useSelectedFilters'
 import styles from '../searchResult.css'
 
-const FacetCheckboxList = ({ facets, onFilterCheck }) => {
-  const facetsWithSelected = useSelectedFilters(facets)
+import { searchSlugify } from '../utils/slug'
 
-  return facetsWithSelected.map(facet => {
+const FacetCheckboxList = ({ facets, onFilterCheck, facetTitle }) => {
+  return facets.map(facet => {
     const { name } = facet
+    const slugifiedName = searchSlugify(name)
 
     return (
       <div
         className={classNames(
-          styles.filterAccordionItemBox,
+          applyModifiers(styles.filterAccordionItemBox, slugifiedName),
           'pr4 pt3 items-center flex bb b--muted-5'
         )}
         key={name}
-        style={{hyphens: 'auto', wordBreak: 'break-word'}}
+        style={{ hyphens: 'auto', wordBreak: 'break-word' }}
       >
         <Checkbox
           className="mb0"
@@ -26,7 +27,7 @@ const FacetCheckboxList = ({ facets, onFilterCheck }) => {
           id={name}
           label={name}
           name={name}
-          onChange={() => onFilterCheck(facet)}
+          onChange={() => onFilterCheck({ ...facet, title: facetTitle })}
           value={name}
         />
       </div>

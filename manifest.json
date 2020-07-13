@@ -1,7 +1,7 @@
 {
   "name": "search-result",
   "vendor": "vtex",
-  "version": "3.40.0",
+  "version": "3.65.1",
   "title": "VTEX Search Result",
   "description": "A search result wrapper component",
   "mustUpdateAt": "2019-04-25",
@@ -21,6 +21,7 @@
     "vtex.store-graphql": "2.x",
     "vtex.store-resources": "0.x",
     "vtex.store-components": "3.x",
+    "vtex.native-types": "0.x",
     "vtex.breadcrumb": "1.x",
     "vtex.product-summary": "2.x",
     "vtex.shelf": "1.x",
@@ -37,7 +38,8 @@
     "vtex.blog-interfaces": "0.x",
     "vtex.responsive-values": "0.x",
     "vtex.css-handles": "0.x",
-    "vtex.store-drawer": "0.x"
+    "vtex.store-drawer": "0.x",
+    "vtex.product-list-context": "0.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }

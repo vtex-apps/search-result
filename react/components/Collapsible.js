@@ -1,9 +1,9 @@
 import classNames from 'classnames'
 import React, { useState, useRef } from 'react'
-import { injectIntl } from 'react-intl'
-import { useSpring, animated } from 'react-spring/web.cjs'
+import { FormattedMessage } from 'react-intl'
+import { NoSSR } from 'vtex.render-runtime'
 
-import useMeasure from '../hooks/useMeasure'
+import AnimatedDiv from './AnimatedDiv'
 
 const Collapsible = ({
   render,
@@ -13,7 +13,6 @@ const Collapsible = ({
   openLabel = 'store/filter.more-items',
   closedLabel = 'store/filter.less-items',
   linkClassName,
-  intl,
 }) => {
   const [open, setOpen] = useState(false)
   const shouldCollapse = items.length >= maxItems + threshold
@@ -22,19 +21,18 @@ const Collapsible = ({
 
   const overflowQuantity = items.length - maxItems
 
-  const { height } = useMeasure(containerRef)
-  const styles = useSpring({ height: open ? height : 0 })
-
   return (
     <>
       {items.slice(0, shouldCollapse ? maxItems : items.length).map(render)}
       {shouldCollapse && items.length > maxItems && (
         <>
-          <animated.div style={{ overflow: 'hidden', ...styles }}>
-            <div className="dib w-100" aria-hidden={!open} ref={containerRef}>
-              {items.slice(maxItems).map(render)}
-            </div>
-          </animated.div>
+          <NoSSR>
+            <AnimatedDiv open={open} containerRef={containerRef}>
+              <div className="dib w-100" aria-hidden={!open} ref={containerRef}>
+                {items.slice(maxItems).map(render)}
+              </div>
+            </AnimatedDiv>
+          </NoSSR>
           <button
             className={classNames(
               linkClassName,
@@ -43,12 +41,7 @@ const Collapsible = ({
             onClick={() => setOpen(o => !o)}
           >
             <span className="c-link">
-              {intl.formatMessage(
-                {
-                  id: !open ? openLabel : closedLabel,
-                },
-                { quantity: overflowQuantity }
-              )}
+              <FormattedMessage id={!open ? openLabel : closedLabel} values={{ quantity: overflowQuantity }} />
             </span>
           </button>
         </>
@@ -57,4 +50,4 @@ const Collapsible = ({
   )
 }
 
-export default injectIntl(Collapsible)
+export default Collapsible

@@ -8,7 +8,10 @@ import styles from './searchResult.css'
 
 const withSearchPageContextProps = Component => () => {
   const { searchQuery } = useSearchPage()
-  const breadcrumb = path(['data', 'productSearch', 'breadcrumb'], searchQuery)
+  const breadcrumb =
+    path(['data', 'productSearch', 'breadcrumb'], searchQuery) ||
+    path(['data', 'facets', 'breadcrumb'], searchQuery)
+
   return (
     <Component
       breadcrumb={breadcrumb}

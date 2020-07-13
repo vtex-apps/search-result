@@ -5,7 +5,7 @@ import OrderBy from './OrderBy'
 
 import styles from './searchResult.css'
 
-const withSearchPageContextProps = Component => (props) => {
+const withSearchPageContextProps = Component => props => {
   const { orderBy } = useSearchPage()
   if (orderBy == null) {
     return null
@@ -18,4 +18,10 @@ const withSearchPageContextProps = Component => (props) => {
   )
 }
 
-export default withSearchPageContextProps(OrderBy)
+const OrderByFlexible = withSearchPageContextProps(OrderBy)
+
+OrderByFlexible.schema = {
+  title: 'admin/editor.search-result.ordination.sort-by',
+}
+
+export default OrderByFlexible

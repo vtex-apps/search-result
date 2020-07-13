@@ -76,8 +76,8 @@ const FilterNavigator = ({
     return (
       <ContentLoader
         style={{
-          width: '100%',
-          height: '100%',
+          width: "230px",
+          height: "320px",
         }}
         width="230"
         height="320"

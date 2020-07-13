@@ -7,6 +7,7 @@ import LocalQuery from './components/LocalQuery'
 import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 import ContextProviders from './components/ContextProviders'
 import { PAGINATION_TYPES } from './constants/paginationType'
+import { SearchPageContext } from 'vtex.search-page-context/SearchPageContext'
 
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
 
@@ -23,6 +24,7 @@ const SearchResult = props => {
     pagination,
     mobileLayout,
     searchQuery,
+    trackingId,
   } = props
   const { query } = useRuntime()
   const settings = useMemo(
@@ -30,8 +32,9 @@ const SearchResult = props => {
       hiddenFacets,
       pagination,
       mobileLayout,
+      trackingId,
     }),
-    [hiddenFacets, mobileLayout, pagination]
+    [hiddenFacets, mobileLayout, pagination, trackingId]
   )
 
   const fieldsFromQueryString = {
@@ -49,21 +52,27 @@ const SearchResult = props => {
       {...querySchema}
       {...(areFieldsFromQueryStringValid ? fieldsFromQueryString : {})}
       render={localQueryProps => (
-        <ContextProviders
-          queryVariables={localQueryProps.searchQuery.variables}
-          settings={settings}
+        <SearchPageContext.Provider
+          value={{ searchQuery: localQueryProps.searchQuery }}
         >
-          <SearchResultContainer {...localQueryProps} />
-        </ContextProviders>
+          <ContextProviders
+            queryVariables={localQueryProps.searchQuery.variables}
+            settings={settings}
+          >
+            <SearchResultContainer {...localQueryProps} />
+          </ContextProviders>
+        </SearchPageContext.Provider>
       )}
     />
   ) : (
-    <ContextProviders
-      queryVariables={searchQuery.variables}
-      settings={settings}
-    >
-      <SearchResultContainer {...props} />
-    </ContextProviders>
+    <SearchPageContext.Provider value={{ searchQuery: searchQuery }}>
+      <ContextProviders
+        queryVariables={searchQuery.variables}
+        settings={settings}
+      >
+        <SearchResultContainer {...props} />
+      </ContextProviders>
+    </SearchPageContext.Provider>
   )
 }
 
@@ -117,6 +126,31 @@ SearchResult.getSchema = props => {
                 'admin/editor.search-result.query.skusFilter.first-available',
               ],
             },
+            simulationBehavior: {
+              title: 'admin/editor.search-result.query.simulationBehavior',
+              description:
+                'admin/editor.search-result.query.simulationBehavior.description',
+              type: 'string',
+              default: 'default',
+              enum: ['default', 'skip'],
+              enumNames: [
+                'admin/editor.search-result.query.simulationBehavior.default',
+                'admin/editor.search-result.query.simulationBehavior.skip',
+              ],
+            },
+            installmentCriteria: {
+              title:
+                'admin/editor.search-result.query.installmentCriteria.title',
+              description:
+                'admin/editor.search-result.query.installmentCriteria.description',
+              type: 'string',
+              default: 'MAX_WITHOUT_INTEREST',
+              enum: ['MAX_WITHOUT_INTEREST', 'MAX_WITH_INTEREST'],
+              enumNames: [
+                'admin/editor.search-result.query.installmentCriteria.max-without-interest',
+                'admin/editor.search-result.query.installmentCriteria.max-with-interest',
+              ],
+            },
           },
         },
       }
@@ -126,6 +160,26 @@ SearchResult.getSchema = props => {
     title: 'admin/editor.search-result.title',
     description: 'admin/editor.search-result.description',
     type: 'object',
+    dependencies: {
+      advancedSettings: {
+        oneOf: [
+          {
+            properties: {
+              advancedSettings: {
+                enum: [true],
+              },
+              trackingId: {
+                title:
+                  'admin.editor.search-result.advanced-settings.trackingId.title',
+                description:
+                  'admin.editor.search-result.advanced-settings.trackingId.description',
+                type: 'string',
+              },
+            },
+          },
+        ],
+      },
+    },
     properties: {
       ...querySchema,
       mobileLayout: {
@@ -215,6 +269,10 @@ SearchResult.getSchema = props => {
           'admin/editor.search-result.pagination.infinite-scroll',
         ],
         isLayout: true,
+      },
+      advancedSettings: {
+        title: 'admin.editor.search-result.advanced-settings.title',
+        type: 'boolean',
       },
     },
   }

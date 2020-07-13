@@ -6,7 +6,6 @@ import FilterOptionTemplate from './FilterOptionTemplate'
 import FacetItem from './FacetItem'
 import { facetOptionShape } from '../constants/propTypes'
 import { getFilterTitle } from '../constants/SearchHelpers'
-import useSelectedFilters from '../hooks/useSelectedFilters'
 
 /**
  * Search Filter Component.
@@ -17,23 +16,25 @@ const SearchFilter = ({
   intl,
   preventRouteChange = false,
   initiallyCollapsed = false,
+  navigateToFacet,
 }) => {
-  const filtersWithSelected = useSelectedFilters(facets)
-
   const sampleFacet = facets && facets.length > 0 ? facets[0] : null
+  const facetTitle = getFilterTitle(title, intl)
 
   return (
     <FilterOptionTemplate
       id={sampleFacet ? sampleFacet.map : null}
-      title={getFilterTitle(title, intl)}
-      filters={filtersWithSelected}
+      title={facetTitle}
+      filters={facets}
       initiallyCollapsed={initiallyCollapsed}
     >
       {facet => (
         <FacetItem
           key={facet.name}
+          facetTitle={facetTitle}
           facet={facet}
           preventRouteChange={preventRouteChange}
+          navigateToFacet={navigateToFacet}
         />
       )}
     </FilterOptionTemplate>
@@ -50,6 +51,7 @@ SearchFilter.propTypes = {
   /** Prevent route changes */
   preventRouteChange: PropTypes.bool,
   initiallyCollapsed: PropTypes.bool,
+  navigateToFacet: PropTypes.func,
 }
 
 export default injectIntl(SearchFilter)

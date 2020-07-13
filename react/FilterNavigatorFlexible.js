@@ -4,10 +4,16 @@ import { useDevice } from 'vtex.device-detector'
 import { pathOr } from 'ramda'
 
 import FilterNavigator from './FilterNavigator'
+import FilterNavigatorContext from './components/FilterNavigatorContext'
 
 import styles from './searchResult.css'
 
-const withSearchPageContextProps = Component => ({ layout }) => {
+const withSearchPageContextProps = Component => ({
+  layout,
+  initiallyCollapsed,
+  maxItemsDepartment,
+  maxItemsCategory,
+}) => {
   const {
     searchQuery,
     map,
@@ -16,14 +22,19 @@ const withSearchPageContextProps = Component => ({ layout }) => {
     hiddenFacets,
     filters,
     showFacets,
-    showContentLoader,
     preventRouteChange,
     facetsLoading,
   } = useSearchPage()
   const { isMobile } = useDevice()
 
   const facets = pathOr({}, ['data', 'facets'], searchQuery)
-  const { brands, priceRanges, specificationFilters, categoriesTrees } = facets
+  const {
+    brands,
+    priceRanges,
+    specificationFilters,
+    categoriesTrees,
+    queryArgs,
+  } = facets
 
   if (showFacets === false || !map) {
     return null
@@ -35,19 +46,24 @@ const withSearchPageContextProps = Component => ({ layout }) => {
         layout === 'desktop' && isMobile ? 'w-100 mh5' : ''
       }`}
     >
-      <Component
-        preventRouteChange={preventRouteChange}
-        brands={brands}
-        params={params}
-        priceRange={priceRange}
-        priceRanges={priceRanges}
-        specificationFilters={specificationFilters}
-        tree={categoriesTrees}
-        loading={facetsLoading && showContentLoader}
-        filters={filters}
-        hiddenFacets={hiddenFacets}
-        layout={layout}
-      />
+      <FilterNavigatorContext.Provider value={queryArgs}>
+        <Component
+          preventRouteChange={preventRouteChange}
+          brands={brands}
+          params={params}
+          priceRange={priceRange}
+          priceRanges={priceRanges}
+          specificationFilters={specificationFilters}
+          tree={categoriesTrees}
+          loading={facetsLoading}
+          filters={filters}
+          hiddenFacets={hiddenFacets}
+          layout={layout}
+          initiallyCollapsed={initiallyCollapsed}
+          maxItemsDepartment={maxItemsDepartment}
+          maxItemsCategory={maxItemsCategory}
+        />
+      </FilterNavigatorContext.Provider>
     </div>
   )
 }

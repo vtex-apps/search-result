@@ -1,7 +1,6 @@
 import { zip } from 'ramda'
-import { useContext } from 'react'
-
-import QueryContext from '../components/QueryContext'
+import { useFilterNavigator } from '../components/FilterNavigatorContext'
+import { isSameMap } from '../utils/queryAndMapUtils'
 
 /**
  * This hook is required because we make the facets query
@@ -9,7 +8,7 @@ import QueryContext from '../components/QueryContext'
  * need to calculate manually if the other filters are selected
  */
 const useSelectedFilters = facets => {
-  const { query, map } = useContext(QueryContext)
+  const { query, map } = useFilterNavigator()
   if (!query && !map) {
     return []
   }
@@ -27,7 +26,8 @@ const useSelectedFilters = facets => {
 
     const isSelected =
       queryAndMap.find(
-        ([slug, slugMap]) => slug === currentFacetSlug && slugMap === facet.map
+        ([slug, slugMap]) =>
+          slug === currentFacetSlug && isSameMap(slugMap, facet.map)
       ) !== undefined
 
     return {

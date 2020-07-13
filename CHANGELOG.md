@@ -7,6 +7,325 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.65.1] - 2020-07-13
+
+### Fixed
+- Temporarily remove `fuzzy`, `operator` and `searchState` from `handleFetchMoreNext` and `handleFetchMorePrevious`. They are causing a bug where the pagination is being reset.
+
+## [3.65.0] - 2020-07-13
+### Added
+- New CSS handles on `order-by` selected item.
+
+## [3.64.0] - 2020-07-09
+### Added
+- New CSS handles on filter navigator mobile.
+
+## [3.63.3] - 2020-07-09
+
+### Added
+- `SearchResult` now adds `fuzzy`, `operator` and `searchState` to the URL.
+
+### Fixed
+- Deal with the `productClusterIds` differences caused by `search-resolver0.x` and `search-resolver1.x`.
+- `Pricerange` event was not adding `fuzzy`, `operator` and `searchState` to the URL.
+- `fuzzy`, `operator` and `searchState` were being reset in any search interaction.
+
+## [3.63.2] - 2020-07-08
+
+### Fixed
+- `SearchTitle` crashing when `breadcrumb` prop is `null`.
+
+### Security
+- Bump dependencies versions.
+
+## [3.63.1] - 2020-07-01
+
+### Fixed
+- `SearchResult` use the `facets` breadcrumb as fallback.
+
+## [3.63.0] - 2020-06-29
+### Added
+- Be able to use `search-products-progress-bar` in `search-result`
+
+## [3.62.2] - 2020-06-23
+### Fixed
+- Navigation on collections page.
+
+## [3.62.1] - 2020-06-22
+### Fixed
+- Fixed "Clear" button on FT searches.
+
+## [3.62.0] - 2020-06-22 [YANKED]
+### Changed
+- "Clear" button on mobile filters to uncheck every brand and specification filter.
+
+## [3.61.0] - 2020-06-19
+
+### Added
+- Search redirect.
+
+## [3.60.6] - 2020-06-16
+
+### Fixed
+- Problem with `useFetchMore` that displayed repeated products.
+
+## [3.60.5] - 2020-06-15
+### Added
+- Accept `facets` breadcrumb as fallback.
+
+## [3.60.4] - 2020-06-15
+### Fixed
+- Crashes happening when clicking on a department filter on mobile.
+
+## [3.60.3] - 2020-06-12
+
+### Added
+- `__unstableProductOriginVtex` prop to the `SearchResultLayoutCustomQuery`.
+
+## [3.60.2] - 2020-06-09
+### Fixed
+- Fixed CSS Handles table in README.md file (added the `--` between Handle and its modifier).
+
+
+## [3.60.1] - 2020-06-09
+### Fixed
+- Updated README.md file with missing Handles.
+
+## [3.60.0] - 2020-06-05
+### Added
+- New CSS handles: `filterBreadcrumbsItem` and `filterBreadcrumbsItemName`.
+
+## [3.59.5] - 2020-06-03
+### Fixed
+- Decode map before split it in `selectedFacets`.
+
+## [3.59.4] - 2020-06-02
+### Added
+- Hide facets with property `hidden`.
+
+## [3.59.3] - 2020-06-01
+### Added
+- `query` to productClick event
+
+## [3.59.2] - 2020-05-29
+### Fixed
+- Problem of components not rendering when child of flex-layout.
+
+## [3.59.1] - 2020-05-29
+
+### Changed
+- Allows specification filters of type `number`.
+
+## [3.59.0] - 2020-05-18
+### Added
+- Add specific classes to `filterGroup` and `filterItem` of the `filterAccordion` (filter mobile)
+
+## [3.58.3] - 2020-05-14
+### Fixed
+- `handleClearFilters` function, improving the user experience when they click on the 'clean' button.
+
+## [3.58.2] - 2020-05-13
+### Fixed
+- `TotalProducts` and `OrderBy` would not render expected text due to the default message id defined in `contentSchemas.json` being modified.
+
+## [3.58.1] - 2020-05-12 [YANKED]
+### Fixed
+- Bug causing `TotalProducts` and `OrderBy` not to appear on non flexible components.
+
+## [3.58.0] - 2020-05-12 [YANKED]
+### Added
+- Support for customization of `TotalProductsFlexible` and `OrderByFlexible` components via site-editor.
+
+## [3.57.1] - 2020-05-06
+### Fixed
+- Cover cases where the category tree is empty in the `FilterNavigator`.
+
+## [3.57.0] - 2020-05-04
+### Added
+- New CSS handles: `filtersWrapper` and `filtersWrapperMobile`.
+
+## [3.56.2] - 2020-04-30
+### Fixed
+- Add prop `initiallyCollapsed` to docs.
+
+## [3.56.1] - 2020-04-24
+### Fixed
+- Make query in component and done on SSR match.
+
+## [3.56.0] - 2020-04-23
+### Added
+- New prop `maxItemsDepartment` to `filter-navigator.v3`.
+- New prop `maxItemsCategory` to `filter-navigator.v3`.
+
+## [3.55.3] - 2020-04-15
+
+### Fixed
+
+- Use empty array instead of undefined in specificationFilters.
+
+## [3.55.2] - 2020-04-15
+
+### Fixed
+- Guarantee that the `refetchVariables` will follow the `search-protocol`.
+- Send an empty filter when the `facets` query is not ready.
+- Funcion `buildSelectedFacetsAndFullText` now cases where map is lesser than query.
+
+## [3.55.1] - 2020-04-09
+
+### Fixed
+- The order in which the facets are sent to the `normalizeQueryMap` in the `vtex.store` app.
+- Change from `productOrigin` to `productOriginVtex`
+
+## [3.55.0] - 2020-04-08
+### Added
+- A compatibility layer to handle the new search protocol.
+- `fuzzy`, `operator` and `searchState` props.
+
+### Changed
+- `FilterNavigator` children are not remounted each time a new facet is selected.
+- When the user selects a new `priceRange`, the `facets` query will be reloaded.
+- `FilterNavigator` now uses the `selected` property.
+
+## [3.54.0] - 2020-04-07
+### Added
+- New block `search-products-progress-bar`.
+
+## [3.53.2] - 2020-04-03
+### Fixed
+- Added missing blocks on README and fixed some nitpicks.
+
+## [3.53.1] - 2020-04-01
+### Fixed
+- New README.md documentation
+
+## [3.53.0] - 2020-03-31
+### Added
+- New block `sidebar-close-button`.
+
+## [3.52.0] - 2020-03-26
+### Added
+- Support `installmentCriteria` prop in search query.
+
+## [3.51.4] - 2020-03-20
+### Fixed
+- Problem that caused category filters to not appear when you were in page with category tree but all the other facets were in `hiddenFacets`.
+
+## [3.51.3] - 2020-03-16
+### Fixed
+- Facets selection switch on mobile
+
+## [3.51.2] - 2020-03-11
+### Fixed
+- Facets not showing "checked" when clicked on mobile.
+
+## [3.51.1] - 2020-03-11
+### Fixed
+- Fixed mobile facets breaking when `preventRouteChange` wasn't being used.
+
+### Added
+- Updated `CODEOWNERS` file with responsible teams for each directory.
+
+## [3.51.0] - 2020-03-09
+### Added
+- Prop `initiallyCollapsed` to `filter-navigator.v3`, allow filters start out collapsed.
+
+## [3.50.2] - 2020-03-06
+### Fixed
+- Filter selection on FilterSidebar
+
+## [3.50.1] - 2020-03-03
+### Fixed
+- Typo on `filterApplyButtonWrapper`.
+- `trackingId` messages keys.
+
+## [3.50.0] - 2020-03-02
+### Added
+- New search URL structure for specification filters and categories.
+
+### Fixed
+- Error causing the `productImpression` event to not be sent on some cases.
+
+## [3.49.0] - 2020-02-27
+### Added
+- Handles to the wrapper of the action buttons of `FilterSidebar`.
+
+## [3.48.0] - 2020-02-27
+### Added
+- `trackingId` prop to the Search Result.
+
+## [3.47.3] - 2020-02-18
+### Changed
+- Import search queries directly.
+
+## [3.47.2] - 2020-02-14
+### Changed
+- Make `search-result-layout.mobile` only come to runtime if device is of type mobile.
+
+## [3.47.1] - 2020-02-10
+### Fixed
+- Error causing the `productImpression` event to not be sent on some cases.
+
+## [3.47.0] - 2020-02-07 [YANKED]
+### Changed
+- New search URL structure for specification filters and categories.
+
+## [3.46.1] - 2020-02-06
+### Changed
+- "Filter by" message to "Filtered by".
+
+## [3.46.0] - 2020-02-04
+### Added
+- `filterTemplateOverflow` and `orderByText` handles.
+
+## [3.45.2] - 2020-01-28
+### Changed
+- The fallback value of orderby label to empty string again.
+
+## [3.45.1] - 2020-01-28
+### Changed
+- Ordination value of "Relevance" from empty string to `OrderByScoreDESC`.
+
+## [3.45.0] - 2020-01-24
+### Added
+- Param `simulationBehavior` in search query.
+
+## [3.44.1] - 2020-01-22
+### Fixed
+- Issues with the message change on some languages.
+
+## [3.44.0] - 2020-01-17
+### Added
+- Two new css handles: `totalProductsMessage` and `filtersMessage`.
+
+## [3.43.2] - 2020-01-13
+### Fixed
+- Prevent searchQuery object not reflecting new variables passed.
+
+## [3.43.1] - 2020-01-13
+### Fixed
+- `maxItemsPerPage` description on README.
+
+## [3.43.0] - 2020-01-13
+### Changed
+- Enable server side rendering.
+
+## [3.42.1] - 2020-01-09
+### Fixed
+- Fix issues related to FilterNavigator loading state.
+
+## [3.42.0] - 2020-01-04
+
+### Added
+- `showFacetQuantity` settings to `SearchResultFlexible` component. 
+
+## [3.41.1] - 2020-01-02
+### Fixed
+- Added default value for `facetsBehavior` variable.
+
+## [3.41.0] - 2020-01-02
+### Added
+- `facetsBehavior` on `SearchQuery`.
+
 ## [3.40.0] - 2019-12-27
 ### Added
 - New prop `layout` to `filter-navigator.v3`.

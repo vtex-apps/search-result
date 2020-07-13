@@ -28,7 +28,7 @@ const emptyFacets = {
 const CSS_HANDLES = ['loadingOverlay']
 
 const useShowContentLoader = (searchQuery, dispatch) => {
-  const loadingRef = useRef(true)
+  const loadingRef = useRef(searchQuery.loading)
   const previousLoading = loadingRef.current
   const isLoading = searchQuery && searchQuery.loading
   useEffect(() => {
@@ -47,6 +47,7 @@ const SearchResultFlexible = ({
   showProductsCount,
   blockClass,
   preventRouteChange = false,
+  showFacetQuantity = false,
   // Below are set by SearchContext
   searchQuery,
   maxItemsPerPage,
@@ -56,6 +57,7 @@ const SearchResultFlexible = ({
   orderBy,
   page,
   facetsLoading,
+  trackingId,
 }) => {
   //This makes infinite scroll unavailable.
   //Infinite scroll was deprecated and we have
@@ -91,6 +93,7 @@ const SearchResultFlexible = ({
   const showFacets = showCategories || (!hideFacets && !isEmpty(filters))
   const [state, dispatch] = useSearchPageStateReducer({
     mobileLayout: mobileLayout.mode1,
+    showContentLoader: searchQuery.loading,
   })
 
   useShowContentLoader(searchQuery, dispatch)
@@ -100,8 +103,10 @@ const SearchResultFlexible = ({
       hiddenFacets,
       pagination,
       mobileLayout,
+      showFacetQuantity,
+      trackingId,
     }),
-    [hiddenFacets, mobileLayout, pagination]
+    [hiddenFacets, mobileLayout, pagination, showFacetQuantity, trackingId]
   )
 
   const context = useMemo(

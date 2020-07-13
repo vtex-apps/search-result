@@ -7,11 +7,11 @@
       "total-products",
       "order-by",
       "search-title",
-      "rich-text"
+      "rich-text",
+      "search-products-progress-bar"
     ],
     "required": ["gallery"],
-    "component": "index",
-    "render": "client"
+    "component": "index"
   },
   "filter-navigator": {
     "component": "FilterNavigatorLegacy"
@@ -21,7 +21,7 @@
   },
   "filter-navigator.v2": {
     "component": "FilterNavigator",
-    "allowed": ["shop-review-summary"]
+    "allowed": ["shop-review-summary", "sidebar-close-button"]
   },
   "gallery": {
     "required": ["product-summary"],
@@ -46,8 +46,7 @@
       "search-result-layout.mobile",
       "search-not-found-layout"
     ],
-    "component": "SearchResultLayout",
-    "render": "client"
+    "component": "SearchResultLayout"
   },
   "search-result-layout.customQuery": {
     "allowed": [
@@ -55,8 +54,7 @@
       "search-result-layout.mobile",
       "search-not-found-layout"
     ],
-    "component": "SearchResultLayoutCustomQuery",
-    "render": "client"
+    "component": "SearchResultLayoutCustomQuery"
   },
   "search-layout-switcher": {
     "component": "LayoutModeSwitcherFlexible"
@@ -115,7 +113,8 @@
       "search-blog-articles-list"
     ],
     "composition": "children",
-    "component": "SearchResultFlexibleMobile"
+    "component": "SearchResultFlexibleMobile",
+    "device": "mobile"
   },
   "search-not-found-layout": {
     "allowed": [
@@ -132,16 +131,29 @@
   "search-products-count-per-page": {
     "component": "ProductCountPerPage"
   },
+  "search-products-progress-bar": {
+    "component": "ProductsProgressBar"
+  },
   "order-by.v2": {
-    "component": "OrderByFlexible"
+    "component": "OrderByFlexible",
+    "content": {
+      "$ref": "app:vtex.search-result#/definitions/OrderBy"
+    }
   },
   "filter-navigator.v3": {
-    "component": "FilterNavigatorFlexible"
+    "component": "FilterNavigatorFlexible",
+    "allowed": ["sidebar-close-button"]
   },
   "total-products.v2": {
-    "component": "TotalProductsFlexible"
+    "component": "TotalProductsFlexible",
+    "content": {
+      "$ref": "app:vtex.search-result#/definitions/TotalProducts"
+    }
   },
   "search-title.v2": {
     "component": "SearchTitleFlexible"
+  },
+  "sidebar-close-button": {
+    "component": "SidebarCloseButton"
   }
 }

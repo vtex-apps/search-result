@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { find, propEq } from 'ramda'
+import { formatIOMessage } from 'vtex.native-types'
 import { IconCaret } from 'vtex.store-icons'
 import { useDevice } from 'vtex.device-detector'
 import { useCssHandles } from 'vtex.css-handles'
@@ -15,11 +16,17 @@ const CSS_HANDLES = [
   'orderByButton',
   'orderByOptionsContainer',
   'orderByDropdown',
+  'orderByText',
   'filterPopupTitle',
   'filterPopupArrowIcon',
 ]
 
-const SelectionListOrderBy = ({ intl, orderBy, options }) => {
+const SelectionListOrderBy = ({
+  intl,
+  message = 'store/ordenation.sort-by',
+  orderBy,
+  options,
+}) => {
   const [showDropdown, setShowDropdown] = useState(false)
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -48,6 +55,8 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
       )
     })
   }
+
+  const sortByMessage = formatIOMessage({ id: message, intl })
 
   const getOptionTitle = useCallback(
     option => {
@@ -90,11 +99,11 @@ const SelectionListOrderBy = ({ intl, orderBy, options }) => {
           )}
         >
           <span
-            className={classNames('c-muted-2', {
+            className={classNames(handles.orderByText, 'c-muted-2', {
               'dn dib-ns': !orderBy.length,
             })}
           >
-            {intl.formatMessage({ id: 'store/ordenation.sort-by' })}
+            {sortByMessage}
           </span>{' '}
           {getOptionTitle(orderBy)}
         </span>
@@ -122,6 +131,8 @@ SelectionListOrderBy.propTypes = {
   ),
   /** Intl to translations */
   intl: intlShape,
+  /** Message to be displayed */
+  message: PropTypes.string,
 }
 
 export default injectIntl(SelectionListOrderBy)
