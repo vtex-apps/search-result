@@ -383,6 +383,7 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `filterTitle`                         |
 | `footerButton`                        |
 | `galleryItem`                         |
+| `galleryItem--{displayMode}`          |
 | `galleryTitle`                        |
 | `gallery`                             |
 | `layoutSwitcher`                      |
