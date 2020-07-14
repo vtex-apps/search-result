@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Bug where the search is reset to the first page when `fetchMore` sets `fuzzy`, `operator` and `searchState`.
+
 ## [3.65.1] - 2020-07-13
 
 ### Fixed

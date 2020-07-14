@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect, useReducer } from 'react'
-import { min, max } from 'ramda'
+import { max } from 'ramda'
 import { useRuntime } from 'vtex.render-runtime'
 import {
   useSearchPageStateDispatch,
@@ -143,7 +143,6 @@ const useFetchingMore = () => {
 export const useFetchMore = props => {
   const {
     page,
-    recordsFiltered,
     maxItemsPerPage,
     fetchMore,
     products,
@@ -185,6 +184,9 @@ export const useFetchMore = props => {
     setQuery(
       {
         page: pageState.nextPage,
+        fuzzy: fuzzy || undefined,
+        operator: operator || undefined,
+        searchState: searchState || undefined,
       },
       { replace: true }
     )
@@ -221,6 +223,9 @@ export const useFetchMore = props => {
     setQuery(
       {
         page: pageState.previousPage,
+        fuzzy: fuzzy || undefined,
+        operator: operator || undefined,
+        searchState: searchState || undefined,
       },
       { replace: true, merge: true }
     )

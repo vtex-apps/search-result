@@ -121,20 +121,35 @@ const useCorrectSearchStateVariables = (
   fuzzy,
   operator,
   searchState,
-  fullText
+  fullText,
+  shouldReset
 ) => {
+  const variablesRef = useRef({
+    fuzzy,
+    operator,
+    searchState,
+  })
   const fullTextRef = useRef(fullText)
-  const shouldReset = isCurrentDifferent(fullTextRef, fullText)
 
-  const result = {
-    fuzzy: shouldReset ? undefined : fuzzy,
-    operator: shouldReset ? undefined : operator,
-    searchState: shouldReset ? undefined : searchState,
+  if (shouldReset) {
+    variablesRef.current = {
+      fuzzy,
+      operator,
+      searchState,
+    }
   }
 
-  fullTextRef.current = fullText
+  if (isCurrentDifferent(fullTextRef, fullText)) {
+    variablesRef.current = {
+      fuzzy: undefined,
+      operator: undefined,
+      searchState: undefined,
+    }
 
-  return result
+    fullTextRef.current = fullText
+  }
+
+  return variablesRef.current
 }
 
 const useQueries = (variables, facetsArgs) => {
@@ -246,7 +261,8 @@ const SearchQuery = ({
     fuzzyQuery,
     operatorQuery,
     searchStateQuery,
-    fullText
+    fullText,
+    shouldReset
   )
   const { setRedirect } = useRedirect()
 
