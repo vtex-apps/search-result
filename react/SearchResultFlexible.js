@@ -3,9 +3,8 @@ import ContextProviders from './components/ContextProviders'
 import SearchResultContainer from './components/SearchResultContainer'
 import {
   SearchPageContext,
-  SearchPageStateContext,
-  SearchPageStateDispatch,
-  useSearchPageStateReducer,
+  useSearchPageState,
+  useSearchPageStateDispatch,
 } from 'vtex.search-page-context/SearchPageContext'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -59,6 +58,27 @@ const SearchResultFlexible = ({
   facetsLoading,
   trackingId,
 }) => {
+  const {
+    mobileLayout: mobileLayoutState,
+    showContentLoader: showContentLoaderState,
+    isFetchingMore: isFetchingMoreState,
+  } = useSearchPageState()
+  const dispatch = useSearchPageStateDispatch()
+
+  if (typeof mobileLayoutState === 'undefined') {
+    dispatch({
+      type: 'SWITCH_LAYOUT',
+      args: { mobileLayout: mobileLayout.mode1 },
+    })
+  }
+
+  if (typeof showContentLoaderState === 'undefined') {
+    dispatch({
+      type: 'SET_CONTENT_LOADER',
+      args: { showContentLoader: searchQuery.loading },
+    })
+  }
+
   //This makes infinite scroll unavailable.
   //Infinite scroll was deprecated and we have
   //removed it since the flexible search release
@@ -91,10 +111,6 @@ const SearchResultFlexible = ({
     categoriesTrees &&
     categoriesTrees.length > 0
   const showFacets = showCategories || (!hideFacets && !isEmpty(filters))
-  const [state, dispatch] = useSearchPageStateReducer({
-    mobileLayout: mobileLayout.mode1,
-    showContentLoader: searchQuery.loading,
-  })
 
   useShowContentLoader(searchQuery, dispatch)
 
@@ -146,46 +162,42 @@ const SearchResultFlexible = ({
     ]
   )
 
-  const showLoading = searchQuery.loading && !state.isFetchingMore
+  const showLoading = searchQuery.loading && !isFetchingMoreState
   return (
     <SearchPageContext.Provider value={context}>
-      <SearchPageStateContext.Provider value={state}>
-        <SearchPageStateDispatch.Provider value={dispatch}>
-          <ContextProviders
-            queryVariables={searchQuery.variables}
-            settings={settings}
-          >
-            <SearchResultContainer
-              searchQuery={searchQuery}
-              maxItemsPerPage={maxItemsPerPage}
-              pagination={pagination}
-              mobileLayout={mobileLayout}
-              map={map}
-              params={params}
-              priceRange={priceRange}
-              hiddenFacets={hiddenFacets}
-              orderBy={orderBy}
-              page={page}
-              facetsLoading={facetsLoading}
-            >
-              {
-                <LoadingOverlay loading={showLoading}>
-                  <div
-                    className={`${
-                      handles.loadingOverlay
-                    } flex flex-column flex-grow-1 ${generateBlockClass(
-                      styles['container--layout'],
-                      blockClass
-                    )}`}
-                  >
-                    {children}
-                  </div>
-                </LoadingOverlay>
-              }
-            </SearchResultContainer>
-          </ContextProviders>
-        </SearchPageStateDispatch.Provider>
-      </SearchPageStateContext.Provider>
+      <ContextProviders
+        queryVariables={searchQuery.variables}
+        settings={settings}
+      >
+        <SearchResultContainer
+          searchQuery={searchQuery}
+          maxItemsPerPage={maxItemsPerPage}
+          pagination={pagination}
+          mobileLayout={mobileLayout}
+          map={map}
+          params={params}
+          priceRange={priceRange}
+          hiddenFacets={hiddenFacets}
+          orderBy={orderBy}
+          page={page}
+          facetsLoading={facetsLoading}
+        >
+          {
+            <LoadingOverlay loading={showLoading}>
+              <div
+                className={`${
+                  handles.loadingOverlay
+                } flex flex-column flex-grow-1 ${generateBlockClass(
+                  styles['container--layout'],
+                  blockClass
+                )}`}
+              >
+                {children}
+              </div>
+            </LoadingOverlay>
+          }
+        </SearchResultContainer>
+      </ContextProviders>
     </SearchPageContext.Provider>
   )
 }
