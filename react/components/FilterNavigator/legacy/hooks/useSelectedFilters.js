@@ -4,7 +4,7 @@ import slugify from 'slugify'
 
 import QueryContext from '../../../QueryContext'
 
-function Slugify(str) {
+export function Slugify(str) {
   return slugify(str, { lower: true, remove: /[*+~.()'"!:@]/g })
 }
 
