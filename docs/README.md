@@ -176,17 +176,20 @@ or
 }
 ```
 
-Below you may find all available props to configure your search data (be it by using a context or a custom query through the `querySchema` block):
+Below you may find all available props to configure your search data (be it by using a context or a custom query through the `search-result-layout.customQuery` block):
 
 | Prop name              | Type             | Description                                                                                                                                                                                           | Default value     |
 | ---------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
-| `maxItemsPerPage`      | `number`         | Maximum number of items per search page. The maximum value of this prop is `50`, if a larger number is passed, the query will fail.                                                                                                                                                               | `10`                |
-| `orderByField`         | `Enum`           | Decides which order products must follow when displayed. The possible values are named after the order type: `OrderByTopSaleDESC`, `OrderByReleaseDateDESC`, `OrderByBestDiscountDESC`, `OrderByPriceDESC`, `OrderByPriceASC`, `OrderByNameASC`, `OrderByNameDESC` or `OrderByScoreDESC` ([relevance score](https://help.vtex.com/tutorial/como-funciona-o-campo-score--1BUZC0mBYEEIUgeQYAKcae?locale=pt)). `ASC` and `DESC` stand for ascending order and descending order, respectively.  | `OrderByScoreDESC`              |
+| `querySchema` | `object` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Main prop responsible for defining how the search custom query must be performed. This prop object can receive all of the props listed below.  
+| `maxItemsPerPage`  | `number` | Maximum number of items per search page. The maximum value of this prop is `50`, if a larger number is passed, the query will fail.  | `10`                |
+| `orderByField`         | `enum`           | Decides which order products must follow when displayed. The possible values are named after the order type: `OrderByTopSaleDESC`, `OrderByReleaseDateDESC`, `OrderByBestDiscountDESC`, `OrderByPriceDESC`, `OrderByPriceASC`, `OrderByNameASC`, `OrderByNameDESC` or `OrderByScoreDESC` ([relevance score](https://help.vtex.com/tutorial/como-funciona-o-campo-score--1BUZC0mBYEEIUgeQYAKcae?locale=pt)). `ASC` and `DESC` stand for ascending order and descending order, respectively.  | `OrderByScoreDESC`              |
 | `hideUnavailableItems` | `boolean`     | Whether the search result should display unavailable items (`true`) or not (`false`).                                                                                                                                                       | `false`           |
 | `facetsBehavior` |  `string`        | Defines the behavior filters will have. When set to `dynamic`, it restricts the results according to the filters that user have already selected. If set to `Static`, all filters will continue to be displayed to the user, even is no results exist.                                                                                                                                                  | `Static`           |
-| `skusFilter`           | `Enum` | Controls SKUs returned for each product in the query. The less SKUs needed to be returned, the more performant your shelf query will be. Available value options: `FIRST_AVAILABLE` (returns only the first available SKU), `ALL_AVAILABLE` (only returns available SKUs) and `ALL` (returns all product's SKUs).                                                            | `ALL_AVAILABLE` |
-| `simulationBehavior`     | `Enum` | Defines whether the search data will be up-to-date (`default`) or fetched using the Cache (`skip`). The last option should be used only if you prefer faster queries over no having the most up-to-date prices or inventory.                                                               | `default` |
-| `installmentCriteria`               | `Enum`                 | Controls what price should be shown when there are different installments options for it. Possible values are: `MAX_WITHOUT_INTEREST` (displayes the maximum installment option with no interest attached) or `MAX_WITH_INTEREST` (displayes the maximum installment option whether it has interest attached or not).                                 | `"MAX_WITHOUT_INTEREST"` |
+| `skusFilter`           | `enum` | Controls SKUs returned for each product in the query. The less SKUs needed to be returned, the more performant your shelf query will be. Available value options: `FIRST_AVAILABLE` (returns only the first available SKU), `ALL_AVAILABLE` (only returns available SKUs) and `ALL` (returns all product's SKUs).                                                            | `ALL_AVAILABLE` |
+| `simulationBehavior`     | `enum` | Defines whether the search data will be up-to-date (`default`) or fetched using the Cache (`skip`). The last option should be used only if you prefer faster queries over no having the most up-to-date prices or inventory.                                                               | `default` |
+| `installmentCriteria`               | `enum`                 | Controls what price should be shown when there are different installments options for it. Possible values are: `MAX_WITHOUT_INTEREST` (displayes the maximum installment option with no interest attached) or `MAX_WITH_INTEREST` (displayes the maximum installment option whether it has interest attached or not).                                 | `"MAX_WITHOUT_INTEREST"` |
+| `queryField` | `string` | Defines a query string for the search custom query. This prop should be used when building a custom search page with a pre-defined URL. | `undefined` |
+| `mapField` | `string` | Defines the query string's map field for the search custom query. This prop should be used when building a custom search page with a pre-defined URL. |
 
 Now it is time to structure the `search-result-layout` block (or the `search-result-layout.customQuery`).  They both necessarily require a child: the `search-result-layout.desktop`. But you can also provide others, such as the `search-result-layout.mobile` and the `search-not-found-layout`. 
  
@@ -194,7 +197,7 @@ Since these are layout blocks, you can use [Flex Layout](https://vtex.io/docs/ap
 
 ### Step 4 - Defining your search results page layouts and behavior
 
-Structure the `search-result-layout` or the `search-result-layout.customQuery`, according to your store's scenario, by declaring their children and then configuring them using [Flex Layout](https://vtex.io/docs/apps/layout-blocks/vtex.flex-layout@0.14.0) blocks and their props. For example:
+Structure the `search-result-layout` or the `search-result-layout.customQuery`, according to your store's scenario, by declaring their children/props and then configuring them using [Flex Layout](https://vtex.io/docs/apps/layout-blocks/vtex.flex-layout@0.14.0) blocks and their props. For example:
 
 ```json
 {
@@ -218,7 +221,42 @@ Structure the `search-result-layout` or the `search-result-layout.customQuery`, 
 }
 ```
 
-#### **Available props for `search-result-layout.desktop`, `search-result-layout.mobile` and `search-not-found-layout`**: 
+*Or:*
+
+```json
+{
+  "search-result-layout.customQuery#men": {
+    "props": {
+      "querySchema": {
+        "orderByField": "OrderByReleaseDateDESC",
+        "hideUnavailableItems": true,
+        "facetsBehavior": "Dynamic",
+        "maxitemsPerPage": 24,
+        "queryField": "140/Men@squo@s",
+        "mapField": "productClusterIds,specificationFilter_564",
+        "skusFilter": "FIRST_AVAILABLE"
+      }  
+    }
+    "blocks": [
+      "search-result-layout.desktop",
+      "search-result-layout.mobile",
+      "search-not-found-layout"
+    ]
+  },
+  "search-result-layout.desktop": {
+    "children": [
+      "flex-layout.row#searchbread",
+      "flex-layout.row#searchtitle",
+      "flex-layout.row#result"
+    ],
+    "props": {
+      "preventRouteChange": true
+    }
+  }
+}
+ ```   
+
+#### `search-result-layout.desktop`, `search-result-layout.mobile`, and `search-not-found-layout` blocks
 
 | Prop name           | Type           | Description                                                                                                                          | Default value     |
 | ------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ----------------- |
@@ -228,7 +266,7 @@ Structure the `search-result-layout` or the `search-result-layout.customQuery`, 
 | `trackingId` | `string` | ID to be used in Google Analytics to track store metrics based on the Search Result block. |  `Search result` | 
 | `mobileLayout`      | `Object` | Controls how the search results page will be displayed to users when using the mobile layout. Possible props and their respective values can be found below.                                                                                                                | `undefined`              |
 
-- **`mobileLayout` Object:** 
+- **`mobileLayout` object** 
 
 | Prop name | Type   | Description                                                           | Default value |
 | --------- | ------ | --------------------------------------------------------------------- | ------------- |
@@ -236,7 +274,7 @@ Structure the `search-result-layout` or the `search-result-layout.customQuery`, 
 | `mode2`   | `Enum` | Defines which layout will be set for the mobile search results page when users click on the layout selector button. Possible values also are: `normal`, `small` or `inline`. | `small`       |
 
 
-- **`HiddenFacets` Object:**
+- **`HiddenFacets` object**
 
 | Prop name              | Type                   | Description                 | Default value |
 | ---------------------- | ---------------------- | --------------------------- | ------------- |
@@ -245,14 +283,14 @@ Structure the `search-result-layout` or the `search-result-layout.customQuery`, 
 | `priceRange`           | `boolean`              | Whether Price filters should be hidden (`true`) or not (`false`). | `false`         |
 | `specificationFilters` | `Object` | Indicates which Specification filters should be hidden. | `undefined`    |
 
-- **`SpecificationFilters` Object:**
+- **`SpecificationFilters` object**
 
 | Prop name       | Type                      | Description                                           | Default value |
 | --------------- | ------------------------- | ----------------------------------------------------- | ------------- |
 | `hideAll`       | `boolean`      | Whether specification filters should be hidden (`true`) or not (`false`).    | `false`         |
 | `hiddenFilters` | `[string]` | String array of specification filters that should be hidden. | `undefined`       |
 
--  **`HiddenFilters` String array:**
+-  **`HiddenFilters` array**
 
 | Prop name | Type    | Description                         | Default value |
 | --------- | ------- | ----------------------------------- | ------------- |
@@ -267,7 +305,7 @@ Therefore, don't forget to check out the [Flex Layout documentation](https://vte
 
 Below you can find the existing props for each of the blocks, in addition to the the rules that govern them. 
 
-- **`gallery` block**
+#### **`gallery` block
 
 The gallery block does not have its own props, but it has its own inner block structure that must be configured using a `product-summary-shelf`. 
 
@@ -275,7 +313,7 @@ This means that any `gallery` block implementation created must have a `product-
 
 Check out the [**Product Summary documentation**](https://vtex.io/docs/components/content-blocks/vtex.product-summary@2.52.3).  
 
-- **`filter-navigator.v3` block**
+#### `filter-navigator.v3` block
 
 | Prop name | Type                      | Description                                                                                       | Default value |
 | --------- | ------------------------- | ------------------------------------------------------------------------------------------------- | ------------- |
@@ -284,7 +322,7 @@ Check out the [**Product Summary documentation**](https://vtex.io/docs/component
 | `maxItemsCategory`   | `number`                 | Maximum number of category items to be displayed before the See More button is triggered.     | `8`             |
 | `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed (`true`) or open (`false`). | `false` |
 
--  **`order-by` block**
+#### `order-by` block
 
 | Prop name       | Type            | Description                                                                                                  | Default value |
 | --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
@@ -303,15 +341,24 @@ The sorting options are:
 | Name Ascending           | `"OrderByNameASC"`          |
 | Name Descending          | `"OrderByNameDESC"`         |
 
-- **`search-fetch-more` block**
+#### `search-fetch-more` block
+
 The "Show More" button that is used to load the results of the next search page. This block is not rendered if there is no next page. Does not need any prop.
-- **`search-fetch-previous` block**
+
+#### `search-fetch-previous` block
+
 The "Show Previous" button that is used to load the results of the previous search page. This block is not rendered if there is no previous page. Does not need any prop.
-- **`search-products-count-per-page` block**
+
+#### `search-products-count-per-page` block
+
 Shows the product count per search page. Does not need any prop.
-- **`search-products-progress-bar` block**
+
+#### `search-products-progress-bar` block
+
 Shows a progress bar of search results. Does not need any prop.
-- **`sidebar-close-button` block**
+
+#### `sidebar-close-button` block
+
 Close button rendered on the top right of the mobile filter sidebar.
 
 | Prop name       | Type            | Description                                                                                                  | Default value |
@@ -420,7 +467,7 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 
 ## Contributors ✨
 
-Thanks goes out to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Thanks goes out to these wonderful people:
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
