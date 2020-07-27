@@ -13,6 +13,7 @@ const withSearchPageContextProps = Component => ({
   initiallyCollapsed,
   maxItemsDepartment,
   maxItemsCategory,
+  keepOneFilterOpened,
 }) => {
   const {
     searchQuery,
@@ -44,7 +45,7 @@ const withSearchPageContextProps = Component => ({
     <div
       className={`${styles['filters--layout']} ${
         layout === 'desktop' && isMobile ? 'w-100 mh5' : ''
-      }`}
+        }`}
     >
       <FilterNavigatorContext.Provider value={queryArgs}>
         <Component
@@ -62,6 +63,7 @@ const withSearchPageContextProps = Component => ({
           initiallyCollapsed={initiallyCollapsed}
           maxItemsDepartment={maxItemsDepartment}
           maxItemsCategory={maxItemsCategory}
+          keepOneFilterOpened={keepOneFilterOpened}
         />
       </FilterNavigatorContext.Provider>
     </div>

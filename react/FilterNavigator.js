@@ -71,6 +71,7 @@ const FilterNavigator = ({
   layout = LAYOUT_TYPES.responsive,
   maxItemsDepartment = 8,
   maxItemsCategory = 8,
+  keepOneFilterOpened = false
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -144,43 +145,44 @@ const FilterNavigator = ({
           </div>
         </div>
       ) : (
-        <Fragment>
-          <div className={`${filterClasses} ${handles.filtersWrapper}`}>
-            <div
-              className={`${applyModifiers(
-                handles.filter__container,
-                'title'
-              )} bb b--muted-4`}
-            >
-              <h5 className={`${handles.filterMessage} t-heading-5 mv5`}>
-                <FormattedMessage id="store/search-result.filter-button.title" />
-              </h5>
+          <Fragment>
+            <div className={`${filterClasses} ${handles.filtersWrapper}`}>
+              <div
+                className={`${applyModifiers(
+                  handles.filter__container,
+                  'title'
+                )} bb b--muted-4`}
+              >
+                <h5 className={`${handles.filterMessage} t-heading-5 mv5`}>
+                  <FormattedMessage id="store/search-result.filter-button.title" />
+                </h5>
+              </div>
+              <SelectedFilters
+                filters={selectedFilters}
+                preventRouteChange={preventRouteChange}
+                navigateToFacet={navigateToFacet}
+              />
+              <DepartmentFilters
+                title={CATEGORIES_TITLE}
+                tree={tree}
+                isVisible={!hiddenFacets.categories}
+                onCategorySelect={navigateToFacet}
+                preventRouteChange={preventRouteChange}
+                maxItemsDepartment={maxItemsDepartment}
+                maxItemsCategory={maxItemsCategory}
+              />
+              <AvailableFilters
+                filters={filters}
+                priceRange={priceRange}
+                preventRouteChange={preventRouteChange}
+                initiallyCollapsed={initiallyCollapsed}
+                navigateToFacet={navigateToFacet}
+                keepOneFilterOpened={keepOneFilterOpened}
+              />
             </div>
-            <SelectedFilters
-              filters={selectedFilters}
-              preventRouteChange={preventRouteChange}
-              navigateToFacet={navigateToFacet}
-            />
-            <DepartmentFilters
-              title={CATEGORIES_TITLE}
-              tree={tree}
-              isVisible={!hiddenFacets.categories}
-              onCategorySelect={navigateToFacet}
-              preventRouteChange={preventRouteChange}
-              maxItemsDepartment={maxItemsDepartment}
-              maxItemsCategory={maxItemsCategory}
-            />
-            <AvailableFilters
-              filters={filters}
-              priceRange={priceRange}
-              preventRouteChange={preventRouteChange}
-              initiallyCollapsed={initiallyCollapsed}
-              navigateToFacet={navigateToFacet}
-            />
-          </div>
-          <ExtensionPoint id="shop-review-summary" />
-        </Fragment>
-      )}
+            <ExtensionPoint id="shop-review-summary" />
+          </Fragment>
+        )}
     </Fragment>
   )
 }
@@ -207,6 +209,7 @@ FilterNavigator.propTypes = {
   loading: PropTypes.bool,
   layout: PropTypes.oneOf(Object.values(LAYOUT_TYPES)),
   initiallyCollapsed: PropTypes.bool,
+  keepOneFilterOpened: PropTypes.bool,
   ...hiddenFacetsSchema,
 }
 

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
 
@@ -21,7 +21,7 @@ const CSS_HANDLES = [
 /**
  * Collapsable filters container
  */
-const FilterOptionTemplate = ({
+const FilterOptionTemplateV2 = ({
   id,
   selected = false,
   title,
@@ -29,8 +29,9 @@ const FilterOptionTemplate = ({
   children,
   filters,
   initiallyCollapsed = false,
+  open,
+  setOpen
 }) => {
-  const [open, setOpen] = useState(!initiallyCollapsed)
   const handles = useCssHandles(CSS_HANDLES)
 
   const renderChildren = () => {
@@ -41,11 +42,15 @@ const FilterOptionTemplate = ({
     return filters.map(children)
   }
 
+  const handleCollapse = () => {
+    setOpen(open === title ? null : title)
+  }
+
   const handleKeyDown = useCallback(
     e => {
       if (e.key === ' ' && collapsable) {
         e.preventDefault()
-        setOpen(!open)
+        handleCollapse()
       }
     },
     [collapsable, open]
@@ -77,7 +82,7 @@ const FilterOptionTemplate = ({
           role="button"
           tabIndex={collapsable ? 0 : undefined}
           className={collapsable ? 'pointer' : ''}
-          onClick={() => collapsable && setOpen(!open)}
+          onClick={() => collapsable && handleCollapse()}
           onKeyDown={handleKeyDown}
           aria-disabled={!collapsable}
         >
@@ -90,7 +95,7 @@ const FilterOptionTemplate = ({
                   'flex items-center ph5 c-muted-3'
                 )}
               >
-                <IconCaret orientation={open ? 'up' : 'down'} size={14} />
+                <IconCaret orientation={title === open ? 'up' : 'down'} size={14} />
               </span>
             )}
           </div>
@@ -105,7 +110,7 @@ const FilterOptionTemplate = ({
         aria-hidden={!open}
       >
         {collapsable ? (
-          <Collapse isOpened={open} theme={{ content: handles.filterContent }}>
+          <Collapse isOpened={title === open} theme={{ content: handles.filterContent }}>
             {renderChildren()}
           </Collapse>
         ) : (
@@ -116,7 +121,7 @@ const FilterOptionTemplate = ({
   )
 }
 
-FilterOptionTemplate.propTypes = {
+FilterOptionTemplateV2.propTypes = {
   /** Identifier to be used by CSS handles */
   id: PropTypes.string,
   /** Filters to be shown, if no filter is provided, treat the children as simple node */
@@ -132,4 +137,4 @@ FilterOptionTemplate.propTypes = {
   initiallyCollapsed: PropTypes.bool,
 }
 
-export default FilterOptionTemplate
+export default FilterOptionTemplateV2
