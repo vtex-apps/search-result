@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { flatten } from 'ramda'
 import React, { useMemo, Fragment } from 'react'
 import ContentLoader from 'react-content-loader'
-import { FormattedMessage } from 'react-intl'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
@@ -18,6 +17,7 @@ import {
   hiddenFacetsSchema,
 } from './constants/propTypes'
 import useFacetNavigation from './hooks/useFacetNavigation'
+import FilterNavigatorTitleTag from './components/FilterNavigatorTitleTag'
 
 import styles from './searchResult.css'
 import { CATEGORIES_TITLE } from './utils/getFilters'
@@ -25,7 +25,6 @@ import { newFacetPathName } from './utils/slug'
 
 const CSS_HANDLES = [
   'filter__container',
-  'filterMessage',
   'filtersWrapper',
   'filtersWrapperMobile',
 ]
@@ -71,6 +70,7 @@ const FilterNavigator = ({
   layout = LAYOUT_TYPES.responsive,
   maxItemsDepartment = 8,
   maxItemsCategory = 8,
+  filtersTitleTag = 'h5',
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -152,9 +152,7 @@ const FilterNavigator = ({
                 'title'
               )} bb b--muted-4`}
             >
-              <h5 className={`${handles.filterMessage} t-heading-5 mv5`}>
-                <FormattedMessage id="store/search-result.filter-button.title" />
-              </h5>
+              <FilterNavigatorTitleTag filtersTitleTag={filtersTitleTag} />
             </div>
             <SelectedFilters
               filters={selectedFilters}
@@ -207,6 +205,7 @@ FilterNavigator.propTypes = {
   loading: PropTypes.bool,
   layout: PropTypes.oneOf(Object.values(LAYOUT_TYPES)),
   initiallyCollapsed: PropTypes.bool,
+  filtersTitleTag: PropTypes.string,
   ...hiddenFacetsSchema,
 }
 
