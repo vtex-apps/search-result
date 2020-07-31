@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Fixed
-- Missing filter items when there are no options selected.
+- Missing filter options when there are no options selected.
 
 ## [3.66.0] - 2020-07-15
 ### Added
