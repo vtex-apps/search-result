@@ -9,7 +9,7 @@ import { isSameMap } from '../utils/queryAndMapUtils'
  */
 const useSelectedFilters = facets => {
   const { query, map } = useFilterNavigator()
-  if (!query && !map) {
+  if (query == null && map == null) {
     return []
   }
 
