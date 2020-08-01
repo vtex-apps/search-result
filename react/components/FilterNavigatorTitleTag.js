@@ -4,11 +4,11 @@ import { FormattedMessage } from 'react-intl'
 
 const CSS_HANDLES = ['filterMessage']
 
-const FilterNavigatorTitleTags = ({ filtersTitleTag }) => {
+const FilterNavigatorTitleTags = ({ filtersTitleHtmlTag }) => {
   const handles = useCssHandles(CSS_HANDLES)
-  const CustomTag = filtersTitleTag
+  const CustomTag = filtersTitleHtmlTag
 
-  if (CustomTag && filtersTitleTag !== 'h5') {
+  if (CustomTag && filtersTitleHtmlTag !== 'h5') {
     return (
       <CustomTag className={`${handles.filterMessage} mv5`}>
         <FormattedMessage id="store/search-result.filter-button.title" />

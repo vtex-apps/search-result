@@ -70,7 +70,7 @@ const FilterNavigator = ({
   layout = LAYOUT_TYPES.responsive,
   maxItemsDepartment = 8,
   maxItemsCategory = 8,
-  filtersTitleTag = 'h5',
+  filtersTitleHtmlTag = 'h5',
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -152,7 +152,9 @@ const FilterNavigator = ({
                 'title'
               )} bb b--muted-4`}
             >
-              <FilterNavigatorTitleTag filtersTitleTag={filtersTitleTag} />
+              <FilterNavigatorTitleTag
+                filtersTitleHtmlTag={filtersTitleHtmlTag}
+              />
             </div>
             <SelectedFilters
               filters={selectedFilters}
@@ -205,7 +207,7 @@ FilterNavigator.propTypes = {
   loading: PropTypes.bool,
   layout: PropTypes.oneOf(Object.values(LAYOUT_TYPES)),
   initiallyCollapsed: PropTypes.bool,
-  filtersTitleTag: PropTypes.string,
+  filtersTitleHtmlTag: PropTypes.string,
   ...hiddenFacetsSchema,
 }
 

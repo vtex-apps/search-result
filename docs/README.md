@@ -283,6 +283,7 @@ Check out the [**Product Summary documentation**](https://vtex.io/docs/component
 | `maxItemsDepartment` | `number`                 | Maximum number of departments to be displayed before the See More button is triggered.          | `8`             |
 | `maxItemsCategory`   | `number`                 | Maximum number of category items to be displayed before the See More button is triggered.     | `8`             |
 | `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed (`true`) or open (`false`). | `false` |
+| `filtersTitleHtmlTag` | `string` | Change html tag for filters title element. | `h5` |
 
 -  **`order-by` block**
 
