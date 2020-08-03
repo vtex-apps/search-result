@@ -30,7 +30,7 @@ const FetchMoreButton = props => {
     onFetchMore,
     loading,
     showProductsCount,
-    relHtmlAttributeForFetchButtons,
+    hasRelHtmlAttributeForButton,
   } = props
   const showButton = useShowButton(to, products, loading, recordsFiltered)
   const handles = useCssHandles(CSS_HANDLES)
@@ -41,7 +41,7 @@ const FetchMoreButton = props => {
         {showButton && (
           <Button
             onClick={onFetchMore}
-            rel={relHtmlAttributeForFetchButtons && 'next'}
+            rel={hasRelHtmlAttributeForButton && 'next'}
             isLoading={loading}
             size="small"
             key={to} // Necessary to prevent focus after click

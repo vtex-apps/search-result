@@ -48,7 +48,6 @@ const SearchResultFlexible = ({
   blockClass,
   preventRouteChange = false,
   showFacetQuantity = false,
-  relHtmlAttributeForFetchButtons = false,
   // Below are set by SearchContext
   searchQuery,
   maxItemsPerPage,
@@ -106,17 +105,9 @@ const SearchResultFlexible = ({
       pagination,
       mobileLayout,
       showFacetQuantity,
-      relHtmlAttributeForFetchButtons,
       trackingId,
     }),
-    [
-      hiddenFacets,
-      mobileLayout,
-      pagination,
-      showFacetQuantity,
-      relHtmlAttributeForFetchButtons,
-      trackingId,
-    ]
+    [hiddenFacets, mobileLayout, pagination, showFacetQuantity, trackingId]
   )
 
   const context = useMemo(
@@ -177,7 +168,6 @@ const SearchResultFlexible = ({
               orderBy={orderBy}
               page={page}
               facetsLoading={facetsLoading}
-              relHtmlAttributeForFetchButtons={relHtmlAttributeForFetchButtons}
             >
               {
                 <LoadingOverlay loading={showLoading}>

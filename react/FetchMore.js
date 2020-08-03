@@ -10,7 +10,7 @@ import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import styles from './searchResult.css'
 
-const FetchMore = () => {
+const FetchMore = ({ relHtmlAttributeForButton = false }) => {
   const { pagination, searchQuery, maxItemsPerPage, page } = useSearchPage()
   const products = path(['data', 'productSearch', 'products'], searchQuery)
   const recordsFiltered = path(
@@ -51,6 +51,7 @@ const FetchMore = () => {
           onFetchMore={handleFetchMoreNext}
           loading={loading}
           showProductsCount={false}
+          hasRelHtmlAttributeForButton={relHtmlAttributeForButton}
         />
       </div>
     )

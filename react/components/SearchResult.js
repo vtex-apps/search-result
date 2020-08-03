@@ -131,7 +131,6 @@ class SearchResult extends Component {
       pagination,
       infiniteScrollError,
       facetsLoading,
-      relHtmlAttributeForFetchButtons,
     } = this.props
 
     const {
@@ -221,7 +220,6 @@ class SearchResult extends Component {
               from={from}
               onFetchPrevious={onFetchPrevious}
               loading={fetchMoreLoading}
-              relHtmlAttributeForFetchButtons={relHtmlAttributeForFetchButtons}
             />
             {showContentLoader ? (
               <div className="w-100 flex justify-center">
@@ -252,9 +250,6 @@ class SearchResult extends Component {
                   onFetchMore={onFetchMore}
                   loading={fetchMoreLoading}
                   showProductsCount={showProductsCount}
-                  relHtmlAttributeForFetchButtons={
-                    relHtmlAttributeForFetchButtons
-                  }
                 />
                 <ExtensionPoint
                   id="search-products-progress-bar"
