@@ -1,12 +1,11 @@
-import classNames from 'classnames'
-import PropTypes from 'prop-types'
 import React, { Fragment } from 'react'
-import { injectIntl, intlShape } from 'react-intl'
-import { applyModifiers, useCssHandles } from 'vtex.css-handles'
-import { IconCaret } from 'vtex.store-icons'
+import PropTypes from 'prop-types'
+import { intlShape, injectIntl } from 'react-intl'
+import classNames from 'classnames'
 import { Tag } from 'vtex.styleguide'
+import { useCssHandles } from 'vtex.css-handles'
 import { getFilterTitle } from '../constants/SearchHelpers'
-import { Slugify } from './FilterNavigator/legacy/hooks/useSelectedFilters'
+import { generateSlug } from './FilterNavigator/legacy/hooks/useSelectedFilters'
 
 const CSS_HANDLES = [
   'accordionFilterContainer',
@@ -42,7 +41,7 @@ const AccordionFilterItem = ({
         <div
           className={`${applyModifiers(
             handles.accordionFilterContainer,
-            Slugify(getFilterTitle(title, intl))
+            generateSlug(getFilterTitle(title, intl))
           )} pl7`}
         >
           <div
@@ -52,7 +51,7 @@ const AccordionFilterItem = ({
               handles.accordionFilterItem,
               applyModifiers(
                 handles.filterAccordionItemBox,
-                Slugify(getFilterTitle(title, intl))
+                generateSlug(getFilterTitle(title, intl))
               ),
               't-body pr5 pv3 pointer bb b--muted-5',
               {

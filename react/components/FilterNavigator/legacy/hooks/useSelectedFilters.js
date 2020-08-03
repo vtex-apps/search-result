@@ -4,7 +4,7 @@ import slugify from 'slugify'
 
 import QueryContext from '../../../QueryContext'
 
-export function Slugify(str) {
+export function generateSlug(str) {
   return slugify(str, { lower: true, remove: /[*+~.()'"!:@]/g })
 }
 
@@ -20,7 +20,7 @@ const useSelectedFilters = facets => {
     query
       .toLowerCase()
       .split('/')
-      .map(str => Slugify(decodeURIComponent(str))),
+      .map(str => generateSlug(decodeURIComponent(str))),
     map.split(',')
   )
 
