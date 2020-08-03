@@ -19,7 +19,13 @@ const useShowButton = (from, products, loading) => {
 }
 
 const FetchPreviousButton = props => {
-  const { products, from, onFetchPrevious, loading } = props
+  const {
+    products,
+    from,
+    onFetchPrevious,
+    loading,
+    relHtmlAttributeForFetchButtons,
+  } = props
   const showButton = useShowButton(from, products, loading)
   const handles = useCssHandles(CSS_HANDLES)
   return (
@@ -27,6 +33,7 @@ const FetchPreviousButton = props => {
       {showButton && (
         <Button
           onClick={onFetchPrevious}
+          rel={relHtmlAttributeForFetchButtons && 'prev'}
           isLoading={loading}
           size="small"
           key={from} // Necessary to prevent focus after click
