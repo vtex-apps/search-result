@@ -45,7 +45,7 @@ const FetchPrevious = ({ relHtmlAttributeForButton = false }) => {
         recordsFiltered={recordsFiltered}
         onFetchPrevious={handleFetchMorePrevious}
         loading={loading}
-        hasRelHtmlAttributeForButton={relHtmlAttributeForButton}
+        hasRelHtmlAttribute={relHtmlAttributeForButton}
       />
     </div>
   )

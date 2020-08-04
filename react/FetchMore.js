@@ -51,7 +51,7 @@ const FetchMore = ({ relHtmlAttributeForButton = false }) => {
           onFetchMore={handleFetchMoreNext}
           loading={loading}
           showProductsCount={false}
-          hasRelHtmlAttributeForButton={relHtmlAttributeForButton}
+          hasRelHtmlAttribute={relHtmlAttributeForButton}
         />
       </div>
     )
