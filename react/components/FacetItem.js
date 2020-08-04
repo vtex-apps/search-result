@@ -7,6 +7,17 @@ import SettingsContext from './SettingsContext'
 
 const CSS_HANDLES = ['filterItem']
 
+// These are used to prevent creating a <Checkbox /> with id equal
+// to any of these words.
+const reservedVariableNames = [
+  'global',
+  'window',
+  'document',
+  'self',
+  'screen',
+  'parent',
+]
+
 const FacetItem = ({
   navigateToFacet,
   facetTitle,
@@ -23,13 +34,17 @@ const FacetItem = ({
     'lh-copy w-100'
   )
 
+  const checkBoxId = reservedVariableNames.includes(facet.value)
+    ? `filterItem--${facet.value}`
+    : facet.value
+
   return (
     <div
       className={classes}
       style={{ hyphens: 'auto', wordBreak: 'break-word' }}
     >
       <Checkbox
-        id={facet.value}
+        id={checkBoxId}
         checked={facet.selected}
         label={
           showFacetQuantity ? `${facet.name} (${facet.quantity})` : facet.name
