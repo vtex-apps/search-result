@@ -305,9 +305,19 @@ The sorting options are:
 | Name Descending          | `"OrderByNameDESC"`         |
 
 - **`search-fetch-more` block**
-The "Show More" button that is used to load the results of the next search page. This block is not rendered if there is no next page. Does not need any prop.
+The "Show More" button that is used to load the results of the next search page. This block is not rendered if there is no next page.
+
+| Prop name       | Type            | Description                                                                                                  | Default value |
+| --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
+| `relHtmlAttributeForButton` | `[boolean]` | Indicates if `rel` attribute will be added for the Fetch more button. | `false` |
+
 - **`search-fetch-previous` block**
-The "Show Previous" button that is used to load the results of the previous search page. This block is not rendered if there is no previous page. Does not need any prop.
+The "Show Previous" button that is used to load the results of the previous search page. This block is not rendered if there is no previous page.
+
+| Prop name       | Type            | Description                                                                                                  | Default value |
+| --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
+| `relHtmlAttributeForButton` | `[boolean]` | Indicates if `rel` attribute will be added for the Fetch previous button. | `false` |
+
 - **`search-products-count-per-page` block**
 Shows the product count per search page. Does not need any prop.
 - **`search-products-progress-bar` block**
