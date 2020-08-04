@@ -30,11 +30,11 @@ const FetchMoreButton = props => {
     onFetchMore,
     loading,
     showProductsCount,
-    hasRelHtmlAttributeForButton,
+    hasRelHtmlAttribute,
   } = props
 
   const handleFetchMoreClick = ev => {
-    hasRelHtmlAttributeForButton && ev.preventDefault()
+    hasRelHtmlAttribute && ev.preventDefault()
     onFetchMore()
   }
 
@@ -47,8 +47,8 @@ const FetchMoreButton = props => {
         {showButton && (
           <Button
             onClick={ev => handleFetchMoreClick(ev)}
-            href={hasRelHtmlAttributeForButton && '#'}
-            rel={hasRelHtmlAttributeForButton && 'next'}
+            href={hasRelHtmlAttribute && '#'}
+            rel={hasRelHtmlAttribute && 'next'}
             isLoading={loading}
             size="small"
             key={to} // Necessary to prevent focus after click
