@@ -26,13 +26,21 @@ const FetchPreviousButton = props => {
     loading,
     hasRelHtmlAttributeForButton,
   } = props
+
+  const handleFetchMoreClick = ev => {
+    hasRelHtmlAttributeForButton && ev.preventDefault()
+    onFetchPrevious()
+  }
+
   const showButton = useShowButton(from, products, loading)
   const handles = useCssHandles(CSS_HANDLES)
+
   return (
     <div className={`${handles.buttonShowMore} w-100 flex justify-center`}>
       {showButton && (
         <Button
-          onClick={onFetchPrevious}
+          onClick={ev => handleFetchMoreClick(ev)}
+          href={hasRelHtmlAttributeForButton && '#'}
           rel={hasRelHtmlAttributeForButton && 'prev'}
           isLoading={loading}
           size="small"
