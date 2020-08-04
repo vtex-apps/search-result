@@ -13,6 +13,7 @@ const withSearchPageContextProps = Component => ({
   initiallyCollapsed,
   maxItemsDepartment,
   maxItemsCategory,
+  filtersTitleHtmlTag,
 }) => {
   const {
     searchQuery,
@@ -62,6 +63,7 @@ const withSearchPageContextProps = Component => ({
           initiallyCollapsed={initiallyCollapsed}
           maxItemsDepartment={maxItemsDepartment}
           maxItemsCategory={maxItemsCategory}
+          filtersTitleHtmlTag={filtersTitleHtmlTag}
         />
       </FilterNavigatorContext.Provider>
     </div>
