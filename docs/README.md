@@ -309,14 +309,14 @@ The "Show More" button that is used to load the results of the next search page.
 
 | Prop name       | Type            | Description                                                                                                  | Default value |
 | --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
-| `relHtmlAttributeForButton` | `[boolean]` | Indicates if `rel` attribute will be added for the Fetch more button. | `false` |
+| `relHtmlAttributeForButton` | `[boolean]` | Indicates if `rel='next'` attribute will be added for the Fetch more button. | `false` |
 
 - **`search-fetch-previous` block**
 The "Show Previous" button that is used to load the results of the previous search page. This block is not rendered if there is no previous page.
 
 | Prop name       | Type            | Description                                                                                                  | Default value |
 | --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
-| `relHtmlAttributeForButton` | `[boolean]` | Indicates if `rel` attribute will be added for the Fetch previous button. | `false` |
+| `relHtmlAttributeForButton` | `[boolean]` | Indicates if `rel='prev'` attribute will be added for the Fetch previous button. | `false` |
 
 - **`search-products-count-per-page` block**
 Shows the product count per search page. Does not need any prop.
