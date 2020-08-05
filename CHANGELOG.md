@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Added `key` on `show-more` buttons to prevent focus after pressing them, which was causing the page to be fixed on the button after rendering more results on Google Chrome.
 
 ## [3.67.0] - 2020-08-04
 ### Added

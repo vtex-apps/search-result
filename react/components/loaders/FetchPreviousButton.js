@@ -25,7 +25,12 @@ const FetchPreviousButton = props => {
   return (
     <div className={`${handles.buttonShowMore} w-100 flex justify-center`}>
       {showButton && (
-        <Button onClick={onFetchPrevious} isLoading={loading} size="small">
+        <Button
+          onClick={onFetchPrevious}
+          isLoading={loading}
+          size="small"
+          key={from} // Necessary to prevent focus after click
+        >
           <FormattedMessage id="store/search-result.show-previous-button" />
         </Button>
       )}
