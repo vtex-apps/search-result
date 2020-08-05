@@ -42,7 +42,7 @@ const FetchMoreButton = props => {
             onClick={onFetchMore}
             isLoading={loading}
             size="small"
-            key={to}
+            key={to} //Necessary to prevent focus after click
           >
             <FormattedMessage id="store/search-result.show-more-button" />
           </Button>

@@ -29,7 +29,7 @@ const FetchPreviousButton = props => {
           onClick={onFetchPrevious}
           isLoading={loading}
           size="small"
-          key={from}
+          key={from} //Necessary to prevent focus after click
         >
           <FormattedMessage id="store/search-result.show-previous-button" />
         </Button>
