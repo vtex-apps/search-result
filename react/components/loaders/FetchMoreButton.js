@@ -38,7 +38,12 @@ const FetchMoreButton = props => {
     <Fragment>
       <div className={`${handles.buttonShowMore} w-100 flex justify-center`}>
         {showButton && (
-          <Button onClick={onFetchMore} isLoading={loading} size="small">
+          <Button
+            onClick={onFetchMore}
+            isLoading={loading}
+            size="small"
+            key={to}
+          >
             <FormattedMessage id="store/search-result.show-more-button" />
           </Button>
         )}
