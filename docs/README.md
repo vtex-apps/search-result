@@ -305,9 +305,19 @@ The sorting options are:
 | Name Descending          | `"OrderByNameDESC"`         |
 
 - **`search-fetch-more` block**
-The "Show More" button that is used to load the results of the next search page. This block is not rendered if there is no next page. Does not need any prop.
+The `Show More` button is used to load the results of the next search results page. Even when declared, this block is not rendered if there is no next page.
+
+| Prop name       | Type            | Description                                                                                                  | Default value |
+| --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
+| `htmlElementForButton` | `enum` | Which HTML element will be displayed for `Show more` button component. Possible values are: `a` (displays a `<a>` element with `href` and `rel` attributes)  or `button` (displays a `<button>` element without `href` and `rel` attributes). | `button` |
+
 - **`search-fetch-previous` block**
-The "Show Previous" button that is used to load the results of the previous search page. This block is not rendered if there is no previous page. Does not need any prop.
+The `Show Previous` button is used to load the results of the previous search results page. Even when declared, this block is not rendered if there is no previous page.
+
+| Prop name       | Type            | Description                                                                                                  | Default value |
+| --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
+| `htmlElementForButton` | `enum` | Which HTML element will be displayed for `Show previous` button component. Possible values are: `a` (displays a `<a>` element with `href` and `rel` attributes)  or `button` (displays a `<button>` element without `href` and `rel` attributes). | `button` |
+
 - **`search-products-count-per-page` block**
 Shows the product count per search page. Does not need any prop.
 - **`search-products-progress-bar` block**

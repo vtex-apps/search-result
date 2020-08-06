@@ -19,14 +19,30 @@ const useShowButton = (from, products, loading) => {
 }
 
 const FetchPreviousButton = props => {
-  const { products, from, onFetchPrevious, loading } = props
+  const {
+    products,
+    from,
+    onFetchPrevious,
+    loading,
+    htmlElementForButton,
+  } = props
+
+  const isAnchor = htmlElementForButton === 'a'
   const showButton = useShowButton(from, products, loading)
   const handles = useCssHandles(CSS_HANDLES)
+
+  const handleFetchMoreClick = ev => {
+    isAnchor && ev.preventDefault()
+    onFetchPrevious()
+  }
+
   return (
     <div className={`${handles.buttonShowMore} w-100 flex justify-center`}>
       {showButton && (
         <Button
-          onClick={onFetchPrevious}
+          onClick={ev => handleFetchMoreClick(ev)}
+          href={isAnchor && '#'}
+          rel={isAnchor && 'prev'}
           isLoading={loading}
           size="small"
           key={from} // Necessary to prevent focus after click

@@ -82,6 +82,7 @@ const SearchResultFlexible = ({
       }),
     [brands, hiddenFacets, priceRanges, specificationFilters]
   )
+
   const handles = useCssHandles(CSS_HANDLES)
 
   const hideFacets = !map
