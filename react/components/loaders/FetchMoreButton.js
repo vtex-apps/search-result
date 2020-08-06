@@ -30,16 +30,19 @@ const FetchMoreButton = props => {
     onFetchMore,
     loading,
     showProductsCount,
-    hasRelHtmlAttribute,
+    htmlElementForFetchMoreButton,
   } = props
 
+  const isAnchor = Boolean(htmlElementForFetchMoreButton === 'ANCHOR')
+  const showButton = useShowButton(to, products, loading, recordsFiltered)
+  const handles = useCssHandles(CSS_HANDLES)
+
   const handleFetchMoreClick = ev => {
-    hasRelHtmlAttribute && ev.preventDefault()
+    isAnchor && ev.preventDefault()
     onFetchMore()
   }
 
-  const showButton = useShowButton(to, products, loading, recordsFiltered)
-  const handles = useCssHandles(CSS_HANDLES)
+  console.log(htmlElementForFetchMoreButton)
 
   return (
     <Fragment>
@@ -47,8 +50,8 @@ const FetchMoreButton = props => {
         {showButton && (
           <Button
             onClick={ev => handleFetchMoreClick(ev)}
-            href={hasRelHtmlAttribute && '#'}
-            rel={hasRelHtmlAttribute && 'next'}
+            href={isAnchor && '#'}
+            rel={isAnchor && 'next'}
             isLoading={loading}
             size="small"
             key={to} // Necessary to prevent focus after click

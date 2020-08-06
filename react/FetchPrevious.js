@@ -1,13 +1,14 @@
 import React from 'react'
 import { path } from 'ramda'
 import classNames from 'classnames'
+import PropTypes from 'prop-types'
 import FetchPreviousButton from './components/loaders/FetchPreviousButton'
 import { useFetchMore } from './hooks/useFetchMore'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import styles from './searchResult.css'
 
-const FetchPrevious = ({ relHtmlAttributeForButton = false }) => {
+const FetchPrevious = ({ htmlElementForFetchPreviousButton }) => {
   const { searchQuery, maxItemsPerPage, page } = useSearchPage()
   const products = path(['data', 'productSearch', 'products'], searchQuery)
   const recordsFiltered = path(
@@ -45,10 +46,19 @@ const FetchPrevious = ({ relHtmlAttributeForButton = false }) => {
         recordsFiltered={recordsFiltered}
         onFetchPrevious={handleFetchMorePrevious}
         loading={loading}
-        hasRelHtmlAttribute={relHtmlAttributeForButton}
+        htmlElementForFetchPreviousButton={htmlElementForFetchPreviousButton}
       />
     </div>
   )
+}
+
+FetchPrevious.propTypes = {
+  /* html element to render for fetch previous button */
+  htmlElementForFetchPreviousButton: PropTypes.string,
+}
+
+FetchPrevious.defaultProps = {
+  htmlElementForFetchPreviousButton: 'BUTTON',
 }
 
 export default FetchPrevious
