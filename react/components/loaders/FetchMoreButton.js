@@ -38,11 +38,9 @@ const FetchMoreButton = props => {
   const handles = useCssHandles(CSS_HANDLES)
 
   const handleFetchMoreClick = ev => {
-    isAnchor && ev.preventDefault()
+    htmlElementForFetchMoreButton && ev.preventDefault()
     onFetchMore()
   }
-
-  console.log(htmlElementForFetchMoreButton)
 
   return (
     <Fragment>
