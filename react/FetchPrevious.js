@@ -8,7 +8,7 @@ import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import styles from './searchResult.css'
 
-const FetchPrevious = ({ htmlElementForButton }) => {
+const FetchPrevious = ({ htmlElementForButton = 'button' }) => {
   const { searchQuery, maxItemsPerPage, page } = useSearchPage()
   const products = path(['data', 'productSearch', 'products'], searchQuery)
   const recordsFiltered = path(
@@ -55,10 +55,6 @@ const FetchPrevious = ({ htmlElementForButton }) => {
 FetchPrevious.propTypes = {
   /* html element to render for fetch previous button */
   htmlElementForButton: PropTypes.string,
-}
-
-FetchPrevious.defaultProps = {
-  htmlElementForButton: 'BUTTON',
 }
 
 export default FetchPrevious

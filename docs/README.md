@@ -309,14 +309,14 @@ The `Show More` button is used to load the results of the next search results pa
 
 | Prop name       | Type            | Description                                                                                                  | Default value |
 | --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
-| `htmlElementForButton` | `enum` | Which HTML element will be displayed for `Show more` button component. Possible values are: `ANCHOR` (displays a `<a>` element with `href` and `rel` attributes)  or `BUTTON` (displays a `<button>` element without `href` and `rel` attributes). | `BUTTON` |
+| `htmlElementForButton` | `enum` | Which HTML element will be displayed for `Show more` button component. Possible values are: `a` (displays a `<a>` element with `href` and `rel` attributes)  or `button` (displays a `<button>` element without `href` and `rel` attributes). | `button` |
 
 - **`search-fetch-previous` block**
 The `Show Previous` button is used to load the results of the previous search results page. Even when declared, this block is not rendered if there is no previous page.
 
 | Prop name       | Type            | Description                                                                                                  | Default value |
 | --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
-| `htmlElementForButton` | `enum` | Which HTML element will be displayed for `Show previous` button component. Possible values are: `ANCHOR` (displays a `<a>` element with `href` and `rel` attributes)  or `BUTTON` (displays a `<button>` element without `href` and `rel` attributes). | `BUTTON` |
+| `htmlElementForButton` | `enum` | Which HTML element will be displayed for `Show previous` button component. Possible values are: `a` (displays a `<a>` element with `href` and `rel` attributes)  or `button` (displays a `<button>` element without `href` and `rel` attributes). | `button` |
 
 - **`search-products-count-per-page` block**
 Shows the product count per search page. Does not need any prop.

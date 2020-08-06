@@ -33,12 +33,12 @@ const FetchMoreButton = props => {
     htmlElementForButton,
   } = props
 
-  const isAnchor = Boolean(htmlElementForButton === 'ANCHOR')
+  const isAnchor = htmlElementForButton === 'a'
   const showButton = useShowButton(to, products, loading, recordsFiltered)
   const handles = useCssHandles(CSS_HANDLES)
 
   const handleFetchMoreClick = ev => {
-    htmlElementForFetchMoreButton && ev.preventDefault()
+    isAnchor && ev.preventDefault()
     onFetchMore()
   }
 
