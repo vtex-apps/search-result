@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Prop for the addition of the `rel` attribute for fetch more or previous button.
+- Added Props `htmlElementForFetchMoreButton` and `htmlElementForFetchPreviousButton` to change the html element rendered for `FetchMoreButton` or `FetchPreviousButton`.
 
 ## [3.67.1] - 2020-08-05
 ### Fixed
