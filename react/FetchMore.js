@@ -11,7 +11,7 @@ import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import styles from './searchResult.css'
 
-const FetchMore = ({ htmlElementForFetchMoreButton }) => {
+const FetchMore = ({ htmlElementForButton }) => {
   const { pagination, searchQuery, maxItemsPerPage, page } = useSearchPage()
   const products = path(['data', 'productSearch', 'products'], searchQuery)
   const recordsFiltered = path(
@@ -52,7 +52,7 @@ const FetchMore = ({ htmlElementForFetchMoreButton }) => {
           onFetchMore={handleFetchMoreNext}
           loading={loading}
           showProductsCount={false}
-          htmlElementForFetchMoreButton={htmlElementForFetchMoreButton}
+          htmlElementForButton={htmlElementForButton}
         />
       </div>
     )
@@ -63,11 +63,11 @@ const FetchMore = ({ htmlElementForFetchMoreButton }) => {
 
 FetchMore.propTypes = {
   /* html element to render for fetch more button */
-  htmlElementForFetchMoreButton: PropTypes.string,
+  htmlElementForButton: PropTypes.string,
 }
 
 FetchMore.defaultProps = {
-  htmlElementForFetchMoreButton: 'BUTTON',
+  htmlElementForButton: 'BUTTON',
 }
 
 export default FetchMore

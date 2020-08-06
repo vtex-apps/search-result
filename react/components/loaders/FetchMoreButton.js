@@ -30,10 +30,10 @@ const FetchMoreButton = props => {
     onFetchMore,
     loading,
     showProductsCount,
-    htmlElementForFetchMoreButton,
+    htmlElementForButton,
   } = props
 
-  const isAnchor = Boolean(htmlElementForFetchMoreButton === 'ANCHOR')
+  const isAnchor = Boolean(htmlElementForButton === 'ANCHOR')
   const showButton = useShowButton(to, products, loading, recordsFiltered)
   const handles = useCssHandles(CSS_HANDLES)
 

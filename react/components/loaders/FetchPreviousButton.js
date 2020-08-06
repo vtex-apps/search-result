@@ -24,10 +24,10 @@ const FetchPreviousButton = props => {
     from,
     onFetchPrevious,
     loading,
-    htmlElementForFetchPreviousButton,
+    htmlElementForButton,
   } = props
 
-  const isAnchor = Boolean(htmlElementForFetchPreviousButton === 'ANCHOR')
+  const isAnchor = Boolean(htmlElementForButton === 'ANCHOR')
   const showButton = useShowButton(from, products, loading)
   const handles = useCssHandles(CSS_HANDLES)
 
