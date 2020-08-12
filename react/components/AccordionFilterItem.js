@@ -4,7 +4,7 @@ import { intlShape, injectIntl } from 'react-intl'
 import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
 import { Tag } from 'vtex.styleguide'
-import { useCssHandles } from 'vtex.css-handles'
+import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import { getFilterTitle } from '../constants/SearchHelpers'
 import { generateSlug } from './FilterNavigator/legacy/hooks/useSelectedFilters'
 
