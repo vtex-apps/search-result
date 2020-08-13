@@ -175,7 +175,7 @@ export const buildNewQueryMap = (
   return buildQueryAndMap(querySegments, mapSegments, facets, selectedFacets)
 }
 
-const useFacetNavigation = (selectedFacets, scrollToTop = false) => {
+const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
   const { navigate, setQuery } = useRuntime()
   const { map, query } = useFilterNavigator()
   const { fuzzy, operator, searchState } = useSearchState()
@@ -191,8 +191,8 @@ const useFacetNavigation = (selectedFacets, scrollToTop = false) => {
         selectedFacets
       )
 
-      if (scrollToTop) {
-        window.scrollTo(0, 0)
+      if (scrollToTop !== 'none') {
+        window.scroll({ top: 0, left: 0, behavior: scrollToTop })
       }
 
       if (preventRouteChange) {
