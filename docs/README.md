@@ -286,6 +286,7 @@ Check out the [**Product Summary documentation**](https://vtex.io/docs/component
 | `maxItemsCategory`   | `number`                 | Maximum number of category items to be displayed before the See More button is triggered.     | `8`             |
 | `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed (`true`) or open (`false`). | `false` |
 | `filtersTitleHtmlTag` | `string` | HTML tag for the filter's title. | `h5` |
+| `scrollToTop` | `Boolean` | Scrolls the page to the top (`true`) or not (`false`) when selecting a facet. | `false` |
 
 -  **`order-by` block**
 

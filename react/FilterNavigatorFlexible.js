@@ -11,6 +11,7 @@ import styles from './searchResult.css'
 const withSearchPageContextProps = Component => ({
   layout,
   initiallyCollapsed,
+  scrollToTop,
   maxItemsDepartment,
   maxItemsCategory,
   filtersTitleHtmlTag,
@@ -61,6 +62,7 @@ const withSearchPageContextProps = Component => ({
           hiddenFacets={hiddenFacets}
           layout={layout}
           initiallyCollapsed={initiallyCollapsed}
+          scrollToTop={scrollToTop}
           maxItemsDepartment={maxItemsDepartment}
           maxItemsCategory={maxItemsCategory}
           filtersTitleHtmlTag={filtersTitleHtmlTag}
