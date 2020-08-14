@@ -71,6 +71,7 @@ const FilterNavigator = ({
   maxItemsDepartment = 8,
   maxItemsCategory = 8,
   filtersTitleHtmlTag = 'h5',
+  scrollToTop = 'none',
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -100,7 +101,8 @@ const FilterNavigator = ({
   const navigateToFacet = useFacetNavigation(
     useMemo(() => {
       return selectedCategories.concat(selectedFilters)
-    }, [selectedFilters, selectedCategories])
+    }, [selectedFilters, selectedCategories]),
+    scrollToTop
   )
 
   const filterClasses = classNames({
