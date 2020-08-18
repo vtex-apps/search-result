@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.69.1] - 2020-08-18
+
 ### Fixed
 - Replace `map` by `mapField` in the `LocalQuery` component.
 
