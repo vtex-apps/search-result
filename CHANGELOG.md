@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Replace `map` by `mapField` in the `LocalQuery` component.
+
 ## [3.69.0] - 2020-08-14
 ### Added
 - Prop `scrollToTop` to `filter-navigator.v3` that scrolls the page to the top when selecting a facet.
