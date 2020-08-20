@@ -254,7 +254,7 @@ Structure the `search-result-layout` or the `search-result-layout.customQuery`, 
 | `hideAll`       | `boolean`      | Whether specification filters should be hidden (`true`) or not (`false`).    | `false`         |
 | `hiddenFilters` | `[object]` | Object array of specification filters that should be hidden. | `undefined`       |
 
--  **`HiddenFilters` Object:**
+-  **`HiddenFilters` object**
 
 | Prop name | Type    | Description                         | Default value |
 | --------- | ------- | ----------------------------------- | ------------- |
