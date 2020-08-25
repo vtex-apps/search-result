@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AccordionFilterContainer /> should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="accordionFilter h-100"
+  >
+    <div
+      class="filterAccordionBreadcrumbs pointer flex flex-row items-center pa5 bg-base w-100 z-max bb b--muted-4"
+    >
+      <div
+        class="filterBreadcrumbsContent pv4 flex items-center"
+        role="button"
+        tabindex="0"
+      >
+        <div
+          class="filterBreadcrumbsText t-heading-4 c-on-base"
+        >
+          Filters
+        </div>
+      </div>
+    </div>
+    <div
+      class="accordionFilterContainer pl7"
+    >
+      <div
+        class="accordionFilterItem filterAccordionItemBox t-body pr5 pv3 pointer bb b--muted-5"
+        role="button"
+        tabindex="0"
+      >
+        <div
+          class="accordionFilterContent pv4 c-on-base t-heading-5"
+        >
+          <span
+            class="accordionFilterItemTitle"
+          >
+            price-range1
+          </span>
+          <span
+            class="accordionFilterItemIcon fr"
+          >
+            <div>
+              IconCaret
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
