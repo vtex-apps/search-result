@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useMemo, useContext } from 'react'
 import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
 
@@ -7,6 +7,8 @@ import { IconCaret } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
 
 import styles from '../searchResult.css'
+import { SearchFilterBar } from './SearchFilterBar'
+import SettingsContext from './SettingsContext'
 
 const CSS_HANDLES = [
   'filter__container',
@@ -18,6 +20,9 @@ const CSS_HANDLES = [
   'filterContent',
   'filterTemplateOverflow',
 ]
+
+const useSettings = () => useContext(SettingsContext)
+
 /**
  * Collapsable filters container
  */
@@ -32,13 +37,24 @@ const FilterOptionTemplate = ({
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const handles = useCssHandles(CSS_HANDLES)
+  const { showFacetSearch } = useSettings()
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const filteredFacets = useMemo(() => {
+    if (showFacetSearch === undefined || searchTerm === '') {
+      return filters
+    }
+    return filters.filter(
+      filter => filter.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+    )
+  }, [filters, searchTerm, showFacetSearch])
 
   const renderChildren = () => {
     if (typeof children !== 'function') {
       return children
     }
 
-    return filters.map(children)
+    return filteredFacets.map(children)
   }
 
   const handleKeyDown = useCallback(
@@ -106,6 +122,10 @@ const FilterOptionTemplate = ({
       >
         {collapsable ? (
           <Collapse isOpened={open} theme={{ content: handles.filterContent }}>
+            {showFacetSearch !== undefined &&
+            showFacetSearch < filters.length ? (
+              <SearchFilterBar name={title} handleChange={setSearchTerm} />
+            ) : null}
             {renderChildren()}
           </Collapse>
         ) : (
