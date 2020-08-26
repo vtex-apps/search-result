@@ -21,28 +21,32 @@ exports[`<AccordionFilterContainer /> should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="accordionFilterContainer pl7"
+      class="overflow-scroll h-100 pb10"
     >
       <div
-        class="accordionFilterItem filterAccordionItemBox t-body pr5 pv3 pointer bb b--muted-5"
-        role="button"
-        tabindex="0"
+        class="accordionFilterContainer pl7"
       >
         <div
-          class="accordionFilterContent pv4 c-on-base t-heading-5"
+          class="accordionFilterItem filterAccordionItemBox t-body pr5 pv3 pointer bb b--muted-5 outline-0"
+          role="button"
+          tabindex="0"
         >
-          <span
-            class="accordionFilterItemTitle"
+          <div
+            class="accordionFilterContent pv4 c-on-base t-heading-5"
           >
-            price-range1
-          </span>
-          <span
-            class="accordionFilterItemIcon fr"
-          >
-            <div>
-              IconCaret
-            </div>
-          </span>
+            <span
+              class="accordionFilterItemTitle"
+            >
+              price-range1
+            </span>
+            <span
+              class="accordionFilterItemIcon fr"
+            >
+              <div>
+                IconCaret
+              </div>
+            </span>
+          </div>
         </div>
       </div>
     </div>

@@ -390,6 +390,8 @@ Renders a filter selector for the fetched results.
 | `closeOnOutsideClick` | `boolean` | Whether the Filter Navigator component should be closed when users click outside of it (`true`) or not (`false`). Caution: This prop only works when the `openFiltersMode` prop is set as `one`.  | `false` |
 | `appliedFiltersOverview` | `Enum` | Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). | `"hide` |
 | `totalProductsOnMobile` | `enum` | Whether the Filter Navigator should display the total number of products on mobile devices  (`show`) or not (`hide`). | `hide` |
+| `fullWidthOnMobile`      | `Boolean` | Defines if the `filter-navigator` will occupy the entire length of the window on mobile (`true`) or not (`false`)                                                                                                                                                 | `false`       |
+| `navigationTypeOnMobile` | `Enum`    | Defines the navigation method on Mobile. `page` or `collapsible` 
 
 #### `order-by` block
 

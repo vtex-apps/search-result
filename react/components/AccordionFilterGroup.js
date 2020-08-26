@@ -21,6 +21,8 @@ const AccordionFilterGroup = ({
   onOpen,
   onFilterCheck,
   appliedFiltersOverview,
+  navigationType,
+  initiallyCollapsed,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const filters = useSelectedFilters(facets)
@@ -37,6 +39,8 @@ const AccordionFilterGroup = ({
       onOpen={onOpen}
       selectedFilters={selectedFilters}
       appliedFiltersOverview={appliedFiltersOverview}
+      navigationType={navigationType}
+      initiallyCollapsed={initiallyCollapsed}
     >
       <div
         className={classNames(

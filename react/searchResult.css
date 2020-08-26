@@ -101,7 +101,7 @@
 }
 
 .filterButtonsBox {
-  height: 5rem;
+  height: 4rem;
 }
 
 .filterPopupFooter {
@@ -109,7 +109,6 @@
 }
 
 .accordionFilterItemOptions {
-  padding-bottom: 9rem;
 }
 
 .dropdownMobile {

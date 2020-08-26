@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Prop `fullWidthOnMobile` to the `filter-navigator.v3`.
+- Prop `navigationTypeOnMobile` to the `filter-navigator.v3`.
+
+### Fixed
+- Scroll on mobile not working properly.
 
 ## [3.84.1] - 2020-11-11
 ### Fixed
@@ -27,6 +33,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.82.0] - 2020-11-10
 ### Added
 - `"showAppliedFiltersOverview"` prop to the `SearchResult`.
+### Added
+- Prop `fullWidthOnMobile` to the `filter-navigator.v3`.
+- Prop `navigationTypeOnMobile` to the `filter-navigator.v3`.
+
+### Fixed
+- Scroll on mobile not working properly.
 
 ## [3.81.2] - 2020-11-05
 ### Fixed

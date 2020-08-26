@@ -37,9 +37,7 @@ const AccordionFilterContainer = ({
   return (
     <div className={`${searchResult.accordionFilter} h-100`}>
       <div
-        className={`${
-          searchResult.filterAccordionBreadcrumbs
-        } pointer flex flex-row items-center pa5 bg-base w-100 z-max bb b--muted-4`}
+        className={`${searchResult.filterAccordionBreadcrumbs} pointer flex flex-row items-center pa5 bg-base w-100 z-max bb b--muted-4`}
       >
         <div
           role="button"
