@@ -13,7 +13,12 @@ const messages = defineMessages({
   },
 })
 
-export const SearchFilterBar = ({ name, handleChange }) => {
+interface Props {
+  name: string
+  handleChange: (value: string) => void
+}
+
+export const SearchFilterBar = ({ name, handleChange }: Props) => {
   const handles = useCssHandles(CSS_HANDLES)
   const intl = useIntl()
 
