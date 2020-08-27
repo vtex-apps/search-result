@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
+import { Spinner } from 'vtex.styleguide'
 
 import AccordionFilterItem from './AccordionFilterItem'
 import DepartmentFilters from './DepartmentFilters'
@@ -32,6 +33,7 @@ const AccordionFilterContainer = ({
   navigationType,
   initiallyCollapsed,
   truncateFilters,
+  loading,
 }) => {
   const [openItem, setOpenItem] = useState(null)
   const handles = useCssHandles(CSS_HANDLES)
@@ -64,6 +66,13 @@ const AccordionFilterContainer = ({
     styles.accordionFilterItemOptions,
     'ph5 pt3 h-100 overflow-scroll',
     { pb9: navigationType !== 'collapsible'}
+  )
+
+  const scrimClasses = classNames(
+    'fixed dim top-0 w-100 vh-100 left-0 z-9999 justify-center items-center',
+    {
+      dn: !loading,
+    }
   )
 
   return (
@@ -172,6 +181,14 @@ const AccordionFilterContainer = ({
             )
         }
       })}
+      <div
+        style={{ willChange: 'opacity', background: 'rgba(3, 4, 78, 0.4)' }}
+        className={scrimClasses}
+      >
+        <div className="w-100 h-100 flex justify-center items-center">
+          <Spinner />
+        </div>
+      </div>
     </div>
   )
 }
@@ -197,6 +214,7 @@ AccordionFilterContainer.propTypes = {
   initiallyCollapsed: PropTypes.bool,
   /** If filters start truncated */
   truncateFilters: PropTypes.bool,
+  loading: PropTypes.bool,
 }
 
 export default injectIntl(AccordionFilterContainer)
