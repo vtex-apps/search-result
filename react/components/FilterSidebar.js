@@ -49,6 +49,7 @@ const FilterSidebar = ({
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
   categoryFiltersMode
+  loading,
 }) => {
   const { searchQuery } = useSearchPage()
   const filterContext = useFilterNavigator()
@@ -74,6 +75,11 @@ const FilterSidebar = ({
   }
 
   const handleFilterCheck = filter => {
+    if (true && preventRouteChange) {
+      navigateToFacet(filter, preventRouteChange)
+      return
+    }
+
     if (!isFilterSelected(filterOperations, filter)) {
       setFilterOperations(filterOperations.concat(filter))
     } else {
@@ -92,8 +98,13 @@ const FilterSidebar = ({
   }
 
   const handleApply = () => {
-    navigateToFacet(filterOperations, preventRouteChange)
     setOpen(false)
+
+    if (true && preventRouteChange) {
+      return
+    }
+
+    navigateToFacet(filterOperations, preventRouteChange)
     setFilterOperations([])
   }
 
@@ -123,6 +134,11 @@ const FilterSidebar = ({
       op => op.map === MAP_CATEGORY_CHAR
     )
     const newCategories = [...categoriesSelected, ...categories]
+
+    if (true && preventRouteChange) {
+      navigateToFacet(newCategories, preventRouteChange)
+      return
+    }
 
     // Just save the newest operation here to be recorded at the category tree hook and update the tree
     setCategoryTreeOperations(categories)
@@ -194,6 +210,7 @@ const FilterSidebar = ({
             truncatedFacetsFetched={truncatedFacetsFetched}
             setTruncatedFacetsFetched={setTruncatedFacetsFetched}
             categoryFiltersMode={categoryFiltersMode}
+            loading={loading}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>
