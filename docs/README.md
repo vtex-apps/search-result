@@ -229,7 +229,7 @@ Structure the `search-result-layout` or the `search-result-layout.customQuery`, 
 | `blockClass`        | `string`       | Unique block ID to be used in [CSS customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization#using-the-blockclass-property)                                                                                    | `undefined`              |
 | `trackingId` | `string` | ID to be used in Google Analytics to track store metrics based on the Search Result block. |  `Search result` | 
 | `mobileLayout`      | `Object` | Controls how the search results page will be displayed to users when using the mobile layout. Possible props and their respective values can be found below.                                                                                                                | `undefined`              |
-| `showFacetSearch` | `number` | Minimum number of options that must exist in a filter for the search bar to be displayed. If it is `0`, the search bar will always be displayed. |  `undefined` | 
+| `thresholdForFacetSearch` | `number` | Minimum number of facets that must be displayed on the interface for a search bar to be displayed. If you declare `0`, the search bar will always be displayed. |  `undefined` | 
 
 - **`mobileLayout` Object:** 
 

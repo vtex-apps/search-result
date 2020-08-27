@@ -37,17 +37,17 @@ const FilterOptionTemplate = ({
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const handles = useCssHandles(CSS_HANDLES)
-  const { showFacetSearch } = useSettings()
+  const { thresholdForFacetSearch } = useSettings()
   const [searchTerm, setSearchTerm] = useState('')
 
   const filteredFacets = useMemo(() => {
-    if (showFacetSearch === undefined || searchTerm === '') {
+    if (thresholdForFacetSearch === undefined || searchTerm === '') {
       return filters
     }
     return filters.filter(
       filter => filter.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
     )
-  }, [filters, searchTerm, showFacetSearch])
+  }, [filters, searchTerm, thresholdForFacetSearch])
 
   const renderChildren = () => {
     if (typeof children !== 'function') {
@@ -122,8 +122,8 @@ const FilterOptionTemplate = ({
       >
         {collapsable ? (
           <Collapse isOpened={open} theme={{ content: handles.filterContent }}>
-            {showFacetSearch !== undefined &&
-            showFacetSearch < filters.length ? (
+            {thresholdForFacetSearch !== undefined &&
+            thresholdForFacetSearch < filters.length ? (
               <SearchFilterBar name={title} handleChange={setSearchTerm} />
             ) : null}
             {renderChildren()}

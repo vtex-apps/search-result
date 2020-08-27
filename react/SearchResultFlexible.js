@@ -58,7 +58,7 @@ const SearchResultFlexible = ({
   page,
   facetsLoading,
   trackingId,
-  showFacetSearch,
+  thresholdForFacetSearch,
 }) => {
   //This makes infinite scroll unavailable.
   //Infinite scroll was deprecated and we have
@@ -107,7 +107,7 @@ const SearchResultFlexible = ({
       mobileLayout,
       showFacetQuantity,
       trackingId,
-      showFacetSearch,
+      thresholdForFacetSearch,
     }),
     [
       hiddenFacets,
@@ -115,7 +115,7 @@ const SearchResultFlexible = ({
       pagination,
       showFacetQuantity,
       trackingId,
-      showFacetSearch,
+      thresholdForFacetSearch,
     ]
   )
 
