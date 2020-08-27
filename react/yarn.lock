@@ -1438,7 +1438,7 @@
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
   integrity sha512-OCutwjDZ4aFS6PB1UZ988C4YgwlBHJd6wCeQqaLdmadZ/7e+w79+hbMUFC1QXDNCmdyoRfAFdm0RypzwR+Qpag==
 
-"@types/graphql@^14.0.7":
+"@types/graphql@^14.0.7", "@types/graphql@^14.5.0":
   version "14.5.0"
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-14.5.0.tgz#a545fb3bc8013a3547cf2f07f5e13a33642b75d6"
   integrity sha512-MOkzsEp1Jk5bXuAsHsUi6BVv0zCO+7/2PTiZMXWDSsMXvNU6w/PLMQT2vHn8hy2i0JqojPz1Sz6rsFjHtsU0lA==
@@ -1665,6 +1665,11 @@
     react-intl "^2.8.0"
     regenerator-runtime "^0.13.1"
     typescript "^3.3.3333"
+
+"@vtex/tsconfig@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@vtex/tsconfig/-/tsconfig-0.5.0.tgz#1314b4cb0c9503ebcae3afd1ec36106dc457cd5c"
+  integrity sha512-WDdawn5pzTj22tVod/MhWU+qCnYu4cCKtmEErwPC9TebJ5OGJTxJnFKskAMJgKjIZmAORDZBq3fsvzCcxC1mgg==
 
 "@wry/context@^0.4.0":
   version "0.4.4"

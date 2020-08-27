@@ -11,20 +11,21 @@ import { SearchFilterBar } from './SearchFilterBar'
 const useSettings = () => useContext(SettingsContext)
 
 const FacetCheckboxList = ({ facets, onFilterCheck, facetTitle }) => {
-  const { showFacetSearch } = useSettings()
+  const { thresholdForFacetSearch } = useSettings()
   const [searchTerm, setSearchTerm] = useState('')
 
   const filteredFacets = useMemo(() => {
-    if (showFacetSearch === undefined || searchTerm === '') {
+    if (thresholdForFacetSearch === undefined || searchTerm === '') {
       return facets
     }
     return facets.filter(
       facet => facet.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
     )
-  }, [facets, searchTerm, showFacetSearch])
+  }, [facets, searchTerm, thresholdForFacetSearch])
 
   const showSearchBar =
-    showFacetSearch !== undefined && showFacetSearch < facets.length
+    thresholdForFacetSearch !== undefined &&
+    thresholdForFacetSearch < facets.length
 
   return (
     <>

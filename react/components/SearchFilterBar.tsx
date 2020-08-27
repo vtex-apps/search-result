@@ -2,7 +2,6 @@ import React from 'react'
 import { Input } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { defineMessages, useIntl } from 'react-intl'
-import classNames from 'classnames'
 
 const CSS_HANDLES = ['searchFilterBar']
 
@@ -23,9 +22,11 @@ export const SearchFilterBar = ({ name, handleChange }: Props) => {
   const intl = useIntl()
 
   return (
-    <div className={classNames('mb3', handles.searchFilterBar)}>
+    <div className={`${handles.searchFilterBar} mb3`}>
       <Input
-        onChange={e => handleChange(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          handleChange(e.target.value)
+        }
         placeholder={intl.formatMessage(messages.placeholder, {
           filterName: name,
         })}
