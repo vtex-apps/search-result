@@ -84,6 +84,7 @@ const FilterNavigator = ({
   navigationTypeOnMobile = 'page',
   updateOnFilterSelectionOnMobile = false,
   showClearByFilter = false,
+  priceRangeLayout = 'default',
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -208,6 +209,7 @@ const FilterNavigator = ({
               loading={loading}
               updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
               showClearByFilter={showClearByFilter}
+              priceRangeLayout={priceRangeLayout}
             />
           </div>
         </div>
@@ -252,6 +254,7 @@ const FilterNavigator = ({
               closeOnOutsideClick={closeOnOutsideClick}
               appliedFiltersOverview={appliedFiltersOverview}
               showClearByFilter={showClearByFilter}
+              priceRangeLayout={priceRangeLayout}
             />
           </div>
           <ExtensionPoint id="shop-review-summary" />
