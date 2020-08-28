@@ -35,7 +35,7 @@ const AccordionFilterItem = ({
   initiallyCollapsed,
   onClearFilter,
   facetKey,
-  showClearByFilter,
+  showClearByFilterOnMobile,
 }) => {
   const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
@@ -107,7 +107,7 @@ const AccordionFilterItem = ({
                   <Tag>{quantitySelected}</Tag>
                 </div>
               )}
-              {quantitySelected > 0 && showClearByFilter && (
+              {quantitySelected > 0 && showClearByFilterOnMobile && (
                 <span className="dib ml3">
                   <Tag
                     size="small"
@@ -177,7 +177,7 @@ AccordionFilterItem.propTypes = {
   /** Facet's key */
   facetKey: PropTypes.string,
   /** Whether a clear button that clear all options in a specific filter should appear beside the filter's name (true) or not (false). */
-  showClearByFilter: PropTypes.bool,
+  showClearByFilterOnMobile: PropTypes.bool,
 }
 
 export default AccordionFilterItem

@@ -38,7 +38,7 @@ const AccordionFilterContainer = ({
   categoryFiltersMode,
   loading,
   onClearFilter,
-  showClearByFilter,
+  showClearByFilterOnMobile,
 }) => {
   const intl = useIntl()
   const { getSettings } = useRuntime()
@@ -199,7 +199,7 @@ const AccordionFilterContainer = ({
                 truncatedFacetsFetched={truncatedFacetsFetched}
                 setTruncatedFacetsFetched={setTruncatedFacetsFetched}
                 onClearFilter={onClearFilter}
-                showClearByFilter={showClearByFilter}
+                showClearByFilterOnMobile={showClearByFilterOnMobile}
               />
             )
         }
@@ -244,7 +244,7 @@ AccordionFilterContainer.propTypes = {
   /** Clear filter function */
   onClearFilter: PropTypes.func,
   /** Whether a clear button that clear all options in a specific filter should appear beside the filter's name (true) or not (false). */
-  showClearByFilter: PropTypes.bool,
+  showClearByFilterOnMobile: PropTypes.bool,
 }
 
 export default AccordionFilterContainer
