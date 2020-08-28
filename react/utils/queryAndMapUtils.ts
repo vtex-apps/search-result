@@ -1,16 +1,6 @@
-import {
-  MAP_CATEGORY_CHAR,
-  DEPARTMENT,
-  CATEGORY,
-  FULLTEXT_QUERY_KEY,
-} from '../constants'
+import { MAP_CATEGORY_CHAR, FULLTEXT_QUERY_KEY } from '../constants'
 
-const CATEGORY_DEPARTMENTS_FT = [
-  MAP_CATEGORY_CHAR,
-  CATEGORY,
-  DEPARTMENT,
-  FULLTEXT_QUERY_KEY,
-]
+const CATEGORY_DEPARTMENTS_FT = [MAP_CATEGORY_CHAR, FULLTEXT_QUERY_KEY]
 
 /* With the addition of the new VTEX search, it is possible to have different maps.
   This function checks the equivalent possibilities for the 'c' map */

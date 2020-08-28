@@ -34,6 +34,7 @@ const AccordionFilterContainer = ({
   initiallyCollapsed,
   truncateFilters,
   loading,
+  onClearFilter,
 }) => {
   const [openItem, setOpenItem] = useState(null)
   const handles = useCssHandles(CSS_HANDLES)
@@ -129,6 +130,7 @@ const AccordionFilterContainer = ({
           appliedFiltersOverview={appliedFiltersOverview}
           navigationType={navigationType}
           initiallyCollapsed={initiallyCollapsed}
+          onClearFilter={onClearFilter}
         >
           <div className={itemClassName}>
             <DepartmentFilters
@@ -177,6 +179,7 @@ const AccordionFilterContainer = ({
                 navigationType={navigationType}
                 initiallyCollapsed={initiallyCollapsed}
                 truncateFilters={truncateFilters}
+                onClearFilter={onClearFilter}
               />
             )
         }
@@ -215,6 +218,7 @@ AccordionFilterContainer.propTypes = {
   /** If filters start truncated */
   truncateFilters: PropTypes.bool,
   loading: PropTypes.bool,
+  onClearFilter: PropTypes.func,
 }
 
 export default injectIntl(AccordionFilterContainer)
