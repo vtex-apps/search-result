@@ -35,6 +35,7 @@ const AccordionFilterContainer = ({
   truncateFilters,
   loading,
   onClearFilter,
+  showClearByFilter,
 }) => {
   const [openItem, setOpenItem] = useState(null)
   const handles = useCssHandles(CSS_HANDLES)
@@ -180,6 +181,7 @@ const AccordionFilterContainer = ({
                 initiallyCollapsed={initiallyCollapsed}
                 truncateFilters={truncateFilters}
                 onClearFilter={onClearFilter}
+                showClearByFilter={showClearByFilter}
               />
             )
         }
@@ -218,7 +220,10 @@ AccordionFilterContainer.propTypes = {
   /** If filters start truncated */
   truncateFilters: PropTypes.bool,
   loading: PropTypes.bool,
+  /** Clear filter function */
   onClearFilter: PropTypes.func,
+  /** Whether a clear button that clear all options in a specific filter should appear beside the filter's name (true) or not (false). */
+  showClearByFilter: PropTypes.bool,
 }
 
 export default injectIntl(AccordionFilterContainer)

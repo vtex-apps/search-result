@@ -81,6 +81,8 @@ const FilterNavigator = ({
   totalProductsOnMobile = 'hide',
   fullWidthOnMobile = false,
   navigationTypeOnMobile = 'page',
+  updateOnFilterSelectionOnMobile = false,
+  showClearByFilter,
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -201,6 +203,8 @@ const FilterNavigator = ({
               initiallyCollapsed={initiallyCollapsed}
               truncateFilters={truncateFilters}
               loading={loading}
+              updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
+              showClearByFilter={showClearByFilter}
             />
           </div>
         </div>

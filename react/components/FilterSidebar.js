@@ -47,6 +47,8 @@ const FilterSidebar = ({
   initiallyCollapsed,
   truncateFilters,
   loading,
+  updateOnFilterSelectionOnMobile,
+  showClearByFilter,
 }) => {
   const { searchQuery } = useSearchPage()
   const filterContext = useFilterNavigator()
@@ -73,7 +75,7 @@ const FilterSidebar = ({
   }
 
   const handleFilterCheck = filter => {
-    if (true && preventRouteChange) {
+    if (updateOnFilterSelectionOnMobile && preventRouteChange) {
       navigateToFacet(filter, preventRouteChange)
       return
     }
@@ -98,7 +100,7 @@ const FilterSidebar = ({
   const handleApply = () => {
     setOpen(false)
 
-    if (true && preventRouteChange) {
+    if (updateOnFilterSelectionOnMobile && preventRouteChange) {
       return
     }
 
@@ -123,7 +125,7 @@ const FilterSidebar = ({
 
     const facetsToRemove = [...selectedFacets, ...selectedRest]
 
-    if (true && preventRouteChange) {
+    if (updateOnFilterSelectionOnMobile && preventRouteChange) {
       navigateToFacet(facetsToRemove, preventRouteChange)
       return
     }
@@ -143,7 +145,7 @@ const FilterSidebar = ({
     )
     const newCategories = [...categoriesSelected, ...categories]
 
-    if (true && preventRouteChange) {
+    if (updateOnFilterSelectionOnMobile && preventRouteChange) {
       navigateToFacet(newCategories, preventRouteChange)
       return
     }
@@ -216,6 +218,7 @@ const FilterSidebar = ({
             truncateFilters={truncateFilters}
             loading={loading}
             onClearFilter={handleClearFilters}
+            showClearByFilter={showClearByFilter}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>
