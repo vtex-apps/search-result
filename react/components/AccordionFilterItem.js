@@ -106,7 +106,12 @@ const AccordionFilterItem = ({
                 </div>
               )}
               {quantitySelected > 0 && showClearByFilterOnMobile && (
-                <span className="dib ml3">
+                <span
+                  className={classNames(
+                    handles.accordionFilterItemTag,
+                    'dib ml3'
+                  )}
+                >
                   <Tag
                     size="small"
                     onClick={e => {

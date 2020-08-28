@@ -17,6 +17,7 @@ const CSS_HANDLES = [
   'filterBreadcrumbsContent',
   'filterBreadcrumbsText',
   'filterBreadcrumbsList',
+  'filterLoadingOverlay',
 ]
 import styles from '../searchResult.css'
 
@@ -70,10 +71,11 @@ const AccordionFilterContainer = ({
     { pb9: navigationType !== 'collapsible'}
   )
 
-  const scrimClasses = classNames(
-    'fixed dim top-0 w-100 vh-100 left-0 z-9999 justify-center items-center',
+  const loadingOverlayClasses = classNames(
+    'fixed dim top-0 w-100 vh-100 left-0 z-9999 justify-center items-center justify-center items-center',
     {
       dn: !loading,
+      flex: loading,
     }
   )
 
@@ -187,12 +189,13 @@ const AccordionFilterContainer = ({
         }
       })}
       <div
-        style={{ willChange: 'opacity', background: 'rgba(3, 4, 78, 0.4)' }}
-        className={scrimClasses}
+        style={{ background: 'rgba(3, 4, 78, 0.4)' }}
+        className={classNames(
+          handles.filterLoadingOverlay,
+          loadingOverlayClasses
+        )}
       >
-        <div className="w-100 h-100 flex justify-center items-center">
-          <Spinner />
-        </div>
+        <Spinner />
       </div>
     </div>
   )
