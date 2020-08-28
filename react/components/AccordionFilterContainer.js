@@ -37,6 +37,7 @@ const AccordionFilterContainer = ({
   setTruncatedFacetsFetched,
   categoryFiltersMode,
   loading,
+  onClearFilter,
 }) => {
   const intl = useIntl()
   const { getSettings } = useRuntime()
@@ -142,6 +143,7 @@ const AccordionFilterContainer = ({
           appliedFiltersOverview={appliedFiltersOverview}
           navigationType={navigationType}
           initiallyCollapsed={initiallyCollapsed}
+          onClearFilter={onClearFilter}
         >
           <div className={itemClassName}>
             <DepartmentFilters
@@ -195,6 +197,7 @@ const AccordionFilterContainer = ({
                 truncateFilters={truncateFilters}
                 truncatedFacetsFetched={truncatedFacetsFetched}
                 setTruncatedFacetsFetched={setTruncatedFacetsFetched}
+                onClearFilter={onClearFilter}
               />
             )
         }
@@ -236,6 +239,7 @@ AccordionFilterContainer.propTypes = {
   setTruncatedFacetsFetched: PropTypes.func,
   categoryFiltersMode: PropTypes.oneOf(['href', 'default']),
   loading: PropTypes.bool,
+  onClearFilter: PropTypes.func,
 }
 
 export default AccordionFilterContainer

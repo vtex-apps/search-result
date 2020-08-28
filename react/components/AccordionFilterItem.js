@@ -33,6 +33,8 @@ const AccordionFilterItem = ({
   appliedFiltersOverview,
   navigationType,
   initiallyCollapsed,
+  onClearFilter,
+  facetKey,
 }) => {
   const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
@@ -104,6 +106,19 @@ const AccordionFilterItem = ({
                   <Tag>{quantitySelected}</Tag>
                 </div>
               )}
+              {quantitySelected > 0 && (
+                <span className="dib ml3">
+                  <Tag
+                    size="small"
+                    onClick={e => {
+                      e.stopPropagation()
+                      onClearFilter && onClearFilter(facetKey)
+                    }}
+                  >
+                    Clear
+                  </Tag>
+                </span>
+              )}
               <span className={`${handles.accordionFilterItemIcon} fr`}>
                 <IconCaret
                   orientation={
@@ -156,6 +171,8 @@ AccordionFilterItem.propTypes = {
   navigationType: PropTypes.oneOf(['page', 'collapsible']),
   /** Makes the search filters start out collapsed (`true`) or open (`false`) */
   initiallyCollapsed: PropTypes.bool,
+  onClearFilter: PropTypes.func,
+  facetKey: PropTypes.string,
 }
 
 export default AccordionFilterItem

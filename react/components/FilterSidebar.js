@@ -108,11 +108,12 @@ const FilterSidebar = ({
     setFilterOperations([])
   }
 
-  const handleClearFilters = () => {
-    shouldClear.current = true
+  const handleClearFilters = key => {
+    // shouldClear.current = true
     // Gets the previously selected facets that should be cleared
     const selectedFacets = selectedFilters.filter(
-      facet => !isCategoryDepartmentCollectionOrFT(facet.key) && facet.selected
+      facet => !isCategoryDepartmentCollectionOrFT(facet.key) && facet.selected &&
+      (!key || (key && key === facet.key))
     )
 
     // Should not clear categories, departments and clusterIds
@@ -120,7 +121,14 @@ const FilterSidebar = ({
       isCategoryDepartmentCollectionOrFT(facet.key)
     )
 
-    setFilterOperations([...selectedFacets, ...selectedRest])
+    const facetsToRemove = [...selectedFacets, ...selectedRest]
+
+    if (true && preventRouteChange) {
+      navigateToFacet(facetsToRemove, preventRouteChange)
+      return
+    }
+
+    setFilterOperations(facetsToRemove)
   }
 
   const handleUpdateCategories = maybeCategories => {
@@ -211,6 +219,7 @@ const FilterSidebar = ({
             setTruncatedFacetsFetched={setTruncatedFacetsFetched}
             categoryFiltersMode={categoryFiltersMode}
             loading={loading}
+            onClearFilter={handleClearFilters}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>
@@ -224,7 +233,7 @@ const FilterSidebar = ({
               block
               variation="tertiary"
               size="regular"
-              onClick={handleClearFilters}
+              onClick={() => handleClearFilters()}
             >
               <FormattedMessage id="store/search-result.filter-button.clear" />
             </Button>
