@@ -81,6 +81,7 @@ const FilterNavigator = ({
   totalProductsOnMobile = 'hide',
   fullWidthOnMobile = false,
   navigationTypeOnMobile = 'page',
+  priceRangeLayout = 'default',
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -200,6 +201,7 @@ const FilterNavigator = ({
               navigationType={navigationTypeOnMobile}
               initiallyCollapsed={initiallyCollapsed}
               truncateFilters={truncateFilters}
+              priceRangeLayout={priceRangeLayout}
             />
           </div>
         </div>
@@ -242,6 +244,7 @@ const FilterNavigator = ({
               openFiltersMode={openFiltersMode}
               closeOnOutsideClick={closeOnOutsideClick}
               appliedFiltersOverview={appliedFiltersOverview}
+              priceRangeLayout={priceRangeLayout}
             />
           </div>
           <ExtensionPoint id="shop-review-summary" />

@@ -21,6 +21,7 @@ const withSearchPageContextProps = Component => ({
   totalProductsOnMobile,
   fullWidthOnMobile,
   navigationTypeOnMobile,
+  priceRangeLayout,
 }) => {
   const {
     searchQuery,
@@ -89,6 +90,7 @@ const withSearchPageContextProps = Component => ({
           totalProductsOnMobile={totalProductsOnMobile}
           fullWidthOnMobile={fullWidthOnMobile}
           navigationTypeOnMobile={navigationTypeOnMobile}
+          priceRangeLayout={priceRangeLayout}
         />
       </FilterNavigatorContext.Provider>
     </div>

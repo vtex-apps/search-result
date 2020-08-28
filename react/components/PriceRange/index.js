@@ -4,17 +4,20 @@ import { useRuntime } from 'vtex.render-runtime'
 import { injectIntl, intlShape } from 'react-intl'
 import { Slider } from 'vtex.styleguide'
 import { formatCurrency } from 'vtex.format-currency'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
-import { facetOptionShape } from '../constants/propTypes'
-import { getFilterTitle } from '../constants/SearchHelpers'
-import FilterOptionTemplate from './FilterOptionTemplate'
-import useSearchState from '../hooks/useSearchState'
+import { facetOptionShape } from '../../constants/propTypes'
+import { getFilterTitle } from '../../constants/SearchHelpers'
+import FilterOptionTemplate from '../FilterOptionTemplate'
+import useSearchState from '../../hooks/useSearchState'
+import PriceRangeInput from './PriceRangeInput'
 
 const DEBOUNCE_TIME = 500 // ms
 
 /** Price range slider component */
-const PriceRange = ({ title, facets, intl, priceRange }) => {
+const PriceRange = ({ title, facets, intl, priceRange, priceRangeLayout }) => {
   const { culture, setQuery } = useRuntime()
+  const { facetsLoading } = useSearchPage()
 
   const navigateTimeoutId = useRef()
 
@@ -78,7 +81,17 @@ const PriceRange = ({ title, facets, intl, priceRange }) => {
       title={getFilterTitle(title, intl)}
       collapsable={false}
     >
+      {priceRangeLayout === 'inputAndSlider' && (
+        <PriceRangeInput
+          defaultValues={defaultValues}
+          onSubmit={handleChange}
+          max={maxValue}
+          min={minValue}
+        />
+      )}
       <Slider
+        // It is impossible to change the slider value programmatically, so I need to reset the whole component
+        key={facetsLoading ? 'loading' : 'loaded'}
         min={minValue}
         max={maxValue}
         onChange={handleChange}
@@ -99,6 +112,8 @@ PriceRange.propTypes = {
   intl: intlShape.isRequired,
   /** Current price range filter query parameter*/
   priceRange: PropTypes.string,
+  /** Price range layout (default or inputAndSlider) */
+  priceRangeLayout: PropTypes.string,
 }
 
 export default injectIntl(PriceRange)

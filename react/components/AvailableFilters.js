@@ -35,6 +35,7 @@ const Filter = ({
   setTruncatedFacetsFetched,
   closeOnOutsideClick,
   appliedFiltersOverview,
+  priceRangeLayout,
 }) => {
   const { type, title, facets, quantity, oneSelectedCollapse = false } = filter
 
@@ -47,6 +48,7 @@ const Filter = ({
           facets={facets}
           priceRange={priceRange}
           preventRouteChange={preventRouteChange}
+          priceRangeLayout={priceRangeLayout}
         />
       )
     default:

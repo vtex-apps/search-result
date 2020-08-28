@@ -46,6 +46,7 @@ const FilterSidebar = ({
   navigationType,
   initiallyCollapsed,
   truncateFilters,
+  priceRangeLayout,
 }) => {
   const { searchQuery } = useSearchPage()
   const filterContext = useFilterNavigator()
@@ -188,6 +189,7 @@ const FilterSidebar = ({
             navigationType={navigationType}
             initiallyCollapsed={initiallyCollapsed}
             truncateFilters={truncateFilters}
+            priceRangeLayout={priceRangeLayout}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>

@@ -32,6 +32,7 @@ const AccordionFilterContainer = ({
   navigationType,
   initiallyCollapsed,
   truncateFilters,
+  priceRangeLayout,
 }) => {
   const [openItem, setOpenItem] = useState(null)
   const handles = useCssHandles(CSS_HANDLES)
@@ -151,6 +152,7 @@ const AccordionFilterContainer = ({
                 priceRange={priceRange}
                 navigationType={navigationType}
                 initiallyCollapsed={initiallyCollapsed}
+                priceRangeLayout={priceRangeLayout}
               />
             )
           default:
@@ -197,6 +199,8 @@ AccordionFilterContainer.propTypes = {
   initiallyCollapsed: PropTypes.bool,
   /** If filters start truncated */
   truncateFilters: PropTypes.bool,
+  /** Price range layout (default or inputAndSlider) */
+  priceRangeLayout: PropTypes.string,
 }
 
 export default injectIntl(AccordionFilterContainer)

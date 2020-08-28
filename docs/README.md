@@ -297,6 +297,7 @@ Check out the [**Product Summary documentation**](https://vtex.io/docs/component
 | `totalProductsOnMobile` | `enum` | Whether the Filter Navigator should display the total number of products on mobile devices  (`show`) or not (`hide`). | `hide` |
 | `fullWidthOnMobile`      | `boolean` | Whether the `filter-navigator.v3` will be rendered on mobile using the screen full width (`true`) or not (`false`).                                                                                                                                               | `false`       |
 | `navigationTypeOnMobile` | `Enum`    | Defines how mobile users should navigate on the filter selector component. Possible values are: `page` (only one list of options can be seen at a time) or `collapsible` (all lists of options can be seen at the same time).                                    | `page`        |
+| `priceRangeLayout` | `"default"` or `inputAndSlider` | whether a text field should appear to enter the price range (`"inputAndSlider"`), or not (`"default"`). | `"default"` |
 
 -  **`order-by` block**
 
