@@ -224,6 +224,7 @@ const FilterSidebar = ({
             loading={loading}
             onClearFilter={handleClearFilters}
             showClearByFilterOnMobile={showClearByFilterOnMobile}
+            updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>
