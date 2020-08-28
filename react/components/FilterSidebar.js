@@ -111,7 +111,8 @@ const FilterSidebar = ({
   }
 
   const handleClearFilters = key => {
-    // shouldClear.current = true
+    shouldClear.current =
+      !updateOnFilterSelectionOnMobile || !preventRouteChange
     // Gets the previously selected facets that should be cleared
     const selectedFacets = selectedFilters.filter(
       facet => !isCategoryDepartmentCollectionOrFT(facet.key) && facet.selected &&
