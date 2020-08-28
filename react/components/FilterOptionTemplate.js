@@ -58,6 +58,7 @@ const CSS_HANDLES = [
   'filterContent',
   'filterTemplateOverflow',
   'seeMoreButton',
+  'filterSelectedFilters',
 ]
 
 const useSettings = () => useContext(SettingsContext)
@@ -82,6 +83,7 @@ const FilterOptionTemplate = ({
   setTruncatedFacetsFetched,
   closeOnOutsideClick = false,
 }) => {
+  const { showAppliedFiltersOverview } = useContext(SettingsContext)
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
   const scrollable = useRef()
@@ -248,6 +250,19 @@ const FilterOptionTemplate = ({
             )}
           </div>
         </div>
+        {showAppliedFiltersOverview && filters && !selected && (
+          <div
+            className={classNames(
+              handles.filterSelectedFilters,
+              'f6 c-action-primary'
+            )}
+          >
+            {filters
+              .filter(facet => facet.selected)
+              .map(facet => facet.name)
+              .join(', ')}
+          </div>
+        )}
       </div>
       <div
         className={classNames(handles.filterTemplateOverflow, {
