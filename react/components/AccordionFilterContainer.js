@@ -37,6 +37,7 @@ const AccordionFilterContainer = ({
   loading,
   onClearFilter,
   showClearByFilterOnMobile,
+  updateOnFilterSelectionOnMobile,
 }) => {
   const [openItem, setOpenItem] = useState(null)
   const handles = useCssHandles(CSS_HANDLES)
@@ -71,13 +72,7 @@ const AccordionFilterContainer = ({
     { pb9: navigationType !== 'collapsible'}
   )
 
-  const loadingOverlayClasses = classNames(
-    'fixed dim top-0 w-100 vh-100 left-0 z-9999 justify-center items-center justify-center items-center',
-    {
-      dn: !loading,
-      flex: loading,
-    }
-  )
+  const showOverlay = updateOnFilterSelectionOnMobile && loading
 
   return (
     <div className={classNames(styles.accordionFilter, 'h-100 pb9', {
@@ -188,15 +183,17 @@ const AccordionFilterContainer = ({
             )
         }
       })}
-      <div
-        style={{ background: 'rgba(3, 4, 78, 0.4)' }}
-        className={classNames(
-          handles.filterLoadingOverlay,
-          loadingOverlayClasses
-        )}
-      >
-        <Spinner />
-      </div>
+      {showOverlay && (
+        <div
+          style={{ background: 'rgba(3, 4, 78, 0.4)' }}
+          className={classNames(
+            handles.filterLoadingOverlay,
+            'fixed dim top-0 w-100 vh-100 left-0 z-9999 justify-center items-center justify-center items-center flex'
+          )}
+        >
+          <Spinner />
+        </div>
+      )}
     </div>
   )
 }
@@ -227,6 +224,8 @@ AccordionFilterContainer.propTypes = {
   onClearFilter: PropTypes.func,
   /** Whether a clear button that clear all options in a specific filter should appear beside the filter's name (true) or not (false). */
   showClearByFilterOnMobile: PropTypes.bool,
+  /** Wether the search will be updated on facet selection (`true`) or not (`false`) when the user is on mobile. */
+  updateOnFilterSelectionOnMobile: PropTypes.bool,
 }
 
 export default injectIntl(AccordionFilterContainer)

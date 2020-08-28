@@ -82,7 +82,7 @@ const FilterNavigator = ({
   fullWidthOnMobile = false,
   navigationTypeOnMobile = 'page',
   updateOnFilterSelectionOnMobile = false,
-  showClearByFilterOnMobile,
+  showClearByFilterOnMobile = false,
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
