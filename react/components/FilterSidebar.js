@@ -48,7 +48,7 @@ const FilterSidebar = ({
   truncateFilters,
   loading,
   updateOnFilterSelectionOnMobile,
-  showClearByFilter,
+  showClearByFilterOnMobile,
 }) => {
   const { searchQuery } = useSearchPage()
   const filterContext = useFilterNavigator()
@@ -218,7 +218,7 @@ const FilterSidebar = ({
             truncateFilters={truncateFilters}
             loading={loading}
             onClearFilter={handleClearFilters}
-            showClearByFilter={showClearByFilter}
+            showClearByFilterOnMobile={showClearByFilterOnMobile}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>
