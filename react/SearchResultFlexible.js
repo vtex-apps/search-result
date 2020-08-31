@@ -174,7 +174,7 @@ const SearchResultFlexible = ({
                   <div
                     className={`${
                       handles.loadingOverlay
-                    } flex flex-column flex-grow-1 ${generateBlockClass(
+                    } w-100 flex flex-column flex-grow-1 ${generateBlockClass(
                       styles['container--layout'],
                       blockClass
                     )}`}
