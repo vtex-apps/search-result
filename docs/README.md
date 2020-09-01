@@ -391,7 +391,7 @@ Renders a filter selector for the fetched results.
 | `appliedFiltersOverview` | `Enum` | Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). | `"hide` |
 | `totalProductsOnMobile` | `enum` | Whether the Filter Navigator should display the total number of products on mobile devices  (`show`) or not (`hide`). | `hide` |
 | `fullWidthOnMobile`      | `boolean` | Whether the `filter-navigator.v3` will be rendered on mobile using the screen full width (`true`) or not (`false`).                                                                                                                                               | `false`       |
-| `navigationTypeOnMobile` | `Enum`    | Defines how mobile users should navigate on the filter selector component. Possible values are: `page` (only one list of options can be seen at a time) or `collapsible` (all lists of options can be seen at the same time ).   | `page`        |
+| `navigationTypeOnMobile` | `Enum`    | Defines how mobile users should navigate on the filter selector component. Possible values are: `page` (only one list of options can be seen at a time) or `collapsible` (all lists of options can be seen at the same time ).                                    | `page`        |
 
 #### `order-by` block
 
