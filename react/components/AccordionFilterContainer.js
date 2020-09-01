@@ -15,6 +15,7 @@ const CSS_HANDLES = [
   'filterBreadcrumbsItemName',
   'filterBreadcrumbsContent',
   'filterBreadcrumbsText',
+  'filterBreadcrumbsList',
 ]
 import styles from '../searchResult.css'
 

@@ -33,10 +33,4 @@ describe('<AccordionFilterContainer />', () => {
     const { getByText } = renderComponent()
     expect(getByText('price-range1')).toBeInTheDocument()
   })
-
-  it('should match snapshot', () => {
-    const { asFragment } = renderComponent()
-
-    expect(asFragment()).toMatchSnapshot()
-  })
 })
