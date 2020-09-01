@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Checkbox } from 'vtex.styleguide'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import classNames from 'classnames'
@@ -26,6 +26,7 @@ const FacetItem = ({
   preventRouteChange,
 }) => {
   const { showFacetQuantity } = useContext(SettingsContext)
+  const [selected, setSelected] = useState(facet.selected)
   const handles = useCssHandles(CSS_HANDLES)
   const classes = classNames(
     applyModifiers(handles.filterItem, facet.value),
@@ -45,14 +46,15 @@ const FacetItem = ({
     >
       <Checkbox
         id={checkBoxId}
-        checked={facet.selected}
+        checked={selected}
         label={
           showFacetQuantity ? `${facet.name} (${facet.quantity})` : facet.name
         }
         name={facet.name}
-        onChange={() =>
+        onChange={() => {
+          setSelected(!selected)
           navigateToFacet({ ...facet, title: facetTitle }, preventRouteChange)
-        }
+        }}
         value={facet.name}
       />
     </div>
