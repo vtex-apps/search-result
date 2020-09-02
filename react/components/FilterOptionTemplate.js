@@ -54,9 +54,12 @@ const CSS_HANDLES = [
   'filterIcon',
   'filterContent',
   'filterTemplateOverflow',
+  'seeMoreButton',
 ]
 
 const useSettings = () => useContext(SettingsContext)
+
+const MAX_ITEMS_THRESHOLD = 12
 
 /** Renders only ${RENDER_THRESHOLD} items on the list until the user scrolls or clicks `See more`,
  * for improved rendering performance */
@@ -83,7 +86,6 @@ const FilterOptionTemplate = ({
   const { thresholdForFacetSearch } = useSettings()
   const [searchTerm, setSearchTerm] = useState('')
   const [truncated, setTruncated] = useState(true)
-  const maxItemsThreshold = 12
 
   const isLazyRenderEnabled = getSettings('vtex.store')
     ?.enableSearchRenderingOptimization
@@ -104,6 +106,9 @@ const FilterOptionTemplate = ({
     )
   }, [filters, searchTerm, thresholdForFacetSearch])
 
+  const shouldTruncate =
+    truncateFilters && filteredFacets.length >= MAX_ITEMS_THRESHOLD
+
   const renderChildren = () => {
     if (typeof children !== 'function') {
       return children
@@ -116,10 +121,7 @@ const FilterOptionTemplate = ({
       : 0
 
     const endSlice =
-      shouldLazyRender ||
-      (truncateFilters &&
-        truncated &&
-        filteredFacets.length >= maxItemsThreshold)
+      shouldLazyRender || (shouldTruncate && truncated)
         ? RENDER_THRESHOLD
         : filteredFacets.length
 
@@ -127,21 +129,19 @@ const FilterOptionTemplate = ({
       <>
         {filteredFacets.slice(0, endSlice).map(children)}
         {placeholderSize > 0 && <div style={{ height: placeholderSize }} />}
-        {truncateFilters && filteredFacets.length >= maxItemsThreshold && (
+        {shouldTruncate && (
           <button
             onClick={() => setTruncated(truncated => !truncated)}
-            className="mt2 pv2 bn pointer"
+            className={`${handles.seeMoreButton} mt2 pv2 bn pointer c-link`}
           >
-            <span className="c-link">
-              <FormattedMessage
-                id={
-                  truncated
-                    ? 'store/filter.more-items'
-                    : 'store/filter.less-items'
-                }
-                values={{ quantity: filteredFacets.length - 10 }}
-              />
-            </span>
+            <FormattedMessage
+              id={
+                truncated
+                  ? 'store/filter.more-items'
+                  : 'store/filter.less-items'
+              }
+              values={{ quantity: filteredFacets.length - RENDER_THRESHOLD }}
+            />
           </button>
         )}
       </>
