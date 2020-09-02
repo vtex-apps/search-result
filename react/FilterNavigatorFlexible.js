@@ -15,6 +15,7 @@ const withSearchPageContextProps = Component => ({
   maxItemsDepartment,
   maxItemsCategory,
   filtersTitleHtmlTag,
+  truncateFilters,
 }) => {
   const {
     searchQuery,
@@ -66,6 +67,7 @@ const withSearchPageContextProps = Component => ({
           maxItemsDepartment={maxItemsDepartment}
           maxItemsCategory={maxItemsCategory}
           filtersTitleHtmlTag={filtersTitleHtmlTag}
+          truncateFilters={truncateFilters}
         />
       </FilterNavigatorContext.Provider>
     </div>

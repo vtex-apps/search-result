@@ -23,6 +23,7 @@ const Filter = ({
   initiallyCollapsed,
   navigateToFacet,
   lazyRender,
+  truncateFilters = false,
 }) => {
   const { type, title, facets, oneSelectedCollapse = false } = filter
 
@@ -48,6 +49,7 @@ const Filter = ({
           initiallyCollapsed={initiallyCollapsed}
           navigateToFacet={navigateToFacet}
           lazyRender={lazyRender}
+          truncateFilters={truncateFilters}
         />
       )
   }
@@ -67,6 +69,7 @@ AvailableFilters.propTypes = {
   /** Prevent route changes */
   preventRouteChange: PropTypes.bool,
   initiallyCollapsed: PropTypes.bool,
+  truncateFilters: PropTypes.bool,
 }
 
 export default AvailableFilters
