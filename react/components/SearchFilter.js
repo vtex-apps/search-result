@@ -57,7 +57,7 @@ SearchFilter.propTypes = {
   initiallyCollapsed: PropTypes.bool,
   navigateToFacet: PropTypes.func,
   lazyRender: PropTypes.bool,
-  /** When `true`, truncates filters with more than ten options displaying a button to see all */
+  /** When `true`, truncates filters with more than 10 options displaying a button to see all */
   truncateFilters: PropTypes.bool,
 }
 

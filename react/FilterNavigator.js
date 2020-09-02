@@ -67,6 +67,7 @@ const FilterNavigator = ({
   preventRouteChange = false,
   hiddenFacets = {},
   initiallyCollapsed = false,
+  truncateFilters = false,
   layout = LAYOUT_TYPES.responsive,
   maxItemsDepartment = 8,
   maxItemsCategory = 8,
@@ -178,6 +179,7 @@ const FilterNavigator = ({
               preventRouteChange={preventRouteChange}
               initiallyCollapsed={initiallyCollapsed}
               navigateToFacet={navigateToFacet}
+              truncateFilters={truncateFilters}
             />
           </div>
           <ExtensionPoint id="shop-review-summary" />
@@ -209,6 +211,7 @@ FilterNavigator.propTypes = {
   loading: PropTypes.bool,
   layout: PropTypes.oneOf(Object.values(LAYOUT_TYPES)),
   initiallyCollapsed: PropTypes.bool,
+  truncateFilters: PropTypes.bool,
   filtersTitleHtmlTag: PropTypes.string,
   ...hiddenFacetsSchema,
 }

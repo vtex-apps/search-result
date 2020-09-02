@@ -83,6 +83,7 @@ const FilterOptionTemplate = ({
   const { thresholdForFacetSearch } = useSettings()
   const [searchTerm, setSearchTerm] = useState('')
   const [truncated, setTruncated] = useState(true)
+  const maxItemsThreshold = 12
 
   const isLazyRenderEnabled = getSettings('vtex.store')
     ?.enableSearchRenderingOptimization
@@ -116,7 +117,9 @@ const FilterOptionTemplate = ({
 
     const endSlice =
       shouldLazyRender ||
-      (truncateFilters && truncated && filteredFacets.length >= 12)
+      (truncateFilters &&
+        truncated &&
+        filteredFacets.length >= maxItemsThreshold)
         ? RENDER_THRESHOLD
         : filteredFacets.length
 
@@ -124,7 +127,7 @@ const FilterOptionTemplate = ({
       <>
         {filteredFacets.slice(0, endSlice).map(children)}
         {placeholderSize > 0 && <div style={{ height: placeholderSize }} />}
-        {truncateFilters && filteredFacets.length >= 12 && (
+        {truncateFilters && filteredFacets.length >= maxItemsThreshold && (
           <button
             onClick={() => setTruncated(truncated => !truncated)}
             className="mt2 pv2 bn pointer"
@@ -243,7 +246,7 @@ FilterOptionTemplate.propTypes = {
   initiallyCollapsed: PropTypes.bool,
   /** Internal prop, whether this component should be rendered only on view */
   lazyRender: PropTypes.bool,
-  /** When `true`, truncates filters with more than ten options displaying a button to see all */
+  /** When `true`, truncates filters with more than 10 options displaying a button to see all */
   truncateFilters: PropTypes.bool,
 }
 
