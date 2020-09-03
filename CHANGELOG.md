@@ -9,8 +9,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - `openFiltersMode` on `filter-navigator.v3`
 
-## [3.70.0] - 2020-09-03
-
 ### Added
 - Prop `thresholdForFacetSearch` that displays a Search bar to filter facets.
 
