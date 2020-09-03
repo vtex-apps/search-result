@@ -61,6 +61,7 @@
   "store/filter.more-categories": "See {quantity} more categories",
   "store/filter.more-items": "See more",
   "store/filter.less-items": "See less",
+  "store/search.filter.placeholder": "Search by {filterName}",
   "store/search.filter.title.brands": "Brands",
   "store/search.filter.title.price-ranges": "Price Ranges",
   "store/search.text": "Showing {from}-{to} from {recordsFiltered} records",
