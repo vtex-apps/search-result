@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - `openFiltersMode` on `filter-navigator.v3`
 
+## [3.69.3] - 2020-09-03
+### Fixed
+- Prevent `SearchResultFlexible` from overflowing on mobile devices by setting its width.
+
 ## [3.69.2] - 2020-08-20
 ### Fixed
 - Fix `hiddenFilters` prop documentation (`README.md` file)
