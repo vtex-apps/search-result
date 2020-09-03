@@ -36,7 +36,7 @@ export const isCategoryDepartmentCollectionOrFT = (term: string) => {
   return CATEGORY_DEPARTMENTS_CLUSTER_ID_FT.includes(term)
 }
 
-export const filterCategoryDepartmentCollectionAndFT = context => {
+export const filterCategoryDepartmentCollectionAndFT = (context: any) => {
   const query = context.query.split(PATH_SEPARATOR)
   const map = context.map.split(MAP_VALUES_SEP)
   const newQuery = []
