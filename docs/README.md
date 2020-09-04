@@ -288,7 +288,7 @@ Check out the [**Product Summary documentation**](https://vtex.io/docs/component
 | `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed (`true`) or open (`false`). | `false` |
 | `filtersTitleHtmlTag` | `string` | HTML tag for the filter's title. | `h5` |
 | `scrollToTop` | `enum` | Scrolls the page to the top (`auto` or `smooth`) or not (`none`) when selecting a facet. | `none` |
-| `truncateFilters` | `boolean` | Truncates filters with more than 10 options displaying a button to see all | `false` |
+| `truncateFilters` | `boolean` | Whether a filter selector with more than 10 filter options should shorten the list and display a `See more` button (`true`) or not (`false`). | `false` |
 
 -  **`order-by` block**
 
