@@ -17,6 +17,9 @@ const SearchFilter = ({
   preventRouteChange = false,
   initiallyCollapsed = false,
   navigateToFacet,
+  lastOpenFilter,
+  setLastOpenFilter,
+  openFiltersMode,
 }) => {
   const sampleFacet = facets && facets.length > 0 ? facets[0] : null
   const facetTitle = getFilterTitle(title, intl)
@@ -27,6 +30,9 @@ const SearchFilter = ({
       title={facetTitle}
       filters={facets}
       initiallyCollapsed={initiallyCollapsed}
+      lastOpenFilter={lastOpenFilter}
+      setLastOpenFilter={setLastOpenFilter}
+      openFiltersMode={openFiltersMode}
     >
       {facet => (
         <FacetItem
@@ -52,6 +58,9 @@ SearchFilter.propTypes = {
   preventRouteChange: PropTypes.bool,
   initiallyCollapsed: PropTypes.bool,
   navigateToFacet: PropTypes.func,
+  lastOpenFilter: PropTypes.string,
+  setLastOpenFilter: PropTypes.func,
+  openFiltersMode: PropTypes.string,
 }
 
 export default injectIntl(SearchFilter)

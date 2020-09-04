@@ -29,9 +29,13 @@ const FilterOptionTemplate = ({
   children,
   filters,
   initiallyCollapsed = false,
+  lastOpenFilter,
+  setLastOpenFilter,
+  openFiltersMode,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const handles = useCssHandles(CSS_HANDLES)
+  const isOpen = openFiltersMode === 'MANY' ? open : lastOpenFilter === title
 
   const renderChildren = () => {
     if (typeof children !== 'function') {
@@ -41,14 +45,26 @@ const FilterOptionTemplate = ({
     return filters.map(children)
   }
 
+  const handleCollapse = useCallback(() => {
+    if (openFiltersMode === 'MANY') {
+      setOpen(!open)
+    } else if (openFiltersMode === 'ONE') {
+      setLastOpenFilter(lastOpenFilter === title ? null : title)
+    } else {
+      console.error(
+        `Invalid openFiltersMode value: ${openFiltersMode}\nCheck the documentation for the values available`
+      )
+    }
+  }, [lastOpenFilter, open, openFiltersMode, setLastOpenFilter, title])
+
   const handleKeyDown = useCallback(
     e => {
       if (e.key === ' ' && collapsable) {
         e.preventDefault()
-        setOpen(!open)
+        handleCollapse()
       }
     },
-    [collapsable, open]
+    [collapsable, handleCollapse]
   )
 
   const containerClassName = classNames(
@@ -77,7 +93,7 @@ const FilterOptionTemplate = ({
           role="button"
           tabIndex={collapsable ? 0 : undefined}
           className={collapsable ? 'pointer' : ''}
-          onClick={() => collapsable && setOpen(!open)}
+          onClick={() => collapsable && handleCollapse()}
           onKeyDown={handleKeyDown}
           aria-disabled={!collapsable}
         >
@@ -90,7 +106,7 @@ const FilterOptionTemplate = ({
                   'flex items-center ph5 c-muted-3'
                 )}
               >
-                <IconCaret orientation={open ? 'up' : 'down'} size={14} />
+                <IconCaret orientation={isOpen ? 'up' : 'down'} size={14} />
               </span>
             )}
           </div>
@@ -99,13 +115,16 @@ const FilterOptionTemplate = ({
       <div
         className={classNames(handles.filterTemplateOverflow, {
           'overflow-y-auto': collapsable,
-          pb5: !collapsable || open,
+          pb5: !collapsable || isOpen,
         })}
         style={{ maxHeight: '200px' }}
-        aria-hidden={!open}
+        aria-hidden={!isOpen}
       >
         {collapsable ? (
-          <Collapse isOpened={open} theme={{ content: handles.filterContent }}>
+          <Collapse
+            isOpened={isOpen}
+            theme={{ content: handles.filterContent }}
+          >
             {renderChildren()}
           </Collapse>
         ) : (
@@ -130,6 +149,9 @@ FilterOptionTemplate.propTypes = {
   /** Whether it represents the selected filters */
   selected: PropTypes.bool,
   initiallyCollapsed: PropTypes.bool,
+  lastOpenFilter: PropTypes.string,
+  setLastOpenFilter: PropTypes.func,
+  openFiltersMode: PropTypes.string,
 }
 
 export default FilterOptionTemplate

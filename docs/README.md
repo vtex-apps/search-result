@@ -285,6 +285,7 @@ Check out the [**Product Summary documentation**](https://vtex.io/docs/component
 | `maxItemsDepartment` | `number`                 | Maximum number of departments to be displayed before the See More button is triggered.          | `8`             |
 | `maxItemsCategory`   | `number`                 | Maximum number of category items to be displayed before the See More button is triggered.     | `8`             |
 | `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed (`true`) or open (`false`). | `false` |
+| `openFiltersMode`    | `Enum` | Dictates how many filters can be open at the same time. It is possible to have many open at once (`MANY`) or just one (`ONE`). Notice that if `ONE` is selected, the filters will begin collapsed, regardless of what is passed to `initiallyCollapsed` | `MANY` |
 | `filtersTitleHtmlTag` | `string` | HTML tag for the filter's title. | `h5` |
 | `scrollToTop` | `enum` | Scrolls the page to the top (`auto` or `smooth`) or not (`none`) when selecting a facet. | `none` |
 

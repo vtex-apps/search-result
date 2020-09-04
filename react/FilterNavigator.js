@@ -72,6 +72,7 @@ const FilterNavigator = ({
   maxItemsCategory = 8,
   filtersTitleHtmlTag = 'h5',
   scrollToTop = 'none',
+  openFiltersMode = 'MANY',
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -178,6 +179,7 @@ const FilterNavigator = ({
               preventRouteChange={preventRouteChange}
               initiallyCollapsed={initiallyCollapsed}
               navigateToFacet={navigateToFacet}
+              openFiltersMode={openFiltersMode}
             />
           </div>
           <ExtensionPoint id="shop-review-summary" />

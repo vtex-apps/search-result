@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import SearchFilter from './SearchFilter'
@@ -10,8 +10,10 @@ const AvailableFilters = ({
   preventRouteChange = false,
   initiallyCollapsed = false,
   navigateToFacet,
-}) =>
-  filters.map(filter => {
+  openFiltersMode = 'MANY',
+}) => {
+  const [lastOpenFilter, setLastOpenFilter] = useState()
+  return filters.map(filter => {
     const { type, title, facets, oneSelectedCollapse = false } = filter
 
     switch (type) {
@@ -35,10 +37,14 @@ const AvailableFilters = ({
             preventRouteChange={preventRouteChange}
             initiallyCollapsed={initiallyCollapsed}
             navigateToFacet={navigateToFacet}
+            lastOpenFilter={lastOpenFilter}
+            setLastOpenFilter={setLastOpenFilter}
+            openFiltersMode={openFiltersMode}
           />
         )
     }
   })
+}
 
 AvailableFilters.propTypes = {
   /** Filters to be displayed */
