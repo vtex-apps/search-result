@@ -41,7 +41,6 @@ const FilterOptionTemplate = ({
   const [open, setOpen] = useState(!initiallyCollapsed)
   const handles = useCssHandles(CSS_HANDLES)
   const isOpen = openFiltersMode === 'MANY' ? open : lastOpenFilter === title
-  const { showFacetSearch } = useSettings()
   const { thresholdForFacetSearch } = useSettings()
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -53,7 +52,6 @@ const FilterOptionTemplate = ({
       filter => filter.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
     )
   }, [filters, searchTerm, thresholdForFacetSearch])
-  const isOpen = openFiltersMode === 'MANY' ? open : lastOpenFilter === title
 
   const renderChildren = () => {
     if (typeof children !== 'function') {
