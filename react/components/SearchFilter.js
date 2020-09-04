@@ -19,6 +19,9 @@ const SearchFilter = ({
   navigateToFacet,
   lazyRender = false,
   truncateFilters = false,
+  lastOpenFilter,
+  setLastOpenFilter,
+  openFiltersMode,
 }) => {
   const sampleFacet = facets && facets.length > 0 ? facets[0] : null
   const facetTitle = getFilterTitle(title, intl)
@@ -31,6 +34,9 @@ const SearchFilter = ({
       initiallyCollapsed={initiallyCollapsed}
       lazyRender={lazyRender}
       truncateFilters={truncateFilters}
+      lastOpenFilter={lastOpenFilter}
+      setLastOpenFilter={setLastOpenFilter}
+      openFiltersMode={openFiltersMode}
     >
       {facet => (
         <FacetItem
@@ -59,6 +65,9 @@ SearchFilter.propTypes = {
   lazyRender: PropTypes.bool,
   /** When `true`, truncates filters with more than 10 options displaying a button to see all */
   truncateFilters: PropTypes.bool,
+  lastOpenFilter: PropTypes.string,
+  setLastOpenFilter: PropTypes.func,
+  openFiltersMode: PropTypes.string,
 }
 
 export default injectIntl(SearchFilter)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import SearchFilter from './SearchFilter'
@@ -24,7 +24,9 @@ const Filter = ({
   navigateToFacet,
   lazyRender,
   truncateFilters = false,
+  openFiltersMode = 'MANY',
 }) => {
+  const [lastOpenFilter, setLastOpenFilter] = useState()
   const { type, title, facets, oneSelectedCollapse = false } = filter
 
   switch (type) {
@@ -50,6 +52,9 @@ const Filter = ({
           navigateToFacet={navigateToFacet}
           lazyRender={lazyRender}
           truncateFilters={truncateFilters}
+          lastOpenFilter={lastOpenFilter}
+          setLastOpenFilter={setLastOpenFilter}
+          openFiltersMode={openFiltersMode}
         />
       )
   }
