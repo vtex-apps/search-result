@@ -61,6 +61,7 @@
   "store/filter.more-categories": "Ver más {quantity} categorías",
   "store/filter.more-items": "Ver más",
   "store/filter.less-items": "Ver menos",
+  "store/search.filter.placeholder": "Buscar por {filterName}",
   "store/search.filter.title.brands": "Marcas",
   "store/search.filter.title.price-ranges": "Gama de Precios",
   "store/search.text": "Mostrar {from}-{to} de {recordsFiltered} resultados",

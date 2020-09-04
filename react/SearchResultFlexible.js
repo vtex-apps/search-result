@@ -58,6 +58,7 @@ const SearchResultFlexible = ({
   page,
   facetsLoading,
   trackingId,
+  thresholdForFacetSearch,
 }) => {
   //This makes infinite scroll unavailable.
   //Infinite scroll was deprecated and we have
@@ -82,6 +83,7 @@ const SearchResultFlexible = ({
       }),
     [brands, hiddenFacets, priceRanges, specificationFilters]
   )
+
   const handles = useCssHandles(CSS_HANDLES)
 
   const hideFacets = !map
@@ -105,8 +107,16 @@ const SearchResultFlexible = ({
       mobileLayout,
       showFacetQuantity,
       trackingId,
+      thresholdForFacetSearch,
     }),
-    [hiddenFacets, mobileLayout, pagination, showFacetQuantity, trackingId]
+    [
+      hiddenFacets,
+      mobileLayout,
+      pagination,
+      showFacetQuantity,
+      trackingId,
+      thresholdForFacetSearch,
+    ]
   )
 
   const context = useMemo(
@@ -173,7 +183,7 @@ const SearchResultFlexible = ({
                   <div
                     className={`${
                       handles.loadingOverlay
-                    } flex flex-column flex-grow-1 ${generateBlockClass(
+                    } w-100 flex flex-column flex-grow-1 ${generateBlockClass(
                       styles['container--layout'],
                       blockClass
                     )}`}

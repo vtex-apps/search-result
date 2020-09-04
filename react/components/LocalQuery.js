@@ -33,7 +33,7 @@ const LocalQuery = props => {
     <SearchQuery
       maxItemsPerPage={maxItemsPerPage}
       query={queryField}
-      map={map}
+      map={mapField}
       orderBy={orderBy}
       priceRange={priceRange}
       hideUnavailableItems={hideUnavailableItems}

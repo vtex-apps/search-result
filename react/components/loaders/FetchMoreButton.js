@@ -30,15 +30,30 @@ const FetchMoreButton = props => {
     onFetchMore,
     loading,
     showProductsCount,
+    htmlElementForButton,
   } = props
+
+  const isAnchor = htmlElementForButton === 'a'
   const showButton = useShowButton(to, products, loading, recordsFiltered)
   const handles = useCssHandles(CSS_HANDLES)
+
+  const handleFetchMoreClick = ev => {
+    isAnchor && ev.preventDefault()
+    onFetchMore()
+  }
 
   return (
     <Fragment>
       <div className={`${handles.buttonShowMore} w-100 flex justify-center`}>
         {showButton && (
-          <Button onClick={onFetchMore} isLoading={loading} size="small">
+          <Button
+            onClick={ev => handleFetchMoreClick(ev)}
+            href={isAnchor && '#'}
+            rel={isAnchor && 'next'}
+            isLoading={loading}
+            size="small"
+            key={to} // Necessary to prevent focus after click
+          >
             <FormattedMessage id="store/search-result.show-more-button" />
           </Button>
         )}

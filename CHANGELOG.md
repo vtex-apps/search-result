@@ -7,6 +7,57 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.70.0] - 2020-09-03
+
+### Added
+- Prop `thresholdForFacetSearch` that displays a Search bar to filter facets.
+
+## [3.69.3] - 2020-09-03
+### Fixed
+- Prevent `SearchResultFlexible` from overflowing on mobile devices by setting its width.
+
+## [3.69.2] - 2020-08-20
+### Fixed
+- Fix `hiddenFilters` prop documentation (`README.md` file)
+
+## [3.69.1] - 2020-08-18
+
+### Fixed
+- Replace `map` by `mapField` in the `LocalQuery` component.
+
+## [3.69.0] - 2020-08-14
+### Added
+- Prop `scrollToTop` to `filter-navigator.v3` that scrolls the page to the top when selecting a facet.
+
+## [3.68.1] - 2020-08-13
+### Fixed
+- Added `mapField` and `queryField` props to the `README.md` file
+
+## [3.68.0] - 2020-08-06
+### Added
+- Added Prop `htmlElementForButton` to change the html element rendered for `FetchMoreButton` or `FetchPreviousButton`.
+
+## [3.67.1] - 2020-08-05
+### Fixed
+- Added `key` on `show-more` buttons to prevent focus after pressing them, which was causing the page to be fixed on the button after rendering more results on Google Chrome.
+
+## [3.67.0] - 2020-08-04
+### Added
+- new prop `filtersTitleHtmlTag` for filterNavigatorV3 to change filters title html tag
+
+## [3.66.2] - 2020-08-04
+### Fixed
+- HTML elements being rendered with ids equal to reserved global variable names, such as 'global', which would result in these variables being overwritten.
+
+## [3.66.1] - 2020-07-31
+
+### Fixed
+- Missing filter options when there are no options selected.
+
+## [3.66.0] - 2020-07-15
+### Added
+- New CSS handles for `galleryItem` with `displayMode`.
+
 ## [3.65.1] - 2020-07-13
 
 ### Fixed

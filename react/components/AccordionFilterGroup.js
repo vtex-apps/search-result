@@ -36,10 +36,12 @@ const AccordionFilterGroup = ({
       onOpen={onOpen}
       quantitySelected={quantitySelected}
     >
-      <div className={classNames(
+      <div
+        className={classNames(
           applyModifiers(handles.accordionFilterOpen, slugifiedFacetTitle),
           className
-        )}>
+        )}
+      >
         <FacetCheckboxList
           onFilterCheck={onFilterCheck}
           facets={filters}
