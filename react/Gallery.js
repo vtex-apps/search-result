@@ -18,6 +18,8 @@ import SettingsContext from './components/SettingsContext'
 /** Layout with one column */
 const ONE_COLUMN_LAYOUT = 1
 
+const LAZY_RENDER_THRESHOLD = 2
+
 const CSS_HANDLES = ['gallery']
 
 const { ProductListProvider } = ProductListContext
@@ -89,6 +91,7 @@ const Gallery = ({
             key={index.toString()}
             widthAvailable={width != null}
             products={rowProducts}
+            lazyRender={index >= LAZY_RENDER_THRESHOLD}
             summary={summary}
             displayMode={layoutMode}
             rowIndex={index}
