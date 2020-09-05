@@ -23,6 +23,9 @@ const GalleryRow = ({
     maxWidth: `${100 / itemsPerRow}%`,
   }
 
+  /** if lazyRender is true, only renders the actual content once "dummy"
+   * is inside the viewport
+   */
   useOnView({
     ref: dummy,
     onView: () => setHasBeenViewed(true),
@@ -56,6 +59,8 @@ const GalleryRow = ({
         width: '100%',
         height: 400,
         position: 'relative',
+        /** Pulls the object 200px up so it renders a bit earlier,
+         * before the user would actually see the content */
         top: -200,
       }}
     />
