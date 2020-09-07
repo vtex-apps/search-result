@@ -1,14 +1,46 @@
 import PropTypes from 'prop-types'
-import React, { useState, useCallback, useMemo, useContext } from 'react'
+import React, {
+  useState,
+  useCallback,
+  useMemo,
+  useRef,
+  useEffect,
+  useContext,
+} from 'react'
 import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
 
+import { useRuntime } from 'vtex.render-runtime'
 import { IconCaret } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
 
 import styles from '../searchResult.css'
 import { SearchFilterBar } from './SearchFilterBar'
 import SettingsContext from './SettingsContext'
+
+/** Returns true if elementRef has ever been scrolled */
+const useHasScrolled = elementRef => {
+  const [hasScrolled, setHasScrolled] = useState(false)
+
+  useEffect(() => {
+    const scrollableElement = elementRef.current
+    if (hasScrolled || !scrollableElement) {
+      return
+    }
+
+    const handleScroll = () => {
+      setHasScrolled(true)
+    }
+
+    scrollableElement.addEventListener('scroll', handleScroll)
+
+    return () => {
+      scrollableElement.removeEventListener('scroll', handleScroll)
+    }
+  }, [hasScrolled, elementRef])
+
+  return hasScrolled
+}
 
 const CSS_HANDLES = [
   'filter__container',
@@ -23,6 +55,10 @@ const CSS_HANDLES = [
 
 const useSettings = () => useContext(SettingsContext)
 
+/** Renders only ${LAZY_RENDER_THRESHOLD} items on the list until the user scrolls,
+ * for improved rendering performance */
+const LAZY_RENDER_THRESHOLD = 10
+
 /**
  * Collapsable filters container
  */
@@ -36,9 +72,15 @@ const FilterOptionTemplate = ({
   initiallyCollapsed = false,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
+  const { getSettings } = useRuntime()
+  const scrollable = useRef()
+  const hasScrolled = useHasScrolled(scrollable)
   const handles = useCssHandles(CSS_HANDLES)
   const { thresholdForFacetSearch } = useSettings()
   const [searchTerm, setSearchTerm] = useState('')
+
+  const isLazyRenderEnabled = getSettings('vtex.store')
+    ?.enableSearchRenderingOptimization
 
   const filteredFacets = useMemo(() => {
     if (thresholdForFacetSearch === undefined || searchTerm === '') {
@@ -54,7 +96,20 @@ const FilterOptionTemplate = ({
       return children
     }
 
-    return filteredFacets.map(children)
+    const shouldLazyRender = !hasScrolled && isLazyRenderEnabled
+    /** Inexact measure but good enough for displaying a properly sized scrollbar */
+    const placeholderSize = shouldLazyRender
+      ? (filters.length - LAZY_RENDER_THRESHOLD) * 34
+      : 0
+
+    return (
+      <>
+        {filteredFacets
+          .slice(0, shouldLazyRender ? LAZY_RENDER_THRESHOLD : undefined)
+          .map(children)}
+        {placeholderSize > 0 && <div style={{ height: placeholderSize }} />}
+      </>
+    )
   }
 
   const handleKeyDown = useCallback(
@@ -117,6 +172,7 @@ const FilterOptionTemplate = ({
           'overflow-y-auto': collapsable,
           pb5: !collapsable || open,
         })}
+        ref={scrollable}
         style={{ maxHeight: '200px' }}
         aria-hidden={!open}
       >
