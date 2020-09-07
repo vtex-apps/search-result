@@ -10,6 +10,7 @@ import React, {
 import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
 
+import { useRuntime } from 'vtex.render-runtime'
 import { IconCaret } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -54,6 +55,10 @@ const CSS_HANDLES = [
 
 const useSettings = () => useContext(SettingsContext)
 
+/** Renders only ${LAZY_RENDER_THRESHOLD} items on the list until the user scrolls,
+ * for improved rendering performance */
+const LAZY_RENDER_THRESHOLD = 10
+
 /**
  * Collapsable filters container
  */
@@ -67,11 +72,15 @@ const FilterOptionTemplate = ({
   initiallyCollapsed = false,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
+  const { getSettings } = useRuntime()
   const scrollable = useRef()
   const hasScrolled = useHasScrolled(scrollable)
   const handles = useCssHandles(CSS_HANDLES)
   const { thresholdForFacetSearch } = useSettings()
   const [searchTerm, setSearchTerm] = useState('')
+
+  const isLazyRenderEnabled = getSettings('vtex.store')
+    ?.enableSearchRenderingOptimization
 
   const filteredFacets = useMemo(() => {
     if (thresholdForFacetSearch === undefined || searchTerm === '') {
@@ -87,17 +96,16 @@ const FilterOptionTemplate = ({
       return children
     }
 
-    /** Renders only ${threshold} items on the list until the user scrolls,
-     * for improved rendering performance */
-    const threshold = 10
-
+    const shouldLazyRender = !hasScrolled && isLazyRenderEnabled
     /** Inexact measure but good enough for displaying a properly sized scrollbar */
-    const placeholderSize = hasScrolled ? 0 : (filters.length - threshold) * 34
+    const placeholderSize = shouldLazyRender
+      ? (filters.length - LAZY_RENDER_THRESHOLD) * 34
+      : 0
 
     return (
       <>
         {filteredFacets
-          .slice(0, hasScrolled ? undefined : threshold)
+          .slice(0, shouldLazyRender ? LAZY_RENDER_THRESHOLD : undefined)
           .map(children)}
         {placeholderSize > 0 && <div style={{ height: placeholderSize }} />}
       </>

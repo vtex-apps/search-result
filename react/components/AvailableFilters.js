@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { useRuntime } from 'vtex.render-runtime'
+
 import SearchFilter from './SearchFilter'
 import PriceRange from './PriceRange'
 import { useRenderOnView } from '../hooks/useRenderOnView'
@@ -25,7 +27,13 @@ const Filter = ({
   navigateToFacet,
   lazyRender,
 }) => {
-  const { hasBeenViewed, dummyElement } = useRenderOnView({ lazyRender })
+  const { getSettings } = useRuntime()
+  const isLazyRenderEnabled = getSettings('vtex.store')
+    ?.enableSearchRenderingOptimization
+
+  const { hasBeenViewed, dummyElement } = useRenderOnView({
+    lazyRender: isLazyRenderEnabled && lazyRender,
+  })
 
   if (!hasBeenViewed) {
     return dummyElement
