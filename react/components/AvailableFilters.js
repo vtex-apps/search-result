@@ -7,7 +7,7 @@ import SearchFilter from './SearchFilter'
 import PriceRange from './PriceRange'
 import { useRenderOnView } from '../hooks/useRenderOnView'
 
-const LAZY_RENDER_THRESHOD = 3
+const LAZY_RENDER_THRESHOLD = 3
 
 const AvailableFilters = ({ filters = [], ...props }) =>
   filters.map((filter, i) => (
@@ -15,7 +15,7 @@ const AvailableFilters = ({ filters = [], ...props }) =>
       filter={filter}
       {...props}
       key={filter.title}
-      lazyRender={i >= LAZY_RENDER_THRESHOD}
+      lazyRender={i >= LAZY_RENDER_THRESHOLD}
     />
   ))
 
