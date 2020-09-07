@@ -89,7 +89,7 @@ const FilterOptionTemplate = ({
 
     /** Renders only ${threshold} items on the list until the user scrolls,
      * for improved rendering performance */
-    const threshold = 7
+    const threshold = 10
 
     /** Inexact measure but good enough for displaying a properly sized scrollbar */
     const placeholderSize = hasScrolled ? 0 : (filters.length - threshold) * 34
