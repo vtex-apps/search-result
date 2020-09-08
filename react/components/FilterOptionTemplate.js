@@ -18,6 +18,8 @@ import styles from '../searchResult.css'
 import { SearchFilterBar } from './SearchFilterBar'
 import SettingsContext from './SettingsContext'
 
+import { useRenderOnView } from '../hooks/useRenderOnView'
+
 /** Returns true if elementRef has ever been scrolled */
 const useHasScrolled = elementRef => {
   const [hasScrolled, setHasScrolled] = useState(false)
@@ -70,17 +72,24 @@ const FilterOptionTemplate = ({
   children,
   filters,
   initiallyCollapsed = false,
+  lazyRender = false,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
   const scrollable = useRef()
-  const hasScrolled = useHasScrolled(scrollable)
   const handles = useCssHandles(CSS_HANDLES)
   const { thresholdForFacetSearch } = useSettings()
   const [searchTerm, setSearchTerm] = useState('')
 
   const isLazyRenderEnabled = getSettings('vtex.store')
     ?.enableSearchRenderingOptimization
+
+  const { hasBeenViewed, dummyElement } = useRenderOnView({
+    lazyRender: isLazyRenderEnabled && lazyRender,
+    waitForUserInteraction: false,
+  })
+
+  const hasScrolled = useHasScrolled(scrollable)
 
   const filteredFacets = useMemo(() => {
     if (thresholdForFacetSearch === undefined || searchTerm === '') {
@@ -176,7 +185,9 @@ const FilterOptionTemplate = ({
         style={{ maxHeight: '200px' }}
         aria-hidden={!open}
       >
-        {collapsable ? (
+        {!hasBeenViewed ? (
+          dummyElement
+        ) : collapsable ? (
           <Collapse isOpened={open} theme={{ content: handles.filterContent }}>
             {thresholdForFacetSearch !== undefined &&
             thresholdForFacetSearch < filters.length ? (
@@ -206,6 +217,8 @@ FilterOptionTemplate.propTypes = {
   /** Whether it represents the selected filters */
   selected: PropTypes.bool,
   initiallyCollapsed: PropTypes.bool,
+  /** Internal prop, whether this component should be rendered only on view */
+  lazyRender: PropTypes.bool,
 }
 
 export default FilterOptionTemplate

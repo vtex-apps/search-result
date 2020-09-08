@@ -10,7 +10,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Default seller search to make filters work as well
 
-## [3.71.0] - 2020-09-07
+## [3.71.2] - 2020-09-08
+### Fixed
+- Issue where lazy rendered filter groups wouldn't render its items properly
+
+## [3.71.1] - 2020-09-08
+### Fixed
+- Always render the container of lazy rendered filter groups; this fixes some issues regarding ordering and CSS customization of filters.
 
 ## [3.71.0] - 2020-09-07
 ### Changed
