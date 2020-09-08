@@ -163,7 +163,7 @@ export const buildNewQueryMap = (
     ft: fullText,
     productClusterIds: collection,
     seller,
-  } = fullTextAndCollection
+  } = fullTextSellerAndCollection
 
   if (fullText) {
     querySegments.push(fullText)
