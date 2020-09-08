@@ -152,7 +152,7 @@ const buildQueryAndMap = (
 }
 
 export const buildNewQueryMap = (
-  fullTextAndCollection,
+  fullTextSellerAndCollection,
   facets,
   selectedFacets
 ) => {
