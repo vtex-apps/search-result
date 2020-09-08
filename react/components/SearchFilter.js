@@ -17,6 +17,7 @@ const SearchFilter = ({
   preventRouteChange = false,
   initiallyCollapsed = false,
   navigateToFacet,
+  lazyRender = false,
 }) => {
   const sampleFacet = facets && facets.length > 0 ? facets[0] : null
   const facetTitle = getFilterTitle(title, intl)
@@ -27,6 +28,7 @@ const SearchFilter = ({
       title={facetTitle}
       filters={facets}
       initiallyCollapsed={initiallyCollapsed}
+      lazyRender={lazyRender}
     >
       {facet => (
         <FacetItem
@@ -52,6 +54,7 @@ SearchFilter.propTypes = {
   preventRouteChange: PropTypes.bool,
   initiallyCollapsed: PropTypes.bool,
   navigateToFacet: PropTypes.func,
+  lazyRender: PropTypes.bool,
 }
 
 export default injectIntl(SearchFilter)

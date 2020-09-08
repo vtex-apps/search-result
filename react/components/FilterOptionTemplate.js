@@ -18,6 +18,8 @@ import styles from '../searchResult.css'
 import { SearchFilterBar } from './SearchFilterBar'
 import SettingsContext from './SettingsContext'
 
+import { useRenderOnView } from '../hooks/useRenderOnView'
+
 /** Returns true if elementRef has ever been scrolled */
 const useHasScrolled = elementRef => {
   const [hasScrolled, setHasScrolled] = useState(false)
@@ -70,17 +72,24 @@ const FilterOptionTemplate = ({
   children,
   filters,
   initiallyCollapsed = false,
+  lazyRender = false,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
   const scrollable = useRef()
-  const hasScrolled = useHasScrolled(scrollable)
   const handles = useCssHandles(CSS_HANDLES)
   const { thresholdForFacetSearch } = useSettings()
   const [searchTerm, setSearchTerm] = useState('')
 
   const isLazyRenderEnabled = getSettings('vtex.store')
     ?.enableSearchRenderingOptimization
+
+  const { hasBeenViewed, dummyElement } = useRenderOnView({
+    lazyRender: isLazyRenderEnabled && lazyRender,
+    waitForUserInteraction: false,
+  })
+
+  const hasScrolled = useHasScrolled(scrollable)
 
   const filteredFacets = useMemo(() => {
     if (thresholdForFacetSearch === undefined || searchTerm === '') {
@@ -143,51 +152,60 @@ const FilterOptionTemplate = ({
 
   return (
     <div className={containerClassName}>
-      <div className={titleContainerClassName}>
-        <div
-          role="button"
-          tabIndex={collapsable ? 0 : undefined}
-          className={collapsable ? 'pointer' : ''}
-          onClick={() => collapsable && setOpen(!open)}
-          onKeyDown={handleKeyDown}
-          aria-disabled={!collapsable}
-        >
-          <div className={titleClassName}>
-            {title}
-            {collapsable && (
-              <span
-                className={classNames(
-                  handles.filterIcon,
-                  'flex items-center ph5 c-muted-3'
+      {!hasBeenViewed ? (
+        dummyElement
+      ) : (
+        <>
+          <div className={titleContainerClassName}>
+            <div
+              role="button"
+              tabIndex={collapsable ? 0 : undefined}
+              className={collapsable ? 'pointer' : ''}
+              onClick={() => collapsable && setOpen(!open)}
+              onKeyDown={handleKeyDown}
+              aria-disabled={!collapsable}
+            >
+              <div className={titleClassName}>
+                {title}
+                {collapsable && (
+                  <span
+                    className={classNames(
+                      handles.filterIcon,
+                      'flex items-center ph5 c-muted-3'
+                    )}
+                  >
+                    <IconCaret orientation={open ? 'up' : 'down'} size={14} />
+                  </span>
                 )}
+              </div>
+            </div>
+          </div>
+          <div
+            className={classNames(handles.filterTemplateOverflow, {
+              'overflow-y-auto': collapsable,
+              pb5: !collapsable || open,
+            })}
+            ref={scrollable}
+            style={{ maxHeight: '200px' }}
+            aria-hidden={!open}
+          >
+            {collapsable ? (
+              <Collapse
+                isOpened={open}
+                theme={{ content: handles.filterContent }}
               >
-                <IconCaret orientation={open ? 'up' : 'down'} size={14} />
-              </span>
+                {thresholdForFacetSearch !== undefined &&
+                thresholdForFacetSearch < filters.length ? (
+                  <SearchFilterBar name={title} handleChange={setSearchTerm} />
+                ) : null}
+                {renderChildren()}
+              </Collapse>
+            ) : (
+              renderChildren()
             )}
           </div>
-        </div>
-      </div>
-      <div
-        className={classNames(handles.filterTemplateOverflow, {
-          'overflow-y-auto': collapsable,
-          pb5: !collapsable || open,
-        })}
-        ref={scrollable}
-        style={{ maxHeight: '200px' }}
-        aria-hidden={!open}
-      >
-        {collapsable ? (
-          <Collapse isOpened={open} theme={{ content: handles.filterContent }}>
-            {thresholdForFacetSearch !== undefined &&
-            thresholdForFacetSearch < filters.length ? (
-              <SearchFilterBar name={title} handleChange={setSearchTerm} />
-            ) : null}
-            {renderChildren()}
-          </Collapse>
-        ) : (
-          renderChildren()
-        )}
-      </div>
+        </>
+      )}
     </div>
   )
 }
@@ -206,6 +224,8 @@ FilterOptionTemplate.propTypes = {
   /** Whether it represents the selected filters */
   selected: PropTypes.bool,
   initiallyCollapsed: PropTypes.bool,
+  /** Internal prop, whether this component should be rendered only on view */
+  lazyRender: PropTypes.bool,
 }
 
 export default FilterOptionTemplate

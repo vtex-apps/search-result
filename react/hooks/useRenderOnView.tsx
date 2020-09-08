@@ -1,7 +1,11 @@
 import { useOnView } from './useOnView'
 import React, { useState, useRef } from 'react'
 
-const useRenderOnView = ({ lazyRender = false, height = 400 }) => {
+const useRenderOnView = ({
+  lazyRender = false,
+  height = 400,
+  waitForUserInteraction = true,
+}) => {
   const dummy = useRef<HTMLDivElement | null>(null)
   const [hasBeenViewed, setHasBeenViewed] = useState(false)
 
@@ -9,7 +13,7 @@ const useRenderOnView = ({ lazyRender = false, height = 400 }) => {
     ref: dummy,
     onView: () => setHasBeenViewed(true),
     once: true,
-    initializeOnInteraction: true,
+    initializeOnInteraction: waitForUserInteraction,
     bailOut: !lazyRender,
   })
 
