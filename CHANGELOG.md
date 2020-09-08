@@ -6,8 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-
-## [3.71.0] - 2020-09-07
+### Fixed
+- Always render the container of lazy rendered filter groups; this fixes some issues regarding ordering and CSS customization of filters.
 
 ## [3.71.0] - 2020-09-07
 ### Changed
