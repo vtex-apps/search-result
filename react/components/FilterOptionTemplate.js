@@ -152,60 +152,53 @@ const FilterOptionTemplate = ({
 
   return (
     <div className={containerClassName}>
-      {!hasBeenViewed ? (
-        dummyElement
-      ) : (
-        <>
-          <div className={titleContainerClassName}>
-            <div
-              role="button"
-              tabIndex={collapsable ? 0 : undefined}
-              className={collapsable ? 'pointer' : ''}
-              onClick={() => collapsable && setOpen(!open)}
-              onKeyDown={handleKeyDown}
-              aria-disabled={!collapsable}
-            >
-              <div className={titleClassName}>
-                {title}
-                {collapsable && (
-                  <span
-                    className={classNames(
-                      handles.filterIcon,
-                      'flex items-center ph5 c-muted-3'
-                    )}
-                  >
-                    <IconCaret orientation={open ? 'up' : 'down'} size={14} />
-                  </span>
+      <div className={titleContainerClassName}>
+        <div
+          role="button"
+          tabIndex={collapsable ? 0 : undefined}
+          className={collapsable ? 'pointer' : ''}
+          onClick={() => collapsable && setOpen(!open)}
+          onKeyDown={handleKeyDown}
+          aria-disabled={!collapsable}
+        >
+          <div className={titleClassName}>
+            {title}
+            {collapsable && (
+              <span
+                className={classNames(
+                  handles.filterIcon,
+                  'flex items-center ph5 c-muted-3'
                 )}
-              </div>
-            </div>
-          </div>
-          <div
-            className={classNames(handles.filterTemplateOverflow, {
-              'overflow-y-auto': collapsable,
-              pb5: !collapsable || open,
-            })}
-            ref={scrollable}
-            style={{ maxHeight: '200px' }}
-            aria-hidden={!open}
-          >
-            {collapsable ? (
-              <Collapse
-                isOpened={open}
-                theme={{ content: handles.filterContent }}
               >
-                {thresholdForFacetSearch !== undefined &&
-                thresholdForFacetSearch < filters.length ? (
-                  <SearchFilterBar name={title} handleChange={setSearchTerm} />
-                ) : null}
-                {renderChildren()}
-              </Collapse>
-            ) : (
-              renderChildren()
+                <IconCaret orientation={open ? 'up' : 'down'} size={14} />
+              </span>
             )}
           </div>
-        </>
-      )}
+        </div>
+      </div>
+      <div
+        className={classNames(handles.filterTemplateOverflow, {
+          'overflow-y-auto': collapsable,
+          pb5: !collapsable || open,
+        })}
+        ref={scrollable}
+        style={{ maxHeight: '200px' }}
+        aria-hidden={!open}
+      >
+        {!hasBeenViewed ? (
+          dummyElement
+        ) : collapsable ? (
+          <Collapse isOpened={open} theme={{ content: handles.filterContent }}>
+            {thresholdForFacetSearch !== undefined &&
+            thresholdForFacetSearch < filters.length ? (
+              <SearchFilterBar name={title} handleChange={setSearchTerm} />
+            ) : null}
+            {renderChildren()}
+          </Collapse>
+        ) : (
+          renderChildren()
+        )}
+      </div>
     </div>
   )
 }
