@@ -1,11 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { useRuntime } from 'vtex.render-runtime'
-
 import SearchFilter from './SearchFilter'
 import PriceRange from './PriceRange'
-import { useRenderOnView } from '../hooks/useRenderOnView'
 
 const LAZY_RENDER_THRESHOLD = 3
 
@@ -27,18 +24,6 @@ const Filter = ({
   navigateToFacet,
   lazyRender,
 }) => {
-  const { getSettings } = useRuntime()
-  const isLazyRenderEnabled = getSettings('vtex.store')
-    ?.enableSearchRenderingOptimization
-
-  const { hasBeenViewed, dummyElement } = useRenderOnView({
-    lazyRender: isLazyRenderEnabled && lazyRender,
-  })
-
-  if (!hasBeenViewed) {
-    return dummyElement
-  }
-
   const { type, title, facets, oneSelectedCollapse = false } = filter
 
   switch (type) {
@@ -62,6 +47,7 @@ const Filter = ({
           preventRouteChange={preventRouteChange}
           initiallyCollapsed={initiallyCollapsed}
           navigateToFacet={navigateToFacet}
+          lazyRender={lazyRender}
         />
       )
   }
