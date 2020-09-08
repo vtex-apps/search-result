@@ -7,6 +7,7 @@ import { useDevice } from 'vtex.device-detector'
 import { ProductListContext } from 'vtex.product-list-context'
 import { useResponsiveValue } from 'vtex.responsive-values'
 import { useCssHandles } from 'vtex.css-handles'
+import { useRuntime } from 'vtex.render-runtime'
 
 import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 import { productShape } from './constants/propTypes'
@@ -17,6 +18,8 @@ import SettingsContext from './components/SettingsContext'
 
 /** Layout with one column */
 const ONE_COLUMN_LAYOUT = 1
+
+const LAZY_RENDER_THRESHOLD = 2
 
 const CSS_HANDLES = ['gallery']
 
@@ -40,6 +43,7 @@ const Gallery = ({
   const { isMobile } = useDevice()
   const { trackingId = 'Search result' } = useContext(SettingsContext) || {}
   const handles = useCssHandles(CSS_HANDLES)
+  const { getSettings } = useRuntime()
   const responsiveMaxItemsPerRow = useResponsiveValue(maxItemsPerRow)
 
   const layoutMode = isMobile ? mobileLayoutMode : 'normal'
@@ -81,6 +85,9 @@ const Gallery = ({
     }
   )
 
+  const isLazyRenderEnabled = getSettings('vtex.store')
+    ?.enableSearchRenderingOptimization
+
   return (
     <ProductListProvider listName={trackingId}>
       <div className={galleryClasses}>
@@ -89,6 +96,7 @@ const Gallery = ({
             key={index.toString()}
             widthAvailable={width != null}
             products={rowProducts}
+            lazyRender={isLazyRenderEnabled && index >= LAZY_RENDER_THRESHOLD}
             summary={summary}
             displayMode={layoutMode}
             rowIndex={index}

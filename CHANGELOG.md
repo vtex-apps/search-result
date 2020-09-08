@@ -10,6 +10,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Default seller search to make filters work as well
 
+## [3.71.0] - 2020-09-07
+
+## [3.71.0] - 2020-09-07
+### Changed
+- Immediate feedback on facet selection
+
+### Added
+- Lazy gallery rows rendering
+- Lazy facet rendering, both individual facets and facet groups
+
 ## [3.70.0] - 2020-09-03
 
 ### Added
