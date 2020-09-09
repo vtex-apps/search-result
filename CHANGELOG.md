@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Feedback on facet selection from the selected facets
+
 ## [3.71.2] - 2020-09-08
 ### Fixed
 - Issue where lazy rendered filter groups wouldn't render its items properly
