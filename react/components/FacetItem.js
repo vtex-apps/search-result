@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Checkbox } from 'vtex.styleguide'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import classNames from 'classnames'
@@ -38,6 +38,10 @@ const FacetItem = ({
   const checkBoxId = reservedVariableNames.includes(facet.value)
     ? `filterItem--${facet.value}`
     : facet.value
+
+  useEffect(() => {
+    setSelected(facet.selected)
+  }, [facet.selected])
 
   return (
     <div
