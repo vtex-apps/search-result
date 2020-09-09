@@ -235,7 +235,10 @@ const FilterOptionTemplate = ({
         {!hasBeenViewed ? (
           dummyElement
         ) : collapsable ? (
-          <Collapse isOpened={open} theme={{ content: handles.filterContent }}>
+          <Collapse
+            isOpened={isOpen}
+            theme={{ content: handles.filterContent }}
+          >
             {thresholdForFacetSearch !== undefined &&
             thresholdForFacetSearch < filters.length ? (
               <SearchFilterBar name={title} handleChange={setSearchTerm} />
