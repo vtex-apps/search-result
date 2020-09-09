@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.71.2] - 2020-09-08
+### Fixed
+- Issue where lazy rendered filter groups wouldn't render its items properly
+
+## [3.71.1] - 2020-09-08
+### Fixed
+- Always render the container of lazy rendered filter groups; this fixes some issues regarding ordering and CSS customization of filters.
+
+## [3.71.0] - 2020-09-07
+### Changed
+- Immediate feedback on facet selection
+
+### Added
+- Lazy gallery rows rendering
+- Lazy facet rendering, both individual facets and facet groups
+
 ## [3.70.0] - 2020-09-03
 
 ### Added

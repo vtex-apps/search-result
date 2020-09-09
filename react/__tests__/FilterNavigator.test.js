@@ -15,10 +15,11 @@ const mockNavigate = jest.fn()
 const mockSetQuery = jest.fn()
 beforeEach(() => {
   jest.clearAllMocks()
-  
+
   mockUseRuntime.mockImplementation(() => ({
     navigate: mockNavigate,
     setQuery: mockSetQuery,
+    getSettings: () => ({}),
   }))
 })
 

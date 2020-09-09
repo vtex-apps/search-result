@@ -4,41 +4,54 @@ import PropTypes from 'prop-types'
 import SearchFilter from './SearchFilter'
 import PriceRange from './PriceRange'
 
-const AvailableFilters = ({
-  filters = [],
-  priceRange,
-  preventRouteChange = false,
-  initiallyCollapsed = false,
-  navigateToFacet,
-}) =>
-  filters.map(filter => {
-    const { type, title, facets, oneSelectedCollapse = false } = filter
+const LAZY_RENDER_THRESHOLD = 3
 
-    switch (type) {
-      case 'PriceRanges':
-        return (
-          <PriceRange
-            key={title}
-            title={title}
-            facets={facets}
-            priceRange={priceRange}
-            preventRouteChange={preventRouteChange}
-          />
-        )
-      default:
-        return (
-          <SearchFilter
-            key={title}
-            title={title}
-            facets={facets}
-            oneSelectedCollapse={oneSelectedCollapse}
-            preventRouteChange={preventRouteChange}
-            initiallyCollapsed={initiallyCollapsed}
-            navigateToFacet={navigateToFacet}
-          />
-        )
-    }
-  })
+const AvailableFilters = ({ filters = [], ...props }) =>
+  filters.map((filter, i) => (
+    <Filter
+      filter={filter}
+      {...props}
+      key={filter.title}
+      lazyRender={i >= LAZY_RENDER_THRESHOLD}
+    />
+  ))
+
+const Filter = ({
+  filter,
+  priceRange,
+  preventRouteChange,
+  initiallyCollapsed,
+  navigateToFacet,
+  lazyRender,
+}) => {
+  const { type, title, facets, oneSelectedCollapse = false } = filter
+
+  switch (type) {
+    case 'PriceRanges':
+      return (
+        <PriceRange
+          key={title}
+          title={title}
+          facets={facets}
+          priceRange={priceRange}
+          preventRouteChange={preventRouteChange}
+        />
+      )
+    default:
+      return (
+        <SearchFilter
+          key={title}
+          title={title}
+          facets={facets}
+          oneSelectedCollapse={oneSelectedCollapse}
+          preventRouteChange={preventRouteChange}
+          initiallyCollapsed={initiallyCollapsed}
+          navigateToFacet={navigateToFacet}
+          lazyRender={lazyRender}
+        />
+      )
+  }
+}
 
 AvailableFilters.propTypes = {
   /** Filters to be displayed */
