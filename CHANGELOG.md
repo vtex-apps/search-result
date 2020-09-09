@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.71.3] - 2020-09-09
+
 ### Fixed
 - Feedback on facet selection from the selected facets
 
