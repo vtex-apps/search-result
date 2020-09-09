@@ -108,7 +108,7 @@ const FilterOptionTemplate = ({
       filter => filter.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
     )
   }, [filters, searchTerm, thresholdForFacetSearch])
-  const isOpen = openFiltersMode === 'MANY' ? open : lastOpenFilter === title
+  const isOpen = openFiltersMode === 'many' ? open : lastOpenFilter === title
 
   const renderChildren = () => {
     if (typeof children !== 'function') {
@@ -155,9 +155,9 @@ const FilterOptionTemplate = ({
   }
 
   const handleCollapse = useCallback(() => {
-    if (openFiltersMode === 'MANY') {
+    if (openFiltersMode === 'many') {
       setOpen(!open)
-    } else if (openFiltersMode === 'ONE') {
+    } else if (openFiltersMode === 'one') {
       setLastOpenFilter(lastOpenFilter === title ? null : title)
     } else {
       console.error(

@@ -24,7 +24,7 @@ const Filter = ({
   navigateToFacet,
   lazyRender,
   truncateFilters = false,
-  openFiltersMode = 'MANY',
+  openFiltersMode = 'many',
 }) => {
   const [lastOpenFilter, setLastOpenFilter] = useState()
   const { type, title, facets, oneSelectedCollapse = false } = filter
