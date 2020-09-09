@@ -1,12 +1,16 @@
 import { groupBy, pathOr, zipObj } from 'ramda'
 import { PATH_SEPARATOR, MAP_VALUES_SEP } from '../constants'
 
-export const getFullTextAndCollection = (query, map) => {
+export const getMainSearches = (query, map) => {
   const querySegments = (query && query.split(PATH_SEPARATOR)) || []
   const mapSegments = (map && map.split(MAP_VALUES_SEP)) || []
   const zip = zipObj(mapSegments, querySegments)
 
-  return { ft: zip.ft, productClusterIds: zip.productClusterIds }
+  return {
+    ft: zip.ft,
+    productClusterIds: zip.productClusterIds,
+    seller: zip.seller,
+  }
 }
 
 export const buildSelectedFacetsAndFullText = (query, map, priceRange) => {

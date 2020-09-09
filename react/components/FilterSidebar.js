@@ -16,7 +16,7 @@ import { MAP_CATEGORY_CHAR } from '../constants'
 import { buildNewQueryMap } from '../hooks/useFacetNavigation'
 
 import styles from '../searchResult.css'
-import { getFullTextAndCollection } from '../utils/compatibilityLayer'
+import { getMainSearches } from '../utils/compatibilityLayer'
 import {
   isCategoryDepartmentCollectionOrFT,
   filterCategoryDepartmentCollectionAndFT,
@@ -120,7 +120,7 @@ const FilterSidebar = ({
 
   const context = useMemo(() => {
     const { query, map } = filterContext
-    const fullTextAndCollection = getFullTextAndCollection(query, map)
+    const fullTextAndCollection = getMainSearches(query, map)
 
     /* This removes the previously selected stuff from the context when you click on 'clear'.
     It is important to notice that it keeps categories, departments and clusterIds since they
