@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.73.0] - 2020-09-10
+
 ### Added
 - Prop `truncateFilters` that truncates filters with more than 10 options and displays a button to see all.
 
