@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Prop `truncateFilters` that truncates filters with more than 10 options and displays a button to see all.
+
 ## [3.72.0] - 2020-09-09
 ### Added
 - Default seller search to make filters work as well

@@ -9,6 +9,7 @@ import React, {
 } from 'react'
 import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
+import { FormattedMessage } from 'react-intl'
 
 import { useRuntime } from 'vtex.render-runtime'
 import { IconCaret } from 'vtex.store-icons'
@@ -53,13 +54,16 @@ const CSS_HANDLES = [
   'filterIcon',
   'filterContent',
   'filterTemplateOverflow',
+  'seeMoreButton',
 ]
 
 const useSettings = () => useContext(SettingsContext)
 
-/** Renders only ${LAZY_RENDER_THRESHOLD} items on the list until the user scrolls,
+const MAX_ITEMS_THRESHOLD = 12
+
+/** Renders only ${RENDER_THRESHOLD} items on the list until the user scrolls or clicks `See more`,
  * for improved rendering performance */
-const LAZY_RENDER_THRESHOLD = 10
+const RENDER_THRESHOLD = 10
 
 /**
  * Collapsable filters container
@@ -73,6 +77,7 @@ const FilterOptionTemplate = ({
   filters,
   initiallyCollapsed = false,
   lazyRender = false,
+  truncateFilters = false,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
@@ -80,6 +85,7 @@ const FilterOptionTemplate = ({
   const handles = useCssHandles(CSS_HANDLES)
   const { thresholdForFacetSearch } = useSettings()
   const [searchTerm, setSearchTerm] = useState('')
+  const [truncated, setTruncated] = useState(true)
 
   const isLazyRenderEnabled = getSettings('vtex.store')
     ?.enableSearchRenderingOptimization
@@ -108,15 +114,38 @@ const FilterOptionTemplate = ({
     const shouldLazyRender = !hasScrolled && isLazyRenderEnabled
     /** Inexact measure but good enough for displaying a properly sized scrollbar */
     const placeholderSize = shouldLazyRender
-      ? (filters.length - LAZY_RENDER_THRESHOLD) * 34
+      ? (filters.length - RENDER_THRESHOLD) * 34
       : 0
+
+    const shouldTruncate =
+      !isLazyRenderEnabled &&
+      truncateFilters &&
+      filteredFacets.length >= MAX_ITEMS_THRESHOLD
+
+    const endSlice =
+      shouldLazyRender || (shouldTruncate && truncated)
+        ? RENDER_THRESHOLD
+        : filteredFacets.length
 
     return (
       <>
-        {filteredFacets
-          .slice(0, shouldLazyRender ? LAZY_RENDER_THRESHOLD : undefined)
-          .map(children)}
+        {filteredFacets.slice(0, endSlice).map(children)}
         {placeholderSize > 0 && <div style={{ height: placeholderSize }} />}
+        {shouldTruncate && (
+          <button
+            onClick={() => setTruncated(truncated => !truncated)}
+            className={`${handles.seeMoreButton} mt2 pv2 bn pointer c-link`}
+          >
+            <FormattedMessage
+              id={
+                truncated
+                  ? 'store/filter.more-items'
+                  : 'store/filter.less-items'
+              }
+              values={{ quantity: filteredFacets.length - RENDER_THRESHOLD }}
+            />
+          </button>
+        )}
       </>
     )
   }
@@ -182,7 +211,9 @@ const FilterOptionTemplate = ({
           pb5: !collapsable || open,
         })}
         ref={scrollable}
-        style={{ maxHeight: '200px' }}
+        style={
+          !truncateFilters || isLazyRenderEnabled ? { maxHeight: '200px' } : {}
+        }
         aria-hidden={!open}
       >
         {!hasBeenViewed ? (
@@ -219,6 +250,8 @@ FilterOptionTemplate.propTypes = {
   initiallyCollapsed: PropTypes.bool,
   /** Internal prop, whether this component should be rendered only on view */
   lazyRender: PropTypes.bool,
+  /** When `true`, truncates filters with more than 10 options displaying a button to see all */
+  truncateFilters: PropTypes.bool,
 }
 
 export default FilterOptionTemplate
