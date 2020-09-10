@@ -106,9 +106,6 @@ const FilterOptionTemplate = ({
     )
   }, [filters, searchTerm, thresholdForFacetSearch])
 
-  const shouldTruncate =
-    truncateFilters && filteredFacets.length >= MAX_ITEMS_THRESHOLD
-
   const renderChildren = () => {
     if (typeof children !== 'function') {
       return children
@@ -119,6 +116,11 @@ const FilterOptionTemplate = ({
     const placeholderSize = shouldLazyRender
       ? (filters.length - RENDER_THRESHOLD) * 34
       : 0
+
+    const shouldTruncate =
+      !isLazyRenderEnabled &&
+      truncateFilters &&
+      filteredFacets.length >= MAX_ITEMS_THRESHOLD
 
     const endSlice =
       shouldLazyRender || (shouldTruncate && truncated)
@@ -209,7 +211,9 @@ const FilterOptionTemplate = ({
           pb5: !collapsable || open,
         })}
         ref={scrollable}
-        style={!truncateFilters ? { maxHeight: '200px' } : {}}
+        style={
+          !truncateFilters || isLazyRenderEnabled ? { maxHeight: '200px' } : {}
+        }
         aria-hidden={!open}
       >
         {!hasBeenViewed ? (
