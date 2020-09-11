@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react'
 const useRenderOnView = ({
   lazyRender = false,
   height = 400,
+  offset = 200,
   waitForUserInteraction = true,
 }) => {
   const dummy = useRef<HTMLDivElement | null>(null)
@@ -19,16 +20,25 @@ const useRenderOnView = ({
 
   const dummyElement = (
     <div
-      ref={dummy}
       style={{
         width: '100%',
         height,
         position: 'relative',
-        /** Pulls the object 200px up so it renders a bit earlier,
-         * before the user would actually see the content */
-        top: -200,
       }}
-    />
+    >
+      <div
+        ref={dummy}
+        style={{
+          /** Allows detecting the view a bit earlier, allowing rendering before the user
+           * sees the whitespace where the component should be */
+          top: -offset,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          position: 'absolute',
+        }}
+      />
+    </div>
   )
 
   return { hasBeenViewed: hasBeenViewed || !lazyRender, dummyElement }
