@@ -21,7 +21,10 @@ const GalleryRow = ({
     maxWidth: `${100 / itemsPerRow}%`,
   }
 
-  const { hasBeenViewed, dummyElement } = useRenderOnView({ lazyRender })
+  const { hasBeenViewed, dummyElement } = useRenderOnView({
+    lazyRender,
+    offset: 900,
+  })
 
   if (!hasBeenViewed) {
     return dummyElement
