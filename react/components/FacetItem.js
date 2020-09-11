@@ -40,8 +40,10 @@ const FacetItem = ({
     : facet.value
 
   useEffect(() => {
-    setSelected(facet.selected)
-  }, [facet.selected])
+    if (facet.selected !== selected) {
+      setSelected(facet.selected)
+    }
+  }, [facet.selected, selected])
 
   return (
     <div
