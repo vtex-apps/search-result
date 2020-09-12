@@ -111,16 +111,16 @@ const FilterOptionTemplate = ({
       return children
     }
 
-    const shouldLazyRender = !hasScrolled && isLazyRenderEnabled
+    const shouldTruncate =
+      truncateFilters && filteredFacets.length >= MAX_ITEMS_THRESHOLD
+
+    const shouldLazyRender =
+      !shouldTruncate && !hasScrolled && isLazyRenderEnabled
+
     /** Inexact measure but good enough for displaying a properly sized scrollbar */
     const placeholderSize = shouldLazyRender
       ? (filters.length - RENDER_THRESHOLD) * 34
       : 0
-
-    const shouldTruncate =
-      !isLazyRenderEnabled &&
-      truncateFilters &&
-      filteredFacets.length >= MAX_ITEMS_THRESHOLD
 
     const endSlice =
       shouldLazyRender || (shouldTruncate && truncated)
