@@ -6,15 +6,19 @@ import PriceRange from './PriceRange'
 
 const LAZY_RENDER_THRESHOLD = 3
 
-const AvailableFilters = ({ filters = [], ...props }) =>
-  filters.map((filter, i) => (
+const AvailableFilters = ({ filters = [], ...props }) => {
+  const [lastOpenFilter, setLastOpenFilter] = useState()
+  return filters.map((filter, i) => (
     <Filter
       filter={filter}
       {...props}
+      lastOpenFilter={lastOpenFilter}
+      setLastOpenFilter={setLastOpenFilter}
       key={filter.title}
       lazyRender={i >= LAZY_RENDER_THRESHOLD}
     />
   ))
+}
 
 const Filter = ({
   filter,
@@ -25,8 +29,9 @@ const Filter = ({
   lazyRender,
   truncateFilters = false,
   openFiltersMode = 'many',
+  lastOpenFilter,
+  setLastOpenFilter,
 }) => {
-  const [lastOpenFilter, setLastOpenFilter] = useState()
   const { type, title, facets, oneSelectedCollapse = false } = filter
 
   switch (type) {

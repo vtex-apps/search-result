@@ -99,6 +99,7 @@ const FilterOptionTemplate = ({
   })
 
   const hasScrolled = useHasScrolled(scrollable)
+  const isOpen = openFiltersMode === 'many' ? open : lastOpenFilter === title
 
   const filteredFacets = useMemo(() => {
     if (thresholdForFacetSearch === undefined || searchTerm === '') {
@@ -108,7 +109,6 @@ const FilterOptionTemplate = ({
       filter => filter.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
     )
   }, [filters, searchTerm, thresholdForFacetSearch])
-  const isOpen = openFiltersMode === 'many' ? open : lastOpenFilter === title
 
   const renderChildren = () => {
     if (typeof children !== 'function') {
