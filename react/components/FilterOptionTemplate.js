@@ -78,6 +78,9 @@ const FilterOptionTemplate = ({
   initiallyCollapsed = false,
   lazyRender = false,
   truncateFilters = false,
+  lastOpenFilter,
+  setLastOpenFilter,
+  openFiltersMode,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
@@ -96,6 +99,7 @@ const FilterOptionTemplate = ({
   })
 
   const hasScrolled = useHasScrolled(scrollable)
+  const isOpen = openFiltersMode === 'many' ? open : lastOpenFilter === title
 
   const filteredFacets = useMemo(() => {
     if (thresholdForFacetSearch === undefined || searchTerm === '') {
@@ -150,14 +154,26 @@ const FilterOptionTemplate = ({
     )
   }
 
+  const handleCollapse = useCallback(() => {
+    if (openFiltersMode === 'many') {
+      setOpen(!open)
+    } else if (openFiltersMode === 'one') {
+      setLastOpenFilter(lastOpenFilter === title ? null : title)
+    } else {
+      console.error(
+        `Invalid openFiltersMode value: ${openFiltersMode}\nCheck the documentation for the values available`
+      )
+    }
+  }, [lastOpenFilter, open, openFiltersMode, setLastOpenFilter, title])
+
   const handleKeyDown = useCallback(
     e => {
       if (e.key === ' ' && collapsable) {
         e.preventDefault()
-        setOpen(!open)
+        handleCollapse()
       }
     },
-    [collapsable, open]
+    [collapsable, handleCollapse]
   )
 
   const containerClassName = classNames(
@@ -186,7 +202,7 @@ const FilterOptionTemplate = ({
           role="button"
           tabIndex={collapsable ? 0 : undefined}
           className={collapsable ? 'pointer' : ''}
-          onClick={() => collapsable && setOpen(!open)}
+          onClick={() => collapsable && handleCollapse()}
           onKeyDown={handleKeyDown}
           aria-disabled={!collapsable}
         >
@@ -199,7 +215,7 @@ const FilterOptionTemplate = ({
                   'flex items-center ph5 c-muted-3'
                 )}
               >
-                <IconCaret orientation={open ? 'up' : 'down'} size={14} />
+                <IconCaret orientation={isOpen ? 'up' : 'down'} size={14} />
               </span>
             )}
           </div>
@@ -208,18 +224,21 @@ const FilterOptionTemplate = ({
       <div
         className={classNames(handles.filterTemplateOverflow, {
           'overflow-y-auto': collapsable,
-          pb5: !collapsable || open,
+          pb5: !collapsable || isOpen,
         })}
         ref={scrollable}
         style={
           !truncateFilters || isLazyRenderEnabled ? { maxHeight: '200px' } : {}
         }
-        aria-hidden={!open}
+        aria-hidden={!isOpen}
       >
         {!hasBeenViewed ? (
           dummyElement
         ) : collapsable ? (
-          <Collapse isOpened={open} theme={{ content: handles.filterContent }}>
+          <Collapse
+            isOpened={isOpen}
+            theme={{ content: handles.filterContent }}
+          >
             {thresholdForFacetSearch !== undefined &&
             thresholdForFacetSearch < filters.length ? (
               <SearchFilterBar name={title} handleChange={setSearchTerm} />
@@ -252,6 +271,9 @@ FilterOptionTemplate.propTypes = {
   lazyRender: PropTypes.bool,
   /** When `true`, truncates filters with more than 10 options displaying a button to see all */
   truncateFilters: PropTypes.bool,
+  lastOpenFilter: PropTypes.string,
+  setLastOpenFilter: PropTypes.func,
+  openFiltersMode: PropTypes.string,
 }
 
 export default FilterOptionTemplate

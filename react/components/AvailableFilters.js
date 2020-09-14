@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import SearchFilter from './SearchFilter'
@@ -6,15 +6,19 @@ import PriceRange from './PriceRange'
 
 const LAZY_RENDER_THRESHOLD = 3
 
-const AvailableFilters = ({ filters = [], ...props }) =>
-  filters.map((filter, i) => (
+const AvailableFilters = ({ filters = [], ...props }) => {
+  const [lastOpenFilter, setLastOpenFilter] = useState()
+  return filters.map((filter, i) => (
     <Filter
       filter={filter}
       {...props}
+      lastOpenFilter={lastOpenFilter}
+      setLastOpenFilter={setLastOpenFilter}
       key={filter.title}
       lazyRender={i >= LAZY_RENDER_THRESHOLD}
     />
   ))
+}
 
 const Filter = ({
   filter,
@@ -24,6 +28,9 @@ const Filter = ({
   navigateToFacet,
   lazyRender,
   truncateFilters = false,
+  openFiltersMode = 'many',
+  lastOpenFilter,
+  setLastOpenFilter,
 }) => {
   const { type, title, facets, oneSelectedCollapse = false } = filter
 
@@ -50,6 +57,9 @@ const Filter = ({
           navigateToFacet={navigateToFacet}
           lazyRender={lazyRender}
           truncateFilters={truncateFilters}
+          lastOpenFilter={lastOpenFilter}
+          setLastOpenFilter={setLastOpenFilter}
+          openFiltersMode={openFiltersMode}
         />
       )
   }
