@@ -16,6 +16,8 @@ import GalleryRow from './components/GalleryRow'
 import ProductListEventCaller from './utils/ProductListEventCaller'
 import SettingsContext from './components/SettingsContext'
 
+import { Spinner } from 'vtex.styleguide'
+
 /** Layout with one column */
 const ONE_COLUMN_LAYOUT = 1
 
@@ -39,6 +41,7 @@ const Gallery = ({
   width,
   summary,
   showingFacets,
+  lazyItemsRemaining,
 }) => {
   const { isMobile } = useDevice()
   const { trackingId = 'Search result' } = useContext(SettingsContext) || {}
@@ -103,6 +106,17 @@ const Gallery = ({
             itemsPerRow={itemsPerRow}
           />
         ))}
+        {lazyItemsRemaining && lazyItemsRemaining > 0 && (
+          <div
+            style={{
+              width: '100%',
+              height: 300 * Math.ceil(lazyItemsRemaining / itemsPerRow),
+            }}
+            className="flex justify-center pt10"
+          >
+            <Spinner />
+          </div>
+        )}
       </div>
       <ProductListEventCaller />
     </ProductListProvider>
@@ -124,6 +138,7 @@ Gallery.propTypes = {
   minItemWidth: PropTypes.number,
   showingFacets: PropTypes.bool,
   trackingId: PropTypes.string,
+  lazyItemsRemaining: PropTypes.number,
 }
 
 export default withResizeDetector(Gallery)
