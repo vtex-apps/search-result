@@ -1,4 +1,4 @@
-import { useMemo, useRef, useCallback, useEffect } from 'react'
+import { useMemo, useRef, useCallback, useEffect, useState } from 'react'
 import { useQuery } from 'react-apollo'
 import { path } from 'ramda'
 import { useRuntime } from 'vtex.render-runtime'
@@ -332,14 +332,13 @@ const SearchQuery = ({
     setRedirect(redirectUrl)
   }, [redirectUrl, setRedirect])
 
-  const lazyItemsRemaining = useRef(
+  const isFetchingMore = useRef(false)
+  const [lazyItemsRemaining, setLazyItemsRemaining] = useState(
     shouldLimitItems ? maxItemsPerPage - itemsLimit : 0
   )
 
   useEffect(() => {
-    lazyItemsRemaining.current = shouldLimitItems
-      ? maxItemsPerPage - itemsLimit
-      : 0
+    setLazyItemsRemaining(shouldLimitItems ? maxItemsPerPage - itemsLimit : 0)
   }, [map, query, from, shouldLimitItems, maxItemsPerPage, itemsLimit])
 
   useEffect(() => {
@@ -348,11 +347,11 @@ const SearchQuery = ({
     }
 
     const fetchRemainingItems = () => {
-      if (lazyItemsRemaining.current === 0) {
+      if (lazyItemsRemaining === 0 || isFetchingMore.current) {
         return
       }
 
-      lazyItemsRemaining.current = 0
+      isFetchingMore.current = true
 
       fetchMore({
         variables: {
@@ -360,6 +359,9 @@ const SearchQuery = ({
           to: from + maxItemsPerPage - 1,
         },
         updateQuery: (prev, { fetchMoreResult }) => {
+          isFetchingMore.current = false
+          setLazyItemsRemaining(0)
+
           return {
             ...prev,
             productSearch: {
@@ -381,14 +383,21 @@ const SearchQuery = ({
     return () => {
       clearTimeout(timeout)
     }
-  }, [data, fetchMore, from, shouldLimitItems, maxItemsPerPage])
+  }, [
+    data,
+    fetchMore,
+    from,
+    shouldLimitItems,
+    maxItemsPerPage,
+    lazyItemsRemaining,
+  ])
 
   const extraParams = useMemo(() => {
     return {
       ...variables,
       ...facetsArgs,
       maxItemsPerPage,
-      lazyItemsRemaining: lazyItemsRemaining.current,
+      lazyItemsRemaining,
       page,
       facetsLoading,
     }
