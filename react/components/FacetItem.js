@@ -39,11 +39,17 @@ const FacetItem = ({
     ? `filterItem--${facet.value}`
     : facet.value
 
+  // This effect fixes the issue described in this PR
+  // https://github.com/vtex-apps/search-result/pull/422
   useEffect(() => {
     if (facet.selected !== selected) {
       setSelected(facet.selected)
     }
-  }, [facet.selected, selected])
+    // however, having `selected` as a dependency causes it
+    // to always reset back to `facet.selected`. So, we remove it,
+    // so only changes in facet.selected affect the state.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [facet.selected])
 
   return (
     <div
