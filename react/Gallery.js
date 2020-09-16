@@ -106,7 +106,7 @@ const Gallery = ({
             itemsPerRow={itemsPerRow}
           />
         ))}
-        {lazyItemsRemaining && lazyItemsRemaining > 0 && (
+        {typeof lazyItemsRemaining === 'number' && lazyItemsRemaining > 0 && (
           <div
             style={{
               width: '100%',
