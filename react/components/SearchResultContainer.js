@@ -38,6 +38,7 @@ const SearchResultContainer = props => {
     pagination,
     page,
     children,
+    lazyItemsRemaining,
   } = props
 
   const queryData = {
@@ -84,6 +85,7 @@ const SearchResultContainer = props => {
       to={to}
       from={from}
       infiniteScrollError={infiniteScrollError}
+      lazyItemsRemaining={lazyItemsRemaining}
     />
   )
 

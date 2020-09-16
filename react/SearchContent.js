@@ -7,7 +7,7 @@ import {
 } from 'vtex.search-page-context/SearchPageContext'
 
 const SearchContent = () => {
-  const { searchQuery, showFacets } = useSearchPage()
+  const { searchQuery, showFacets, lazyItemsRemaining } = useSearchPage()
   const { mobileLayout, showContentLoader } = useSearchPageState()
   const products = path(['data', 'productSearch', 'products'], searchQuery)
   const redirect = path(['data', 'productSearch', 'redirect'], searchQuery)
@@ -23,13 +23,16 @@ const SearchContent = () => {
   }
 
   return (
-    <ExtensionPoint
-      id="gallery"
-      products={products}
-      className="bn"
-      mobileLayoutMode={mobileLayout}
-      showingFacets={showFacets}
-    />
+    <>
+      <ExtensionPoint
+        id="gallery"
+        products={products}
+        className="bn"
+        mobileLayoutMode={mobileLayout}
+        showingFacets={showFacets}
+        lazyItemsRemaining={lazyItemsRemaining}
+      />
+    </>
   )
 }
 

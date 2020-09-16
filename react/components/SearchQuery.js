@@ -332,7 +332,15 @@ const SearchQuery = ({
     setRedirect(redirectUrl)
   }, [redirectUrl, setRedirect])
 
-  const hasFetchedMoreItems = useRef(false)
+  const lazyItemsRemaining = useRef(
+    shouldLimitItems ? maxItemsPerPage - itemsLimit : 0
+  )
+
+  useEffect(() => {
+    lazyItemsRemaining.current = shouldLimitItems
+      ? maxItemsPerPage - itemsLimit
+      : 0
+  }, [map, query, from, shouldLimitItems, maxItemsPerPage, itemsLimit])
 
   useEffect(() => {
     if (!shouldLimitItems) {
@@ -340,11 +348,11 @@ const SearchQuery = ({
     }
 
     const fetchRemainingItems = () => {
-      if (hasFetchedMoreItems.current) {
+      if (lazyItemsRemaining.current === 0) {
         return
       }
 
-      hasFetchedMoreItems.current = true
+      lazyItemsRemaining.current = 0
 
       fetchMore({
         variables: {
@@ -373,17 +381,25 @@ const SearchQuery = ({
     return () => {
       clearTimeout(timeout)
     }
-  }, [fetchMore, from, shouldLimitItems, maxItemsPerPage, hasFetchedMoreItems])
+  }, [data, fetchMore, from, shouldLimitItems, maxItemsPerPage])
 
   const extraParams = useMemo(() => {
     return {
       ...variables,
       ...facetsArgs,
       maxItemsPerPage,
+      lazyItemsRemaining: lazyItemsRemaining.current,
       page,
       facetsLoading,
     }
-  }, [variables, facetsArgs, maxItemsPerPage, page, facetsLoading])
+  }, [
+    variables,
+    facetsArgs,
+    maxItemsPerPage,
+    lazyItemsRemaining,
+    page,
+    facetsLoading,
+  ])
 
   const searchInfo = useMemo(
     () => ({
