@@ -1,6 +1,7 @@
 import { useMemo, useRef, useCallback, useEffect } from 'react'
 import { useQuery } from 'react-apollo'
 import { path } from 'ramda'
+import { useRuntime } from 'vtex.render-runtime'
 
 import productSearchQuery from 'vtex.store-resources/QueryProductSearchV3'
 import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadataV2'
@@ -21,6 +22,11 @@ const DEFAULT_QUERY_VALUES = {
   skusFilter: 'ALL_AVAILABLE',
   simulationBehavior: 'default',
 }
+
+// Has to match the value in the query middleware,
+// in the vtex.render-server app.
+// TODO: make these values sync somehow
+const INITIAL_ITEMS_LIMIT = 18
 
 const includeFacets = (map, query) =>
   !!(map && map.length > 0 && query && query.length > 0)
@@ -138,10 +144,12 @@ const useCorrectSearchStateVariables = (
 }
 
 const useQueries = (variables, facetsArgs) => {
-  const productSearchResult = useQuery(productSearchQuery, {
-    variables,
-  })
-  const { refetch: searchRefetch, loading: searchLoading } = productSearchResult
+  const productSearchResult = useQuery(productSearchQuery, { variables })
+  const {
+    refetch: searchRefetch,
+    loading: searchLoading,
+    fetchMore,
+  } = productSearchResult
   const { data: { searchMetadata } = {} } = useQuery(searchMetadataQuery, {
     variables: {
       query: variables.query,
@@ -194,6 +202,7 @@ const useQueries = (variables, facetsArgs) => {
   return {
     loading: searchLoading || redirect,
     facetsLoading,
+    fetchMore,
     data: {
       productSearch:
         productSearchResult.data && productSearchResult.data.productSearch,
@@ -233,6 +242,14 @@ const SearchQuery = ({
     priceRange
   )
 
+  const { getSettings } = useRuntime()
+
+  const shouldLimitItems =
+    maxItemsPerPage > INITIAL_ITEMS_LIMIT &&
+    getSettings('vtex.store')?.enableLazySearchQuery
+
+  const itemsLimit = shouldLimitItems ? INITIAL_ITEMS_LIMIT : maxItemsPerPage
+
   /* This is the page of the first query since the component was rendered. 
   We want this behaviour so we can show the correct items even if the pageQuery
   changes. It should change only on a new render or if the query or orderby 
@@ -251,7 +268,7 @@ const SearchQuery = ({
   const { setRedirect } = useRedirect()
 
   const from = (page - 1) * maxItemsPerPage
-  const to = from + maxItemsPerPage - 1
+  const to = from + itemsLimit - 1
 
   const facetsArgs = {
     facetQuery: query,
@@ -306,6 +323,7 @@ const SearchQuery = ({
     refetch,
     productSearchResult,
     facetsLoading,
+    fetchMore,
   } = useQueries(variables, facetsArgs)
 
   const redirectUrl = path(['productSearch', 'redirect'], data)
@@ -313,6 +331,49 @@ const SearchQuery = ({
   useEffect(() => {
     setRedirect(redirectUrl)
   }, [redirectUrl, setRedirect])
+
+  const hasFetchedMoreItems = useRef(false)
+
+  useEffect(() => {
+    if (!shouldLimitItems) {
+      return
+    }
+
+    const fetchRemainingItems = () => {
+      if (hasFetchedMoreItems.current) {
+        return
+      }
+
+      hasFetchedMoreItems.current = true
+
+      fetchMore({
+        variables: {
+          from: from + INITIAL_ITEMS_LIMIT,
+          to: from + maxItemsPerPage - 1,
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          return {
+            ...prev,
+            productSearch: {
+              ...prev.productSearch,
+              products: [
+                ...prev.productSearch.products,
+                ...fetchMoreResult.productSearch.products,
+              ],
+            },
+          }
+        },
+      })
+    }
+
+    const timeout = setTimeout(() => {
+      fetchRemainingItems()
+    }, 500)
+
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [fetchMore, from, shouldLimitItems, maxItemsPerPage, hasFetchedMoreItems])
 
   const extraParams = useMemo(() => {
     return {
