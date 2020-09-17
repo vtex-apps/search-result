@@ -248,7 +248,9 @@ const SearchQuery = ({
 
   const shouldLimitItems =
     maxItemsPerPage > INITIAL_ITEMS_LIMIT &&
-    (typeof lazyItemsQueryProp !== 'undefined'
+    // Prioritize the `lazyItemsQuery` prop if set, otherwise
+    // uses the value from the `enableLazySearchQuery` setting
+    (typeof lazyItemsQueryProp === 'boolean'
       ? lazyItemsQueryProp
       : lazyItemsQuerySetting)
 
