@@ -234,6 +234,7 @@ const SearchQuery = ({
   operator: operatorQuery,
   fuzzy: fuzzyQuery,
   searchState: searchStateQuery,
+  lazyItemsQuery: lazyItemsQueryProp,
   __unstableProductOriginVtex,
 }) => {
   const [selectedFacets, fullText] = buildSelectedFacetsAndFullText(
@@ -243,10 +244,13 @@ const SearchQuery = ({
   )
 
   const { getSettings } = useRuntime()
+  const lazyItemsQuerySetting = getSettings('vtex.store')?.enableLazySearchQuery
 
   const shouldLimitItems =
     maxItemsPerPage > INITIAL_ITEMS_LIMIT &&
-    getSettings('vtex.store')?.enableLazySearchQuery
+    (typeof lazyItemsQueryProp !== 'undefined'
+      ? lazyItemsQueryProp
+      : lazyItemsQuerySetting)
 
   const itemsLimit = shouldLimitItems ? INITIAL_ITEMS_LIMIT : maxItemsPerPage
 
@@ -390,6 +394,7 @@ const SearchQuery = ({
     shouldLimitItems,
     maxItemsPerPage,
     lazyItemsRemaining,
+    itemsLimit,
   ])
 
   const extraParams = useMemo(() => {
