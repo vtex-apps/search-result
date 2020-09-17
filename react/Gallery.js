@@ -110,6 +110,7 @@ const Gallery = ({
           <div
             style={{
               width: '100%',
+              // Approximate number, just to add scroll leeway
               height: 300 * Math.ceil(lazyItemsRemaining / itemsPerRow),
             }}
             className="flex justify-center pt10"
