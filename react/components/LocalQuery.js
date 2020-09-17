@@ -41,6 +41,7 @@ const LocalQuery = props => {
       pageQuery={pageQuery}
       skusFilter={skusFilter}
       simulationBehavior={simulationBehavior}
+      lazyItemsQuery={false}
       __unstableProductOriginVtex={__unstableProductOriginVtex}
     >
       {(searchQuery, extraParams) => {
