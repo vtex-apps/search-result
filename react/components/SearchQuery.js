@@ -221,6 +221,8 @@ const SearchQuery = ({
   skusFilter,
   simulationBehavior,
   installmentCriteria,
+  excludedPaymentSystems,
+  includedPaymentSystems,
   children,
   operator: operatorQuery,
   fuzzy: fuzzyQuery,
@@ -271,6 +273,8 @@ const SearchQuery = ({
       operator,
       fuzzy,
       searchState,
+      excludedPaymentSystems,
+      includedPaymentSystems,
       productOriginVtex: !!__unstableProductOriginVtex,
       hideUnavailableItems: !!hideUnavailableItems,
       facetsBehavior: facetsBehavior || DEFAULT_QUERY_VALUES.facetsBehavior,
@@ -298,6 +302,8 @@ const SearchQuery = ({
     fuzzy,
     searchState,
     __unstableProductOriginVtex,
+    excludedPaymentSystems,
+    includedPaymentSystems,
   ])
 
   const {
