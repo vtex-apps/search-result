@@ -59,6 +59,7 @@ const SearchResultFlexible = ({
   facetsLoading,
   trackingId,
   thresholdForFacetSearch,
+  lazyItemsRemaining,
 }) => {
   //This makes infinite scroll unavailable.
   //Infinite scroll was deprecated and we have
@@ -136,6 +137,7 @@ const SearchResultFlexible = ({
       showProductsCount,
       preventRouteChange,
       facetsLoading,
+      lazyItemsRemaining,
     }),
     [
       hiddenFacets,
@@ -153,6 +155,7 @@ const SearchResultFlexible = ({
       showProductsCount,
       preventRouteChange,
       facetsLoading,
+      lazyItemsRemaining,
     ]
   )
 
@@ -177,21 +180,20 @@ const SearchResultFlexible = ({
               orderBy={orderBy}
               page={page}
               facetsLoading={facetsLoading}
+              lazyItemsRemaining={lazyItemsRemaining}
             >
-              {
-                <LoadingOverlay loading={showLoading}>
-                  <div
-                    className={`${
-                      handles.loadingOverlay
-                    } w-100 flex flex-column flex-grow-1 ${generateBlockClass(
-                      styles['container--layout'],
-                      blockClass
-                    )}`}
-                  >
-                    {children}
-                  </div>
-                </LoadingOverlay>
-              }
+              <LoadingOverlay loading={showLoading}>
+                <div
+                  className={`${
+                    handles.loadingOverlay
+                  } w-100 flex flex-column flex-grow-1 ${generateBlockClass(
+                    styles['container--layout'],
+                    blockClass
+                  )}`}
+                >
+                  {children}
+                </div>
+              </LoadingOverlay>
             </SearchResultContainer>
           </ContextProviders>
         </SearchPageStateDispatch.Provider>

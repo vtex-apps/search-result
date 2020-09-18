@@ -1,6 +1,7 @@
-import { useMemo, useRef, useCallback, useEffect } from 'react'
+import { useMemo, useRef, useCallback, useEffect, useState } from 'react'
 import { useQuery } from 'react-apollo'
 import { path } from 'ramda'
+import { useRuntime } from 'vtex.render-runtime'
 
 import productSearchQuery from 'vtex.store-resources/QueryProductSearchV3'
 import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadataV2'
@@ -21,6 +22,11 @@ const DEFAULT_QUERY_VALUES = {
   skusFilter: 'ALL_AVAILABLE',
   simulationBehavior: 'default',
 }
+
+// Has to match the value in the query middleware,
+// in the vtex.render-server app.
+// TODO: make these values sync somehow
+const INITIAL_ITEMS_LIMIT = 18
 
 const includeFacets = (map, query) =>
   !!(map && map.length > 0 && query && query.length > 0)
@@ -138,10 +144,12 @@ const useCorrectSearchStateVariables = (
 }
 
 const useQueries = (variables, facetsArgs) => {
-  const productSearchResult = useQuery(productSearchQuery, {
-    variables,
-  })
-  const { refetch: searchRefetch, loading: searchLoading } = productSearchResult
+  const productSearchResult = useQuery(productSearchQuery, { variables })
+  const {
+    refetch: searchRefetch,
+    loading: searchLoading,
+    fetchMore,
+  } = productSearchResult
   const { data: { searchMetadata } = {} } = useQuery(searchMetadataQuery, {
     variables: {
       query: variables.query,
@@ -194,6 +202,7 @@ const useQueries = (variables, facetsArgs) => {
   return {
     loading: searchLoading || redirect,
     facetsLoading,
+    fetchMore,
     data: {
       productSearch:
         productSearchResult.data && productSearchResult.data.productSearch,
@@ -227,6 +236,7 @@ const SearchQuery = ({
   operator: operatorQuery,
   fuzzy: fuzzyQuery,
   searchState: searchStateQuery,
+  lazyItemsQuery: lazyItemsQueryProp,
   __unstableProductOriginVtex,
 }) => {
   const [selectedFacets, fullText] = buildSelectedFacetsAndFullText(
@@ -234,6 +244,19 @@ const SearchQuery = ({
     map,
     priceRange
   )
+
+  const { getSettings } = useRuntime()
+  const lazyItemsQuerySetting = getSettings('vtex.store')?.enableLazySearchQuery
+
+  const shouldLimitItems =
+    maxItemsPerPage > INITIAL_ITEMS_LIMIT &&
+    // Prioritize the `lazyItemsQuery` prop if set, otherwise
+    // uses the value from the `enableLazySearchQuery` setting
+    (typeof lazyItemsQueryProp === 'boolean'
+      ? lazyItemsQueryProp
+      : lazyItemsQuerySetting)
+
+  const itemsLimit = shouldLimitItems ? INITIAL_ITEMS_LIMIT : maxItemsPerPage
 
   /* This is the page of the first query since the component was rendered. 
   We want this behaviour so we can show the correct items even if the pageQuery
@@ -253,7 +276,7 @@ const SearchQuery = ({
   const { setRedirect } = useRedirect()
 
   const from = (page - 1) * maxItemsPerPage
-  const to = from + maxItemsPerPage - 1
+  const to = from + itemsLimit - 1
 
   const facetsArgs = {
     facetQuery: query,
@@ -312,6 +335,7 @@ const SearchQuery = ({
     refetch,
     productSearchResult,
     facetsLoading,
+    fetchMore,
   } = useQueries(variables, facetsArgs)
 
   const redirectUrl = path(['productSearch', 'redirect'], data)
@@ -320,15 +344,84 @@ const SearchQuery = ({
     setRedirect(redirectUrl)
   }, [redirectUrl, setRedirect])
 
+  const isFetchingMore = useRef(false)
+  const [lazyItemsRemaining, setLazyItemsRemaining] = useState(
+    shouldLimitItems ? maxItemsPerPage - itemsLimit : 0
+  )
+
+  useEffect(() => {
+    setLazyItemsRemaining(shouldLimitItems ? maxItemsPerPage - itemsLimit : 0)
+  }, [map, query, from, shouldLimitItems, maxItemsPerPage, itemsLimit])
+
+  useEffect(() => {
+    if (!shouldLimitItems) {
+      return
+    }
+
+    const fetchRemainingItems = () => {
+      if (lazyItemsRemaining === 0 || isFetchingMore.current) {
+        return
+      }
+
+      isFetchingMore.current = true
+
+      fetchMore({
+        variables: {
+          from: from + INITIAL_ITEMS_LIMIT,
+          to: from + maxItemsPerPage - 1,
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          isFetchingMore.current = false
+          setLazyItemsRemaining(0)
+
+          return {
+            ...prev,
+            productSearch: {
+              ...prev.productSearch,
+              products: [
+                ...prev.productSearch.products,
+                ...fetchMoreResult.productSearch.products,
+              ],
+            },
+          }
+        },
+      })
+    }
+
+    const timeout = setTimeout(() => {
+      fetchRemainingItems()
+    }, 500)
+
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [
+    data,
+    fetchMore,
+    from,
+    shouldLimitItems,
+    maxItemsPerPage,
+    lazyItemsRemaining,
+    itemsLimit,
+  ])
+
   const extraParams = useMemo(() => {
     return {
       ...variables,
       ...facetsArgs,
       maxItemsPerPage,
+      lazyItemsRemaining,
       page,
       facetsLoading,
     }
-  }, [variables, facetsArgs, maxItemsPerPage, page, facetsLoading])
+  }, [
+    variables,
+    facetsArgs,
+    maxItemsPerPage,
+    lazyItemsRemaining,
+    page,
+    facetsLoading,
+  ])
 
   const searchInfo = useMemo(
     () => ({
