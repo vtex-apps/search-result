@@ -297,7 +297,8 @@ Check out the [**Product Summary documentation**](https://vtex.io/docs/component
 
 | Prop name       | Type            | Description                                                                                                  | Default value |
 | --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
-| `hiddenOptions` | `[string]` | Indicates which sorting options will be hidden. (e.g. `["OrderByNameASC", "OrderByNameDESC"]`) | `undefined`       |
+| `hiddenOptions` | `[string]` | Indicates which sorting options will be hidden. (e.g. `["OrderByNameASC", "OrderByNameDESC"]`) | `undefined`      |
+| `showOrderTitle` | `[boolean]` | Show or hide the selected order value (e.g. `Relevance`)                                     | `true`           |
 
 The sorting options are:
 

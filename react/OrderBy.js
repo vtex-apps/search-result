@@ -39,7 +39,13 @@ export const SORT_OPTIONS = [
   },
 ]
 
-const OrderBy = ({ orderBy, message, intl, hiddenOptions = [] }) => {
+const OrderBy = ({
+  orderBy,
+  message,
+  intl,
+  hiddenOptions = [],
+  showOrderTitle = true,
+}) => {
   const sortingOptions = useMemo(() => {
     return SORT_OPTIONS.filter(
       option => !hiddenOptions.includes(option.value)
@@ -56,6 +62,7 @@ const OrderBy = ({ orderBy, message, intl, hiddenOptions = [] }) => {
       orderBy={orderBy}
       message={message}
       options={sortingOptions}
+      showOrderTitle={showOrderTitle}
     />
   )
 }
@@ -69,6 +76,8 @@ OrderBy.propTypes = {
   hiddenOptions: PropTypes.arrayOf(PropTypes.string),
   /** Message to be displayed */
   message: PropTypes.string,
+  /** Show or hide order title */
+  showOrderTitle: PropTypes.boolean,
 }
 
 export default injectIntl(OrderBy)
