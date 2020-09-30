@@ -373,6 +373,7 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `filterAccordionItemBox--{facetValue}`|
 | `filterApplyButtonWrapper`            |
 | `filterAvailable`                     |
+| `filterIsOpen`                        |
 | `filterButtonsBox`                    |
 | `filterClearButtonWrapper`            |
 | `filterContainer--{facetType}`        |

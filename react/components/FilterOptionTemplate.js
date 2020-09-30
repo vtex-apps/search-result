@@ -50,6 +50,7 @@ const CSS_HANDLES = [
   'filter',
   'filterSelected',
   'filterAvailable',
+  'filterIsOpen',
   'filterTitle',
   'filterIcon',
   'filterContent',
@@ -185,6 +186,7 @@ const FilterOptionTemplate = ({
   const titleContainerClassName = classNames(handles.filter, 'pv5', {
     [handles.filterSelected]: selected,
     [handles.filterAvailable]: !selected,
+    [handles.filterIsOpen]: isOpen,
   })
 
   const titleClassName = classNames(
