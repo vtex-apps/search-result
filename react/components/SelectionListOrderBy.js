@@ -106,7 +106,7 @@ const SelectionListOrderBy = ({
           >
             {sortByMessage}
           </span>{' '}
-          {showOrderTitle === true ? getOptionTitle(orderBy) : ''}
+          {showOrderTitle ? getOptionTitle(orderBy) : null}
         </span>
         <span className={`${handles.filterPopupArrowIcon} ph5 pt1`}>
           <IconCaret orientation={showDropdown ? 'up' : 'down'} size={10} />
