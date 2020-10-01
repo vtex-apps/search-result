@@ -74,6 +74,7 @@ const FilterNavigator = ({
   filtersTitleHtmlTag = 'h5',
   scrollToTop = 'none',
   openFiltersMode = 'many',
+  filtersFetchMore,
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -180,6 +181,7 @@ const FilterNavigator = ({
               preventRouteChange={preventRouteChange}
               initiallyCollapsed={initiallyCollapsed}
               navigateToFacet={navigateToFacet}
+              filtersFetchMore={filtersFetchMore}
               truncateFilters={truncateFilters}
               openFiltersMode={openFiltersMode}
             />

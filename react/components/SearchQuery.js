@@ -12,6 +12,7 @@ import {
   detachFiltersByType,
   buildQueryArgsFromSelectedFacets,
 } from '../utils/compatibilityLayer'
+import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
 import useRedirect from '../hooks/useRedirect'
 
 const DEFAULT_PAGE = 1
@@ -144,6 +145,9 @@ const useCorrectSearchStateVariables = (
 }
 
 const useQueries = (variables, facetsArgs) => {
+  const { getSettings } = useRuntime() // Is it okay to call this here?
+  const isLazyFacetsFetchEnabled = getSettings('vtex.store')
+    ?.enableFiltersFetchOptimization
   const productSearchResult = useQuery(productSearchQuery, { variables })
   const {
     refetch: searchRefetch,
@@ -162,10 +166,13 @@ const useQueries = (variables, facetsArgs) => {
     data: { facets } = {},
     loading: facetsLoading,
     refetch: facetsRefetch,
+    fetchMore: facetsFetchMore,
   } = useQuery(facetsQuery, {
     variables: {
       query: facetsArgs.facetQuery,
       map: facetsArgs.facetMap,
+      from: 0,
+      to: isLazyFacetsFetchEnabled ? FACETS_RENDER_THRESHOLD : undefined,
       fullText: variables.fullText,
       selectedFacets: variables.selectedFacets,
       hideUnavailableItems: variables.hideUnavailableItems,
@@ -184,6 +191,7 @@ const useQueries = (variables, facetsArgs) => {
       ? detachFiltersByType(facets.facets)
       : {
           brands: [],
+          brandsQuantity: 0,
           specificationFilters: [],
           categoriesTrees: [],
           priceRanges: [],
@@ -210,6 +218,7 @@ const useQueries = (variables, facetsArgs) => {
         ...detachedFilters,
         queryArgs,
         breadcrumb: facets && facets.breadcrumb,
+        facetsFetchMore,
       },
       searchMetadata,
     },

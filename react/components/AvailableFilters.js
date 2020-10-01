@@ -8,12 +8,15 @@ const LAZY_RENDER_THRESHOLD = 3
 
 const AvailableFilters = ({ filters = [], ...props }) => {
   const [lastOpenFilter, setLastOpenFilter] = useState()
+  const [truncatedFacetsFetched, setTruncatedFacetsFetched] = useState(false)
   return filters.map((filter, i) => (
     <Filter
       filter={filter}
       {...props}
       lastOpenFilter={lastOpenFilter}
       setLastOpenFilter={setLastOpenFilter}
+      truncatedFacetsFetched={truncatedFacetsFetched}
+      setTruncatedFacetsFetched={setTruncatedFacetsFetched}
       key={filter.title}
       lazyRender={i >= LAZY_RENDER_THRESHOLD}
     />
@@ -31,8 +34,11 @@ const Filter = ({
   openFiltersMode = 'many',
   lastOpenFilter,
   setLastOpenFilter,
+  filtersFetchMore,
+  truncatedFacetsFetched,
+  setTruncatedFacetsFetched,
 }) => {
-  const { type, title, facets, oneSelectedCollapse = false } = filter
+  const { type, title, facets, quantity, oneSelectedCollapse = false } = filter
 
   switch (type) {
     case 'PriceRanges':
@@ -51,6 +57,7 @@ const Filter = ({
           key={title}
           title={title}
           facets={facets}
+          quantity={quantity}
           oneSelectedCollapse={oneSelectedCollapse}
           preventRouteChange={preventRouteChange}
           initiallyCollapsed={initiallyCollapsed}
@@ -60,6 +67,9 @@ const Filter = ({
           lastOpenFilter={lastOpenFilter}
           setLastOpenFilter={setLastOpenFilter}
           openFiltersMode={openFiltersMode}
+          filtersFetchMore={filtersFetchMore}
+          truncatedFacetsFetched={truncatedFacetsFetched}
+          setTruncatedFacetsFetched={setTruncatedFacetsFetched}
         />
       )
   }
@@ -78,7 +88,9 @@ AvailableFilters.propTypes = {
   priceRange: PropTypes.string,
   /** Prevent route changes */
   preventRouteChange: PropTypes.bool,
+  /** If filters start collapsed */
   initiallyCollapsed: PropTypes.bool,
+  /** If filters start truncated */
   truncateFilters: PropTypes.bool,
 }
 

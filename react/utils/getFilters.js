@@ -12,6 +12,7 @@ const getFilters = ({
   specificationFilters = [],
   priceRanges = [],
   brands = [],
+  brandsQuantity = 0,
   hiddenFacets = {},
 }) => {
   const hiddenFacetsNames = (
@@ -28,6 +29,7 @@ const getFilters = ({
           type: SPECIFICATION_FILTERS_TYPE,
           title: spec.name,
           facets: spec.facets,
+          quantity: spec.quantity,
         }))
     : []
 
@@ -38,6 +40,7 @@ const getFilters = ({
         type: BRANDS_TYPE,
         title: BRANDS_TITLE,
         facets: brands,
+        quantity: brandsQuantity,
       },
     !hiddenFacets.priceRange &&
       !isEmpty(priceRanges) && {

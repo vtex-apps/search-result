@@ -40,6 +40,12 @@ const withSearchPageContextProps = Component => ({
     queryArgs,
   } = facets
 
+  const filtersFetchMore = pathOr(
+    undefined,
+    ['facets', 'facetsFetchMore'],
+    searchQuery
+  )
+
   if (showFacets === false || !map) {
     return null
   }
@@ -61,6 +67,7 @@ const withSearchPageContextProps = Component => ({
           tree={categoriesTrees}
           loading={facetsLoading}
           filters={filters}
+          filtersFetchMore={filtersFetchMore}
           hiddenFacets={hiddenFacets}
           layout={layout}
           initiallyCollapsed={initiallyCollapsed}
