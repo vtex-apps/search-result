@@ -182,7 +182,10 @@ const FilterOptionTemplate = ({
     }
   }, [lastOpenFilter, open, openFiltersMode, setLastOpenFilter, title])
 
-  closeOnOutsideClick && useOutsideClick(filterRef, handleCollapse, isOpen)
+  // closeOnOutsideClick only works with openFiltersMode == 'one'
+  if (closeOnOutsideClick && openFiltersMode === 'one') {
+    useOutsideClick(filterRef, handleCollapse, isOpen)
+  }
 
   const handleKeyDown = useCallback(
     e => {
