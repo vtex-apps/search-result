@@ -18,6 +18,7 @@ import { useCssHandles } from 'vtex.css-handles'
 import styles from '../searchResult.css'
 import { SearchFilterBar } from './SearchFilterBar'
 import SettingsContext from './SettingsContext'
+import useOutsideClick from './../hooks/useOutsideClick'
 
 import { useRenderOnView } from '../hooks/useRenderOnView'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
@@ -79,10 +80,12 @@ const FilterOptionTemplate = ({
   openFiltersMode,
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
+  closeOnOutsideClick = false,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
   const scrollable = useRef()
+  const filterRef = useRef()
   const handles = useCssHandles(CSS_HANDLES)
   const { thresholdForFacetSearch } = useSettings()
   const [searchTerm, setSearchTerm] = useState('')
@@ -179,6 +182,8 @@ const FilterOptionTemplate = ({
     }
   }, [lastOpenFilter, open, openFiltersMode, setLastOpenFilter, title])
 
+  closeOnOutsideClick && useOutsideClick(filterRef, handleCollapse, isOpen)
+
   const handleKeyDown = useCallback(
     e => {
       if (e.key === ' ' && collapsable) {
@@ -210,7 +215,7 @@ const FilterOptionTemplate = ({
   )
 
   return (
-    <div className={containerClassName}>
+    <div className={containerClassName} ref={filterRef}>
       <div className={titleContainerClassName}>
         <div
           role="button"
@@ -256,14 +261,14 @@ const FilterOptionTemplate = ({
             theme={{ content: handles.filterContent }}
           >
             {thresholdForFacetSearch !== undefined &&
-            thresholdForFacetSearch < filters.length ? (
-              <SearchFilterBar name={title} handleChange={setSearchTerm} />
-            ) : null}
+              thresholdForFacetSearch < filters.length ? (
+                <SearchFilterBar name={title} handleChange={setSearchTerm} />
+              ) : null}
             {renderChildren()}
           </Collapse>
         ) : (
-          renderChildren()
-        )}
+              renderChildren()
+            )}
       </div>
     </div>
   )
@@ -299,6 +304,7 @@ FilterOptionTemplate.propTypes = {
   setTruncatedFacetsFetched: PropTypes.func,
   /** Quantity of facets of the current filter */
   quantity: PropTypes.number,
+  closeOnOutsideClick: PropTypes.bool,
 }
 
 export default FilterOptionTemplate
