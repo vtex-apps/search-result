@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Support for the `enableFiltersFetchOptimization` store setting, which makes it possible to fetch only the facets thast were not truncated.
+- Support for the `enableFiltersFetchOptimization` store setting, which makes it possible to fetch only the facets that were not truncated.
 
 ## [3.76.0] - 2020-09-18
 ### Added

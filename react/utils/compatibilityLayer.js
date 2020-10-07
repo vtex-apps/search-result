@@ -63,7 +63,13 @@ export const detachFiltersByType = facets => {
   const groupedFilters = byType(facets)
 
   const brands = pathOr([], ['BRAND', 0, 'facets'], groupedFilters)
-  const brandsQuantity = pathOr(0, ['BRAND', 0, 'quantity'], groupedFilters)
+  const brandsQuantity =
+    groupedFilters &&
+    groupedFilters.BRAND &&
+    groupedFilters.BRAND[0] &&
+    groupedFilters.BRAND[0].quantity != null
+      ? groupedFilters.BRAND[0].quantity
+      : 0
 
   const specificationFilters = (groupedFilters['NUMBER'] || []).concat(
     groupedFilters['TEXT'] || []

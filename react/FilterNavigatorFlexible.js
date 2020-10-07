@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { useDevice } from 'vtex.device-detector'
-import { pathOr } from 'ramda'
 
 import FilterNavigator from './FilterNavigator'
 import FilterNavigatorContext from './components/FilterNavigatorContext'
@@ -31,7 +30,16 @@ const withSearchPageContextProps = Component => ({
   } = useSearchPage()
   const { isMobile } = useDevice()
 
-  const facets = pathOr({}, ['data', 'facets'], searchQuery)
+  const filtersFetchMore =
+    searchQuery && searchQuery.facets && searchQuery.facets.facetsFetchMore
+      ? searchQuery.facets.facetsFetchMore
+      : undefined
+
+  const facets =
+    searchQuery && searchQuery.data && searchQuery.data.facets
+      ? searchQuery.data.facets
+      : {}
+
   const {
     brands,
     priceRanges,
@@ -39,12 +47,6 @@ const withSearchPageContextProps = Component => ({
     categoriesTrees,
     queryArgs,
   } = facets
-
-  const filtersFetchMore = pathOr(
-    undefined,
-    ['facets', 'facetsFetchMore'],
-    searchQuery
-  )
 
   if (showFacets === false || !map) {
     return null

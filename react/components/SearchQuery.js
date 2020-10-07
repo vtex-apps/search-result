@@ -145,7 +145,7 @@ const useCorrectSearchStateVariables = (
 }
 
 const useQueries = (variables, facetsArgs) => {
-  const { getSettings } = useRuntime() // Is it okay to call this here?
+  const { getSettings } = useRuntime()
   const isLazyFacetsFetchEnabled = getSettings('vtex.store')
     ?.enableFiltersFetchOptimization
   const productSearchResult = useQuery(productSearchQuery, { variables })
@@ -171,7 +171,7 @@ const useQueries = (variables, facetsArgs) => {
     variables: {
       query: facetsArgs.facetQuery,
       map: facetsArgs.facetMap,
-      from: 0,
+      from: 0, // For some reason, adding `from` and `to` here makes FilterNavigator not render on first render
       to: isLazyFacetsFetchEnabled ? FACETS_RENDER_THRESHOLD : undefined,
       fullText: variables.fullText,
       selectedFacets: variables.selectedFacets,
