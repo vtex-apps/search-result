@@ -76,7 +76,6 @@ const FilterOptionTemplate = ({
   lastOpenFilter,
   setLastOpenFilter,
   openFiltersMode,
-  filtersFetchMore,
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
 }) => {
@@ -111,42 +110,8 @@ const FilterOptionTemplate = ({
   }, [filters, searchTerm, thresholdForFacetSearch])
 
   const openTruncated = value => {
-    if (
-      filtersFetchMore &&
-      isLazyFacetsFetchEnabled &&
-      !truncatedFacetsFetched
-    ) {
+    if (isLazyFacetsFetchEnabled && !truncatedFacetsFetched) {
       setTruncatedFacetsFetched(true)
-      filtersFetchMore({
-        variables: {
-          from: FACETS_RENDER_THRESHOLD,
-          to: undefined, // to the end of the results
-        },
-        updateQuery: (prevResult, { fetchMoreResult }) => {
-          if (!prevResult || !fetchMoreResult) {
-            return
-          }
-          const prevFacets = prevResult.facets.facets
-          const newFacets = fetchMoreResult.facets.facets
-          const fullFacets = []
-          for (let i = 0; i < prevFacets.length; i++) {
-            const completeFacets = [
-              ...prevFacets[i].facets,
-              ...newFacets[i].facets,
-            ]
-            fullFacets.push({
-              ...prevFacets[i],
-              facets: completeFacets,
-            })
-          }
-          return {
-            facets: {
-              ...prevResult.facets,
-              facets: fullFacets,
-            },
-          }
-        },
-      })
     }
     setTruncated(value)
   }
@@ -323,8 +288,6 @@ FilterOptionTemplate.propTypes = {
   setLastOpenFilter: PropTypes.func,
   /** Dictates how many filters can be open at the same time */
   openFiltersMode: PropTypes.string,
-  /** FetchMore of the filters query to fetch new results */
-  filtersFetchMore: PropTypes.func,
   /** If the truncated facets were fetched */
   truncatedFacetsFetched: PropTypes.bool,
   /** Sets if the truncated facets were fetched */

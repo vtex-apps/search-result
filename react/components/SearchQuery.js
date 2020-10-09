@@ -171,7 +171,7 @@ const useQueries = (variables, facetsArgs) => {
     variables: {
       query: facetsArgs.facetQuery,
       map: facetsArgs.facetMap,
-      from: 0, // For some reason, adding `from` and `to` here makes FilterNavigator not render on first render
+      from: 0,
       to: isLazyFacetsFetchEnabled ? FACETS_RENDER_THRESHOLD : undefined,
       fullText: variables.fullText,
       selectedFacets: variables.selectedFacets,

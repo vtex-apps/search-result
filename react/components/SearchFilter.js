@@ -23,7 +23,6 @@ const SearchFilter = ({
   lastOpenFilter,
   setLastOpenFilter,
   openFiltersMode,
-  filtersFetchMore,
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
 }) => {
@@ -42,7 +41,6 @@ const SearchFilter = ({
       lastOpenFilter={lastOpenFilter}
       setLastOpenFilter={setLastOpenFilter}
       openFiltersMode={openFiltersMode}
-      filtersFetchMore={filtersFetchMore}
       truncatedFacetsFetched={truncatedFacetsFetched}
       setTruncatedFacetsFetched={setTruncatedFacetsFetched}
     >
@@ -79,8 +77,6 @@ SearchFilter.propTypes = {
   setLastOpenFilter: PropTypes.func,
   /** Dictates how many filters can be open at the same time */
   openFiltersMode: PropTypes.string,
-  /** FetchMore of the filters query to fetch new results */
-  filtersFetchMore: PropTypes.func,
   /** If the truncated facets were fetched */
   truncatedFacetsFetched: PropTypes.bool,
   /** Sets if the truncated facets were fetched */

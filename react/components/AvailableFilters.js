@@ -8,15 +8,12 @@ const LAZY_RENDER_THRESHOLD = 3
 
 const AvailableFilters = ({ filters = [], ...props }) => {
   const [lastOpenFilter, setLastOpenFilter] = useState()
-  const [truncatedFacetsFetched, setTruncatedFacetsFetched] = useState(false)
   return filters.map((filter, i) => (
     <Filter
       filter={filter}
       {...props}
       lastOpenFilter={lastOpenFilter}
       setLastOpenFilter={setLastOpenFilter}
-      truncatedFacetsFetched={truncatedFacetsFetched}
-      setTruncatedFacetsFetched={setTruncatedFacetsFetched}
       key={filter.title}
       lazyRender={i >= LAZY_RENDER_THRESHOLD}
     />
@@ -34,7 +31,6 @@ const Filter = ({
   openFiltersMode = 'many',
   lastOpenFilter,
   setLastOpenFilter,
-  filtersFetchMore,
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
 }) => {
@@ -67,7 +63,6 @@ const Filter = ({
           lastOpenFilter={lastOpenFilter}
           setLastOpenFilter={setLastOpenFilter}
           openFiltersMode={openFiltersMode}
-          filtersFetchMore={filtersFetchMore}
           truncatedFacetsFetched={truncatedFacetsFetched}
           setTruncatedFacetsFetched={setTruncatedFacetsFetched}
         />
