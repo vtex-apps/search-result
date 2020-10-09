@@ -62,6 +62,44 @@ const SearchResultFlexible = ({
   thresholdForFacetSearch,
   lazyItemsRemaining,
 }) => {
+  useEffect(() => {
+    const pathname = window.location.pathname
+    const initialSearch = window.initialSearchFacets
+
+    if (!initialSearch && searchQuery.facets) {
+      window.initialSearchFacets = { ...searchQuery.facets, pathname }
+      return
+    }
+
+    if (!preventRouteChange) {
+      const initialFacets = initialSearch.pathname.toLowerCase().split('/')
+      const newFacets = pathname.toLowerCase().split('/')
+      const totalEqualFacets = newFacets.filter(facet =>
+        initialFacets.includes(facet)
+      ).length
+
+      if (
+        (newFacets.length < initialFacets.length &&
+          totalEqualFacets === newFacets.length) ||
+        (newFacets.length > initialFacets.length &&
+          totalEqualFacets === initialFacets.length)
+      ) {
+        return
+      }
+
+      window.initialSearchFacets = { ...searchQuery.facets, pathname }
+      return
+    }
+
+    if (
+      searchQuery.facets &&
+      initialSearch.pathname !== pathname &&
+      searchQuery.facets.queryArgs.query !== initialSearch.queryArgs.query
+    ) {
+      window.initialSearchFacets = { ...searchQuery.facets, pathname }
+    }
+  }, [preventRouteChange, searchQuery.facets])
+
   //This makes infinite scroll unavailable.
   //Infinite scroll was deprecated and we have
   //removed it since the flexible search release
