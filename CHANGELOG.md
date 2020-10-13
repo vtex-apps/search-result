@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.78.0] - 2020-10-13
 ### Added
 - Support for the `enableFiltersFetchOptimization` store setting, which makes it possible to fetch only the facets that were not truncated.
 
