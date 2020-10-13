@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - `"showOrderTitle"` prop to OrderBy
-- `"filterIsOpen"` css handler to Filter Navigator
+- `"filterIsOpen"` CSS handle to Filter Navigator
 
 ## [3.77.0] - 2020-10-05
 ### Added
