@@ -62,6 +62,12 @@ const SearchResultFlexible = ({
   thresholdForFacetSearch,
   lazyItemsRemaining,
 }) => {
+  const facetsFromPathname = pathname =>
+    pathname
+      .toLowerCase()
+      .split('/')
+      .filter(facet => facet)
+
   useEffect(() => {
     const pathname = window.location.pathname
     const initialSearch = window.initialSearchFacets
@@ -72,8 +78,8 @@ const SearchResultFlexible = ({
     }
 
     if (!preventRouteChange) {
-      const initialFacets = initialSearch.pathname.toLowerCase().split('/')
-      const newFacets = pathname.toLowerCase().split('/')
+      const initialFacets = facetsFromPathname(initialSearch.pathname)
+      const newFacets = facetsFromPathname(pathname)
       const totalEqualFacets = newFacets.filter(facet =>
         initialFacets.includes(facet)
       ).length
