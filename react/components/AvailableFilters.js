@@ -31,8 +31,10 @@ const Filter = ({
   openFiltersMode = 'many',
   lastOpenFilter,
   setLastOpenFilter,
+  truncatedFacetsFetched,
+  setTruncatedFacetsFetched,
 }) => {
-  const { type, title, facets, oneSelectedCollapse = false } = filter
+  const { type, title, facets, quantity, oneSelectedCollapse = false } = filter
 
   switch (type) {
     case 'PriceRanges':
@@ -51,6 +53,7 @@ const Filter = ({
           key={title}
           title={title}
           facets={facets}
+          quantity={quantity}
           oneSelectedCollapse={oneSelectedCollapse}
           preventRouteChange={preventRouteChange}
           initiallyCollapsed={initiallyCollapsed}
@@ -60,6 +63,8 @@ const Filter = ({
           lastOpenFilter={lastOpenFilter}
           setLastOpenFilter={setLastOpenFilter}
           openFiltersMode={openFiltersMode}
+          truncatedFacetsFetched={truncatedFacetsFetched}
+          setTruncatedFacetsFetched={setTruncatedFacetsFetched}
         />
       )
   }
@@ -78,7 +83,9 @@ AvailableFilters.propTypes = {
   priceRange: PropTypes.string,
   /** Prevent route changes */
   preventRouteChange: PropTypes.bool,
+  /** If filters start collapsed */
   initiallyCollapsed: PropTypes.bool,
+  /** If filters start truncated */
   truncateFilters: PropTypes.bool,
 }
 

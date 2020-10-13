@@ -13,6 +13,7 @@ import { getFilterTitle } from '../constants/SearchHelpers'
 const SearchFilter = ({
   title = 'Default Title',
   facets = [],
+  quantity = 0,
   intl,
   preventRouteChange = false,
   initiallyCollapsed = false,
@@ -22,6 +23,8 @@ const SearchFilter = ({
   lastOpenFilter,
   setLastOpenFilter,
   openFiltersMode,
+  truncatedFacetsFetched,
+  setTruncatedFacetsFetched,
 }) => {
   const sampleFacet = facets && facets.length > 0 ? facets[0] : null
   const facetTitle = getFilterTitle(title, intl)
@@ -31,12 +34,15 @@ const SearchFilter = ({
       id={sampleFacet ? sampleFacet.map : null}
       title={facetTitle}
       filters={facets}
+      quantity={quantity}
       initiallyCollapsed={initiallyCollapsed}
       lazyRender={lazyRender}
       truncateFilters={truncateFilters}
       lastOpenFilter={lastOpenFilter}
       setLastOpenFilter={setLastOpenFilter}
       openFiltersMode={openFiltersMode}
+      truncatedFacetsFetched={truncatedFacetsFetched}
+      setTruncatedFacetsFetched={setTruncatedFacetsFetched}
     >
       {facet => (
         <FacetItem
@@ -65,9 +71,18 @@ SearchFilter.propTypes = {
   lazyRender: PropTypes.bool,
   /** When `true`, truncates filters with more than 10 options displaying a button to see all */
   truncateFilters: PropTypes.bool,
+  /** Last open filter */
   lastOpenFilter: PropTypes.string,
+  /** Sets the last open filter */
   setLastOpenFilter: PropTypes.func,
+  /** Dictates how many filters can be open at the same time */
   openFiltersMode: PropTypes.string,
+  /** If the truncated facets were fetched */
+  truncatedFacetsFetched: PropTypes.bool,
+  /** Sets if the truncated facets were fetched */
+  setTruncatedFacetsFetched: PropTypes.func,
+  /** Quantity of facets of the current filter */
+  quantity: PropTypes.number,
 }
 
 export default injectIntl(SearchFilter)

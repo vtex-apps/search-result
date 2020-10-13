@@ -73,16 +73,23 @@ const SearchResultFlexible = ({
       ? PAGINATION_TYPE.SHOW_MORE
       : pagination
   const facets = pathOr(emptyFacets, ['data', 'facets'], searchQuery)
-  const { brands, priceRanges, specificationFilters, categoriesTrees } = facets
+  const {
+    brands,
+    brandsQuantity,
+    priceRanges,
+    specificationFilters,
+    categoriesTrees,
+  } = facets
   const filters = useMemo(
     () =>
       getFilters({
         specificationFilters,
         priceRanges,
         brands,
+        brandsQuantity,
         hiddenFacets,
       }),
-    [brands, hiddenFacets, priceRanges, specificationFilters]
+    [brands, hiddenFacets, priceRanges, specificationFilters, brandsQuantity]
   )
 
   const handles = useCssHandles(CSS_HANDLES)

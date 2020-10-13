@@ -20,6 +20,7 @@ import { SearchFilterBar } from './SearchFilterBar'
 import SettingsContext from './SettingsContext'
 
 import { useRenderOnView } from '../hooks/useRenderOnView'
+import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
 
 /** Returns true if elementRef has ever been scrolled */
 const useHasScrolled = elementRef => {
@@ -58,13 +59,6 @@ const CSS_HANDLES = [
 ]
 
 const useSettings = () => useContext(SettingsContext)
-
-const MAX_ITEMS_THRESHOLD = 12
-
-/** Renders only ${RENDER_THRESHOLD} items on the list until the user scrolls or clicks `See more`,
- * for improved rendering performance */
-const RENDER_THRESHOLD = 10
-
 /**
  * Collapsable filters container
  */
@@ -72,6 +66,7 @@ const FilterOptionTemplate = ({
   id,
   selected = false,
   title,
+  quantity,
   collapsable = true,
   children,
   filters,
@@ -81,6 +76,8 @@ const FilterOptionTemplate = ({
   lastOpenFilter,
   setLastOpenFilter,
   openFiltersMode,
+  truncatedFacetsFetched,
+  setTruncatedFacetsFetched,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
@@ -92,6 +89,8 @@ const FilterOptionTemplate = ({
 
   const isLazyRenderEnabled = getSettings('vtex.store')
     ?.enableSearchRenderingOptimization
+  const isLazyFacetsFetchEnabled = getSettings('vtex.store')
+    ?.enableFiltersFetchOptimization
 
   const { hasBeenViewed, dummyElement } = useRenderOnView({
     lazyRender: isLazyRenderEnabled && lazyRender,
@@ -110,25 +109,33 @@ const FilterOptionTemplate = ({
     )
   }, [filters, searchTerm, thresholdForFacetSearch])
 
+  const openTruncated = value => {
+    if (isLazyFacetsFetchEnabled && !truncatedFacetsFetched) {
+      setTruncatedFacetsFetched(true)
+    }
+    setTruncated(value)
+  }
+
   const renderChildren = () => {
     if (typeof children !== 'function') {
       return children
     }
 
     const shouldTruncate =
-      truncateFilters && filteredFacets.length >= MAX_ITEMS_THRESHOLD
+      (truncateFilters || isLazyFacetsFetchEnabled) &&
+      quantity > FACETS_RENDER_THRESHOLD
 
     const shouldLazyRender =
       !shouldTruncate && !hasScrolled && isLazyRenderEnabled
 
     /** Inexact measure but good enough for displaying a properly sized scrollbar */
     const placeholderSize = shouldLazyRender
-      ? (filters.length - RENDER_THRESHOLD) * 34
+      ? (filters.length - FACETS_RENDER_THRESHOLD) * 34
       : 0
 
     const endSlice =
       shouldLazyRender || (shouldTruncate && truncated)
-        ? RENDER_THRESHOLD
+        ? FACETS_RENDER_THRESHOLD
         : filteredFacets.length
 
     return (
@@ -137,7 +144,7 @@ const FilterOptionTemplate = ({
         {placeholderSize > 0 && <div style={{ height: placeholderSize }} />}
         {shouldTruncate && (
           <button
-            onClick={() => setTruncated(truncated => !truncated)}
+            onClick={() => openTruncated(truncated => !truncated)}
             className={`${handles.seeMoreButton} mt2 pv2 bn pointer c-link`}
           >
             <FormattedMessage
@@ -146,7 +153,9 @@ const FilterOptionTemplate = ({
                   ? 'store/filter.more-items'
                   : 'store/filter.less-items'
               }
-              values={{ quantity: filteredFacets.length - RENDER_THRESHOLD }}
+              values={{
+                quantity: quantity - FACETS_RENDER_THRESHOLD,
+              }}
             />
           </button>
         )}
@@ -228,7 +237,9 @@ const FilterOptionTemplate = ({
         })}
         ref={scrollable}
         style={
-          !truncateFilters || isLazyRenderEnabled ? { maxHeight: '200px' } : {}
+          !(truncateFilters || isLazyFacetsFetchEnabled) || isLazyRenderEnabled
+            ? { maxHeight: '200px' }
+            : {}
         }
         aria-hidden={!isOpen}
       >
@@ -271,9 +282,18 @@ FilterOptionTemplate.propTypes = {
   lazyRender: PropTypes.bool,
   /** When `true`, truncates filters with more than 10 options displaying a button to see all */
   truncateFilters: PropTypes.bool,
+  /** Last open filter */
   lastOpenFilter: PropTypes.string,
+  /** Sets the last open filter */
   setLastOpenFilter: PropTypes.func,
+  /** Dictates how many filters can be open at the same time */
   openFiltersMode: PropTypes.string,
+  /** If the truncated facets were fetched */
+  truncatedFacetsFetched: PropTypes.bool,
+  /** Sets if the truncated facets were fetched */
+  setTruncatedFacetsFetched: PropTypes.func,
+  /** Quantity of facets of the current filter */
+  quantity: PropTypes.number,
 }
 
 export default FilterOptionTemplate

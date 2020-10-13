@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { flatten } from 'ramda'
-import React, { useMemo, Fragment } from 'react'
+import React, { useMemo, Fragment, useState, useEffect } from 'react'
 import ContentLoader from 'react-content-loader'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
@@ -22,6 +22,7 @@ import FilterNavigatorTitleTag from './components/FilterNavigatorTitleTag'
 import styles from './searchResult.css'
 import { CATEGORIES_TITLE } from './utils/getFilters'
 import { newFacetPathName } from './utils/slug'
+import { FACETS_RENDER_THRESHOLD } from './constants/filterConstants'
 
 const CSS_HANDLES = [
   'filter__container',
@@ -74,9 +75,50 @@ const FilterNavigator = ({
   filtersTitleHtmlTag = 'h5',
   scrollToTop = 'none',
   openFiltersMode = 'many',
+  filtersFetchMore,
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
+  const [truncatedFacetsFetched, setTruncatedFacetsFetched] = useState(false)
+
+  useEffect(() => {
+    // This condition confirms if there are facets that still need fetching
+    const needsFetching = !!filters.find(
+      filter => filter.quantity > filter.facets.length
+    )
+    if (truncatedFacetsFetched && needsFetching && !loading) {
+      filtersFetchMore({
+        variables: {
+          from: FACETS_RENDER_THRESHOLD,
+          to: undefined, // to the end of the results
+        },
+        updateQuery: (prevResult, { fetchMoreResult }) => {
+          if (!prevResult || !fetchMoreResult) {
+            return
+          }
+          const prevFacets = prevResult.facets.facets
+          const newFacets = fetchMoreResult.facets.facets
+          const fullFacets = []
+          for (let i = 0; i < prevFacets.length; i++) {
+            const completeFacets = [
+              ...prevFacets[i].facets,
+              ...newFacets[i].facets,
+            ]
+            fullFacets.push({
+              ...prevFacets[i],
+              facets: completeFacets,
+            })
+          }
+          return {
+            facets: {
+              ...prevResult.facets,
+              facets: fullFacets,
+            },
+          }
+        },
+      })
+    }
+  }, [filters, filtersFetchMore, truncatedFacetsFetched, loading])
   const mobileLayout =
     (isMobile && layout === LAYOUT_TYPES.responsive) ||
     layout === LAYOUT_TYPES.mobile
@@ -180,6 +222,8 @@ const FilterNavigator = ({
               preventRouteChange={preventRouteChange}
               initiallyCollapsed={initiallyCollapsed}
               navigateToFacet={navigateToFacet}
+              truncatedFacetsFetched={truncatedFacetsFetched}
+              setTruncatedFacetsFetched={setTruncatedFacetsFetched}
               truncateFilters={truncateFilters}
               openFiltersMode={openFiltersMode}
             />
