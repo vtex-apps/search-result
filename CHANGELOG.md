@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Fixed
 - `enableFiltersFetchOptimization` also affecting the mobile environment, always showing the maximum of 10 facets on mobile.
+- Filter Navigator not showing when `enableFiltersFetchOptimization` wasn't enable.
 
 ## [3.78.0] - 2020-10-13
 ### Added

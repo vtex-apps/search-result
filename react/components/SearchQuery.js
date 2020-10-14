@@ -171,7 +171,7 @@ const useQueries = (variables, facetsArgs) => {
     variables: {
       query: facetsArgs.facetQuery,
       map: facetsArgs.facetMap,
-      from: 0,
+      from: isLazyFacetsFetchEnabled ? 0 : undefined,
       to: isLazyFacetsFetchEnabled ? FACETS_RENDER_THRESHOLD : undefined,
       fullText: variables.fullText,
       selectedFacets: variables.selectedFacets,
