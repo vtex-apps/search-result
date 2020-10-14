@@ -81,12 +81,18 @@ const FilterNavigator = ({
   const handles = useCssHandles(CSS_HANDLES)
   const [truncatedFacetsFetched, setTruncatedFacetsFetched] = useState(false)
 
+  const mobileLayout =
+    (isMobile && layout === LAYOUT_TYPES.responsive) ||
+    layout === LAYOUT_TYPES.mobile
+
   useEffect(() => {
     // This condition confirms if there are facets that still need fetching
     const needsFetching = !!filters.find(
       filter => filter.quantity > filter.facets.length
     )
-    if (truncatedFacetsFetched && needsFetching && !loading) {
+
+    // The mobileLayout is part of this condition while we do not have a showMoreFacets button on mobile
+    if ((mobileLayout || truncatedFacetsFetched) && needsFetching && !loading) {
       filtersFetchMore({
         variables: {
           from: FACETS_RENDER_THRESHOLD,
@@ -119,9 +125,6 @@ const FilterNavigator = ({
       })
     }
   }, [filters, filtersFetchMore, truncatedFacetsFetched, loading])
-  const mobileLayout =
-    (isMobile && layout === LAYOUT_TYPES.responsive) ||
-    layout === LAYOUT_TYPES.mobile
 
   const selectedFilters = useMemo(() => {
     const options = [
