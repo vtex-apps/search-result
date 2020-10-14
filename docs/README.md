@@ -297,7 +297,8 @@ Check out the [**Product Summary documentation**](https://vtex.io/docs/component
 
 | Prop name       | Type            | Description                                                                                                  | Default value |
 | --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
-| `hiddenOptions` | `[string]` | Indicates which sorting options will be hidden. (e.g. `["OrderByNameASC", "OrderByNameDESC"]`) | `undefined`       |
+| `hiddenOptions` | `[string]` | Indicates which sorting options will be hidden. (e.g. `["OrderByNameASC", "OrderByNameDESC"]`) | `undefined`      |
+| `showOrderTitle` | `boolean` | Whether the selected order value (e.g. `Relevance`) will be displayed (`true`) or not (`false`).  | `true`           |
 
 The sorting options are:
 
@@ -372,6 +373,7 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `filterAccordionItemBox--{facetValue}`|
 | `filterApplyButtonWrapper`            |
 | `filterAvailable`                     |
+| `filterIsOpen`                        |
 | `filterButtonsBox`                    |
 | `filterClearButtonWrapper`            |
 | `filterContainer--{facetType}`        |

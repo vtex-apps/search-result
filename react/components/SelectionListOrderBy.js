@@ -26,6 +26,7 @@ const SelectionListOrderBy = ({
   message = 'store/ordenation.sort-by',
   orderBy,
   options,
+  showOrderTitle,
 }) => {
   const [showDropdown, setShowDropdown] = useState(false)
   const handles = useCssHandles(CSS_HANDLES)
@@ -105,7 +106,7 @@ const SelectionListOrderBy = ({
           >
             {sortByMessage}
           </span>{' '}
-          {getOptionTitle(orderBy)}
+          {showOrderTitle ? getOptionTitle(orderBy) : null}
         </span>
         <span className={`${handles.filterPopupArrowIcon} ph5 pt1`}>
           <IconCaret orientation={showDropdown ? 'up' : 'down'} size={10} />
@@ -133,6 +134,8 @@ SelectionListOrderBy.propTypes = {
   intl: intlShape,
   /** Message to be displayed */
   message: PropTypes.string,
+  /** Show or hide order title */
+  showOrderTitle: PropTypes.boolean,
 }
 
 export default injectIntl(SelectionListOrderBy)
