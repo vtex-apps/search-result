@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.78.1] - 2020-10-14
 ### Fixed
 - `enableFiltersFetchOptimization` also affecting the mobile environment, always showing the maximum of 10 facets on mobile.
 - Filter Navigator not showing when `enableFiltersFetchOptimization` wasn't enable.
