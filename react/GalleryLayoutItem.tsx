@@ -37,7 +37,6 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
 
   return (
     <GalleryItemComponent
-      id="product-summary"
       {...summary}
       product={product}
       displayMode={displayMode}

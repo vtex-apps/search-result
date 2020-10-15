@@ -8,20 +8,18 @@ import { useResponsiveValue } from 'vtex.responsive-values'
 import { useRuntime } from 'vtex.render-runtime'
 import { useSearchPageState } from 'vtex.search-page-context/SearchPageContext'
 
-import GalleryRow from './GalleryLayoutRow'
+import GalleryLayoutRow from './GalleryLayoutRow'
 import SettingsContext from './components/SettingsContext'
 import ProductListEventCaller from './utils/ProductListEventCaller'
 
-interface LayoutDescription {
+export interface LayoutDescription {
   name: string
   component: string
   itemPerRow?: number
   itemsPerRow?: Record<string, number>
 }
 
-interface Slots {
-  [key: string]: ComponentType
-}
+export type Slots = Record<string, ComponentType>
 
 export interface GalleryLayoutProps {
   layouts: LayoutDescription[]
@@ -29,7 +27,11 @@ export interface GalleryLayoutProps {
   products: any[]
   showingFacets: boolean
   summary: any
+  slots: Slots
 }
+
+export type GalleryLayoutPropsWithSlots = Omit<GalleryLayoutProps, 'slots'> &
+  Slots
 
 const LAZY_RENDER_THRESHOLD = 2
 
@@ -37,13 +39,13 @@ const CSS_HANDLES = ['gallery']
 
 const { ProductListProvider } = ProductListContext
 
-const GalleryLayout: React.FC<GalleryLayoutProps & Slots> = ({
+const GalleryLayout: React.FC<GalleryLayoutProps> = ({
   layouts,
   lazyItemsRemaining,
   products,
   showingFacets,
   summary,
-  ...props
+  slots,
 }) => {
   const { trackingId = 'Search result' } = useContext(SettingsContext) || {}
   const handles = useCssHandles(CSS_HANDLES)
@@ -130,14 +132,14 @@ const GalleryLayout: React.FC<GalleryLayoutProps & Slots> = ({
     <ProductListProvider listName={trackingId}>
       <div className={galleryClasses}>
         {rows.map((rowProducts, index) => (
-          <GalleryRow
+          <GalleryLayoutRow
             key={index.toString()}
             products={rowProducts}
             lazyRender={!!isLazyRenderEnabled && index >= LAZY_RENDER_THRESHOLD}
             summary={summary}
             displayMode={'normal'}
             itemsPerRow={itemsPerRow}
-            GalleryItemComponent={props[currentLayoutDescription.component]}
+            GalleryItemComponent={slots[currentLayoutDescription.component]}
           />
         ))}
         {typeof lazyItemsRemaining === 'number' && lazyItemsRemaining > 0 && (
