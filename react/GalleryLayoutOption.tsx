@@ -7,19 +7,19 @@ import {
 } from 'vtex.search-page-context/SearchPageContext'
 import { SWITCH_GALLERY_LAYOUT_TYPE } from './constants'
 
-interface IconSlot {
+interface OptionSlot {
   isActive?: boolean
 }
 
 interface GalleryLayoutOptionProps {
-  Icon: ComponentType<IconSlot>
+  Option: ComponentType<OptionSlot>
   name: string
 }
 
 const CSS_HANDLES = ['galleryLayoutOption']
 
 const GalleryLayoutOption: React.FC<GalleryLayoutOptionProps> = ({
-  Icon,
+  Option,
   name,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
@@ -44,7 +44,7 @@ const GalleryLayoutOption: React.FC<GalleryLayoutOptionProps> = ({
       aria-label={`Option for ${name} layout`}
       data-testid="galleryLayoutOption"
     >
-      <Icon isActive={isActive} />
+      <Option isActive={isActive} />
     </button>
   )
 }
