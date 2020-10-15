@@ -231,7 +231,8 @@ Structure the `search-result-layout` or the `search-result-layout.customQuery`, 
 | `blockClass`        | `string`       | Unique block ID to be used in [CSS customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization#using-the-blockclass-property)                                                                                    | `undefined`              |
 | `trackingId` | `string` | ID to be used in Google Analytics to track store metrics based on the Search Result block. |  `Search result` | 
 | `mobileLayout`      | `Object` | Controls how the search results page will be displayed to users when using the mobile layout. Possible props and their respective values can be found below.                                                                                                                | `undefined`              |
-| `thresholdForFacetSearch` | `number` | Minimum number of facets that must be displayed on the interface for a search bar to be displayed. If you declare `0`, the search bar will always be displayed. |  `undefined` |
+| `defaultGalleryLayout` | `string` | Name of the gallery layout to be used by default. Only required when gallery layouts are explicitly defined in the gallery app. |  `undefined` | 
+| `thresholdForFacetSearch` | `number` | Minimum number of facets that must be displayed on the interface for a search bar to be displayed. If you declare `0`, the search bar will always be displayed. |  `undefined` | 
 
 - **`mobileLayout` Object:** 
 
@@ -274,11 +275,107 @@ Below you can find the existing props for each of the blocks, in addition to the
 
 - **`gallery` block**
 
-The gallery block does not have its own props, but it has its own inner block structure that must be configured using a `product-summary-shelf`. 
+The `gallery` block behaves differently depending on the existence of explicitly defined layouts for it. To explicitly define a layout for the `gallery` means to provide one or several values to its `layouts` prop.
 
-This means that any `gallery` block implementation created must have a `product-summary-shelf` that in turn must also have its own inner block structure that can be configured. 
+If no layout is explicilty provided, the `gallery` will arrange itself and its items in relation to the available width of the screen.
+In this case, the gallery block does not have its own props, but it has its own inner block structure that must be configured using a `product-summary-shelf`.
+
+This means that if the `gallery` block implementation created has no explictly defined layout, it must have a `product-summary-shelf` that in turn must also have its own inner block structure that can be configured. 
 
 Check out the [**Product Summary documentation**](https://vtex.io/docs/components/content-blocks/vtex.product-summary@2.52.3).  
+
+
+If one or several layouts are explicitly provided, it uses this informations to arrange and display the items. In this scenario, it defaults to the layout that had its name provided as the `defaultGalleryLayout` prop of the `search-result-layout.desktop` or `search-result-layout.mobile` blocks.
+
+In this case, the gallery will use the component provided by the currently selected layout. A `LayoutDescription` can only provide the name of the slot that will be used as the item component. To work, the slot needs to be added as a gallery block prop with this same name.
+
+Check out the [**Slots documentation**](https://vtex.io/docs/recipes/templates/using-slots-composition/). 
+
+To allow the user to choose between layouts, use the `gallery-layout-switcher` block.
+
+| Prop name | Type                      | Description                                                                                       | Default value |
+| --------- | ------------------------- | ------------------------------------------------------------------------------------------------- | ------------- |
+| `layouts`  | `[LayoutDescription]` | List of Layout Descriptions used to arrange and display the items. If no value is provided, gallery must receive a `product-summary-shelf` block. | `undefined`  |
+
+- **`LayoutDescription` Object:** 
+
+| Prop name | Type   | Description                                                           | Default value |
+| --------- | ------ | --------------------------------------------------------------------- | ------------- |
+| `name`   | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Name of the layout. It should be unique in relation to other layouts in the same `gallery`.  Use this to identify the `defaultGalleryLayout` on `search-result-layout.desktop` or `search-result-layout.mobile` blocks. | `undefined`      |
+| `component`   | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Name of the Slot that holds the block that should be used in this layout. The value of this prop should be equal to the Slot name, thus being PascalCased. The Slot is the one that must have the block name, while this prop only references the Slot name. The Slot in question must be added as a prop for the `gallery`. Check out its use in the example below. | `undefined`       |
+| `itemsPerRow`   | `number` or `ResponsiveValues` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Number of items to be displayed in each row of the gallery layout. Setting a `ResponsiveValues` gives the ability to set different numbers for desktop, tablet or phone screen sizes. |  `undefined`       |
+
+- **`ResponsiveValues` Object:** 
+  
+Check out the [**Responsive Values documentation**](https://vtex.io/docs/app/vtex.responsive-values/). 
+
+| Prop name | Type | Description | Default value |
+| ------- | ------ | -------- | ------------- | 
+| `desktop` | `number` | Number of slides to be shown on desktop devices. |  `undefined` | 
+| `tablet` | `number` | Number of slides to be shown on tablet devices. | `undefined` | 
+| `phone` | `number` |  Number of slides to be shown on phone devices.   | `undefined` | 
+
+- Example of `gallery` use with multiple layouts:
+```json
+{
+  "gallery": {
+    "props": {
+      "layouts": [
+        {
+          "name": "whole",
+          "component": "WholeLineSummary",
+          "itemsPerRow": 1
+        },
+        {
+          "name": "many",
+          "component": "ManyByLineSummary",
+          "itemsPerRow": {
+            "desktop": 5,
+            "mobile": 2
+          }
+        }
+      ],
+      "WholeLineSummary": "product-summary.shelf#whole",
+      "ManyByLineSummary": "product-summary.shelf#many"
+    }
+  }
+}
+```
+
+- **`gallery-layout-switcher` block**
+
+A block that allow users to navigate between different gallery layouts. Receives blocks as children, preferably `gallery-layout-option` blocks.
+
+- **`gallery-layout-option` block**
+
+| Prop name | Type                      | Description                                                                                       | Default value |
+| --------- | ------------------------- | ------------------------------------------------------------------------------------------------- | ------------- |
+| `name`  | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red)  The name of the layout this option represents. | `undefined`  |
+| `Option` | `block` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red)  A block to be used as the option itself. The block receives the `isActive` prop indicating if the layout corresponding to this option is currently selected, so icon blocks work well here. | `undefined` |
+
+- Example of `gallery-layout-switcher` and `gallery-layout-option` blocks:
+```json
+{
+  "gallery-layout-switcher": {
+    "children": [
+      "gallery-layout-option#whole",
+      "gallery-layout-option#many"
+    ]
+  },
+  "gallery-layout-option#whole": {
+    "props": {
+      "name": "whole",
+      "Icon": "icon-menu#option"
+    }
+  },
+  "gallery-layout-option#many": {
+    "props": {
+      "name": "many",
+      "Icon": "icon-single-grid#option"
+    }
+  }
+}
+```
 
 - **`filter-navigator.v3` block**
 

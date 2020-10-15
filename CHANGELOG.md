@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- gallery block: added support for multiple gallery layouts
+- gallery-layout-switcher block: new block that arranges options that allow users to switch between available gallery layouts
+- gallery-layout-option: new block to be used with gallery-layout-switcher block to represent a layout option
 
 ## [3.82.0] - 2020-11-10
 ### Added
