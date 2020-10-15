@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- New prop `closeOnOutsideClick` on FilterNavigator to close filter on outside click.
+- Prop `closeOnOutsideClick` on `filter-navigator.v3` to close filter on outside click.
 
 ## [3.79.1] - 2020-10-20
 ### Fixed
