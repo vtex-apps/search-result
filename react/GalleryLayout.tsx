@@ -4,7 +4,10 @@ import classNames from 'classnames'
 import { ProductListContext } from 'vtex.product-list-context'
 import { Spinner } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
-import { useResponsiveValue } from 'vtex.responsive-values'
+import {
+  useResponsiveValue,
+  MaybeResponsiveInput,
+} from 'vtex.responsive-values'
 import { useRuntime } from 'vtex.render-runtime'
 import { useSearchPageState } from 'vtex.search-page-context/SearchPageContext'
 
@@ -15,8 +18,7 @@ import ProductListEventCaller from './utils/ProductListEventCaller'
 export interface LayoutDescription {
   name: string
   component: string
-  itemPerRow?: number
-  itemsPerRow?: Record<string, number>
+  itemsPerRow: MaybeResponsiveInput<number>
 }
 
 export type Slots = Record<string, ComponentType>
@@ -62,9 +64,7 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
     return layoutDescription ?? layouts[0]
   }, [galleryLayout, layouts])
 
-  const itemsPerRow = useResponsiveValue(
-    currentLayoutDescription.itemPerRow ?? currentLayoutDescription.itemsPerRow
-  ) as number
+  const itemsPerRow = useResponsiveValue(currentLayoutDescription.itemsPerRow)
 
   const rows = useMemo(() => {
     const rows = []

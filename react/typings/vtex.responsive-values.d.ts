@@ -34,7 +34,7 @@ declare module 'vtex.responsive-values' {
   }
 
   type ResponsiveInput<T> = { [P in keyof typeof InputDevices]?: T }
-  type MaybeResponsiveInput<T> = T | ResponsiveInput<T>
+  export type MaybeResponsiveInput<T> = T | ResponsiveInput<T>
 
   type ResponsiveOutput<T> = { [P in keyof typeof OutputDevices]: T }
 }
