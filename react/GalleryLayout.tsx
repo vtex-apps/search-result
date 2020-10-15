@@ -1,6 +1,5 @@
 import React, { ComponentType, useContext, useMemo } from 'react'
 import classNames from 'classnames'
-import { splitEvery } from 'ramda'
 
 import { ProductListContext } from 'vtex.product-list-context'
 import { Spinner } from 'vtex.styleguide'
@@ -95,10 +94,21 @@ const GalleryLayout: React.FC<GalleryLayoutProps & Slots> = ({
   }, [currentLayoutDescription, width, minItemWidth])
   */
 
-  const rows = useMemo(() => splitEvery(itemsPerRow, products), [
-    itemsPerRow,
-    products,
-  ])
+  const rows = useMemo(() => {
+    const rows = []
+
+    let i = 0
+
+    while (i * itemsPerRow < products.length) {
+      const start = i * itemsPerRow
+      const end = (i + 1) * itemsPerRow
+
+      rows.push(products.slice(start, end))
+      i++
+    }
+
+    return rows
+  }, [itemsPerRow, products])
 
   if (!layouts || layouts.length === 0) {
     return null
