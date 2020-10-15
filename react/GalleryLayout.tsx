@@ -66,36 +66,6 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
     currentLayoutDescription.itemPerRow ?? currentLayoutDescription.itemsPerRow
   ) as number
 
-  /*
-  const itemsPerRow = useMemo(() => {
-    if (currentLayoutDescription.itemPerRow) {
-      return currentLayoutDescription.itemPerRow
-    }
-
-    if (currentLayoutDescription.itemsPerRow) {
-      const sortedItemsPerRow = Object.keys(
-        currentLayoutDescription.itemsPerRow
-      )
-        .map(widthString => +widthString) //converts keys into numbers
-        .sort((a, b) => a - b) // sort in ascending order
-
-      //finds the appropriate desired width for the width available
-      let appropriateItemsPerRow = sortedItemsPerRow.find(
-        desiredWidth => width <= desiredWidth
-      )
-
-      //Available width is bigger than the desired widths, sets it to the biggest
-      if (!appropriateItemsPerRow) {
-        appropriateItemsPerRow = sortedItemsPerRow[sortedItemsPerRow.length - 1]
-      }
-
-      return currentLayoutDescription.itemsPerRow[appropriateItemsPerRow]
-    }
-
-    return Math.floor(width / minItemWidth)
-  }, [currentLayoutDescription, width, minItemWidth])
-  */
-
   const rows = useMemo(() => {
     const rows = []
 
