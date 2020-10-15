@@ -11,7 +11,7 @@ import {
 import { useRuntime } from 'vtex.render-runtime'
 import { useSearchPageState } from 'vtex.search-page-context/SearchPageContext'
 
-import GalleryLayoutRow from './GalleryLayoutRow'
+import GalleryLayoutRow from './components/GalleryLayoutRow'
 import SettingsContext from './components/SettingsContext'
 import ProductListEventCaller from './utils/ProductListEventCaller'
 

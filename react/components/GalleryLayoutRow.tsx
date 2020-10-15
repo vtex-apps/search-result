@@ -1,5 +1,5 @@
 import React, { ComponentType, memo } from 'react'
-import { useRenderOnView } from './hooks/useRenderOnView'
+import { useRenderOnView } from '../hooks/useRenderOnView'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import classNames from 'classnames'
 
