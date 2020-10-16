@@ -365,13 +365,13 @@ A block that allow users to navigate between different gallery layouts. Receives
   "gallery-layout-option#whole": {
     "props": {
       "name": "whole",
-      "Icon": "icon-menu#option"
+      "Option": "icon-menu#option"
     }
   },
   "gallery-layout-option#many": {
     "props": {
       "name": "many",
-      "Icon": "icon-single-grid#option"
+      "Option": "icon-single-grid#option"
     }
   }
 }
