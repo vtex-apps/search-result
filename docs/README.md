@@ -509,6 +509,9 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `galleryItem--{displayMode}`          |
 | `galleryTitle`                        |
 | `gallery`                             |
+| `gallery`                             |
+| `galleryLayoutSwitcher`               |
+| `galleryLayoutOption`                 |
 | `layoutSwitcher`                      |
 | `loadingOverlay`                      |
 | `loadingSpinnerInnerContainer`        |
