@@ -37,7 +37,7 @@ export type GalleryLayoutPropsWithSlots = Omit<GalleryLayoutProps, 'slots'> &
 
 const LAZY_RENDER_THRESHOLD = 2
 
-const CSS_HANDLES = ['gallery']
+const CSS_HANDLES = ['gallery'] as const
 
 const { ProductListProvider } = ProductListContext
 

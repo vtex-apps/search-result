@@ -16,7 +16,7 @@ interface GalleryLayoutOptionProps {
   name: string
 }
 
-const CSS_HANDLES = ['galleryLayoutOption']
+const CSS_HANDLES = ['galleryLayoutOption'] as const
 
 const GalleryLayoutOption: React.FC<GalleryLayoutOptionProps> = ({
   Option,
