@@ -104,6 +104,7 @@ const Gallery = ({
             displayMode={layoutMode}
             rowIndex={index}
             itemsPerRow={itemsPerRow}
+            preloadFirstImage={index === 0}
           />
         ))}
         {typeof lazyItemsRemaining === 'number' && lazyItemsRemaining > 0 && (

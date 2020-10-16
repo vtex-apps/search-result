@@ -13,6 +13,7 @@ const GalleryRow = ({
   displayMode,
   itemsPerRow,
   lazyRender,
+  preloadFirstImage,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -30,7 +31,7 @@ const GalleryRow = ({
     return dummyElement
   }
 
-  return products.map(product => {
+  return products.map((product, i) => {
     return (
       <div
         key={product.productId}
@@ -44,6 +45,7 @@ const GalleryRow = ({
           item={product}
           summary={summary}
           displayMode={displayMode}
+          preload={preloadFirstImage && i === 0}
         />
       </div>
     )
