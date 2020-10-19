@@ -20,7 +20,7 @@ const CategoryItem = ({ label, onClick, className, href }) => {
         e.preventDefault()
         onClick()
       }}
-      href={href ? href.toLowerCase() : href}
+      href={href && href.toLowerCase()}
       title={label}
       onKeyDown={e => e.key === 'Enter' && onClick(e)}
     >
