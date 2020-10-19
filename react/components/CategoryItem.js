@@ -6,6 +6,7 @@ const CSS_HANDLES = ['categoryItemChildren']
 
 const CategoryItem = ({ label, onClick, className, href }) => {
   const handles = useCssHandles(CSS_HANDLES)
+
   return (
     <a
       tabIndex={0}
@@ -19,7 +20,7 @@ const CategoryItem = ({ label, onClick, className, href }) => {
         e.preventDefault()
         onClick()
       }}
-      href={href}
+      href={href ? href.toLowerCase() : href}
       title={label}
       onKeyDown={e => e.key === 'Enter' && onClick(e)}
     >
