@@ -152,6 +152,7 @@ const CategoryFilter = ({
                 render={(childCategory, index) => (
                   <CategoryItem
                     key={childCategory.id}
+                    href={childCategory.href}
                     className={classNames({
                       mt2: index === 0 && !shallow,
                     })}

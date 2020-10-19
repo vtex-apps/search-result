@@ -4,22 +4,27 @@ import { useCssHandles } from 'vtex.css-handles'
 
 const CSS_HANDLES = ['categoryItemChildren']
 
-const CategoryItem = ({ label, onClick, className }) => {
+const CategoryItem = ({ label, onClick, className, href }) => {
   const handles = useCssHandles(CSS_HANDLES)
   return (
-    <div
+    <a
       tabIndex={0}
       role="link"
       className={classNames(
         handles.categoryItemChildren,
-        'ph5 ph3-ns pv5 pv1-ns lh-copy pointer hover-bg-muted-5 c-muted-1',
+        'ph5 ph3-ns pv5 pv1-ns lh-copy pointer hover-bg-muted-5 c-muted-1 db no-underline',
         className
       )}
-      onClick={onClick}
+      onClick={e => {
+        e.preventDefault()
+        onClick()
+      }}
+      href={href}
+      title={label}
       onKeyDown={e => e.key === 'Enter' && onClick(e)}
     >
       {label}
-    </div>
+    </a>
   )
 }
 
