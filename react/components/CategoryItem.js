@@ -10,7 +10,6 @@ const CategoryItem = ({ label, onClick, className, href }) => {
   return (
     <a
       tabIndex={0}
-      role="link"
       className={classNames(
         handles.categoryItemChildren,
         'ph5 ph3-ns pv5 pv1-ns lh-copy pointer hover-bg-muted-5 c-muted-1 db no-underline',
