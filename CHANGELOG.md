@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Added `key` to `filter-less-items` & `filter-more-items` preventing button focus to fix unwanted auto-scroll behavior on chromium-based browsers.
 
 ## [3.79.0] - 2020-10-14
 ### Added
