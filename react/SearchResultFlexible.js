@@ -105,7 +105,7 @@ const SearchResultFlexible = ({
   const [state, dispatch] = useSearchPageStateReducer({
     mobileLayout: mobileLayout.mode1,
     showContentLoader: searchQuery.loading,
-    defaultGalleryLayout: defaultGalleryLayout,
+    defaultGalleryLayout,
   })
 
   useShowContentLoader(searchQuery, dispatch)

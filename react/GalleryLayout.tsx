@@ -1,45 +1,23 @@
-import React, { ComponentType, useContext, useMemo } from 'react'
+import React, { useContext, useMemo } from 'react'
 import classNames from 'classnames'
 
 import { ProductListContext } from 'vtex.product-list-context'
 import { Spinner } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
-import {
-  useResponsiveValue,
-  MaybeResponsiveInput,
-} from 'vtex.responsive-values'
+import { useResponsiveValue } from 'vtex.responsive-values'
 import { useRuntime } from 'vtex.render-runtime'
-import { useSearchPageState } from 'vtex.search-page-context/SearchPageContext'
+import { SearchPageContext } from 'vtex.search-page-context'
 
 import GalleryLayoutRow from './components/GalleryLayoutRow'
 import SettingsContext from './components/SettingsContext'
 import ProductListEventCaller from './utils/ProductListEventCaller'
-
-export interface LayoutDescription {
-  name: string
-  component: string
-  itemsPerRow: MaybeResponsiveInput<number>
-}
-
-export type Slots = Record<string, ComponentType>
-
-export interface GalleryLayoutProps {
-  layouts: LayoutDescription[]
-  lazyItemsRemaining: number
-  products: any[]
-  showingFacets: boolean
-  summary: any
-  slots: Slots
-}
-
-export type GalleryLayoutPropsWithSlots = Omit<GalleryLayoutProps, 'slots'> &
-  Slots
 
 const LAZY_RENDER_THRESHOLD = 2
 
 const CSS_HANDLES = ['gallery'] as const
 
 const { ProductListProvider } = ProductListContext
+const { useSearchPageState } = SearchPageContext
 
 const GalleryLayout: React.FC<GalleryLayoutProps> = ({
   layouts,
@@ -66,8 +44,8 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
 
   const itemsPerRow = useResponsiveValue(currentLayoutDescription.itemsPerRow)
 
-  const rows = useMemo(() => {
-    const rows = []
+  const galleryRows = useMemo(() => {
+    const galleryRows = []
 
     let i = 0
 
@@ -75,11 +53,11 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
       const start = i * itemsPerRow
       const end = (i + 1) * itemsPerRow
 
-      rows.push(products.slice(start, end))
+      galleryRows.push(products.slice(start, end))
       i++
     }
 
-    return rows
+    return galleryRows
   }, [itemsPerRow, products])
 
   if (!layouts || layouts.length === 0) {
@@ -99,15 +77,15 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
     ?.enableSearchRenderingOptimization
 
   return (
-    <ProductListProvider listName={trackingId}>
+    <ProductListProvider listName={trackingId as string}>
       <div className={galleryClasses}>
-        {rows.map((rowProducts, index) => (
+        {galleryRows.map((rowProducts, index) => (
           <GalleryLayoutRow
-            key={index.toString()}
+            key={`${currentLayoutDescription.name}-${index}`}
             products={rowProducts}
             lazyRender={!!isLazyRenderEnabled && index >= LAZY_RENDER_THRESHOLD}
             summary={summary}
-            displayMode={'normal'}
+            displayMode="normal"
             itemsPerRow={itemsPerRow}
             GalleryItemComponent={slots[currentLayoutDescription.component]}
           />

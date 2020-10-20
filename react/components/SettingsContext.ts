@@ -1,5 +1,5 @@
 import { Context, createContext } from 'react'
 
-const SettingsContext: Context<any> = createContext({})
+const SettingsContext: Context<Record<string, unknown>> = createContext({})
 
 export default SettingsContext

@@ -1,19 +1,7 @@
 import React from 'react'
-import GalleryLayout, { GalleryLayoutPropsWithSlots } from './GalleryLayout'
+import GalleryLayout from './GalleryLayout'
 //@ts-ignore
 import GalleryLegacy from './GalleryLegacy'
-
-export type MobileLayoutMode = 'normal' | 'small' | 'inline'
-
-export interface GalleryLegacyProps {
-  lazyItemsRemaining: number
-  maxItemsPerRow: number
-  minItemWidth: number
-  mobileLayoutMode: MobileLayoutMode
-  products: any[]
-  showingFacets: boolean
-  summary: any
-}
 
 const Gallery: React.FC<
   GalleryLegacyProps | GalleryLayoutPropsWithSlots
