@@ -13,7 +13,7 @@ declare global {
   }
   type MobileLayoutMode = 'normal' | 'small' | 'inline'
 
-  interface LayoutDescription {
+  interface LayoutOption {
     name: string
     component: string
     itemsPerRow: MaybeResponsiveInput<number>
@@ -22,7 +22,7 @@ declare global {
   type Slots = Record<string, ComponentType>
 
   interface GalleryLayoutProps {
-    layouts: LayoutDescription[]
+    layouts: LayoutOption[]
     lazyItemsRemaining: number
     products: Product[]
     showingFacets: boolean

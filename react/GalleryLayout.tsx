@@ -32,17 +32,17 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
   const { getSettings } = useRuntime()
   const { galleryLayout } = useSearchPageState()
 
-  const currentLayoutDescription = useMemo(() => {
-    let layoutDescription
+  const currentLayoutOption = useMemo(() => {
+    let layoutOption
 
     if (galleryLayout) {
-      layoutDescription = layouts.find(layout => layout.name === galleryLayout)
+      layoutOption = layouts.find(layout => layout.name === galleryLayout)
     }
 
-    return layoutDescription ?? layouts[0]
+    return layoutOption ?? layouts[0]
   }, [galleryLayout, layouts])
 
-  const itemsPerRow = useResponsiveValue(currentLayoutDescription.itemsPerRow)
+  const itemsPerRow = useResponsiveValue(currentLayoutOption.itemsPerRow)
 
   const galleryRows = useMemo(() => {
     const galleryRows = []
@@ -81,13 +81,13 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
       <div className={galleryClasses}>
         {galleryRows.map((rowProducts, index) => (
           <GalleryLayoutRow
-            key={`${currentLayoutDescription.name}-${index}`}
+            key={`${currentLayoutOption.name}-${index}`}
             products={rowProducts}
             lazyRender={!!isLazyRenderEnabled && index >= LAZY_RENDER_THRESHOLD}
             summary={summary}
             displayMode="normal"
             itemsPerRow={itemsPerRow}
-            GalleryItemComponent={slots[currentLayoutDescription.component]}
+            GalleryItemComponent={slots[currentLayoutOption.component]}
           />
         ))}
         {typeof lazyItemsRemaining === 'number' && lazyItemsRemaining > 0 && (

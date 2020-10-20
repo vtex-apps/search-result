@@ -287,7 +287,7 @@ Check out the [**Product Summary documentation**](https://vtex.io/docs/component
 
 If one or several layouts are explicitly provided, it uses this informations to arrange and display the items. In this scenario, it defaults to the layout that had its name provided as the `defaultGalleryLayout` prop of the `search-result-layout.desktop` or `search-result-layout.mobile` blocks.
 
-In this case, the gallery will use the component provided by the currently selected layout. A `LayoutDescription` can only provide the name of the slot that will be used as the item component. To work, the slot needs to be added as a gallery block prop with this same name.
+In this case, the gallery will use the component provided by the currently selected layout. A `GalleryLayoutOption` can only provide the name of the slot that will be used as the item component. To work, the slot needs to be added as a gallery block prop with this same name.
 
 Check out the [**Slots documentation**](https://vtex.io/docs/recipes/templates/using-slots-composition/). 
 
@@ -295,9 +295,9 @@ To allow the user to choose between layouts, use the `gallery-layout-switcher` b
 
 | Prop name | Type                      | Description                                                                                       | Default value |
 | --------- | ------------------------- | ------------------------------------------------------------------------------------------------- | ------------- |
-| `layouts`  | `[LayoutDescription]` | List of Layout Descriptions used to arrange and display the items. If no value is provided, gallery must receive a `product-summary-shelf` block. | `undefined`  |
+| `layouts`  | `[GalleryLayoutOption]` | List of gallery layout options. If no value is provided, gallery must receive a `product-summary.shelf` block. | `undefined`  |
 
-- **`LayoutDescription` Object:** 
+- **`GalleryLayoutOption` Object:** 
 
 | Prop name | Type   | Description                                                           | Default value |
 | --------- | ------ | --------------------------------------------------------------------- | ------------- |
