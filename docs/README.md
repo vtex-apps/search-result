@@ -278,16 +278,15 @@ Below you can find the existing props for each of the blocks, in addition to the
 The `gallery` block behaves differently depending on the existence of explicitly defined layouts for it. To explicitly define a layout for the `gallery` means to provide one or several values to its `layouts` prop.
 
 If no layout is explicilty provided, the `gallery` will arrange itself and its items in relation to the available width of the screen.
-In this case, the gallery block does not have its own props, but it has its own inner block structure that must be configured using a `product-summary-shelf`.
 
-This means that if the `gallery` block implementation created has no explictly defined layout, it must have a `product-summary-shelf` that in turn must also have its own inner block structure that can be configured. 
+This means that if the `gallery` block implementation created has no explictly defined layout, it must have a `product-summary.shelf` that in turn must also have its own inner block structure that can be configured. 
 
-Check out the [**Product Summary documentation**](https://vtex.io/docs/components/content-blocks/vtex.product-summary@2.52.3).  
+Check out the [**Product Summary documentation**](https://vtex.io/docs/components/content-blocks/vtex.product-summary/).  
 
 
-If one or several layouts are explicitly provided, it uses this informations to arrange and display the items. In this scenario, it defaults to the layout that had its name provided as the `defaultGalleryLayout` prop of the `search-result-layout.desktop` or `search-result-layout.mobile` blocks.
+If one or several layouts are explicitly provided, it uses this information to arrange and display the items, and defaults to the layout that had its name provided as the `defaultGalleryLayout` prop of the `search-result-layout.desktop` or `search-result-layout.mobile` blocks.
 
-In this case, the gallery will use the component provided by the currently selected layout. A `GalleryLayoutOption` can only provide the name of the slot that will be used as the item component. To work, the slot needs to be added as a gallery block prop with this same name.
+The gallery will use the component provided by the currently selected layout. A `GalleryLayoutOption` can only provide the name of the slot that will be used as the item component. To work, the slot needs to be added as a gallery block prop with this same name.
 
 Check out the [**Slots documentation**](https://vtex.io/docs/recipes/templates/using-slots-composition/). 
 
