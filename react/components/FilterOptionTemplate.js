@@ -147,6 +147,9 @@ const FilterOptionTemplate = ({
           <button
             onClick={() => openTruncated(truncated => !truncated)}
             className={`${handles.seeMoreButton} mt2 pv2 bn pointer c-link`}
+            key={
+              truncated ? 'store/filter.more-items' : 'store/filter.less-items'
+            }
           >
             <FormattedMessage
               id={
