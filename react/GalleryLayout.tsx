@@ -1,16 +1,18 @@
-import React, { useContext, useMemo } from 'react'
+import React, { ComponentType, useContext, useMemo } from 'react'
 import classNames from 'classnames'
 
 import { ProductListContext } from 'vtex.product-list-context'
 import { Spinner } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { useResponsiveValue } from 'vtex.responsive-values'
+import { MaybeResponsiveInput } from 'vtex.responsive-values'
 import { useRuntime } from 'vtex.render-runtime'
 import { SearchPageContext } from 'vtex.search-page-context'
 
 import GalleryLayoutRow from './components/GalleryLayoutRow'
 import SettingsContext from './components/SettingsContext'
 import ProductListEventCaller from './utils/ProductListEventCaller'
+import { Product } from './Gallery'
 
 const LAZY_RENDER_THRESHOLD = 2
 
@@ -18,6 +20,23 @@ const CSS_HANDLES = ['gallery'] as const
 
 const { ProductListProvider } = ProductListContext
 const { useSearchPageState } = SearchPageContext
+
+interface LayoutOption {
+  name: string
+  component: string
+  itemsPerRow: MaybeResponsiveInput<number>
+}
+
+export type Slots = Record<string, ComponentType>
+
+export interface GalleryLayoutProps {
+  layouts: LayoutOption[]
+  lazyItemsRemaining: number
+  products: Product[]
+  showingFacets: boolean
+  summary: unknown
+  slots: Slots
+}
 
 const GalleryLayout: React.FC<GalleryLayoutProps> = ({
   layouts,

@@ -1,8 +1,16 @@
-import React, { useMemo, useCallback, memo } from 'react'
+import React, { useMemo, useCallback, memo, ComponentType } from 'react'
 
 import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
 import { usePixel } from 'vtex.pixel-manager'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
+import { Product } from '../Gallery'
+
+interface GalleryLayoutItemProps {
+  GalleryItemComponent: ComponentType<any>
+  item: Product
+  displayMode: string
+  summary: unknown
+}
 
 const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
   GalleryItemComponent,

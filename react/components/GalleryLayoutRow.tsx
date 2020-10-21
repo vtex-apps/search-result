@@ -1,11 +1,21 @@
-import React, { memo } from 'react'
+import React, { ComponentType, memo } from 'react'
 import { useRenderOnView } from '../hooks/useRenderOnView'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import classNames from 'classnames'
 
 import GalleryItem from './GalleryLayoutItem'
+import { Product } from '../Gallery'
 
 const CSS_HANDLES = ['galleryItem'] as const
+
+interface GalleryLayoutRowProps {
+  displayMode: string
+  GalleryItemComponent: ComponentType
+  itemsPerRow: number
+  lazyRender: boolean
+  products: Product[]
+  summary: unknown
+}
 
 const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
   GalleryItemComponent,

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ComponentType } from 'react'
 
 import { useCssHandles } from 'vtex.css-handles'
 import { SearchPageContext } from 'vtex.search-page-context'
@@ -6,6 +6,15 @@ import { SWITCH_GALLERY_LAYOUT_TYPE } from './constants'
 
 const CSS_HANDLES = ['galleryLayoutOption'] as const
 const { useSearchPageState, useSearchPageStateDispatch } = SearchPageContext
+
+interface OptionSlot {
+  isActive?: boolean
+}
+
+interface GalleryLayoutOptionProps {
+  Option: ComponentType<OptionSlot>
+  name: string
+}
 
 const GalleryLayoutOption: React.FC<GalleryLayoutOptionProps> = ({
   Option,
