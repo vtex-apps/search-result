@@ -56,6 +56,8 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
 
     if (galleryLayout) {
       layoutOption = layouts.find(layout => layout.name === galleryLayout)
+    } else {
+      console.error("No default gallery layout defined. Set it in search-result-layout by using the defaultGalleryLayout prop.")
     }
 
     return layoutOption ?? layouts[0]
@@ -81,6 +83,11 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
 
   if (!layouts || layouts.length === 0) {
     return null
+  }
+
+  if(!slots[currentLayoutOption.component]) {
+    console.error(`Define a Slot with name "${currentLayoutOption.component}" for the layout "${currentLayoutOption.name}".`)
+    return null;
   }
 
   const galleryClasses = classNames(
