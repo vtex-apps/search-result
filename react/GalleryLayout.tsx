@@ -5,14 +5,14 @@ import { ProductListContext } from 'vtex.product-list-context'
 import { Spinner } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { useResponsiveValue } from 'vtex.responsive-values'
-import { MaybeResponsiveInput } from 'vtex.responsive-values'
+import type { MaybeResponsiveInput } from 'vtex.responsive-values'
 import { useRuntime } from 'vtex.render-runtime'
 import { SearchPageContext } from 'vtex.search-page-context'
 
 import GalleryLayoutRow from './components/GalleryLayoutRow'
 import SettingsContext from './components/SettingsContext'
 import ProductListEventCaller from './utils/ProductListEventCaller'
-import { Product } from './Gallery'
+import type { Product } from './Gallery'
 
 const LAZY_RENDER_THRESHOLD = 2
 

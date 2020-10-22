@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@testing-library/react-hooks": "^2.0.1",
+    "@vtex/prettier-config": "^0.3.1",
     "@vtex/test-tools": "^1.2.0",
     "@vtex/tsconfig": "^0.5.0",
     "apollo-cache-inmemory": "^1.2.2",
@@ -62,7 +63,7 @@
     "vtex.pixel-manager": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.pixel-manager@1.4.0/public/@types/vtex.pixel-manager",
     "vtex.product-list-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-list-context@0.3.0/public/@types/vtex.product-list-context",
     "vtex.product-summary": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-summary@2.62.0-beta.0/public/@types/vtex.product-summary",
-    "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.124.0/public/@types/vtex.render-runtime",
+    "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.124.1/public/@types/vtex.render-runtime",
     "vtex.responsive-values": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.responsive-values@0.3.0/public/_types/react",
     "vtex.rich-text": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.rich-text@0.11.2/public/@types/vtex.rich-text",
     "vtex.search-page-context": "https://icarosearch--storecomponents.myvtex.com/_v/private/typings/linked/v1/vtex.search-page-context@0.0.3+build1603226529/public/@types/vtex.search-page-context",

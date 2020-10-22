@@ -1641,6 +1641,11 @@
   resolved "https://registry.yarnpkg.com/@vtex/css-handles/-/css-handles-1.1.3.tgz#30bd1010f2907443188738f74dd11d3b6b4ac624"
   integrity sha512-DkqnzMf5jW6lQ1L8wYb9fnXyh0FqZym8qEokGYjeLUqBLBAiVK8XbI4U0ezFswWTOJ3iHZUkUjqPt5WodxR29w==
 
+"@vtex/prettier-config@^0.3.1":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@vtex/prettier-config/-/prettier-config-0.3.3.tgz#08e76abb4d76ec65b435040f56af18d20ab94ae9"
+  integrity sha512-09BHR5ZUn2ySS9tWtaiwb8KJcXvBmjfMZnkW0HP+Pde4u0ZQ+bd2PWIo+BTmWxPdqLZbP2Y/OfXYcwLHwjR44w==
+
 "@vtex/test-tools@^1.2.0":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@vtex/test-tools/-/test-tools-1.2.1.tgz#7eef4fccefac111b5d7b11af83a3face09d8bbc8"
@@ -6014,9 +6019,9 @@ verror@1.10.0:
   version "2.62.0-beta.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-summary@2.62.0-beta.0/public/@types/vtex.product-summary#5c0f8de58da5c992691c561b92671cf0507bff21"
 
-"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.124.0/public/@types/vtex.render-runtime":
-  version "8.124.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.124.0/public/@types/vtex.render-runtime#2b26ae17b8fb7164a71582edb793228354858457"
+"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.124.1/public/@types/vtex.render-runtime":
+  version "8.124.1"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.124.1/public/@types/vtex.render-runtime#ac2bc4f97cd4f90786cd16eac409c21f0674aed1"
 
 "vtex.responsive-values@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.responsive-values@0.3.0/public/_types/react":
   version "0.0.0"

@@ -4,7 +4,7 @@ import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import classNames from 'classnames'
 
 import GalleryItem from './GalleryLayoutItem'
-import { Product } from '../Gallery'
+import type { Product } from '../Gallery'
 
 const CSS_HANDLES = ['galleryItem'] as const
 

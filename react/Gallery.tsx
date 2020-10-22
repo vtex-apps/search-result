@@ -1,6 +1,6 @@
 import React from 'react'
 import GalleryLayout from './GalleryLayout'
-import { GalleryLayoutProps, Slots } from './GalleryLayout'
+import type { GalleryLayoutProps, Slots } from './GalleryLayout'
 //@ts-ignore
 import GalleryLegacy from './GalleryLegacy'
 
