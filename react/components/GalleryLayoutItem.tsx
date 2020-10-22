@@ -27,7 +27,7 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
   )
 
   const query = useMemo(() => {
-    if (searchQuery && searchQuery.variables) {
+    if (searchQuery?.variables) {
       return searchQuery.variables.query
     }
   }, [searchQuery])

@@ -36,9 +36,8 @@ const GalleryLayoutOption: React.FC<GalleryLayoutOptionProps> = ({
   return (
     <button
       className={`${handles.galleryLayoutOption} grow dib br-100 pa2 mr2 ml2 bw0 pointer outline-0 bg-transparent`}
-      onKeyDown={handleOptionClick}
       onClick={handleOptionClick}
-      aria-controls={'layout-option-items'}
+      aria-controls="layout-option-items"
       aria-label={`Option for ${name} layout`}
     >
       <Option isActive={isActive} />
