@@ -43,7 +43,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
 
   return (
     <>
-      {products.map(product => {
+      {products.map((product) => {
         return (
           <div
             key={product.productId}

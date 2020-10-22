@@ -55,9 +55,11 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
     let layoutOption
 
     if (galleryLayout) {
-      layoutOption = layouts.find(layout => layout.name === galleryLayout)
+      layoutOption = layouts.find((layout) => layout.name === galleryLayout)
     } else {
-      console.error("No default gallery layout defined. Set it in search-result-layout by using the defaultGalleryLayout prop.")
+      console.error(
+        'No default gallery layout defined. Set it in search-result-layout by using the defaultGalleryLayout prop.'
+      )
     }
 
     return layoutOption ?? layouts[0]
@@ -85,9 +87,11 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
     return null
   }
 
-  if(!slots[currentLayoutOption.component]) {
-    console.error(`Define a Slot with name "${currentLayoutOption.component}" for the layout "${currentLayoutOption.name}".`)
-    return null;
+  if (!slots[currentLayoutOption.component]) {
+    console.error(
+      `Define a Slot with name "${currentLayoutOption.component}" for the layout "${currentLayoutOption.name}".`
+    )
+    return null
   }
 
   const galleryClasses = classNames(
@@ -104,7 +108,7 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
 
   return (
     <ProductListProvider listName={trackingId as string}>
-      <div className={galleryClasses}>
+      <div id="gallery-layout-container" className={galleryClasses}>
         {galleryRows.map((rowProducts, index) => (
           <GalleryLayoutRow
             key={`${currentLayoutOption.name}-${index}`}

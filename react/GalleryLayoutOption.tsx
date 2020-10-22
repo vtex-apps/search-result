@@ -37,8 +37,10 @@ const GalleryLayoutOption: React.FC<GalleryLayoutOptionProps> = ({
     <button
       className={`${handles.galleryLayoutOption} grow dib br-100 pa2 mr2 ml2 bw0 pointer outline-0 bg-transparent`}
       onClick={handleOptionClick}
-      aria-controls="layout-option-items"
-      aria-label={`Option for ${name} layout`}
+      role="radio"
+      aria-checked={isActive}
+      aria-controls="gallery-layout-container"
+      aria-label={`Switch to ${name} layout`}
     >
       <Option isActive={isActive} />
     </button>

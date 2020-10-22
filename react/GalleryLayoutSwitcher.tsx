@@ -9,10 +9,18 @@ const GalleryLayoutSwitcher: React.FC = ({ children }) => {
 
   const gallerySwitcherClasses = classNames(
     handles.galleryLayoutSwitcher,
-    'flex flex-row flex-wrap items-stretch bn ph1 na4'
+    'flex flex-row flex-wrapitems-stretch bn ph1 na4'
   )
 
-  return <div className={gallerySwitcherClasses}>{children}</div>
+  return (
+    <div
+      className={gallerySwitcherClasses}
+      role="radiogroup"
+      aria-label="Gallery layout switcher"
+    >
+      {children}
+    </div>
+  )
 }
 
 export default GalleryLayoutSwitcher
