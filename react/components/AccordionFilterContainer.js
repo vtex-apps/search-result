@@ -139,7 +139,6 @@ const AccordionFilterContainer = ({
               onCategorySelect={onCategorySelect}
               categoryFiltersMode={categoryFiltersMode}
               hideBorder
-              categoryFiltersMode={categoryFiltersMode}
             />
           </div>
         </AccordionFilterItem>
