@@ -72,6 +72,7 @@ const FilterNavigator = ({
   layout = LAYOUT_TYPES.responsive,
   maxItemsDepartment = 8,
   maxItemsCategory = 8,
+  categoryFiltersMode = 'default',
   filtersTitleHtmlTag = 'h5',
   scrollToTop = 'none',
   openFiltersMode = 'many',
@@ -82,6 +83,7 @@ const FilterNavigator = ({
   fullWidthOnMobile = false,
   navigationTypeOnMobile = 'page',
 }) => {
+  console.log('>>>>categoryFiltersMode', categoryFiltersMode);
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
   const [truncatedFacetsFetched, setTruncatedFacetsFetched] = useState(false)
@@ -230,6 +232,7 @@ const FilterNavigator = ({
               preventRouteChange={preventRouteChange}
               maxItemsDepartment={maxItemsDepartment}
               maxItemsCategory={maxItemsCategory}
+              categoryFiltersMode={categoryFiltersMode}
             />
             <AvailableFilters
               filters={filters}
