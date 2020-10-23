@@ -137,6 +137,7 @@ const AccordionFilterContainer = ({
               tree={tree}
               isVisible={tree.length > 0}
               onCategorySelect={onCategorySelect}
+              categoryFiltersMode={categoryFiltersMode}
               hideBorder
               categoryFiltersMode={categoryFiltersMode}
             />
