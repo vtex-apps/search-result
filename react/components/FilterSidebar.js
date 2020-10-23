@@ -48,6 +48,7 @@ const FilterSidebar = ({
   truncateFilters,
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
+  categoryFiltersMode
 }) => {
   const { searchQuery } = useSearchPage()
   const filterContext = useFilterNavigator()
@@ -192,6 +193,7 @@ const FilterSidebar = ({
             truncateFilters={truncateFilters}
             truncatedFacetsFetched={truncatedFacetsFetched}
             setTruncatedFacetsFetched={setTruncatedFacetsFetched}
+            categoryFiltersMode={categoryFiltersMode}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>

@@ -35,6 +35,7 @@ const AccordionFilterContainer = ({
   truncateFilters,
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
+  categoryFiltersMode
 }) => {
   const { getSettings } = useRuntime()
   const [openItem, setOpenItem] = useState(null)
@@ -137,6 +138,7 @@ const AccordionFilterContainer = ({
               isVisible={tree.length > 0}
               onCategorySelect={onCategorySelect}
               hideBorder
+              categoryFiltersMode={categoryFiltersMode}
             />
           </div>
         </AccordionFilterItem>

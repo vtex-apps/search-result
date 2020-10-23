@@ -202,6 +202,7 @@ const FilterNavigator = ({
               truncateFilters={truncateFilters}
               truncatedFacetsFetched={truncatedFacetsFetched}
               setTruncatedFacetsFetched={setTruncatedFacetsFetched}
+              categoryFiltersMode={categoryFiltersMode}
             />
           </div>
         </div>
