@@ -282,12 +282,11 @@ Check out the [**Product Summary documentation**](https://vtex.io/docs/component
 
 - **`filter-navigator.v3` block**
 
+
 | Prop name | Type                      | Description                                                                                       | Default value |
 | --------- | ------------------------- | ------------------------------------------------------------------------------------------------- | ------------- |
-
 | `categoryFiltersMode`  | `Enum` | Whether the Category Filter should add href (`href`) or not (`default`). By default the filter uses divs with role="link" you may change to href to improve store Link building. | `default`  |
 | `layout`  | `Enum` | Whether the Filter Navigator layout should be responsive (`responsive`) or not (`desktop`). You may use `desktop` when the Filter Navigator was configured to be displayed in a [drawer](https://vtex.io/docs/components/content-blocks/vtex.store-drawer@0.9.0). | `responsive`  |
-
 | `maxItemsDepartment` | `number`                 | Maximum number of departments to be displayed before the See More button is triggered.          | `8`             |
 | `maxItemsCategory`   | `number`                 | Maximum number of category items to be displayed before the See More button is triggered.     | `8`             |
 | `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed (`true`) or open (`false`). | `false` |
