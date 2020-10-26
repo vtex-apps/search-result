@@ -23,6 +23,7 @@ const AccordionFilterGroup = ({
   appliedFiltersOverview,
   navigationType,
   initiallyCollapsed,
+  truncateFilters,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const filters = useSelectedFilters(facets)
@@ -52,6 +53,8 @@ const AccordionFilterGroup = ({
           onFilterCheck={onFilterCheck}
           facets={filters}
           facetTitle={facetTitle}
+          truncateFilters={truncateFilters}
+          navigationType={navigationType}
         />
       </div>
     </AccordionFilterItem>

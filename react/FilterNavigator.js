@@ -199,6 +199,7 @@ const FilterNavigator = ({
               fullWidth={fullWidthOnMobile}
               navigationType={navigationTypeOnMobile}
               initiallyCollapsed={initiallyCollapsed}
+              truncateFilters={truncateFilters}
             />
           </div>
         </div>
