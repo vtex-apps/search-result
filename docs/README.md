@@ -285,13 +285,14 @@ In a scenario where several layouts are provided, your store users are able to s
 | Prop name | Type                      | Description                                                    | Default value   |
 | :---------: | :---------------------: | :--------------------------------------------------------------| :-------------: |
 | `layouts`  | `object` | List of layouts used to arrange and display the items on search results page. Caution: If no value is provided, the `gallery` block must receive instead a `product-summary-shelf` block as child. | `undefined`  |
+| `component` prop's value | `block` | Defines which blocks should be rendered per layout. **Caution**: this prop name must match the value passed to the `component` prop. Its value, in turn, must match the block name of your choosing to be rendered in that specific layout. Check out the example below in order to understand the underlying logic behind this prop. | `undefined` | 
 
 - **`layouts` object:** 
 
 | Prop name   | Type     | Description                                                             | Default value   |
 | :---------: | :------: | :---------------------------------------------------------------------: | :-------------: |
 | `name`   | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Layout name. This value must be unique i.e. not equal to other layout names declared in the `gallery` block. | `undefined` |
-| `component`   | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Name of the [Slot](https://vtex.io/docs/concepts/slots) that will declare the block to be rendered in this layout. The same Slot name used as this prop's value must be declared afterwards as a prop (in the `gallery` block) whose value must be the desired block name. Caution: the `component`  prop's value must be equal to the Slot name responsible for declaring the desired block, thus being PascalCased, not to the desired block name itself. Check out the example below in order to understand the underlying logic behind this prop. | `undefined` |
+| `component`   | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Names the `undefined` prop from the `gallery` block, which is responsible for declaring the block to be rendered in this layout. The new prop name (i.e. this prop's value) can be any of your choosing as long as it is PascalCased i.e. has the first letter of each word in its name capitalized. **Caution**: For this to work, the chosen name passed as this prop's value must be declared afterwards as a `gallery` block' new prop whose value, in turn, is the desired block name to be rendered - *Do not use the `component` prop's value to directly pass the desired block name itself*. Check out the example below in order to understand the underlying logic behind this prop. | `undefined` |
 | `itemsPerRow`   | `number` / `object` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Number of items to be displayed in each row of this layout. This prop works with [responsive values](https://vtex.io/docs/app/vtex.responsive-values/), therefore it also accepts an object with different numbers for desktop, tablet or phone screen sizes (*see the table below*). | `undefined` |
 
 - **`itemsPerRow` object:** 
@@ -332,16 +333,18 @@ For example:
 
 #### `gallery-layout-switcher` block
 
-Allows users to shift between the available `gallery`'s layouts. 
+Logical block that allows users to switch between the available `gallery`'s layouts. 
 
 It receives no props and expects as child the `gallery-layout-option` block described below.
 
 #### `gallery-layout-option` block
 
+Defines how each layout option should be rendered for users.
+
 | Prop name   | Type           | Description                                                         | Default value   |
 | :---------: | :------------: | :-----------------------------------------------------------------: | :-------------: |
-| `name`  | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red)  The name of the layout represented by this option. | `undefined`  |
-| `Option` | `block` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Name of the block that will be used to render the option itself for users. It is strongly recommended to use icon blocks as this prop's value. Caution: the block passed as `option`'s value must receive the `isActive` prop, responsible for indicating whether the layout corresponding to this option is currently selected (`true`) or not (`false`).  | `undefined` |
+| `name`  | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Names the layout option. This prop's value must match the one passed to the `name` prop.  | `undefined`  |
+| `Option` | `block` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Names the block that will be rendered for indicating the given layout option on the UI. It is strongly recommended to use icon blocks as this prop's value in order to facilitate user interaction. **Caution**: the block passed as `option`'s value must receive the `isActive` prop, responsible for indicating whether the layout corresponding to this option is currently selected (`true`) or not (`false`).  | `undefined` |
 
 For example:
 
