@@ -69,6 +69,11 @@ exports[`<OrderBy /> should match snapshot in mobile 1`] = `
       >
         Name, descending
       </button>
+      <button
+        class="hover-bg-muted-5 bg-base orderByOptionItem orderByOptionItem--  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
+      >
+        Collection
+      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -142,6 +147,11 @@ exports[`<OrderBy /> should match snapshot in web mod 1`] = `
         class="hover-bg-muted-5 bg-base orderByOptionItem orderByOptionItem--  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
       >
         Name, descending
+      </button>
+      <button
+        class="hover-bg-muted-5 bg-base orderByOptionItem orderByOptionItem--  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
+      >
+        Collection
       </button>
     </div>
   </div>
