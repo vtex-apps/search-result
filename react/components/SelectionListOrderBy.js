@@ -23,7 +23,7 @@ const CSS_HANDLES = [
 
 const SelectionListOrderBy = ({
   intl,
-  message = 'store/ordenation.sort-by',
+  message = 'store/ordination.sort-by',
   orderBy,
   options,
   showOrderTitle,

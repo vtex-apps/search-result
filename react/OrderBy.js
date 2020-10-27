@@ -7,35 +7,39 @@ import SelectionListOrderBy from './components/SelectionListOrderBy'
 export const SORT_OPTIONS = [
   {
     value: 'OrderByScoreDESC',
-    label: 'store/ordenation.relevance',
+    label: 'store/ordination.relevance',
   },
   {
     value: 'OrderByTopSaleDESC',
-    label: 'store/ordenation.sales',
+    label: 'store/ordination.sales',
   },
   {
     value: 'OrderByReleaseDateDESC',
-    label: 'store/ordenation.release.date',
+    label: 'store/ordination.release.date',
   },
   {
     value: 'OrderByBestDiscountDESC',
-    label: 'store/ordenation.discount',
+    label: 'store/ordination.discount',
   },
   {
     value: 'OrderByPriceDESC',
-    label: 'store/ordenation.price.descending',
+    label: 'store/ordination.price.descending',
   },
   {
     value: 'OrderByPriceASC',
-    label: 'store/ordenation.price.ascending',
+    label: 'store/ordination.price.ascending',
   },
   {
     value: 'OrderByNameASC',
-    label: 'store/ordenation.name.ascending',
+    label: 'store/ordination.name.ascending',
   },
   {
     value: 'OrderByNameDESC',
-    label: 'store/ordenation.name.descending',
+    label: 'store/ordination.name.descending',
+  },
+  {
+    value: 'OrderByCollection',
+    label: 'store/ordination.collection.ascending',
   },
 ]
 
