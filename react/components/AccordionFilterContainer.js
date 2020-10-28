@@ -36,7 +36,7 @@ const AccordionFilterContainer = ({
   truncateFilters,
   loading,
   onClearFilter,
-  showClearByFilterOnMobile,
+  showClearByFilter,
   updateOnFilterSelectionOnMobile,
 }) => {
   const [openItem, setOpenItem] = useState(null)
@@ -178,7 +178,7 @@ const AccordionFilterContainer = ({
                 initiallyCollapsed={initiallyCollapsed}
                 truncateFilters={truncateFilters}
                 onClearFilter={onClearFilter}
-                showClearByFilterOnMobile={showClearByFilterOnMobile}
+                showClearByFilter={showClearByFilter}
               />
             )
         }
@@ -223,7 +223,7 @@ AccordionFilterContainer.propTypes = {
   /** Clear filter function */
   onClearFilter: PropTypes.func,
   /** Whether a clear button that clear all options in a specific filter should appear beside the filter's name (true) or not (false). */
-  showClearByFilterOnMobile: PropTypes.bool,
+  showClearByFilter: PropTypes.bool,
   /** Wether the search will be updated on facet selection (`true`) or not (`false`) when the user is on mobile. */
   updateOnFilterSelectionOnMobile: PropTypes.bool,
 }

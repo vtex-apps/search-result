@@ -47,6 +47,7 @@ const SearchFilter = ({
       setTruncatedFacetsFetched={setTruncatedFacetsFetched}
       closeOnOutsideClick={closeOnOutsideClick}
       appliedFiltersOverview={appliedFiltersOverview}
+      navigateToFacet={navigateToFacet}
     >
       {facet => (
         <FacetItem
