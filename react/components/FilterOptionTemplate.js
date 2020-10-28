@@ -129,7 +129,7 @@ const FilterOptionTemplate = ({
 
     const shouldTruncate =
       (truncateFilters || isLazyFacetsFetchEnabled) &&
-      quantity > FACETS_RENDER_THRESHOLD
+      quantity > FACETS_RENDER_THRESHOLD + 1
 
     const shouldLazyRender =
       !shouldTruncate && !hasScrolled && isLazyRenderEnabled
@@ -152,7 +152,7 @@ const FilterOptionTemplate = ({
           <ShowMoreFilterButton
             quantity={quantity - FACETS_RENDER_THRESHOLD}
             truncated={truncated}
-            toggleTrucate={() => openTruncated(truncated => !truncated)}
+            toggleTruncate={() => openTruncated(truncated => !truncated)}
           />
         )}
       </>

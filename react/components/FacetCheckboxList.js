@@ -36,7 +36,7 @@ const FacetCheckboxList = ({
   const shouldTruncate =
     navigationType === 'collapsible' &&
     truncateFilters &&
-    filteredFacets.length > FACETS_RENDER_THRESHOLD
+    filteredFacets.length > FACETS_RENDER_THRESHOLD + 1
 
   const endSlice =
     shouldTruncate && truncated
@@ -85,7 +85,7 @@ const FacetCheckboxList = ({
         <ShowMoreFilterButton
           quantity={facets.length - FACETS_RENDER_THRESHOLD}
           truncated={truncated}
-          toggleTrucate={() => setTruncated(!truncated)}
+          toggleTruncate={() => setTruncated(!truncated)}
         />
       )}
     </>
