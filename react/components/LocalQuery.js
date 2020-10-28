@@ -12,7 +12,6 @@ const LocalQuery = props => {
     maxItemsPerPage = DEFAULT_MAX_ITEMS_PER_PAGE,
     queryField = '',
     mapField = '',
-    // This is the 'OrderByDefault' value
     orderByField = SORT_OPTIONS[0].value,
     hideUnavailableItems,
     facetsBehavior,

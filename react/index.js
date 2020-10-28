@@ -77,7 +77,6 @@ const SearchResult = props => {
 }
 
 SearchResult.defaultProps = {
-  // This is the 'OrderByDefault' value
   orderBy: SORT_OPTIONS[0].value,
 }
 
