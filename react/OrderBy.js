@@ -6,6 +6,10 @@ import SelectionListOrderBy from './components/SelectionListOrderBy'
 
 export const SORT_OPTIONS = [
   {
+    value: 'OrderByDefault',
+    label: 'store/ordenation.default',
+  },
+  {
     value: 'OrderByScoreDESC',
     label: 'store/ordenation.relevance',
   },
@@ -36,10 +40,6 @@ export const SORT_OPTIONS = [
   {
     value: 'OrderByNameDESC',
     label: 'store/ordenation.name.descending',
-  },
-  {
-    value: 'OrderByCollection',
-    label: 'store/ordenation.collection.ascending',
   },
 ]
 

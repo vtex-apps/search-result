@@ -85,7 +85,7 @@
   "store/ordenation.price.ascending": "Price: Low to High",
   "store/ordenation.name.ascending": "Name, ascending",
   "store/ordenation.name.descending": "Name, descending",
-  "store/ordenation.collection.ascending": "Collection",
+  "store/ordenation.default": "Default",
   "store/layoutModeSwitcher.inline": "Line",
   "store/layoutModeSwitcher.small": "Small",
   "store/layoutModeSwitcher.normal": "Normal",
