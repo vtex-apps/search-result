@@ -51,7 +51,7 @@ const FilterSidebar = ({
   categoryFiltersMode
   loading,
   updateOnFilterSelectionOnMobile,
-  showClearByFilterOnMobile,
+  showClearByFilter,
 }) => {
   const { searchQuery } = useSearchPage()
   const filterContext = useFilterNavigator()
@@ -223,7 +223,7 @@ const FilterSidebar = ({
             categoryFiltersMode={categoryFiltersMode}
             loading={loading}
             onClearFilter={handleClearFilters}
-            showClearByFilterOnMobile={showClearByFilterOnMobile}
+            showClearByFilter={showClearByFilter}
             updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />

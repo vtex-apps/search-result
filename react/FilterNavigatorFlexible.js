@@ -23,7 +23,7 @@ const withSearchPageContextProps = Component => ({
   fullWidthOnMobile,
   navigationTypeOnMobile,
   updateOnFilterSelectionOnMobile,
-  showClearByFilterOnMobile,
+  showClearByFilter,
 }) => {
   const {
     searchQuery,
@@ -94,7 +94,7 @@ const withSearchPageContextProps = Component => ({
           fullWidthOnMobile={fullWidthOnMobile}
           navigationTypeOnMobile={navigationTypeOnMobile}
           updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
-          showClearByFilterOnMobile={showClearByFilterOnMobile}
+          showClearByFilter={showClearByFilter}
         />
       </FilterNavigatorContext.Provider>
     </div>

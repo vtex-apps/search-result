@@ -28,7 +28,7 @@ const AccordionFilterGroup = ({
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
   onClearFilter,
-  showClearByFilterOnMobile,
+  showClearByFilter,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const filters = useSelectedFilters(facets)
@@ -51,7 +51,7 @@ const AccordionFilterGroup = ({
       initiallyCollapsed={initiallyCollapsed}
       onFilterCheck={onFilterCheck}
       onClearFilter={onClearFilter}
-      showClearByFilterOnMobile={showClearByFilterOnMobile}
+      showClearByFilter={showClearByFilter}
     >
       <div
         className={classNames(
