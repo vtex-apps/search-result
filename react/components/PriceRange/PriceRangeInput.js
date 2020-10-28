@@ -65,6 +65,12 @@ const PriceRangeInput = ({ defaultValues, onSubmit, min, max }) => {
     onSubmit(definedValues)
   }
 
+  const handleKeyDown = e => {
+    if (e.key === 'Enter') {
+      handleSubmit()
+    }
+  }
+
   return (
     <div className={`${handles.priceRangeInputWrapper} flex justify-between`}>
       <div className={`${handles.priceRangeInput} mr2`}>
@@ -75,6 +81,7 @@ const PriceRangeInput = ({ defaultValues, onSubmit, min, max }) => {
           locale={culture.locale}
           value={values.left}
           onChange={handleChange('min')}
+          onKeyDown={handleKeyDown}
         />
       </div>
       <div className={`${handles.priceRangeInput} mr2`}>
@@ -85,6 +92,7 @@ const PriceRangeInput = ({ defaultValues, onSubmit, min, max }) => {
           locale={culture.locale}
           value={values.right}
           onChange={handleChange('max')}
+          onKeyDown={handleKeyDown}
         />
       </div>
       <Button
