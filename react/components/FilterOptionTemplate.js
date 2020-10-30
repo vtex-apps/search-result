@@ -182,10 +182,16 @@ const FilterOptionTemplate = ({
     }
   }, [lastOpenFilter, open, openFiltersMode, setLastOpenFilter, title])
 
-  // closeOnOutsideClick only works with openFiltersMode == 'one'
-  if (closeOnOutsideClick && openFiltersMode === 'one') {
-    useOutsideClick(filterRef, handleCollapse, isOpen)
-  }
+  useOutsideClick(
+    filterRef,
+    () => {
+      // closeOnOutsideClick only works with openFiltersMode == 'one'
+      if (closeOnOutsideClick && openFiltersMode === 'one') {
+        handleCollapse()
+      }
+    },
+    isOpen
+  )
 
   const handleKeyDown = useCallback(
     e => {
@@ -264,14 +270,14 @@ const FilterOptionTemplate = ({
             theme={{ content: handles.filterContent }}
           >
             {thresholdForFacetSearch !== undefined &&
-              thresholdForFacetSearch < filters.length ? (
-                <SearchFilterBar name={title} handleChange={setSearchTerm} />
-              ) : null}
+            thresholdForFacetSearch < filters.length ? (
+              <SearchFilterBar name={title} handleChange={setSearchTerm} />
+            ) : null}
             {renderChildren()}
           </Collapse>
         ) : (
-              renderChildren()
-            )}
+          renderChildren()
+        )}
       </div>
     </div>
   )
