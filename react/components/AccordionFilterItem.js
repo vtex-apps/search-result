@@ -36,13 +36,15 @@ const AccordionFilterItem = ({
     }
   }
 
+  const titleSlug = generateSlug(getFilterTitle(title, intl))
+
   return (
     <Fragment>
       {!open && (
         <div
           className={`${applyModifiers(
             handles.accordionFilterContainer,
-            generateSlug(getFilterTitle(title, intl))
+            titleSlug
           )} pl7`}
         >
           <div
@@ -50,10 +52,7 @@ const AccordionFilterItem = ({
             tabIndex={0}
             className={classNames(
               handles.accordionFilterItem,
-              applyModifiers(
-                handles.filterAccordionItemBox,
-                generateSlug(getFilterTitle(title, intl))
-              ),
+              applyModifiers(handles.filterAccordionItemBox, titleSlug),
               't-body pr5 pv3 pointer bb b--muted-5',
               {
                 [handles.accordionFilterItemActive]: open,
