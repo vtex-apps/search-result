@@ -77,6 +77,7 @@ const FilterNavigator = ({
   openFiltersMode = 'many',
   filtersFetchMore,
   closeOnOutsideClick = false,
+  appliedFiltersOverview = 'hide',
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -190,6 +191,7 @@ const FilterNavigator = ({
               priceRange={priceRange}
               preventRouteChange={preventRouteChange}
               navigateToFacet={navigateToFacet}
+              appliedFiltersOverview={appliedFiltersOverview}
             />
           </div>
         </div>
@@ -231,6 +233,7 @@ const FilterNavigator = ({
               truncateFilters={truncateFilters}
               openFiltersMode={openFiltersMode}
               closeOnOutsideClick={closeOnOutsideClick}
+              appliedFiltersOverview={appliedFiltersOverview}
             />
           </div>
           <ExtensionPoint id="shop-review-summary" />
@@ -264,6 +267,8 @@ FilterNavigator.propTypes = {
   initiallyCollapsed: PropTypes.bool,
   truncateFilters: PropTypes.bool,
   filtersTitleHtmlTag: PropTypes.string,
+  /** Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). */
+  appliedFiltersOverview: PropTypes.string,
   ...hiddenFacetsSchema,
 }
 

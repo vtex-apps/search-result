@@ -82,8 +82,8 @@ const FilterOptionTemplate = ({
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
   closeOnOutsideClick = false,
+  appliedFiltersOverview,
 }) => {
-  const { showAppliedFiltersOverview } = useContext(SettingsContext)
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
   const scrollable = useRef()
@@ -250,13 +250,8 @@ const FilterOptionTemplate = ({
             )}
           </div>
         </div>
-        {showAppliedFiltersOverview && filters && !selected && (
-          <div
-            className={classNames(
-              handles.filterSelectedFilters,
-              'f6 c-action-primary'
-            )}
-          >
+        {appliedFiltersOverview === 'show' && filters && !selected && (
+          <div className={classNames(handles.filterSelectedFilters, 'f6')}>
             {filters
               .filter(facet => facet.selected)
               .map(facet => facet.name)
@@ -329,6 +324,8 @@ FilterOptionTemplate.propTypes = {
   /** Quantity of facets of the current filter */
   quantity: PropTypes.number,
   closeOnOutsideClick: PropTypes.bool,
+  /** Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). */
+  appliedFiltersOverview: PropTypes.string,
 }
 
 export default FilterOptionTemplate

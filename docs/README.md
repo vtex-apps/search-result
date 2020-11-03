@@ -232,7 +232,6 @@ Structure the `search-result-layout` or the `search-result-layout.customQuery`, 
 | `trackingId` | `string` | ID to be used in Google Analytics to track store metrics based on the Search Result block. |  `Search result` | 
 | `mobileLayout`      | `Object` | Controls how the search results page will be displayed to users when using the mobile layout. Possible props and their respective values can be found below.                                                                                                                | `undefined`              |
 | `thresholdForFacetSearch` | `number` | Minimum number of facets that must be displayed on the interface for a search bar to be displayed. If you declare `0`, the search bar will always be displayed. |  `undefined` |
-| `showAppliedFiltersOverview` | `boolean` | Whether the list of applied filters should appear below the facet name (`true`) or not (`false`). | `true` |
 
 - **`mobileLayout` Object:** 
 
@@ -294,6 +293,7 @@ Check out the [**Product Summary documentation**](https://vtex.io/docs/component
 | `scrollToTop` | `enum` | Scrolls the page to the top (`auto` or `smooth`) or not (`none`) when selecting a facet. | `none` |
 | `truncateFilters` | `boolean` | Whether a filter selector with more than 10 filter options should shorten the list and display a `See more` button (`true`) or not (`false`). | `false` |
 | `closeOnOutsideClick` | `boolean` | Whether the Filter Navigator component should be closed when users click outside of it (`true`) or not (`false`). Caution: This prop only works when the `openFiltersMode` prop is set as `one`.  | `false` |
+| `appliedFiltersOverview` | `Enum` | Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). | `"hide` |
 
 -  **`order-by` block**
 

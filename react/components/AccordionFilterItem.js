@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { intlShape, injectIntl } from 'react-intl'
 import classNames from 'classnames'
@@ -6,7 +6,6 @@ import { IconCaret } from 'vtex.store-icons'
 import { Tag } from 'vtex.styleguide'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 
-import SettingsContext from './SettingsContext'
 import { getFilterTitle } from '../constants/SearchHelpers'
 import { generateSlug } from './FilterNavigator/legacy/hooks/useSelectedFilters'
 
@@ -31,8 +30,8 @@ const AccordionFilterItem = ({
   selectedFilters = [],
   intl,
   children,
+  appliedFiltersOverview,
 }) => {
-  const { showAppliedFiltersOverview } = useContext(SettingsContext)
   const handles = useCssHandles(CSS_HANDLES)
   const handleKeyDown = e => {
     if (e.key === ' ') {
@@ -93,12 +92,9 @@ const AccordionFilterItem = ({
               <span className={`${handles.accordionFilterItemIcon} fr`}>
                 <IconCaret orientation="down" size={10} />
               </span>
-              {showAppliedFiltersOverview && quantitySelected > 0 && (
+              {appliedFiltersOverview === 'show' && quantitySelected > 0 && (
                 <div
-                  className={classNames(
-                    handles.accordionSelectedFilters,
-                    'f6 c-action-primary'
-                  )}
+                  className={classNames(handles.accordionSelectedFilters, 'f6')}
                 >
                   {selectedFilters.map(facet => facet.name).join(', ')}
                 </div>
@@ -127,6 +123,8 @@ AccordionFilterItem.propTypes = {
   intl: intlShape,
   /** content */
   children: PropTypes.node,
+  /** Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). */
+  appliedFiltersOverview: PropTypes.string,
 }
 
 export default injectIntl(AccordionFilterItem)

@@ -48,7 +48,6 @@ const SearchResultFlexible = ({
   blockClass,
   preventRouteChange = false,
   showFacetQuantity = false,
-  showAppliedFiltersOverview = false,
   // Below are set by SearchContext
   searchQuery,
   maxItemsPerPage,
@@ -117,7 +116,6 @@ const SearchResultFlexible = ({
       showFacetQuantity,
       trackingId,
       thresholdForFacetSearch,
-      showAppliedFiltersOverview,
     }),
     [
       hiddenFacets,
@@ -126,7 +124,6 @@ const SearchResultFlexible = ({
       showFacetQuantity,
       trackingId,
       thresholdForFacetSearch,
-      showAppliedFiltersOverview,
     ]
   )
 

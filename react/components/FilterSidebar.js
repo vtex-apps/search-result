@@ -38,6 +38,7 @@ const FilterSidebar = ({
   priceRange,
   preventRouteChange,
   navigateToFacet,
+  appliedFiltersOverview,
 }) => {
   const filterContext = useFilterNavigator()
   const [open, setOpen] = useState(false)
@@ -170,6 +171,7 @@ const FilterSidebar = ({
             onFilterCheck={handleFilterCheck}
             onCategorySelect={handleUpdateCategories}
             priceRange={priceRange}
+            appliedFiltersOverview={appliedFiltersOverview}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>
