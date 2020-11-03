@@ -11,6 +11,7 @@ import { SearchFilterBar } from './SearchFilterBar'
 const useSettings = () => useContext(SettingsContext)
 
 const FacetCheckboxList = ({ facets, onFilterCheck, facetTitle }) => {
+  const { showFacetQuantity } = useContext(SettingsContext)
   const { thresholdForFacetSearch } = useSettings()
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -49,7 +50,11 @@ const FacetCheckboxList = ({ facets, onFilterCheck, facetTitle }) => {
               className="mb0"
               checked={facet.selected}
               id={name}
-              label={name}
+              label={
+                showFacetQuantity
+                  ? `${facet.name} (${facet.quantity})`
+                  : facet.name
+              }
               name={name}
               onChange={() => onFilterCheck({ ...facet, title: facetTitle })}
               value={name}

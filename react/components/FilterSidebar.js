@@ -6,6 +6,7 @@ import { ExtensionPoint } from 'vtex.render-runtime'
 import { Button } from 'vtex.styleguide'
 import { IconFilter } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import FilterNavigatorContext, {
   useFilterNavigator,
@@ -29,6 +30,7 @@ const CSS_HANDLES = [
   'filterPopupArrowIcon',
   'filterClearButtonWrapper',
   'filterApplyButtonWrapper',
+  'filterTotalProducts',
 ]
 
 const FilterSidebar = ({
@@ -39,11 +41,18 @@ const FilterSidebar = ({
   preventRouteChange,
   navigateToFacet,
   appliedFiltersOverview,
+  totalProductsOnMobile,
 }) => {
+  const { searchQuery } = useSearchPage()
   const filterContext = useFilterNavigator()
   const [open, setOpen] = useState(false)
   const handles = useCssHandles(CSS_HANDLES)
   const shouldClear = useRef(false)
+  const recordsFiltered =
+    searchQuery &&
+    searchQuery.data &&
+    searchQuery.data.productSearch &&
+    searchQuery.data.productSearch.recordsFiltered
 
   const [filterOperations, setFilterOperations] = useState([])
   const [categoryTreeOperations, setCategoryTreeOperations] = useState([])
@@ -176,7 +185,7 @@ const FilterSidebar = ({
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>
         <div
-          className={`${styles.filterButtonsBox} bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base`}
+          className={`${styles.filterButtonsBox} bt b--muted-5 bottom-0 fixed w-100 items-center flex z-1 bg-base flex-wrap`}
         >
           <div
             className={`${handles.filterClearButtonWrapper} bottom-0 fl w-50 pl4 pr2`}
@@ -202,6 +211,20 @@ const FilterSidebar = ({
               <FormattedMessage id="store/search-result.filter-button.apply" />
             </Button>
           </div>
+          {totalProductsOnMobile === 'show' && recordsFiltered && (
+            <div
+              className={`${handles.filterTotalProducts} w-100 flex flex-grow-1 items-center justify-center pre t-action--small`}
+            >
+              <FormattedMessage
+                id="store/search.total-products-2"
+                values={{
+                  recordsFiltered,
+                  // eslint-disable-next-line react/display-name
+                  span: chunks => <span>{chunks}</span>,
+                }}
+              />
+            </div>
+          )}
         </div>
       </Sidebar>
     </Fragment>

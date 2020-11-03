@@ -294,6 +294,7 @@ Check out the [**Product Summary documentation**](https://vtex.io/docs/component
 | `truncateFilters` | `boolean` | Whether a filter selector with more than 10 filter options should shorten the list and display a `See more` button (`true`) or not (`false`). | `false` |
 | `closeOnOutsideClick` | `boolean` | Whether the Filter Navigator component should be closed when users click outside of it (`true`) or not (`false`). Caution: This prop only works when the `openFiltersMode` prop is set as `one`.  | `false` |
 | `appliedFiltersOverview` | `Enum` | Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). | `"hide` |
+| `totalProductsOnMobile` | `Enum` | Whether the total number of products will be visible on mobile (`"show"`) or not (`"hide"`). | `"hide"` |
 
 -  **`order-by` block**
 
@@ -403,6 +404,7 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `filterPopupTitle`                    |
 | `filterSelected`                      |
 | `filterSelectedFilters`               |
+| `filterTotalProducts`                 |
 | `filtersWrapper`                      |
 | `filtersWrapperMobile`                |
 | `filterTemplateOverflow`              |

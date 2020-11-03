@@ -78,6 +78,7 @@ const FilterNavigator = ({
   filtersFetchMore,
   closeOnOutsideClick = false,
   appliedFiltersOverview = 'hide',
+  totalProductsOnMobile = 'hide',
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -192,6 +193,7 @@ const FilterNavigator = ({
               preventRouteChange={preventRouteChange}
               navigateToFacet={navigateToFacet}
               appliedFiltersOverview={appliedFiltersOverview}
+              totalProductsOnMobile={totalProductsOnMobile}
             />
           </div>
         </div>
