@@ -32,6 +32,8 @@ const AccordionFilterContainer = ({
   navigationType,
   initiallyCollapsed,
   truncateFilters,
+  truncatedFacetsFetched,
+  setTruncatedFacetsFetched,
 }) => {
   const [openItem, setOpenItem] = useState(null)
   const handles = useCssHandles(CSS_HANDLES)
@@ -158,6 +160,7 @@ const AccordionFilterContainer = ({
               <AccordionFilterGroup
                 title={filter.title}
                 facets={filter.facets}
+                quantity={filter.quantity}
                 key={title}
                 className={itemClassName}
                 open={isOpen}
@@ -168,6 +171,8 @@ const AccordionFilterContainer = ({
                 navigationType={navigationType}
                 initiallyCollapsed={initiallyCollapsed}
                 truncateFilters={truncateFilters}
+                truncatedFacetsFetched={truncatedFacetsFetched}
+                setTruncatedFacetsFetched={setTruncatedFacetsFetched}
               />
             )
         }
@@ -197,6 +202,10 @@ AccordionFilterContainer.propTypes = {
   initiallyCollapsed: PropTypes.bool,
   /** If filters start truncated */
   truncateFilters: PropTypes.bool,
+  /** If the truncated facets were fetched */
+  truncatedFacetsFetched: PropTypes.bool,
+  /** Sets if the truncated facets were fetched */
+  setTruncatedFacetsFetched: PropTypes.func,
 }
 
 export default injectIntl(AccordionFilterContainer)
