@@ -228,6 +228,7 @@ const useQueries = (variables, facetsArgs) => {
 }
 
 const SearchQuery = ({
+  category,
   maxItemsPerPage,
   query,
   map,
@@ -295,6 +296,7 @@ const SearchQuery = ({
 
   const variables = useMemo(() => {
     return {
+      category,
       map,
       query,
       orderBy,
@@ -318,6 +320,7 @@ const SearchQuery = ({
         installmentCriteria || DEFAULT_QUERY_VALUES.installmentCriteria,
     }
   }, [
+    category,
     map,
     query,
     orderBy,
