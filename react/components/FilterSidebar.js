@@ -213,7 +213,7 @@ const FilterSidebar = ({
           </div>
           {totalProductsOnMobile === 'show' && recordsFiltered && (
             <div
-              className={`${handles.filterTotalProducts} w-100 flex flex-grow-1 items-center justify-center pre t-action--small`}
+              className={`${handles.filterTotalProducts} w-100 flex flex-grow-1 items-center justify-center pre t-small`}
             >
               <FormattedMessage
                 id="store/search.total-products-2"
