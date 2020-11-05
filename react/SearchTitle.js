@@ -58,14 +58,21 @@ const SearchTitle = props => {
 
   const title =
     index >= 0 ? breadcrumbName(index, breadcrumb) : getLastName(breadcrumb)
+
+  const decodedTitle = useMemo(() => {
+    try {
+      return decodeURI(title)
+    } catch {
+      return title
+    }
+  }, [title])
+
   if (!title) {
     return null
   }
 
   return (
-    <h1 className={classNames(wrapperClass, 't-heading-1')}>
-      {decodeURI(title)}
-    </h1>
+    <h1 className={classNames(wrapperClass, 't-heading-1')}>{decodedTitle}</h1>
   )
 }
 
