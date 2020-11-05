@@ -76,6 +76,7 @@ const FilterNavigator = ({
   scrollToTop = 'none',
   openFiltersMode = 'many',
   filtersFetchMore,
+  closeOnOutsideClick = false,
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -229,6 +230,7 @@ const FilterNavigator = ({
               setTruncatedFacetsFetched={setTruncatedFacetsFetched}
               truncateFilters={truncateFilters}
               openFiltersMode={openFiltersMode}
+              closeOnOutsideClick={closeOnOutsideClick}
             />
           </div>
           <ExtensionPoint id="shop-review-summary" />

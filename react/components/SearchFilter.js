@@ -25,6 +25,7 @@ const SearchFilter = ({
   openFiltersMode,
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
+  closeOnOutsideClick,
 }) => {
   const sampleFacet = facets && facets.length > 0 ? facets[0] : null
   const facetTitle = getFilterTitle(title, intl)
@@ -43,6 +44,7 @@ const SearchFilter = ({
       openFiltersMode={openFiltersMode}
       truncatedFacetsFetched={truncatedFacetsFetched}
       setTruncatedFacetsFetched={setTruncatedFacetsFetched}
+      closeOnOutsideClick={closeOnOutsideClick}
     >
       {facet => (
         <FacetItem
@@ -83,6 +85,7 @@ SearchFilter.propTypes = {
   setTruncatedFacetsFetched: PropTypes.func,
   /** Quantity of facets of the current filter */
   quantity: PropTypes.number,
+  closeOnOutsideClick: PropTypes.bool,
 }
 
 export default injectIntl(SearchFilter)

@@ -33,6 +33,7 @@ const Filter = ({
   setLastOpenFilter,
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
+  closeOnOutsideClick,
 }) => {
   const { type, title, facets, quantity, oneSelectedCollapse = false } = filter
 
@@ -65,6 +66,7 @@ const Filter = ({
           openFiltersMode={openFiltersMode}
           truncatedFacetsFetched={truncatedFacetsFetched}
           setTruncatedFacetsFetched={setTruncatedFacetsFetched}
+          closeOnOutsideClick={closeOnOutsideClick}
         />
       )
   }
