@@ -2,11 +2,11 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { intlShape, injectIntl } from 'react-intl'
 import classNames from 'classnames'
-import { Tag } from 'vtex.styleguide'
-import { useCssHandles } from 'vtex.css-handles'
 import { IconCaret } from 'vtex.store-icons'
-
+import { Tag } from 'vtex.styleguide'
+import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import { getFilterTitle } from '../constants/SearchHelpers'
+import { generateSlug } from './FilterNavigator/legacy/hooks/useSelectedFilters'
 
 const CSS_HANDLES = [
   'accordionFilterContainer',
@@ -36,16 +36,23 @@ const AccordionFilterItem = ({
     }
   }
 
+  const titleSlug = generateSlug(getFilterTitle(title, intl))
+
   return (
     <Fragment>
       {!open && (
-        <div className={`${handles.accordionFilterContainer} pl7`}>
+        <div
+          className={`${applyModifiers(
+            handles.accordionFilterContainer,
+            titleSlug
+          )} pl7`}
+        >
           <div
             role="button"
             tabIndex={0}
             className={classNames(
               handles.accordionFilterItem,
-              handles.filterAccordionItemBox,
+              applyModifiers(handles.filterAccordionItemBox, titleSlug),
               't-body pr5 pv3 pointer bb b--muted-5',
               {
                 [handles.accordionFilterItemActive]: open,
@@ -57,7 +64,8 @@ const AccordionFilterItem = ({
           >
             <div
               className={classNames(
-                handles.accordionFilterContent, 'pv4 c-on-base',
+                handles.accordionFilterContent,
+                'pv4 c-on-base',
                 {
                   't-small': open,
                   't-heading-5': !open,
