@@ -96,7 +96,6 @@ const FilterNavigator = ({
       filter => filter.quantity > filter.facets.length
     )
 
-    // The mobileLayout is part of this condition while we do not have a showMoreFacets button on mobile
     if (truncatedFacetsFetched && needsFetching && !loading) {
       filtersFetchMore({
         variables: {

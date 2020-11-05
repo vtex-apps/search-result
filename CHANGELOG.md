@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- `enableFiltersFetchOptimization` now working on mobile.
+
 ## [3.85.4] - 2020-11-13
 
 ### Fixed

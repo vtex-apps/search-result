@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
+import { useRuntime } from 'vtex.render-runtime'
 
 import AccordionFilterItem from './AccordionFilterItem'
 import DepartmentFilters from './DepartmentFilters'
@@ -35,14 +36,21 @@ const AccordionFilterContainer = ({
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
 }) => {
+  const { getSettings } = useRuntime()
   const [openItem, setOpenItem] = useState(null)
   const handles = useCssHandles(CSS_HANDLES)
+  const isLazyFacetsFetchEnabled = getSettings('vtex.store')
+    ?.enableFiltersFetchOptimization
 
   const handleOpen = id => e => {
     e.preventDefault()
 
     if (navigationType === 'collapsible') {
       return
+    }
+
+    if (isLazyFacetsFetchEnabled && !truncatedFacetsFetched) {
+      setTruncatedFacetsFetched(true)
     }
 
     if (openItem === id) {
