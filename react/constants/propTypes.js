@@ -115,7 +115,7 @@ export const searchQueryShape = PropTypes.shape({
 export const queryShape = PropTypes.shape({
   /** Determines the types of the terms, e.g: "c,c,b" (category, category, brand). */
   map: PropTypes.string,
-  /** Current ordenation. */
+  /** Current ordination. */
   order: PropTypes.string,
   /** Current page number. */
   page: PropTypes.string,
@@ -162,14 +162,14 @@ export const searchResultContainerPropTypes = {
   /** Internal route path. e.g: 'store.search' */
   pagesPath: PropTypes.string,
   /** Internal route params.
-   * e.g: { department: 'eletronics', category: 'smartphones' }
+   * e.g: { department: 'electronics', category: 'smartphones' }
    */
   params: PropTypes.object,
   /** Map param. e.g: c,c */
   map: PropTypes.string,
   /** Search result page. */
   page: PropTypes.number,
-  /** Search result ordernation. */
+  /** Search result ordination. */
   orderBy: PropTypes.string,
   /** Price range filter */
   priceRange: PropTypes.string,

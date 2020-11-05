@@ -313,6 +313,7 @@ The sorting options are:
 | Price Ascending          | `"OrderByPriceASC"`         |
 | Name Ascending           | `"OrderByNameASC"`          |
 | Name Descending          | `"OrderByNameDESC"`         |
+| Collection          | `"OrderByCollection"`         |
 
 - **`search-fetch-more` block**
 The `Show More` button is used to load the results of the next search results page. Even when declared, this block is not rendered if there is no next page.

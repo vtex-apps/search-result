@@ -13,10 +13,7 @@ const noProducts = compose(
   pathOr([], ['data', 'productSearch', 'products'])
 )
 
-const isFtOnly = compose(
-  equals('ft'),
-  path(['variables', 'map'])
-)
+const isFtOnly = compose(equals('ft'), path(['variables', 'map']))
 
 const trimStartingSlash = value => value && value.replace(/^\//, '')
 
@@ -67,9 +64,9 @@ const SearchResultLayoutCustomQuery = props => {
       {...(areFieldsFromQueryStringValid
         ? fieldsFromQueryString
         : {
-          queryField: props.querySchema.queryField,
-          mapField: props.querySchema.mapField,
-        })}
+            queryField: props.querySchema.queryField,
+            mapField: props.querySchema.mapField,
+          })}
       orderByField={props.querySchema.orderByField}
       hideUnavailableItems={props.querySchema.hideUnavailableItems}
       facetsBehavior={props.querySchema.facetsBehavior}

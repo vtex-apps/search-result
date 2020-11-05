@@ -11,15 +11,9 @@ const noProducts = compose(
   pathOr([], ['data', 'productSearch', 'products'])
 )
 
-const isFtOnly = compose(
-  equals('ft'),
-  path(['variables', 'map'])
-)
+const isFtOnly = compose(equals('ft'), path(['variables', 'map']))
 
-const noRedirect = compose(
-  isNil,
-  path(['data', 'productSearch', 'redirect'])
-)
+const noRedirect = compose(isNil, path(['data', 'productSearch', 'redirect']))
 
 const foundNothing = searchQuery => {
   const { loading } = searchQuery || {}
@@ -37,20 +31,33 @@ const SearchResultLayout = props => {
     hasCustomNotFound &&
     noRedirect(searchQuery)
   ) {
-    return <ExtensionPoint id="search-not-found-layout" {...removeTreePath(props)} />
+    return (
+      <ExtensionPoint id="search-not-found-layout" {...removeTreePath(props)} />
+    )
   }
 
   if (hasMobileBlock && isMobile) {
-    return <ExtensionPoint id="search-result-layout.mobile" {...removeTreePath(props)} />
+    return (
+      <ExtensionPoint
+        id="search-result-layout.mobile"
+        {...removeTreePath(props)}
+      />
+    )
   }
 
-  return <ExtensionPoint id="search-result-layout.desktop" {...removeTreePath(props)} />
+  return (
+    <ExtensionPoint
+      id="search-result-layout.desktop"
+      {...removeTreePath(props)}
+    />
+  )
 }
 
 SearchResultLayout.getSchema = () => {
   const { description, ...schema } = OldSearchResult.getSchema({
     searchQuery: true,
   })
+
   return {
     ...schema,
     title: 'admin/editor.search-result-layout.title',
