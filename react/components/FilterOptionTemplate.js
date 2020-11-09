@@ -85,6 +85,7 @@ const FilterOptionTemplate = ({
   closeOnOutsideClick = false,
   appliedFiltersOverview,
   navigateToFacet,
+  showClearByFilter,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
@@ -189,7 +190,10 @@ const FilterOptionTemplate = ({
     isOpen
   )
   const showClearButton =
-    !selected && filters && filters.some(filter => filter.selected)
+    showClearByFilter &&
+    !selected &&
+    filters &&
+    filters.some(filter => filter.selected)
 
   const handleKeyDown = useCallback(
     e => {
@@ -338,6 +342,7 @@ FilterOptionTemplate.propTypes = {
   /** Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). */
   appliedFiltersOverview: PropTypes.string,
   navigateToFacet: PropTypes.func,
+  showClearByFilter: PropTypes.bool,
 }
 
 export default FilterOptionTemplate
