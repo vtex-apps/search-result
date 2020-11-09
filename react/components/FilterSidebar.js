@@ -15,7 +15,6 @@ import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
 import { MAP_CATEGORY_CHAR } from '../constants'
 import { buildNewQueryMap } from '../hooks/useFacetNavigation'
-
 import styles from '../searchResult.css'
 import { getMainSearches } from '../utils/compatibilityLayer'
 import {
@@ -48,7 +47,7 @@ const FilterSidebar = ({
   truncateFilters,
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
-  categoryFiltersMode
+  categoryFiltersMode,
   loading,
   updateOnFilterSelectionOnMobile,
   showClearByFilter,
@@ -69,16 +68,16 @@ const FilterSidebar = ({
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const currentTree = useCategoryTree(tree, categoryTreeOperations)
 
-  const isFilterSelected = (filters, filter) => {
-    return filters.find(
-      filterOperation =>
-        filter.value === filterOperation.value && filter.map === filter.map
+  const isFilterSelected = (slectableFilters, filter) => {
+    return slectableFilters.find(
+      (filterOperation) => filter.value === filterOperation.value
     )
   }
 
-  const handleFilterCheck = filter => {
+  const handleFilterCheck = (filter) => {
     if (updateOnFilterSelectionOnMobile && preventRouteChange) {
       navigateToFacet(filter, preventRouteChange)
+
       return
     }
 
@@ -86,7 +85,7 @@ const FilterSidebar = ({
       setFilterOperations(filterOperations.concat(filter))
     } else {
       setFilterOperations(
-        filterOperations.filter(facet => facet.value !== filter.value)
+        filterOperations.filter((facet) => facet.value !== filter.value)
       )
     }
   }
@@ -110,17 +109,19 @@ const FilterSidebar = ({
     setFilterOperations([])
   }
 
-  const handleClearFilters = key => {
+  const handleClearFilters = (key) => {
     shouldClear.current =
       !updateOnFilterSelectionOnMobile || !preventRouteChange
     // Gets the previously selected facets that should be cleared
     const selectedFacets = selectedFilters.filter(
-      facet => !isCategoryDepartmentCollectionOrFT(facet.key) && facet.selected &&
-      (!key || (key && key === facet.key))
+      (facet) =>
+        !isCategoryDepartmentCollectionOrFT(facet.key) &&
+        facet.selected &&
+        (!key || (key && key === facet.key))
     )
 
     // Should not clear categories, departments and clusterIds
-    const selectedRest = filterOperations.filter(facet =>
+    const selectedRest = filterOperations.filter((facet) =>
       isCategoryDepartmentCollectionOrFT(facet.key)
     )
 
@@ -128,13 +129,14 @@ const FilterSidebar = ({
 
     if (updateOnFilterSelectionOnMobile && preventRouteChange) {
       navigateToFacet(facetsToRemove, preventRouteChange)
+
       return
     }
 
     setFilterOperations(facetsToRemove)
   }
 
-  const handleUpdateCategories = maybeCategories => {
+  const handleUpdateCategories = (maybeCategories) => {
     const categories = Array.isArray(maybeCategories)
       ? maybeCategories
       : [maybeCategories]
@@ -142,12 +144,14 @@ const FilterSidebar = ({
     /* There is no need to compare with CATEGORY and DEPARTMENT since
      they are seen as a normal facet in the new VTEX search */
     const categoriesSelected = filterOperations.filter(
-      op => op.map === MAP_CATEGORY_CHAR
+      (op) => op.map === MAP_CATEGORY_CHAR
     )
+
     const newCategories = [...categoriesSelected, ...categories]
 
     if (updateOnFilterSelectionOnMobile && preventRouteChange) {
       navigateToFacet(newCategories, preventRouteChange)
+
       return
     }
 
@@ -155,9 +159,9 @@ const FilterSidebar = ({
     setCategoryTreeOperations(categories)
 
     // Save all filters along with the new categories, appended to the old ones
-    setFilterOperations(filters => {
-      return filters
-        .filter(operations => operations.map !== MAP_CATEGORY_CHAR)
+    setFilterOperations((selectableFilters) => {
+      return selectableFilters
+        .filter((operations) => operations.map !== MAP_CATEGORY_CHAR)
         .concat(newCategories)
     })
   }
@@ -171,6 +175,7 @@ const FilterSidebar = ({
     are important to show the correct facets. */
     if (shouldClear.current) {
       shouldClear.current = false
+
       return filterCategoryDepartmentCollectionAndFT(filterContext)
     }
 
@@ -264,7 +269,7 @@ const FilterSidebar = ({
                 values={{
                   recordsFiltered,
                   // eslint-disable-next-line react/display-name
-                  span: chunks => <span>{chunks}</span>,
+                  span: (chunks) => <span>{chunks}</span>,
                 }}
               />
             </div>
@@ -275,8 +280,8 @@ const FilterSidebar = ({
   )
 }
 
-const updateTree = categories =>
-  produce(draft => {
+const updateTree = (categories) =>
+  produce((draft) => {
     if (!categories.length) {
       return
     }
@@ -285,16 +290,17 @@ const updateTree = categories =>
 
     while (
       !(
-        currentLevel.find(category => category.value === categories[0].value) ||
-        currentLevel.every(category => !category.selected)
+        currentLevel.find(
+          (category) => category.value === categories[0].value
+        ) || currentLevel.every((category) => !category.selected)
       )
     ) {
-      currentLevel = currentLevel.find(category => category.selected).children
+      currentLevel = currentLevel.find((category) => category.selected).children
     }
 
-    categories.forEach(category => {
-      let selectedIndex = currentLevel.findIndex(
-        cat => cat.value === category.value
+    categories.forEach((category) => {
+      const selectedIndex = currentLevel.findIndex(
+        (cat) => cat.value === category.value
       )
 
       currentLevel[selectedIndex].selected = !currentLevel[selectedIndex]

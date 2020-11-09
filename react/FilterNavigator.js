@@ -251,6 +251,7 @@ const FilterNavigator = ({
               openFiltersMode={openFiltersMode}
               closeOnOutsideClick={closeOnOutsideClick}
               appliedFiltersOverview={appliedFiltersOverview}
+              showClearByFilter={showClearByFilter}
             />
           </div>
           <ExtensionPoint id="shop-review-summary" />
