@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect, useReducer } from 'react'
-import { min, max } from 'ramda'
+import { max } from 'ramda'
 import { useRuntime } from 'vtex.render-runtime'
 import {
   useSearchPageStateDispatch,
@@ -78,13 +78,13 @@ const handleFetchMore = async (
       setLoading(false)
       fetchMoreLocked.current = false
 
-      if (!prevResult || !fetchMoreResult) {
+      if (!products || !fetchMoreResult) {
         updateQueryError.current = true
         return
       }
 
       // backwards compatibility
-      if (prevResult.search) {
+      if (prevResult && prevResult.search) {
         return {
           search: {
             ...prevResult.search,
@@ -102,18 +102,12 @@ const handleFetchMore = async (
       }
 
       return {
-        ...prevResult,
+        ...fetchMoreResult,
         productSearch: {
-          ...prevResult.productSearch,
+          ...fetchMoreResult.productSearch,
           products: isForward
-            ? [
-                ...prevResult.productSearch.products,
-                ...fetchMoreResult.productSearch.products,
-              ]
-            : [
-                ...fetchMoreResult.productSearch.products,
-                ...prevResult.productSearch.products,
-              ],
+            ? [...products, ...fetchMoreResult.productSearch.products]
+            : [...fetchMoreResult.productSearch.products, ...products],
         },
       }
     },
