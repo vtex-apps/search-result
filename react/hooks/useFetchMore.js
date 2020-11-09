@@ -143,14 +143,16 @@ export const useFetchMore = props => {
     products,
     queryData: { query, map, orderBy, priceRange },
   } = props
-  const { setQuery } = useRuntime()
+  const { setQuery, query: runtimeQuery } = useRuntime()
   const { fuzzy, operator, searchState } = useSearchState()
+  const currentPage = (runtimeQuery.page && Number(runtimeQuery.page)) || page
+
   const initialState = {
-    page,
-    nextPage: page + 1,
-    previousPage: page - 1,
+    page: currentPage,
+    nextPage: currentPage + 1,
+    previousPage: currentPage - 1,
     from: (page - 1) * maxItemsPerPage,
-    to: page * maxItemsPerPage - 1,
+    to: currentPage * maxItemsPerPage - 1,
   }
   const [pageState, pageDispatch] = useReducer(reducer, initialState)
   const [loading, setLoading] = useFetchingMore()
