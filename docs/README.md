@@ -224,14 +224,14 @@ Structure the `search-result-layout` or the `search-result-layout.customQuery`, 
 
 #### **Available props for `search-result-layout.desktop`, `search-result-layout.mobile` and `search-not-found-layout`**:
 
-| Prop name                 | Type      | Description                                                                                                                                                     | Default value   |
-| ------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
-| `hiddenFacets`            | `Object`  | Indicates which filters should be hidden. Possible props and their respective values can be found below.                                                        | `undefined`.    |
-| `showFacetQuantity`       | `boolean` | Whether the result amount in each filter should appear besides its name on the `filter-navigator.v3` block as (`true`) or (`false`)                             | `false`         |
-| `blockClass`              | `string`  | Unique block ID to be used in [CSS customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization#using-the-blockclass-property)   | `undefined`     |
-| `trackingId`              | `string`  | ID to be used in Google Analytics to track store metrics based on the Search Result block.                                                                      | `Search result` |
-| `mobileLayout`            | `Object`  | Controls how the search results page will be displayed to users when using the mobile layout. Possible props and their respective values can be found below.    | `undefined`     |
-| `thresholdForFacetSearch` | `number`  | Minimum number of facets that must be displayed on the interface for a search bar to be displayed. If you declare `0`, the search bar will always be displayed. | `undefined`     |
+| Prop name           | Type           | Description                                                                                                                          | Default value     |
+| ------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ----------------- |
+| `hiddenFacets`      | `Object` | Indicates which filters should be hidden. Possible props and their respective values can be found below.                                                                                                     | `undefined`.              
+| `showFacetQuantity` | `boolean`      | Whether the result amount in each filter should appear besides its name on the `filter-navigator.v3` block as (`true`) or (`false`)      | `false`           |
+| `blockClass`        | `string`       | Unique block ID to be used in [CSS customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization#using-the-blockclass-property)                                                                                    | `undefined`              |
+| `trackingId` | `string` | ID to be used in Google Analytics to track store metrics based on the Search Result block. |  `Search result` | 
+| `mobileLayout`      | `Object` | Controls how the search results page will be displayed to users when using the mobile layout. Possible props and their respective values can be found below.                                                                                                                | `undefined`              |
+| `thresholdForFacetSearch` | `number` | Minimum number of facets that must be displayed on the interface for a search bar to be displayed. If you declare `0`, the search bar will always be displayed. |  `undefined` |
 
 - **`mobileLayout` Object:**
 
@@ -280,24 +280,29 @@ Check out the [**Product Summary documentation**](https://vtex.io/docs/component
 
 - **`filter-navigator.v3` block**
 
-| Prop name             | Type      | Description                                                                                                                                                                                                                                                                                                                                                                    | Default value |
-| --------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------- |
-| `layout`              | `Enum`    | Whether the Filter Navigator layout should be responsive (`responsive`) or not (`desktop`). You may use `desktop` when the Filter Navigator was configured to be displayed in a [drawer](https://vtex.io/docs/components/content-blocks/vtex.store-drawer@0.9.0).                                                                                                              | `responsive`  |
-| `maxItemsDepartment`  | `number`  | Maximum number of departments to be displayed before the See More button is triggered.                                                                                                                                                                                                                                                                                         | `8`           |
-| `maxItemsCategory`    | `number`  | Maximum number of category items to be displayed before the See More button is triggered.                                                                                                                                                                                                                                                                                      | `8`           |
-| `initiallyCollapsed`  | `Boolean` | Makes the search filters start out collapsed (`true`) or open (`false`).                                                                                                                                                                                                                                                                                                       | `false`       |
-| `openFiltersMode`     | `Enum`    | Defines how many filters can be opened at the same time on the Filter Navigator component. Possible values are: `many` (more than one filter can be opened at the same time) and `one` (only one filter can be opened). Notice that if `one` is declared all filters will be collapsed before user interaction, regardless of what is passed to the `initiallyCollapsed` prop. | `many`        |
-| `filtersTitleHtmlTag` | `string`  | HTML tag for the filter's title.                                                                                                                                                                                                                                                                                                                                               | `h5`          |
-| `scrollToTop`         | `enum`    | Scrolls the page to the top (`auto` or `smooth`) or not (`none`) when selecting a facet.                                                                                                                                                                                                                                                                                       | `none`        |
-| `truncateFilters`     | `boolean` | Whether a filter selector with more than 10 filter options should shorten the list and display a `See more` button (`true`) or not (`false`).                                                                                                                                                                                                                                  | `false`       |
-| `closeOnOutsideClick` | `boolean` | Whether the Filter Navigator component should be closed when users click outside of it (`true`) or not (`false`). Caution: This prop only works when the `openFiltersMode` prop is set as `one`.                                                                                                                                                                               | `false`       |
+| Prop name | Type                      | Description                                                                                       | Default value |
+| --------- | ------------------------- | ------------------------------------------------------------------------------------------------- | ------------- |
+| `categoryFiltersMode`  | `enum` | Whether the category filters should use the `href` attribute with the category pages' URLs (`href`) or not (`default`). By default, the filters use HTML divs with `role="link"`. You may change this behavior by setting this prop's value to `href`, thereby creating a link building to improve the SEO ranking of your category pages. | `default`  |
+| `layout`  | `Enum` | Whether the Filter Navigator layout should be responsive (`responsive`) or not (`desktop`). You may use `desktop` when the Filter Navigator was configured to be displayed in a [drawer](https://vtex.io/docs/components/content-blocks/vtex.store-drawer@0.9.0). | `responsive`  |
+| `maxItemsDepartment` | `number`                 | Maximum number of departments to be displayed before the See More button is triggered.          | `8`             |
+| `maxItemsCategory`   | `number`                 | Maximum number of category items to be displayed before the See More button is triggered.     | `8`             |
+| `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed (`true`) or open (`false`). | `false` |
+| `openFiltersMode`    | `Enum` | Defines how many filters can be opened at the same time on the Filter Navigator component. Possible values are: `many` (more than one filter can be opened at the same time) and `one` (only one filter can be opened). Notice that if `one` is declared all filters will be collapsed before user interaction, regardless of what is passed to the `initiallyCollapsed` prop. | `many` |
+| `filtersTitleHtmlTag` | `string` | HTML tag for the filter's title. | `h5` |
+| `scrollToTop` | `enum` | Scrolls the page to the top (`auto` or `smooth`) or not (`none`) when selecting a facet. | `none` |
+| `truncateFilters` | `boolean` | Whether a filter selector with more than 10 filter options should shorten the list and display a `See more` button (`true`) or not (`false`). | `false` |
+| `closeOnOutsideClick` | `boolean` | Whether the Filter Navigator component should be closed when users click outside of it (`true`) or not (`false`). Caution: This prop only works when the `openFiltersMode` prop is set as `one`.  | `false` |
+| `appliedFiltersOverview` | `Enum` | Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). | `"hide` |
+| `totalProductsOnMobile` | `enum` | Whether the Filter Navigator should display the total number of products on mobile devices  (`show`) or not (`hide`). | `hide` |
+| `fullWidthOnMobile`      | `boolean` | Whether the `filter-navigator.v3` will be rendered on mobile using the screen full width (`true`) or not (`false`).                                                                                                                                               | `false`       |
+| `navigationTypeOnMobile` | `Enum`    | Defines how mobile users should navigate on the filter selector component. Possible values are: `page` (only one list of options can be seen at a time) or `collapsible` (all lists of options can be seen at the same time).                                    | `page`        |
 
-- **`order-by` block**
+-  **`order-by` block**
 
-| Prop name        | Type       | Description                                                                                      | Default value |
-| ---------------- | ---------- | ------------------------------------------------------------------------------------------------ | ------------- |
-| `hiddenOptions`  | `[string]` | Indicates which sorting options will be hidden. (e.g. `["OrderByNameASC", "OrderByNameDESC"]`)   | `undefined`   |
-| `showOrderTitle` | `boolean`  | Whether the selected order value (e.g. `Relevance`) will be displayed (`true`) or not (`false`). | `true`        |
+| Prop name       | Type            | Description                                                                                                  | Default value |
+| --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
+| `hiddenOptions` | `[string]` | Indicates which sorting options will be hidden. (e.g. `["OrderByNameASC", "OrderByNameDESC"]`) | `undefined`      |
+| `showOrderTitle` | `boolean` | Whether the selected order value (e.g. `Relevance`) will be displayed (`true`) or not (`false`).  | `true`           |
 
 The sorting options are:
 
@@ -343,102 +348,105 @@ The sorting options are:
 
 In order to apply CSS customization in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).
 
-| CSS handles                            |
-| -------------------------------------- |
-| `accordionFilter`                      |
-| `accordionFilterContainer`             |
-| `accordionFilterContent`               |
-| `accordionFilterItemActive`            |
-| `accordionFilterItemBox`               |
-| `accordionFilterItemHidden`            |
-| `accordionFilterItemIcon`              |
-| `accordionFilterItemOptions`           |
-| `accordionFilterItemTitle`             |
-| `accordionFilterItem`                  |
-| `accordionFilterOpen`                  |
-| `border`                               |
-| `breadcrumb`                           |
-| `buttonShowMore`                       |
-| `categoriesContainer`                  |
-| `categoryGroup`                        |
-| `categoryParent`                       |
-| `container`                            |
-| `dropdownMobile`                       |
-| `filter`                               |
-| `filterAccordionBreadcrumbs`           |
-| `filterBreadcrumbsContent`             |
-| `filterBreadcrumbsText`                |
-| `filterBreadcrumbsItem`                |
-| `filterBreadcrumbsItemName`            |
-| `filterAccordionItemBox--{facetValue}` |
-| `filterApplyButtonWrapper`             |
-| `filterAvailable`                      |
-| `filterIsOpen`                         |
-| `filterButtonsBox`                     |
-| `filterClearButtonWrapper`             |
-| `filterContainer--{facetType}`         |
-| `filterContainer--b`                   |
-| `filterContainer--c`                   |
-| `filterContainer--priceRange`          |
-| `filterContainer--{selectedFilters}`   |
-| `filterContainer--{title}`             |
-| `filterContainer`                      |
-| `filterIcon`                           |
-| `filterItem--{facetValue}`             |
-| `filterItem--selected`                 |
-| `filterItem`                           |
-| `filterMessage`                        |
-| `filterPopup`                          |
-| `filterPopupArrowIcon`                 |
-| `filterPopupButton`                    |
-| `filterPopupContent`                   |
-| `filterPopupContentContainer`          |
-| `filterPopupContentContainerOpen`      |
-| `filterPopupFooter`                    |
-| `filterPopupOpen`                      |
-| `filterPopupTitle`                     |
-| `filterSelected`                       |
-| `filtersWrapper`                       |
-| `filtersWrapperMobile`                 |
-| `filterTemplateOverflow`               |
-| `filterTitle`                          |
-| `footerButton`                         |
-| `galleryItem`                          |
-| `galleryItem--{displayMode}`           |
-| `galleryTitle`                         |
-| `gallery`                              |
-| `layoutSwitcher`                       |
-| `loadingOverlay`                       |
-| `loadingSpinnerInnerContainer`         |
-| `loadingSpinnerOuterContainer`         |
-| `orderByButton`                        |
-| `orderByDropdown`                      |
-| `orderByOptionItem`                    |
-| `orderByOptionItem--selected`          |
-| `orderByOptionsContainer`              |
-| `orderByText`                          |
-| `orderBy`                              |
-| `progressBarContainer`                 |
-| `progressBar`                          |
-| `progressBarFiller`                    |
-| `resultGallery`                        |
-| `searchNotFoundInfo`                   |
-| `searchNotFoundOops`                   |
-| `searchNotFoundTerm`                   |
-| `searchNotFoundTextListLine`           |
-| `searchNotFoundWhatDoIDo`              |
-| `searchNotFoundWhatToDoDotsContainer`  |
-| `searchNotFoundWhatToDoDots`           |
-| `searchNotFound`                       |
-| `searchResultContainer`                |
-| `seeMoreButton`                        |
-| `selectedFilterItem`                   |
-| `showingProductsContainer`             |
-| `showingProductsCount`                 |
-| `showingProducts`                      |
-| `switch`                               |
-| `totalProductsMessage`                 |
-| `totalProducts`                        |
+| CSS handles                           |
+| ------------------------------------- |
+| `accordionFilter`                     |
+| `accordionFilterContainer`            |
+| `accordionFilterContent`              |
+| `accordionFilterItemActive`           |
+| `accordionFilterItemBox`              |
+| `accordionFilterItemHidden`           |
+| `accordionFilterItemIcon`             |
+| `accordionFilterItemOptions`          |
+| `accordionFilterItemTitle`            |
+| `accordionFilterItem`                 |
+| `accordionFilterOpen`                 |
+| `accordionSelectedFilters`            |
+| `border`                              |
+| `breadcrumb`                          |
+| `buttonShowMore`                      |
+| `categoriesContainer`                 |
+| `categoryGroup`                       |
+| `categoryParent`                      |
+| `container`                           |
+| `dropdownMobile`                      |
+| `filter`                              |
+| `filterAccordionBreadcrumbs`          |
+| `filterBreadcrumbsContent`            |
+| `filterBreadcrumbsText`               |
+| `filterBreadcrumbsItem`               |
+| `filterBreadcrumbsItemName`           |
+| `filterAccordionItemBox--{facetValue}`|
+| `filterApplyButtonWrapper`            |
+| `filterAvailable`                     |
+| `filterIsOpen`                        |
+| `filterButtonsBox`                    |
+| `filterClearButtonWrapper`            |
+| `filterContainer--{facetType}`        |
+| `filterContainer--b`                  |
+| `filterContainer--c`                  |
+| `filterContainer--priceRange`         |
+| `filterContainer--{selectedFilters}`  |
+| `filterContainer--{title}`            |
+| `filterContainer`                     |
+| `filterIcon`                          |
+| `filterItem--{facetValue}`            |
+| `filterItem--selected`                |
+| `filterItem`                          |
+| `filterMessage`                       |
+| `filterPopup`                         |
+| `filterPopupArrowIcon`                |
+| `filterPopupButton`                   |
+| `filterPopupContent`                  |
+| `filterPopupContentContainer`         |
+| `filterPopupContentContainerOpen`     |
+| `filterPopupFooter`                   |
+| `filterPopupOpen`                     |
+| `filterPopupTitle`                    |
+| `filterSelected`                      |
+| `filterSelectedFilters`               |
+| `filterTotalProducts`                 |
+| `filtersWrapper`                      |
+| `filtersWrapperMobile`                |
+| `filterTemplateOverflow`              |
+| `filterTitle`                         |
+| `footerButton`                        |
+| `galleryItem`                         |
+| `galleryItem--{displayMode}`          |
+| `galleryTitle`                        |
+| `gallery`                             |
+| `layoutSwitcher`                      |
+| `loadingOverlay`                      |
+| `loadingSpinnerInnerContainer`        |
+| `loadingSpinnerOuterContainer`        |
+| `orderByButton`                       |
+| `orderByDropdown`                     |
+| `orderByOptionItem`                   |
+| `orderByOptionItem--selected`         |
+| `orderByOptionsContainer`             |
+| `orderByText`                         |
+| `orderBy`                             |
+| `progressBarContainer`                |
+| `progressBar`                         |
+| `progressBarFiller`                   |
+| `resultGallery`                       |
+| `searchNotFoundInfo`                  |
+| `searchNotFoundOops`                  |
+| `searchNotFoundTerm`                  |
+| `searchNotFoundTextListLine`          |
+| `searchNotFoundWhatDoIDo`             |
+| `searchNotFoundWhatToDoDotsContainer` |
+| `searchNotFoundWhatToDoDots`          |
+| `searchNotFound`                      |
+| `searchResultContainer`               |
+| `seeMoreButton`                       |
+| `selectedFilterItem`                  |
+| `showingProductsContainer`            |
+| `showingProductsCount`                |
+| `showingProducts`                     |
+| `switch`                              |
+| `totalProductsMessage`                |
+| `totalProducts`                       |
 
 ## Contributors ✨
 
