@@ -39,6 +39,52 @@ const useShowContentLoader = (searchQuery, dispatch) => {
   }, [dispatch, isLoading, previousLoading])
 }
 
+const facetsFromPathname = pathname =>
+  pathname
+    .toLowerCase()
+    .split('/')
+    .filter(facet => facet)
+
+const useInitialSearch = (preventRouteChange, facets) => {
+  useEffect(() => {
+    const pathname = window.location.pathname
+    const initialSearch = window.initialSearchFacets
+
+    if (!initialSearch && facets) {
+      window.initialSearchFacets = { ...facets, pathname }
+      return
+    }
+
+    if (!preventRouteChange) {
+      const initialFacets = facetsFromPathname(initialSearch.pathname)
+      const newFacets = facetsFromPathname(pathname)
+      const totalEqualFacets = newFacets.filter(facet =>
+        initialFacets.includes(facet)
+      ).length
+
+      if (
+        (newFacets.length < initialFacets.length &&
+          totalEqualFacets === newFacets.length) ||
+        (newFacets.length > initialFacets.length &&
+          totalEqualFacets === initialFacets.length)
+      ) {
+        return
+      }
+
+      window.initialSearchFacets = { ...facets, pathname }
+      return
+    }
+
+    if (
+      facets &&
+      initialSearch.pathname !== pathname &&
+      facets.queryArgs.query !== initialSearch.queryArgs.query
+    ) {
+      window.initialSearchFacets = { ...facets, pathname }
+    }
+  }, [facets, preventRouteChange])
+}
+
 const SearchResultFlexible = ({
   children,
   hiddenFacets,
@@ -62,49 +108,7 @@ const SearchResultFlexible = ({
   thresholdForFacetSearch,
   lazyItemsRemaining,
 }) => {
-  const facetsFromPathname = pathname =>
-    pathname
-      .toLowerCase()
-      .split('/')
-      .filter(facet => facet)
-
-  useEffect(() => {
-    const pathname = window.location.pathname
-    const initialSearch = window.initialSearchFacets
-
-    if (!initialSearch && searchQuery.facets) {
-      window.initialSearchFacets = { ...searchQuery.facets, pathname }
-      return
-    }
-
-    if (!preventRouteChange) {
-      const initialFacets = facetsFromPathname(initialSearch.pathname)
-      const newFacets = facetsFromPathname(pathname)
-      const totalEqualFacets = newFacets.filter(facet =>
-        initialFacets.includes(facet)
-      ).length
-
-      if (
-        (newFacets.length < initialFacets.length &&
-          totalEqualFacets === newFacets.length) ||
-        (newFacets.length > initialFacets.length &&
-          totalEqualFacets === initialFacets.length)
-      ) {
-        return
-      }
-
-      window.initialSearchFacets = { ...searchQuery.facets, pathname }
-      return
-    }
-
-    if (
-      searchQuery.facets &&
-      initialSearch.pathname !== pathname &&
-      searchQuery.facets.queryArgs.query !== initialSearch.queryArgs.query
-    ) {
-      window.initialSearchFacets = { ...searchQuery.facets, pathname }
-    }
-  }, [preventRouteChange, searchQuery.facets])
+  useInitialSearch(preventRouteChange, searchQuery.facets)
 
   //This makes infinite scroll unavailable.
   //Infinite scroll was deprecated and we have
