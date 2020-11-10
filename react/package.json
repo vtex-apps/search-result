@@ -78,5 +78,5 @@
     "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.133.1/public/@types/vtex.styleguide",
     "vtex.tab-layout": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.tab-layout@0.4.1/public/@types/vtex.tab-layout"
   },
-  "version": "3.82.0"
+  "version": "3.83.0"
 }
