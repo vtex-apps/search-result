@@ -16,7 +16,8 @@ const withSearchPageContextProps = Component => ({
   filtersTitleHtmlTag,
   truncateFilters,
   openFiltersMode,
-  closeOnOutsideClick
+  closeOnOutsideClick,
+  appliedFiltersOverview,
 }) => {
   const {
     searchQuery,
@@ -81,6 +82,7 @@ const withSearchPageContextProps = Component => ({
           truncateFilters={truncateFilters}
           openFiltersMode={openFiltersMode}
           closeOnOutsideClick={closeOnOutsideClick}
+          appliedFiltersOverview={appliedFiltersOverview}
         />
       </FilterNavigatorContext.Provider>
     </div>

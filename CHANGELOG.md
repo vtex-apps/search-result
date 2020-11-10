@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- `"showAppliedFiltersOverview"` prop to the `SearchResult`.
 
 ## [3.81.2] - 2020-11-05
 ### Fixed

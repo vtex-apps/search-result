@@ -58,6 +58,7 @@ const CSS_HANDLES = [
   'filterContent',
   'filterTemplateOverflow',
   'seeMoreButton',
+  'filterSelectedFilters',
 ]
 
 const useSettings = () => useContext(SettingsContext)
@@ -81,6 +82,7 @@ const FilterOptionTemplate = ({
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
   closeOnOutsideClick = false,
+  appliedFiltersOverview,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
@@ -248,6 +250,14 @@ const FilterOptionTemplate = ({
             )}
           </div>
         </div>
+        {appliedFiltersOverview === 'show' && filters && !selected && (
+          <div className={classNames(handles.filterSelectedFilters, 'f6')}>
+            {filters
+              .filter(facet => facet.selected)
+              .map(facet => facet.name)
+              .join(', ')}
+          </div>
+        )}
       </div>
       <div
         className={classNames(handles.filterTemplateOverflow, {
@@ -314,6 +324,8 @@ FilterOptionTemplate.propTypes = {
   /** Quantity of facets of the current filter */
   quantity: PropTypes.number,
   closeOnOutsideClick: PropTypes.bool,
+  /** Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). */
+  appliedFiltersOverview: PropTypes.string,
 }
 
 export default FilterOptionTemplate

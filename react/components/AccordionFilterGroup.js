@@ -20,10 +20,11 @@ const AccordionFilterGroup = ({
   open,
   onOpen,
   onFilterCheck,
+  appliedFiltersOverview,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const filters = useSelectedFilters(facets)
-  const quantitySelected = filters.filter(facet => facet.selected).length
+  const selectedFilters = filters.filter(facet => facet.selected)
   const intl = useIntl()
   const facetTitle = getFilterTitle(title, intl)
   const slugifiedFacetTitle = searchSlugify(facetTitle)
@@ -34,7 +35,8 @@ const AccordionFilterGroup = ({
       open={open}
       show={show}
       onOpen={onOpen}
-      quantitySelected={quantitySelected}
+      selectedFilters={selectedFilters}
+      appliedFiltersOverview={appliedFiltersOverview}
     >
       <div
         className={classNames(

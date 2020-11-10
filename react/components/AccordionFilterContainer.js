@@ -27,6 +27,7 @@ const AccordionFilterContainer = ({
   tree,
   onCategorySelect,
   priceRange,
+  appliedFiltersOverview,
 }) => {
   const [openItem, setOpenItem] = useState(null)
   const handles = useCssHandles(CSS_HANDLES)
@@ -105,6 +106,7 @@ const AccordionFilterContainer = ({
           open={departmentsOpen}
           show={!openItem || departmentsOpen}
           onOpen={handleOpen(CATEGORIES_TITLE)}
+          appliedFiltersOverview={appliedFiltersOverview}
         >
           <div className={itemClassName}>
             <DepartmentFilters
@@ -147,6 +149,7 @@ const AccordionFilterContainer = ({
                 show={!openItem || isOpen}
                 onOpen={handleOpen(title)}
                 onFilterCheck={onFilterCheck}
+                appliedFiltersOverview={appliedFiltersOverview}
               />
             )
         }
@@ -168,6 +171,8 @@ AccordionFilterContainer.propTypes = {
   priceRange: PropTypes.string,
   tree: PropTypes.any,
   onCategorySelect: PropTypes.func,
+  /** Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). */
+  appliedFiltersOverview: PropTypes.string,
 }
 
 export default injectIntl(AccordionFilterContainer)

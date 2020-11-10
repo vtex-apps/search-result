@@ -93,7 +93,7 @@
 }
 
 .filterAccordionItemBox {
-  height: 3.75rem;
+  min-height: 3.75rem;
 }
 
 .filterAccordionBreadcrumbs {
