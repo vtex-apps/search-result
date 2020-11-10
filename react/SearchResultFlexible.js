@@ -39,40 +39,19 @@ const useShowContentLoader = (searchQuery, dispatch) => {
   }, [dispatch, isLoading, previousLoading])
 }
 
-const SearchResultFlexible = ({
-  children,
-  hiddenFacets,
-  pagination = PAGINATION_TYPE.SHOW_MORE,
-  mobileLayout = { mode1: 'normal' },
-  showProductsCount,
-  blockClass,
-  preventRouteChange = false,
-  showFacetQuantity = false,
-  // Below are set by SearchContext
-  searchQuery,
-  maxItemsPerPage,
-  map,
-  params,
-  priceRange,
-  orderBy,
-  page,
-  facetsLoading,
-  trackingId,
-  thresholdForFacetSearch,
-  lazyItemsRemaining,
-}) => {
-  const facetsFromPathname = pathname =>
-    pathname
-      .toLowerCase()
-      .split('/')
-      .filter(facet => facet)
+const facetsFromPathname = pathname =>
+  pathname
+    .toLowerCase()
+    .split('/')
+    .filter(facet => facet)
 
+const useInitialSearch = (preventRouteChange, facets) => {
   useEffect(() => {
     const pathname = window.location.pathname
     const initialSearch = window.initialSearchFacets
 
-    if (!initialSearch && searchQuery.facets) {
-      window.initialSearchFacets = { ...searchQuery.facets, pathname }
+    if (!initialSearch && facets) {
+      window.initialSearchFacets = { ...facets, pathname }
       return
     }
 
@@ -92,18 +71,44 @@ const SearchResultFlexible = ({
         return
       }
 
-      window.initialSearchFacets = { ...searchQuery.facets, pathname }
+      window.initialSearchFacets = { ...facets, pathname }
       return
     }
 
     if (
-      searchQuery.facets &&
+      facets &&
       initialSearch.pathname !== pathname &&
-      searchQuery.facets.queryArgs.query !== initialSearch.queryArgs.query
+      facets.queryArgs.query !== initialSearch.queryArgs.query
     ) {
-      window.initialSearchFacets = { ...searchQuery.facets, pathname }
+      window.initialSearchFacets = { ...facets, pathname }
     }
-  }, [preventRouteChange, searchQuery.facets])
+  }, [facets, preventRouteChange])
+}
+
+const SearchResultFlexible = ({
+  children,
+  hiddenFacets,
+  pagination = PAGINATION_TYPE.SHOW_MORE,
+  mobileLayout = { mode1: 'normal' },
+  defaultGalleryLayout,
+  showProductsCount,
+  blockClass,
+  preventRouteChange = false,
+  showFacetQuantity = false,
+  // Below are set by SearchContext
+  searchQuery,
+  maxItemsPerPage,
+  map,
+  params,
+  priceRange,
+  orderBy,
+  page,
+  facetsLoading,
+  trackingId,
+  thresholdForFacetSearch,
+  lazyItemsRemaining,
+}) => {
+  useInitialSearch(preventRouteChange, searchQuery.facets)
 
   //This makes infinite scroll unavailable.
   //Infinite scroll was deprecated and we have
