@@ -32,11 +32,6 @@ exports[`<OrderBy /> should match snapshot in mobile 1`] = `
       <button
         class="hover-bg-muted-5 bg-base orderByOptionItem orderByOptionItem--  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
       >
-        Default
-      </button>
-      <button
-        class="hover-bg-muted-5 bg-base orderByOptionItem orderByOptionItem--  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-      >
         Relevance
       </button>
       <button
@@ -108,11 +103,6 @@ exports[`<OrderBy /> should match snapshot in web mod 1`] = `
     <div
       class="orderByOptionsContainer z-1 absolute bg-base shadow-5 w-100 f5 b--muted-4 br2 ba bw1 br--bottom top-0 right-0-ns dn"
     >
-      <button
-        class="hover-bg-muted-5 bg-base orderByOptionItem orderByOptionItem--  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
-      >
-        Default
-      </button>
       <button
         class="hover-bg-muted-5 bg-base orderByOptionItem orderByOptionItem--  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
       >
