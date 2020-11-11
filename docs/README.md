@@ -36,9 +36,7 @@ Now, you are able to use all the blocks exported by the `search-result` app. Che
 | `search-result-layout.mobile`   | Builds the search result page structure for mobile mode.  If the `search-result-layout.mobile` is not provided, the `search-result-layout.desktop` will be used instead.                                                                                                            |
 | `search-layout-switcher`       | Enables mobile users to switch between the available layout modes.                                                                                              |
 | `search-not-found-layout`   | Builds the whole search result page structure for scenarios in which no result was fetched. It is rendered whenever users search for a term that doesn't return a product. |                                                      |
-| `gallery`  | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Displays the gallery with all the products found in the search.  |                    |                                         
-| `gallery-layout-switcher` | Logical block that allows users to switch between the available `gallery`'s layouts.  |                           |                                     
-| `gallery-layout-option` | Defines how each layout option should be rendered for users.  | 
+| `gallery`  | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Displays the gallery with all the products found in the search.  |                                                                                                                                                                                           
 | `not-found` | Block containing a text and a description for the page that was not found in the search. It must be declared as a child of `search-not-found-layout`.  | 
 | `search-content`          | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Decides, behind the scenes, which block will be displayed: either the `gallery` block (if products are found) or the `not-found` block (if the selected filters lead to an empty search results page). This means that both `gallery` and `not-found` must be declared as `search-content` children.                    |
 | `store.not-found#search`    | When configured, it displays a 404 error message whenever the server is not able to return what the browser request was or when it is configured to not handle that request.  |  
@@ -233,8 +231,7 @@ Structure the `search-result-layout` or the `search-result-layout.customQuery`, 
 | `blockClass`        | `string`       | Unique block ID to be used in [CSS customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization#using-the-blockclass-property)                                                                                    | `undefined`              |
 | `trackingId` | `string` | ID to be used in Google Analytics to track store metrics based on the Search Result block. |  `Search result` | 
 | `mobileLayout`      | `Object` | Controls how the search results page will be displayed to users when using the mobile layout. Possible props and their respective values can be found below.                                                                                                                | `undefined`              |
-| `defaultGalleryLayout` | `string` | Name of the gallery layout to be used by default in the search results page. This prop is only required when several layouts are explicitly defined by the `gallery` block. Caution: this prop's value must match the layout name defined in the `name` prop from `layouts` object. |  `undefined` | 
-| `thresholdForFacetSearch` | `number` | Minimum number of facets that must be displayed on the interface for a search bar to be displayed. If you declare `0`, the search bar will always be displayed. |  `undefined` | 
+| `thresholdForFacetSearch` | `number` | Minimum number of facets that must be displayed on the interface for a search bar to be displayed. If you declare `0`, the search bar will always be displayed. |  `undefined` |
 
 - **`mobileLayout` Object:** 
 
@@ -266,116 +263,24 @@ Structure the `search-result-layout` or the `search-result-layout.customQuery`, 
 | --------- | ------- | ----------------------------------- | ------------- |
 | `name`      | `string` | Name of the specification filter that you want to hide. | `undefined`            |
 
+
 ### Step 5 - Using the Flex Layout to build your search results page
 
-Using the [Flex Layout](https://vtex.io/docs/apps/layout-blocks/vtex.flex-layout/) app and the other blocks also exported by the Search Results app, such as the `gallery`, it's time for you to build your search results page!
+From Flex Layout, you will build your search results page using the other blocks that were exported by the Search Result app, such as: `gallery`, `filter-navigator.v3`, etc.
 
-Find below the available blocks to build your store's search results page and their existing props as well. 
+Therefore, don't forget to check out the [Flex Layout documentation](https://vtex.io/docs/apps/layout-blocks/vtex.flex-layout@0.14.0) for more on how to configure your search results page. 
 
-#### `gallery` block
+Below you can find the existing props for each of the blocks, in addition to the the rules that govern them. 
 
-The `gallery` block defines how fetched items should be displayed on the store's search results page.
+- **`gallery` block**
 
-When declared with no props, it expects as child the [`product-summary-shelf`](https://vtex.io/docs/components/content-blocks/vtex.product-summary/) and consequently the block structure inherited from it. 
+The gallery block does not have its own props, but it has its own inner block structure that must be configured using a `product-summary-shelf`. 
 
-It is possible, however, to use its `layouts` prop to provide several layouts to the page, allowing your store to have different arrangement of items according to what best fits your users' needs.
+This means that any `gallery` block implementation created must have a `product-summary-shelf` that in turn must also have its own inner block structure that can be configured. 
 
-In a scenario where several layouts are provided, your store users are able to shift between them according to their needs using the `gallery-layout-switcher` block (described further below). The `gallery` will then render the component provided by the currently selected layout. 
+Check out the [**Product Summary documentation**](https://vtex.io/docs/components/content-blocks/vtex.product-summary@2.52.3).  
 
-:information_source: *You can also set a default layout for your search results page in the `defaultGalleryLayout` prop from the `search-result-layout.desktop` and `search-result-layout.mobile` blocks.*
-
-| Prop name | Type                      | Description                                                    | Default value   |
-| :---------: | :---------------------: | :--------------------------------------------------------------| :-------------: |
-| `layouts`  | `object` | List of layouts used to arrange and display the items on search results page. Caution: If no value is provided, the `gallery` block must receive instead a `product-summary-shelf` block as child. | `undefined`  |
-| `undefined` | `block` | Defines which blocks should be rendered per layout. **Caution**: this prop *name* is not `undefined`. Instead, its name must be the value passed to the `component` prop. This prop's value, in turn, must match the block name of your choosing to be rendered in that specific layout. Check out the example below in order to understand the underlying logic behind this prop. | `undefined` | 
-
-- **`layouts` object:** 
-
-| Prop name   | Type     | Description                                                             | Default value   |
-| :---------: | :------: | :---------------------------------------------------------------------: | :-------------: |
-| `name`   | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Layout name. This value must be unique i.e. not equal to other layout names declared in the `gallery` block. | `undefined` |
-| `component`   | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Names the `undefined` prop from the `gallery` block, which is responsible for declaring the block to be rendered in this layout. This prop's value can be any of your choosing as long as it is PascalCased i.e. has the first letter of each word in its name capitalized. **Caution**: For this to work, the chosen value must name afterwards the `gallery` block' `undefined` prop - *Do not use the `component` prop's value to directly pass the desired block name itself*. Check out the example below in order to understand the underlying logic behind this prop. | `undefined` |
-| `itemsPerRow`   | `number` / `object` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Number of items to be displayed in each row of this layout. This prop works with [responsive values](https://vtex.io/docs/app/vtex.responsive-values/), therefore it also accepts an object with different numbers for desktop, tablet or phone screen sizes (*see the table below*). | `undefined` |
-
-- **`itemsPerRow` object:** 
-  
-| Prop name | Type     | Description | Default value   |
-| :-------: | :------: | :--------:  | :-------------: | 
-| `desktop` | `number` | Number of slides to be shown on desktop devices. |  `undefined` | 
-| `tablet` | `number` | Number of slides to be shown on tablet devices. | `undefined` | 
-| `phone` | `number` |  Number of slides to be shown on phone devices.   | `undefined` | 
-
-For example:
-
-```json
-{
-  "gallery": {
-    "props": {
-      "layouts": [
-        {
-          "name": "whole",
-          "component": "WholeLineSummary",
-          "itemsPerRow": 1
-        },
-        {
-          "name": "many",
-          "component": "ManyByLineSummary",
-          "itemsPerRow": {
-            "desktop": 5,
-            "mobile": 2
-          }
-        }
-      ],
-      "WholeLineSummary": "product-summary.shelf#whole",
-      "ManyByLineSummary": "product-summary.shelf#many"
-    }
-  }
-}
-```
-
-#### `gallery-layout-switcher` block
-
-Logical block that allows users to switch between the available `gallery`'s layouts. 
-
-It receives no props and expects as child the `gallery-layout-option` block described below.
-
-#### `gallery-layout-option` block
-
-Defines how each layout option should be rendered for users.
-
-| Prop name   | Type           | Description                                                         | Default value   |
-| :---------: | :------------: | :-----------------------------------------------------------------: | :-------------: |
-| `name`  | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Names the layout option. This prop's value must match the one passed to the `name` prop.  | `undefined`  |
-| `Option` | `block` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Names the block that represents the given layout option. It is strongly recommended to use icon blocks as this prop's value in order to facilitate user interaction and leverage from the `isActive` prop, which allows you to apply special customization when the option is currently selected by users. **Notice:** the `isActive` prop is natively inherited by your icon blocks. If you choose to declare a custom component as the `Option`'s value, make sure it declared the `isActive` prop as well. | `undefined` |
-
-For example:
-
-```json
-{
-  "gallery-layout-switcher": {
-    "children": [
-      "gallery-layout-option#whole",
-      "gallery-layout-option#many"
-    ]
-  },
-  "gallery-layout-option#whole": {
-    "props": {
-      "name": "whole",
-      "Option": "icon-menu#option"
-    }
-  },
-  "gallery-layout-option#many": {
-    "props": {
-      "name": "many",
-      "Option": "icon-single-grid#option"
-    }
-  }
-}
-```
-
-#### `filter-navigator.v3` block
-
-Renders a filter selector for the fetched results.
+- **`filter-navigator.v3` block**
 
 | Prop name | Type                      | Description                                                                                       | Default value |
 | --------- | ------------------------- | ------------------------------------------------------------------------------------------------- | ------------- |
@@ -391,18 +296,16 @@ Renders a filter selector for the fetched results.
 | `appliedFiltersOverview` | `Enum` | Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). | `"hide` |
 | `totalProductsOnMobile` | `enum` | Whether the Filter Navigator should display the total number of products on mobile devices  (`show`) or not (`hide`). | `hide` |
 
-#### `order-by` block
+-  **`order-by` block**
 
-Renders a dropdown button with sorting options to display the fetched results (the list of sorting options can be found in the second table below).
-
-| Prop name       | Type            | Description                 | Default value |
-| --------------- | --------------- | --------------------------- | ------------- |
+| Prop name       | Type            | Description                                                                                                  | Default value |
+| --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
 | `hiddenOptions` | `[string]` | Indicates which sorting options will be hidden. (e.g. `["OrderByNameASC", "OrderByNameDESC"]`) | `undefined`      |
 | `showOrderTitle` | `boolean` | Whether the selected order value (e.g. `Relevance`) will be displayed (`true`) or not (`false`).  | `true`           |
 
 The sorting options are:
 
-| Sorting option           | Value                       |
+| Sort option              | Value                       |
 | ------------------------ | --------------------------- |
 | Relevance                | `"OrderByScoreDESC"`        |
 | Top Sales Descending     | `"OrderByTopSaleDESC"`      |
@@ -414,42 +317,31 @@ The sorting options are:
 | Name Descending          | `"OrderByNameDESC"`         |
 | Collection          | `"OrderByCollection"`         |
 
-#### `search-fetch-more` block
+- **`search-fetch-more` block**
+The `Show More` button is used to load the results of the next search results page. Even when declared, this block is not rendered if there is no next page.
 
-Renders a `Show More` button used to load the results of the next search results page. 
-
-:information_source: *This block is not rendered if there is no next page.*
-
-| Prop name       | Type            | Description                           | Default value |
-| --------------- | --------------- | ------------------------------------- | ------------- |
+| Prop name       | Type            | Description                                                                                                  | Default value |
+| --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
 | `htmlElementForButton` | `enum` | Which HTML element will be displayed for `Show more` button component. Possible values are: `a` (displays a `<a>` element with `href` and `rel` attributes)  or `button` (displays a `<button>` element without `href` and `rel` attributes). | `button` |
 
-#### `search-fetch-previous` block
+- **`search-fetch-previous` block**
+The `Show Previous` button is used to load the results of the previous search results page. Even when declared, this block is not rendered if there is no previous page.
 
-Renders a `Show Previous` button used to load the results of the previous search results page. 
-
-:information_source: *This block is not rendered if there is no previous page.*
-
-| Prop name       | Type            | Description        | Default value |
-| --------------- | --------------- | ------------------ | ------------- |
+| Prop name       | Type            | Description                                                                                                  | Default value |
+| --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
 | `htmlElementForButton` | `enum` | Which HTML element will be displayed for `Show previous` button component. Possible values are: `a` (displays a `<a>` element with `href` and `rel` attributes)  or `button` (displays a `<button>` element without `href` and `rel` attributes). | `button` |
 
-#### `search-products-count-per-page` block
+- **`search-products-count-per-page` block**
+Shows the product count per search page. Does not need any prop.
+- **`search-products-progress-bar` block**
+Shows a progress bar of search results. Does not need any prop.
+- **`sidebar-close-button` block**
+Close button rendered on the top right of the mobile filter sidebar.
 
-Shows the product count per search page. This block does not need any prop when declared.
-
-#### `search-products-progress-bar` block**
-
-Shows a progress bar of search results. This block does not need any prop when declared.
-
-#### `sidebar-close-button` block
-
-`Close` button rendered on the top right of the mobile filter sidebar.
-
-| Prop name       | Type            | Description      | Default value |
-| --------------- | --------------- | ---------------- | ------------- |
-| `size` | `number` | Size of the button icon | `30`       |
-| `type` | `string` | Type of the button icon | `line`       |
+| Prop name       | Type            | Description                                                                                                  | Default value |
+| --------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------------- |
+| `size` | `number` | The size of the button icon | `30`       |
+| `type` | `string` | The type of the button icon | `line`       |
 
 ## Customization
 
@@ -522,8 +414,6 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `galleryItem--{displayMode}`          |
 | `galleryTitle`                        |
 | `gallery`                             |
-| `galleryLayoutSwitcher`               |
-| `galleryLayoutOption`                 |
 | `layoutSwitcher`                      |
 | `loadingOverlay`                      |
 | `loadingSpinnerInnerContainer`        |
