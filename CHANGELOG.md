@@ -7,11 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Remove the code introduced by version 3.84.1
+
 ## [3.84.2] - 2020-11-11
 ### Fixed
 - Make new realease without the code introduced by version v3.83.0
 
-## [3.84.1] - 2020-11-11
+## [3.84.1] - 2020-11-11 [YANKED]
 ### Fixed
 - Clear filters on mobile.
 
