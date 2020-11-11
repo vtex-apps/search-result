@@ -1,12 +1,13 @@
 {
-  "extends": "@vtex/tsconfig",
+  "extends": "@vtex/tsconfig/tsconfig.json",
   "compilerOptions": {
     "noEmitOnError": false,
-    "lib": ["es2017", "dom", "es2018.promise"],
+    "lib": ["dom"],
     "typeRoots": ["node_modules/@types"],
     "types": ["node", "jest"],
+    "module": "esnext",
     "moduleResolution": "node",
-    "target": "es2017",
-    "module": "esnext"
-  }
+    "target": "es2017"
+  },
+  "include": ["./typings/*.d.ts", "./**/*.tsx", "./**/*.ts"]
 }

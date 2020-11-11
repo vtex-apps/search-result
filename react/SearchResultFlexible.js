@@ -90,7 +90,6 @@ const SearchResultFlexible = ({
   hiddenFacets,
   pagination = PAGINATION_TYPE.SHOW_MORE,
   mobileLayout = { mode1: 'normal' },
-  defaultGalleryLayout,
   showProductsCount,
   blockClass,
   preventRouteChange = false,
@@ -153,7 +152,6 @@ const SearchResultFlexible = ({
   const [state, dispatch] = useSearchPageStateReducer({
     mobileLayout: mobileLayout.mode1,
     showContentLoader: searchQuery.loading,
-    defaultGalleryLayout,
   })
 
   useShowContentLoader(searchQuery, dispatch)
