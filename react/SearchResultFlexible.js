@@ -50,6 +50,10 @@ const useInitialSearch = (preventRouteChange, facets) => {
     const pathname = window.location.pathname
     const initialSearch = window.initialSearchFacets
 
+    if (!facets) {
+      return
+    }
+
     if (!initialSearch && facets) {
       window.initialSearchFacets = { ...facets, pathname }
       return
