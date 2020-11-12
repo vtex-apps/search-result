@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
 import { intlShape, injectIntl } from 'react-intl'
 import classNames from 'classnames'
@@ -8,6 +8,7 @@ import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 
 import { getFilterTitle } from '../constants/SearchHelpers'
 import { generateSlug } from './FilterNavigator/legacy/hooks/useSelectedFilters'
+import { Collapse } from 'react-collapse'
 
 const CSS_HANDLES = [
   'accordionFilterContainer',
@@ -31,11 +32,23 @@ const AccordionFilterItem = ({
   intl,
   children,
   appliedFiltersOverview,
+  navigationType,
+  initiallyCollapsed,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
+  const isNavigationCollapsible = navigationType === 'collapsible'
+  const [isCollapsed, setIsCollapsed] = useState(initiallyCollapsed)
+
+  const handleOnOpen = e => {
+    if (isNavigationCollapsible) {
+      setIsCollapsed(isCollapsed => !isCollapsed)
+    }
+
+    onOpen(e)
+  }
   const handleKeyDown = e => {
     if (e.key === ' ') {
-      onOpen(e)
+      handleOnOpen(e)
     }
   }
   const quantitySelected = selectedFilters.length
@@ -44,7 +57,7 @@ const AccordionFilterItem = ({
 
   return (
     <Fragment>
-      {!open && (
+      {(!open || isNavigationCollapsible) && (
         <div
           className={`${applyModifiers(
             handles.accordionFilterContainer,
@@ -57,14 +70,14 @@ const AccordionFilterItem = ({
             className={classNames(
               handles.accordionFilterItem,
               applyModifiers(handles.filterAccordionItemBox, titleSlug),
-              't-body pr5 pv3 pointer bb b--muted-5',
+              't-body pr5 pv3 pointer bb b--muted-5 outline-0',
               {
                 [handles.accordionFilterItemActive]: open,
                 [`${handles.accordionFilterItemHidden} dn`]: !show,
               }
             )}
             onKeyDown={handleKeyDown}
-            onClick={onOpen}
+            onClick={handleOnOpen}
           >
             <div
               className={classNames(
@@ -90,7 +103,15 @@ const AccordionFilterItem = ({
                 </div>
               )}
               <span className={`${handles.accordionFilterItemIcon} fr`}>
-                <IconCaret orientation="down" size={10} />
+                <IconCaret
+                  orientation={
+                    !isNavigationCollapsible ||
+                    (isNavigationCollapsible && isCollapsed)
+                      ? 'down'
+                      : 'up'
+                  }
+                  size={10}
+                />
               </span>
               {appliedFiltersOverview === 'show' && quantitySelected > 0 && (
                 <div
@@ -103,7 +124,13 @@ const AccordionFilterItem = ({
           </div>
         </div>
       )}
-      {open && children}
+      {!isNavigationCollapsible ? (
+        open && children
+      ) : (
+        <Collapse isOpened={!isCollapsed && isNavigationCollapsible}>
+          <div className="pl8">{children}</div>
+        </Collapse>
+      )}
     </Fragment>
   )
 }
@@ -125,6 +152,10 @@ AccordionFilterItem.propTypes = {
   children: PropTypes.node,
   /** Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). */
   appliedFiltersOverview: PropTypes.string,
+  /** Defines the navigation method: 'page' or 'collapsible' */
+  navigationType: PropTypes.oneOf(['page', 'collapsible']),
+  /** Makes the search filters start out collapsed (`true`) or open (`false`) */
+  initiallyCollapsed: PropTypes.bool,
 }
 
 export default injectIntl(AccordionFilterItem)

@@ -8,7 +8,7 @@ import classNames from 'classnames'
 
 import searchResult from '../searchResult.css'
 
-const OPEN_SIDEBAR_CLASS = 'overflow-hidden-ns'
+const OPEN_SIDEBAR_CLASS = 'overflow-hidden'
 
 /* SideBar component */
 class Sidebar extends Component {
@@ -52,7 +52,10 @@ class Sidebar extends Component {
           onClick={onOutsideClick}
         />
         <Animation
-          className={`${searchResult.sidebar} w-80 w-auto-ns h-100 fixed top-0 right-0 z-9999 bg-base shadow-2 flex flex-column`}
+          className={classNames(
+            `${searchResult.sidebar} w-auto-ns h-100 fixed top-0 right-0 z-9999 bg-base shadow-2 flex flex-column`,
+            this.props.fullWidth ? 'w-100' : 'w-80'
+          )}
           isActive={isOpen}
           type="drawerLeft"
         >
@@ -73,5 +76,7 @@ Sidebar.propTypes = {
   children: PropTypes.node,
   /* Function to be called when click in the close sidebar button or outside the sidebar */
   onOutsideClick: PropTypes.func,
+  /* The SideBar will occupy the entire length of the window */
+  fullWidth: PropTypes.bool,
 }
 export default injectIntl(Sidebar)

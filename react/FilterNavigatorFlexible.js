@@ -19,6 +19,8 @@ const withSearchPageContextProps = Component => ({
   closeOnOutsideClick,
   appliedFiltersOverview,
   totalProductsOnMobile,
+  fullWidthOnMobile,
+  navigationTypeOnMobile,
 }) => {
   const {
     searchQuery,
@@ -85,6 +87,8 @@ const withSearchPageContextProps = Component => ({
           closeOnOutsideClick={closeOnOutsideClick}
           appliedFiltersOverview={appliedFiltersOverview}
           totalProductsOnMobile={totalProductsOnMobile}
+          fullWidthOnMobile={fullWidthOnMobile}
+          navigationTypeOnMobile={navigationTypeOnMobile}
         />
       </FilterNavigatorContext.Provider>
     </div>

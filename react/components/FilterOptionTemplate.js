@@ -9,7 +9,6 @@ import React, {
 } from 'react'
 import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
-import { FormattedMessage } from 'react-intl'
 
 import { useRuntime } from 'vtex.render-runtime'
 import { IconCaret } from 'vtex.store-icons'
@@ -19,6 +18,7 @@ import styles from '../searchResult.css'
 import { SearchFilterBar } from './SearchFilterBar'
 import SettingsContext from './SettingsContext'
 import useOutsideClick from './../hooks/useOutsideClick'
+import ShowMoreFilterButton from './ShowMoreFilterButton'
 
 import { useRenderOnView } from '../hooks/useRenderOnView'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
@@ -129,7 +129,7 @@ const FilterOptionTemplate = ({
 
     const shouldTruncate =
       (truncateFilters || isLazyFacetsFetchEnabled) &&
-      quantity > FACETS_RENDER_THRESHOLD
+      quantity > FACETS_RENDER_THRESHOLD + 1
 
     const shouldLazyRender =
       !shouldTruncate && !hasScrolled && isLazyRenderEnabled
@@ -149,24 +149,11 @@ const FilterOptionTemplate = ({
         {filteredFacets.slice(0, endSlice).map(children)}
         {placeholderSize > 0 && <div style={{ height: placeholderSize }} />}
         {shouldTruncate && (
-          <button
-            onClick={() => openTruncated(truncated => !truncated)}
-            className={`${handles.seeMoreButton} mt2 pv2 bn pointer c-link`}
-            key={
-              truncated ? 'store/filter.more-items' : 'store/filter.less-items'
-            }
-          >
-            <FormattedMessage
-              id={
-                truncated
-                  ? 'store/filter.more-items'
-                  : 'store/filter.less-items'
-              }
-              values={{
-                quantity: quantity - FACETS_RENDER_THRESHOLD,
-              }}
-            />
-          </button>
+          <ShowMoreFilterButton
+            quantity={quantity - FACETS_RENDER_THRESHOLD}
+            truncated={truncated}
+            toggleTruncate={() => openTruncated(truncated => !truncated)}
+          />
         )}
       </>
     )

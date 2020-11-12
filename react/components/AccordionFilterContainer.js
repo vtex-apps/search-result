@@ -15,6 +15,7 @@ const CSS_HANDLES = [
   'filterBreadcrumbsItemName',
   'filterBreadcrumbsContent',
   'filterBreadcrumbsText',
+  'filterBreadcrumbsList',
 ]
 import styles from '../searchResult.css'
 
@@ -28,12 +29,19 @@ const AccordionFilterContainer = ({
   onCategorySelect,
   priceRange,
   appliedFiltersOverview,
+  navigationType,
+  initiallyCollapsed,
+  truncateFilters,
 }) => {
   const [openItem, setOpenItem] = useState(null)
   const handles = useCssHandles(CSS_HANDLES)
 
   const handleOpen = id => e => {
     e.preventDefault()
+
+    if (navigationType === 'collapsible') {
+      return
+    }
 
     if (openItem === id) {
       setOpenItem(null)
@@ -54,11 +62,14 @@ const AccordionFilterContainer = ({
 
   const itemClassName = classNames(
     styles.accordionFilterItemOptions,
-    'ph5 pt3 h-100 overflow-scroll'
+    'ph5 pt3 h-100 overflow-scroll',
+    { pb9: navigationType !== 'collapsible'}
   )
 
   return (
-    <div className={classNames(styles.accordionFilter, 'h-100')}>
+    <div className={classNames(styles.accordionFilter, 'h-100 pb9', {
+      'overflow-scroll': !openItem,
+    })}>
       <div
         className={classNames(
           styles.filterAccordionBreadcrumbs,
@@ -107,6 +118,8 @@ const AccordionFilterContainer = ({
           show={!openItem || departmentsOpen}
           onOpen={handleOpen(CATEGORIES_TITLE)}
           appliedFiltersOverview={appliedFiltersOverview}
+          navigationType={navigationType}
+          initiallyCollapsed={initiallyCollapsed}
         >
           <div className={itemClassName}>
             <DepartmentFilters
@@ -136,6 +149,8 @@ const AccordionFilterContainer = ({
                 onOpen={handleOpen(title)}
                 onFilterCheck={onFilterCheck}
                 priceRange={priceRange}
+                navigationType={navigationType}
+                initiallyCollapsed={initiallyCollapsed}
               />
             )
           default:
@@ -150,6 +165,9 @@ const AccordionFilterContainer = ({
                 onOpen={handleOpen(title)}
                 onFilterCheck={onFilterCheck}
                 appliedFiltersOverview={appliedFiltersOverview}
+                navigationType={navigationType}
+                initiallyCollapsed={initiallyCollapsed}
+                truncateFilters={truncateFilters}
               />
             )
         }
@@ -173,6 +191,12 @@ AccordionFilterContainer.propTypes = {
   onCategorySelect: PropTypes.func,
   /** Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). */
   appliedFiltersOverview: PropTypes.string,
+  /** Defines the navigation method: 'page' or 'collapsible' */
+  navigationType: PropTypes.oneOf(['page', 'collapsible']),
+  /** Makes the search filters start out collapsed (`true`) or open (`false`) */
+  initiallyCollapsed: PropTypes.bool,
+  /** If filters start truncated */
+  truncateFilters: PropTypes.bool,
 }
 
 export default injectIntl(AccordionFilterContainer)

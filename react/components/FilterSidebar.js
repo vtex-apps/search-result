@@ -42,6 +42,10 @@ const FilterSidebar = ({
   navigateToFacet,
   appliedFiltersOverview,
   totalProductsOnMobile,
+  fullWidth,
+  navigationType,
+  initiallyCollapsed,
+  truncateFilters,
 }) => {
   const { searchQuery } = useSearchPage()
   const filterContext = useFilterNavigator()
@@ -172,7 +176,7 @@ const FilterSidebar = ({
         </span>
       </button>
 
-      <Sidebar onOutsideClick={handleClose} isOpen={open}>
+      <Sidebar onOutsideClick={handleClose} isOpen={open} fullWidth={fullWidth}>
         <FilterNavigatorContext.Provider value={context}>
           <AccordionFilterContainer
             filters={filters}
@@ -181,6 +185,9 @@ const FilterSidebar = ({
             onCategorySelect={handleUpdateCategories}
             priceRange={priceRange}
             appliedFiltersOverview={appliedFiltersOverview}
+            navigationType={navigationType}
+            initiallyCollapsed={initiallyCollapsed}
+            truncateFilters={truncateFilters}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>
