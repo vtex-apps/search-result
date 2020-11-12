@@ -39,11 +39,62 @@ const useShowContentLoader = (searchQuery, dispatch) => {
   }, [dispatch, isLoading, previousLoading])
 }
 
+const facetsFromPathname = pathname =>
+  pathname
+    .toLowerCase()
+    .split('/')
+    .filter(facet => facet)
+
+const useInitialSearch = (preventRouteChange, facets) => {
+  useEffect(() => {
+    const pathname = window.location.pathname
+    const initialSearch = window.initialSearchFacets
+
+    if (!facets) {
+      return
+    }
+
+    if (!initialSearch && facets) {
+      window.initialSearchFacets = { ...facets, pathname }
+      return
+    }
+
+    if (!preventRouteChange) {
+      const initialFacets = facetsFromPathname(initialSearch.pathname)
+      const newFacets = facetsFromPathname(pathname)
+      const totalEqualFacets = newFacets.filter(facet =>
+        initialFacets.includes(facet)
+      ).length
+
+      if (
+        (newFacets.length < initialFacets.length &&
+          totalEqualFacets === newFacets.length) ||
+        (newFacets.length > initialFacets.length &&
+          totalEqualFacets === initialFacets.length)
+      ) {
+        return
+      }
+
+      window.initialSearchFacets = { ...facets, pathname }
+      return
+    }
+
+    if (
+      facets &&
+      initialSearch.pathname !== pathname &&
+      facets.queryArgs.query !== initialSearch.queryArgs.query
+    ) {
+      window.initialSearchFacets = { ...facets, pathname }
+    }
+  }, [facets, preventRouteChange])
+}
+
 const SearchResultFlexible = ({
   children,
   hiddenFacets,
   pagination = PAGINATION_TYPE.SHOW_MORE,
   mobileLayout = { mode1: 'normal' },
+  defaultGalleryLayout,
   showProductsCount,
   blockClass,
   preventRouteChange = false,
@@ -61,6 +112,8 @@ const SearchResultFlexible = ({
   thresholdForFacetSearch,
   lazyItemsRemaining,
 }) => {
+  useInitialSearch(preventRouteChange, searchQuery.facets)
+
   //This makes infinite scroll unavailable.
   //Infinite scroll was deprecated and we have
   //removed it since the flexible search release
