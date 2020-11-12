@@ -51,7 +51,7 @@ const PriceRange = ({ title, facets, intl, priceRange }) => {
     const [_, minSlug, maxSlug] = slug.match(slugRegex)
 
     const min = parseInt(minSlug)
-    const max = parseInt(maxSlug)
+    const max = parseInt(Math.ceil(maxSlug))
 
     if (min < minValue) {
       minValue = min
