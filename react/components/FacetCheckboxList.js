@@ -36,6 +36,7 @@ const FacetCheckboxList = ({
   const shouldTruncate =
     navigationType === 'collapsible' &&
     truncateFilters &&
+    // The "+ 1" prevents from truncating a single value 
     filteredFacets.length > FACETS_RENDER_THRESHOLD + 1
 
   const endSlice =

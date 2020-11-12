@@ -33,12 +33,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.82.0] - 2020-11-10
 ### Added
 - `"showAppliedFiltersOverview"` prop to the `SearchResult`.
-### Added
-- Prop `fullWidthOnMobile` to the `filter-navigator.v3`.
-- Prop `navigationTypeOnMobile` to the `filter-navigator.v3`.
-
-### Fixed
-- Scroll on mobile not working properly.
 
 ## [3.81.2] - 2020-11-05
 ### Fixed
