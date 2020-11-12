@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- `PriceRange` trauncating max value.
+
 ## [3.84.3] - 2020-11-11
 
 ### Fixed
