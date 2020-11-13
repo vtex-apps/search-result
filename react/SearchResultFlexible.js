@@ -50,11 +50,11 @@ const useInitialSearch = (preventRouteChange, facets) => {
     const pathname = window.location.pathname
     const initialSearch = window.initialSearchFacets
 
-    if (!facets) {
+    if (!facets || !facets.queryArgs) {
       return
     }
 
-    if (!initialSearch && facets) {
+    if (!initialSearch) {
       window.initialSearchFacets = { ...facets, pathname }
       return
     }
@@ -80,7 +80,6 @@ const useInitialSearch = (preventRouteChange, facets) => {
     }
 
     if (
-      facets &&
       initialSearch.pathname !== pathname &&
       facets.queryArgs.query !== initialSearch.queryArgs.query
     ) {

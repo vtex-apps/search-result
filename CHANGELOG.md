@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Initial search when `queryArgs` is `undefined`.
+
 ## [3.85.2] - 2020-11-13
 ### Changed
 - Default `orderBy` value is now to order items by "Relevance", which now means products will follow the same ordering logic defined by the Search API.
