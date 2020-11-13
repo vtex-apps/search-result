@@ -36,8 +36,8 @@ const FacetItem = ({
   )
 
   const checkBoxId = reservedVariableNames.includes(facet.value)
-    ? `filterItem--${facet.value}`
-    : facet.value
+    ? `filterItem--${facet.key}-${facet.value}`
+    : `${facet.key}-${facet.value}`
 
   // This effect fixes the issue described in this PR
   // https://github.com/vtex-apps/search-result/pull/422
