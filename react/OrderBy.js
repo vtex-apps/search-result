@@ -7,10 +7,6 @@ import SelectionListOrderBy from './components/SelectionListOrderBy'
 export const SORT_OPTIONS = [
   {
     value: '',
-    label: 'store/ordenation.default',
-  },
-  {
-    value: 'OrderByScoreDESC',
     label: 'store/ordenation.relevance',
   },
   {

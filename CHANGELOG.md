@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Default `orderBy` value is now to order items by "Relevance", which now means products will follow the same ordering logic defined by the Search API.
 
 ## [3.85.1] - 2020-11-12
 ### Fixed

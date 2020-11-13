@@ -85,7 +85,6 @@
   "store/ordenation.price.ascending": "Menor preço",
   "store/ordenation.name.ascending": "De A a Z",
   "store/ordenation.name.descending": "De Z a A",
-  "store/ordenation.default": "Padrão",
   "store/layoutModeSwitcher.inline": "Na linha",
   "store/layoutModeSwitcher.small": "Pequeno",
   "store/layoutModeSwitcher.normal": "Normal",
