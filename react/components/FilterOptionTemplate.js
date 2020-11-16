@@ -9,6 +9,7 @@ import React, {
 } from 'react'
 import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
+import { FormattedMessage } from 'react-intl'
 
 import { useRuntime } from 'vtex.render-runtime'
 import { IconCaret } from 'vtex.store-icons'
