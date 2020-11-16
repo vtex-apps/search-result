@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - `"priceRangeLayout"` prop to the `FilterNavigator`.
+- `updateOnFilterSelectionOnMobile` prop to the `FilterNavigator`.
+- `showClearByFilter` prop to the `FilterNavigator`.
 
 ## [3.85.4] - 2020-11-13
 

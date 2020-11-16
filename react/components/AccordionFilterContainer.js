@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
+import { Spinner } from 'vtex.styleguide'
 
 import AccordionFilterItem from './AccordionFilterItem'
 import DepartmentFilters from './DepartmentFilters'
@@ -16,6 +17,7 @@ const CSS_HANDLES = [
   'filterBreadcrumbsContent',
   'filterBreadcrumbsText',
   'filterBreadcrumbsList',
+  'filterLoadingOverlay',
 ]
 import styles from '../searchResult.css'
 
@@ -33,6 +35,10 @@ const AccordionFilterContainer = ({
   initiallyCollapsed,
   truncateFilters,
   priceRangeLayout,
+  loading,
+  onClearFilter,
+  showClearByFilter,
+  updateOnFilterSelectionOnMobile,
 }) => {
   const [openItem, setOpenItem] = useState(null)
   const handles = useCssHandles(CSS_HANDLES)
@@ -66,6 +72,8 @@ const AccordionFilterContainer = ({
     'ph5 pt3 h-100 overflow-scroll',
     { pb9: navigationType !== 'collapsible'}
   )
+
+  const showOverlay = updateOnFilterSelectionOnMobile && loading
 
   return (
     <div className={classNames(styles.accordionFilter, 'h-100 pb9', {
@@ -121,6 +129,7 @@ const AccordionFilterContainer = ({
           appliedFiltersOverview={appliedFiltersOverview}
           navigationType={navigationType}
           initiallyCollapsed={initiallyCollapsed}
+          onClearFilter={onClearFilter}
         >
           <div className={itemClassName}>
             <DepartmentFilters
@@ -170,10 +179,23 @@ const AccordionFilterContainer = ({
                 navigationType={navigationType}
                 initiallyCollapsed={initiallyCollapsed}
                 truncateFilters={truncateFilters}
+                onClearFilter={onClearFilter}
+                showClearByFilter={showClearByFilter}
               />
             )
         }
       })}
+      {showOverlay && (
+        <div
+          style={{ background: 'rgba(3, 4, 78, 0.4)' }}
+          className={classNames(
+            handles.filterLoadingOverlay,
+            'fixed dim top-0 w-100 vh-100 left-0 z-9999 justify-center items-center justify-center items-center flex'
+          )}
+        >
+          <Spinner />
+        </div>
+      )}
     </div>
   )
 }
@@ -201,6 +223,13 @@ AccordionFilterContainer.propTypes = {
   truncateFilters: PropTypes.bool,
   /** Price range layout (default or inputAndSlider) */
   priceRangeLayout: PropTypes.string,
+  loading: PropTypes.bool,
+  /** Clear filter function */
+  onClearFilter: PropTypes.func,
+  /** Whether a clear button that clear all options in a specific filter should appear beside the filter's name (true) or not (false). */
+  showClearByFilter: PropTypes.bool,
+  /** Wether the search will be updated on facet selection (`true`) or not (`false`) when the user is on mobile. */
+  updateOnFilterSelectionOnMobile: PropTypes.bool,
 }
 
 export default injectIntl(AccordionFilterContainer)

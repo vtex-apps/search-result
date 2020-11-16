@@ -27,6 +27,7 @@ const SearchFilter = ({
   setTruncatedFacetsFetched,
   closeOnOutsideClick,
   appliedFiltersOverview,
+  showClearByFilter,
 }) => {
   const sampleFacet = facets && facets.length > 0 ? facets[0] : null
   const facetTitle = getFilterTitle(title, intl)
@@ -47,6 +48,8 @@ const SearchFilter = ({
       setTruncatedFacetsFetched={setTruncatedFacetsFetched}
       closeOnOutsideClick={closeOnOutsideClick}
       appliedFiltersOverview={appliedFiltersOverview}
+      navigateToFacet={navigateToFacet}
+      showClearByFilter={showClearByFilter}
     >
       {facet => (
         <FacetItem
@@ -90,6 +93,7 @@ SearchFilter.propTypes = {
   closeOnOutsideClick: PropTypes.bool,
   /** Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). */
   appliedFiltersOverview: PropTypes.string,
+  showClearByFilter: PropTypes.bool,
 }
 
 export default injectIntl(SearchFilter)

@@ -47,6 +47,9 @@ const FilterSidebar = ({
   initiallyCollapsed,
   truncateFilters,
   priceRangeLayout,
+  loading,
+  updateOnFilterSelectionOnMobile,
+  showClearByFilter,
 }) => {
   const { searchQuery } = useSearchPage()
   const filterContext = useFilterNavigator()
@@ -73,6 +76,11 @@ const FilterSidebar = ({
   }
 
   const handleFilterCheck = filter => {
+    if (updateOnFilterSelectionOnMobile && preventRouteChange) {
+      navigateToFacet(filter, preventRouteChange)
+      return
+    }
+
     if (!isFilterSelected(filterOperations, filter)) {
       setFilterOperations(filterOperations.concat(filter))
     } else {
@@ -91,16 +99,25 @@ const FilterSidebar = ({
   }
 
   const handleApply = () => {
-    navigateToFacet(filterOperations, preventRouteChange)
     setOpen(false)
+
+    if (updateOnFilterSelectionOnMobile && preventRouteChange) {
+      return
+    }
+
+    navigateToFacet(filterOperations, preventRouteChange)
     setFilterOperations([])
   }
 
-  const handleClearFilters = () => {
-    shouldClear.current = true
+  const handleClearFilters = key => {
+    shouldClear.current =
+      !updateOnFilterSelectionOnMobile || !preventRouteChange
     // Gets the previously selected facets that should be cleared
     const selectedFacets = selectedFilters.filter(
-      facet => facet.selected && !isInitialFacet(facet, initialSearch)
+      facet =>
+        facet.selected &&
+        !isInitialFacet(facet, initialSearch) &&
+        (!key || (key && key === facet.key))
     )
 
     // Should not clear initial search facets
@@ -108,7 +125,14 @@ const FilterSidebar = ({
       isInitialFacet(facet, initialSearch)
     )
 
-    setFilterOperations([...selectedFacets, ...selectedRest])
+    const facetsToRemove = [...selectedFacets, ...selectedRest]
+
+    if (updateOnFilterSelectionOnMobile && preventRouteChange) {
+      navigateToFacet(facetsToRemove, preventRouteChange)
+      return
+    }
+
+    setFilterOperations(facetsToRemove)
   }
 
   const handleUpdateCategories = maybeCategories => {
@@ -122,6 +146,11 @@ const FilterSidebar = ({
       op => op.map === MAP_CATEGORY_CHAR
     )
     const newCategories = [...categoriesSelected, ...categories]
+
+    if (updateOnFilterSelectionOnMobile && preventRouteChange) {
+      navigateToFacet(newCategories, preventRouteChange)
+      return
+    }
 
     // Just save the newest operation here to be recorded at the category tree hook and update the tree
     setCategoryTreeOperations(categories)
@@ -190,6 +219,10 @@ const FilterSidebar = ({
             initiallyCollapsed={initiallyCollapsed}
             truncateFilters={truncateFilters}
             priceRangeLayout={priceRangeLayout}
+            loading={loading}
+            onClearFilter={handleClearFilters}
+            showClearByFilter={showClearByFilter}
+            updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>
@@ -203,7 +236,7 @@ const FilterSidebar = ({
               block
               variation="tertiary"
               size="regular"
-              onClick={handleClearFilters}
+              onClick={() => handleClearFilters()}
             >
               <FormattedMessage id="store/search-result.filter-button.clear" />
             </Button>

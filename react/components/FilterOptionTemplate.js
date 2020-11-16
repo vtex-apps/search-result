@@ -13,6 +13,7 @@ import classNames from 'classnames'
 import { useRuntime } from 'vtex.render-runtime'
 import { IconCaret } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
+import { Tag } from 'vtex.styleguide'
 
 import styles from '../searchResult.css'
 import { SearchFilterBar } from './SearchFilterBar'
@@ -83,6 +84,8 @@ const FilterOptionTemplate = ({
   setTruncatedFacetsFetched,
   closeOnOutsideClick = false,
   appliedFiltersOverview,
+  navigateToFacet,
+  showClearByFilter,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
@@ -121,6 +124,11 @@ const FilterOptionTemplate = ({
     }
     setTruncated(value)
   }
+
+  const handleClear = useCallback(
+    () => navigateToFacet(filters.filter(filter => filter.selected)),
+    [navigateToFacet, filters]
+  )
 
   const renderChildren = () => {
     if (typeof children !== 'function') {
@@ -181,6 +189,11 @@ const FilterOptionTemplate = ({
     },
     isOpen
   )
+  const showClearButton =
+    showClearByFilter &&
+    !selected &&
+    filters &&
+    filters.some(filter => filter.selected)
 
   const handleKeyDown = useCallback(
     e => {
@@ -224,7 +237,22 @@ const FilterOptionTemplate = ({
           aria-disabled={!collapsable}
         >
           <div className={titleClassName}>
-            {title}
+            <span>
+              {title}
+              {showClearButton && (
+                <span className="ml2">
+                  <Tag
+                    size="small"
+                    onClick={e => {
+                      e.stopPropagation()
+                      handleClear()
+                    }}
+                  >
+                    <FormattedMessage id="store/search-result.filter-button.clear" />
+                  </Tag>
+                </span>
+              )}
+            </span>
             {collapsable && (
               <span
                 className={classNames(
@@ -313,6 +341,8 @@ FilterOptionTemplate.propTypes = {
   closeOnOutsideClick: PropTypes.bool,
   /** Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). */
   appliedFiltersOverview: PropTypes.string,
+  navigateToFacet: PropTypes.func,
+  showClearByFilter: PropTypes.bool,
 }
 
 export default FilterOptionTemplate
