@@ -116,7 +116,7 @@ const FilterSidebar = ({
     const selectedFacets = selectedFilters.filter(
       facet =>
         facet.selected &&
-        !isInitialFacet(facet, initialSearch) &&
+        (key || !isInitialFacet(facet, initialSearch)) &&
         (!key || (key && key === facet.key))
     )
 
