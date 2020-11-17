@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import React, { useContext, useState, useMemo } from 'react'
 import { Checkbox } from 'vtex.styleguide'
 import { applyModifiers } from 'vtex.css-handles'
+import { useRuntime } from 'vtex.render-runtime'
 
 import styles from '../searchResult.css'
 import SettingsContext from '../components/SettingsContext'
@@ -16,13 +17,19 @@ const FacetCheckboxList = ({
   facets,
   onFilterCheck,
   facetTitle,
+  quantity,
   truncateFilters,
   navigationType,
+  truncatedFacetsFetched,
+  setTruncatedFacetsFetched,
 }) => {
   const { showFacetQuantity } = useContext(SettingsContext)
+  const { getSettings } = useRuntime()
   const { thresholdForFacetSearch } = useSettings()
   const [searchTerm, setSearchTerm] = useState('')
   const [truncated, setTruncated] = useState(true)
+  const isLazyFacetsFetchEnabled = getSettings('vtex.store')
+    ?.enableFiltersFetchOptimization
 
   const filteredFacets = useMemo(() => {
     if (thresholdForFacetSearch === undefined || searchTerm === '') {
@@ -37,7 +44,7 @@ const FacetCheckboxList = ({
     navigationType === 'collapsible' &&
     truncateFilters &&
     // The "+ 1" prevents from truncating a single value 
-    filteredFacets.length > FACETS_RENDER_THRESHOLD + 1
+    quantity > FACETS_RENDER_THRESHOLD + 1
 
   const endSlice =
     shouldTruncate && truncated
@@ -47,6 +54,13 @@ const FacetCheckboxList = ({
   const showSearchBar =
     thresholdForFacetSearch !== undefined &&
     thresholdForFacetSearch < facets.length
+
+  const openTruncated = value => {
+    if (isLazyFacetsFetchEnabled && !truncatedFacetsFetched) {
+      setTruncatedFacetsFetched(true)
+    }
+    setTruncated(value)
+  }
 
   return (
     <>
@@ -84,9 +98,9 @@ const FacetCheckboxList = ({
       })}
       {shouldTruncate && (
         <ShowMoreFilterButton
-          quantity={facets.length - FACETS_RENDER_THRESHOLD}
+          quantity={quantity - FACETS_RENDER_THRESHOLD}
           truncated={truncated}
-          toggleTruncate={() => setTruncated(!truncated)}
+          toggleTruncate={() => openTruncated(truncated => !truncated)}
         />
       )}
     </>

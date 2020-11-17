@@ -16,6 +16,7 @@ const AccordionFilterGroup = ({
   className,
   title,
   facets,
+  quantity,
   show,
   open,
   onOpen,
@@ -24,6 +25,8 @@ const AccordionFilterGroup = ({
   navigationType,
   initiallyCollapsed,
   truncateFilters,
+  truncatedFacetsFetched,
+  setTruncatedFacetsFetched,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const filters = useSelectedFilters(facets)
@@ -52,9 +55,12 @@ const AccordionFilterGroup = ({
         <FacetCheckboxList
           onFilterCheck={onFilterCheck}
           facets={filters}
+          quantity={quantity}
           facetTitle={facetTitle}
           truncateFilters={truncateFilters}
           navigationType={navigationType}
+          truncatedFacetsFetched={truncatedFacetsFetched}
+          setTruncatedFacetsFetched={setTruncatedFacetsFetched}
         />
       </div>
     </AccordionFilterItem>

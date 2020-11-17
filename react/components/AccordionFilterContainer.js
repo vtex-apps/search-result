@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { injectIntl, intlShape } from 'react-intl'
 import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
+import { useRuntime } from 'vtex.render-runtime'
 
 import AccordionFilterItem from './AccordionFilterItem'
 import DepartmentFilters from './DepartmentFilters'
@@ -32,15 +33,24 @@ const AccordionFilterContainer = ({
   navigationType,
   initiallyCollapsed,
   truncateFilters,
+  truncatedFacetsFetched,
+  setTruncatedFacetsFetched,
 }) => {
+  const { getSettings } = useRuntime()
   const [openItem, setOpenItem] = useState(null)
   const handles = useCssHandles(CSS_HANDLES)
+  const isLazyFacetsFetchEnabled = getSettings('vtex.store')
+    ?.enableFiltersFetchOptimization
 
   const handleOpen = id => e => {
     e.preventDefault()
 
     if (navigationType === 'collapsible') {
       return
+    }
+
+    if (isLazyFacetsFetchEnabled && !truncatedFacetsFetched) {
+      setTruncatedFacetsFetched(true)
     }
 
     if (openItem === id) {
@@ -158,6 +168,7 @@ const AccordionFilterContainer = ({
               <AccordionFilterGroup
                 title={filter.title}
                 facets={filter.facets}
+                quantity={filter.quantity}
                 key={title}
                 className={itemClassName}
                 open={isOpen}
@@ -168,6 +179,8 @@ const AccordionFilterContainer = ({
                 navigationType={navigationType}
                 initiallyCollapsed={initiallyCollapsed}
                 truncateFilters={truncateFilters}
+                truncatedFacetsFetched={truncatedFacetsFetched}
+                setTruncatedFacetsFetched={setTruncatedFacetsFetched}
               />
             )
         }
@@ -197,6 +210,10 @@ AccordionFilterContainer.propTypes = {
   initiallyCollapsed: PropTypes.bool,
   /** If filters start truncated */
   truncateFilters: PropTypes.bool,
+  /** If the truncated facets were fetched */
+  truncatedFacetsFetched: PropTypes.bool,
+  /** Sets if the truncated facets were fetched */
+  setTruncatedFacetsFetched: PropTypes.func,
 }
 
 export default injectIntl(AccordionFilterContainer)

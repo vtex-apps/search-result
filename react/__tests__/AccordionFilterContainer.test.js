@@ -1,6 +1,17 @@
 import React from 'react'
 import { render } from '@vtex/test-tools/react'
 import AccordionFilterContainer from '../components/AccordionFilterContainer'
+import { useRuntime } from '../__mocks__/vtex.render-runtime'
+
+const mockUseRuntime = useRuntime
+
+beforeEach(() => {
+  jest.clearAllMocks()
+
+  mockUseRuntime.mockImplementation(() => ({
+    getSettings: () => ({}),
+  }))
+})
 
 describe('<AccordionFilterContainer />', () => {
   const renderComponent = () => {
