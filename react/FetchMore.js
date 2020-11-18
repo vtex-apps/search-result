@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { path } from 'ramda'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
@@ -11,8 +11,11 @@ import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import styles from './searchResult.css'
 
-const FetchMore = ({ htmlElementForButton = 'button '}) => {
+const FetchMore = ({ htmlElementForButton = 'button ' }) => {
   const { pagination, searchQuery, maxItemsPerPage, page } = useSearchPage()
+
+  const lastPaginationStateForPage = useRef({})
+
   const products = path(['data', 'productSearch', 'products'], searchQuery)
   const recordsFiltered = path(
     ['data', 'productSearch', 'recordsFiltered'],
@@ -33,6 +36,7 @@ const FetchMore = ({ htmlElementForButton = 'button '}) => {
     fetchMore,
     products,
     queryData,
+    lastPaginationStateForPage,
   })
 
   const isShowMore = pagination === PAGINATION_TYPE.SHOW_MORE

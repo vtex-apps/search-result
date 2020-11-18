@@ -135,6 +135,7 @@ const useFetchingMore = () => {
 }
 
 export const useFetchMore = props => {
+  console.log(props)
   const {
     page,
     recordsFiltered,
@@ -142,10 +143,32 @@ export const useFetchMore = props => {
     fetchMore,
     products,
     queryData: { query, map, orderBy, priceRange },
+    lastPaginationStateForPage,
   } = props
+
+  console.log(lastPaginationStateForPage)
+
+  // This idea of 'pageIdentifier' is not a thing. It only exists here.
+  const internalPageIdentifier = `${query.toLowerCase()}?${map}`
+
+  // console.log(`Page identifier: ${internalPageIdentifier}`)
+
   const { setQuery, query: runtimeQuery } = useRuntime()
   const { fuzzy, operator, searchState } = useSearchState()
-  const currentPage = (runtimeQuery.page && Number(runtimeQuery.page)) || page
+
+  // const lastPaginationStateForPage = useRef({})
+
+  const currentPage =
+    (runtimeQuery.page && Number(runtimeQuery.page)) ||
+    lastPaginationStateForPage.current[internalPageIdentifier] ||
+    page
+
+  // eslint-disable-next-line no-console
+  console.log(
+    `Current value for lastPaginationStateForPage: ${JSON.stringify(
+      lastPaginationStateForPage.current
+    )}`
+  )
 
   const initialState = {
     page: currentPage,
@@ -154,15 +177,21 @@ export const useFetchMore = props => {
     from: (page - 1) * maxItemsPerPage,
     to: currentPage * maxItemsPerPage - 1,
   }
+
   const [pageState, pageDispatch] = useReducer(reducer, initialState)
   const [loading, setLoading] = useFetchingMore()
+
   const isFirstRender = useRef(true)
-  const fetchMoreLocked = useRef(false) // prevents the user from sending two requests at once
+
+  // prevents the user from sending two requests at once
+  const fetchMoreLocked = useRef(false)
+
   /* this is a temporary solution to deal with unexpected 
   errors when the search result uses infinite scroll. 
   This should be removed once infinite scrolling is removed */
   const [infiniteScrollError, setInfiniteScrollError] = useState(false)
-  const updateQueryError = useRef(false) //TODO: refactor this ref
+  //TODO: refactor this ref
+  const updateQueryError = useRef(false)
 
   useEffect(() => {
     if (!isFirstRender.current) {
@@ -177,6 +206,9 @@ export const useFetchMore = props => {
     const to = from + maxItemsPerPage - 1
     setInfiniteScrollError(false)
     pageDispatch({ type: 'NEXT_PAGE', args: { to } })
+
+    lastPaginationStateForPage.current[internalPageIdentifier] =
+      pageState.nextPage
 
     setQuery(
       {
