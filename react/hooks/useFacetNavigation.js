@@ -1,6 +1,7 @@
 import { zip } from 'ramda'
 import { useCallback } from 'react'
 import { useRuntime } from 'vtex.render-runtime'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { useFilterNavigator } from '../components/FilterNavigatorContext'
 import { newFacetPathName } from '../utils/slug'
 import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
@@ -189,6 +190,8 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
   const { navigate, setQuery } = useRuntime()
   const { map, query } = useFilterNavigator()
   const { fuzzy, operator, searchState } = useSearchState()
+  const { searchQuery } = useSearchPage()
+  const { query: runtimeQuery } = useRuntime()
 
   const mainSearches = getMainSearches(query, map)
 
@@ -219,7 +222,7 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
         return
       }
 
-      const newQuery = replaceQueryForNewQueryFormat(currentQuery, currentMap, [
+      let newQuery = replaceQueryForNewQueryFormat(currentQuery, currentMap, [
         ...selectedFacets,
         ...facets,
       ])
@@ -227,6 +230,17 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
       const urlParams = getCleanUrlParams(
         removeMapForNewURLFormat(currentMap, [...selectedFacets, ...facets])
       )
+
+      if (
+        searchQuery &&
+        searchQuery.variables &&
+        (!urlParams.get('initialQuery') || !urlParams.get('initialMap'))
+      ) {
+        const { map, query } = searchQuery.variables
+
+        urlParams.set('initialQuery', query)
+        urlParams.set('initialMap', map)
+      }
 
       if (fuzzy) {
         urlParams.set('fuzzy', fuzzy)
@@ -236,6 +250,17 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
       }
       if (searchState) {
         urlParams.set('searchState', searchState)
+      }
+
+      if (!newQuery) {
+        const { initialQuery, initialMap } = runtimeQuery
+
+        if (!initialQuery || !initialMap) {
+          return
+        }
+
+        newQuery = initialQuery
+        urlParams.set('map', initialMap)
       }
 
       navigate({

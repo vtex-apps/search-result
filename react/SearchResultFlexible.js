@@ -127,8 +127,12 @@ const SearchResultFlexible = ({
     ]
   )
 
-  const context = useMemo(
-    () => ({
+  const context = useMemo(() => {
+    const selectedFacets = filters.flatMap(filter =>
+      filter.facets.filter(facet => facet.selected)
+    )
+
+    return {
       hiddenFacets,
       pagination,
       mobileLayout,
@@ -145,26 +149,26 @@ const SearchResultFlexible = ({
       preventRouteChange,
       facetsLoading,
       lazyItemsRemaining,
-    }),
-    [
-      hiddenFacets,
-      pagination,
-      mobileLayout,
-      searchQuery,
-      page,
-      maxItemsPerPage,
-      map,
-      params,
-      priceRange,
-      orderBy,
-      showFacets,
-      filters,
-      showProductsCount,
-      preventRouteChange,
-      facetsLoading,
-      lazyItemsRemaining,
-    ]
-  )
+      selectedFacets,
+    }
+  }, [
+    hiddenFacets,
+    pagination,
+    mobileLayout,
+    searchQuery,
+    page,
+    maxItemsPerPage,
+    map,
+    params,
+    priceRange,
+    orderBy,
+    showFacets,
+    filters,
+    showProductsCount,
+    preventRouteChange,
+    facetsLoading,
+    lazyItemsRemaining,
+  ])
 
   const showLoading = searchQuery.loading && !state.isFetchingMore
   return (

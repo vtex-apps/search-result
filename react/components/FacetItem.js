@@ -4,6 +4,7 @@ import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import classNames from 'classnames'
 
 import SettingsContext from './SettingsContext'
+import useShouldDisableFacet from '../hooks/useShouldDisableFacet'
 
 const CSS_HANDLES = ['filterItem']
 
@@ -51,6 +52,8 @@ const FacetItem = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [facet.selected])
 
+  const shouldDisable = useShouldDisableFacet(facet)
+
   return (
     <div
       className={classes}
@@ -68,6 +71,7 @@ const FacetItem = ({
           navigateToFacet({ ...facet, title: facetTitle }, preventRouteChange)
         }}
         value={facet.name}
+        disabled={shouldDisable}
       />
     </div>
   )

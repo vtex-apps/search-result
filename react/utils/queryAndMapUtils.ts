@@ -1,7 +1,5 @@
 import {
   MAP_CATEGORY_CHAR,
-  DEPARTMENT,
-  CATEGORY,
   PATH_SEPARATOR,
   MAP_VALUES_SEP,
   PRODUCT_CLUSTER_IDS,
@@ -11,17 +9,10 @@ import {
 const CATEGORY_DEPARTMENTS_CLUSTER_ID_FT = [
   MAP_CATEGORY_CHAR,
   PRODUCT_CLUSTER_IDS,
-  CATEGORY,
-  DEPARTMENT,
   FULLTEXT_QUERY_KEY,
 ]
 
-const CATEGORY_DEPARTMENTS_FT = [
-  MAP_CATEGORY_CHAR,
-  CATEGORY,
-  DEPARTMENT,
-  FULLTEXT_QUERY_KEY,
-]
+const CATEGORY_DEPARTMENTS_FT = [MAP_CATEGORY_CHAR, FULLTEXT_QUERY_KEY]
 
 /* With the addition of the new VTEX search, it is possible to have different maps.
   This function checks the equivalent possibilities for the 'c' map */
