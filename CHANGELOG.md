@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- `@vtex-apps/search-engagement-team` as CODEOWNER.
+
 ## [3.86.0] - 2020-11-17
 
 ### Changed
