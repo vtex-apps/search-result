@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.86.2] - 2020-12-02
+
 ### Fixed
 - When all facets are unselected, the user is redirected to the home page.
 
