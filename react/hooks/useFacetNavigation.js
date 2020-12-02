@@ -187,11 +187,10 @@ export const buildNewQueryMap = (
 }
 
 const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
-  const { navigate, setQuery } = useRuntime()
+  const { navigate, setQuery, query: runtimeQuery } = useRuntime()
   const { map, query } = useFilterNavigator()
   const { fuzzy, operator, searchState } = useSearchState()
   const { searchQuery } = useSearchPage()
-  const { query: runtimeQuery } = useRuntime()
 
   const mainSearches = getMainSearches(query, map)
 
