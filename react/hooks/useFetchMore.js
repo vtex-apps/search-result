@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect, useReducer } from 'react'
-import { min, max } from 'ramda'
+import { max } from 'ramda'
 import { useRuntime } from 'vtex.render-runtime'
 import {
   useSearchPageStateDispatch,
@@ -78,13 +78,13 @@ const handleFetchMore = async (
       setLoading(false)
       fetchMoreLocked.current = false
 
-      if (!prevResult || !fetchMoreResult) {
+      if (!products || !fetchMoreResult) {
         updateQueryError.current = true
         return
       }
 
       // backwards compatibility
-      if (prevResult.search) {
+      if (prevResult && prevResult.search) {
         return {
           search: {
             ...prevResult.search,
@@ -102,18 +102,12 @@ const handleFetchMore = async (
       }
 
       return {
-        ...prevResult,
+        ...fetchMoreResult,
         productSearch: {
-          ...prevResult.productSearch,
+          ...fetchMoreResult.productSearch,
           products: isForward
-            ? [
-                ...prevResult.productSearch.products,
-                ...fetchMoreResult.productSearch.products,
-              ]
-            : [
-                ...fetchMoreResult.productSearch.products,
-                ...prevResult.productSearch.products,
-              ],
+            ? [...products, ...fetchMoreResult.productSearch.products]
+            : [...fetchMoreResult.productSearch.products, ...products],
         },
       }
     },
@@ -149,14 +143,16 @@ export const useFetchMore = props => {
     products,
     queryData: { query, map, orderBy, priceRange },
   } = props
-  const { setQuery } = useRuntime()
+  const { setQuery, query: runtimeQuery } = useRuntime()
   const { fuzzy, operator, searchState } = useSearchState()
+  const currentPage = (runtimeQuery.page && Number(runtimeQuery.page)) || page
+
   const initialState = {
-    page,
-    nextPage: page + 1,
-    previousPage: page - 1,
+    page: currentPage,
+    nextPage: currentPage + 1,
+    previousPage: currentPage - 1,
     from: (page - 1) * maxItemsPerPage,
-    to: page * maxItemsPerPage - 1,
+    to: currentPage * maxItemsPerPage - 1,
   }
   const [pageState, pageDispatch] = useReducer(reducer, initialState)
   const [loading, setLoading] = useFetchingMore()
