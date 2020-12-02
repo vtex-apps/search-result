@@ -12,7 +12,7 @@ export default function useShouldDisableFacet(facet) {
     return false
   }
 
-  if (selectedFacets.length === 1) {
+  if (selectedFacets && selectedFacets.length === 1) {
     const [selectedFacet] = selectedFacets
 
     return (
