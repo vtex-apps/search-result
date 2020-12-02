@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- When all facets are unselected, the user is redirected to the home page.
+
+### Changed
+- Use `initialQuery` and `initialMap` instead of `window.initialSearchFacets`
+
 ## [3.86.1] - 2020-12-01
 
 ### Added

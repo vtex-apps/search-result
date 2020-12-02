@@ -19,9 +19,9 @@ import { buildNewQueryMap } from '../hooks/useFacetNavigation'
 import styles from '../searchResult.css'
 import { getMainSearches } from '../utils/compatibilityLayer'
 import {
-  filterInitialSelected,
-  isInitialFacet,
-} from '../utils/initialSearchUtils'
+  isCategoryDepartmentCollectionOrFT,
+  filterCategoryDepartmentCollectionAndFT,
+} from '../utils/queryAndMapUtils'
 
 const CSS_HANDLES = [
   'filterPopupButton',
@@ -59,7 +59,6 @@ const FilterSidebar = ({
     searchQuery.data &&
     searchQuery.data.productSearch &&
     searchQuery.data.productSearch.recordsFiltered
-  const initialSearch = window.initialSearchFacets
 
   const [filterOperations, setFilterOperations] = useState([])
   const [categoryTreeOperations, setCategoryTreeOperations] = useState([])
@@ -101,12 +100,12 @@ const FilterSidebar = ({
     shouldClear.current = true
     // Gets the previously selected facets that should be cleared
     const selectedFacets = selectedFilters.filter(
-      facet => facet.selected && !isInitialFacet(facet, initialSearch)
+      facet => !isCategoryDepartmentCollectionOrFT(facet.key) && facet.selected
     )
 
-    // Should not clear initial search facets
+    // Should not clear categories, departments and clusterIds
     const selectedRest = filterOperations.filter(facet =>
-      isInitialFacet(facet, initialSearch)
+      isCategoryDepartmentCollectionOrFT(facet.key)
     )
 
     setFilterOperations([...selectedFacets, ...selectedRest])
@@ -140,10 +139,11 @@ const FilterSidebar = ({
     const fullTextAndCollection = getMainSearches(query, map)
 
     /* This removes the previously selected stuff from the context when you click on 'clear'.
-    It is important to notice that it keeps the initial search facets. */
+    It is important to notice that it keeps categories, departments and clusterIds since they
+    are important to show the correct facets. */
     if (shouldClear.current) {
       shouldClear.current = false
-      return filterInitialSelected(filterContext, initialSearch)
+      return filterCategoryDepartmentCollectionAndFT(filterContext)
     }
 
     /* The spread on selectedFilters was necessary because buildNewQueryMap
@@ -154,7 +154,7 @@ const FilterSidebar = ({
         ...selectedFilters,
       ]),
     }
-  }, [filterContext, filterOperations, initialSearch, selectedFilters])
+  }, [filterOperations, filterContext, selectedFilters])
 
   return (
     <Fragment>
