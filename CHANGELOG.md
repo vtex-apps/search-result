@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.86.4] - 2020-12-02
 ### Fixed
 - `fetchMore` would not work correctly in some cases due to the `updateQuery` method being called with `prevResults` argument set to `undefined`. 
 
