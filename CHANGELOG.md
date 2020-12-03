@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Fix broken and wrong links in the docs.
+
 ## [3.87.0] - 2020-12-03
 ### Added
 - `categoryFiltersMode` prop to Filter Navigator Flexible.
