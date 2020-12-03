@@ -31,15 +31,15 @@ const GalleryLayoutOption: React.FC<GalleryLayoutOptionProps> = ({
   label,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
-  const { galleryLayout } = useSearchPageState()
+  const { selectedGalleryLayout } = useSearchPageState()
   const dispatch = useSearchPageStateDispatch()
 
-  const selected = name === galleryLayout
+  const selected = name === selectedGalleryLayout
 
   const handleOptionClick = () => {
     dispatch({
       type: SWITCH_GALLERY_LAYOUT_TYPE,
-      args: { galleryLayout: name },
+      args: { selectedGalleryLayout: name },
     })
   }
 

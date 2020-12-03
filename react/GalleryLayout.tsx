@@ -1,4 +1,4 @@
-import React, { ComponentType, useContext, useMemo } from 'react'
+import React, { ComponentType, useContext, useEffect, useMemo } from 'react'
 import classNames from 'classnames'
 
 import { ProductListContext } from 'vtex.product-list-context'
@@ -13,13 +13,14 @@ import GalleryLayoutRow from './components/GalleryLayoutRow'
 import SettingsContext from './components/SettingsContext'
 import ProductListEventCaller from './utils/ProductListEventCaller'
 import type { Product } from './Gallery'
+import { SET_GALLERY_LAYOUTS_TYPE } from './constants'
 
 const LAZY_RENDER_THRESHOLD = 2
 
 const CSS_HANDLES = ['gallery'] as const
 
 const { ProductListProvider } = ProductListContext
-const { useSearchPageState } = SearchPageContext
+const { useSearchPageState, useSearchPageStateDispatch } = SearchPageContext
 
 interface LayoutOption {
   name: string
@@ -49,13 +50,23 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
   const { trackingId = 'Search result' } = useContext(SettingsContext) || {}
   const handles = useCssHandles(CSS_HANDLES)
   const { getSettings } = useRuntime()
-  const { galleryLayout } = useSearchPageState()
+  const { selectedGalleryLayout } = useSearchPageState()
+  const searchPageStateDispatch = useSearchPageStateDispatch()
+
+  useEffect(() => {
+    searchPageStateDispatch({
+      type: SET_GALLERY_LAYOUTS_TYPE,
+      args: { galleryLayouts: layouts },
+    })
+  }, [layouts])
 
   const currentLayoutOption = useMemo(() => {
     let layoutOption
 
-    if (galleryLayout) {
-      layoutOption = layouts.find((layout) => layout.name === galleryLayout)
+    if (selectedGalleryLayout) {
+      layoutOption = layouts.find(
+        (layout) => layout.name === selectedGalleryLayout
+      )
     } else {
       console.error(
         'No default gallery layout defined. Set it in search-result-layout by using the defaultGalleryLayout prop.'
@@ -63,7 +74,7 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
     }
 
     return layoutOption ?? layouts[0]
-  }, [galleryLayout, layouts])
+  }, [selectedGalleryLayout, layouts])
 
   const itemsPerRow = useResponsiveValue(currentLayoutOption.itemsPerRow)
 
