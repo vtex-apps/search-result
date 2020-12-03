@@ -284,6 +284,7 @@ Check out the [**Product Summary documentation**](https://vtex.io/docs/component
 
 | Prop name | Type                      | Description                                                                                       | Default value |
 | --------- | ------------------------- | ------------------------------------------------------------------------------------------------- | ------------- |
+| `categoryFiltersMode`  | `enum` | Whether the category filters should use the `href` attribute with the category pages' URLs (`href`) or not (`default`). By default, the filters use HTML divs with `role="link"`. You may change this behavior by setting this prop's value to `href`, thereby creating a link building to improve the SEO ranking of your category pages. | `default`  |
 | `layout`  | `Enum` | Whether the Filter Navigator layout should be responsive (`responsive`) or not (`desktop`). You may use `desktop` when the Filter Navigator was configured to be displayed in a [drawer](https://vtex.io/docs/components/content-blocks/vtex.store-drawer@0.9.0). | `responsive`  |
 | `maxItemsDepartment` | `number`                 | Maximum number of departments to be displayed before the See More button is triggered.          | `8`             |
 | `maxItemsCategory`   | `number`                 | Maximum number of category items to be displayed before the See More button is triggered.     | `8`             |

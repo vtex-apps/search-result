@@ -22,6 +22,7 @@ const DepartmentFilters = ({
   preventRouteChange,
   maxItemsDepartment,
   maxItemsCategory,
+  categoryFiltersMode
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   if (!isVisible || tree.length === 0) {
@@ -69,6 +70,7 @@ const DepartmentFilters = ({
                 onCategorySelect={onCategorySelect}
                 preventRouteChange={preventRouteChange}
                 maxItemsCategory={maxItemsCategory}
+                categoryFiltersMode={categoryFiltersMode}
               />
             )}
           />
@@ -78,6 +80,7 @@ const DepartmentFilters = ({
             onCategorySelect={onCategorySelect}
             preventRouteChange={preventRouteChange}
             maxItemsCategory={maxItemsCategory}
+            categoryFiltersMode={categoryFiltersMode}
           />
         )}
       </div>

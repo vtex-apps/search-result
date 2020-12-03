@@ -43,6 +43,7 @@ const CategoryFilter = ({
   onCategorySelect,
   preventRouteChange,
   maxItemsCategory,
+  categoryFiltersMode
 }) => {
   const { map } = useFilterNavigator()
   const handles = useCssHandles(CSS_HANDLES)
@@ -152,6 +153,8 @@ const CategoryFilter = ({
                 render={(childCategory, index) => (
                   <CategoryItem
                     key={childCategory.id}
+                    href={childCategory.href}
+                    categoryFiltersMode={categoryFiltersMode}
                     className={classNames({
                       mt2: index === 0 && !shallow,
                     })}

@@ -13,6 +13,7 @@ const withSearchPageContextProps = Component => ({
   scrollToTop,
   maxItemsDepartment,
   maxItemsCategory,
+  categoryFiltersMode,
   filtersTitleHtmlTag,
   truncateFilters,
   openFiltersMode,
@@ -81,6 +82,7 @@ const withSearchPageContextProps = Component => ({
           scrollToTop={scrollToTop}
           maxItemsDepartment={maxItemsDepartment}
           maxItemsCategory={maxItemsCategory}
+          categoryFiltersMode={categoryFiltersMode}
           filtersTitleHtmlTag={filtersTitleHtmlTag}
           truncateFilters={truncateFilters}
           openFiltersMode={openFiltersMode}

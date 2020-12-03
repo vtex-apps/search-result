@@ -72,6 +72,7 @@ const FilterNavigator = ({
   layout = LAYOUT_TYPES.responsive,
   maxItemsDepartment = 8,
   maxItemsCategory = 8,
+  categoryFiltersMode = 'default',
   filtersTitleHtmlTag = 'h5',
   scrollToTop = 'none',
   openFiltersMode = 'many',
@@ -201,6 +202,7 @@ const FilterNavigator = ({
               truncateFilters={truncateFilters}
               truncatedFacetsFetched={truncatedFacetsFetched}
               setTruncatedFacetsFetched={setTruncatedFacetsFetched}
+              categoryFiltersMode={categoryFiltersMode}
             />
           </div>
         </div>
@@ -230,6 +232,7 @@ const FilterNavigator = ({
               preventRouteChange={preventRouteChange}
               maxItemsDepartment={maxItemsDepartment}
               maxItemsCategory={maxItemsCategory}
+              categoryFiltersMode={categoryFiltersMode}
             />
             <AvailableFilters
               filters={filters}
