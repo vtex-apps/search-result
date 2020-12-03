@@ -24,8 +24,15 @@
     "allowed": ["shop-review-summary", "sidebar-close-button"]
   },
   "gallery": {
-    "required": ["product-summary"],
+    "allowed": ["product-summary"],
     "component": "Gallery"
+  },
+  "gallery-layout-switcher": {
+    "component": "GalleryLayoutSwitcher",
+    "composition": "children"
+  },
+  "gallery-layout-option": {
+    "component": "GalleryLayoutOption"
   },
   "not-found": {
     "allowed": ["shelf"],
