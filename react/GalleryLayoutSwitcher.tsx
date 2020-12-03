@@ -9,7 +9,7 @@ const GalleryLayoutSwitcher: React.FC = ({ children }) => {
 
   const gallerySwitcherClasses = classNames(
     handles.galleryLayoutSwitcher,
-    'flex flex-row flex-wrapitems-stretch bn ph1 na4'
+    'flex flex-row bn'
   )
 
   return (
