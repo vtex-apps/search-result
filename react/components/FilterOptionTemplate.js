@@ -253,7 +253,9 @@ const FilterOptionTemplate = ({
         })}
         ref={scrollable}
         style={
-          !(truncateFilters || isLazyFacetsFetchEnabled) || isLazyRenderEnabled
+          !selected &&
+          (!(truncateFilters || isLazyFacetsFetchEnabled) ||
+            isLazyRenderEnabled)
             ? { maxHeight: '200px' }
             : {}
         }
