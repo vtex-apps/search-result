@@ -276,13 +276,13 @@ Find below the available blocks to build your store's search results page and th
 
 The `gallery` block defines how fetched items should be displayed on the store's search results page.
 
-When declared with no props, it expects as child the [`product-summary-shelf`](https://vtex.io/docs/components/content-blocks/vtex.product-summary/) and consequently the block structure inherited from it. 
+When declared with no props, it expects as child the [`product-summary.shelf`](https://vtex.io/docs/components/content-blocks/vtex.product-summary/) and consequently the block structure inherited from it. 
 
 It is possible, however, to use its `layouts` prop to provide several layouts to the page, allowing your store to have different arrangement of items according to what best fits your users' needs.
 
-In a scenario where several layouts are provided, your store users are able to shift between them according to their needs using the `gallery-layout-switcher` block (described further below). The `gallery` will then render the component provided by the currently selected layout. 
+In a scenario where several layouts are provided, your store users are able to shift between them according to their needs using the `gallery-layout-switcher` block (described further below). The `gallery` will then render the component provided by the currently selected layout.
 
-:information_source: *You can also set a default layout for your search results page in the `defaultGalleryLayout` prop from the `search-result-layout.desktop` and `search-result-layout.mobile` blocks.*
+:information_source: *It's highly recommended that you set a default layout for your search results page in the `defaultGalleryLayout` prop from the `search-result-layout.desktop` and `search-result-layout.mobile` blocks.*
 
 | Prop name | Type                      | Description                                                    | Default value   |
 | :---------: | :---------------------: | :--------------------------------------------------------------| :-------------: |
@@ -314,20 +314,25 @@ For example:
       "layouts": [
         {
           "name": "whole",
-          "component": "WholeLineSummary",
+          "component": "OneOrTwoLineSummary",
           "itemsPerRow": 1
+        },
+        {
+          "name": "two",
+          "component": "OneOrTwoLineSummary",
+          "itemsPerRow": 2
         },
         {
           "name": "many",
           "component": "ManyByLineSummary",
           "itemsPerRow": {
             "desktop": 5,
-            "mobile": 2
+            "mobile": 1
           }
         }
       ],
-      "WholeLineSummary": "product-summary.shelf#whole",
-      "ManyByLineSummary": "product-summary.shelf#many"
+      "OneOrTwoLineSummary": "product-summary.shelf",
+      "ManyByLineSummary": "product-summary.shelf"
     }
   }
 }
@@ -337,7 +342,7 @@ For example:
 
 Logical block that allows users to switch between the available `gallery`'s layouts. 
 
-It receives no props and expects as child the `gallery-layout-option` block described below.
+It receives no props and expects as child the `gallery-layout-option` block described below. It's important to define the options in the same order as the layouts, so the accessibility features can work properly.
 
 #### `gallery-layout-option` block
 
@@ -346,29 +351,45 @@ Defines how each layout option should be rendered for users.
 | Prop name   | Type           | Description                                                         | Default value   |
 | :---------: | :------------: | :-----------------------------------------------------------------: | :-------------: |
 | `name`  | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Names the layout option. This prop's value must match the one passed to the `name` prop.  | `undefined`  |
-| `Option` | `block` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Names the block that represents the given layout option. It is strongly recommended to use icon blocks as this prop's value in order to facilitate user interaction and leverage from the `isActive` prop, which allows you to apply special customization when the option is currently selected by users. **Notice:** the `isActive` prop is natively inherited by your icon blocks. If you choose to declare a custom component as the `Option`'s value, make sure it declared the `isActive` prop as well. | `undefined` |
 
 For example:
 
-```json
+```jsonc
 {
   "gallery-layout-switcher": {
     "children": [
+      //It follows the same whole -> two -> many order
       "gallery-layout-option#whole",
+      "gallery-layout-option#two",
       "gallery-layout-option#many"
     ]
   },
   "gallery-layout-option#whole": {
     "props": {
-      "name": "whole",
-      "Option": "icon-menu#option"
-    }
+      "name": "whole"
+    },
+    "children": [
+      "icon-single-grid",
+      "rich-text#option-whole"
+    ]
+  },
+  "gallery-layout-option#two": {
+    "props": {
+      "name": "two"
+    },
+    "children": [
+      "icon-inline-grid",
+      "rich-text#option-two"
+    ]
   },
   "gallery-layout-option#many": {
     "props": {
-      "name": "many",
-      "Option": "icon-single-grid#option"
-    }
+      "name": "many"
+    },
+    "children": [
+      "icon-menu",
+      "rich-text#option-many"
+    ]
   }
 }
 ```
@@ -526,7 +547,7 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `galleryTitle`                        |
 | `gallery`                             |
 | `galleryLayoutSwitcher`               |
-| `galleryLayoutOption`                 |
+| `galleryLayoutOptionButton`           |
 | `layoutSwitcher`                      |
 | `loadingOverlay`                      |
 | `loadingSpinnerInnerContainer`        |
