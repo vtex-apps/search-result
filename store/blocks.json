@@ -8,5 +8,8 @@
       "total-products",
       "order-by"
     ]
+  },
+  "gallery": {
+    "blocks": ["product-summary"]
   }
 }
