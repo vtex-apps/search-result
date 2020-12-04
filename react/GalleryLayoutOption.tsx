@@ -1,4 +1,4 @@
-import React, { ComponentType, useEffect } from 'react'
+import React, { PropsWithChildren, useEffect } from 'react'
 
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import { SearchPageContext } from 'vtex.search-page-context'
@@ -6,30 +6,17 @@ import { SWITCH_GALLERY_LAYOUT_TYPE } from './constants'
 
 const { useSearchPageState, useSearchPageStateDispatch } = SearchPageContext
 
-interface OptionSlot {
-  isActive?: boolean
-}
-
 interface GalleryLayoutOptionProps {
-  /** Component to show before label*/
-  Option: ComponentType<OptionSlot>
-  /** Unique name to match layout name */
+  /** Unique name to match with a layout name */
   name: string
-  /** Label of the option */
-  label?: string
 }
 
-const CSS_HANDLES = [
-  'galleryLayoutOptionButton',
-  'galleryLayoutOptionContainer',
-  'galleryLayoutOptionLabel',
-] as const
+const CSS_HANDLES = ['galleryLayoutOptionButton'] as const
 
-const GalleryLayoutOption: React.FC<GalleryLayoutOptionProps> = ({
-  Option,
+function GalleryLayoutOption({
   name,
-  label,
-}) => {
+  children,
+}: PropsWithChildren<GalleryLayoutOptionProps>) {
   const handles = useCssHandles(CSS_HANDLES)
   const optionButtonRef = React.useRef<HTMLButtonElement>(null)
   const { selectedGalleryLayout, focusedGalleryLayout } = useSearchPageState()
@@ -55,19 +42,18 @@ const GalleryLayoutOption: React.FC<GalleryLayoutOptionProps> = ({
       className={`${applyModifiers(
         handles.galleryLayoutOptionButton,
         selected ? 'selected' : ''
-      )} bw0 pointer outline-0 bg-transparent`}
+      )} bw0 pointer bg-transparent flex flex-row items-center`}
       onClick={handleOptionClick}
       role="radio"
       aria-checked={selected}
       aria-controls="gallery-layout-container"
       aria-label={`Switch to ${name} layout`}
-      tabIndex={focusedGalleryLayout === name ? 0 : -1}
+      tabIndex={
+        (focusedGalleryLayout ?? selectedGalleryLayout) === name ? 0 : -1
+      }
       ref={optionButtonRef}
     >
-      <div className={handles.galleryLayoutOptionContainer}>
-        <Option isActive={selected} />
-        <span className={handles.galleryLayoutOptionLabel}>{label}</span>
-      </div>
+      {children}
     </button>
   )
 }

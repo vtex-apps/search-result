@@ -2,7 +2,6 @@ import React, { useCallback } from 'react'
 import classNames from 'classnames'
 import { useCssHandles } from 'vtex.css-handles'
 import { SearchPageContext } from 'vtex.search-page-context'
-// import { SWITCH_GALLERY_LAYOUT_TYPE } from './constants'
 
 const { useSearchPageState, useSearchPageStateDispatch } = SearchPageContext
 
@@ -10,7 +9,11 @@ const CSS_HANDLES = ['galleryLayoutSwitcher'] as const
 
 const GalleryLayoutSwitcher: React.FC = ({ children }) => {
   const handles = useCssHandles(CSS_HANDLES)
-  const { focusedGalleryLayout, galleryLayouts } = useSearchPageState()
+  const {
+    selectedGalleryLayout,
+    focusedGalleryLayout,
+    galleryLayouts,
+  } = useSearchPageState()
   const dispatch = useSearchPageStateDispatch()
 
   const gallerySwitcherClasses = classNames(
@@ -20,54 +23,58 @@ const GalleryLayoutSwitcher: React.FC = ({ children }) => {
 
   const navigateWithKeys = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
-      if (galleryLayouts) {
-        if (
-          e.key === 'ArrowLeft' ||
+      if (
+        galleryLayouts &&
+        (e.key === 'ArrowLeft' ||
           e.key === 'ArrowUp' ||
           e.key === 'ArrowRight' ||
-          e.key === 'ArrowDown'
-        ) {
-          const currentFocusedIndex = galleryLayouts.findIndex(
-            (layout) => layout.name === focusedGalleryLayout
+          e.key === 'ArrowDown')
+      ) {
+        const currentFocusedIndex = galleryLayouts.findIndex(
+          (layout) =>
+            layout.name === (focusedGalleryLayout ?? selectedGalleryLayout)
+        )
+
+        if (currentFocusedIndex === -1) {
+          console.error(
+            `No layout defined with name ${focusedGalleryLayout}. Check if there are unnecessary layout options with this name.`
           )
-
-          let newFocusedLayoutIndex = 0
-
-          if (e.key === 'ArrowLeft') {
-            newFocusedLayoutIndex = Math.max(0, currentFocusedIndex - 1)
-          } else if (e.key === 'ArrowRight') {
-            newFocusedLayoutIndex = Math.min(
-              currentFocusedIndex + 1,
-              galleryLayouts.length - 1
-            )
-          } else if (e.key === 'ArrowUp') {
-            newFocusedLayoutIndex =
-              (currentFocusedIndex - 1) % galleryLayouts.length
-
-            if (newFocusedLayoutIndex === -1) {
-              newFocusedLayoutIndex = galleryLayouts.length - 1
-            }
-          } else if (e.key === 'ArrowDown') {
-            newFocusedLayoutIndex =
-              (currentFocusedIndex + 1) % galleryLayouts.length
-          }
-
-          console.log('newIndex', newFocusedLayoutIndex)
-
-          if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-            e.preventDefault()
-          }
-
-          dispatch({
-            type: 'SET_FOCUS_GALLERY_LAYOUT',
-            args: {
-              focusedGalleryLayout: galleryLayouts[newFocusedLayoutIndex].name,
-            },
-          })
         }
+
+        let newFocusedLayoutIndex = 0
+
+        if (e.key === 'ArrowLeft') {
+          newFocusedLayoutIndex = Math.max(0, currentFocusedIndex - 1)
+        } else if (e.key === 'ArrowRight') {
+          newFocusedLayoutIndex = Math.min(
+            currentFocusedIndex + 1,
+            galleryLayouts.length - 1
+          )
+        } else if (e.key === 'ArrowUp') {
+          newFocusedLayoutIndex =
+            (currentFocusedIndex - 1) % galleryLayouts.length
+
+          if (newFocusedLayoutIndex < 0) {
+            newFocusedLayoutIndex = galleryLayouts.length - 1
+          }
+        } else if (e.key === 'ArrowDown') {
+          newFocusedLayoutIndex =
+            (currentFocusedIndex + 1) % galleryLayouts.length
+        }
+
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          e.preventDefault()
+        }
+
+        dispatch({
+          type: 'SET_FOCUS_GALLERY_LAYOUT',
+          args: {
+            focusedGalleryLayout: galleryLayouts[newFocusedLayoutIndex].name,
+          },
+        })
       }
     },
-    [focusedGalleryLayout, galleryLayouts]
+    [selectedGalleryLayout, focusedGalleryLayout, galleryLayouts]
   )
 
   return (

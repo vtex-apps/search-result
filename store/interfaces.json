@@ -32,7 +32,8 @@
     "composition": "children"
   },
   "gallery-layout-option": {
-    "component": "GalleryLayoutOption"
+    "component": "GalleryLayoutOption",
+    "composition": "children"
   },
   "not-found": {
     "allowed": ["shelf"],

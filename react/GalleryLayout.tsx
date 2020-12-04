@@ -13,7 +13,10 @@ import GalleryLayoutRow from './components/GalleryLayoutRow'
 import SettingsContext from './components/SettingsContext'
 import ProductListEventCaller from './utils/ProductListEventCaller'
 import type { Product } from './Gallery'
-import { SET_GALLERY_LAYOUTS_TYPE } from './constants'
+import {
+  SET_GALLERY_LAYOUTS_TYPE,
+  SWITCH_GALLERY_LAYOUT_TYPE,
+} from './constants'
 
 const LAZY_RENDER_THRESHOLD = 2
 
@@ -73,7 +76,19 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
       )
     }
 
-    return layoutOption ?? layouts[0]
+    if (!layoutOption) {
+      layoutOption = layouts[0]
+
+      searchPageStateDispatch({
+        type: SWITCH_GALLERY_LAYOUT_TYPE,
+        args: {
+          selectedGalleryLayout: layouts[0].name,
+          focus: false,
+        },
+      })
+    }
+
+    return layoutOption
   }, [selectedGalleryLayout, layouts])
 
   const itemsPerRow = useResponsiveValue(currentLayoutOption.itemsPerRow)
