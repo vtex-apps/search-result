@@ -6313,9 +6313,9 @@ verror@1.10.0:
   version "0.11.2"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.rich-text@0.11.2/public/@types/vtex.rich-text#0087d1e1d18adbf054a4f3b12270d2c068f30d00"
 
-"vtex.search-page-context@https://icarosearch--storecomponents.myvtex.com/_v/private/typings/linked/v1/vtex.search-page-context@0.1.0+build1607032271/public/@types/vtex.search-page-context":
+"vtex.search-page-context@https://icarosearch--storecomponents.myvtex.com/_v/private/typings/linked/v1/vtex.search-page-context@0.1.0+build1607034571/public/@types/vtex.search-page-context":
   version "0.1.0"
-  resolved "https://icarosearch--storecomponents.myvtex.com/_v/private/typings/linked/v1/vtex.search-page-context@0.1.0+build1607032271/public/@types/vtex.search-page-context#d07e419ac4859f8f8d0e9f7f8e8b1b23f7b013b7"
+  resolved "https://icarosearch--storecomponents.myvtex.com/_v/private/typings/linked/v1/vtex.search-page-context@0.1.0+build1607034571/public/@types/vtex.search-page-context#482e8a29047d59b51cd1b2fb18ef246fb97e1938"
 
 "vtex.shelf@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shelf@1.44.2/public/_types/react":
   version "0.0.0"

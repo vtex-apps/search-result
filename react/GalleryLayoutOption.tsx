@@ -1,4 +1,4 @@
-import React, { ComponentType } from 'react'
+import React, { ComponentType, useEffect } from 'react'
 
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import { SearchPageContext } from 'vtex.search-page-context'
@@ -31,10 +31,17 @@ const GalleryLayoutOption: React.FC<GalleryLayoutOptionProps> = ({
   label,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
-  const { selectedGalleryLayout } = useSearchPageState()
+  const optionButtonRef = React.useRef<HTMLButtonElement>(null)
+  const { selectedGalleryLayout, focusedGalleryLayout } = useSearchPageState()
   const dispatch = useSearchPageStateDispatch()
 
   const selected = name === selectedGalleryLayout
+
+  useEffect(() => {
+    if (focusedGalleryLayout === name) {
+      optionButtonRef.current?.focus()
+    }
+  }, [focusedGalleryLayout, name])
 
   const handleOptionClick = () => {
     dispatch({
@@ -54,6 +61,8 @@ const GalleryLayoutOption: React.FC<GalleryLayoutOptionProps> = ({
       aria-checked={selected}
       aria-controls="gallery-layout-container"
       aria-label={`Switch to ${name} layout`}
+      tabIndex={focusedGalleryLayout === name ? 0 : -1}
+      ref={optionButtonRef}
     >
       <div className={handles.galleryLayoutOptionContainer}>
         <Option isActive={selected} />
