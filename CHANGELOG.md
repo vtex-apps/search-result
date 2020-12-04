@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.87.2] - 2020-12-04
+
 ### Fixed
 - `shouldDisable` when category tree is selected.
 
