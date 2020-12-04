@@ -24,55 +24,67 @@ const GalleryLayoutSwitcher: React.FC = ({ children }) => {
   const navigateWithKeys = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
       if (
-        galleryLayouts &&
-        (e.key === 'ArrowLeft' ||
+        !galleryLayouts ||
+        !(
+          e.key === 'ArrowLeft' ||
           e.key === 'ArrowUp' ||
           e.key === 'ArrowRight' ||
-          e.key === 'ArrowDown')
-      ) {
-        const currentFocusedIndex = galleryLayouts.findIndex(
-          (layout) =>
-            layout.name === (focusedGalleryLayout ?? selectedGalleryLayout)
+          e.key === 'ArrowDown'
         )
-
-        if (currentFocusedIndex === -1) {
-          console.error(
-            `No layout defined with name ${focusedGalleryLayout}. Check if there are unnecessary layout options with this name.`
-          )
-        }
-
-        let newFocusedLayoutIndex = 0
-
-        if (e.key === 'ArrowLeft') {
-          newFocusedLayoutIndex = Math.max(0, currentFocusedIndex - 1)
-        } else if (e.key === 'ArrowRight') {
-          newFocusedLayoutIndex = Math.min(
-            currentFocusedIndex + 1,
-            galleryLayouts.length - 1
-          )
-        } else if (e.key === 'ArrowUp') {
-          newFocusedLayoutIndex =
-            (currentFocusedIndex - 1) % galleryLayouts.length
-
-          if (newFocusedLayoutIndex < 0) {
-            newFocusedLayoutIndex = galleryLayouts.length - 1
-          }
-        } else if (e.key === 'ArrowDown') {
-          newFocusedLayoutIndex =
-            (currentFocusedIndex + 1) % galleryLayouts.length
-        }
-
-        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-          e.preventDefault()
-        }
-
-        dispatch({
-          type: 'SET_FOCUS_GALLERY_LAYOUT',
-          args: {
-            focusedGalleryLayout: galleryLayouts[newFocusedLayoutIndex].name,
-          },
-        })
+      ) {
+        return
       }
+
+      const currentFocusedIndex = galleryLayouts.findIndex(
+        (layout) =>
+          layout.name === (focusedGalleryLayout ?? selectedGalleryLayout)
+      )
+
+      if (currentFocusedIndex === -1) {
+        console.error(
+          `No layout defined with name ${focusedGalleryLayout}. Check if there are unnecessary layout options with this name.`
+        )
+      }
+
+      let newFocusedLayoutIndex = 0
+
+      /**
+       * - ArrowLeft moves the focus to the left until it reaches the beginning
+       * - ArrowRight moves the focus to the right until it reaches the end
+       * - ArrowUp loops through the items by moving the focus to the left,
+       *   going to the end when it reaches the beginning
+       * - ArrowDown loops through the items by moving the focus to the right,
+       *   going to the beginning when it reaches the end
+       */
+      if (e.key === 'ArrowLeft') {
+        newFocusedLayoutIndex = Math.max(0, currentFocusedIndex - 1)
+      } else if (e.key === 'ArrowRight') {
+        newFocusedLayoutIndex = Math.min(
+          currentFocusedIndex + 1,
+          galleryLayouts.length - 1
+        )
+      } else if (e.key === 'ArrowUp') {
+        newFocusedLayoutIndex =
+          (currentFocusedIndex - 1) % galleryLayouts.length
+
+        if (newFocusedLayoutIndex < 0) {
+          newFocusedLayoutIndex = galleryLayouts.length - 1
+        }
+      } else if (e.key === 'ArrowDown') {
+        newFocusedLayoutIndex =
+          (currentFocusedIndex + 1) % galleryLayouts.length
+      }
+
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault()
+      }
+
+      dispatch({
+        type: 'SET_FOCUS_GALLERY_LAYOUT',
+        args: {
+          focusedGalleryLayout: galleryLayouts[newFocusedLayoutIndex].name,
+        },
+      })
     },
     [selectedGalleryLayout, focusedGalleryLayout, galleryLayouts]
   )
@@ -81,8 +93,8 @@ const GalleryLayoutSwitcher: React.FC = ({ children }) => {
     <div
       className={gallerySwitcherClasses}
       role="radiogroup"
-      aria-label="Gallery layout switcher"
-      onKeyDown={(e) => navigateWithKeys(e)}
+      aria-label="Search result layout"
+      onKeyDown={navigateWithKeys}
     >
       {children}
     </div>
