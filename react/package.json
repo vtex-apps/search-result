@@ -64,7 +64,7 @@
     "vtex.pixel-manager": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.pixel-manager@1.4.0/public/@types/vtex.pixel-manager",
     "vtex.product-list-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-list-context@0.3.0/public/@types/vtex.product-list-context",
     "vtex.product-summary": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-summary@2.65.0/public/@types/vtex.product-summary",
-    "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.4-beta.scope.0/public/@types/vtex.render-runtime",
+    "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.4/public/@types/vtex.render-runtime",
     "vtex.responsive-values": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.responsive-values@0.3.0/public/_types/react",
     "vtex.rich-text": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.rich-text@0.11.2/public/@types/vtex.rich-text",
     "vtex.search-page-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-page-context@0.2.0/public/@types/vtex.search-page-context",

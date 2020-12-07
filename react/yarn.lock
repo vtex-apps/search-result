@@ -6301,9 +6301,9 @@ verror@1.10.0:
   version "2.65.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-summary@2.65.0/public/@types/vtex.product-summary#aea742cc1366af6c90cb07da97d0404bea0a0f31"
 
-"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.4-beta.scope.0/public/@types/vtex.render-runtime":
-  version "8.126.4-beta.scope.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.4-beta.scope.0/public/@types/vtex.render-runtime#b616be62632a454a8aa685e5c2c23ae8b5669e1b"
+"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.4/public/@types/vtex.render-runtime":
+  version "8.126.4"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.4/public/@types/vtex.render-runtime#40d7ad8a7b04c50e61ff84a1089dcf7045efd548"
 
 "vtex.responsive-values@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.responsive-values@0.3.0/public/_types/react":
   version "0.0.0"
