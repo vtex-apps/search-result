@@ -2,22 +2,20 @@ import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { MAP_VALUES_SEP } from '../constants'
 
 export default function useShouldDisableFacet(facet) {
-  const { selectedFacets, map } = useSearchPage()
+  const { map } = useSearchPage()
 
-  if (!facet.selected) {
+  if (!facet.selected || !map) {
     return false
   }
 
-  if (map && map.split(MAP_VALUES_SEP).includes('ft')) {
+  const mapArray = map.split(MAP_VALUES_SEP)
+
+  if (mapArray.includes('ft')) {
     return false
   }
 
-  if (selectedFacets && selectedFacets.length === 1) {
-    const [selectedFacet] = selectedFacets
-
-    return (
-      selectedFacet.key === facet.key && selectedFacet.value === facet.value
-    )
+  if (mapArray.length === 1) {
+    return true
   }
 
   return false

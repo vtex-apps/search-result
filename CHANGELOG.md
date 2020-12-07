@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Update the app documentation (README.md file)
 
+## [3.87.2] - 2020-12-04
+
+### Fixed
+- `shouldDisable` when category tree is selected.
+
 ## [3.87.1] - 2020-12-03
 
 ### Fixed
