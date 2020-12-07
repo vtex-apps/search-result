@@ -6301,9 +6301,9 @@ verror@1.10.0:
   version "2.65.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-summary@2.65.0/public/@types/vtex.product-summary#aea742cc1366af6c90cb07da97d0404bea0a0f31"
 
-"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.4-beta.1/public/@types/vtex.render-runtime":
-  version "8.126.4-beta.1"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.4-beta.1/public/@types/vtex.render-runtime#27e35991b2f5ebb376056584eda9ff3a88a5faf1"
+"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.4-beta.scope.0/public/@types/vtex.render-runtime":
+  version "8.126.4-beta.scope.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.126.4-beta.scope.0/public/@types/vtex.render-runtime#b616be62632a454a8aa685e5c2c23ae8b5669e1b"
 
 "vtex.responsive-values@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.responsive-values@0.3.0/public/_types/react":
   version "0.0.0"
@@ -6313,9 +6313,9 @@ verror@1.10.0:
   version "0.11.2"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.rich-text@0.11.2/public/@types/vtex.rich-text#0087d1e1d18adbf054a4f3b12270d2c068f30d00"
 
-"vtex.search-page-context@https://icarosearch--storecomponents.myvtex.com/_v/private/typings/linked/v1/vtex.search-page-context@0.1.0+build1607092293/public/@types/vtex.search-page-context":
-  version "0.1.0"
-  resolved "https://icarosearch--storecomponents.myvtex.com/_v/private/typings/linked/v1/vtex.search-page-context@0.1.0+build1607092293/public/@types/vtex.search-page-context#95d2c283882735cf330bbe11419ee52eb3cb2bad"
+"vtex.search-page-context@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-page-context@0.2.0/public/@types/vtex.search-page-context":
+  version "0.2.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-page-context@0.2.0/public/@types/vtex.search-page-context#1b37f20648d8e4ff062ae9fffb0aa2718f172af7"
 
 "vtex.shelf@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shelf@1.44.2/public/_types/react":
   version "0.0.0"
@@ -6325,9 +6325,9 @@ verror@1.10.0:
   version "0.3.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shop-review-interfaces@0.3.0/public/@types/vtex.shop-review-interfaces#49814bc7f0919688c3a0197ef1c9c51481ce6b55"
 
-"vtex.store-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.132.6/public/@types/vtex.store-components":
-  version "3.132.6"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.132.6/public/@types/vtex.store-components#22cb42f23e3deccb0bfe3f8f685bc63f471b6cde"
+"vtex.store-components@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.132.7/public/@types/vtex.store-components":
+  version "3.132.7"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-components@3.132.7/public/@types/vtex.store-components#929490adbdc5c6356df2c80b7e5e298beb87761a"
 
 "vtex.store-drawer@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-drawer@0.15.0/public/@types/vtex.store-drawer":
   version "0.15.0"
@@ -6341,9 +6341,9 @@ verror@1.10.0:
   version "0.18.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-icons@0.18.0/public/@types/vtex.store-icons#0ee94d549aa283ce3a13ab987c13eac4fdfd1bba"
 
-"vtex.store-resources@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-resources@0.74.1/public/_types/react":
-  version "0.0.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-resources@0.74.1/public/_types/react#fa7a0347e046eab3dd768998fc9252b2c0dd5aef"
+"vtex.store-resources@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-resources@0.75.0/public/@types/vtex.store-resources":
+  version "0.75.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-resources@0.75.0/public/@types/vtex.store-resources#0741ba5f5430217a41f72a06b2a6bc3565be188e"
 
 "vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.134.0/public/@types/vtex.styleguide":
   version "9.134.0"
