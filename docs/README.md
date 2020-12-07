@@ -124,6 +124,8 @@ or
 }
 ```
 
+> ⚠️ *When set as `skip`, the `simulationBehavior` prop defines that the search data should only be fetched using the store's Cache. Caution: In practice, **this may impact the content displayed on store pages, since the cache storage changes according to user interaction in each page**. In order to understand this prop behavior, take a look at the table below!
+
 :warning: **You must define the query for the following search pages: brand, department, category and subcategory**. This will allow you to define custom behaviors for each of your store's possible search pages. For example:
 
 ```json
@@ -175,6 +177,8 @@ or
   }
 }
 ```
+
+> ⚠️ *When set as `skip`, the `simulationBehavior` prop defines that the search data should only be fetched using the store's Cache. Caution: In practice, **this may impact the content displayed on store pages, since the cache storage changes according to user interaction in each page**. In order to understand this prop behavior, take a look at the table below!
 
 Below you may find all available props to configure your search data (be it by using a context or a custom query through the `querySchema` block):
 
