@@ -2,19 +2,9 @@ import React from 'react'
 import GalleryLayout from './GalleryLayout'
 import type { GalleryLayoutProps, Slots } from './GalleryLayout'
 //@ts-ignore
-import GalleryLegacy from './GalleryLegacy'
-
-interface GalleryLegacyProps {
-  lazyItemsRemaining: number
-  maxItemsPerRow: number
-  minItemWidth: number
-  mobileLayoutMode: MobileLayoutMode
-  products: Product[]
-  showingFacets: boolean
-  summary: unknown
-}
-
-type MobileLayoutMode = 'normal' | 'small' | 'inline'
+import GalleryLegacy, {
+  GalleryProps as GalleryLegacyProps,
+} from './GalleryLegacy'
 
 /*
  * This type receives Slots directly, instead of using the 'slots' prop to do it.

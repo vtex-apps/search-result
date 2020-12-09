@@ -1,7 +1,6 @@
-import React, { useMemo, useContext } from 'react'
+import React, { useMemo, useContext, ComponentType } from 'react'
 import classNames from 'classnames'
-import PropTypes from 'prop-types'
-import { pluck, splitEvery } from 'ramda'
+import { splitEvery } from 'ramda'
 
 import { useDevice } from 'vtex.device-detector'
 import { ProductListContext } from 'vtex.product-list-context'
@@ -9,14 +8,14 @@ import { useResponsiveValue } from 'vtex.responsive-values'
 import { useCssHandles } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
 
-import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
-import { productShape } from './constants/propTypes'
 import withResizeDetector from './components/withResizeDetector'
 import GalleryRow from './components/GalleryRow'
 import ProductListEventCaller from './utils/ProductListEventCaller'
 import SettingsContext from './components/SettingsContext'
 
 import { Spinner } from 'vtex.styleguide'
+import { Product } from './Gallery'
+import type { MaybeResponsiveInput } from 'vtex.responsive-values'
 
 /** Layout with one column */
 const ONE_COLUMN_LAYOUT = 1
@@ -26,10 +25,26 @@ const LAZY_RENDER_THRESHOLD = 2
 const CSS_HANDLES = ['gallery']
 
 const { ProductListProvider } = ProductListContext
+
+export type MobileLayoutMode = 'normal' | 'small' | 'inline'
+
+export interface GalleryProps {
+  products: Product[]
+  mobileLayoutMode: MobileLayoutMode
+  maxItemsPerRow: MaybeResponsiveInput<number>
+  minItemWidth: number
+  width: number
+  summary: any
+  showingFacets: any
+  lazyItemsRemaining: number
+  displayCustom: number
+  CustomSummary: ComponentType
+}
+
 /**
  * Canonical gallery that displays a list of given products.
  */
-const Gallery = ({
+const Gallery: React.FC<GalleryProps> = ({
   products = [],
   mobileLayoutMode = 'normal',
   maxItemsPerRow = {
@@ -42,6 +57,8 @@ const Gallery = ({
   summary,
   showingFacets,
   lazyItemsRemaining,
+  displayCustom,
+  CustomSummary,
 }) => {
   const { isMobile } = useDevice()
   const { trackingId = 'Search result' } = useContext(SettingsContext) || {}
@@ -96,14 +113,15 @@ const Gallery = ({
       <div className={galleryClasses}>
         {rows.map((rowProducts, index) => (
           <GalleryRow
-            key={index.toString()}
-            widthAvailable={width != null}
+            key={index}
             products={rowProducts}
             lazyRender={isLazyRenderEnabled && index >= LAZY_RENDER_THRESHOLD}
             summary={summary}
             displayMode={layoutMode}
-            rowIndex={index}
             itemsPerRow={itemsPerRow}
+            rowIndex={index}
+            displayCustom={displayCustom}
+            CustomSummary={CustomSummary}
           />
         ))}
         {typeof lazyItemsRemaining === 'number' && lazyItemsRemaining > 0 && (
@@ -124,22 +142,4 @@ const Gallery = ({
   )
 }
 
-Gallery.propTypes = {
-  /** Container width */
-  width: PropTypes.number,
-  /** Products to be displayed. */
-  products: PropTypes.arrayOf(productShape),
-  /** ProductSummary props. */
-  summary: PropTypes.any,
-  /** Max Items per Row */
-  maxItemsPerRow: PropTypes.number,
-  /** Layout mode of the gallery in mobile view */
-  mobileLayoutMode: PropTypes.oneOf(pluck('value', LAYOUT_MODE)),
-  /** Min Item Width. */
-  minItemWidth: PropTypes.number,
-  showingFacets: PropTypes.bool,
-  trackingId: PropTypes.string,
-  lazyItemsRemaining: PropTypes.number,
-}
-
-export default withResizeDetector(Gallery)
+export default withResizeDetector<GalleryProps>(Gallery)
