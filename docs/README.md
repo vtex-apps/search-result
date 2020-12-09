@@ -292,6 +292,8 @@ In a scenario where several layouts are provided, your store users are able to s
 | :---------: | :---------------------: | :--------------------------------------------------------------| :-------------: |
 | `layouts`  | `object` | List of layouts used to arrange and display the items on search results page. Caution: If no value is provided, the `gallery` block must receive instead a `product-summary-shelf` block as child. | `undefined`  |
 | `undefined` | `block` | Defines which blocks should be rendered per layout. **Caution**: this prop *name* is not `undefined`. Instead, its name must be the value passed to the `component` prop. This prop's value, in turn, must match the block name of your choosing to be rendered in that specific layout. Check out the example below in order to understand the underlying logic behind this prop. | `undefined` | 
+| `customSummaryInterval` | `number` |  Defines the interval at wich gallery should render a custom `product-summary` block. For example: A value of `5` would render a custom block at every 4 items rendered. Take a look at [this example](https://user-images.githubusercontent.com/1207017/101687291-0cff1780-3a49-11eb-9c00-678b70001c8a.jpg) *Caution*: This prop doesn't support `layouts` yet. | `undefined` | 
+| `CustomSummary` | `block` |  Defines a block to be rendered according to `customSummaryInterval` if specified. | `undefined` | 
 
 - **`layouts` object:** 
 
@@ -547,6 +549,7 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `filterTitle`                         |
 | `footerButton`                        |
 | `galleryItem`                         |
+| `galleryItem--custom`                 |
 | `galleryItem--{displayMode}`          |
 | `galleryTitle`                        |
 | `gallery`                             |
