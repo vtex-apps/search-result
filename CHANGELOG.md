@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.88.1] - 2020-12-09
+
 ### Fixed
 - Remove `maxHeight` from the selected facets section.
 
