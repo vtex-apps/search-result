@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Remove `maxHeight` from the selected facets section.
+
 ## [3.88.0] - 2020-12-07
 ### Added
 - `gallery` block: added support for multiple gallery layouts
