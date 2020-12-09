@@ -20,7 +20,7 @@ interface GalleryRowProps {
   itemsPerRow: number
   lazyRender?: boolean
   rowIndex?: number
-  displayCustom?: number
+  customSummaryInterval?: number
   CustomSummary?: ComponentType
 }
 
@@ -31,7 +31,7 @@ const GalleryRow: React.FC<GalleryRowProps> = ({
   itemsPerRow,
   lazyRender,
   rowIndex = 0,
-  displayCustom,
+  customSummaryInterval,
   CustomSummary,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
@@ -53,11 +53,12 @@ const GalleryRow: React.FC<GalleryRowProps> = ({
   return (
     <>
       {products.map((product, index) => {
-        const productRealIndex = rowIndex * itemsPerRow + index + 1
+        const absoluteProductIndex = rowIndex * itemsPerRow + index + 1
+
         const shouldRenderCustom = !!(
           CustomSummary &&
-          displayCustom &&
-          productRealIndex % displayCustom === 0
+          customSummaryInterval &&
+          absoluteProductIndex % customSummaryInterval === 0
         )
 
         return (

@@ -37,8 +37,8 @@ export interface GalleryProps {
   summary: any
   showingFacets: any
   lazyItemsRemaining: number
-  displayCustom: number
-  CustomSummary: ComponentType
+  customSummaryInterval?: number
+  CustomSummary?: ComponentType
 }
 
 /**
@@ -57,7 +57,7 @@ const Gallery: React.FC<GalleryProps> = ({
   summary,
   showingFacets,
   lazyItemsRemaining,
-  displayCustom,
+  customSummaryInterval,
   CustomSummary,
 }) => {
   const { isMobile } = useDevice()
@@ -120,7 +120,7 @@ const Gallery: React.FC<GalleryProps> = ({
             displayMode={layoutMode}
             itemsPerRow={itemsPerRow}
             rowIndex={index}
-            displayCustom={displayCustom}
+            customSummaryInterval={customSummaryInterval}
             CustomSummary={CustomSummary}
           />
         ))}
