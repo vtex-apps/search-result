@@ -50,8 +50,6 @@ const GalleryRow: React.FC<GalleryRowProps> = ({
     return dummyElement
   }
 
-  console.log({ rowIndex })
-
   return (
     <>
       {products.map((product, index) => {
