@@ -88,6 +88,7 @@ const getCleanUrlParams = currentMap => {
   if (!currentMap) {
     urlParams.delete(MAP_QUERY_KEY)
   }
+  urlParams.delete('page')
   return urlParams
 }
 

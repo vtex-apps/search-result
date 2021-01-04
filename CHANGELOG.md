@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Selecting a new filter doesn't reset the page count.
+
 ## [3.88.1] - 2020-12-09
 
 ### Fixed
