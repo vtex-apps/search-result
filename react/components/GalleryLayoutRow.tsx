@@ -9,6 +9,7 @@ import type { Product } from '../Gallery'
 const CSS_HANDLES = ['galleryItem'] as const
 
 interface GalleryLayoutRowProps {
+  currentLayoutName: string
   displayMode: string
   GalleryItemComponent: ComponentType
   itemsPerRow: number
@@ -24,6 +25,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
   lazyRender,
   products,
   summary,
+  currentLayoutName,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -49,7 +51,10 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
             key={product.productId}
             style={style}
             className={classNames(
-              applyModifiers(handles.galleryItem, displayMode),
+              applyModifiers(handles.galleryItem, [
+                displayMode,
+                currentLayoutName,
+              ]),
               'pa4'
             )}
           >
