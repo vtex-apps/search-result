@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Query param identifying chosen gallery layout
+- `css-handles` modifiers for chosen gallery layout
 
 ## [3.88.2] - 2021-01-04
 

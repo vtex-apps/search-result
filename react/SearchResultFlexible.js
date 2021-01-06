@@ -8,6 +8,7 @@ import {
   useSearchPageStateReducer,
 } from 'vtex.search-page-context/SearchPageContext'
 import { useCssHandles } from 'vtex.css-handles'
+import { useRuntime } from 'vtex.render-runtime'
 
 import { generateBlockClass } from '@vtex/css-handles'
 import { pathOr, isEmpty } from 'ramda'
@@ -102,10 +103,11 @@ const SearchResultFlexible = ({
     categoriesTrees &&
     categoriesTrees.length > 0
   const showFacets = showCategories || (!hideFacets && !isEmpty(filters))
+  const { query: runtimeQuery } = useRuntime()
   const [state, dispatch] = useSearchPageStateReducer({
     mobileLayout: mobileLayout.mode1,
     showContentLoader: searchQuery.loading,
-    selectedGalleryLayout: defaultGalleryLayout,
+    selectedGalleryLayout: runtimeQuery.layout || defaultGalleryLayout,
   })
 
   useShowContentLoader(searchQuery, dispatch)
