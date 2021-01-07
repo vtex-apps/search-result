@@ -78,7 +78,7 @@ const SelectionListOrderBy = ({
 
   const contentClass = classNames(
     styles.orderByOptionsContainer,
-    'z-1 absolute bg-base shadow-5 w-100 f5 b--muted-4 br2 ba bw1 br--bottom top-0 right-0-ns',
+    'z-3 absolute bg-base shadow-5 w-100 f5 b--muted-4 br2 ba bw1 br--bottom top-0 right-0-ns',
     {
       db: showDropdown,
       dn: !showDropdown,
