@@ -21,13 +21,19 @@ const GalleryItem = ({ item, displayMode, summary }) => {
   )
 
   const query = useMemo(() => {
-    if (searchQuery && searchQuery.variables) {
+    if (searchQuery?.variables) {
       return searchQuery.variables.query
     }
   }, [searchQuery])
 
+  const map = useMemo(() => {
+    if (searchQuery?.variables) {
+      return searchQuery.variables.map
+    }
+  }, [searchQuery])
+
   const handleClick = useCallback(() => {
-    push({ event: 'productClick', product, query })
+    push({ event: 'productClick', product, query, map })
   }, [product, query, push])
 
   return (
