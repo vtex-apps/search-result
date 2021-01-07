@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Pass the `map` prop to the `productClick` event.
+
 ## [3.89.0] - 2021-01-11
 ### Added
 - Query param identifying chosen gallery layout
