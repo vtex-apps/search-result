@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - `position` prop to `GalleryItem`.
-- send `postion` prop in the `productClick` event.
+- send `position` prop in the `productClick` event.
 
 ## [3.90.0] - 2021-01-11
 
