@@ -10,6 +10,7 @@ interface GalleryLayoutItemProps {
   item: Product
   displayMode: string
   summary: unknown
+  position: number
 }
 
 const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
@@ -17,6 +18,7 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
   item,
   displayMode,
   summary,
+  position,
 }) => {
   const { push } = usePixel()
   const { searchQuery } = useSearchPage()
@@ -37,7 +39,7 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
   ])
 
   const handleClick = useCallback(() => {
-    push({ event: 'productClick', product, query, map })
+    push({ event: 'productClick', product, query, map, position })
   }, [product, query, push])
 
   return (

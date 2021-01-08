@@ -16,6 +16,7 @@ interface GalleryLayoutRowProps {
   lazyRender: boolean
   products: Product[]
   summary: unknown
+  rowIndex: number
 }
 
 const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
@@ -26,6 +27,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
   products,
   summary,
   currentLayoutName,
+  rowIndex,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -45,7 +47,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
 
   return (
     <>
-      {products.map((product) => {
+      {products.map((product, index) => {
         return (
           <div
             key={product.productId}
@@ -63,6 +65,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
               item={product}
               summary={summary}
               displayMode={displayMode}
+              position={(rowIndex * itemsPerRow) + index}
             />
           </div>
         )
