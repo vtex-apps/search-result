@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Badge z-index with priority over the orderBy filter.
+
 ## [3.88.2] - 2021-01-04
 
 ### Fixed
