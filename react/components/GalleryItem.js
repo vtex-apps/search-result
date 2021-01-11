@@ -26,7 +26,9 @@ const GalleryItem = ({ item, displayMode, summary }) => {
     }
   }, [searchQuery])
 
-  const map = useMemo(() => searchQuery?.variables?.map, [searchQuery?.variables?.map])
+  const map = useMemo(() => searchQuery?.variables?.map, [
+    searchQuery?.variables?.map,
+  ])
 
   const handleClick = useCallback(() => {
     push({ event: 'productClick', product, query, map })
