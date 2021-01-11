@@ -3,7 +3,7 @@ import classNames from 'classnames'
 
 import { ProductListContext } from 'vtex.product-list-context'
 import { Spinner } from 'vtex.styleguide'
-import { useCssHandles } from 'vtex.css-handles'
+import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import { useResponsiveValue } from 'vtex.responsive-values'
 import type { MaybeResponsiveInput } from 'vtex.responsive-values'
 import { useRuntime } from 'vtex.render-runtime'
@@ -121,7 +121,7 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
   }
 
   const galleryClasses = classNames(
-    handles.gallery,
+    applyModifiers(handles.gallery, currentLayoutOption.name),
     'flex flex-row flex-wrap items-stretch bn ph1 na4',
     {
       'justify-center': !showingFacets,
@@ -143,6 +143,7 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
             summary={summary}
             displayMode="normal"
             itemsPerRow={itemsPerRow}
+            currentLayoutName={currentLayoutOption.name}
             GalleryItemComponent={slots[currentLayoutOption.component]}
           />
         ))}

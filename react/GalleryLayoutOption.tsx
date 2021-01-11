@@ -1,6 +1,7 @@
 import React, { PropsWithChildren, useEffect } from 'react'
 
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
+import { RenderContext, useRuntime } from 'vtex.render-runtime'
 import { SearchPageContext } from 'vtex.search-page-context'
 import { SWITCH_GALLERY_LAYOUT_TYPE } from './constants'
 
@@ -19,6 +20,7 @@ function GalleryLayoutOption({
 }: PropsWithChildren<GalleryLayoutOptionProps>) {
   const handles = useCssHandles(CSS_HANDLES)
   const optionButtonRef = React.useRef<HTMLButtonElement>(null)
+  const { setQuery } = useRuntime() as RenderContext.RenderContext
   const { selectedGalleryLayout, focusedGalleryLayout } = useSearchPageState()
   const dispatch = useSearchPageStateDispatch()
 
@@ -35,6 +37,8 @@ function GalleryLayoutOption({
       type: SWITCH_GALLERY_LAYOUT_TYPE,
       args: { selectedGalleryLayout: name },
     })
+
+    setQuery({ layout: name })
   }
 
   return (
