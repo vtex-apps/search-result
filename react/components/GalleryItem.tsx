@@ -1,12 +1,12 @@
-import React, { useMemo, useCallback, memo, ComponentType } from 'react'
-
+import type { ComponentType } from 'react'
+import React, { useMemo, useCallback, memo } from 'react'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import { usePixel } from 'vtex.pixel-manager'
 import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
-import { Product } from '../Gallery'
-import { MobileLayoutMode } from '../GalleryLegacy'
+import type { Product } from '../Gallery'
+import type { MobileLayoutMode } from '../GalleryLegacy'
 
 interface GalleryItemProps {
   /** Item info that will be rendered. */
@@ -36,7 +36,7 @@ function GalleryItem({
   )
 
   const query = useMemo(() => {
-    if (searchQuery && searchQuery.variables) {
+    if (searchQuery?.variables) {
       return searchQuery.variables.query
     }
   }, [searchQuery])

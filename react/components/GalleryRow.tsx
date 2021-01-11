@@ -1,11 +1,12 @@
-import React, { ComponentType, memo } from 'react'
-import { useRenderOnView } from '../hooks/useRenderOnView'
+import React, { memo } from 'react'
+import type { ComponentType } from 'react'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import classNames from 'classnames'
 
+import { useRenderOnView } from '../hooks/useRenderOnView'
 import GalleryItem from './GalleryItem'
-import { Product } from '../Gallery'
-import { MobileLayoutMode } from '../GalleryLegacy'
+import type { Product } from '../Gallery'
+import type { MobileLayoutMode } from '../GalleryLegacy'
 
 const CSS_HANDLES = ['galleryItem']
 

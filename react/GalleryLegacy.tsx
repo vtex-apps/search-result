@@ -1,21 +1,21 @@
-import React, { useMemo, useContext, ComponentType } from 'react'
+import type { ComponentType } from 'react'
+import React, { useMemo, useContext } from 'react'
 import classNames from 'classnames'
+// eslint-disable-next-line no-restricted-imports
 import { splitEvery } from 'ramda'
-
 import { useDevice } from 'vtex.device-detector'
 import { ProductListContext } from 'vtex.product-list-context'
 import { useResponsiveValue } from 'vtex.responsive-values'
 import { useCssHandles } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
+import { Spinner } from 'vtex.styleguide'
+import type { MaybeResponsiveInput } from 'vtex.responsive-values'
 
 import withResizeDetector from './components/withResizeDetector'
 import GalleryRow from './components/GalleryRow'
 import ProductListEventCaller from './utils/ProductListEventCaller'
 import SettingsContext from './components/SettingsContext'
-
-import { Spinner } from 'vtex.styleguide'
-import { Product } from './Gallery'
-import type { MaybeResponsiveInput } from 'vtex.responsive-values'
+import type { Product } from './Gallery'
 
 /** Layout with one column */
 const ONE_COLUMN_LAYOUT = 1

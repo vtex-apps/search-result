@@ -3,7 +3,9 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\""
+    "lint": "eslint --ext js,jsx,ts,tsx .",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\"",
+    "test": "cd ./react && yarn test"
   },
   "husky": {
     "hooks": {
@@ -12,16 +14,22 @@
   },
   "lint-staged": {
     "*.{ts,js,tsx,jsx}": [
+      "eslint --fix",
       "prettier --write"
     ],
-    "*.{json,graphql,gql}": [
+    "*.json": [
       "prettier --write"
     ]
   },
   "devDependencies": {
-    "@vtex/prettier-config": "^0.3.1",
-    "husky": "^4.2.3",
-    "lint-staged": "^10.1.1",
-    "prettier": "^2.0.2"
+    "@vtex/prettier-config": "^0.3.5",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.14.0",
+    "eslint-config-vtex": "^12.8.11",
+    "eslint-config-vtex-react": "^6.8.3",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.5.1",
+    "prettier": "^2.2.0",
+    "typescript": "^3.9.6"
   }
 }
