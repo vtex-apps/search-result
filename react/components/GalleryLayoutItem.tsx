@@ -32,8 +32,12 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
     }
   }, [searchQuery])
 
+  const map = useMemo(() => searchQuery?.variables?.map, [
+    searchQuery?.variables?.map,
+  ])
+
   const handleClick = useCallback(() => {
-    push({ event: 'productClick', product, query })
+    push({ event: 'productClick', product, query, map })
   }, [product, query, push])
 
   return (
