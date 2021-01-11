@@ -24,7 +24,7 @@ interface GalleryRowProps {
   CustomSummary?: ComponentType
 }
 
-const GalleryRow: React.FC<GalleryRowProps> = ({
+function GalleryRow({
   products,
   summary,
   displayMode,
@@ -33,7 +33,7 @@ const GalleryRow: React.FC<GalleryRowProps> = ({
   rowIndex = 0,
   customSummaryInterval,
   CustomSummary,
-}) => {
+}: GalleryRowProps) {
   const handles = useCssHandles(CSS_HANDLES)
 
   const style = {
@@ -77,8 +77,7 @@ const GalleryRow: React.FC<GalleryRowProps> = ({
               item={product}
               summary={summary}
               displayMode={displayMode}
-              shouldRenderCustom={shouldRenderCustom}
-              CustomSummary={CustomSummary}
+              CustomSummary={shouldRenderCustom ? CustomSummary : undefined}
             />
           </div>
         )
