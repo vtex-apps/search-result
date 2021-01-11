@@ -11,7 +11,7 @@ import { PropTypes } from 'prop-types'
 /**
  * Normalizes the item received in the props to adapt to the extension point prop.
  */
-const GalleryItem = ({ item, displayMode, summary }) => {
+const GalleryItem = ({ item, displayMode, summary, position }) => {
   const { push } = usePixel()
   const { searchQuery } = useSearchPage()
 
@@ -31,7 +31,7 @@ const GalleryItem = ({ item, displayMode, summary }) => {
   ])
 
   const handleClick = useCallback(() => {
-    push({ event: 'productClick', product, query, map })
+    push({ event: 'productClick', product, query, map, position })
   }, [product, query, push])
 
   return (
@@ -52,6 +52,8 @@ GalleryItem.propTypes = {
   summary: PropTypes.any,
   /** Display mode of the product summary */
   displayMode: PropTypes.string,
+  /** Item position in the gallery */
+  position: PropTypes.number,
 }
 
 export default memo(GalleryItem)

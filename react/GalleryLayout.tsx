@@ -144,6 +144,7 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
             displayMode="normal"
             itemsPerRow={itemsPerRow}
             currentLayoutName={currentLayoutOption.name}
+            rowIndex={index}
             GalleryItemComponent={slots[currentLayoutOption.component]}
           />
         ))}

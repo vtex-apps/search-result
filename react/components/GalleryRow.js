@@ -13,6 +13,7 @@ const GalleryRow = ({
   displayMode,
   itemsPerRow,
   lazyRender,
+  rowIndex,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -30,7 +31,7 @@ const GalleryRow = ({
     return dummyElement
   }
 
-  return products.map(product => {
+  return products.map((product, index) => {
     return (
       <div
         key={product.productId}
@@ -44,6 +45,7 @@ const GalleryRow = ({
           item={product}
           summary={summary}
           displayMode={displayMode}
+          position={(rowIndex * itemsPerRow) + index}
         />
       </div>
     )
