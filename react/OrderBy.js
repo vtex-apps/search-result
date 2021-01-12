@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
-import { injectIntl, intlShape } from 'react-intl'
+import { useIntl } from 'react-intl'
 
 import SelectionListOrderBy from './components/SelectionListOrderBy'
 
@@ -42,10 +42,11 @@ export const SORT_OPTIONS = [
 const OrderBy = ({
   orderBy,
   message,
-  intl,
   hiddenOptions = [],
   showOrderTitle = true,
 }) => {
+  const intl = useIntl()
+
   const sortingOptions = useMemo(() => {
     return SORT_OPTIONS.filter(
       option => !hiddenOptions.includes(option.value)
@@ -70,8 +71,6 @@ const OrderBy = ({
 OrderBy.propTypes = {
   /** Which sorting option is selected. */
   orderBy: PropTypes.string,
-  /** Intl instance. */
-  intl: intlShape,
   /** Options to be hidden. (e.g. `["OrderByNameASC", "OrderByNameDESC"]`) */
   hiddenOptions: PropTypes.arrayOf(PropTypes.string),
   /** Message to be displayed */
@@ -80,4 +79,4 @@ OrderBy.propTypes = {
   showOrderTitle: PropTypes.boolean,
 }
 
-export default injectIntl(OrderBy)
+export default OrderBy

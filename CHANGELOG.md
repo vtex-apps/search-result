@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Migrate legacy Gallery components to TypeScript.
+- Update usage of react-intl.
 
 ## [3.91.0] - 2021-01-11
 

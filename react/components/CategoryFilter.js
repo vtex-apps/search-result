@@ -1,6 +1,5 @@
 import classNames from 'classnames'
 import React from 'react'
-import { injectIntl } from 'react-intl'
 import { IconClose } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { useFilterNavigator } from './FilterNavigatorContext'
@@ -175,4 +174,4 @@ const CategoryFilter = ({
   )
 }
 
-export default injectIntl(CategoryFilter)
+export default CategoryFilter

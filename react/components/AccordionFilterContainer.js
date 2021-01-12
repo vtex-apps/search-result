@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { injectIntl, intlShape } from 'react-intl'
+import { useIntl } from 'react-intl'
 import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
 import { useRuntime } from 'vtex.render-runtime'
+import { useCssHandles } from 'vtex.css-handles'
 
 import AccordionFilterItem from './AccordionFilterItem'
 import DepartmentFilters from './DepartmentFilters'
 import AccordionFilterGroup from './AccordionFilterGroup'
 import AccordionFilterPriceRange from './AccordionFilterPriceRange'
-import { useCssHandles } from 'vtex.css-handles'
+import styles from '../searchResult.css'
 
 const CSS_HANDLES = [
   'filterBreadcrumbsItem',
@@ -18,13 +19,11 @@ const CSS_HANDLES = [
   'filterBreadcrumbsText',
   'filterBreadcrumbsList',
 ]
-import styles from '../searchResult.css'
 
 const CATEGORIES_TITLE = 'store/search.filter.title.categories'
 
 const AccordionFilterContainer = ({
   filters,
-  intl,
   onFilterCheck,
   tree,
   onCategorySelect,
@@ -37,6 +36,7 @@ const AccordionFilterContainer = ({
   setTruncatedFacetsFetched,
   categoryFiltersMode
 }) => {
+  const intl = useIntl()
   const { getSettings } = useRuntime()
   const [openItem, setOpenItem] = useState(null)
   const handles = useCssHandles(CSS_HANDLES)
@@ -194,8 +194,6 @@ const AccordionFilterContainer = ({
 AccordionFilterContainer.propTypes = {
   /** Current available filters */
   filters: PropTypes.arrayOf(PropTypes.object),
-  /** Intl instance */
-  intl: intlShape,
   /** Filters mapped for checkbox */
   filtersChecks: PropTypes.object,
   /** Checkbox hit callback function */
@@ -218,4 +216,4 @@ AccordionFilterContainer.propTypes = {
   setTruncatedFacetsFetched: PropTypes.func,
 }
 
-export default injectIntl(AccordionFilterContainer)
+export default AccordionFilterContainer

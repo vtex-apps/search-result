@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
-import { intlShape, injectIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
 import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
 import { Tag } from 'vtex.styleguide'
@@ -29,12 +29,12 @@ const AccordionFilterItem = ({
   open,
   onOpen,
   selectedFilters = [],
-  intl,
   children,
   appliedFiltersOverview,
   navigationType,
   initiallyCollapsed,
 }) => {
+  const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
   const isNavigationCollapsible = navigationType === 'collapsible'
   const [isCollapsed, setIsCollapsed] = useState(initiallyCollapsed)
@@ -146,8 +146,6 @@ AccordionFilterItem.propTypes = {
   onOpen: PropTypes.func,
   /** List of selected filters */
   selectedFilters: PropTypes.arrayOf(PropTypes.object),
-  /** Intl instance */
-  intl: intlShape,
   /** content */
   children: PropTypes.node,
   /** Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). */
@@ -158,4 +156,4 @@ AccordionFilterItem.propTypes = {
   initiallyCollapsed: PropTypes.bool,
 }
 
-export default injectIntl(AccordionFilterItem)
+export default AccordionFilterItem

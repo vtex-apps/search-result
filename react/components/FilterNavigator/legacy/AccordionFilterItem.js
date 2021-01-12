@@ -1,14 +1,12 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { intlShape, injectIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
 import classNames from 'classnames'
-
 import { Checkbox } from 'vtex.styleguide'
 import { IconCaret } from 'vtex.store-icons'
 
 import { facetOptionShape } from '../../../constants/propTypes'
 import { getFilterTitle } from '../../../constants/SearchHelpers'
-
 import searchResult from './searchResult.css'
 
 const AccordionFilterItem = ({
@@ -17,11 +15,11 @@ const AccordionFilterItem = ({
   show,
   open,
   onOpen,
-  intl,
   onFilterCheck,
   isOptionSelected,
 }) => {
-  const handleKeyDown = e => {
+  const intl = useIntl()
+  const handleKeyDown = (e) => {
     if (e.key === ' ') {
       onOpen(e)
     }
@@ -116,11 +114,9 @@ AccordionFilterItem.propTypes = {
   onItemSelected: PropTypes.func,
   /** Get the props to pass to render's Link */
   getLinkProps: PropTypes.func,
-  /** Intl instance */
-  intl: intlShape,
   /** Checkbox hit callback function */
   onFilterCheck: PropTypes.func,
   isOptionSelected: PropTypes.func,
 }
 
-export default injectIntl(AccordionFilterItem)
+export default AccordionFilterItem

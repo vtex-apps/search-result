@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { injectIntl, intlShape } from 'react-intl'
+import { useIntl } from 'react-intl'
 import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
 
@@ -10,10 +10,10 @@ import searchResult from './searchResult.css'
 
 const AccordionFilterContainer = ({
   filters,
-  intl,
   onFilterCheck,
   isOptionSelected,
 }) => {
+  const intl = useIntl()
   const [openItem, setOpenItem] = useState(null)
 
   const handleOpen = id => e => {
@@ -91,8 +91,6 @@ const AccordionFilterContainer = ({
 AccordionFilterContainer.propTypes = {
   /** Current available filters */
   filters: PropTypes.arrayOf(PropTypes.object),
-  /** Intl instance */
-  intl: intlShape,
   /** Filters mapped for checkbox */
   filtersChecks: PropTypes.object,
   /** Checkbox hit callback function */
@@ -102,4 +100,4 @@ AccordionFilterContainer.propTypes = {
   isOptionSelected: PropTypes.func.isRequired,
 }
 
-export default injectIntl(AccordionFilterContainer)
+export default AccordionFilterContainer

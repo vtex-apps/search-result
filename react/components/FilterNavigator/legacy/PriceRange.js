@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useRuntime } from 'vtex.render-runtime'
-import { injectIntl, intlShape } from 'react-intl'
+import { useIntl } from 'react-intl'
 import { Slider } from 'vtex.styleguide'
 
 import { facetOptionShape } from '../../../constants/propTypes'
@@ -14,11 +14,13 @@ import FilterOptionTemplate from './FilterOptionTemplate'
 const DEBOUNCE_TIME = 500 // ms
 
 /** Price range slider component */
-const PriceRange = ({ title, facets, intl, priceRange }) => {
+const PriceRange = ({ title, facets, priceRange }) => {
   const {
     navigate,
     culture: { currency },
   } = useRuntime()
+
+  const intl = useIntl()
 
   const navigateTimeoutId = useRef()
 
@@ -108,10 +110,8 @@ PriceRange.propTypes = {
   title: PropTypes.string.isRequired,
   /** Available price ranges */
   facets: PropTypes.arrayOf(facetOptionShape).isRequired,
-  /** Intl instance */
-  intl: intlShape.isRequired,
-  /** Current price range filter query parameter*/
+  /** Current price range filter query parameter */
   priceRange: PropTypes.string,
 }
 
-export default injectIntl(PriceRange)
+export default PriceRange

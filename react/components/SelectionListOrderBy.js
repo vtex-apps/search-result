@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { injectIntl, intlShape } from 'react-intl'
+import { useIntl } from 'react-intl'
 import classNames from 'classnames'
 import { find, propEq } from 'ramda'
 import { formatIOMessage } from 'vtex.native-types'
@@ -22,12 +22,12 @@ const CSS_HANDLES = [
 ]
 
 const SelectionListOrderBy = ({
-  intl,
   message = 'store/ordenation.sort-by',
   orderBy,
   options,
   showOrderTitle,
 }) => {
+  const intl = useIntl()
   const [showDropdown, setShowDropdown] = useState(false)
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -130,12 +130,10 @@ SelectionListOrderBy.propTypes = {
       value: PropTypes.string,
     })
   ),
-  /** Intl to translations */
-  intl: intlShape,
   /** Message to be displayed */
   message: PropTypes.string,
   /** Show or hide order title */
   showOrderTitle: PropTypes.boolean,
 }
 
-export default injectIntl(SelectionListOrderBy)
+export default SelectionListOrderBy

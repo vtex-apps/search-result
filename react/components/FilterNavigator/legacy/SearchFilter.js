@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { injectIntl, intlShape } from 'react-intl'
+import { useIntl } from 'react-intl'
 
 import FilterOptionTemplate from './FilterOptionTemplate'
 import FacetItem from './FacetItem'
@@ -15,8 +15,8 @@ const SearchFilter = ({
   title = 'Default Title',
   facets = [],
   preventRouteChange = false,
-  intl,
 }) => {
+  const intl = useIntl()
   const filtersWithSelected = useSelectedFilters(facets)
 
   return (
@@ -42,8 +42,6 @@ SearchFilter.propTypes = {
   facets: PropTypes.arrayOf(facetOptionShape),
   /** Prevents changing route when setting filters (uses URL search params instead) */
   preventRouteChange: PropTypes.bool,
-  /** Intl instance. */
-  intl: intlShape.isRequired,
 }
 
-export default injectIntl(SearchFilter)
+export default SearchFilter
