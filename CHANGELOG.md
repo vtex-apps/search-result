@@ -7,8 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Migrate legacy Gallery components to Typescript
-- `displayCustom` and `CustomSummary` prop to `gallery` block
+- New props: `customSummaryInterval` and `CustomSummary` to `gallery` block.
+
+### Changed
+- Migrate legacy Gallery components to TypeScript.
 
 ## [3.91.0] - 2021-01-11
 
