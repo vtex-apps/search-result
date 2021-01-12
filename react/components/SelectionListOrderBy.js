@@ -133,7 +133,7 @@ SelectionListOrderBy.propTypes = {
   /** Message to be displayed */
   message: PropTypes.string,
   /** Show or hide order title */
-  showOrderTitle: PropTypes.boolean,
+  showOrderTitle: PropTypes.bool,
 }
 
 export default SelectionListOrderBy
