@@ -20,7 +20,7 @@ const SelectedFilters = ({ filters = [], preventRouteChange = false }) => {
       collapsable={false}
       selected
     >
-      {facet => (
+      {(facet) => (
         <FacetItem
           key={facet.name}
           facet={facet}

@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
@@ -34,9 +36,11 @@ class Sidebar extends Component {
 
   render() {
     const { isOpen, onOutsideClick } = this.props
+
     if (typeof document === 'undefined') {
       return null
     }
+
     const scrimClasses = classNames(
       'fixed dim bg-base--inverted top-0 z-9999 w-100 vh-100 o-40 left-0',
       {

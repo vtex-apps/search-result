@@ -49,10 +49,10 @@ const OrderBy = ({
 
   const sortingOptions = useMemo(() => {
     return SORT_OPTIONS.filter(
-      option => !hiddenOptions.includes(option.value)
+      (option) => !hiddenOptions.includes(option.value)
     ).map(({ value, label }) => {
       return {
-        value: value,
+        value,
         label: intl.formatMessage({ id: label }),
       }
     })

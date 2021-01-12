@@ -34,7 +34,7 @@ const AccordionFilterContainer = ({
   truncateFilters,
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
-  categoryFiltersMode
+  categoryFiltersMode,
 }) => {
   const intl = useIntl()
   const { getSettings } = useRuntime()
@@ -43,7 +43,7 @@ const AccordionFilterContainer = ({
   const isLazyFacetsFetchEnabled = getSettings('vtex.store')
     ?.enableFiltersFetchOptimization
 
-  const handleOpen = id => e => {
+  const handleOpen = (id) => (e) => {
     e.preventDefault()
 
     if (navigationType === 'collapsible') {
@@ -61,26 +61,28 @@ const AccordionFilterContainer = ({
     }
   }
 
-  const handleKeyDown = e => {
+  const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       setOpenItem(null)
     }
   }
 
-  const nonEmptyFilters = filters.filter(spec => spec.facets.length > 0)
+  const nonEmptyFilters = filters.filter((spec) => spec.facets.length > 0)
 
   const departmentsOpen = openItem === CATEGORIES_TITLE
 
   const itemClassName = classNames(
     styles.accordionFilterItemOptions,
     'ph5 pt3 h-100 overflow-scroll',
-    { pb9: navigationType !== 'collapsible'}
+    { pb9: navigationType !== 'collapsible' }
   )
 
   return (
-    <div className={classNames(styles.accordionFilter, 'h-100 pb9', {
-      'overflow-scroll': !openItem,
-    })}>
+    <div
+      className={classNames(styles.accordionFilter, 'h-100 pb9', {
+        'overflow-scroll': !openItem,
+      })}
+    >
       <div
         className={classNames(
           styles.filterAccordionBreadcrumbs,
@@ -144,7 +146,7 @@ const AccordionFilterContainer = ({
         </AccordionFilterItem>
       )}
 
-      {nonEmptyFilters.map(filter => {
+      {nonEmptyFilters.map((filter) => {
         const { type, title } = filter
         const isOpen = openItem === filter.title
 
@@ -165,6 +167,7 @@ const AccordionFilterContainer = ({
                 initiallyCollapsed={initiallyCollapsed}
               />
             )
+
           default:
             return (
               <AccordionFilterGroup
@@ -214,6 +217,7 @@ AccordionFilterContainer.propTypes = {
   truncatedFacetsFetched: PropTypes.bool,
   /** Sets if the truncated facets were fetched */
   setTruncatedFacetsFetched: PropTypes.func,
+  categoryFiltersMode: PropTypes.oneOf(['href', 'default']),
 }
 
 export default AccordionFilterContainer

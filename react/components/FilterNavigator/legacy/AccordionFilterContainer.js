@@ -5,7 +5,6 @@ import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
 
 import AccordionFilterItem from './AccordionFilterItem'
-
 import searchResult from './searchResult.css'
 
 const AccordionFilterContainer = ({
@@ -16,7 +15,7 @@ const AccordionFilterContainer = ({
   const intl = useIntl()
   const [openItem, setOpenItem] = useState(null)
 
-  const handleOpen = id => e => {
+  const handleOpen = (id) => (e) => {
     e.preventDefault()
 
     if (openItem === id) {
@@ -26,13 +25,13 @@ const AccordionFilterContainer = ({
     }
   }
 
-  const handleKeyDown = e => {
+  const handleKeyDown = (e) => {
     if (e.key === ' ') {
       setOpenItem(null)
     }
   }
 
-  const nonEmptyFilters = filters.filter(spec => spec.facets.length > 0)
+  const nonEmptyFilters = filters.filter((spec) => spec.facets.length > 0)
 
   return (
     <div className={`${searchResult.accordionFilter} h-100`}>
@@ -67,7 +66,7 @@ const AccordionFilterContainer = ({
         )}
       </div>
 
-      {nonEmptyFilters.map(filter => {
+      {nonEmptyFilters.map((filter) => {
         const { title, facets } = filter
         const isOpen = openItem === filter.title
 

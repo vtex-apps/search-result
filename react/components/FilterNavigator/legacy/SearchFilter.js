@@ -24,7 +24,7 @@ const SearchFilter = ({
       title={getFilterTitle(title, intl)}
       filters={filtersWithSelected}
     >
-      {facet => (
+      {(facet) => (
         <FacetItem
           key={facet.name}
           facet={facet}

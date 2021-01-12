@@ -5,10 +5,10 @@ import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
 import { Tag } from 'vtex.styleguide'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
+import { Collapse } from 'react-collapse'
 
 import { getFilterTitle } from '../constants/SearchHelpers'
 import { generateSlug } from './FilterNavigator/legacy/hooks/useSelectedFilters'
-import { Collapse } from 'react-collapse'
 
 const CSS_HANDLES = [
   'accordionFilterContainer',
@@ -39,18 +39,20 @@ const AccordionFilterItem = ({
   const isNavigationCollapsible = navigationType === 'collapsible'
   const [isCollapsed, setIsCollapsed] = useState(initiallyCollapsed)
 
-  const handleOnOpen = e => {
+  const handleOnOpen = (e) => {
     if (isNavigationCollapsible) {
-      setIsCollapsed(isCollapsed => !isCollapsed)
+      setIsCollapsed((prevIsCollapsed) => !prevIsCollapsed)
     }
 
     onOpen(e)
   }
-  const handleKeyDown = e => {
+
+  const handleKeyDown = (e) => {
     if (e.key === ' ') {
       handleOnOpen(e)
     }
   }
+
   const quantitySelected = selectedFilters.length
 
   const titleSlug = generateSlug(getFilterTitle(title, intl))
@@ -117,7 +119,7 @@ const AccordionFilterItem = ({
                 <div
                   className={classNames(handles.accordionSelectedFilters, 'f6')}
                 >
-                  {selectedFilters.map(facet => facet.name).join(', ')}
+                  {selectedFilters.map((facet) => facet.name).join(', ')}
                 </div>
               )}
             </div>

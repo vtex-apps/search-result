@@ -48,15 +48,15 @@ const PriceRange = ({ title, facets, priceRange }) => {
   let maxValue = Number.MIN_VALUE
 
   availableOptions.forEach(({ slug }) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_, minSlug, maxSlug] = slug.match(slugRegex)
+    const [, minSlug, maxSlug] = slug.match(slugRegex)
 
-    const min = parseInt(minSlug)
-    const max = parseInt(Math.ceil(maxSlug))
+    const min = parseInt(minSlug, 10)
+    const max = parseInt(Math.ceil(maxSlug), 10)
 
     if (min < minValue) {
       minValue = min
     }
+
     if (max > maxValue) {
       maxValue = max
     }
@@ -66,11 +66,10 @@ const PriceRange = ({ title, facets, priceRange }) => {
   const currentValuesRegex = /^(.*) TO (.*)$/
 
   if (priceRange && currentValuesRegex.test(priceRange)) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_, currentMin, currentMax] = priceRange.match(currentValuesRegex)
+    const [, currentMin, currentMax] = priceRange.match(currentValuesRegex)
 
-    defaultValues[0] = parseInt(currentMin)
-    defaultValues[1] = parseInt(currentMax)
+    defaultValues[0] = parseInt(currentMin, 10)
+    defaultValues[1] = parseInt(currentMax, 10)
   }
 
   return (
@@ -84,7 +83,7 @@ const PriceRange = ({ title, facets, priceRange }) => {
         max={maxValue}
         onChange={handleChange}
         defaultValues={defaultValues}
-        formatValue={value => formatCurrency({ intl, culture, value })}
+        formatValue={(value) => formatCurrency({ intl, culture, value })}
         range
       />
     </FilterOptionTemplate>

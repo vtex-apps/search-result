@@ -2,8 +2,8 @@ import classNames from 'classnames'
 import React from 'react'
 import { IconClose } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
-import { useFilterNavigator } from './FilterNavigatorContext'
 
+import { useFilterNavigator } from './FilterNavigatorContext'
 import Collapsible from './Collapsible'
 import CategoryItem from './CategoryItem'
 
@@ -18,12 +18,12 @@ const CSS_HANDLES = [
   'selectedCategoryIcon',
 ]
 
-const getSelectedCategories = rootCategory => {
+const getSelectedCategories = (rootCategory) => {
   let node = rootCategory.children
   const selectedCategories = [rootCategory]
 
   while (node) {
-    const category = node.find(category => category.selected)
+    const category = node.find((categ) => categ.selected)
 
     if (!category) {
       break
@@ -42,14 +42,14 @@ const CategoryFilter = ({
   onCategorySelect,
   preventRouteChange,
   maxItemsCategory,
-  categoryFiltersMode
+  categoryFiltersMode,
 }) => {
   const { map } = useFilterNavigator()
   const handles = useCssHandles(CSS_HANDLES)
 
   const selectedCategories = getSelectedCategories(category)
 
-  const handleUnselectCategories = index => {
+  const handleUnselectCategories = (index) => {
     const categoriesToRemove = selectedCategories.slice(index)
 
     onCategorySelect(categoriesToRemove, preventRouteChange)
@@ -82,7 +82,7 @@ const CategoryFilter = ({
           'flex items-center pointer'
         )}
         onClick={handleRootCategoryClick}
-        onKeyDown={e => e.key === 'Enter' && handleRootCategoryClick()}
+        onKeyDown={(e) => e.key === 'Enter' && handleRootCategoryClick()}
       >
         <div className="flex-grow-1 dim">
           <span
@@ -118,7 +118,7 @@ const CategoryFilter = ({
               'mt5 mt4-ns flex items-center justify-between pointer f5 f6-ns'
             )}
             onClick={() => handleUnselectCategories(index + 1)}
-            onKeyDown={e =>
+            onKeyDown={(e) =>
               e.key === 'Enter' && handleUnselectCategories(index + 1)
             }
           >

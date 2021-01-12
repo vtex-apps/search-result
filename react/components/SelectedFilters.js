@@ -20,13 +20,15 @@ const SelectedFilters = ({
 }) => {
   const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
+
   if (!filters.length) {
     return null
   }
 
-  const visibleFilters = filters.filter(filter => !filter.hidden)
+  const visibleFilters = filters.filter((filter) => !filter.hidden)
 
   const title = intl.formatMessage({ id: 'store/search.selected-filters' })
+
   return (
     <FilterOptionTemplate
       id="selectedFilters"
@@ -35,7 +37,7 @@ const SelectedFilters = ({
       collapsable={false}
       selected
     >
-      {facet => (
+      {(facet) => (
         <FacetItem
           map={map}
           key={facet.name}

@@ -48,7 +48,7 @@ const SearchFilter = ({
       closeOnOutsideClick={closeOnOutsideClick}
       appliedFiltersOverview={appliedFiltersOverview}
     >
-      {facet => (
+      {(facet) => (
         <FacetItem
           key={facet.name}
           facetTitle={facetTitle}

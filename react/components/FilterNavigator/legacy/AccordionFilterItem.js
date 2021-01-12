@@ -33,9 +33,7 @@ const AccordionFilterItem = ({
             role="button"
             tabIndex={0}
             className={classNames(
-              `${searchResult.accordionFilterItem} ${
-                searchResult.filterAccordionItemBox
-              } t-body pr5 pv3 pointer bb b--muted-5`,
+              `${searchResult.accordionFilterItem} ${searchResult.filterAccordionItemBox} t-body pr5 pv3 pointer bb b--muted-5`,
               {
                 [searchResult.accordionFilterItemActive]: open,
                 [`${searchResult.accordionFilterItemHidden} dn`]: !show,
@@ -63,18 +61,14 @@ const AccordionFilterItem = ({
       )}
       {open && (
         <div
-          className={`${
-            searchResult.accordionFilterItemOptions
-          } pl7 overflow-scroll h-100`}
+          className={`${searchResult.accordionFilterItemOptions} pl7 overflow-scroll h-100`}
         >
-          {facets.map(facet => {
+          {facets.map((facet) => {
             const { name } = facet
 
             return (
               <div
-                className={`${
-                  searchResult.filterAccordionItemBox
-                } pr4 pt3 items-center flex bb b--muted-5`}
+                className={`${searchResult.filterAccordionItemBox} pr4 pt3 items-center flex bb b--muted-5`}
                 key={name}
               >
                 <Checkbox
