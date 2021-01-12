@@ -15,6 +15,8 @@ interface GalleryItemProps {
   displayMode: MobileLayoutMode
   /** ProductSummary props. */
   summary: any
+  /** Item position in the gallery */
+  position: number
   CustomSummary?: ComponentType
 }
 
@@ -24,6 +26,7 @@ interface GalleryItemProps {
 function GalleryItem({
   item,
   displayMode,
+  position,
   summary,
   CustomSummary,
 }: GalleryItemProps) {
@@ -35,15 +38,21 @@ function GalleryItem({
     [item]
   )
 
-  const query = useMemo(() => {
-    if (searchQuery?.variables) {
-      return searchQuery.variables.query
-    }
-  }, [searchQuery])
-
   const handleClick = useCallback(() => {
-    push({ event: 'productClick', product, query })
-  }, [product, query, push])
+    push({
+      event: 'productClick',
+      product,
+      query: searchQuery?.variables?.query,
+      map: searchQuery?.variables?.map,
+      position,
+    })
+  }, [
+    product,
+    push,
+    searchQuery?.variables?.map,
+    searchQuery?.variables?.query,
+    position,
+  ])
 
   const productSummaryProps = {
     ...summary,

@@ -8,7 +8,7 @@ import GalleryItem from './GalleryItem'
 import type { Product } from '../Gallery'
 import type { MobileLayoutMode } from '../GalleryLegacy'
 
-const CSS_HANDLES = ['galleryItem']
+const CSS_HANDLES = ['galleryItem'] as const
 
 interface GalleryRowProps {
   products: Product[]
@@ -78,6 +78,7 @@ function GalleryRow({
               item={product}
               summary={summary}
               displayMode={displayMode}
+              position={rowIndex * itemsPerRow + index}
               CustomSummary={shouldRenderCustom ? CustomSummary : undefined}
             />
           </div>
