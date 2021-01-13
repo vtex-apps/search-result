@@ -1,8 +1,9 @@
-import React, { useMemo, useCallback, memo, ComponentType } from 'react'
-
+import type { ComponentType } from 'react'
+import React, { useMemo, useCallback, memo } from 'react'
 import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
 import { usePixel } from 'vtex.pixel-manager'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
+
 import type { Product } from '../Gallery'
 
 interface GalleryLayoutItemProps {
@@ -28,19 +29,21 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
     [item]
   )
 
-  const query = useMemo(() => {
-    if (searchQuery?.variables) {
-      return searchQuery.variables.query
-    }
-  }, [searchQuery])
-
-  const map = useMemo(() => searchQuery?.variables?.map, [
-    searchQuery?.variables?.map,
-  ])
-
   const handleClick = useCallback(() => {
-    push({ event: 'productClick', product, query, map, position })
-  }, [product, query, push])
+    push({
+      event: 'productClick',
+      product,
+      query: searchQuery?.variables?.query,
+      map: searchQuery?.variables?.map,
+      position,
+    })
+  }, [
+    product,
+    push,
+    searchQuery?.variables?.map,
+    searchQuery?.variables?.query,
+    position,
+  ])
 
   return (
     <GalleryItemComponent

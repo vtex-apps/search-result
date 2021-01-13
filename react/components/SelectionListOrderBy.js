@@ -1,7 +1,8 @@
 import React, { useState, useCallback, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { injectIntl, intlShape } from 'react-intl'
+import { useIntl } from 'react-intl'
 import classNames from 'classnames'
+// eslint-disable-next-line no-restricted-imports
 import { find, propEq } from 'ramda'
 import { formatIOMessage } from 'vtex.native-types'
 import { IconCaret } from 'vtex.store-icons'
@@ -22,12 +23,12 @@ const CSS_HANDLES = [
 ]
 
 const SelectionListOrderBy = ({
-  intl,
   message = 'store/ordenation.sort-by',
   orderBy,
   options,
   showOrderTitle,
 }) => {
+  const intl = useIntl()
   const [showDropdown, setShowDropdown] = useState(false)
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -44,14 +45,14 @@ const SelectionListOrderBy = ({
 
   const { isMobile } = useDevice()
 
-  const renderOptions = orderBy => {
-    return options.map(option => {
+  const renderOptions = (orderByOption) => {
+    return options.map((option) => {
       return (
         <SelectionListItem
           key={option.value}
           onItemClick={handleOutsideClick}
           option={option}
-          selected={option.value === orderBy}
+          selected={option.value === orderByOption}
         />
       )
     })
@@ -60,8 +61,9 @@ const SelectionListOrderBy = ({
   const sortByMessage = formatIOMessage({ id: message, intl })
 
   const getOptionTitle = useCallback(
-    option => {
+    (option) => {
       const selectedOption = find(propEq('value', option), options)
+
       return selectedOption ? selectedOption.label : ''
     },
     [options]
@@ -121,7 +123,7 @@ const SelectionListOrderBy = ({
 SelectionListOrderBy.propTypes = {
   /** Current Ordernation  */
   orderBy: PropTypes.string,
-  /** Sort Options*/
+  /** Sort Options */
   options: PropTypes.arrayOf(
     PropTypes.shape({
       /** Label to Option */
@@ -130,12 +132,10 @@ SelectionListOrderBy.propTypes = {
       value: PropTypes.string,
     })
   ),
-  /** Intl to translations */
-  intl: intlShape,
   /** Message to be displayed */
   message: PropTypes.string,
   /** Show or hide order title */
-  showOrderTitle: PropTypes.boolean,
+  showOrderTitle: PropTypes.bool,
 }
 
-export default injectIntl(SelectionListOrderBy)
+export default SelectionListOrderBy

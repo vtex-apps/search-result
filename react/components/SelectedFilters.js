@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { intlShape, injectIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
+import { useCssHandles } from 'vtex.css-handles'
 
 import FacetItem from './FacetItem'
 import FilterOptionTemplate from './FilterOptionTemplate'
 import { facetOptionShape } from '../constants/propTypes'
-import { useCssHandles } from 'vtex.css-handles'
 
 const CSS_HANDLES = ['selectedFilterItem']
 
@@ -15,18 +15,20 @@ const CSS_HANDLES = ['selectedFilterItem']
 const SelectedFilters = ({
   map,
   filters = [],
-  intl,
   preventRouteChange = false,
   navigateToFacet,
 }) => {
+  const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
+
   if (!filters.length) {
     return null
   }
 
-  const visibleFilters = filters.filter(filter => !filter.hidden)
+  const visibleFilters = filters.filter((filter) => !filter.hidden)
 
   const title = intl.formatMessage({ id: 'store/search.selected-filters' })
+
   return (
     <FilterOptionTemplate
       id="selectedFilters"
@@ -35,7 +37,7 @@ const SelectedFilters = ({
       collapsable={false}
       selected
     >
-      {facet => (
+      {(facet) => (
         <FacetItem
           map={map}
           key={facet.name}
@@ -56,11 +58,9 @@ SelectedFilters.propTypes = {
   map: PropTypes.string,
   /** Selected filters. */
   filters: PropTypes.arrayOf(facetOptionShape).isRequired,
-  /** Intl instance. */
-  intl: intlShape,
   /** Prevent route changes */
   preventRouteChange: PropTypes.bool,
   navigateToFacet: PropTypes.func,
 }
 
-export default injectIntl(SelectedFilters)
+export default SelectedFilters

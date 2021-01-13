@@ -1,8 +1,8 @@
 import React from 'react'
 
-export const useCssHandles = cssHandles => {
+export const useCssHandles = (cssHandles) => {
   const handles = {}
-  cssHandles.forEach(handle => {
+  cssHandles.forEach((handle) => {
     handles[handle] = handle
   })
 
@@ -10,10 +10,11 @@ export const useCssHandles = cssHandles => {
 }
 
 export function applyModifiers(baseClass, modifier) {
+  if (modifier instanceof Array) modifier = modifier.filter((item) => !!item)
   return `${baseClass} ${baseClass}--${modifier}`
 }
 
-export const withCssHandles = () => Comp => {
+export const withCssHandles = () => (Comp) => {
   return class extends React.Component {
     static displayName = 'withCssHandles'
     render() {

@@ -1,8 +1,6 @@
 {
-  "extends": "vtex-react",
-  "env": {
-    "browser": true,
-    "es6": true,
-    "jest": true
+  "extends": "vtex-react/io",
+  "rules": {
+    "react/jsx-filename-extension": 0
   }
 }

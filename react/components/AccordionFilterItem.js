@@ -1,14 +1,14 @@
 import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
-import { intlShape, injectIntl } from 'react-intl'
+import { useIntl } from 'react-intl'
 import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
 import { Tag } from 'vtex.styleguide'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
+import { Collapse } from 'react-collapse'
 
 import { getFilterTitle } from '../constants/SearchHelpers'
 import { generateSlug } from './FilterNavigator/legacy/hooks/useSelectedFilters'
-import { Collapse } from 'react-collapse'
 
 const CSS_HANDLES = [
   'accordionFilterContainer',
@@ -29,28 +29,30 @@ const AccordionFilterItem = ({
   open,
   onOpen,
   selectedFilters = [],
-  intl,
   children,
   appliedFiltersOverview,
   navigationType,
   initiallyCollapsed,
 }) => {
+  const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
   const isNavigationCollapsible = navigationType === 'collapsible'
   const [isCollapsed, setIsCollapsed] = useState(initiallyCollapsed)
 
-  const handleOnOpen = e => {
+  const handleOnOpen = (e) => {
     if (isNavigationCollapsible) {
-      setIsCollapsed(isCollapsed => !isCollapsed)
+      setIsCollapsed((prevIsCollapsed) => !prevIsCollapsed)
     }
 
     onOpen(e)
   }
-  const handleKeyDown = e => {
+
+  const handleKeyDown = (e) => {
     if (e.key === ' ') {
       handleOnOpen(e)
     }
   }
+
   const quantitySelected = selectedFilters.length
 
   const titleSlug = generateSlug(getFilterTitle(title, intl))
@@ -117,7 +119,7 @@ const AccordionFilterItem = ({
                 <div
                   className={classNames(handles.accordionSelectedFilters, 'f6')}
                 >
-                  {selectedFilters.map(facet => facet.name).join(', ')}
+                  {selectedFilters.map((facet) => facet.name).join(', ')}
                 </div>
               )}
             </div>
@@ -146,8 +148,6 @@ AccordionFilterItem.propTypes = {
   onOpen: PropTypes.func,
   /** List of selected filters */
   selectedFilters: PropTypes.arrayOf(PropTypes.object),
-  /** Intl instance */
-  intl: intlShape,
   /** content */
   children: PropTypes.node,
   /** Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). */
@@ -158,4 +158,4 @@ AccordionFilterItem.propTypes = {
   initiallyCollapsed: PropTypes.bool,
 }
 
-export default injectIntl(AccordionFilterItem)
+export default AccordionFilterItem

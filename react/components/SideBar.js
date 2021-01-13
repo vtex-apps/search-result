@@ -1,7 +1,9 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
-import { injectIntl, intlShape } from 'react-intl'
+import { injectIntl } from 'react-intl'
 import OutsideClickHandler from 'react-outside-click-handler'
 import Animation from 'vtex.store-components/Animation'
 import classNames from 'classnames'
@@ -34,9 +36,11 @@ class Sidebar extends Component {
 
   render() {
     const { isOpen, onOutsideClick } = this.props
+
     if (typeof document === 'undefined') {
       return null
     }
+
     const scrimClasses = classNames(
       'fixed dim bg-base--inverted top-0 z-9999 w-100 vh-100 o-40 left-0',
       {
@@ -69,7 +73,7 @@ class Sidebar extends Component {
 
 Sidebar.propTypes = {
   /* Internationalization */
-  intl: intlShape.isRequired,
+  intl: PropTypes.any,
   /* Set the sideBar visibility */
   isOpen: PropTypes.bool,
   /* Sidebar content */

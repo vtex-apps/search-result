@@ -11,9 +11,7 @@ exports[`<FilterNavigator /> should display related categories 1`] = `
       <h5
         class="filterMessage t-heading-5 mv5"
       >
-        <span>
-          Filters
-        </span>
+        Filters
       </h5>
     </div>
     <div
@@ -25,9 +23,7 @@ exports[`<FilterNavigator /> should display related categories 1`] = `
         <div
           class="filterTitle t-mini c-muted-2 flex items-center justify-between"
         >
-          <span>
-            Departments
-          </span>
+          Departments
         </div>
       </div>
       <div
@@ -183,9 +179,7 @@ exports[`<FilterNavigator /> should match snapshot with all 1`] = `
       <h5
         class="filterMessage t-heading-5 mv5"
       >
-        <span>
-          Filters
-        </span>
+        Filters
       </h5>
     </div>
     <div
@@ -197,9 +191,7 @@ exports[`<FilterNavigator /> should match snapshot with all 1`] = `
         <div
           class="filterTitle t-mini c-muted-2 flex items-center justify-between"
         >
-          <span>
-            Departments
-          </span>
+          Departments
         </div>
       </div>
       <div

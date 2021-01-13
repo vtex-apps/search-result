@@ -1,5 +1,10 @@
-import { Context, createContext } from 'react'
+import { createContext } from 'react'
 
-const SettingsContext: Context<Record<string, unknown>> = createContext({})
+interface SettingsContext {
+  trackingId?: string
+  [key: string]: unknown
+}
+
+const SettingsContext = createContext<SettingsContext>({})
 
 export default SettingsContext

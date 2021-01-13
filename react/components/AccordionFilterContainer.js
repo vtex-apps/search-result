@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { injectIntl, intlShape } from 'react-intl'
+import { useIntl } from 'react-intl'
 import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
 import { useRuntime } from 'vtex.render-runtime'
+import { useCssHandles } from 'vtex.css-handles'
 
 import AccordionFilterItem from './AccordionFilterItem'
 import DepartmentFilters from './DepartmentFilters'
 import AccordionFilterGroup from './AccordionFilterGroup'
 import AccordionFilterPriceRange from './AccordionFilterPriceRange'
-import { useCssHandles } from 'vtex.css-handles'
+import styles from '../searchResult.css'
 
 const CSS_HANDLES = [
   'filterBreadcrumbsItem',
@@ -18,13 +19,11 @@ const CSS_HANDLES = [
   'filterBreadcrumbsText',
   'filterBreadcrumbsList',
 ]
-import styles from '../searchResult.css'
 
 const CATEGORIES_TITLE = 'store/search.filter.title.categories'
 
 const AccordionFilterContainer = ({
   filters,
-  intl,
   onFilterCheck,
   tree,
   onCategorySelect,
@@ -35,15 +34,16 @@ const AccordionFilterContainer = ({
   truncateFilters,
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
-  categoryFiltersMode
+  categoryFiltersMode,
 }) => {
+  const intl = useIntl()
   const { getSettings } = useRuntime()
   const [openItem, setOpenItem] = useState(null)
   const handles = useCssHandles(CSS_HANDLES)
   const isLazyFacetsFetchEnabled = getSettings('vtex.store')
     ?.enableFiltersFetchOptimization
 
-  const handleOpen = id => e => {
+  const handleOpen = (id) => (e) => {
     e.preventDefault()
 
     if (navigationType === 'collapsible') {
@@ -61,26 +61,28 @@ const AccordionFilterContainer = ({
     }
   }
 
-  const handleKeyDown = e => {
+  const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       setOpenItem(null)
     }
   }
 
-  const nonEmptyFilters = filters.filter(spec => spec.facets.length > 0)
+  const nonEmptyFilters = filters.filter((spec) => spec.facets.length > 0)
 
   const departmentsOpen = openItem === CATEGORIES_TITLE
 
   const itemClassName = classNames(
     styles.accordionFilterItemOptions,
     'ph5 pt3 h-100 overflow-scroll',
-    { pb9: navigationType !== 'collapsible'}
+    { pb9: navigationType !== 'collapsible' }
   )
 
   return (
-    <div className={classNames(styles.accordionFilter, 'h-100 pb9', {
-      'overflow-scroll': !openItem,
-    })}>
+    <div
+      className={classNames(styles.accordionFilter, 'h-100 pb9', {
+        'overflow-scroll': !openItem,
+      })}
+    >
       <div
         className={classNames(
           styles.filterAccordionBreadcrumbs,
@@ -144,7 +146,7 @@ const AccordionFilterContainer = ({
         </AccordionFilterItem>
       )}
 
-      {nonEmptyFilters.map(filter => {
+      {nonEmptyFilters.map((filter) => {
         const { type, title } = filter
         const isOpen = openItem === filter.title
 
@@ -165,6 +167,7 @@ const AccordionFilterContainer = ({
                 initiallyCollapsed={initiallyCollapsed}
               />
             )
+
           default:
             return (
               <AccordionFilterGroup
@@ -194,8 +197,6 @@ const AccordionFilterContainer = ({
 AccordionFilterContainer.propTypes = {
   /** Current available filters */
   filters: PropTypes.arrayOf(PropTypes.object),
-  /** Intl instance */
-  intl: intlShape,
   /** Filters mapped for checkbox */
   filtersChecks: PropTypes.object,
   /** Checkbox hit callback function */
@@ -216,6 +217,7 @@ AccordionFilterContainer.propTypes = {
   truncatedFacetsFetched: PropTypes.bool,
   /** Sets if the truncated facets were fetched */
   setTruncatedFacetsFetched: PropTypes.func,
+  categoryFiltersMode: PropTypes.oneOf(['href', 'default']),
 }
 
-export default injectIntl(AccordionFilterContainer)
+export default AccordionFilterContainer
