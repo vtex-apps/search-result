@@ -5,7 +5,7 @@
 # Search Result
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 VTEX Search Result app is responsible for handling the result fetched by the [VTEX Search API](https://developers.vtex.com/vtex-developer-docs/reference/search-api-overview) and displaying it to users.
@@ -597,16 +597,18 @@ Thanks goes out to these wonderful people ([emoji key](https://allcontributors.o
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/grupo-exito-ecommerce"><img src="https://avatars2.githubusercontent.com/u/46934781?v=4" width="100px;" alt=""/><br /><sub><b>grupo-exito-ecommerce</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=grupo-exito-ecommerce" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ygorneves10"><img src="https://avatars1.githubusercontent.com/u/39542011?v=4" width="100px;" alt=""/><br /><sub><b>Ygor Neves</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=ygorneves10" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/marcosewbank"><img src="https://avatars3.githubusercontent.com/u/27689698?v=4" width="100px;" alt=""/><br /><sub><b>Marcos André Suarez Ewbank</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=marcosewbank" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/BeatrizMiranda"><img src="https://avatars2.githubusercontent.com/u/28959326?v=4" width="100px;" alt=""/><br /><sub><b>Beatriz Miranda</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=BeatrizMiranda" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/felipeireslan"><img src="https://avatars3.githubusercontent.com/u/47363947?v=4" width="100px;" alt=""/><br /><sub><b>felipeireslan</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=felipeireslan" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/grupo-exito-ecommerce"><img src="https://avatars2.githubusercontent.com/u/46934781?v=4?s=100" width="100px;" alt=""/><br /><sub><b>grupo-exito-ecommerce</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=grupo-exito-ecommerce" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/ygorneves10"><img src="https://avatars1.githubusercontent.com/u/39542011?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ygor Neves</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=ygorneves10" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/marcosewbank"><img src="https://avatars3.githubusercontent.com/u/27689698?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marcos André Suarez Ewbank</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=marcosewbank" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/BeatrizMiranda"><img src="https://avatars2.githubusercontent.com/u/28959326?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Beatriz Miranda</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=BeatrizMiranda" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/felipeireslan"><img src="https://avatars3.githubusercontent.com/u/47363947?v=4?s=100" width="100px;" alt=""/><br /><sub><b>felipeireslan</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=felipeireslan" title="Code">💻</a></td>
+    <td align="center"><a href="https://juliomoreira.pro"><img src="https://avatars2.githubusercontent.com/u/1207017?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Julio Moreira</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=juliomoreira" title="Code">💻</a></td>
   </tr>
 </table>
 
-<!-- markdownlint-enable -->
+<!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
