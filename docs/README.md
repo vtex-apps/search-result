@@ -37,8 +37,8 @@ Now, you are able to use all the blocks exported by the `search-result` app. Che
 | `search-layout-switcher`       | Enables mobile users to switch between the available layout modes.                                                                                              |
 | `search-not-found-layout`   | Builds the whole search result page structure for scenarios in which no result was fetched. It is rendered whenever users search for a term that doesn't return a product. |                                                      |
 | `gallery`  | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Displays the gallery with all the products found in the search.  |                    |                                         
-| `gallery-layout-switcher` | Logical block that allows users to switch between the available `gallery`'s layouts.  |                           |                                     
-| `gallery-layout-option` | Defines how each layout option should be rendered for users.  | 
+| `gallery-layout-switcher` | Logical block that allows users to switch between the available `gallery`'s layouts. To know how to build your search results with multiple layouts, access the [documentation](https://vtex.io/docs/recipes/templates/building-a-search-results-with-multiple-layouts/).  |                           |                                     
+| `gallery-layout-option` | Defines how each layout option should be rendered for users. To know how to build your search results with multiple layouts, access the [documentation](https://vtex.io/docs/recipes/templates/building-a-search-results-with-multiple-layouts/).  | 
 | `not-found` | Block containing a text and a description for the page that was not found in the search. It must be declared as a child of `search-not-found-layout`.  | 
 | `search-content`          | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Decides, behind the scenes, which block will be displayed: either the `gallery` block (if products are found) or the `not-found` block (if the selected filters lead to an empty search results page). This means that both `gallery` and `not-found` must be declared as `search-content` children.                    |
 | `store.not-found#search`    | When configured, it displays a 404 error message whenever the server is not able to return what the browser request was or when it is configured to not handle that request.  |  
@@ -284,9 +284,9 @@ When declared with no props, it expects as child the [`product-summary.shelf`](h
 
 It is possible, however, to use its `layouts` prop to provide several layouts to the page, allowing your store to have different arrangement of items according to what best fits your users' needs.
 
-In a scenario where several layouts are provided, your store users are able to shift between them according to their needs using the `gallery-layout-switcher` block (described further below). The `gallery` will then render the component provided by the currently selected layout.
+In a scenario where multiple layouts are provided, your store users will be able to shift between them according to their needs using the `gallery-layout-switcher` block (described further below). The `gallery` will then render the component provided by the currently selected layout.
 
-:information_source: *It's highly recommended that you set a default layout for your search results page in the `defaultGalleryLayout` prop from the `search-result-layout.desktop` and `search-result-layout.mobile` blocks.*
+To understand how to build your search results with multiple layouts using the `layouts` prop, access the [**documentation**](https://vtex.io/docs/recipes/templates/building-a-search-results-with-multiple-layouts/).
 
 | Prop name | Type                      | Description                                                    | Default value   |
 | :---------: | :---------------------: | :--------------------------------------------------------------| :-------------: |
