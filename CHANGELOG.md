@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.92.1] - 2021-01-15
 ### Fixed
 - Updated the app documentation (readme.md file) with links to the new recipe on building a search results page with multiple layouts.
 
