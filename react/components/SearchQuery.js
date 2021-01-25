@@ -1,8 +1,6 @@
 import { useMemo, useRef, useCallback, useEffect, useState } from 'react'
 import { useQuery } from 'react-apollo'
-import { path } from 'ramda'
 import { useRuntime } from 'vtex.render-runtime'
-
 import productSearchQuery from 'vtex.store-resources/QueryProductSearchV3'
 import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadataV2'
 import facetsQuery from 'vtex.store-resources/QueryFacetsV2'
@@ -34,8 +32,9 @@ const includeFacets = (map, query) =>
 
 const useCombinedRefetch = (productRefetch, facetsRefetch) => {
   return useCallback(
-    async refetchVariables => {
-      let productVariables, facetsVariables
+    async (refetchVariables) => {
+      let productVariables
+      let facetsVariables
 
       if (refetchVariables) {
         const {
@@ -88,6 +87,7 @@ const useCombinedRefetch = (productRefetch, facetsRefetch) => {
         productRefetch && productRefetch(productVariables),
         facetsRefetch && facetsRefetch(facetsVariables),
       ])
+
       return {
         ...searchRefetchResult,
         data: {
@@ -121,6 +121,7 @@ const useCorrectPage = (page, shouldReset) => {
   if (shouldReset) {
     pageRef.current = DEFAULT_PAGE
   }
+
   return pageRef.current
 }
 
@@ -148,12 +149,18 @@ const useQueries = (variables, facetsArgs) => {
   const { getSettings } = useRuntime()
   const isLazyFacetsFetchEnabled = getSettings('vtex.store')
     ?.enableFiltersFetchOptimization
-  const productSearchResult = useQuery(productSearchQuery, { variables })
+
+  const productSearchResult = useQuery(productSearchQuery, {
+    variables,
+    fetchPolicy: 'network-only',
+  })
+
   const {
     refetch: searchRefetch,
     loading: searchLoading,
     fetchMore,
   } = productSearchResult
+
   const { data: { searchMetadata } = {} } = useQuery(searchMetadataQuery, {
     variables: {
       query: variables.query,
@@ -197,15 +204,18 @@ const useQueries = (variables, facetsArgs) => {
           priceRanges: [],
         }
 
-  const selectedFacetsOutput = path(['queryArgs', 'selectedFacets'], facets)
+  const selectedFacetsOutput =
+    facets && facets.queryArgs && facets.queryArgs.selectedFacets
+
   const queryArgs =
     selectedFacetsOutput &&
     buildQueryArgsFromSelectedFacets(selectedFacetsOutput)
 
-  const redirect = path(
-    ['data', 'productSearch', 'redirect'],
-    productSearchResult
-  )
+  const redirect =
+    productSearchResult &&
+    productSearchResult.data &&
+    productSearchResult.data.productSearch &&
+    productSearchResult.data.productSearch.redirect
 
   return {
     loading: searchLoading || redirect,
@@ -270,18 +280,20 @@ const SearchQuery = ({
   /* This is the page of the first query since the component was rendered. 
   We want this behaviour so we can show the correct items even if the pageQuery
   changes. It should change only on a new render or if the query or orderby 
-  change, hence the useCorrectPage that updates its value*/
+  change, hence the useCorrectPage that updates its value */
   const shouldReset = useShouldResetPage(query, map, orderBy)
   const page = useCorrectPage(
-    pageQuery ? parseInt(pageQuery) : DEFAULT_PAGE,
+    pageQuery ? parseInt(pageQuery, 10) : DEFAULT_PAGE,
     shouldReset
   )
+
   const { fuzzy, operator, searchState } = useCorrectSearchStateVariables(
     fuzzyQuery,
     operatorQuery,
     searchStateQuery,
     fullText
   )
+
   const { setRedirect } = useRedirect()
 
   const from = (page - 1) * maxItemsPerPage
@@ -347,7 +359,7 @@ const SearchQuery = ({
     fetchMore,
   } = useQueries(variables, facetsArgs)
 
-  const redirectUrl = path(['productSearch', 'redirect'], data)
+  const redirectUrl = data && data.productSearch && data.productSearch.redirect
 
   useEffect(() => {
     setRedirect(redirectUrl)
