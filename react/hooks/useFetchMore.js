@@ -196,7 +196,7 @@ export const useFetchMore = props => {
       updateQueryError,
       fuzzy,
       operator,
-      searchState
+      sessionStorage.getItem('searchState') ?? searchState
     )
     //if error, rollback
     if (promiseResult && updateQueryError.current) {
@@ -232,7 +232,7 @@ export const useFetchMore = props => {
       updateQueryError,
       fuzzy,
       operator,
-      searchState
+      sessionStorage.getItem('searchState') ?? searchState
     )
     //if error, rollback
     if (promiseResult && updateQueryError.current) {
