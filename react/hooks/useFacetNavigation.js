@@ -209,13 +209,18 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
       }
 
       if (preventRouteChange) {
+        const state =
+          typeof sessionStorage !== 'undefined'
+            ? sessionStorage.getItem('searchState') ?? searchState
+            : searchState ?? undefined
+
         const queries = {
           map: `${currentMap}`,
           query: `/${currentQuery}`,
           page: undefined,
           fuzzy: fuzzy || undefined,
           operator: operator || undefined,
-          searchState: searchState || undefined,
+          searchState: state,
         }
 
         setQuery(queries)
@@ -249,7 +254,7 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
         urlParams.set('operator', operator)
       }
       if (searchState) {
-        urlParams.set('searchState', searchState)
+        urlParams.set('searchState', sessionStorage.getItem('searchState') ?? searchState)
       }
 
       if (!newQuery) {
