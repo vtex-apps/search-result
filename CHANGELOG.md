@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - `productCount` class on FacetItem
+
+## [3.93.0] - 2021-01-28
+
+### Changed
+- Use `searchState` of the `sessionStorage` when it exists.
+
+## [3.92.2] - 2021-01-28
+
+### Fixed
+- Temporarily removes the `searchResult` query cache.
+
+
 ## [3.92.1] - 2021-01-15
 ### Fixed
 - Updated the app documentation (readme.md file) with links to the new recipe on building a search results page with multiple layouts.

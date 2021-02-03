@@ -55,10 +55,10 @@ const FacetItem = ({
   const shouldDisable = useShouldDisableFacet(facet)
 
   const facetLabel = showFacetQuantity ? (
-    <div>
+    <>
       {facet.name}{' '}
       <span className={handles.productCount}>({facet.quantity})</span>
-    </div>
+    </>
   ) : (
     facet.name
   )

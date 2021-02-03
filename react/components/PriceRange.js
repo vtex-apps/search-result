@@ -27,12 +27,17 @@ const PriceRange = ({ title, facets, priceRange }) => {
     }
 
     navigateTimeoutId.current = setTimeout(() => {
+      const state =
+        typeof sessionStorage !== 'undefined'
+          ? sessionStorage.getItem('searchState') ?? searchState
+          : searchState ?? undefined
+
       setQuery({
         priceRange: `${left} TO ${right}`,
         page: undefined,
         fuzzy: fuzzy || undefined,
         operator: operator || undefined,
-        searchState: searchState || undefined,
+        searchState: state,
       })
     }, DEBOUNCE_TIME)
   }
