@@ -1,7 +1,9 @@
+// eslint-disable-next-line no-restricted-imports
 import { zip } from 'ramda'
 import { useCallback } from 'react'
 import { useRuntime } from 'vtex.render-runtime'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
+
 import { useFilterNavigator } from '../components/FilterNavigatorContext'
 import { newFacetPathName } from '../utils/slug'
 import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
@@ -27,8 +29,9 @@ const removeElementAtIndex = (strArray, index) =>
 
 const upsert = (array, item) => {
   const foundItemIndex = array.findIndex(
-    e => e.value === item.value && e.map === item.map
+    (e) => e.value === item.value && e.map === item.map
   )
+
   if (foundItemIndex === -1) {
     array.push(item)
   } else {
@@ -56,15 +59,18 @@ const replaceQueryForNewQueryFormat = (
   const mapArray = mapString.split(MAP_VALUES_SEP)
   const newQueryFormatArray = zip(queryArray, mapArray).map(
     ([querySegment, mapSegment]) => {
-      const facetForQuery = selectedFacets.find(facet => {
+      const facetForQuery = selectedFacets.find((facet) => {
         return compareFacetWithQueryValues(querySegment, mapSegment, facet)
       })
+
       if (!facetForQuery) {
         return querySegment
       }
+
       return newFacetPathName(facetForQuery)
     }
   )
+
   return newQueryFormatArray.join(PATH_SEPARATOR)
 }
 
@@ -77,18 +83,22 @@ const removeMapForNewURLFormat = (map, selectedFacets) => {
       ? acc.concat(facet.map)
       : acc
   }, [])
+
   return mapArray
-    .filter(map => !mapsToFilter.includes(map))
+    .filter((mapItem) => !mapsToFilter.includes(mapItem))
     .join(MAP_VALUES_SEP)
 }
 
-const getCleanUrlParams = currentMap => {
+const getCleanUrlParams = (currentMap) => {
   const urlParams = new URLSearchParams(window.location.search)
+
   urlParams.set(MAP_QUERY_KEY, currentMap)
   if (!currentMap) {
     urlParams.delete(MAP_QUERY_KEY)
   }
+
   urlParams.delete('page')
+
   return urlParams
 }
 
@@ -102,26 +112,30 @@ const buildQueryAndMap = (
     // The spread on facet is important so we can assign facet.newQuerySegment
     ({ query, map }, { ...facet }) => {
       const facetValue = facet.value
+
       facet.newQuerySegment = newFacetPathName(facet)
       if (facet.selected) {
         const facetIndex = zip(query, map).findIndex(([value, valueMap]) =>
           compareFacetWithQueryValues(value, valueMap, facet)
         )
+
         selectedFacets = selectedFacets.filter(
-          selectedFacet =>
+          (selectedFacet) =>
             selectedFacet.value !== facet.value &&
             selectedFacet.map !== facet.map
         )
+
         return {
           query: removeElementAtIndex(query, facetIndex),
           map: removeElementAtIndex(map, facetIndex),
         }
-      } else {
-        upsert(selectedFacets, facet)
       }
+
+      upsert(selectedFacets, facet)
 
       if (facet.map === MAP_CATEGORY_CHAR) {
         const lastCategoryIndex = map.lastIndexOf(MAP_CATEGORY_CHAR)
+
         if (lastCategoryIndex >= 0 && lastCategoryIndex !== map.length - 1) {
           // Corner case: if we are adding a category but there are other filter other than category applied. Add the new category filter to the right of the other categories.
           return {
@@ -146,10 +160,12 @@ const buildQueryAndMap = (
     },
     { query: querySegments, map: mapSegments }
   )
+
   const newQueryMap = {
     query: queryAndMap.query.join(PATH_SEPARATOR),
     map: queryAndMap.map.join(MAP_VALUES_SEP),
   }
+
   return newQueryMap
 }
 
@@ -158,8 +174,8 @@ export const buildNewQueryMap = (
   facets,
   selectedFacets
 ) => {
-  let querySegments = selectedFacets.map(facet => facet.value)
-  let mapSegments = selectedFacets.map(facet => facet.map)
+  const querySegments = selectedFacets.map((facet) => facet.value)
+  const mapSegments = selectedFacets.map((facet) => facet.map)
 
   const {
     ft: fullText,
@@ -192,6 +208,7 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
   const { map, query } = useFilterNavigator()
   const { fuzzy, operator, searchState } = useSearchState()
   const { searchQuery } = useSearchPage()
+  const fullTextQuery = map.split(',').includes('ft')
 
   const mainSearches = getMainSearches(query, map)
 
@@ -218,12 +235,13 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
           map: `${currentMap}`,
           query: `/${currentQuery}`,
           page: undefined,
-          fuzzy: fuzzy || undefined,
-          operator: operator || undefined,
+          fuzzy: fullTextQuery ? fuzzy || undefined : undefined,
+          operator: fullTextQuery ? operator || undefined : undefined,
           searchState: state,
         }
 
         setQuery(queries)
+
         return
       }
 
@@ -241,20 +259,25 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
         searchQuery.variables &&
         (!urlParams.get('initialQuery') || !urlParams.get('initialMap'))
       ) {
-        const { map, query } = searchQuery.variables
+        const { map: mapVariable, query: queryVariable } = searchQuery.variables
 
-        urlParams.set('initialQuery', query)
-        urlParams.set('initialMap', map)
+        urlParams.set('initialQuery', queryVariable)
+        urlParams.set('initialMap', mapVariable)
       }
 
-      if (fuzzy) {
+      if (fuzzy && fullTextQuery) {
         urlParams.set('fuzzy', fuzzy)
       }
-      if (operator) {
+
+      if (operator && fullTextQuery) {
         urlParams.set('operator', operator)
       }
+
       if (searchState) {
-        urlParams.set('searchState', sessionStorage.getItem('searchState') ?? searchState)
+        urlParams.set(
+          'searchState',
+          sessionStorage.getItem('searchState') ?? searchState
+        )
       }
 
       if (!newQuery) {
