@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { InputCurrency } from 'vtex.styleguide'
+import { InputCurrency, Button } from 'vtex.styleguide'
 import { useRuntime } from 'vtex.render-runtime'
-import { Button } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { FormattedMessage } from 'react-intl'
 
@@ -27,16 +26,16 @@ const PriceRangeInput = ({ defaultValues, onSubmit, min, max }) => {
     defaultRight,
   ])
 
-  const handleChange = name => e => {
+  const handleChange = (name) => (e) => {
     const { value } = e.target
 
     if (name === 'min') {
-      setValues(currentValues => ({
+      setValues((currentValues) => ({
         ...currentValues,
         left: parseFloat(value),
       }))
     } else {
-      setValues(currentValues => ({
+      setValues((currentValues) => ({
         ...currentValues,
         right: parseFloat(value),
       }))
@@ -44,28 +43,21 @@ const PriceRangeInput = ({ defaultValues, onSubmit, min, max }) => {
   }
 
   const handleSubmit = () => {
-    const { left, right } = values
+    const { left: leftValue, right: rightValue } = values
+    const left = Math.max(Math.min(leftValue, rightValue), min)
+    const right = Math.min(Math.max(leftValue, rightValue), max)
 
-    if (left < min) {
-      setValues(currentValues => ({ ...currentValues, left: min }))
-    }
-    if (right > max) {
-      setValues(currentValues => ({ ...currentValues, right: max }))
-    }
+    setValues({
+      left,
+      right,
+    })
 
-    const definedValues = [
-      Math.max(values.left, min),
-      Math.min(values.right, max),
-    ]
-
-    if (isNaN(definedValues[0]) || isNaN(definedValues[1])) {
-      return
-    }
+    const definedValues = [left, right]
 
     onSubmit(definedValues)
   }
 
-  const handleKeyDown = e => {
+  const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       handleSubmit()
     }

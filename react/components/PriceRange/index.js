@@ -1,10 +1,9 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useRuntime } from 'vtex.render-runtime'
 import { useIntl } from 'react-intl'
 import { Slider } from 'vtex.styleguide'
 import { formatCurrency } from 'vtex.format-currency'
-import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import { facetOptionShape } from '../../constants/propTypes'
 import { getFilterTitle } from '../../constants/SearchHelpers'
@@ -16,10 +15,9 @@ const DEBOUNCE_TIME = 500 // ms
 
 /** Price range slider component */
 const PriceRange = ({ title, facets, priceRange, priceRangeLayout }) => {
+  const [range, setRange] = useState()
   const { culture, setQuery } = useRuntime()
   const intl = useIntl()
-  const { facetsLoading } = useSearchPage()
-
   const navigateTimeoutId = useRef()
 
   const { fuzzy, operator, searchState } = useSearchState()
@@ -42,6 +40,8 @@ const PriceRange = ({ title, facets, priceRange, priceRangeLayout }) => {
         operator: operator || undefined,
         searchState: state,
       })
+
+      setRange([left, right])
     }, DEBOUNCE_TIME)
   }
 
@@ -96,12 +96,12 @@ const PriceRange = ({ title, facets, priceRange, priceRangeLayout }) => {
       )}
       <Slider
         // It is impossible to change the slider value programmatically, so I need to reset the whole component
-        key={facetsLoading ? 'loading' : 'loaded'}
         min={minValue}
         max={maxValue}
         onChange={handleChange}
         defaultValues={defaultValues}
         formatValue={(value) => formatCurrency({ intl, culture, value })}
+        values={range}
         range
       />
     </FilterOptionTemplate>
