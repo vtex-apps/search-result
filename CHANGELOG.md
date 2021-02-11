@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.94.0] - 2021-02-11
+
 ### Removed
 - Query strings `fuzzy` and `operator` for searches that are not full text.
 
