@@ -15,7 +15,6 @@ import AccordionFilterContainer from './AccordionFilterContainer'
 import Sidebar from './SideBar'
 import { MAP_CATEGORY_CHAR } from '../constants'
 import { buildNewQueryMap } from '../hooks/useFacetNavigation'
-
 import styles from '../searchResult.css'
 import { getMainSearches } from '../utils/compatibilityLayer'
 import {
@@ -48,7 +47,10 @@ const FilterSidebar = ({
   truncateFilters,
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
-  categoryFiltersMode
+  categoryFiltersMode,
+  loading,
+  updateOnFilterSelectionOnMobile,
+  showClearByFilter,
 }) => {
   const { searchQuery } = useSearchPage()
   const filterContext = useFilterNavigator()
@@ -66,19 +68,24 @@ const FilterSidebar = ({
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const currentTree = useCategoryTree(tree, categoryTreeOperations)
 
-  const isFilterSelected = (filters, filter) => {
-    return filters.find(
-      filterOperation =>
-        filter.value === filterOperation.value && filter.map === filter.map
+  const isFilterSelected = (slectableFilters, filter) => {
+    return slectableFilters.find(
+      (filterOperation) => filter.value === filterOperation.value
     )
   }
 
-  const handleFilterCheck = filter => {
+  const handleFilterCheck = (filter) => {
+    if (updateOnFilterSelectionOnMobile && preventRouteChange) {
+      navigateToFacet(filter, preventRouteChange)
+
+      return
+    }
+
     if (!isFilterSelected(filterOperations, filter)) {
       setFilterOperations(filterOperations.concat(filter))
     } else {
       setFilterOperations(
-        filterOperations.filter(facet => facet.value !== filter.value)
+        filterOperations.filter((facet) => facet.value !== filter.value)
       )
     }
   }
@@ -92,27 +99,44 @@ const FilterSidebar = ({
   }
 
   const handleApply = () => {
-    navigateToFacet(filterOperations, preventRouteChange)
     setOpen(false)
+
+    if (updateOnFilterSelectionOnMobile && preventRouteChange) {
+      return
+    }
+
+    navigateToFacet(filterOperations, preventRouteChange)
     setFilterOperations([])
   }
 
-  const handleClearFilters = () => {
-    shouldClear.current = true
+  const handleClearFilters = (key) => {
+    shouldClear.current =
+      !updateOnFilterSelectionOnMobile || !preventRouteChange
     // Gets the previously selected facets that should be cleared
     const selectedFacets = selectedFilters.filter(
-      facet => !isCategoryDepartmentCollectionOrFT(facet.key) && facet.selected
+      (facet) =>
+        !isCategoryDepartmentCollectionOrFT(facet.key) &&
+        facet.selected &&
+        (!key || (key && key === facet.key))
     )
 
     // Should not clear categories, departments and clusterIds
-    const selectedRest = filterOperations.filter(facet =>
+    const selectedRest = filterOperations.filter((facet) =>
       isCategoryDepartmentCollectionOrFT(facet.key)
     )
 
-    setFilterOperations([...selectedFacets, ...selectedRest])
+    const facetsToRemove = [...selectedFacets, ...selectedRest]
+
+    if (updateOnFilterSelectionOnMobile && preventRouteChange) {
+      navigateToFacet(facetsToRemove, preventRouteChange)
+
+      return
+    }
+
+    setFilterOperations(facetsToRemove)
   }
 
-  const handleUpdateCategories = maybeCategories => {
+  const handleUpdateCategories = (maybeCategories) => {
     const categories = Array.isArray(maybeCategories)
       ? maybeCategories
       : [maybeCategories]
@@ -120,17 +144,24 @@ const FilterSidebar = ({
     /* There is no need to compare with CATEGORY and DEPARTMENT since
      they are seen as a normal facet in the new VTEX search */
     const categoriesSelected = filterOperations.filter(
-      op => op.map === MAP_CATEGORY_CHAR
+      (op) => op.map === MAP_CATEGORY_CHAR
     )
+
     const newCategories = [...categoriesSelected, ...categories]
+
+    if (updateOnFilterSelectionOnMobile && preventRouteChange) {
+      navigateToFacet(newCategories, preventRouteChange)
+
+      return
+    }
 
     // Just save the newest operation here to be recorded at the category tree hook and update the tree
     setCategoryTreeOperations(categories)
 
     // Save all filters along with the new categories, appended to the old ones
-    setFilterOperations(filters => {
-      return filters
-        .filter(operations => operations.map !== MAP_CATEGORY_CHAR)
+    setFilterOperations((selectableFilters) => {
+      return selectableFilters
+        .filter((operations) => operations.map !== MAP_CATEGORY_CHAR)
         .concat(newCategories)
     })
   }
@@ -144,6 +175,7 @@ const FilterSidebar = ({
     are important to show the correct facets. */
     if (shouldClear.current) {
       shouldClear.current = false
+
       return filterCategoryDepartmentCollectionAndFT(filterContext)
     }
 
@@ -194,6 +226,10 @@ const FilterSidebar = ({
             truncatedFacetsFetched={truncatedFacetsFetched}
             setTruncatedFacetsFetched={setTruncatedFacetsFetched}
             categoryFiltersMode={categoryFiltersMode}
+            loading={loading}
+            onClearFilter={handleClearFilters}
+            showClearByFilter={showClearByFilter}
+            updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>
@@ -207,7 +243,7 @@ const FilterSidebar = ({
               block
               variation="tertiary"
               size="regular"
-              onClick={handleClearFilters}
+              onClick={() => handleClearFilters()}
             >
               <FormattedMessage id="store/search-result.filter-button.clear" />
             </Button>
@@ -233,7 +269,7 @@ const FilterSidebar = ({
                 values={{
                   recordsFiltered,
                   // eslint-disable-next-line react/display-name
-                  span: chunks => <span>{chunks}</span>,
+                  span: (chunks) => <span>{chunks}</span>,
                 }}
               />
             </div>
@@ -244,8 +280,8 @@ const FilterSidebar = ({
   )
 }
 
-const updateTree = categories =>
-  produce(draft => {
+const updateTree = (categories) =>
+  produce((draft) => {
     if (!categories.length) {
       return
     }
@@ -254,16 +290,17 @@ const updateTree = categories =>
 
     while (
       !(
-        currentLevel.find(category => category.value === categories[0].value) ||
-        currentLevel.every(category => !category.selected)
+        currentLevel.find(
+          (category) => category.value === categories[0].value
+        ) || currentLevel.every((category) => !category.selected)
       )
     ) {
-      currentLevel = currentLevel.find(category => category.selected).children
+      currentLevel = currentLevel.find((category) => category.selected).children
     }
 
-    categories.forEach(category => {
-      let selectedIndex = currentLevel.findIndex(
-        cat => cat.value === category.value
+    categories.forEach((category) => {
+      const selectedIndex = currentLevel.findIndex(
+        (cat) => cat.value === category.value
       )
 
       currentLevel[selectedIndex].selected = !currentLevel[selectedIndex]
