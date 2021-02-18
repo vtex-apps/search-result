@@ -5,6 +5,8 @@ import ContentLoader from 'react-content-loader'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
+// eslint-disable-next-line no-restricted-imports
+import { flatten } from 'ramda'
 
 import FilterSidebar from './components/FilterSidebar'
 import SelectedFilters from './components/SelectedFilters'
@@ -152,7 +154,7 @@ const FilterNavigator = ({
       ...priceRanges,
     ]
 
-    options.flat()
+    return flatten(options)
   }, [brands, priceRanges, specificationFilters]).filter(
     (facet) => facet.selected
   )
