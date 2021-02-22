@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
-import { useIntl } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
 import { Tag } from 'vtex.styleguide'
@@ -33,6 +33,9 @@ const AccordionFilterItem = ({
   appliedFiltersOverview,
   navigationType,
   initiallyCollapsed,
+  onClearFilter,
+  facetKey,
+  showClearByFilter,
 }) => {
   const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
@@ -104,6 +107,24 @@ const AccordionFilterItem = ({
                   <Tag>{quantitySelected}</Tag>
                 </div>
               )}
+              {quantitySelected > 0 && showClearByFilter && (
+                <span
+                  className={classNames(
+                    handles.accordionFilterItemTag,
+                    'dib ml3'
+                  )}
+                >
+                  <Tag
+                    size="small"
+                    onClick={e => {
+                      e.stopPropagation()
+                      onClearFilter && onClearFilter(facetKey)
+                    }}
+                  >
+                    <FormattedMessage id="store/search-result.filter-button.clear" />
+                  </Tag>
+                </span>
+              )}
               <span className={`${handles.accordionFilterItemIcon} fr`}>
                 <IconCaret
                   orientation={
@@ -156,6 +177,12 @@ AccordionFilterItem.propTypes = {
   navigationType: PropTypes.oneOf(['page', 'collapsible']),
   /** Makes the search filters start out collapsed (`true`) or open (`false`) */
   initiallyCollapsed: PropTypes.bool,
+  /** Clear filter function */
+  onClearFilter: PropTypes.func,
+  /** Facet's key */
+  facetKey: PropTypes.string,
+  /** Whether a clear button that clear all options in a specific filter should appear beside the filter's name (true) or not (false). */
+  showClearByFilter: PropTypes.bool,
 }
 
 export default AccordionFilterItem

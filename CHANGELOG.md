@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - `productCount` class on FacetItem
 
+## [3.95.0] - 2021-02-11
+### Added
+- `updateOnFilterSelectionOnMobile` prop to the `FilterNavigator`.
+- `showClearByFilter` prop to the `FilterNavigator`.
+
+## [3.94.0] - 2021-02-11
+
+### Removed
+- Query strings `fuzzy` and `operator` for searches that are not full text.
+
+## [3.93.1] - 2021-02-09
+
+### Fixed
+- Reactivate search cache.
+
 ## [3.93.0] - 2021-01-28
 
 ### Changed

@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import { IconCaret } from 'vtex.store-icons'
 import { useRuntime } from 'vtex.render-runtime'
 import { useCssHandles } from 'vtex.css-handles'
+import { Spinner } from 'vtex.styleguide'
 
 import AccordionFilterItem from './AccordionFilterItem'
 import DepartmentFilters from './DepartmentFilters'
@@ -18,6 +19,7 @@ const CSS_HANDLES = [
   'filterBreadcrumbsContent',
   'filterBreadcrumbsText',
   'filterBreadcrumbsList',
+  'filterLoadingOverlay',
 ]
 
 const CATEGORIES_TITLE = 'store/search.filter.title.categories'
@@ -35,6 +37,10 @@ const AccordionFilterContainer = ({
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
   categoryFiltersMode,
+  loading,
+  onClearFilter,
+  showClearByFilter,
+  updateOnFilterSelectionOnMobile,
 }) => {
   const intl = useIntl()
   const { getSettings } = useRuntime()
@@ -76,6 +82,8 @@ const AccordionFilterContainer = ({
     'ph5 pt3 h-100 overflow-scroll',
     { pb9: navigationType !== 'collapsible' }
   )
+
+  const showOverlay = updateOnFilterSelectionOnMobile && loading
 
   return (
     <div
@@ -133,6 +141,7 @@ const AccordionFilterContainer = ({
           appliedFiltersOverview={appliedFiltersOverview}
           navigationType={navigationType}
           initiallyCollapsed={initiallyCollapsed}
+          onClearFilter={onClearFilter}
         >
           <div className={itemClassName}>
             <DepartmentFilters
@@ -186,10 +195,23 @@ const AccordionFilterContainer = ({
                 truncateFilters={truncateFilters}
                 truncatedFacetsFetched={truncatedFacetsFetched}
                 setTruncatedFacetsFetched={setTruncatedFacetsFetched}
+                onClearFilter={onClearFilter}
+                showClearByFilter={showClearByFilter}
               />
             )
         }
       })}
+      {showOverlay && (
+        <div
+          style={{ background: 'rgba(3, 4, 78, 0.4)' }}
+          className={classNames(
+            handles.filterLoadingOverlay,
+            'fixed dim top-0 w-100 vh-100 left-0 z-9999 justify-center items-center justify-center items-center flex'
+          )}
+        >
+          <Spinner />
+        </div>
+      )}
     </div>
   )
 }
@@ -218,6 +240,13 @@ AccordionFilterContainer.propTypes = {
   /** Sets if the truncated facets were fetched */
   setTruncatedFacetsFetched: PropTypes.func,
   categoryFiltersMode: PropTypes.oneOf(['href', 'default']),
+  loading: PropTypes.bool,
+  /** Clear filter function */
+  onClearFilter: PropTypes.func,
+  /** Whether a clear button that clear all options in a specific filter should appear beside the filter's name (true) or not (false). */
+  showClearByFilter: PropTypes.bool,
+  /** Wether the search will be updated on facet selection (`true`) or not (`false`) when the user is on mobile. */
+  updateOnFilterSelectionOnMobile: PropTypes.bool,
 }
 
 export default AccordionFilterContainer

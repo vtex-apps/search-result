@@ -82,6 +82,8 @@ const FilterNavigator = ({
   totalProductsOnMobile = 'hide',
   fullWidthOnMobile = false,
   navigationTypeOnMobile = 'page',
+  updateOnFilterSelectionOnMobile = false,
+  showClearByFilter = false,
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -203,6 +205,9 @@ const FilterNavigator = ({
               truncatedFacetsFetched={truncatedFacetsFetched}
               setTruncatedFacetsFetched={setTruncatedFacetsFetched}
               categoryFiltersMode={categoryFiltersMode}
+              loading={loading}
+              updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
+              showClearByFilter={showClearByFilter}
             />
           </div>
         </div>
@@ -246,6 +251,7 @@ const FilterNavigator = ({
               openFiltersMode={openFiltersMode}
               closeOnOutsideClick={closeOnOutsideClick}
               appliedFiltersOverview={appliedFiltersOverview}
+              showClearByFilter={showClearByFilter}
             />
           </div>
           <ExtensionPoint id="shop-review-summary" />

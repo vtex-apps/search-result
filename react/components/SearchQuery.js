@@ -152,7 +152,6 @@ const useQueries = (variables, facetsArgs) => {
 
   const productSearchResult = useQuery(productSearchQuery, {
     variables,
-    fetchPolicy: 'network-only',
   })
 
   const {

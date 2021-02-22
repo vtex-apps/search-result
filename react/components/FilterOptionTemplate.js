@@ -7,28 +7,29 @@ import React, {
   useEffect,
   useContext,
 } from 'react'
+import { FormattedMessage } from 'react-intl'
 import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
-
 import { useRuntime } from 'vtex.render-runtime'
 import { IconCaret } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
+import { Tag } from 'vtex.styleguide'
 
 import styles from '../searchResult.css'
 import { SearchFilterBar } from './SearchFilterBar'
 import SettingsContext from './SettingsContext'
-import useOutsideClick from './../hooks/useOutsideClick'
+import useOutsideClick from '../hooks/useOutsideClick'
 import ShowMoreFilterButton from './ShowMoreFilterButton'
-
 import { useRenderOnView } from '../hooks/useRenderOnView'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
 
 /** Returns true if elementRef has ever been scrolled */
-const useHasScrolled = elementRef => {
+const useHasScrolled = (elementRef) => {
   const [hasScrolled, setHasScrolled] = useState(false)
 
   useEffect(() => {
     const scrollableElement = elementRef.current
+
     if (hasScrolled || !scrollableElement) {
       return
     }
@@ -83,6 +84,9 @@ const FilterOptionTemplate = ({
   setTruncatedFacetsFetched,
   closeOnOutsideClick = false,
   appliedFiltersOverview,
+  navigateToFacet,
+  showClearByFilter,
+  preventRouteChange,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
@@ -95,6 +99,7 @@ const FilterOptionTemplate = ({
 
   const isLazyRenderEnabled = getSettings('vtex.store')
     ?.enableSearchRenderingOptimization
+
   const isLazyFacetsFetchEnabled = getSettings('vtex.store')
     ?.enableFiltersFetchOptimization
 
@@ -110,17 +115,29 @@ const FilterOptionTemplate = ({
     if (thresholdForFacetSearch === undefined || searchTerm === '') {
       return filters
     }
+
     return filters.filter(
-      filter => filter.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+      (filter) =>
+        filter.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
     )
   }, [filters, searchTerm, thresholdForFacetSearch])
 
-  const openTruncated = value => {
+  const openTruncated = (value) => {
     if (isLazyFacetsFetchEnabled && !truncatedFacetsFetched) {
       setTruncatedFacetsFetched(true)
     }
+
     setTruncated(value)
   }
+
+  const handleClear = useCallback(
+    () =>
+      navigateToFacet(
+        filters.filter((filter) => filter.selected),
+        preventRouteChange
+      ),
+    [navigateToFacet, filters]
+  )
 
   const renderChildren = () => {
     if (typeof children !== 'function') {
@@ -152,7 +169,7 @@ const FilterOptionTemplate = ({
           <ShowMoreFilterButton
             quantity={quantity - FACETS_RENDER_THRESHOLD}
             truncated={truncated}
-            toggleTruncate={() => openTruncated(truncated => !truncated)}
+            toggleTruncate={() => openTruncated((isTruncated) => !isTruncated)}
           />
         )}
       </>
@@ -181,9 +198,14 @@ const FilterOptionTemplate = ({
     },
     isOpen
   )
+  const showClearButton =
+    showClearByFilter &&
+    !selected &&
+    filters &&
+    filters.some((filter) => filter.selected)
 
   const handleKeyDown = useCallback(
-    e => {
+    (e) => {
       if (e.key === ' ' && collapsable) {
         e.preventDefault()
         handleCollapse()
@@ -194,7 +216,7 @@ const FilterOptionTemplate = ({
 
   const containerClassName = classNames(
     handles.filter__container,
-    { [`${styles['filter__container']}--${id}`]: id },
+    { [`${styles.filter__container}--${id}`]: id },
     'bb b--muted-4'
   )
 
@@ -224,7 +246,22 @@ const FilterOptionTemplate = ({
           aria-disabled={!collapsable}
         >
           <div className={titleClassName}>
-            {title}
+            <span>
+              {title}
+              {showClearButton && (
+                <span className="ml2">
+                  <Tag
+                    size="small"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleClear()
+                    }}
+                  >
+                    <FormattedMessage id="store/search-result.filter-button.clear" />
+                  </Tag>
+                </span>
+              )}
+            </span>
             {collapsable && (
               <span
                 className={classNames(
@@ -240,8 +277,8 @@ const FilterOptionTemplate = ({
         {appliedFiltersOverview === 'show' && filters && !selected && (
           <div className={classNames(handles.filterSelectedFilters, 'f6')}>
             {filters
-              .filter(facet => facet.selected)
-              .map(facet => facet.name)
+              .filter((facet) => facet.selected)
+              .map((facet) => facet.name)
               .join(', ')}
           </div>
         )}
@@ -315,6 +352,9 @@ FilterOptionTemplate.propTypes = {
   closeOnOutsideClick: PropTypes.bool,
   /** Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). */
   appliedFiltersOverview: PropTypes.string,
+  navigateToFacet: PropTypes.func,
+  showClearByFilter: PropTypes.bool,
+  preventRouteChange: PropTypes.bool,
 }
 
 export default FilterOptionTemplate
