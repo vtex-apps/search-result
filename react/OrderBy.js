@@ -10,6 +10,10 @@ export const SORT_OPTIONS = [
     label: 'store/ordenation.relevance',
   },
   {
+    value: 'OrderByScoreDESC',
+    label: 'store/ordenation.relevance',
+  },
+  {
     value: 'OrderByTopSaleDESC',
     label: 'store/ordenation.sales',
   },
