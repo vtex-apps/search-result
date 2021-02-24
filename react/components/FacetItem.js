@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import SettingsContext from './SettingsContext'
 import useShouldDisableFacet from '../hooks/useShouldDisableFacet'
 
-const CSS_HANDLES = ['filterItem']
+const CSS_HANDLES = ['filterItem', 'productCount']
 
 // These are used to prevent creating a <Checkbox /> with id equal
 // to any of these words.
@@ -54,6 +54,15 @@ const FacetItem = ({
 
   const shouldDisable = useShouldDisableFacet(facet)
 
+  const facetLabel = showFacetQuantity ? (
+    <>
+      {facet.name}{' '}
+      <span className={handles.productCount}>({facet.quantity})</span>
+    </>
+  ) : (
+    facet.name
+  )
+
   return (
     <div
       className={classes}
@@ -62,9 +71,7 @@ const FacetItem = ({
       <Checkbox
         id={checkBoxId}
         checked={selected}
-        label={
-          showFacetQuantity ? `${facet.name} (${facet.quantity})` : facet.name
-        }
+        label={facetLabel}
         name={facet.name}
         onChange={() => {
           setSelected(!selected)
