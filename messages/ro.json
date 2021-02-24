@@ -57,6 +57,7 @@
   "store/search-result.filter-action.title": "Filtrează",
   "store/search.filter.title.categories": "Raioane",
   "store/filter.more-departments": "Vizualizează {quantity} mai multe raioane",
+  "store/search.filter.title.color": "Culoare",
   "store/filter.more-categories": "Vizualizează {quantity} mai multe categorii",
   "store/filter.more-items": "Vizualizează mai mult",
   "store/filter.less-items": "Vizualizează mai puțin",

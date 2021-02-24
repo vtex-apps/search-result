@@ -57,6 +57,7 @@
   "store/search-result.filter-action.title": "필터",
   "store/search.filter.title.categories": "부문",
   "store/filter.more-departments": "{quantity}개 더 많은 부문 보기",
+  "store/search.filter.title.color": "색깔",
   "store/filter.more-categories": "{quantity}개 더 많은 카테고리 보기",
   "store/filter.more-items": "더 보기",
   "store/filter.less-items": "간략히 보기",

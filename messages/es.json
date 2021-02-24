@@ -57,6 +57,7 @@
   "store/search-result.filter-action.title": "Filtrar",
   "store/search-result.clear-filters.title": "Limpiar",
   "store/search.filter.title.categories": "Departamentos",
+  "store/search.filter.title.color": "Color",
   "store/filter.more-departments": "Ver más {quantity} departamentos",
   "store/filter.more-categories": "Ver más {quantity} categorías",
   "store/filter.more-items": "Ver más {quantity}",

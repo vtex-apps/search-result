@@ -4,7 +4,13 @@ import { useCssHandles } from 'vtex.css-handles'
 
 const CSS_HANDLES = ['categoryItemChildren']
 
-const CategoryItem = ({ label, onClick, className, href, categoryFiltersMode }) => {
+const CategoryItem = ({
+  label,
+  onClick,
+  className,
+  href,
+  categoryFiltersMode,
+}) => {
   const handles = useCssHandles(CSS_HANDLES)
 
   if (categoryFiltersMode === 'href') {
@@ -16,13 +22,14 @@ const CategoryItem = ({ label, onClick, className, href, categoryFiltersMode }) 
           'ph5 ph3-ns pv5 pv1-ns lh-copy pointer hover-bg-muted-5 c-muted-1 db no-underline',
           className
         )}
-        onClick={e => {
+        onClick={(e) => {
           e.preventDefault()
           onClick()
         }}
         href={href && href.toLowerCase()}
         title={label}
-        onKeyDown={e => e.key === 'Enter' && onClick(e)}
+        onKeyDown={(e) => e.key === 'Enter' && onClick(e)}
+        data-testid={`categoryItem-${label}`}
       >
         {label}
       </a>
@@ -39,7 +46,8 @@ const CategoryItem = ({ label, onClick, className, href, categoryFiltersMode }) 
         className
       )}
       onClick={onClick}
-      onKeyDown={e => e.key === 'Enter' && onClick(e)}
+      onKeyDown={(e) => e.key === 'Enter' && onClick(e)}
+      data-testid={`categoryItem-${label}`}
     >
       {label}
     </div>

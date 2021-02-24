@@ -57,6 +57,7 @@
   "store/search-result.filter-action.title": "Филтриране",
   "store/search.filter.title.categories": "Отдели",
   "store/filter.more-departments": "Вижте {quantity} повече отдела",
+  "store/search.filter.title.color": "цвят",
   "store/filter.more-categories": "Вижте {quantity} повече категории",
   "store/filter.more-items": "Вижте повече",
   "store/filter.less-items": "Вижте по-малко",

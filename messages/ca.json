@@ -57,6 +57,7 @@
   "store/search-result.filter-action.title": "Filtre",
   "store/search.filter.title.categories": "Departaments",
   "store/filter.more-departments": "Mostra {quantity} departaments més",
+  "store/search.filter.title.color": "Color",
   "store/filter.more-categories": "Mostra {quantity} categories més",
   "store/filter.more-items": "Mostra'n més",
   "store/filter.less-items": "Mostra'n menys",
