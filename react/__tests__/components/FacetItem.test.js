@@ -90,13 +90,13 @@ describe('<FacetItem />', () => {
   })
 
   it('should render the quantity when the showFacetQuantity is true', () => {
-    const { getByText } = render(
+    const { getByTestId } = render(
       <SettingsContext.Provider value={{ showFacetQuantity: true }}>
         <FacetItem {...mockProps} />
       </SettingsContext.Provider>
     )
 
-    expect(getByText('White (2)')).toBeInTheDocument()
+    expect(getByTestId('facet-quantity-white-2')).toBeInTheDocument()
   })
 
   it('should add a suffix when the id is a reserved variable', () => {
