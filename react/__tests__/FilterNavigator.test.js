@@ -30,7 +30,7 @@ beforeEach(() => {
 })
 
 describe('<FilterNavigator />', () => {
-  const renderComponent = (customProps = { query: 'clothing' }) => {
+  const renderComponent = (customProps = { query: 'clothing', map: 'c' }) => {
     const props = {
       map: customProps.map || 'c',
       tree: categoriesTree,
@@ -121,7 +121,6 @@ describe('<FilterNavigator />', () => {
     expect(mockNavigate).toHaveBeenCalledWith(
       expect.objectContaining({
         to: '/fulltextterm/eletronicos',
-        query: 'map=ft',
       })
     )
   })
@@ -230,7 +229,7 @@ describe('<FilterNavigator />', () => {
 
     fireEvent.keyDown(getByTestId('root-category-eletronicos'), {
       key: 'Enter',
-      code: 'Enetr',
+      code: 'Enter',
     })
 
     expect(mockNavigate).toHaveBeenCalledTimes(1)
@@ -253,7 +252,7 @@ describe('<FilterNavigator />', () => {
 
     fireEvent.keyDown(getByTestId('categoryItem-Smartphones'), {
       key: 'Enter',
-      code: 'Enetr',
+      code: 'Enter',
     })
 
     expect(mockNavigate).toHaveBeenCalledTimes(1)
@@ -282,7 +281,7 @@ describe('<FilterNavigator />', () => {
 
     fireEvent.keyDown(getByTestId('categoryItem-Smartphones'), {
       key: 'Enter',
-      code: 'Enetr',
+      code: 'Enter',
     })
 
     expect(mockNavigate).toHaveBeenCalledTimes(1)
@@ -314,7 +313,7 @@ describe('<FilterNavigator />', () => {
 
     fireEvent.keyDown(getByTestId('selected-category-smartphones'), {
       key: 'Enter',
-      code: 'Enetr',
+      code: 'Enter',
     })
 
     expect(mockNavigate).toHaveBeenCalledTimes(1)

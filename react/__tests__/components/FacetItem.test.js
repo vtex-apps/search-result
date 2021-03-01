@@ -73,7 +73,7 @@ describe('<FacetItem />', () => {
     )
   })
 
-  it('should give a feedback on select/unselct', () => {
+  it('should give a feedback on select/unselect', () => {
     const { rerender, getByTestId } = renderComponent()
 
     expect(getByTestId('check-specification-color-white').checked).toEqual(
