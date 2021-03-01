@@ -89,7 +89,7 @@ const PriceRange = ({ title, facets, priceRange, priceRangeLayout }) => {
       {priceRangeLayout === 'inputAndSlider' && (
         <PriceRangeInput
           defaultValues={defaultValues}
-          onSubmit={handleChange}
+          onSubmit={(newRange) => setRange(newRange)}
           max={maxValue}
           min={minValue}
         />
