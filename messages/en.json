@@ -95,5 +95,6 @@
   "admin/editor.search-result-layout-custom.title": "Search Result Custom Flexible Layout",
   "admin/editor.search-result-layout.title": "Search Result Flexible Layout",
   "admin/editor.search-result-mobile.title": "Search Result Flexible Layout Mobile",
-  "admin/editor.search-result-desktop.title": "Search Result Flexible Layout Desktop"
+  "admin/editor.search-result-desktop.title": "Search Result Flexible Layout Desktop",
+  "store/search-result.price-ranges.submit": "Go"
 }
