@@ -13,18 +13,18 @@ export function generateSlug(str) {
  * with only the categories and fulltext parameters, so we
  * need to calculate manually if the other filters are selected
  */
-const useSelectedFilters = facets => {
+const useSelectedFilters = (facets) => {
   const { query, map } = useContext(QueryContext)
 
   const queryAndMap = zip(
     query
       .toLowerCase()
       .split('/')
-      .map(str => generateSlug(decodeURIComponent(str))),
+      .map((str) => generateSlug(decodeURIComponent(str))),
     map.split(',')
   )
 
-  return facets.map(facet => {
+  return facets.map((facet) => {
     const currentFacetSlug = decodeURIComponent(facet.value).toLowerCase()
 
     const isSelected =

@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import { useRuntime } from 'vtex.render-runtime'
+import { SearchPageContext } from 'vtex.search-page-context/SearchPageContext'
 
 import SearchResultContainer from './components/SearchResultContainer'
 import { SORT_OPTIONS } from './OrderBy'
@@ -7,7 +8,6 @@ import LocalQuery from './components/LocalQuery'
 import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 import ContextProviders from './components/ContextProviders'
 import { PAGINATION_TYPES } from './constants/paginationType'
-import { SearchPageContext } from 'vtex.search-page-context/SearchPageContext'
 
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
 
@@ -15,9 +15,9 @@ const DEFAULT_MAX_ITEMS_PER_PAGE = 10
  * Search Result Query Loader Component.
  * This Component queries the search if the search-result doesn't receive it already
  */
-const trimStartingSlash = value => value && value.replace(/^\//, '')
+const trimStartingSlash = (value) => value && value.replace(/^\//, '')
 
-const SearchResult = props => {
+const SearchResult = (props) => {
   const {
     querySchema,
     hiddenFacets,
@@ -26,6 +26,7 @@ const SearchResult = props => {
     searchQuery,
     trackingId,
   } = props
+
   const { query } = useRuntime()
   const settings = useMemo(
     () => ({
@@ -51,7 +52,7 @@ const SearchResult = props => {
       {...props}
       {...querySchema}
       {...(areFieldsFromQueryStringValid ? fieldsFromQueryString : {})}
-      render={localQueryProps => (
+      render={(localQueryProps) => (
         <SearchPageContext.Provider
           value={{ searchQuery: localQueryProps.searchQuery }}
         >
@@ -65,7 +66,7 @@ const SearchResult = props => {
       )}
     />
   ) : (
-    <SearchPageContext.Provider value={{ searchQuery: searchQuery }}>
+    <SearchPageContext.Provider value={{ searchQuery }}>
       <ContextProviders
         queryVariables={searchQuery.variables}
         settings={settings}
@@ -80,7 +81,7 @@ SearchResult.defaultProps = {
   orderBy: SORT_OPTIONS[0].value,
 }
 
-SearchResult.getSchema = props => {
+SearchResult.getSchema = (props) => {
   const querySchema = !props.searchQuery
     ? {
         querySchema: {
@@ -105,8 +106,8 @@ SearchResult.getSchema = props => {
               title: 'Order by field',
               type: 'string',
               default: '',
-              enum: SORT_OPTIONS.map(opt => opt.value),
-              enumNames: SORT_OPTIONS.map(opt => opt.label),
+              enum: SORT_OPTIONS.map((opt) => opt.value),
+              enumNames: SORT_OPTIONS.map((opt) => opt.label),
             },
             hideUnavailableItems: {
               title: 'admin/editor.search-result.query.hideUnavailableItems',
@@ -191,16 +192,16 @@ SearchResult.getSchema = props => {
             title: 'admin/editor.search-result.mobileLayout.mode1',
             type: 'string',
             default: LAYOUT_MODE[0].value,
-            enum: LAYOUT_MODE.map(opt => opt.value),
-            enumNames: LAYOUT_MODE.map(opt => opt.label),
+            enum: LAYOUT_MODE.map((opt) => opt.value),
+            enumNames: LAYOUT_MODE.map((opt) => opt.label),
             isLayout: true,
           },
           mode2: {
             title: 'admin/editor.search-result.mobileLayout.mode2',
             type: 'string',
             default: LAYOUT_MODE[1].value,
-            enum: LAYOUT_MODE.map(opt => opt.value),
-            enumNames: LAYOUT_MODE.map(opt => opt.label),
+            enum: LAYOUT_MODE.map((opt) => opt.value),
+            enumNames: LAYOUT_MODE.map((opt) => opt.label),
             isLayout: true,
           },
         },

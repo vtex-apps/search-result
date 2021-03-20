@@ -6,6 +6,7 @@ import useMeasure from '../hooks/useMeasure'
 const AnimatedDiv = ({ open, containerRef, children }) => {
   const { height } = useMeasure(containerRef)
   const styles = useSpring({ height: open ? height : 0 })
+
   return (
     <animated.div style={{ overflow: 'hidden', ...styles }}>
       {children}

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { pluck } from 'ramda'
+
 import { LAYOUT_MODE } from '../components/LayoutModeSwitcher'
 
 export const paramShape = PropTypes.shape({
@@ -198,7 +199,7 @@ export const searchResultPropTypes = {
   specificationFilters: PropTypes.array.isRequired,
   /** Categories matched with the facets. */
   tree: PropTypes.array,
-  /** Query loading status*/
+  /** Query loading status */
   loading: PropTypes.bool.isRequired,
   /** Loading status when the query is refetched */
   fetchMoreLoading: PropTypes.bool.isRequired,

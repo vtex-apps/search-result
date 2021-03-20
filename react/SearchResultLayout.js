@@ -15,12 +15,13 @@ const isFtOnly = compose(equals('ft'), path(['variables', 'map']))
 
 const noRedirect = compose(isNil, path(['data', 'productSearch', 'redirect']))
 
-const foundNothing = searchQuery => {
+const foundNothing = (searchQuery) => {
   const { loading } = searchQuery || {}
+
   return isFtOnly(searchQuery) && !loading && noProducts(searchQuery)
 }
 
-const SearchResultLayout = props => {
+const SearchResultLayout = (props) => {
   const { searchQuery } = props
   const hasMobileBlock = !!useChildBlock({ id: 'search-result-layout.mobile' })
   const hasCustomNotFound = !!useChildBlock({ id: 'search-not-found-layout' })

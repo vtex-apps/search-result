@@ -2,22 +2,22 @@ import React from 'react'
 import { path } from 'ramda'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
+
 import FetchMoreButton from './components/loaders/FetchMoreButton'
 import LoadingSpinner from './components/loaders/LoadingSpinner'
 import { PAGINATION_TYPE } from './constants/paginationType'
 import { useFetchMore } from './hooks/useFetchMore'
-
-import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
-
 import styles from './searchResult.css'
 
-const FetchMore = ({ htmlElementForButton = 'button '}) => {
+const FetchMore = ({ htmlElementForButton = 'button ' }) => {
   const { pagination, searchQuery, maxItemsPerPage, page } = useSearchPage()
   const products = path(['data', 'productSearch', 'products'], searchQuery)
   const recordsFiltered = path(
     ['data', 'productSearch', 'recordsFiltered'],
     searchQuery
   )
+
   const fetchMore = path(['fetchMore'], searchQuery)
   const queryData = {
     query: path(['variables', 'query'], searchQuery),

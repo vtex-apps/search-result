@@ -31,7 +31,7 @@ const FacetItem = ({ facet, preventRouteChange = false }) => {
         .split('/')
         .map(decodeURIComponent)
         .findIndex(
-          value => value === decodeURIComponent(facet.value).toLowerCase()
+          (value) => value === decodeURIComponent(facet.value).toLowerCase()
         )
 
       if (preventRouteChange) {

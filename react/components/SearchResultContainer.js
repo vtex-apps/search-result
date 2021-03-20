@@ -1,19 +1,19 @@
 import React from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import { Container } from 'vtex.store-components'
+import { useCssHandles } from 'vtex.css-handles'
 
 import { PopupProvider } from './Popup'
 import SearchResult from './SearchResult'
 import { searchResultContainerPropTypes } from '../constants/propTypes'
 import { useFetchMore } from '../hooks/useFetchMore'
 import { PAGINATION_TYPE } from '../constants/paginationType'
-import { Container } from 'vtex.store-components'
-import { useCssHandles } from 'vtex.css-handles'
 
 const CSS_HANDLES = ['searchResultContainer']
 /**
  * Search Result Container Component.
  */
-const SearchResultContainer = props => {
+const SearchResultContainer = (props) => {
   const {
     maxItemsPerPage = 10,
     searchQuery: {
@@ -47,6 +47,7 @@ const SearchResultContainer = props => {
     orderBy,
     priceRange,
   }
+
   const {
     handleFetchMoreNext,
     handleFetchMorePrevious,
@@ -62,6 +63,7 @@ const SearchResultContainer = props => {
     products,
     queryData,
   })
+
   const handles = useCssHandles(CSS_HANDLES)
 
   const breadcrumb = productBreadcrumb || facetsBreadcrumb

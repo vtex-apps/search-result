@@ -1,5 +1,6 @@
 /** Code borrowed from vtex.render-runtime. Maybe it should export this in the future */
-import { useEffect, useRef, MutableRefObject } from 'react'
+import type { MutableRefObject } from 'react'
+import { useEffect, useRef } from 'react'
 
 interface IntersectionEvent {
   entry: IntersectionObserverEntry

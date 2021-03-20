@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from '@vtex/test-tools/react'
+
 import AccordionFilterContainer from '../components/AccordionFilterContainer'
 import { useRuntime } from '../__mocks__/vtex.render-runtime'
 
@@ -42,6 +43,7 @@ describe('<AccordionFilterContainer />', () => {
 
   it('check if mobile price range exists', () => {
     const { getByText } = renderComponent()
+
     expect(getByText('price-range1')).toBeInTheDocument()
   })
 })

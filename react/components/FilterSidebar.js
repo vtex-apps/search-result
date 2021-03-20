@@ -7,6 +7,7 @@ import { Button } from 'vtex.styleguide'
 import { IconFilter } from 'vtex.store-icons'
 import { useCssHandles } from 'vtex.css-handles'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
+import { usePixel } from 'vtex.pixel-manager'
 
 import FilterNavigatorContext, {
   useFilterNavigator,
@@ -21,6 +22,7 @@ import {
   isCategoryDepartmentCollectionOrFT,
   filterCategoryDepartmentCollectionAndFT,
 } from '../utils/queryAndMapUtils'
+import { getCategoryFromObjs } from './UtilityFunctionsPixexEvents'
 
 const CSS_HANDLES = [
   'filterPopupButton',
@@ -109,7 +111,21 @@ const FilterSidebar = ({
     setFilterOperations([])
   }
 
+  const { push } = usePixel()
+
+  const pushClearEvent = () => {
+    push({
+      event: 'filterManipulation',
+      items: {
+        filterProductCategory: getCategoryFromObjs(searchQuery.products),
+        filterName: 'CleanFilters',
+        filterValue: true,
+      },
+    })
+  }
+
   const handleClearFilters = (key) => {
+    pushClearEvent()
     shouldClear.current =
       !updateOnFilterSelectionOnMobile || !preventRouteChange
     // Gets the previously selected facets that should be cleared

@@ -9,7 +9,7 @@ const AvailableFilters = ({
   priceRange,
   preventRouteChange = false,
 }) =>
-  filters.map(filter => {
+  filters.map((filter) => {
     const { type, title, facets, oneSelectedCollapse = false } = filter
 
     switch (type) {
@@ -22,6 +22,7 @@ const AvailableFilters = ({
             priceRange={priceRange}
           />
         )
+
       default:
         return (
           <SearchFilter

@@ -6,7 +6,6 @@ import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import AccordionFilterItem from './AccordionFilterItem'
 import FacetCheckboxList from './FacetCheckboxList'
 import useSelectedFilters from '../hooks/useSelectedFilters'
-
 import { getFilterTitle } from '../constants/SearchHelpers'
 import { searchSlugify } from '../utils/slug'
 
@@ -32,7 +31,7 @@ const AccordionFilterGroup = ({
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const filters = useSelectedFilters(facets)
-  const selectedFilters = filters.filter(facet => facet.selected)
+  const selectedFilters = filters.filter((facet) => facet.selected)
   const intl = useIntl()
   const facetTitle = getFilterTitle(title, intl)
   const slugifiedFacetTitle = searchSlugify(facetTitle)

@@ -1,7 +1,8 @@
 import React from 'react'
+
 import SearchResultFlexible from './SearchResultFlexible'
 
-const SearchResultFlexibleMobile = props => {
+const SearchResultFlexibleMobile = (props) => {
   return <SearchResultFlexible {...props} />
 }
 

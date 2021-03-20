@@ -1,4 +1,5 @@
 import { zip } from 'ramda'
+
 import { useFilterNavigator } from '../components/FilterNavigatorContext'
 import { isSameMap } from '../utils/queryAndMapUtils'
 
@@ -7,21 +8,19 @@ import { isSameMap } from '../utils/queryAndMapUtils'
  * with only the categories and fulltext parameters, so we
  * need to calculate manually if the other filters are selected
  */
-const useSelectedFilters = facets => {
+const useSelectedFilters = (facets) => {
   const { query, map } = useFilterNavigator()
+
   if (query == null && map == null) {
     return []
   }
 
   const queryAndMap = zip(
-    query
-      .toLowerCase()
-      .split('/')
-      .map(decodeURIComponent),
+    query.toLowerCase().split('/').map(decodeURIComponent),
     map.split(',')
   )
 
-  return facets.map(facet => {
+  return facets.map((facet) => {
     const currentFacetSlug = decodeURIComponent(facet.value).toLowerCase()
 
     const isSelected =

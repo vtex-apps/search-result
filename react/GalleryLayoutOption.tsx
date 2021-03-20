@@ -1,8 +1,10 @@
-import React, { PropsWithChildren, useEffect } from 'react'
-
+import type { PropsWithChildren } from 'react'
+import React, { useEffect } from 'react'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
-import { RenderContext, useRuntime } from 'vtex.render-runtime'
+import type { RenderContext } from 'vtex.render-runtime'
+import { useRuntime } from 'vtex.render-runtime'
 import { SearchPageContext } from 'vtex.search-page-context'
+
 import { SWITCH_GALLERY_LAYOUT_TYPE } from './constants'
 
 const { useSearchPageState, useSearchPageStateDispatch } = SearchPageContext

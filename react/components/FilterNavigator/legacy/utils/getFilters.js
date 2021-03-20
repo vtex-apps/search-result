@@ -3,7 +3,9 @@ import { flatten, path, contains, isEmpty } from 'ramda'
 const getCategories = (tree = []) => {
   return [
     ...tree,
-    ...flatten(tree.map(node => node.children && getCategories(node.children))),
+    ...flatten(
+      tree.map((node) => node.children && getCategories(node.children))
+    ),
   ].filter(Boolean)
 }
 
@@ -27,38 +29,41 @@ const getFilters = ({
 
   const hiddenFacetsNames = (
     path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
-  ).map(filter => filter.name)
+  ).map((filter) => filter.name)
 
   const mappedSpecificationFilters = !path(
     ['specificationFilters', 'hideAll'],
     hiddenFacets
   )
     ? specificationFilters
-        .filter(spec => !contains(spec.name, hiddenFacetsNames))
-        .map(spec => ({
+        .filter((spec) => !contains(spec.name, hiddenFacetsNames))
+        .map((spec) => ({
           type: SPECIFICATION_FILTERS_TYPE,
           title: spec.name,
           facets: spec.facets,
         }))
     : []
 
-    return [
-    !hiddenFacets.categories && !isEmpty(categories) && {
-      type: CATEGORIES_TYPE,
-      title: CATEGORIES_TITLE,
-      facets: categories,
-    },
+  return [
+    !hiddenFacets.categories &&
+      !isEmpty(categories) && {
+        type: CATEGORIES_TYPE,
+        title: CATEGORIES_TITLE,
+        facets: categories,
+      },
     ...mappedSpecificationFilters,
-    !hiddenFacets.brands && !isEmpty(brands) && {
-      type: BRANDS_TYPE,
-      title: BRANDS_TITLE,
-      facets: brands,
-    },
-    !hiddenFacets.priceRange && !isEmpty(priceRanges) && {
-      type: PRICE_RANGES_TYPE,
-      title: PRICE_RANGES_TITLE,
-      facets: priceRanges,
-    },
+    !hiddenFacets.brands &&
+      !isEmpty(brands) && {
+        type: BRANDS_TYPE,
+        title: BRANDS_TITLE,
+        facets: brands,
+      },
+    !hiddenFacets.priceRange &&
+      !isEmpty(priceRanges) && {
+        type: PRICE_RANGES_TYPE,
+        title: PRICE_RANGES_TITLE,
+        facets: priceRanges,
+      },
   ].filter(Boolean)
 }
 

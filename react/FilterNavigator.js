@@ -18,7 +18,6 @@ import {
 } from './constants/propTypes'
 import useFacetNavigation from './hooks/useFacetNavigation'
 import FilterNavigatorTitleTag from './components/FilterNavigatorTitleTag'
-
 import styles from './searchResult.css'
 import { CATEGORIES_TITLE } from './utils/getFilters'
 import { newFacetPathName } from './utils/slug'
@@ -35,21 +34,23 @@ const LAYOUT_TYPES = {
   desktop: 'desktop',
 }
 
-const getSelectedCategories = tree => {
+const getSelectedCategories = (tree) => {
   for (const node of tree) {
     if (!node.selected) {
       continue
     }
+
     if (node.children) {
       return [node, ...getSelectedCategories(node.children)]
-    } else {
-      return [node]
     }
+
+    return [node]
   }
+
   return []
 }
 
-const newNamedFacet = facet => {
+const newNamedFacet = (facet) => {
   return { ...facet, newQuerySegment: newFacetPathName(facet) }
 }
 
@@ -96,7 +97,7 @@ const FilterNavigator = ({
   useEffect(() => {
     // This condition confirms if there are facets that still need fetching
     const needsFetching = !!filters.find(
-      filter => filter.quantity > filter.facets.length
+      (filter) => filter.quantity > filter.facets.length
     )
 
     if (truncatedFacetsFetched && needsFetching && !loading) {
@@ -109,19 +110,23 @@ const FilterNavigator = ({
           if (!prevResult || !fetchMoreResult) {
             return
           }
+
           const prevFacets = prevResult.facets.facets
           const newFacets = fetchMoreResult.facets.facets
           const fullFacets = []
+
           for (let i = 0; i < prevFacets.length; i++) {
             const completeFacets = [
               ...prevFacets[i].facets,
               ...newFacets[i].facets,
             ]
+
             fullFacets.push({
               ...prevFacets[i],
               facets: completeFacets,
             })
           }
+
           return {
             facets: {
               ...prevResult.facets,
@@ -135,8 +140,8 @@ const FilterNavigator = ({
 
   const selectedFilters = useMemo(() => {
     const options = [
-      ...specificationFilters.map(filter => {
-        return filter.facets.map(facet => {
+      ...specificationFilters.map((filter) => {
+        return filter.facets.map((facet) => {
           return {
             ...newNamedFacet({ ...facet, title: filter.name }),
             hidden: filter.hidden,
@@ -146,9 +151,10 @@ const FilterNavigator = ({
       ...brands,
       ...priceRanges,
     ]
+
     return flatten(options)
   }, [brands, priceRanges, specificationFilters]).filter(
-    facet => facet.selected
+    (facet) => facet.selected
   )
 
   const selectedCategories = getSelectedCategories(tree)

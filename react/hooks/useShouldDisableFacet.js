@@ -1,4 +1,5 @@
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
+
 import { MAP_VALUES_SEP } from '../constants'
 
 export default function useShouldDisableFacet(facet) {

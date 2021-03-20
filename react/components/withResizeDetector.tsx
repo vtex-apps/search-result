@@ -1,4 +1,5 @@
-import React, { ComponentType } from 'react'
+import type { ComponentType } from 'react'
+import React from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 
 interface WrappedComponentProps {

@@ -14,6 +14,7 @@ const GalleryLayoutSwitcher: React.FC = ({ children }) => {
     focusedGalleryLayout,
     galleryLayouts,
   } = useSearchPageState()
+
   const dispatch = useSearchPageStateDispatch()
 
   const gallerySwitcherClasses = classNames(

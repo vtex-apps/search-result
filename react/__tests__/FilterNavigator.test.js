@@ -1,18 +1,18 @@
 /* eslint-env jest */
 import React from 'react'
 import { render } from '@vtex/test-tools/react'
-
 import categoriesTree from 'categoriesTree'
 
 import FilterNavigator from '../FilterNavigator'
 import QueryContext from '../components/QueryContext'
-
 import { useRuntime } from '../__mocks__/vtex.render-runtime'
 import FilterNavigatorContext from '../components/FilterNavigatorContext'
+
 const mockUseRuntime = useRuntime
 
 const mockNavigate = jest.fn()
 const mockSetQuery = jest.fn()
+
 beforeEach(() => {
   jest.clearAllMocks()
 

@@ -14,7 +14,7 @@ export default class LoadingOverlay extends Component {
 
   root_ = React.createRef()
 
-  handleClick = e => {
+  handleClick = (e) => {
     e.stopPropagation()
   }
 

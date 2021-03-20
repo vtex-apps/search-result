@@ -1,10 +1,10 @@
 import React from 'react'
+
 import GalleryLayout from './GalleryLayout'
 import type { GalleryLayoutProps, Slots } from './GalleryLayout'
-//@ts-ignore
-import GalleryLegacy, {
-  GalleryProps as GalleryLegacyProps,
-} from './GalleryLegacy'
+// @ts-ignore
+import type { GalleryProps as GalleryLegacyProps } from './GalleryLegacy'
+import GalleryLegacy from './GalleryLegacy'
 
 /*
  * This type receives Slots directly, instead of using the 'slots' prop to do it.

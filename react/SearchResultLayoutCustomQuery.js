@@ -4,7 +4,6 @@ import { useDevice } from 'vtex.device-detector'
 import { path, compose, equals, pathOr, isEmpty } from 'ramda'
 
 import LocalQuery from './components/LocalQuery'
-
 import OldSearchResult from './index'
 import { removeTreePath } from './utils/removeTreePath'
 
@@ -15,10 +14,11 @@ const noProducts = compose(
 
 const isFtOnly = compose(equals('ft'), path(['variables', 'map']))
 
-const trimStartingSlash = value => value && value.replace(/^\//, '')
+const trimStartingSlash = (value) => value && value.replace(/^\//, '')
 
-const foundNothing = searchQuery => {
+const foundNothing = (searchQuery) => {
   const { loading } = searchQuery || {}
+
   return isFtOnly(searchQuery) && !loading && noProducts(searchQuery)
 }
 
@@ -38,7 +38,7 @@ const ExtensionPointWithProps = ({ id, parentProps, localSearchQueryData }) => {
   )
 }
 
-const SearchResultLayoutCustomQuery = props => {
+const SearchResultLayoutCustomQuery = (props) => {
   const hasMobileBlock = !!useChildBlock({ id: 'search-result-layout.mobile' })
   const hasCustomNotFound = !!useChildBlock({ id: 'search-not-found-layout' })
   const { isMobile } = useDevice()
@@ -75,7 +75,7 @@ const SearchResultLayoutCustomQuery = props => {
       __unstableProductOriginVtex={
         props.querySchema.__unstableProductOriginVtex
       }
-      render={localSearchQueryData => {
+      render={(localSearchQueryData) => {
         if (
           foundNothing(localSearchQueryData.searchQuery) &&
           hasCustomNotFound
@@ -88,6 +88,7 @@ const SearchResultLayoutCustomQuery = props => {
             />
           )
         }
+
         if (hasMobileBlock && isMobile) {
           return (
             <ExtensionPointWithProps
@@ -97,6 +98,7 @@ const SearchResultLayoutCustomQuery = props => {
             />
           )
         }
+
         if (areFieldsFromQueryStringValid) {
           return (
             <ExtensionPointWithProps
@@ -112,6 +114,7 @@ const SearchResultLayoutCustomQuery = props => {
             />
           )
         }
+
         return (
           <ExtensionPointWithProps
             id="search-result-layout.desktop"
@@ -126,6 +129,7 @@ const SearchResultLayoutCustomQuery = props => {
 
 SearchResultLayoutCustomQuery.getSchema = () => {
   const { description, ...schema } = OldSearchResult.getSchema({})
+
   return {
     ...schema,
     title: 'admin/editor.search-result-layout-custom.title',

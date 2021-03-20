@@ -1,13 +1,15 @@
 /* eslint-env jest */
 import React from 'react'
 import { render, fireEvent } from '@vtex/test-tools/react'
+import { setMobileState } from 'vtex.render-runtime'
 
 import OrderBy from '../OrderBy'
-import { setMobileState } from 'vtex.render-runtime'
 import { useRuntime } from '../__mocks__/vtex.render-runtime'
+
 const mockUseRuntime = useRuntime
 
 const mockSetQuery = jest.fn()
+
 beforeEach(() => {
   jest.clearAllMocks()
 
@@ -17,7 +19,7 @@ beforeEach(() => {
 })
 
 describe('<OrderBy />', () => {
-  const renderComponent = customProps => mobile => {
+  const renderComponent = (customProps) => (mobile) => {
     setMobileState(mobile)
 
     const props = {

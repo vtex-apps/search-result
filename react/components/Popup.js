@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-
 import { IconCaret } from 'vtex.store-icons'
 
 import searchResult from '../searchResult.css'
@@ -17,7 +16,7 @@ export class PopupProvider extends Component {
     openedItem: null,
   }
 
-  handleClose = id => e => {
+  handleClose = (id) => (e) => {
     e.preventDefault()
 
     if (id === this.state.openedItem) {
@@ -29,7 +28,7 @@ export class PopupProvider extends Component {
     }
   }
 
-  handleClick = id => e => {
+  handleClick = (id) => (e) => {
     e.preventDefault()
     if (id === this.state.openedItem) {
       this.setState({
@@ -46,8 +45,7 @@ export class PopupProvider extends Component {
     }
   }
 
-  checkOpen = id =>
-    id === this.state.openedItem
+  checkOpen = (id) => id === this.state.openedItem
 
   render() {
     return (
@@ -68,10 +66,7 @@ export default class Popup extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    children: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.func,
-    ]),
+    children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     renderFooter: PropTypes.func,
     icon: PropTypes.node,
   }
@@ -88,13 +83,16 @@ export default class Popup extends Component {
 
     return (
       <Consumer>
-        {contextProps => {
+        {(contextProps) => {
           const { isOpen, onToggle } = contextProps
           const open = isOpen(id)
 
-          const className = classNames(`${searchResult.filterPopup} relative justify-center flex`, {
-            [searchResult.filterPopupOpen]: open,
-          })
+          const className = classNames(
+            `${searchResult.filterPopup} relative justify-center flex`,
+            {
+              [searchResult.filterPopupOpen]: open,
+            }
+          )
 
           const contentClassName = classNames(
             `${searchResult.filterPopupContentContainer} h-auto bg-base fixed dn w-100 left-0 bottom-0 z-1 ph3 overflow-y-auto flex-column`,
@@ -112,19 +110,29 @@ export default class Popup extends Component {
             onToggle: contextProps.onToggle(id),
           }
 
-          const childrenFn = typeof children === 'function' ? children : () => children
+          const childrenFn =
+            typeof children === 'function' ? children : () => children
 
           return (
             <div className={className} ref={this.contentRef}>
               <button
-                className={classNames(`${searchResult.filterPopupButton} ph3 pv5 mv0 mh3 pointer flex justify-center items-center`, {
-                  'bb b--muted-1': open,
-                  'bn': !open,
-                })}
+                className={classNames(
+                  `${searchResult.filterPopupButton} ph3 pv5 mv0 mh3 pointer flex justify-center items-center`,
+                  {
+                    'bb b--muted-1': open,
+                    bn: !open,
+                  }
+                )}
                 onClick={onToggle(id)}
               >
-                <span className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}>{title}</span>
-                <span className={`${searchResult.filterPopupArrowIcon} ml-auto pl3 pt2`}>
+                <span
+                  className={`${searchResult.filterPopupTitle} c-on-base t-action--small ml-auto`}
+                >
+                  {title}
+                </span>
+                <span
+                  className={`${searchResult.filterPopupArrowIcon} ml-auto pl3 pt2`}
+                >
                   {icon}
                 </span>
               </button>

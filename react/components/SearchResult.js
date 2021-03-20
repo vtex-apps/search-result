@@ -14,9 +14,7 @@ import FetchMoreButton from './loaders/FetchMoreButton'
 import LoadingSpinner from './loaders/LoadingSpinner'
 import { PAGINATION_TYPE } from '../constants/paginationType'
 import FilterNavigatorContext from './FilterNavigatorContext'
-
 import getFilters from '../utils/getFilters'
-
 import styles from '../searchResult.css'
 
 /**
@@ -48,7 +46,7 @@ class SearchResult extends Component {
     hiddenFacets: this.props.hiddenFacets,
   }
 
-  handleMobileLayoutChange = e => {
+  handleMobileLayoutChange = (e) => {
     e.preventDefault()
 
     const modes = [this.props.mobileLayout.mode1, this.props.mobileLayout.mode2]

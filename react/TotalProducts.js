@@ -24,7 +24,9 @@ const TotalProducts = ({
       </span>
     ),
   }
+
   const totalProductsMessage = formatIOMessage({ id: message, intl }, values)
+
   return (
     <div
       className={`${wrapperClass} pv5 ph9 bn-ns bt-s b--muted-5 tc-s tl t-action--small`}

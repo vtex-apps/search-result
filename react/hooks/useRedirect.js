@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 const useRedirect = () => {
   const { navigate } = useRuntime()
 
-  const setRedirect = redirect => {
+  const setRedirect = (redirect) => {
     if (!redirect) {
       return
     }

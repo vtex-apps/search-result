@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types'
 
 const config = { isMobile: false }
 
-export const withRuntimeContext = Comp => {
+export const withRuntimeContext = (Comp) => {
   return class extends React.Component {
     runtime = { navigate: jest.fn(), hints: { mobile: config.isMobile } }
 
@@ -23,7 +23,7 @@ export class NoSSR extends React.Component {
   }
 }
 
-export const setMobileState = isMobile => {
+export const setMobileState = (isMobile) => {
   config.isMobile = isMobile
 }
 

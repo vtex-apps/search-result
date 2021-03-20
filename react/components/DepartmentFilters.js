@@ -22,14 +22,15 @@ const DepartmentFilters = ({
   preventRouteChange,
   maxItemsDepartment,
   maxItemsCategory,
-  categoryFiltersMode
+  categoryFiltersMode,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
+
   if (!isVisible || tree.length === 0) {
     return null
   }
 
-  const showAllDepartments = tree.every(category => !category.selected)
+  const showAllDepartments = tree.every((category) => !category.selected)
 
   const containerClassName = classNames(
     applyModifiers(handles.filter__container, 'c'),
@@ -62,7 +63,7 @@ const DepartmentFilters = ({
             threshold={2}
             items={tree}
             openLabel="store/filter.more-departments"
-            render={category => (
+            render={(category) => (
               <CategoryFilter
                 key={category.id}
                 category={category}
@@ -76,7 +77,7 @@ const DepartmentFilters = ({
           />
         ) : (
           <CategoryFilter
-            category={tree.find(category => category.selected)}
+            category={tree.find((category) => category.selected)}
             onCategorySelect={onCategorySelect}
             preventRouteChange={preventRouteChange}
             maxItemsCategory={maxItemsCategory}

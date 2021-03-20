@@ -17,15 +17,17 @@ const getFilters = ({
 }) => {
   const hiddenFacetsNames = (
     path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
-  ).map(filter => filter.name)
+  ).map((filter) => filter.name)
 
   const mappedSpecificationFilters = !path(
     ['specificationFilters', 'hideAll'],
     hiddenFacets
   )
     ? specificationFilters
-        .filter(spec => !contains(spec.name, hiddenFacetsNames) && !spec.hidden)
-        .map(spec => ({
+        .filter(
+          (spec) => !contains(spec.name, hiddenFacetsNames) && !spec.hidden
+        )
+        .map((spec) => ({
           type: SPECIFICATION_FILTERS_TYPE,
           title: spec.name,
           facets: spec.facets,

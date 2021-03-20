@@ -22,6 +22,7 @@ const CSS_HANDLES = [
  */
 const NotFoundSearch = ({ term }) => {
   const handles = useCssHandles(CSS_HANDLES)
+
   return (
     <Fragment>
       <div
@@ -60,7 +61,7 @@ const NotFoundSearch = ({ term }) => {
             <FormattedMessage id="store/search.no-products" />
           )}
           <FormattedMessage id="store/search.what-do-i-do">
-            {text => (
+            {(text) => (
               <p className={`${handles.searchNotFoundWhatDoIDo} c-muted-2`}>
                 {text}
               </p>
@@ -69,9 +70,9 @@ const NotFoundSearch = ({ term }) => {
           <ul
             className={`${handles.searchNotFoundWhatToDoDotsContainer} c-muted-2`}
           >
-            {range(1, 5).map(id => (
+            {range(1, 5).map((id) => (
               <FormattedMessage id={`store/search.what-to-do.${id}`} key={id}>
-                {text => (
+                {(text) => (
                   <li
                     className={`${handles.searchNotFoundWhatToDoDots}`}
                     key={text}

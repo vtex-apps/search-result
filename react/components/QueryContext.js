@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 
-const QueryContext = createContext({ lol: 'a'})
+const QueryContext = createContext({ lol: 'a' })
 
 export default QueryContext
 

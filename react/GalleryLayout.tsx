@@ -1,6 +1,6 @@
-import React, { ComponentType, useContext, useEffect, useMemo } from 'react'
+import type { ComponentType } from 'react'
+import React, { useContext, useEffect, useMemo } from 'react'
 import classNames from 'classnames'
-
 import { ProductListContext } from 'vtex.product-list-context'
 import { Spinner } from 'vtex.styleguide'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
@@ -117,6 +117,7 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
     console.error(
       `Define a Slot with name "${currentLayoutOption.component}" for the layout "${currentLayoutOption.name}".`
     )
+
     return null
   }
 

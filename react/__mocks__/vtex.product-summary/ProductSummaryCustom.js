@@ -1,11 +1,14 @@
 import React from 'react'
+
 const ProductSummary = () => <div>ProductSummary</div>
 
-ProductSummary.mapCatalogProductToProductSummary = product => {
+ProductSummary.mapCatalogProductToProductSummary = (product) => {
   if (!product) {
     return null
   }
+
   const sku = product.items[0]
+
   return {
     ...product,
     sku: {

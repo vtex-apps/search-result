@@ -22,12 +22,13 @@ class SearchFooter extends Component {
     }).isRequired,
   }
 
-  handleClick = pageNumber => this.navigateTo(pageNumber)
+  handleClick = (pageNumber) => this.navigateTo(pageNumber)
 
-  navigateTo = pageNumber => {
+  navigateTo = (pageNumber) => {
     const { page, params, queryString: query } = this.props.getLinkProps({
       pageNumber,
     })
+
     return this.props.runtime.navigate({
       page,
       params,
@@ -40,7 +41,7 @@ class SearchFooter extends Component {
   }
 
   getNumberButtonsFromRange = (begin, end) =>
-    range(begin, end).map(pageNumber => (
+    range(begin, end).map((pageNumber) => (
       <div
         className={`ph2 pointer ${
           pageNumber === this.props.page ? 'c-on-base' : 'c-disabled'
@@ -57,6 +58,7 @@ class SearchFooter extends Component {
     const { recordsFiltered, page, maxItemsPerPage } = this.props
     const lastPage = Math.ceil(recordsFiltered / maxItemsPerPage)
     const maxNumberButtons = 5
+
     return (
       <div className="flex justify-center b">
         {page > 1 && (

@@ -8,6 +8,7 @@ const LAZY_RENDER_THRESHOLD = 3
 
 const AvailableFilters = ({ filters = [], ...props }) => {
   const [lastOpenFilter, setLastOpenFilter] = useState()
+
   return filters.map((filter, i) => (
     <Filter
       filter={filter}
@@ -50,6 +51,7 @@ const Filter = ({
           preventRouteChange={preventRouteChange}
         />
       )
+
     default:
       return (
         <SearchFilter

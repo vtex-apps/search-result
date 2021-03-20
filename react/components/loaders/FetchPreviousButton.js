@@ -9,6 +9,7 @@ const useShowButton = (from, products, loading) => {
   const [showButton, setShowButton] = useState(
     !!products && from > 0 && products.length > 0
   )
+
   useEffect(() => {
     if (!loading) {
       setShowButton(!!products && from > 0 && products.length > 0)
@@ -18,7 +19,7 @@ const useShowButton = (from, products, loading) => {
   return showButton
 }
 
-const FetchPreviousButton = props => {
+const FetchPreviousButton = (props) => {
   const {
     products,
     from,
@@ -31,7 +32,7 @@ const FetchPreviousButton = props => {
   const showButton = useShowButton(from, products, loading)
   const handles = useCssHandles(CSS_HANDLES)
 
-  const handleFetchMoreClick = ev => {
+  const handleFetchMoreClick = (ev) => {
     isAnchor && ev.preventDefault()
     onFetchPrevious()
   }
@@ -40,7 +41,7 @@ const FetchPreviousButton = props => {
     <div className={`${handles.buttonShowMore} w-100 flex justify-center`}>
       {showButton && (
         <Button
-          onClick={ev => handleFetchMoreClick(ev)}
+          onClick={(ev) => handleFetchMoreClick(ev)}
           href={isAnchor && '#'}
           rel={isAnchor && 'prev'}
           isLoading={loading}

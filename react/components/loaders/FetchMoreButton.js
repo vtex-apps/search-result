@@ -13,6 +13,7 @@ const useShowButton = (to, products, loading, recordsFiltered) => {
   const [showButton, setShowButton] = useState(
     !!products && to + 1 < recordsFiltered
   )
+
   useEffect(() => {
     if (!loading) {
       setShowButton(!!products && to + 1 < recordsFiltered)
@@ -22,7 +23,7 @@ const useShowButton = (to, products, loading, recordsFiltered) => {
   return showButton
 }
 
-const FetchMoreButton = props => {
+const FetchMoreButton = (props) => {
   const {
     products,
     to,
@@ -37,7 +38,7 @@ const FetchMoreButton = props => {
   const showButton = useShowButton(to, products, loading, recordsFiltered)
   const handles = useCssHandles(CSS_HANDLES)
 
-  const handleFetchMoreClick = ev => {
+  const handleFetchMoreClick = (ev) => {
     isAnchor && ev.preventDefault()
     onFetchMore()
   }
@@ -47,7 +48,7 @@ const FetchMoreButton = props => {
       <div className={`${handles.buttonShowMore} w-100 flex justify-center`}>
         {showButton && (
           <Button
-            onClick={ev => handleFetchMoreClick(ev)}
+            onClick={(ev) => handleFetchMoreClick(ev)}
             href={isAnchor && '#'}
             rel={isAnchor && 'next'}
             isLoading={loading}

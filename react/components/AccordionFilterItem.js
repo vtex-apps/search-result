@@ -116,7 +116,7 @@ const AccordionFilterItem = ({
                 >
                   <Tag
                     size="small"
-                    onClick={e => {
+                    onClick={(e) => {
                       e.stopPropagation()
                       onClearFilter && onClearFilter(facetKey)
                     }}

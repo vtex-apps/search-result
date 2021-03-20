@@ -19,13 +19,14 @@ import {
   hiddenFacetsSchema,
 } from '../../../constants/propTypes'
 import useSelectedFilters from './hooks/useSelectedFilters'
-
 import getFilters from './utils/getFilters'
 
 const getCategories = (tree = []) => {
   return [
     ...tree,
-    ...flatten(tree.map(node => node.children && getCategories(node.children))),
+    ...flatten(
+      tree.map((node) => node.children && getCategories(node.children))
+    ),
   ].filter(Boolean)
 }
 
@@ -53,6 +54,7 @@ const FilterNavigator = ({
     brands,
     hiddenFacets,
   })
+
   const selectedFilters = useSelectedFilters(
     useMemo(() => {
       const availableCategories = filter(prop('selected'), getCategories(tree))
@@ -66,7 +68,7 @@ const FilterNavigator = ({
 
       return flatten(options)
     }, [brands, priceRanges, specificationFilters, tree])
-  ).filter(facet => facet.selected)
+  ).filter((facet) => facet.selected)
 
   const filterClasses = classNames({
     'flex justify-center flex-auto bl br b--muted-5': isMobile,
@@ -76,8 +78,8 @@ const FilterNavigator = ({
     return (
       <ContentLoader
         style={{
-          width: "230px",
-          height: "320px",
+          width: '230px',
+          height: '320px',
         }}
         width="230"
         height="320"

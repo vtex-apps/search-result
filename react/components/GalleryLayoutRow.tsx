@@ -1,8 +1,9 @@
-import React, { ComponentType, memo } from 'react'
-import { useRenderOnView } from '../hooks/useRenderOnView'
+import type { ComponentType } from 'react'
+import React, { memo } from 'react'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import classNames from 'classnames'
 
+import { useRenderOnView } from '../hooks/useRenderOnView'
 import GalleryItem from './GalleryLayoutItem'
 import type { Product } from '../Gallery'
 
@@ -65,7 +66,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
               item={product}
               summary={summary}
               displayMode={displayMode}
-              position={(rowIndex * itemsPerRow) + index}
+              position={rowIndex * itemsPerRow + index}
             />
           </div>
         )
