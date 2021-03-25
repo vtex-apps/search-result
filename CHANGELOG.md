@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- `categoryTreeBehavior` prop to the `SearchQuery`.
+
 ## [3.97.0] - 2021-03-09
 ### Added
 - `"priceRangeLayout"` prop to the `FilterNavigator`.
