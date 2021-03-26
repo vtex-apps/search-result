@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Redirect URLs that follows the format `https://www.example.com`.
+
 ## [3.98.0] - 2021-03-25
 
 ### Added
