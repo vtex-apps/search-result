@@ -6,8 +6,28 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.98.1] - 2021-03-26
+
+### Fixed
+- Redirect URLs that follows the format `https://www.example.com`.
+
+## [3.98.0] - 2021-03-25
+
+### Added
+- `categoryTreeBehavior` prop to the `SearchQuery`.
+
+## [3.97.0] - 2021-03-09
+### Added
+- `"priceRangeLayout"` prop to the `FilterNavigator`.
+
+## [3.96.0] - 2021-02-24
 ### Added
 - `productCount` class on FacetItem
+
+## [3.95.1] - 2021-02-23
+### Fixed
+- Search title with `/`.
 
 ## [3.95.0] - 2021-02-11
 ### Added
