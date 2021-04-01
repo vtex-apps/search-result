@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## Fixed
+- add scroll to top in `PriceRange`
+
 ## [3.98.1] - 2021-03-26
 
 ### Fixed
