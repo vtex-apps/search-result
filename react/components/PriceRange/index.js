@@ -42,6 +42,7 @@ const PriceRange = ({ title, facets, priceRange, priceRangeLayout }) => {
       })
 
       setRange([left, right])
+      window.scroll({ top: 0, left: 0, behavior: 'auto' })
     }, DEBOUNCE_TIME)
   }
 
