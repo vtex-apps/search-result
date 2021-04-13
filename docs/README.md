@@ -236,9 +236,10 @@ Structure the `search-result-layout` or the `search-result-layout.customQuery`, 
 | `showFacetQuantity` | `boolean`      | Whether the result amount in each filter should appear besides its name on the `filter-navigator.v3` block as (`true`) or (`false`)      | `false`           |
 | `blockClass`        | `string`       | Unique block ID to be used in [CSS customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization#using-the-blockclass-property)                                                                                    | `undefined`              |
 | `trackingId` | `string` | ID to be used in Google Analytics to track store metrics based on the Search Result block. |  `Search result` | 
-| `mobileLayout`      | `Object` | Controls how the search results page will be displayed to users when using the mobile layout. Possible props and their respective values can be found below.                                                                                                                | `undefined`              |
+| `mobileLayout`      | `Object` | Controls how the search results page will be displayed to users when using the mobile layout. Possible props and their respective values can be found below.                  | `undefined`              |
 | `defaultGalleryLayout` | `string` | Name of the gallery layout to be used by default in the search results page. This prop is only required when several layouts are explicitly defined by the `gallery` block. Caution: this prop's value must match the layout name defined in the `name` prop from `layouts` object. |  `undefined` | 
 | `thresholdForFacetSearch` | `number` | Minimum number of facets that must be displayed on the interface for a search bar to be displayed. If you declare `0`, the search bar will always be displayed. |  `undefined` | 
+| `preventRouteChange` | `boolean` | Keeps page customizations even when the user applies new filters on it. This prop will merely change the URL’s query string instead of the entire URL; therefore, it prevents a full page reload whenever filters are applied. |  `false` | 
 
 - **`mobileLayout` Object:** 
 
