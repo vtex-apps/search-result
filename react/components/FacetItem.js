@@ -57,7 +57,12 @@ const FacetItem = ({
   const facetLabel = showFacetQuantity ? (
     <>
       {facet.name}{' '}
-      <span className={handles.productCount}>({facet.quantity})</span>
+      <span
+        data-testid={`facet-quantity-${facet.value}-${facet.quantity}`}
+        className={handles.productCount}
+      >
+        ({facet.quantity})
+      </span>
     </>
   ) : (
     facet.name

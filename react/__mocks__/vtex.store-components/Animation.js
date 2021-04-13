@@ -1,5 +1,5 @@
 import React from 'react'
 
-const Animation = () => <div>Animation</div>
+const Animation = ({ children }) => <div>{children}</div>
 
 export default Animation

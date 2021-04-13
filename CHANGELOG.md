@@ -8,7 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Fixed
-- Added `preventRouteChange` prop the app documentation (README.md file).
+- Added `preventRouteChange` prop to the app documentation (README.md file).
+
+## [3.98.2] - 2021-04-06
+### Added
+- Main tests to the `FilterNavigator`.
 
 ## [3.98.1] - 2021-03-26
 
