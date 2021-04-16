@@ -5,8 +5,8 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
 import OutsideClickHandler from 'react-outside-click-handler'
-import Animation from 'vtex.store-components/Animation'
 import classNames from 'classnames'
+import Animation from 'vtex.store-components/Animation'
 
 import searchResult from '../searchResult.css'
 
