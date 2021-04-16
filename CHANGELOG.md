@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Pixel event triggered when a filter is selected
+- Pixel event triggered when a filter is changed
 ## [3.95.0] - 2021-02-11
 ### Added
 - `updateOnFilterSelectionOnMobile` prop to the `FilterNavigator`.

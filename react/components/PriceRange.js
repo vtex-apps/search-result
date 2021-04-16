@@ -1,60 +1,55 @@
-import React, { useRef } from "react";
-import PropTypes from "prop-types";
-import { useRuntime } from "vtex.render-runtime";
-import { useIntl } from "react-intl";
-import { Slider } from "vtex.styleguide";
-import { formatCurrency } from "vtex.format-currency";
+import React, { useRef } from 'react'
+import PropTypes from 'prop-types'
+import { useRuntime } from 'vtex.render-runtime'
+import { useIntl } from 'react-intl'
+import { Slider } from 'vtex.styleguide'
+import { formatCurrency } from 'vtex.format-currency'
+import { usePixel } from 'vtex.pixel-manager'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
-import { facetOptionShape } from "../constants/propTypes";
-import { getFilterTitle } from "../constants/SearchHelpers";
-import FilterOptionTemplate from "./FilterOptionTemplate";
-import useSearchState from "../hooks/useSearchState";
-import { usePixel } from "vtex.pixel-manager";
-import { useSearchPage } from "vtex.search-page-context/SearchPageContext";
+import { getCategoryFromObjs } from './UtilityFunctionsPixexEvents'
+import { facetOptionShape } from '../constants/propTypes'
+import { getFilterTitle } from '../constants/SearchHelpers'
+import FilterOptionTemplate from './FilterOptionTemplate'
+import useSearchState from '../hooks/useSearchState'
 
-const DEBOUNCE_TIME = 500; // ms
+const DEBOUNCE_TIME = 500 // ms
 
 /** Price range slider component */
 const PriceRange = ({ title, facets, priceRange }) => {
-  const { culture, setQuery } = useRuntime();
-  const intl = useIntl();
+  const { culture, setQuery } = useRuntime()
+  const intl = useIntl()
 
-  const { push } = usePixel();
-  const { searchQuery } = useSearchPage();
+  const { push } = usePixel()
+  const { searchQuery } = useSearchPage()
 
-  const navigateTimeoutId = useRef();
+  const navigateTimeoutId = useRef()
 
-  const { fuzzy, operator, searchState } = useSearchState();
-
-  const getCategoryFromObjs = (products) => {
-    const categoryId = products[0].categoryId;
-    const result = products.filter((obj) => obj.categoryId !== categoryId);
-    return result.length == 0 ? categoryId : "";
-  };
+  const { fuzzy, operator, searchState } = useSearchState()
 
   const pushPixelEvent = (left, right) => {
     push({
-      event: "filterManipulation",
+      event: 'filterManipulation',
       items: {
         filterProductCategory: getCategoryFromObjs(searchQuery.products),
-        filterName: "PriceRange",
-        filterValue: "[" + left.toString() + "-" + right.toString() + "]",
+        filterName: 'PriceRange',
+        filterValue: `[${left.toString()}-${right.toString()}]`,
       },
-    });
-  };
+    })
+  }
 
   const handleChange = ([left, right]) => {
     if (navigateTimeoutId.current) {
-      clearTimeout(navigateTimeoutId.current);
+      clearTimeout(navigateTimeoutId.current)
     }
 
-    pushPixelEvent(left, right);
+    pushPixelEvent(left, right)
 
     navigateTimeoutId.current = setTimeout(() => {
       const state =
-        typeof sessionStorage !== "undefined"
-          ? sessionStorage.getItem("searchState") ?? searchState
-          : searchState ?? undefined;
+        typeof sessionStorage !== 'undefined'
+          ? sessionStorage.getItem('searchState') ?? searchState
+          : searchState ?? undefined
 
       setQuery({
         priceRange: `${left} TO ${right}`,
@@ -62,43 +57,43 @@ const PriceRange = ({ title, facets, priceRange }) => {
         fuzzy: fuzzy || undefined,
         operator: operator || undefined,
         searchState: state,
-      });
-    }, DEBOUNCE_TIME);
-  };
-
-  const slugRegex = /^de-(.*)-a-(.*)$/;
-  const availableOptions = facets.filter(({ slug }) => slugRegex.test(slug));
-
-  if (!availableOptions.length) {
-    return null;
+      })
+    }, DEBOUNCE_TIME)
   }
 
-  let minValue = Number.MAX_VALUE;
-  let maxValue = Number.MIN_VALUE;
+  const slugRegex = /^de-(.*)-a-(.*)$/
+  const availableOptions = facets.filter(({ slug }) => slugRegex.test(slug))
+
+  if (!availableOptions.length) {
+    return null
+  }
+
+  let minValue = Number.MAX_VALUE
+  let maxValue = Number.MIN_VALUE
 
   availableOptions.forEach(({ slug }) => {
-    const [, minSlug, maxSlug] = slug.match(slugRegex);
+    const [, minSlug, maxSlug] = slug.match(slugRegex)
 
-    const min = parseInt(minSlug, 10);
-    const max = parseInt(Math.ceil(maxSlug), 10);
+    const min = parseInt(minSlug, 10)
+    const max = parseInt(Math.ceil(maxSlug), 10)
 
     if (min < minValue) {
-      minValue = min;
+      minValue = min
     }
 
     if (max > maxValue) {
-      maxValue = max;
+      maxValue = max
     }
-  });
+  })
 
-  const defaultValues = [minValue, maxValue];
-  const currentValuesRegex = /^(.*) TO (.*)$/;
+  const defaultValues = [minValue, maxValue]
+  const currentValuesRegex = /^(.*) TO (.*)$/
 
   if (priceRange && currentValuesRegex.test(priceRange)) {
-    const [, currentMin, currentMax] = priceRange.match(currentValuesRegex);
+    const [, currentMin, currentMax] = priceRange.match(currentValuesRegex)
 
-    defaultValues[0] = parseInt(currentMin, 10);
-    defaultValues[1] = parseInt(currentMax, 10);
+    defaultValues[0] = parseInt(currentMin, 10)
+    defaultValues[1] = parseInt(currentMax, 10)
   }
 
   return (
@@ -116,8 +111,8 @@ const PriceRange = ({ title, facets, priceRange }) => {
         range
       />
     </FilterOptionTemplate>
-  );
-};
+  )
+}
 
 PriceRange.propTypes = {
   /** Filter title */
@@ -126,6 +121,6 @@ PriceRange.propTypes = {
   facets: PropTypes.arrayOf(facetOptionShape).isRequired,
   /** Current price range filter query parameter */
   priceRange: PropTypes.string,
-};
+}
 
-export default PriceRange;
+export default PriceRange
