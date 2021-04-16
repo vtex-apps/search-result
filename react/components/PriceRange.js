@@ -3,29 +3,29 @@ import PropTypes from 'prop-types'
 import { useRuntime } from 'vtex.render-runtime'
 import { useIntl } from 'react-intl'
 import { Slider } from 'vtex.styleguide'
-import { formatCurrency } from 'vtex.format-currency'
 import { usePixel } from 'vtex.pixel-manager'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
-import { getCategoryFromObjs } from './UtilityFunctionsPixexEvents'
 import { facetOptionShape } from '../constants/propTypes'
-import { getFilterTitle } from '../constants/SearchHelpers'
+import {
+  getFilterTitle,
+  HEADER_SCROLL_OFFSET,
+} from '../constants/SearchHelpers'
 import FilterOptionTemplate from './FilterOptionTemplate'
-import useSearchState from '../hooks/useSearchState'
+import { getCategoryFromObjs } from './UtilityFunctionsPixexEvents'
 
 const DEBOUNCE_TIME = 500 // ms
 
 /** Price range slider component */
 const PriceRange = ({ title, facets, priceRange }) => {
-  const { culture, setQuery } = useRuntime()
-  const intl = useIntl()
+  const {
+    navigate,
+    culture: { currency },
+  } = useRuntime()
 
+  const intl = useIntl()
   const { push } = usePixel()
   const { searchQuery } = useSearchPage()
-
-  const navigateTimeoutId = useRef()
-
-  const { fuzzy, operator, searchState } = useSearchState()
 
   const pushPixelEvent = (left, right) => {
     push({
@@ -38,25 +38,33 @@ const PriceRange = ({ title, facets, priceRange }) => {
     })
   }
 
+  const navigateTimeoutId = useRef()
+
+  const currencyOptions = {
+    style: 'currency',
+    currency,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }
+
   const handleChange = ([left, right]) => {
     if (navigateTimeoutId.current) {
       clearTimeout(navigateTimeoutId.current)
     }
 
     pushPixelEvent(left, right)
-
     navigateTimeoutId.current = setTimeout(() => {
-      const state =
-        typeof sessionStorage !== 'undefined'
-          ? sessionStorage.getItem('searchState') ?? searchState
-          : searchState ?? undefined
+      const queryParams = new URLSearchParams(window.location.search)
 
-      setQuery({
-        priceRange: `${left} TO ${right}`,
-        page: undefined,
-        fuzzy: fuzzy || undefined,
-        operator: operator || undefined,
-        searchState: state,
+      queryParams.set('priceRange', `${left} TO ${right}`)
+
+      navigate({
+        to: window.location.pathname,
+        query: queryParams.toString(),
+        scrollOptions: {
+          baseElementId: 'search-result-anchor',
+          top: -HEADER_SCROLL_OFFSET,
+        },
       })
     }, DEBOUNCE_TIME)
   }
@@ -75,7 +83,7 @@ const PriceRange = ({ title, facets, priceRange }) => {
     const [, minSlug, maxSlug] = slug.match(slugRegex)
 
     const min = parseInt(minSlug, 10)
-    const max = parseInt(Math.ceil(maxSlug), 10)
+    const max = parseInt(maxSlug, 10)
 
     if (min < minValue) {
       minValue = min
@@ -98,7 +106,6 @@ const PriceRange = ({ title, facets, priceRange }) => {
 
   return (
     <FilterOptionTemplate
-      id="priceRange"
       title={getFilterTitle(title, intl)}
       collapsable={false}
     >
@@ -107,7 +114,7 @@ const PriceRange = ({ title, facets, priceRange }) => {
         max={maxValue}
         onChange={handleChange}
         defaultValues={defaultValues}
-        formatValue={(value) => formatCurrency({ intl, culture, value })}
+        formatValue={(value) => intl.formatNumber(value, currencyOptions)}
         range
       />
     </FilterOptionTemplate>
