@@ -27,6 +27,13 @@
   align-self: center;
 }
 
+.clearAllFilters {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
 .switch {
   -ms-grid-row: 1;
   -ms-grid-column: 6;
