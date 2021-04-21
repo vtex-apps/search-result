@@ -4,10 +4,9 @@ import { useDevice } from 'vtex.device-detector'
 
 import FilterNavigator from './FilterNavigator'
 import FilterNavigatorContext from './components/FilterNavigatorContext'
-
 import styles from './searchResult.css'
 
-const withSearchPageContextProps = Component => ({
+const withSearchPageContextProps = (Component) => ({
   layout,
   initiallyCollapsed,
   scrollToTop,
@@ -24,6 +23,7 @@ const withSearchPageContextProps = Component => ({
   navigationTypeOnMobile,
   updateOnFilterSelectionOnMobile,
   showClearByFilter,
+  showClearAllFilters,
   priceRangeLayout,
 }) => {
   const {
@@ -37,6 +37,7 @@ const withSearchPageContextProps = Component => ({
     preventRouteChange,
     facetsLoading,
   } = useSearchPage()
+
   const { isMobile } = useDevice()
 
   const filtersFetchMore =
@@ -96,6 +97,7 @@ const withSearchPageContextProps = Component => ({
           navigationTypeOnMobile={navigationTypeOnMobile}
           updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
           showClearByFilter={showClearByFilter}
+          showClearAllFilters={showClearAllFilters}
           priceRangeLayout={priceRangeLayout}
         />
       </FilterNavigatorContext.Provider>

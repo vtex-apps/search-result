@@ -52,6 +52,7 @@
   "store/search-result.filter-breadcrumbs.primary": "Filter",
   "store/search-result.filter-button.apply": "Anwenden",
   "store/search-result.filter-button.clear": "Sauber",
+  "store/search-result.filter-button.clearAll": "Sauber",
   "store/search-result.orderby.title": "Sortieren nach",
   "store/search-result.clear-filters.title": "Löschen",
   "store/search-result.filter-action.title": "Filter",

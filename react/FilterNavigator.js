@@ -7,6 +7,7 @@ import { useDevice } from 'vtex.device-detector'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 // eslint-disable-next-line no-restricted-imports
 import { flatten } from 'ramda'
+import { FormattedMessage } from 'react-intl'
 
 import FilterSidebar from './components/FilterSidebar'
 import SelectedFilters from './components/SelectedFilters'
@@ -28,6 +29,7 @@ const CSS_HANDLES = [
   'filter__container',
   'filtersWrapper',
   'filtersWrapperMobile',
+  'clearAllFilters',
 ]
 
 const LAYOUT_TYPES = {
@@ -86,6 +88,7 @@ const FilterNavigator = ({
   navigationTypeOnMobile = 'page',
   updateOnFilterSelectionOnMobile = false,
   showClearByFilter = false,
+  showClearAllFilters = false,
   priceRangeLayout = 'slider',
 }) => {
   const { isMobile } = useDevice()
@@ -158,6 +161,14 @@ const FilterNavigator = ({
   }, [brands, priceRanges, specificationFilters]).filter(
     (facet) => facet.selected
   )
+
+  const hasFiltersApplied = window.location.href.split('?').length > 1
+
+  const handleResetFilters = () => {
+    const url = window.location.href
+
+    window.location.href = url.split('?')[0]
+  }
 
   const selectedCategories = getSelectedCategories(tree)
   const navigateToFacet = useFacetNavigation(
@@ -263,6 +274,21 @@ const FilterNavigator = ({
               showClearByFilter={showClearByFilter}
               priceRangeLayout={priceRangeLayout}
             />
+            {showClearAllFilters && hasFiltersApplied && (
+              <div
+                className={`${applyModifiers(
+                  handles.filter__container,
+                  'clearFilters'
+                )} bb b--muted-4`}
+              >
+                <button
+                  onClick={handleResetFilters}
+                  className={`${handles.clearAllFilters}`}
+                >
+                  <FormattedMessage id="store/search-result.filter-button.clearAll" />
+                </button>
+              </div>
+            )}
           </div>
           <ExtensionPoint id="shop-review-summary" />
         </Fragment>
