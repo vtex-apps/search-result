@@ -10,6 +10,8 @@ import {
   findIndex,
   prop,
   path,
+  either,
+  startsWith,
 } from 'ramda'
 
 import QueryContext from './components/QueryContext'
@@ -17,7 +19,11 @@ import styles from './searchResult.css'
 
 const findFT = findIndex(equals('ft'))
 const findProductCluster = findIndex(equals('productClusterIds'))
-const findLastCategory = findLastIndex(equals('c'))
+const isCategoryMap = either(
+  equals('c'), // traditional mapping for category
+  startsWith('category-') // compatibility with VTEX IS approach
+  )
+const findLastCategory = findLastIndex(isCategoryMap)
 const isBrandPage = compose(equals('b'), head)
 const getLastName = compose(prop('name'), last)
 const breadcrumbName = (index, breadcrumb) => path([index, 'name'], breadcrumb)

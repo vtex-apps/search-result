@@ -24,6 +24,7 @@ export const SearchFilterBar = ({ name, handleChange }: Props) => {
   return (
     <div className={`${handles.searchFilterBar} mb3`}>
       <Input
+        data-testid="filter-search-bar"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           handleChange(e.target.value)
         }
