@@ -52,6 +52,7 @@
   "store/search-result.filter-breadcrumbs.primary": "Suodattimet",
   "store/search-result.filter-button.apply": "Käytä",
   "store/search-result.filter-button.clear": "Puhdista",
+  "store/search-result.filter-button.clearAll": "Puhdista",
   "store/search-result.orderby.title": "Järjestelyperuste",
   "store/search-result.clear-filters.title": "Tyhjennä",
   "store/search-result.filter-action.title": "Suodatin",
