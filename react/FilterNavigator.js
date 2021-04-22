@@ -89,6 +89,7 @@ const FilterNavigator = ({
   updateOnFilterSelectionOnMobile = false,
   showClearByFilter = false,
   showClearAllFilters = false,
+  showSelectedFiltersInTitle = false,
   priceRangeLayout = 'slider',
 }) => {
   const { isMobile } = useDevice()
@@ -273,6 +274,7 @@ const FilterNavigator = ({
               appliedFiltersOverview={appliedFiltersOverview}
               showClearByFilter={showClearByFilter}
               priceRangeLayout={priceRangeLayout}
+              showSelectedFiltersInTitle={showSelectedFiltersInTitle}
             />
             {showClearAllFilters && hasFiltersApplied && (
               <div

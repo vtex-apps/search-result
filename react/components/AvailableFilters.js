@@ -8,6 +8,7 @@ const LAZY_RENDER_THRESHOLD = 3
 
 const AvailableFilters = ({ filters = [], ...props }) => {
   const [lastOpenFilter, setLastOpenFilter] = useState()
+
   return filters.map((filter, i) => (
     <Filter
       filter={filter}
@@ -37,6 +38,7 @@ const Filter = ({
   appliedFiltersOverview,
   showClearByFilter,
   priceRangeLayout,
+  showSelectedFiltersInTitle,
 }) => {
   const { type, title, facets, quantity, oneSelectedCollapse = false } = filter
 
@@ -52,6 +54,7 @@ const Filter = ({
           priceRangeLayout={priceRangeLayout}
         />
       )
+
     default:
       return (
         <SearchFilter
@@ -73,6 +76,7 @@ const Filter = ({
           closeOnOutsideClick={closeOnOutsideClick}
           appliedFiltersOverview={appliedFiltersOverview}
           showClearByFilter={showClearByFilter}
+          showSelectedFiltersInTitle={showSelectedFiltersInTitle}
         />
       )
   }
