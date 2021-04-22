@@ -26,7 +26,9 @@
   justify-self: end;
   align-self: center;
 }
-
+.filterTitleSpan {
+  overflow: hidden;
+}
 .clearAllFilters {
   background: transparent;
   border: none;

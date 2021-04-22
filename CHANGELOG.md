@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - `showClearAllFilters` prop to the `FilterNavigator`.
+- `showSelectedFiltersInTitle` prop to the `FilterNavigator`.
 
 ## [3.110.6] - 2021-12-08
 ### Fixed

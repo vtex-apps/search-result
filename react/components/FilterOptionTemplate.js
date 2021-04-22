@@ -55,11 +55,13 @@ const CSS_HANDLES = [
   'filterAvailable',
   'filterIsOpen',
   'filterTitle',
+  'filterTitleSpan',
   'filterIcon',
   'filterContent',
   'filterTemplateOverflow',
   'seeMoreButton',
   'filterSelectedFilters',
+  'filterTitleSelectedFilters',
 ]
 
 const useSettings = () => useContext(SettingsContext)
@@ -87,6 +89,7 @@ const FilterOptionTemplate = ({
   navigateToFacet,
   showClearByFilter,
   preventRouteChange,
+  showSelectedFiltersInTitle,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
@@ -234,6 +237,13 @@ const FilterOptionTemplate = ({
     }
   )
 
+  const getSelectedFilters = filters
+    ? filters
+        .filter((facet) => facet.selected)
+        .map((facet) => facet.name)
+        .join(', ')
+    : ''
+
   return (
     <div className={containerClassName} ref={filterRef}>
       <div className={titleContainerClassName}>
@@ -246,8 +256,14 @@ const FilterOptionTemplate = ({
           aria-disabled={!collapsable}
         >
           <div className={titleClassName}>
-            <span>
+            <span className={`${handles.filterTitleSpan}`}>
               {title}
+              {showSelectedFiltersInTitle && getSelectedFilters && (
+                <span className={`${handles.filterTitleSelectedFilters}`}>
+                  {': '}
+                  {getSelectedFilters}
+                </span>
+              )}
               {showClearButton && (
                 <span className="ml2">
                   <Tag
@@ -356,6 +372,7 @@ FilterOptionTemplate.propTypes = {
   navigateToFacet: PropTypes.func,
   showClearByFilter: PropTypes.bool,
   preventRouteChange: PropTypes.bool,
+  showSelectedFiltersInTitle: PropTypes.bool,
 }
 
 export default FilterOptionTemplate
