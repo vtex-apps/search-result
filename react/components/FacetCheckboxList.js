@@ -98,13 +98,7 @@ const FacetCheckboxList = ({
               }
               name={name}
               onChange={() => {
-                pushPixelEvent(
-                  facetTitle,
-                  name,
-                  !facet.selected,
-                  searchQuery.products,
-                  push
-                )
+                pushPixelEvent(facetTitle, name, searchQuery.products, push)
                 onFilterCheck({ ...facet, title: facetTitle })
               }}
               value={name}

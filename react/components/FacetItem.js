@@ -73,13 +73,7 @@ const FacetItem = ({
         }
         name={facet.name}
         onChange={() => {
-          pushPixelEvent(
-            facetTitle,
-            facet.name,
-            !selected,
-            searchQuery.products,
-            push
-          )
+          pushPixelEvent(facetTitle, facet.name, searchQuery.products, push)
           setSelected(!selected)
           navigateToFacet({ ...facet, title: facetTitle }, preventRouteChange)
         }}

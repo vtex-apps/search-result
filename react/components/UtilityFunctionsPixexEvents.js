@@ -9,17 +9,15 @@ const getCategoryFromObjs = (products) => {
   return result ? categoryId : ''
 }
 
-const pushPixelEvent = (name, value, isSelected, products, push) => {
-  if (isSelected) {
-    push({
-      event: 'filterManipulation',
-      items: {
-        filterProductCategory: getCategoryFromObjs(products),
-        filterName: name,
-        filterValue: value,
-      },
-    })
-  }
+const pushPixelEvent = (name, value, products, push) => {
+  push({
+    event: 'filterManipulation',
+    items: {
+      filterProductCategory: getCategoryFromObjs(products),
+      filterName: name,
+      filterValue: value,
+    },
+  })
 }
 
 export { getCategoryFromObjs, pushPixelEvent }
