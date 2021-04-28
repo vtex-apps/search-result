@@ -57,6 +57,7 @@
   "store/search-result.filter-action.title": "Filtrar",
   "store/search-result.clear-filters.title": "Limpar",
   "store/search.filter.title.categories": "Departamentos",
+  "store/search.filter.title.color": "Cor",
   "store/filter.more-departments": "Ver mais {quantity} departamentos",
   "store/filter.more-categories": "Ver mais {quantity} categorias",
   "store/filter.more-items": "Ver mais {quantity}",
@@ -95,5 +96,6 @@
   "admin/editor.search-result-layout-custom.title": "Resultado de busca personalizada - desenho flexível",
   "admin/editor.search-result-layout.title": "Resultado de busca flexível",
   "admin/editor.search-result-mobile.title": "Resultado de busca flexível para dispositivo móvel",
-  "admin/editor.search-result-desktop.title": "Resultado de busca flexível para Desktop"
+  "admin/editor.search-result-desktop.title": "Resultado de busca flexível para Desktop",
+  "store/search-result.price-ranges.submit": "Ir"
 }

@@ -1,29 +1,28 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useRuntime } from 'vtex.render-runtime'
 import { useIntl } from 'react-intl'
 import { Slider } from 'vtex.styleguide'
-import { usePixel } from 'vtex.pixel-manager'
+import { formatCurrency } from 'vtex.format-currency'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
+import { usePixel } from 'vtex.pixel-manager'
 
-import { facetOptionShape } from '../constants/propTypes'
-import {
-  getFilterTitle,
-  HEADER_SCROLL_OFFSET,
-} from '../constants/SearchHelpers'
-import FilterOptionTemplate from './FilterOptionTemplate'
-import { getCategoryFromObjs } from './UtilityFunctionsPixexEvents'
+import { getCategoryFromObjs } from '../UtilityFunctionsPixexEvents'
+import { facetOptionShape } from '../../constants/propTypes'
+import { getFilterTitle } from '../../constants/SearchHelpers'
+import FilterOptionTemplate from '../FilterOptionTemplate'
+import useSearchState from '../../hooks/useSearchState'
+import PriceRangeInput from './PriceRangeInput'
 
 const DEBOUNCE_TIME = 500 // ms
 
 /** Price range slider component */
-const PriceRange = ({ title, facets, priceRange }) => {
-  const {
-    navigate,
-    culture: { currency },
-  } = useRuntime()
-
+const PriceRange = ({ title, facets, priceRange, priceRangeLayout }) => {
+  const [range, setRange] = useState()
+  const { culture, setQuery } = useRuntime()
   const intl = useIntl()
+  const navigateTimeoutId = useRef()
+
   const { push } = usePixel()
   const { searchQuery } = useSearchPage()
 
@@ -38,14 +37,7 @@ const PriceRange = ({ title, facets, priceRange }) => {
     })
   }
 
-  const navigateTimeoutId = useRef()
-
-  const currencyOptions = {
-    style: 'currency',
-    currency,
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }
+  const { fuzzy, operator, searchState } = useSearchState()
 
   const handleChange = ([left, right]) => {
     if (navigateTimeoutId.current) {
@@ -54,18 +46,20 @@ const PriceRange = ({ title, facets, priceRange }) => {
 
     pushPixelEvent(left, right)
     navigateTimeoutId.current = setTimeout(() => {
-      const queryParams = new URLSearchParams(window.location.search)
+      const state =
+        typeof sessionStorage !== 'undefined'
+          ? sessionStorage.getItem('searchState') ?? searchState
+          : searchState ?? undefined
 
-      queryParams.set('priceRange', `${left} TO ${right}`)
-
-      navigate({
-        to: window.location.pathname,
-        query: queryParams.toString(),
-        scrollOptions: {
-          baseElementId: 'search-result-anchor',
-          top: -HEADER_SCROLL_OFFSET,
-        },
+      setQuery({
+        priceRange: `${left} TO ${right}`,
+        page: undefined,
+        fuzzy: fuzzy || undefined,
+        operator: operator || undefined,
+        searchState: state,
       })
+
+      setRange([left, right])
     }, DEBOUNCE_TIME)
   }
 
@@ -83,7 +77,7 @@ const PriceRange = ({ title, facets, priceRange }) => {
     const [, minSlug, maxSlug] = slug.match(slugRegex)
 
     const min = parseInt(minSlug, 10)
-    const max = parseInt(maxSlug, 10)
+    const max = parseInt(Math.ceil(maxSlug), 10)
 
     if (min < minValue) {
       minValue = min
@@ -106,15 +100,26 @@ const PriceRange = ({ title, facets, priceRange }) => {
 
   return (
     <FilterOptionTemplate
+      id="priceRange"
       title={getFilterTitle(title, intl)}
       collapsable={false}
     >
+      {priceRangeLayout === 'inputAndSlider' && (
+        <PriceRangeInput
+          defaultValues={defaultValues}
+          onSubmit={(newRange) => setRange(newRange)}
+          max={maxValue}
+          min={minValue}
+        />
+      )}
       <Slider
+        // It is impossible to change the slider value programmatically, so I need to reset the whole component
         min={minValue}
         max={maxValue}
         onChange={handleChange}
         defaultValues={defaultValues}
-        formatValue={(value) => intl.formatNumber(value, currencyOptions)}
+        formatValue={(value) => formatCurrency({ intl, culture, value })}
+        values={range}
         range
       />
     </FilterOptionTemplate>
@@ -128,6 +133,8 @@ PriceRange.propTypes = {
   facets: PropTypes.arrayOf(facetOptionShape).isRequired,
   /** Current price range filter query parameter */
   priceRange: PropTypes.string,
+  /** Price range layout (default or inputAndSlider) */
+  priceRangeLayout: PropTypes.string,
 }
 
 export default PriceRange

@@ -53,6 +53,7 @@ const FilterSidebar = ({
   loading,
   updateOnFilterSelectionOnMobile,
   showClearByFilter,
+  priceRangeLayout,
 }) => {
   const { searchQuery } = useSearchPage()
   const filterContext = useFilterNavigator()
@@ -246,6 +247,7 @@ const FilterSidebar = ({
             onClearFilter={handleClearFilters}
             showClearByFilter={showClearByFilter}
             updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
+            priceRangeLayout={priceRangeLayout}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>

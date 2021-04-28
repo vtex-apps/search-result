@@ -57,6 +57,7 @@
   "store/search-result.filter-action.title": "Filter",
   "store/search.filter.title.categories": "Oddelki",
   "store/filter.more-departments": "Poglej {quantity} več oddelkov",
+  "store/search.filter.title.color": "Barva",
   "store/filter.more-categories": "Poglej {quantity} več kategorij",
   "store/filter.more-items": "Poglej več",
   "store/filter.less-items": "Poglej manj",

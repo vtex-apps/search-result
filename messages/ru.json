@@ -57,6 +57,7 @@
   "store/search-result.filter-action.title": "Фильтр",
   "store/search.filter.title.categories": "Отделы",
   "store/filter.more-departments": "Показать {quantity} больше отделов",
+  "store/search.filter.title.color": "Цвет",
   "store/filter.more-categories": "Показать {quantity} больше категорий",
   "store/filter.more-items": "Показать больше",
   "store/filter.less-items": "Показать меньше",

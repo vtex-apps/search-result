@@ -57,6 +57,7 @@
   "store/search-result.filter-action.title": "Filter",
   "store/search.filter.title.categories": "Avdelningar",
   "store/filter.more-departments": "Se {quantity} fler avdelningar",
+  "store/search.filter.title.color": "Färg",
   "store/filter.more-categories": "Se {quantity} fler kategorier",
   "store/filter.more-items": "Se mer",
   "store/filter.less-items": "Se mindre",

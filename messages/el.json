@@ -57,6 +57,7 @@
   "store/search-result.filter-action.title": "Φίλτρο",
   "store/search.filter.title.categories": "Τμήματα",
   "store/filter.more-departments": "Βλέπε {quantity} περισσότερα τμήματα",
+  "store/search.filter.title.color": "Χρώμα",
   "store/filter.more-categories": "Βλέπε {quantity} περισσότερες κατηγορίες",
   "store/filter.more-items": "Βλέπε περισσότερα",
   "store/filter.less-items": "Βλέπε λιγότερα",

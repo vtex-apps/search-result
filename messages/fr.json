@@ -57,6 +57,7 @@
   "store/search-result.filter-action.title": "Filtre",
   "store/search.filter.title.categories": "Services",
   "store/filter.more-departments": "Voir {quantity} plus de services",
+  "store/search.filter.title.color": "Couleur",
   "store/filter.more-categories": "Voir {quantity} plus de catégories",
   "store/filter.more-items": "Voir plus",
   "store/filter.less-items": "Voir moins",

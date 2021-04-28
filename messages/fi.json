@@ -57,6 +57,7 @@
   "store/search-result.filter-action.title": "Suodatin",
   "store/search.filter.title.categories": "Osastot",
   "store/filter.more-departments": "Näytä {quantity} osastoa lisää",
+  "store/search.filter.title.color": "Väri",
   "store/filter.more-categories": "Näytä {quantity} luokkaa lisää",
   "store/filter.more-items": "Näytä lisää",
   "store/filter.less-items": "Näytä vähemmän",
