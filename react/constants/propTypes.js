@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { pluck } from 'ramda'
+
 import { LAYOUT_MODE } from '../components/LayoutModeSwitcher'
 
 export const paramShape = PropTypes.shape({
@@ -17,7 +17,7 @@ export const facetOptionShape = PropTypes.shape({
   /** Quantity of products matched with the facet option. */
   quantity: PropTypes.number.isRequired,
   /** Link of the facets option. */
-  link: PropTypes.string.isRequired,
+  link: PropTypes.string,
   /** Name of the facet option. */
   name: PropTypes.string.isRequired,
 })
@@ -198,7 +198,7 @@ export const searchResultPropTypes = {
   specificationFilters: PropTypes.array.isRequired,
   /** Categories matched with the facets. */
   tree: PropTypes.array,
-  /** Query loading status*/
+  /** Query loading status */
   loading: PropTypes.bool.isRequired,
   /** Loading status when the query is refetched */
   fetchMoreLoading: PropTypes.bool.isRequired,
@@ -212,9 +212,9 @@ export const searchResultPropTypes = {
   /** Mobile Layout Modes setup */
   mobileLayout: PropTypes.shape({
     /** First Layout Mode */
-    mode1: PropTypes.oneOf(pluck('value', LAYOUT_MODE)),
+    mode1: PropTypes.oneOf(LAYOUT_MODE.map((mode) => mode.value)),
     /** Second Layout Mode */
-    mode2: PropTypes.oneOf(pluck('value', LAYOUT_MODE)),
+    mode2: PropTypes.oneOf(LAYOUT_MODE.map((mode) => mode.value)),
   }),
 }
 

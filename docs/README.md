@@ -422,6 +422,7 @@ Renders a filter selector for the fetched results.
 | `navigationTypeOnMobile` | `Enum`    | Defines how mobile users should navigate on the filter selector component. Possible values are: `page` (only one list of options can be seen at a time) or `collapsible` (all lists of options can be seen at the same time).                                    | `page`        |
 | `updateOnFilterSelectionOnMobile` | `boolean` | Whether the search results on mobile should be updated according to filter selection (`true`) or not (`false`). Notice: this prop only works if the `preventRouteChange` prop is declared as `true`.                                                                        | `false`       |
 | `showClearByFilter`       | `boolean` | Whether a clear button (responsible for erasing all filter options selected by the user) should be displayed alongside the filter name (`true`) or not (`false`).                                                                                                                              | `false`       |
+| `priceRangeLayout` | `enum` | Whether a text field to enter the desired price range should be displayed  (`inputAndSlider`) or not (`slider`). | `slider` |
 
 #### `order-by` block
 
@@ -568,6 +569,7 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `orderByOptionsContainer`             |
 | `orderByText`                         |
 | `orderBy`                             |
+| `productCount`                        |
 | `progressBarContainer`                |
 | `progressBar`                         |
 | `progressBarFiller`                   |

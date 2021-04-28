@@ -41,6 +41,7 @@ const AccordionFilterContainer = ({
   onClearFilter,
   showClearByFilter,
   updateOnFilterSelectionOnMobile,
+  priceRangeLayout,
 }) => {
   const intl = useIntl()
   const { getSettings } = useRuntime()
@@ -174,6 +175,7 @@ const AccordionFilterContainer = ({
                 priceRange={priceRange}
                 navigationType={navigationType}
                 initiallyCollapsed={initiallyCollapsed}
+                priceRangeLayout={priceRangeLayout}
               />
             )
 
@@ -247,6 +249,8 @@ AccordionFilterContainer.propTypes = {
   showClearByFilter: PropTypes.bool,
   /** Wether the search will be updated on facet selection (`true`) or not (`false`) when the user is on mobile. */
   updateOnFilterSelectionOnMobile: PropTypes.bool,
+  /** Price range layout (default or inputAndSlider) */
+  priceRangeLayout: PropTypes.string,
 }
 
 export default AccordionFilterContainer

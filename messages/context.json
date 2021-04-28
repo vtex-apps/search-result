@@ -42,7 +42,6 @@
   "admin.editor.search-result.advanced-settings.trackingId.description": "Name to show in the Google Analytics. If nothing is passed it will use just \"Search result\"",
   "admin/editor.search-result.ordination.sort-by": "Sort by",
   "admin/editor.search-result.total-products": "Total products",
-
   "store/search-result.show-more-button": "Show more",
   "store/search-result.show-previous-button": "Show previous",
   "store/search-result.showing-products": "Showing {value}",
@@ -57,6 +56,7 @@
   "store/search-result.clear-filters.title": "Clear",
   "store/search-result.filter-action.title": "Filter",
   "store/search.filter.title.categories": "Departments",
+  "store/search.filter.title.color": "Color",
   "store/filter.more-departments": "See {quantity} more departments",
   "store/filter.more-categories": "See {quantity} more categories",
   "store/filter.more-items": "See {quantity} more",
@@ -95,5 +95,6 @@
   "admin/editor.search-result-layout-custom.title": "Title of Search Result Layout Custom",
   "admin/editor.search-result-layout.title": "Title of Search Result Layout",
   "admin/editor.search-result-mobile.title": "Title of Search Result Layout for Mobile",
-  "admin/editor.search-result-desktop.title": "Title of Search Result Layout for Deskptop"
+  "admin/editor.search-result-desktop.title": "Title of Search Result Layout for Deskptop",
+  "store/search-result.price-ranges.submit": "Price Range submit button"
 }
