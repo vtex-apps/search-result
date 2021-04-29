@@ -110,8 +110,9 @@ const FacetCheckboxList = ({
         <ShowMoreFilterButton
           quantity={quantity - FACETS_RENDER_THRESHOLD}
           truncated={truncated}
-          // eslint-disable-next-line no-shadow
-          toggleTruncate={() => openTruncated((truncated) => !truncated)}
+          toggleTruncate={() =>
+            openTruncated((prevTruncated) => !prevTruncated)
+          }
         />
       )}
     </>

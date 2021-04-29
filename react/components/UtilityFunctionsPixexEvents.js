@@ -4,7 +4,7 @@ const getCategoryFromObjs = (products) => {
   }
 
   const { categoryId } = products[0]
-  const result = products.every((obj) => obj.categoryId === categoryId)
+  const result = products.every((product) => product.categoryId === categoryId)
 
   return result ? categoryId : ''
 }
