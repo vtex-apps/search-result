@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- `disableRegionalization` prop to `SearchQuery`.
+
 ## [3.98.3] - 2021-04-15
 ### Fixed
 - Add new category mapping compatibility to `SearchTitle`
