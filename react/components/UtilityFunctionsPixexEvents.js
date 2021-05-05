@@ -1,4 +1,4 @@
-const getCategoryFromObjs = (products) => {
+export const getCategoryFromObjs = (products) => {
   if (products[0] === null || products[0] === undefined) {
     return ''
   }
@@ -9,7 +9,7 @@ const getCategoryFromObjs = (products) => {
   return result ? categoryId : ''
 }
 
-const pushPixelEvent = (name, value, products, push) => {
+export const pushPixelEvent = (name, value, products, push) => {
   push({
     event: 'filterManipulation',
     items: {
@@ -19,5 +19,3 @@ const pushPixelEvent = (name, value, products, push) => {
     },
   })
 }
-
-export { getCategoryFromObjs, pushPixelEvent }
