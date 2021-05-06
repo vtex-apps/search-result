@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { usePixel } from 'vtex.pixel-manager'
 
-import { pushPixelEvent } from './UtilityFunctionsPixexEvents'
+import { pushPixelEvent } from './filterManipulationPixelEvents'
 import SettingsContext from './SettingsContext'
 import useShouldDisableFacet from '../hooks/useShouldDisableFacet'
 

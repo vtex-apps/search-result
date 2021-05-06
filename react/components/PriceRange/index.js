@@ -7,7 +7,7 @@ import { formatCurrency } from 'vtex.format-currency'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { usePixel } from 'vtex.pixel-manager'
 
-import { getCategoryFromObjs } from '../UtilityFunctionsPixexEvents'
+import { pushPixelEvent } from '../filterManipulationPixelEvents'
 import { facetOptionShape } from '../../constants/propTypes'
 import { getFilterTitle } from '../../constants/SearchHelpers'
 import FilterOptionTemplate from '../FilterOptionTemplate'
@@ -26,17 +26,6 @@ const PriceRange = ({ title, facets, priceRange, priceRangeLayout }) => {
   const { push } = usePixel()
   const { searchQuery } = useSearchPage()
 
-  const pushPixelEvent = (left, right) => {
-    push({
-      event: 'filterManipulation',
-      items: {
-        filterProductCategory: getCategoryFromObjs(searchQuery.products),
-        filterName: 'PriceRange',
-        filterValue: `[${left.toString()}-${right.toString()}]`,
-      },
-    })
-  }
-
   const { fuzzy, operator, searchState } = useSearchState()
 
   const handleChange = ([left, right]) => {
@@ -44,7 +33,12 @@ const PriceRange = ({ title, facets, priceRange, priceRangeLayout }) => {
       clearTimeout(navigateTimeoutId.current)
     }
 
-    pushPixelEvent(left, right)
+    pushPixelEvent(
+      'PriceRange',
+      `[${left.toString()}-${right.toString()}]`,
+      searchQuery.products,
+      push
+    )
     navigateTimeoutId.current = setTimeout(() => {
       const state =
         typeof sessionStorage !== 'undefined'

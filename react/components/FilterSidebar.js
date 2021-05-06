@@ -22,7 +22,7 @@ import {
   isCategoryDepartmentCollectionOrFT,
   filterCategoryDepartmentCollectionAndFT,
 } from '../utils/queryAndMapUtils'
-import { getCategoryFromObjs } from './UtilityFunctionsPixexEvents'
+import { pushPixelEvent } from './filterManipulationPixelEvents'
 
 const CSS_HANDLES = [
   'filterPopupButton',
@@ -114,19 +114,8 @@ const FilterSidebar = ({
 
   const { push } = usePixel()
 
-  const pushClearEvent = () => {
-    push({
-      event: 'filterManipulation',
-      items: {
-        filterProductCategory: getCategoryFromObjs(searchQuery.products),
-        filterName: 'CleanFilters',
-        filterValue: true,
-      },
-    })
-  }
-
   const handleClearFilters = (key) => {
-    pushClearEvent()
+    pushPixelEvent('CleanFilters', true, searchQuery.products, push)
     shouldClear.current =
       !updateOnFilterSelectionOnMobile || !preventRouteChange
     // Gets the previously selected facets that should be cleared

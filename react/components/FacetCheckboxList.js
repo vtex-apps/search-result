@@ -6,7 +6,7 @@ import { useRuntime } from 'vtex.render-runtime'
 import { usePixel } from 'vtex.pixel-manager'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
-import { pushPixelEvent } from './UtilityFunctionsPixexEvents'
+import { pushPixelEvent } from './filterManipulationPixelEvents'
 import styles from '../searchResult.css'
 import SettingsContext from './SettingsContext'
 import { searchSlugify } from '../utils/slug'
