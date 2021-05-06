@@ -6,7 +6,7 @@ import { ExtensionPoint, useRuntime } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 // eslint-disable-next-line no-restricted-imports
-import { flatten, path } from 'ramda'
+import { flatten } from 'ramda'
 import { FormattedMessage } from 'react-intl'
 
 import FilterSidebar from './components/FilterSidebar'
