@@ -2,11 +2,11 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useMemo, Fragment, useState, useEffect } from 'react'
 import ContentLoader from 'react-content-loader'
-import { ExtensionPoint } from 'vtex.render-runtime'
+import { ExtensionPoint, useRuntime } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 // eslint-disable-next-line no-restricted-imports
-import { flatten } from 'ramda'
+import { flatten, path } from 'ramda'
 import { FormattedMessage } from 'react-intl'
 
 import FilterSidebar from './components/FilterSidebar'
@@ -166,11 +166,9 @@ const FilterNavigator = ({
   )
 
   const hasFiltersApplied = window.location.href.split('?').length > 1
-
+  const { history, navigate } = useRuntime()
   const handleResetFilters = () => {
-    const url = window.location.href
-
-    window.location.href = url.split('?')[0]
+    navigate({ to: history.location.pathname })
   }
 
   const selectedCategories = getSelectedCategories(tree)
