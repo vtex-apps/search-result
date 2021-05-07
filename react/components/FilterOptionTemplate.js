@@ -61,7 +61,6 @@ const CSS_HANDLES = [
   'filterTemplateOverflow',
   'seeMoreButton',
   'filterSelectedFilters',
-  'filterTitleSelectedFilters',
 ]
 
 const useSettings = () => useContext(SettingsContext)
@@ -89,7 +88,6 @@ const FilterOptionTemplate = ({
   navigateToFacet,
   showClearByFilter,
   preventRouteChange,
-  showSelectedFiltersInTitle,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
@@ -237,13 +235,6 @@ const FilterOptionTemplate = ({
     }
   )
 
-  const getSelectedFilters = filters
-    ? filters
-        .filter((facet) => facet.selected)
-        .map((facet) => facet.name)
-        .join(', ')
-    : ''
-
   return (
     <div className={containerClassName} ref={filterRef}>
       <div className={titleContainerClassName}>
@@ -258,12 +249,6 @@ const FilterOptionTemplate = ({
           <div className={titleClassName}>
             <span className={`${handles.filterTitleSpan}`}>
               {title}
-              {showSelectedFiltersInTitle && getSelectedFilters && (
-                <span className={`${handles.filterTitleSelectedFilters}`}>
-                  {': '}
-                  {getSelectedFilters}
-                </span>
-              )}
               {showClearButton && (
                 <span className="ml2">
                   <Tag
@@ -372,7 +357,6 @@ FilterOptionTemplate.propTypes = {
   navigateToFacet: PropTypes.func,
   showClearByFilter: PropTypes.bool,
   preventRouteChange: PropTypes.bool,
-  showSelectedFiltersInTitle: PropTypes.bool,
 }
 
 export default FilterOptionTemplate
