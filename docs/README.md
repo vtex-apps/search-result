@@ -424,7 +424,6 @@ Renders a filter selector for the fetched results.
 | `showClearByFilter`       | `boolean` | Whether a clear button (responsible for erasing all filter options selected by the user) should be displayed alongside the filter name (`true`) or not (`false`).                                                                                                                              | `false`       |
 | `showClearAllFilters`       | `boolean` |  Whether a clear button should be displayed (`true`) or not (`false`). This button will reset all selected filters.                                                                                                                              | `false`       |
 | `priceRangeLayout` | `enum` | Whether a text field to enter the desired price range should be displayed  (`inputAndSlider`) or not (`slider`). | `slider` |
-| `showSelectedFiltersInTitle` | `boolean` | Whether you want to display the selected filters near the filter title  (`true`) or not (`false`). | `false` |
 
 #### `order-by` block
 
@@ -554,7 +553,6 @@ In order to apply CSS customization in this and other blocks, follow the instruc
 | `filterTemplateOverflow`              |
 | `filterTitle`                         |
 | `filterTitleSpan`                     |
-| `filterTitleSelectedFilters`          |
 | `footerButton`                        |
 | `galleryItem`                         |
 | `galleryItem--custom`                 |
