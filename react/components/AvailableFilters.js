@@ -38,7 +38,6 @@ const Filter = ({
   appliedFiltersOverview,
   showClearByFilter,
   priceRangeLayout,
-  showSelectedFiltersInTitle,
 }) => {
   const { type, title, facets, quantity, oneSelectedCollapse = false } = filter
 
@@ -77,7 +76,6 @@ const Filter = ({
           closeOnOutsideClick={closeOnOutsideClick}
           appliedFiltersOverview={appliedFiltersOverview}
           showClearByFilter={showClearByFilter}
-          showSelectedFiltersInTitle={showSelectedFiltersInTitle}
         />
       )
   }
