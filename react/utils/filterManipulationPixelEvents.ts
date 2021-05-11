@@ -3,7 +3,7 @@ const getCategoryFromObjs = (products: Array<Record<string, unknown>>) => {
     return ''
   }
 
-  const { categoryId } = products[0]
+  const [{ categoryId }] = products
   const result = products.every(
     (product: Record<string, unknown>) => product.categoryId === categoryId
   )
@@ -11,11 +11,11 @@ const getCategoryFromObjs = (products: Array<Record<string, unknown>>) => {
   return result ? categoryId : ''
 }
 
-export const pushPixelEvent = (
-  name: string,
-  value: unknown,
-  products: Array<Record<string, unknown>>,
-  push: (arg0: {
+interface PushFilterManipulationPixelEventParams {
+  name: string
+  value: unknown
+  products: Array<Record<string, unknown>>
+  push: (data: {
     event: string
     items: {
       filterProductCategory: unknown
@@ -23,7 +23,14 @@ export const pushPixelEvent = (
       filterValue: unknown
     }
   }) => void
-) => {
+}
+
+export const pushFilterManipulationPixelEvent = ({
+  name,
+  value,
+  products,
+  push,
+}: PushFilterManipulationPixelEventParams) => {
   push({
     event: 'filterManipulation',
     items: {

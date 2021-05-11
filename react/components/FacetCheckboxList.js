@@ -6,7 +6,7 @@ import { useRuntime } from 'vtex.render-runtime'
 import { usePixel } from 'vtex.pixel-manager'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
-import { pushPixelEvent } from './filterManipulationPixelEvents'
+import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
 import styles from '../searchResult.css'
 import SettingsContext from './SettingsContext'
 import { searchSlugify } from '../utils/slug'
@@ -98,7 +98,13 @@ const FacetCheckboxList = ({
               }
               name={name}
               onChange={() => {
-                pushPixelEvent(facetTitle, name, searchQuery.products, push)
+                pushFilterManipulationPixelEvent({
+                  name: facetTitle,
+                  value: name,
+                  products: searchQuery.products,
+                  push,
+                })
+
                 onFilterCheck({ ...facet, title: facetTitle })
               }}
               value={name}

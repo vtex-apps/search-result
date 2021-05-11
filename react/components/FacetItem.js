@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { usePixel } from 'vtex.pixel-manager'
 
-import { pushPixelEvent } from './filterManipulationPixelEvents'
+import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
 import SettingsContext from './SettingsContext'
 import useShouldDisableFacet from '../hooks/useShouldDisableFacet'
 
@@ -85,7 +85,13 @@ const FacetItem = ({
         label={facetLabel}
         name={facet.name}
         onChange={() => {
-          pushPixelEvent(facetTitle, facet.name, searchQuery.products, push)
+          pushFilterManipulationPixelEvent({
+            name: facetTitle,
+            value: facet.name,
+            products: searchQuery.products,
+            push,
+          })
+
           setSelected(!selected)
           navigateToFacet({ ...facet, title: facetTitle }, preventRouteChange)
         }}
