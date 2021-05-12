@@ -88,7 +88,7 @@ const FacetItem = ({
           pushFilterManipulationPixelEvent({
             name: facetTitle,
             value: facet.name,
-            products: searchQuery.products,
+            products: searchQuery?.products ?? [],
             push,
           })
 

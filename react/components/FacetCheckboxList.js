@@ -101,7 +101,7 @@ const FacetCheckboxList = ({
                 pushFilterManipulationPixelEvent({
                   name: facetTitle,
                   value: name,
-                  products: searchQuery.products,
+                  products: searchQuery?.products ?? [],
                   push,
                 })
 

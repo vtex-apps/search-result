@@ -36,7 +36,7 @@ const PriceRange = ({ title, facets, priceRange, priceRangeLayout }) => {
     pushFilterManipulationPixelEvent({
       name: 'PriceRange',
       value: `[${left.toString()}-${right.toString()}]`,
-      products: searchQuery.products,
+      products: searchQuery?.products ?? [],
       push,
     })
 

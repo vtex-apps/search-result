@@ -118,7 +118,7 @@ const FilterSidebar = ({
     pushFilterManipulationPixelEvent({
       name: 'CleanFilters',
       value: true,
-      products: searchQuery.products,
+      products: searchQuery?.products ?? [],
       push,
     })
 
