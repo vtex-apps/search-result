@@ -42,6 +42,7 @@
   "admin.editor.search-result.advanced-settings.trackingId.description": "Название для отображения в Google Analytics. Если ничего не будет передано, то оно будет отображаться как «Результат поиска»",
   "admin/editor.search-result.ordination.sort-by": "Сортировать по",
   "admin/editor.search-result.total-products": "Всего товаров",
+  
   "store/search-result.show-more-button": "Показать больше",
   "store/search-result.show-previous-button": "Показать предыдущий",
   "store/search-result.showing-products": "Отображение {value}",
@@ -51,16 +52,18 @@
   "store/search-result.filter-button.title": "Фильтры",
   "store/search-result.filter-breadcrumbs.primary": "Фильтры",
   "store/search-result.filter-button.apply": "Применить",
-  "store/search-result.filter-button.clear": "Очистить",
+  "store/search-result.filter-button.clear": "Удалить",
+  "store/search-result.filter-button.clearAll": "Очистить все",
   "store/search-result.orderby.title": "Сортировать по",
   "store/search-result.clear-filters.title": "Удалить",
   "store/search-result.filter-action.title": "Фильтр",
   "store/search.filter.title.categories": "Отделы",
-  "store/filter.more-departments": "Показать {quantity} больше отделов",
   "store/search.filter.title.color": "Цвет",
+  "store/filter.more-departments": "Показать {quantity} больше отделов",
   "store/filter.more-categories": "Показать {quantity} больше категорий",
-  "store/filter.more-items": "Показать больше",
+  "store/filter.more-items": "Показать еще {quantity}",
   "store/filter.less-items": "Показать меньше",
+  "store/search.filter.placeholder": "Поиск по {filterName}",
   "store/search.filter.title.brands": "Бренды",
   "store/search.filter.title.price-ranges": "Ценовые диапазоны",
   "store/search.text": "Показать {from}-{to} из {recordsFiltered} записей",
@@ -94,5 +97,6 @@
   "admin/editor.search-result-layout-custom.title": "Пользовательский макет результатов поиска",
   "admin/editor.search-result-layout.title": "Гибкий макет результатов поиска",
   "admin/editor.search-result-mobile.title": "Гибкий макет результатов поиска, мобильная версия",
-  "admin/editor.search-result-desktop.title": "Гибкий макет результатов поиска, десктоп-версия"
+  "admin/editor.search-result-desktop.title": "Гибкий макет результатов поиска, десктоп-версия",
+  "store/search-result.price-ranges.submit": "Начать"
 }

@@ -42,6 +42,7 @@
   "admin.editor.search-result.advanced-settings.trackingId.description": "Navn, der skal vises i Google Analytics. Hvis der ikke gives noget, bruger det bare \"Søgeresultat\"",
   "admin/editor.search-result.ordination.sort-by": "Sorter efter",
   "admin/editor.search-result.total-products": "Produkter i alt",
+  
   "store/search-result.show-more-button": "Vis mere",
   "store/search-result.show-previous-button": "Vis forrige",
   "store/search-result.showing-products": "Viser {value}",
@@ -52,15 +53,17 @@
   "store/search-result.filter-breadcrumbs.primary": "Filtre",
   "store/search-result.filter-button.apply": "Anvend",
   "store/search-result.filter-button.clear": "Ryd",
+  "store/search-result.filter-button.clearAll": "Ryd alle",
   "store/search-result.orderby.title": "Sorter efter",
   "store/search-result.clear-filters.title": "Ryd",
   "store/search-result.filter-action.title": "Filter",
   "store/search.filter.title.categories": "Afdelinger",
-  "store/filter.more-departments": "Se {quantity} flere afdelinger",
   "store/search.filter.title.color": "Farve",
+  "store/filter.more-departments": "Se {quantity} flere afdelinger",
   "store/filter.more-categories": "Se {quantity} flere kategorier",
-  "store/filter.more-items": "Se mere",
+  "store/filter.more-items": "Se {quantity} mere",
   "store/filter.less-items": "Se mindre",
+  "store/search.filter.placeholder": "Søg efter {filterName}",
   "store/search.filter.title.brands": "Brands",
   "store/search.filter.title.price-ranges": "Prisklasser",
   "store/search.text": "Viser {from}-{to} fra {recordsFiltered} optegnelser",
@@ -94,5 +97,6 @@
   "admin/editor.search-result-layout-custom.title": "Søgeresultat Brugerdefineret fleksibelt layout",
   "admin/editor.search-result-layout.title": "Søgeresultat fleksibelt layout",
   "admin/editor.search-result-mobile.title": "Søgeresultat fleksibelt layout mobil",
-  "admin/editor.search-result-desktop.title": "Søgeresultat fleksibelt layout desktop"
+  "admin/editor.search-result-desktop.title": "Søgeresultat fleksibelt layout desktop",
+  "store/search-result.price-ranges.submit": "Søg"
 }

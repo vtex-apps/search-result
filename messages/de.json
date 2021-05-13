@@ -42,6 +42,7 @@
   "admin.editor.search-result.advanced-settings.trackingId.description": "Name, der in Google Analytics angezeigt werden soll. Wenn nichts übergeben wird, wird nur \"Suchergebnis\" verwendet",
   "admin/editor.search-result.ordination.sort-by": "Sortieren nach",
   "admin/editor.search-result.total-products": "Produkte insgesamt",
+  
   "store/search-result.show-more-button": "Mehr anzeigen",
   "store/search-result.show-previous-button": "Vorherige anzeigen",
   "store/search-result.showing-products": "Zeigen {value}",
@@ -56,11 +57,12 @@
   "store/search-result.clear-filters.title": "Löschen",
   "store/search-result.filter-action.title": "Filter",
   "store/search.filter.title.categories": "Abteilungen",
-  "store/filter.more-departments": "Siehe {quantity} weitere Abteilungen",
   "store/search.filter.title.color": "Farbe",
+  "store/filter.more-departments": "Siehe {quantity} weitere Abteilungen",
   "store/filter.more-categories": "Siehe {quantity} weitere Kategorien",
-  "store/filter.more-items": "Siehe mehr",
+  "store/filter.more-items": "Siehe {quantity} mehr",
   "store/filter.less-items": "Weniger sehen",
+  "store/search.filter.placeholder": "Suche nach {filterName}",
   "store/search.filter.title.brands": "Marken",
   "store/search.filter.title.price-ranges": "Preisspannen",
   "store/search.text": "Anzeigen {from}-{to} aus {recordsFiltered}-Datensätzen",
@@ -94,5 +96,6 @@
   "admin/editor.search-result-layout-custom.title": "Suchergebnis Benutzerdefiniertes flexibles Layout",
   "admin/editor.search-result-layout.title": "Suchergebnis Benutzerdefiniertes flexibles Layout",
   "admin/editor.search-result-mobile.title": "Suchergebnis Flexibles Layout Mobile",
-  "admin/editor.search-result-desktop.title": "Suchergebnis Flexible Layout-Desktopoberfläche"
+  "admin/editor.search-result-desktop.title": "Suchergebnis Flexible Layout-Desktopoberfläche",
+  "store/search-result.price-ranges.submit": "Start"
 }

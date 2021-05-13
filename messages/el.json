@@ -42,6 +42,7 @@
   "admin.editor.search-result.advanced-settings.trackingId.description": "Όνομα για προβολή στα Google Analytics. Αν δεν υπάρχει κάτι, θα χρησιμοποιηθεί απλώς η \"Αναζήτηση αποτελέσματος\"",
   "admin/editor.search-result.ordination.sort-by": "Ταξινόμηση ανά",
   "admin/editor.search-result.total-products": "Σύνολο προϊόντων",
+  
   "store/search-result.show-more-button": "Προβολή περισσοτέρων",
   "store/search-result.show-previous-button": "Προβολή προηγουμένων",
   "store/search-result.showing-products": "Προβολή {value}",
@@ -51,16 +52,18 @@
   "store/search-result.filter-button.title": "Φίλτρα",
   "store/search-result.filter-breadcrumbs.primary": "Φίλτρα",
   "store/search-result.filter-button.apply": "Εφαρμογή",
-  "store/search-result.filter-button.clear": "Καθαρισμός",
+  "store/search-result.filter-button.clear": "Εκκαθάριση",
+  "store/search-result.filter-button.clearAll": "Απαλοιφή Όλων",
   "store/search-result.orderby.title": "Ταξινόμηση ανά",
   "store/search-result.clear-filters.title": "Εκκαθάριση",
   "store/search-result.filter-action.title": "Φίλτρο",
   "store/search.filter.title.categories": "Τμήματα",
-  "store/filter.more-departments": "Βλέπε {quantity} περισσότερα τμήματα",
   "store/search.filter.title.color": "Χρώμα",
+  "store/filter.more-departments": "Βλέπε {quantity} περισσότερα τμήματα",
   "store/filter.more-categories": "Βλέπε {quantity} περισσότερες κατηγορίες",
-  "store/filter.more-items": "Βλέπε περισσότερα",
+  "store/filter.more-items": "Βλέπε {quantity} επιπλέον",
   "store/filter.less-items": "Βλέπε λιγότερα",
+  "store/search.filter.placeholder": "Αναζήτηση ανά {filterName}",
   "store/search.filter.title.brands": "Εμπορικές επωνυμίες",
   "store/search.filter.title.price-ranges": "Εύρος Τιμών",
   "store/search.text": "Προβολή {from}-{to} από {recordsFiltered} αρχεία",
@@ -94,5 +97,6 @@
   "admin/editor.search-result-layout-custom.title": "Προσαρμοσμένη Ευέλικτη Διάταξη Αναζήτησης Αποτελέσματος",
   "admin/editor.search-result-layout.title": "Ευέλικτη Διάταξη Αναζήτησης Αποτελέσματος",
   "admin/editor.search-result-mobile.title": "Ευέλικτη Διάταξη Αναζήτησης Αποτελέσματος σε Κινητό",
-  "admin/editor.search-result-desktop.title": "Ευέλικτη Διάταξη Αναζήτησης Αποτελέσματος σε Επιφάνεια Εργασίας"
+  "admin/editor.search-result-desktop.title": "Ευέλικτη Διάταξη Αναζήτησης Αποτελέσματος σε Επιφάνεια Εργασίας",
+  "store/search-result.price-ranges.submit": "Πάμε"
 }

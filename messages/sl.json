@@ -42,6 +42,7 @@
   "admin.editor.search-result.advanced-settings.trackingId.description": "Ime za prikaz v Google Analytics. Če se nič ne spusti skozi, bo uporabljeno samo \"Rezultat iskanja\"",
   "admin/editor.search-result.ordination.sort-by": "Razvrsti po",
   "admin/editor.search-result.total-products": "Skupaj izdelkov",
+  
   "store/search-result.show-more-button": "Pokaži več",
   "store/search-result.show-previous-button": "Pokaži prejšnje",
   "store/search-result.showing-products": "Kažem {value}",
@@ -51,16 +52,18 @@
   "store/search-result.filter-button.title": "Filtri",
   "store/search-result.filter-breadcrumbs.primary": "Filtri",
   "store/search-result.filter-button.apply": "Uporabi",
-  "store/search-result.filter-button.clear": "Počisti",
+  "store/search-result.filter-button.clear": "Izbriši",
+  "store/search-result.filter-button.clearAll": "Počisti vse",
   "store/search-result.orderby.title": "Razvrsti po",
   "store/search-result.clear-filters.title": "Izbriši",
   "store/search-result.filter-action.title": "Filter",
   "store/search.filter.title.categories": "Oddelki",
-  "store/filter.more-departments": "Poglej {quantity} več oddelkov",
   "store/search.filter.title.color": "Barva",
+  "store/filter.more-departments": "Poglej {quantity} več oddelkov",
   "store/filter.more-categories": "Poglej {quantity} več kategorij",
-  "store/filter.more-items": "Poglej več",
+  "store/filter.more-items": "Glej {quantity} več",
   "store/filter.less-items": "Poglej manj",
+  "store/search.filter.placeholder": "Išči po {filterName}",
   "store/search.filter.title.brands": "Znamke",
   "store/search.filter.title.price-ranges": "Razponi cen",
   "store/search.text": "Kažem {from}-{to} od {recordsFiltered} zapisov",
@@ -94,5 +97,6 @@
   "admin/editor.search-result-layout-custom.title": "Fleksibilna postavitev iskalnega rezultata po meri",
   "admin/editor.search-result-layout.title": "Fleksibilna postavitev iskalnega rezultata",
   "admin/editor.search-result-mobile.title": "Mobilna fleksibilna postavitev iskalnega rezultata",
-  "admin/editor.search-result-desktop.title": "Namizna fleksibilna postavitev iskalnega rezultata"
+  "admin/editor.search-result-desktop.title": "Namizna fleksibilna postavitev iskalnega rezultata",
+  "store/search-result.price-ranges.submit": "Začnite"
 }

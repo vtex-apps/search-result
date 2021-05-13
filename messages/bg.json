@@ -42,6 +42,7 @@
   "admin.editor.search-result.advanced-settings.trackingId.description": "Име за показване в Google Analytics. Ако не е зададено, ще се използва просто „Резултат от търсенето“",
   "admin/editor.search-result.ordination.sort-by": "Сортиране по",
   "admin/editor.search-result.total-products": "Общо продукти",
+  
   "store/search-result.show-more-button": "Показване на повече",
   "store/search-result.show-previous-button": "Показване на предишен",
   "store/search-result.showing-products": "Показване на {value}",
@@ -52,15 +53,17 @@
   "store/search-result.filter-breadcrumbs.primary": "Филтри",
   "store/search-result.filter-button.apply": "Прилагане",
   "store/search-result.filter-button.clear": "Изчистване",
+  "store/search-result.filter-button.clearAll": "Изчистване на всички",
   "store/search-result.orderby.title": "Сортиране по",
   "store/search-result.clear-filters.title": "Изчистване",
   "store/search-result.filter-action.title": "Филтриране",
   "store/search.filter.title.categories": "Отдели",
+  "store/search.filter.title.color": "Цвят",
   "store/filter.more-departments": "Вижте {quantity} повече отдела",
-  "store/search.filter.title.color": "цвят",
   "store/filter.more-categories": "Вижте {quantity} повече категории",
-  "store/filter.more-items": "Вижте повече",
+  "store/filter.more-items": "Вижте още {quantity}",
   "store/filter.less-items": "Вижте по-малко",
+  "store/search.filter.placeholder": "Търсене по {filterName}",
   "store/search.filter.title.brands": "Брандове",
   "store/search.filter.title.price-ranges": "Ценови диапазони",
   "store/search.text": "Показавне на {from}-{to} от {recordsFiltered} записа",
@@ -94,5 +97,6 @@
   "admin/editor.search-result-layout-custom.title": "Гъвкаво персонализирано оформление на резултатите от търсенето",
   "admin/editor.search-result-layout.title": "Гъвкаво оформление на резултатите от търсенето",
   "admin/editor.search-result-mobile.title": "Гъвкаво оформление на резултатите от търсенето за смартфон",
-  "admin/editor.search-result-desktop.title": "Гъвкаво оформление на резултатите от търсенето за десктоп"
+  "admin/editor.search-result-desktop.title": "Гъвкаво оформление на резултатите от търсенето за десктоп",
+  "store/search-result.price-ranges.submit": "Напред"
 }

@@ -42,6 +42,7 @@
   "admin.editor.search-result.advanced-settings.trackingId.description": "Nom que es mostrarà a Google Analytics. Si no hi passa res, es farà servir simplement \"Resultat de la cerca\"",
   "admin/editor.search-result.ordination.sort-by": "Ordena per",
   "admin/editor.search-result.total-products": "Total de productes",
+  
   "store/search-result.show-more-button": "Mostra'n més",
   "store/search-result.show-previous-button": "Mostra l'anterior",
   "store/search-result.showing-products": "S'està mostrant {value}",
@@ -52,15 +53,17 @@
   "store/search-result.filter-breadcrumbs.primary": "Filtres",
   "store/search-result.filter-button.apply": "Aplica",
   "store/search-result.filter-button.clear": "Esborra",
+  "store/search-result.filter-button.clearAll": "Esborra-ho tot",
   "store/search-result.orderby.title": "Ordena per",
   "store/search-result.clear-filters.title": "Esborra",
   "store/search-result.filter-action.title": "Filtre",
   "store/search.filter.title.categories": "Departaments",
-  "store/filter.more-departments": "Mostra {quantity} departaments més",
   "store/search.filter.title.color": "Color",
+  "store/filter.more-departments": "Mostra {quantity} departaments més",
   "store/filter.more-categories": "Mostra {quantity} categories més",
-  "store/filter.more-items": "Mostra'n més",
+  "store/filter.more-items": "Mostra'n {quantity} més",
   "store/filter.less-items": "Mostra'n menys",
+  "store/search.filter.placeholder": "Cerca per {filterName}",
   "store/search.filter.title.brands": "Marques",
   "store/search.filter.title.price-ranges": "Intervals de preus",
   "store/search.text": "S'estan mostrant {from}-{to} de {recordsFiltered} registres",
@@ -94,5 +97,6 @@
   "admin/editor.search-result-layout-custom.title": "Disseny flexible personalitzat dels resultats de la cerca",
   "admin/editor.search-result-layout.title": "Disseny flexible dels resultats de la cerca",
   "admin/editor.search-result-mobile.title": "Disseny flexible dels resultats de la cerca per a mòbils",
-  "admin/editor.search-result-desktop.title": "Disseny flexible dels resultats de la cerca per a ordinadors"
+  "admin/editor.search-result-desktop.title": "Disseny flexible dels resultats de la cerca per a ordinadors",
+  "store/search-result.price-ranges.submit": "Cerca"
 }

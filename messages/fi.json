@@ -42,6 +42,7 @@
   "admin.editor.search-result.advanced-settings.trackingId.description": "Google Analyticsissä näytettävä nimi. Jos mitään ei anneta, käytetään nimeä \"Hakutulos\"",
   "admin/editor.search-result.ordination.sort-by": "Järjestelyperuste",
   "admin/editor.search-result.total-products": "Tuotteita yhteensä",
+  
   "store/search-result.show-more-button": "Näytä lisää",
   "store/search-result.show-previous-button": "Näytä edellinen",
   "store/search-result.showing-products": "Näytetään {value}",
@@ -51,16 +52,18 @@
   "store/search-result.filter-button.title": "Suodattimet",
   "store/search-result.filter-breadcrumbs.primary": "Suodattimet",
   "store/search-result.filter-button.apply": "Käytä",
-  "store/search-result.filter-button.clear": "Puhdista",
+  "store/search-result.filter-button.clear": "Tyhjennä",
+  "store/search-result.filter-button.clearAll": "Tyhjennä kaikki",
   "store/search-result.orderby.title": "Järjestelyperuste",
   "store/search-result.clear-filters.title": "Tyhjennä",
   "store/search-result.filter-action.title": "Suodatin",
   "store/search.filter.title.categories": "Osastot",
-  "store/filter.more-departments": "Näytä {quantity} osastoa lisää",
   "store/search.filter.title.color": "Väri",
+  "store/filter.more-departments": "Näytä {quantity} osastoa lisää",
   "store/filter.more-categories": "Näytä {quantity} luokkaa lisää",
-  "store/filter.more-items": "Näytä lisää",
+  "store/filter.more-items": "Näytä {quantity} lisää",
   "store/filter.less-items": "Näytä vähemmän",
+  "store/search.filter.placeholder": "Hae hakuehdolla {filterName}",
   "store/search.filter.title.brands": "Brändit",
   "store/search.filter.title.price-ranges": "Hintaluokat",
   "store/search.text": "Näytetään {from}–{to} {recordsFiltered} tietueesta",
@@ -94,5 +97,6 @@
   "admin/editor.search-result-layout-custom.title": "Hakutuloksen mukautettu joustava asettelu",
   "admin/editor.search-result-layout.title": "Hakutuloksen joustava asettelu",
   "admin/editor.search-result-mobile.title": "Hakutuloksen joustava asettelu, mobiili",
-  "admin/editor.search-result-desktop.title": "Hakutuloksen joustava asettelu, tietokone"
+  "admin/editor.search-result-desktop.title": "Hakutuloksen joustava asettelu, tietokone",
+  "store/search-result.price-ranges.submit": "Hae"
 }

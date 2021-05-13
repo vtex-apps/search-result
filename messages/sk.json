@@ -42,6 +42,7 @@
   "admin.editor.search-result.advanced-settings.trackingId.description": "Názov, ktorý sa má zobraziť v službe Google Analytics. Ak sa nič nepostúpi, použije sa iba výsledok vyhľadávania",
   "admin/editor.search-result.ordination.sort-by": "Usporiadať podľa",
   "admin/editor.search-result.total-products": "Celkový počet produktov",
+  
   "store/search-result.show-more-button": "Zobraziť viac",
   "store/search-result.show-previous-button": "Zobraziť predchádzajúce",
   "store/search-result.showing-products": "Zobrazuje sa {value}",
@@ -51,16 +52,18 @@
   "store/search-result.filter-button.title": "Filtre",
   "store/search-result.filter-breadcrumbs.primary": "Filtre",
   "store/search-result.filter-button.apply": "Použiť",
-  "store/search-result.filter-button.clear": "Vyčistiť",
+  "store/search-result.filter-button.clear": "Vymazať",
+  "store/search-result.filter-button.clearAll": "Vymazať všetko",
   "store/search-result.orderby.title": "Usporiadať podľa",
   "store/search-result.clear-filters.title": "Vymazať",
   "store/search-result.filter-action.title": "Filter",
   "store/search.filter.title.categories": "Oddelenia",
-  "store/filter.more-departments": "Zobraziť {quantity} ďalších oddelení",
   "store/search.filter.title.color": "Farba",
+  "store/filter.more-departments": "Zobraziť {quantity} ďalších oddelení",
   "store/filter.more-categories": "Zobraziť {quantity} ďalšie kategórie/Zobraziť {quantity} ďalších kategórií",
-  "store/filter.more-items": "Zobraziť viac",
+  "store/filter.more-items": "Zobraziť o {quantity} viac",
   "store/filter.less-items": "Zobraziť menej",
+  "store/search.filter.placeholder": "Hľadať podľa {filterName}",
   "store/search.filter.title.brands": "Značky",
   "store/search.filter.title.price-ranges": "Cenové rozpätia",
   "store/search.text": "Zobrazuje sa {from} až {to} zo {recordsFiltered} záznamov",
@@ -94,5 +97,6 @@
   "admin/editor.search-result-layout-custom.title": "Výsledok vyhľadávania – vlastné flexibilné rozloženie",
   "admin/editor.search-result-layout.title": "Výsledok vyhľadávania – flexibilné rozloženie",
   "admin/editor.search-result-mobile.title": "Výsledok vyhľadávania – flexibilné mobilné rozloženie",
-  "admin/editor.search-result-desktop.title": "Výsledok vyhľadávania – flexibilné počítačové rozloženie"
+  "admin/editor.search-result-desktop.title": "Výsledok vyhľadávania – flexibilné počítačové rozloženie",
+  "store/search-result.price-ranges.submit": "Hľadať"
 }

@@ -42,6 +42,7 @@
   "admin.editor.search-result.advanced-settings.trackingId.description": "Namn som ska visas i Google Analytics. Om ingenting godkänns kommer den att använda \"Sökresultat\"",
   "admin/editor.search-result.ordination.sort-by": "Sortera efter",
   "admin/editor.search-result.total-products": "Totala produkter",
+  
   "store/search-result.show-more-button": "Visa fler",
   "store/search-result.show-previous-button": "Visa föregående",
   "store/search-result.showing-products": "Visar {value}",
@@ -52,15 +53,17 @@
   "store/search-result.filter-breadcrumbs.primary": "Filter",
   "store/search-result.filter-button.apply": "Tillämpa",
   "store/search-result.filter-button.clear": "Rengör",
+  "store/search-result.filter-button.clearAll": "Rensa alla",
   "store/search-result.orderby.title": "Sortera efter",
   "store/search-result.clear-filters.title": "Rengör",
   "store/search-result.filter-action.title": "Filter",
   "store/search.filter.title.categories": "Avdelningar",
-  "store/filter.more-departments": "Se {quantity} fler avdelningar",
   "store/search.filter.title.color": "Färg",
+  "store/filter.more-departments": "Se {quantity} fler avdelningar",
   "store/filter.more-categories": "Se {quantity} fler kategorier",
-  "store/filter.more-items": "Se mer",
+  "store/filter.more-items": "Se {quantity} mer",
   "store/filter.less-items": "Se mindre",
+  "store/search.filter.placeholder": "Sök efter {filterName}",
   "store/search.filter.title.brands": "Varumärken",
   "store/search.filter.title.price-ranges": "Prisintervall",
   "store/search.text": "Visar {from}-{to} från {recordsFiltered} historik",
@@ -94,5 +97,6 @@
   "admin/editor.search-result-layout-custom.title": "Sökresultat anpassad flexibel layout",
   "admin/editor.search-result-layout.title": "Sökresultat flexibel layout",
   "admin/editor.search-result-mobile.title": "Sökresultat flexibel mobil layout",
-  "admin/editor.search-result-desktop.title": "Sökresultat flexibelt layout skrivbord"
+  "admin/editor.search-result-desktop.title": "Sökresultat flexibelt layout skrivbord",
+  "store/search-result.price-ranges.submit": "Sök"
 }

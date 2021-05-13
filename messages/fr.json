@@ -42,6 +42,7 @@
   "admin.editor.search-result.advanced-settings.trackingId.description": "Nom à afficher dans Google Analytics. Si rien n’est noté, seulement « Résultat de recherche » sera utilisé",
   "admin/editor.search-result.ordination.sort-by": "Trier par",
   "admin/editor.search-result.total-products": "Total des produits",
+  
   "store/search-result.show-more-button": "Afficher davantage",
   "store/search-result.show-previous-button": "Afficher le précédent",
   "store/search-result.showing-products": "Afficher {value}",
@@ -56,11 +57,12 @@
   "store/search-result.clear-filters.title": "Effacer",
   "store/search-result.filter-action.title": "Filtre",
   "store/search.filter.title.categories": "Services",
-  "store/filter.more-departments": "Voir {quantity} plus de services",
   "store/search.filter.title.color": "Couleur",
+  "store/filter.more-departments": "Voir {quantity} plus de services",
   "store/filter.more-categories": "Voir {quantity} plus de catégories",
-  "store/filter.more-items": "Voir plus",
+  "store/filter.more-items": "Afficher {quantity} plus",
   "store/filter.less-items": "Voir moins",
+  "store/search.filter.placeholder": "Recherche par {filterName}",
   "store/search.filter.title.brands": "Marques",
   "store/search.filter.title.price-ranges": "Gammes de prix",
   "store/search.text": "Afficher les {from}-{to} des {recordsFiltered} enregistrements",
@@ -95,10 +97,14 @@
   "admin/editor.search-result-layout.title": "Mise en page flexible du résultat de recherche",
   "admin/editor.search-result-mobile.title": "Mise en page flexible du résultat de recherche sur mobile",
   "admin/editor.search-result-desktop.title": "Mise en page flexible du résultat de recherche sur ordinateur",
+<<<<<<< HEAD
   "store/search-result.price-ranges.submit": "Aller",
   "admin/editor.search-result.fetch-more": "Récupérer plus",
   "admin/editor.search-result.fetch-previous": "Récupérer le précédent",
   "admin/editor.search-result.fetch-button.button-behavior": "Comportement du bouton",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Bouton",
   "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Lien vers la page - Améliore le référencement SEO, peut changer l’apparence du bouton"
+=======
+  "store/search-result.price-ranges.submit": "Aller"
+>>>>>>> 65824a4 (fixing translations and adding new ones)
 }

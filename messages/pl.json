@@ -42,6 +42,7 @@
   "admin.editor.search-result.advanced-settings.trackingId.description": "Nazwa do pokazania w Google Analytics. W przypadku braku przekazania czegokolwiek, użyta zostanie opcja \"Odszukaj wynik\"",
   "admin/editor.search-result.ordination.sort-by": "Sortuj według",
   "admin/editor.search-result.total-products": "Produkty ogółem",
+  
   "store/search-result.show-more-button": "Pokaż więcej",
   "store/search-result.show-previous-button": "Pokaż poprzednie",
   "store/search-result.showing-products": "Pokazuję {value}",
@@ -51,16 +52,18 @@
   "store/search-result.filter-button.title": "Filtry",
   "store/search-result.filter-breadcrumbs.primary": "Filtry",
   "store/search-result.filter-button.apply": "Zastosuj",
-  "store/search-result.filter-button.clear": "Wyczyść",
+  "store/search-result.filter-button.clear": "Wymaż",
+  "store/search-result.filter-button.clearAll": "Wyczyść wszystko",
   "store/search-result.orderby.title": "Sortuj według",
   "store/search-result.clear-filters.title": "Wymaż",
   "store/search-result.filter-action.title": "Filtruj",
   "store/search.filter.title.categories": "Wydziały",
-  "store/filter.more-departments": "Zobacz {quantity} więcej wydziałów",
   "store/search.filter.title.color": "Kolor",
+  "store/filter.more-departments": "Zobacz {quantity} więcej wydziałów",
   "store/filter.more-categories": "Zobacz {quantity} więcej kategorii",
-  "store/filter.more-items": "Zobacz więcej",
+  "store/filter.more-items": "Zobacz {quantity} więcej",
   "store/filter.less-items": "Zobacz mniej",
+  "store/search.filter.placeholder": "Szukaj według {filterName}",
   "store/search.filter.title.brands": "Marki",
   "store/search.filter.title.price-ranges": "Zakresy cenowe",
   "store/search.text": "Pokazuję {from}-{to} od {recordsFiltered} wpisów",
@@ -94,5 +97,6 @@
   "admin/editor.search-result-layout-custom.title": "Spersonalizowany elastyczny układ wyników wyszukiwania",
   "admin/editor.search-result-layout.title": "Elastyczny układ wyników wyszukiwania",
   "admin/editor.search-result-mobile.title": "Mobilny układ elastyczny wyników wyszukiwania",
-  "admin/editor.search-result-desktop.title": "Stacjonarny układ elastyczny wyników wyszukiwania"
+  "admin/editor.search-result-desktop.title": "Stacjonarny układ elastyczny wyników wyszukiwania",
+  "store/search-result.price-ranges.submit": "Idź"
 }

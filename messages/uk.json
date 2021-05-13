@@ -42,6 +42,7 @@
   "admin.editor.search-result.advanced-settings.trackingId.description": "Ім'я для показу в Google Analytics. Якщо нічого не буде передано, він використовуватиме лише \"Результат пошуку\"",
   "admin/editor.search-result.ordination.sort-by": "Сортувати за",
   "admin/editor.search-result.total-products": "Всього продуктів",
+  
   "store/search-result.show-more-button": "Показати більше",
   "store/search-result.show-previous-button": "Показати попередній",
   "store/search-result.showing-products": "Відображення {value}",
@@ -51,16 +52,18 @@
   "store/search-result.filter-button.title": "Фільтри",
   "store/search-result.filter-breadcrumbs.primary": "Фільтри",
   "store/search-result.filter-button.apply": "Застосувати",
-  "store/search-result.filter-button.clear": "Очистити",
+  "store/search-result.filter-button.clear": "Видалити",
+  "store/search-result.filter-button.clearAll": "Очистити все",
   "store/search-result.orderby.title": "Сортувати за",
   "store/search-result.clear-filters.title": "Видалити",
   "store/search-result.filter-action.title": "Фільтр",
   "store/search.filter.title.categories": "Відділення",
-  "store/filter.more-departments": "Побачити {quantity} більше відділень",
   "store/search.filter.title.color": "Колір",
+  "store/filter.more-departments": "Побачити {quantity} більше відділень",
   "store/filter.more-categories": "Побачити {quantity} більше категорій",
-  "store/filter.more-items": "Побачити більше",
+  "store/filter.more-items": "Показати ще {quantity}",
   "store/filter.less-items": "Побачити менше",
+  "store/search.filter.placeholder": "Пошук за {filterName}",
   "store/search.filter.title.brands": "Бренди",
   "store/search.filter.title.price-ranges": "Діапазон цін",
   "store/search.text": "Показати {from}-{to} від {recordsFiltered} записів",
@@ -94,5 +97,6 @@
   "admin/editor.search-result-layout-custom.title": "Користувацький макет результатів пошуку",
   "admin/editor.search-result-layout.title": "Гнучкий макет результатів пошуку",
   "admin/editor.search-result-mobile.title": "Гнучкий макет результатів пошуку для смартфону",
-  "admin/editor.search-result-desktop.title": "Гнучкий макет результатів пошуку для робочого столу"
+  "admin/editor.search-result-desktop.title": "Гнучкий макет результатів пошуку для робочого столу",
+  "store/search-result.price-ranges.submit": "Почати"
 }
