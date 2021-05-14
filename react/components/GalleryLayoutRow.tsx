@@ -1,8 +1,9 @@
-import React, { ComponentType, memo } from 'react'
-import { useRenderOnView } from '../hooks/useRenderOnView'
+import type { ComponentType } from 'react'
+import React, { memo } from 'react'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import classNames from 'classnames'
 
+import { useRenderOnView } from '../hooks/useRenderOnView'
 import GalleryItem from './GalleryLayoutItem'
 import type { Product } from '../Gallery'
 
@@ -17,6 +18,7 @@ interface GalleryLayoutRowProps {
   products: Product[]
   summary: unknown
   rowIndex: number
+  listName: string
 }
 
 const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
@@ -28,6 +30,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
   summary,
   currentLayoutName,
   rowIndex,
+  listName,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -48,6 +51,8 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
   return (
     <>
       {products.map((product, index) => {
+        const absoluteProductIndex = rowIndex * itemsPerRow + index + 1
+
         return (
           <div
             key={product.productId}
@@ -65,7 +70,8 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
               item={product}
               summary={summary}
               displayMode={displayMode}
-              position={(rowIndex * itemsPerRow) + index}
+              position={absoluteProductIndex}
+              listName={listName}
             />
           </div>
         )

@@ -5,8 +5,6 @@ import { usePixel } from 'vtex.pixel-manager'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import type { Product } from '../Gallery'
-import { useBreadcrumb } from '../hooks/useBreadcrumb'
-import { useSearchTitle } from '../hooks/useSearchTitle'
 
 interface GalleryLayoutItemProps {
   GalleryItemComponent: ComponentType<any>
@@ -14,6 +12,7 @@ interface GalleryLayoutItemProps {
   displayMode: string
   summary: unknown
   position: number
+  listName: string
 }
 
 const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
@@ -22,11 +21,10 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
   displayMode,
   summary,
   position,
+  listName,
 }) => {
   const { push } = usePixel()
   const { searchQuery } = useSearchPage()
-  const breadcrumb = useBreadcrumb()
-  const listName = useSearchTitle(breadcrumb ?? []).trim() || 'Search result'
 
   const product = useMemo(
     () => ProductSummary.mapCatalogProductToProductSummary(item),

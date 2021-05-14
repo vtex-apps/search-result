@@ -7,8 +7,6 @@ import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import type { Product } from '../Gallery'
 import type { MobileLayoutMode } from '../GalleryLegacy'
-import { useBreadcrumb } from '../hooks/useBreadcrumb'
-import { useSearchTitle } from '../hooks/useSearchTitle'
 
 interface GalleryItemProps {
   /** Item info that will be rendered. */
@@ -19,6 +17,8 @@ interface GalleryItemProps {
   summary: any
   /** Item position in the gallery */
   position: number
+  /** Name of the list of products */
+  listName: string
   CustomSummary?: ComponentType
 }
 
@@ -29,13 +29,12 @@ function GalleryItem({
   item,
   displayMode,
   position,
+  listName,
   summary,
   CustomSummary,
 }: GalleryItemProps) {
   const { push } = usePixel()
   const { searchQuery } = useSearchPage()
-  const breadcrumb = useBreadcrumb()
-  const listName = useSearchTitle(breadcrumb ?? []).trim() || 'Search result'
 
   const product = useMemo(
     () => ProductSummary.mapCatalogProductToProductSummary(item),
