@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.98.4] - 2021-05-18
 ### Fixed
 - Issue where paginated results would not render properly when lazy rendering is enabled.
 
