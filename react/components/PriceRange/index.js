@@ -4,7 +4,10 @@ import { useRuntime } from 'vtex.render-runtime'
 import { useIntl } from 'react-intl'
 import { Slider } from 'vtex.styleguide'
 import { formatCurrency } from 'vtex.format-currency'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
+import { usePixel } from 'vtex.pixel-manager'
 
+import { pushFilterManipulationPixelEvent } from '../../utils/filterManipulationPixelEvents'
 import { facetOptionShape } from '../../constants/propTypes'
 import { getFilterTitle } from '../../constants/SearchHelpers'
 import FilterOptionTemplate from '../FilterOptionTemplate'
@@ -20,12 +23,22 @@ const PriceRange = ({ title, facets, priceRange, priceRangeLayout }) => {
   const intl = useIntl()
   const navigateTimeoutId = useRef()
 
+  const { push } = usePixel()
+  const { searchQuery } = useSearchPage()
+
   const { fuzzy, operator, searchState } = useSearchState()
 
   const handleChange = ([left, right]) => {
     if (navigateTimeoutId.current) {
       clearTimeout(navigateTimeoutId.current)
     }
+
+    pushFilterManipulationPixelEvent({
+      name: 'PriceRange',
+      value: `[${left.toString()}-${right.toString()}]`,
+      products: searchQuery?.products ?? [],
+      push,
+    })
 
     navigateTimeoutId.current = setTimeout(() => {
       const state =

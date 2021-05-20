@@ -3,9 +3,12 @@ import React, { useContext, useState, useMemo } from 'react'
 import { Checkbox } from 'vtex.styleguide'
 import { applyModifiers } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
+import { usePixel } from 'vtex.pixel-manager'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
+import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
 import styles from '../searchResult.css'
-import SettingsContext from '../components/SettingsContext'
+import SettingsContext from './SettingsContext'
 import { searchSlugify } from '../utils/slug'
 import { SearchFilterBar } from './SearchFilterBar'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
@@ -23,6 +26,8 @@ const FacetCheckboxList = ({
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
 }) => {
+  const { push } = usePixel()
+  const { searchQuery } = useSearchPage()
   const { showFacetQuantity } = useContext(SettingsContext)
   const { getSettings } = useRuntime()
   const { thresholdForFacetSearch } = useSettings()
@@ -35,15 +40,16 @@ const FacetCheckboxList = ({
     if (thresholdForFacetSearch === undefined || searchTerm === '') {
       return facets
     }
+
     return facets.filter(
-      facet => facet.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+      (facet) => facet.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
     )
   }, [facets, searchTerm, thresholdForFacetSearch])
 
   const shouldTruncate =
     navigationType === 'collapsible' &&
     truncateFilters &&
-    // The "+ 1" prevents from truncating a single value 
+    // The "+ 1" prevents from truncating a single value
     quantity > FACETS_RENDER_THRESHOLD + 1
 
   const endSlice =
@@ -55,10 +61,11 @@ const FacetCheckboxList = ({
     thresholdForFacetSearch !== undefined &&
     thresholdForFacetSearch < facets.length
 
-  const openTruncated = value => {
+  const openTruncated = (value) => {
     if (isLazyFacetsFetchEnabled && !truncatedFacetsFetched) {
       setTruncatedFacetsFetched(true)
     }
+
     setTruncated(value)
   }
 
@@ -67,7 +74,7 @@ const FacetCheckboxList = ({
       {showSearchBar ? (
         <SearchFilterBar name={facetTitle} handleChange={setSearchTerm} />
       ) : null}
-      {filteredFacets.slice(0, endSlice).map(facet => {
+      {filteredFacets.slice(0, endSlice).map((facet) => {
         const { name } = facet
         const slugifiedName = searchSlugify(name)
 
@@ -90,7 +97,16 @@ const FacetCheckboxList = ({
                   : facet.name
               }
               name={name}
-              onChange={() => onFilterCheck({ ...facet, title: facetTitle })}
+              onChange={() => {
+                pushFilterManipulationPixelEvent({
+                  name: facetTitle,
+                  value: name,
+                  products: searchQuery?.products ?? [],
+                  push,
+                })
+
+                onFilterCheck({ ...facet, title: facetTitle })
+              }}
               value={name}
             />
           </div>
@@ -100,7 +116,9 @@ const FacetCheckboxList = ({
         <ShowMoreFilterButton
           quantity={quantity - FACETS_RENDER_THRESHOLD}
           truncated={truncated}
-          toggleTruncate={() => openTruncated(truncated => !truncated)}
+          toggleTruncate={() =>
+            openTruncated((prevTruncated) => !prevTruncated)
+          }
         />
       )}
     </>

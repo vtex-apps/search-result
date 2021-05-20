@@ -22,7 +22,8 @@ const findProductCluster = findIndex(equals('productClusterIds'))
 const isCategoryMap = either(
   equals('c'), // traditional mapping for category
   startsWith('category-') // compatibility with VTEX IS approach
-  )
+)
+
 const findLastCategory = findLastIndex(isCategoryMap)
 const isBrandPage = compose(equals('b'), head)
 const getLastName = compose(prop('name'), last)
