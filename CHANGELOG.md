@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- `FetchPrevious` and `FetchMore` links now consider the page number to improve SEO
 
 ## [3.99.0] - 2021-05-24
 ### Added
