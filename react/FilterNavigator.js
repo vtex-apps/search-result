@@ -5,9 +5,11 @@ import ContentLoader from 'react-content-loader'
 import { ExtensionPoint, useRuntime } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 // eslint-disable-next-line no-restricted-imports
 import { flatten } from 'ramda'
 import { FormattedMessage } from 'react-intl'
+import { Button } from 'vtex.styleguide'
 
 import FilterSidebar from './components/FilterSidebar'
 import SelectedFilters from './components/SelectedFilters'
@@ -164,7 +166,10 @@ const FilterNavigator = ({
     (facet) => facet.selected
   )
 
-  const hasFiltersApplied = window.location.href.split('?').length > 1
+  const { searchQuery } = useSearchPage()
+
+  const hasFiltersApplied = searchQuery.variables.selectedFacets.length > 1
+
   const { history, navigate } = useRuntime()
   const handleResetFilters = () => {
     navigate({ to: history.location.pathname })
@@ -281,12 +286,12 @@ const FilterNavigator = ({
                   'clearFilters'
                 )} bb b--muted-4`}
               >
-                <button
+                <Button
                   onClick={handleResetFilters}
                   className={`${handles.clearAllFilters}`}
                 >
                   <FormattedMessage id="store/search-result.filter-button.clearAll" />
-                </button>
+                </Button>
               </div>
             )}
           </div>
