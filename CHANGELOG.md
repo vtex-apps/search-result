@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- adding `phone` type on prop `layout` to the `FilterNavigator`.
+- `phone` option to the `layout` prop  from `FilterNavigator` component.
 
 ### Added
 - Pixel event triggered when a filter is changed
