@@ -91,6 +91,13 @@ const useOnView = ({
         unobserve = initializeObserver()
       }
 
+      // Checks if the user has scrolled the page before JS is loaded
+      const scrollPosition = window.pageYOffset
+
+      if (scrollPosition > 0) {
+        handleInteraction()
+      }
+
       window?.document?.addEventListener('scroll', handleInteraction)
       window?.document?.addEventListener('mouseover', handleInteraction)
 

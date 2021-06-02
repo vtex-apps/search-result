@@ -10,6 +10,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Added `preventRouteChange` prop to the app documentation (README.md file).
 
+## [3.99.0] - 2021-05-24
+### Added
+- Pixel event triggered when a filter is changed
+
+## [3.98.4] - 2021-05-18
+### Fixed
+- Issue where paginated results would not render properly when lazy rendering is enabled.
+
 ## [3.98.3] - 2021-04-15
 ### Fixed
 - Add new category mapping compatibility to `SearchTitle`
