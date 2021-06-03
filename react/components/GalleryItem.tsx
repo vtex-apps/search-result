@@ -65,6 +65,7 @@ function GalleryItem({
     displayMode,
     listName,
     actionOnClick: handleClick,
+    position,
   }
 
   if (CustomSummary) {

@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - List name to GTM `productClick` event
-- Passing `listName` prop to Product Summary
+- Passing `listName` and `position` prop to Product Summary
 
 ## [3.99.0] - 2021-05-24
 ### Added

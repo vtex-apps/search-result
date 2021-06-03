@@ -56,6 +56,7 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
       displayMode={displayMode}
       actionOnClick={handleClick}
       listName={listName}
+      position={position}
     />
   )
 }
