@@ -33,7 +33,7 @@ const CSS_HANDLES = [
 const LAYOUT_TYPES = {
   responsive: 'responsive',
   desktop: 'desktop',
-  phone: 'phone'
+  phone: 'phone',
 }
 
 const getSelectedCategories = (tree) => {
@@ -96,8 +96,8 @@ const FilterNavigator = ({
   const mobileLayout =
     (isMobile && layout === LAYOUT_TYPES.responsive) ||
     layout === LAYOUT_TYPES.mobile ||
-    !isMobile && layout === LAYOUT_TYPES.phone || isMobile && layout === LAYOUT_TYPES.phone
- 
+    layout === LAYOUT_TYPES.phone
+
   useEffect(() => {
     // This condition confirms if there are facets that still need fetching
     const needsFetching = !!filters.find(
