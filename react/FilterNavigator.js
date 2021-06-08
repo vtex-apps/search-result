@@ -41,6 +41,11 @@ const LAYOUT_TYPES = {
   phone: 'phone',
 }
 
+const DRAWER_DIRECTION_MOBILE = {
+  right: 'drawerRight',
+  left: 'drawerLeft',
+}
+
 const getSelectedCategories = (tree) => {
   for (const node of tree) {
     if (!node.selected) {
@@ -91,6 +96,7 @@ const FilterNavigator = ({
   fullWidthOnMobile = false,
   navigationTypeOnMobile = 'page',
   updateOnFilterSelectionOnMobile = false,
+  filtersDrawerDirectionMobile = DRAWER_DIRECTION_MOBILE.left,
   showClearByFilter = false,
   showClearAllFiltersOnDesktop = false,
   priceRangeLayout = 'slider',
@@ -104,6 +110,10 @@ const FilterNavigator = ({
     (isMobile && layout === LAYOUT_TYPES.responsive) ||
     layout === LAYOUT_TYPES.mobile ||
     layout === LAYOUT_TYPES.phone
+
+  if(!Object.values(DRAWER_DIRECTION_MOBILE).includes(filtersDrawerDirectionMobile)) {
+    filtersDrawerDirectionMobile = DRAWER_DIRECTION_MOBILE.left
+  }
 
   useEffect(() => {
     // This condition confirms if there are facets that still need fetching
@@ -240,6 +250,7 @@ const FilterNavigator = ({
               updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
               showClearByFilter={showClearByFilter}
               priceRangeLayout={priceRangeLayout}
+              filtersDrawerDirectionMobile={filtersDrawerDirectionMobile}
             />
           </div>
         </div>
@@ -328,6 +339,7 @@ FilterNavigator.propTypes = {
   /** Loading indicator */
   loading: PropTypes.bool,
   layout: PropTypes.oneOf(Object.values(LAYOUT_TYPES)),
+  filtersDrawerDirectionMobile: PropTypes.oneOf(Object.values(DRAWER_DIRECTION_MOBILE)),
   initiallyCollapsed: PropTypes.bool,
   truncateFilters: PropTypes.bool,
   filtersTitleHtmlTag: PropTypes.string,

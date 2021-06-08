@@ -35,7 +35,7 @@ class Sidebar extends Component {
   }
 
   render() {
-    const { isOpen, onOutsideClick } = this.props
+    const { isOpen, onClose, filtersDrawerDirectionMobile } = this.props
 
     if (typeof document === 'undefined') {
       return null
@@ -49,11 +49,11 @@ class Sidebar extends Component {
     )
 
     return ReactDOM.createPortal(
-      <OutsideClickHandler onOutsideClick={onOutsideClick}>
+      <OutsideClickHandler onClose={onClose}>
         <div
           style={{ willChange: 'opacity' }}
           className={scrimClasses}
-          onClick={onOutsideClick}
+          onClick={onClose}
         />
         <Animation
           className={classNames(
@@ -61,7 +61,7 @@ class Sidebar extends Component {
             this.props.fullWidth ? 'w-100' : 'w-80'
           )}
           isActive={isOpen}
-          type="drawerLeft"
+          type={filtersDrawerDirectionMobile}
         >
           {this.props.children}
         </Animation>
@@ -79,8 +79,9 @@ Sidebar.propTypes = {
   /* Sidebar content */
   children: PropTypes.node,
   /* Function to be called when click in the close sidebar button or outside the sidebar */
-  onOutsideClick: PropTypes.func,
+  onClose: PropTypes.func,
   /* The SideBar will occupy the entire length of the window */
   fullWidth: PropTypes.bool,
+  filtersDrawerDirectionMobile: PropTypes.string,
 }
 export default injectIntl(Sidebar)
