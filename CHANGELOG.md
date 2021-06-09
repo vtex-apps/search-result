@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ## Fixed
 - `scrollToTop` prop not being passed down to `PriceRange` component
+
 ## [3.99.1] - 2021-06-08
 ### Fixed
 - `FetchPrevious` and `FetchMore` links now consider the page number to improve SEO
