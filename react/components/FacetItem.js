@@ -2,7 +2,10 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Checkbox } from 'vtex.styleguide'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import classNames from 'classnames'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
+import { usePixel } from 'vtex.pixel-manager'
 
+import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
 import SettingsContext from './SettingsContext'
 import useShouldDisableFacet from '../hooks/useShouldDisableFacet'
 
@@ -28,6 +31,7 @@ const FacetItem = ({
 }) => {
   const { showFacetQuantity } = useContext(SettingsContext)
   const [selected, setSelected] = useState(facet.selected)
+  const { push } = usePixel()
   const handles = useCssHandles(CSS_HANDLES)
   const classes = classNames(
     applyModifiers(handles.filterItem, facet.value),
@@ -35,6 +39,8 @@ const FacetItem = ({
     className,
     'lh-copy w-100'
   )
+
+  const { searchQuery } = useSearchPage()
 
   const checkBoxId = reservedVariableNames.includes(facet.value)
     ? `filterItem--${facet.key}-${facet.value}`
@@ -57,7 +63,12 @@ const FacetItem = ({
   const facetLabel = showFacetQuantity ? (
     <>
       {facet.name}{' '}
-      <span className={handles.productCount}>({facet.quantity})</span>
+      <span
+        data-testid={`facet-quantity-${facet.value}-${facet.quantity}`}
+        className={handles.productCount}
+      >
+        ({facet.quantity})
+      </span>
     </>
   ) : (
     facet.name
@@ -74,6 +85,13 @@ const FacetItem = ({
         label={facetLabel}
         name={facet.name}
         onChange={() => {
+          pushFilterManipulationPixelEvent({
+            name: facetTitle,
+            value: facet.name,
+            products: searchQuery?.products ?? [],
+            push,
+          })
+
           setSelected(!selected)
           navigateToFacet({ ...facet, title: facetTitle }, preventRouteChange)
         }}

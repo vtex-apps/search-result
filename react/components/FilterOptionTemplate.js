@@ -136,7 +136,7 @@ const FilterOptionTemplate = ({
         filters.filter((filter) => filter.selected),
         preventRouteChange
       ),
-    [navigateToFacet, filters]
+    [navigateToFacet, filters, preventRouteChange]
   )
 
   const renderChildren = () => {
@@ -289,6 +289,7 @@ const FilterOptionTemplate = ({
           pb5: !collapsable || isOpen,
         })}
         ref={scrollable}
+        data-testid="scrollable-element"
         style={
           !selected &&
           (!(truncateFilters || isLazyFacetsFetchEnabled) ||

@@ -1,10 +1,12 @@
 import { useState, useRef, useCallback, useEffect, useReducer } from 'react'
+// eslint-disable-next-line no-restricted-imports
 import { max } from 'ramda'
 import { useRuntime } from 'vtex.render-runtime'
 import {
   useSearchPageStateDispatch,
   useSearchPageState,
 } from 'vtex.search-page-context/SearchPageContext'
+
 import useSearchState from './useSearchState'
 
 export const FETCH_TYPE = {
@@ -14,6 +16,7 @@ export const FETCH_TYPE = {
 
 function reducer(state, action) {
   const { maxItemsPerPage, to, from, rollbackState } = action.args
+
   switch (action.type) {
     case 'RESET':
       return {
@@ -23,6 +26,7 @@ function reducer(state, action) {
         from: 0,
         to: maxItemsPerPage - 1,
       }
+
     case 'NEXT_PAGE':
       return {
         ...state,
@@ -30,6 +34,7 @@ function reducer(state, action) {
         nextPage: state.nextPage + 1,
         to,
       }
+
     case 'PREVIOUS_PAGE':
       return {
         ...state,
@@ -40,6 +45,8 @@ function reducer(state, action) {
 
     case 'ROLLBACK':
       return rollbackState
+
+    default:
   }
 }
 
@@ -55,6 +62,7 @@ const handleFetchMore = async (
   fuzzy,
   operator,
   searchState
+  // eslint-disable-next-line max-params
 ) => {
   if (fetchMoreLocked.current || products.length === 0) {
     return
@@ -80,6 +88,7 @@ const handleFetchMore = async (
 
       if (!products || !fetchMoreResult) {
         updateQueryError.current = true
+
         return
       }
 
@@ -111,11 +120,12 @@ const handleFetchMore = async (
         },
       }
     },
-  }).catch(error => {
+  }).catch((error) => {
     setLoading(false)
     fetchMoreLocked.current = false
     updateQueryError.current = true
-    return { error: error }
+
+    return { error }
   })
 }
 
@@ -124,25 +134,27 @@ const useFetchingMore = () => {
   const { isFetchingMore } = useSearchPageState()
   const dispatch = useSearchPageStateDispatch()
   const setFetchMore = useCallback(
-    value => {
+    (value) => {
       dispatch({ type: 'SET_FETCHING_MORE', args: { isFetchingMore: value } })
       localSetMore(value)
     },
     [dispatch]
   )
+
   const stateValue = isFetchingMore == null ? loading : isFetchingMore
+
   return [stateValue, setFetchMore]
 }
 
-export const useFetchMore = props => {
+export const useFetchMore = (props) => {
   const {
     page,
-    recordsFiltered,
     maxItemsPerPage,
     fetchMore,
     products,
     queryData: { query, map, orderBy, priceRange },
   } = props
+
   const { setQuery, query: runtimeQuery } = useRuntime()
   const { fuzzy, operator, searchState } = useSearchState()
   const currentPage = (runtimeQuery.page && Number(runtimeQuery.page)) || page
@@ -154,6 +166,7 @@ export const useFetchMore = props => {
     from: (page - 1) * maxItemsPerPage,
     to: currentPage * maxItemsPerPage - 1,
   }
+
   const [pageState, pageDispatch] = useReducer(reducer, initialState)
   const [loading, setLoading] = useFetchingMore()
   const isFirstRender = useRef(true)
@@ -162,12 +175,13 @@ export const useFetchMore = props => {
   errors when the search result uses infinite scroll. 
   This should be removed once infinite scrolling is removed */
   const [infiniteScrollError, setInfiniteScrollError] = useState(false)
-  const updateQueryError = useRef(false) //TODO: refactor this ref
+  const updateQueryError = useRef(false) // TODO: refactor this ref
 
   useEffect(() => {
     if (!isFirstRender.current) {
       pageDispatch({ type: 'RESET', args: { maxItemsPerPage } })
     }
+
     isFirstRender.current = false
   }, [maxItemsPerPage, query, map, orderBy, priceRange])
 
@@ -175,6 +189,7 @@ export const useFetchMore = props => {
     const rollbackState = pageState
     const from = pageState.to + 1
     const to = from + maxItemsPerPage - 1
+
     setInfiniteScrollError(false)
     pageDispatch({ type: 'NEXT_PAGE', args: { to } })
 
@@ -198,19 +213,24 @@ export const useFetchMore = props => {
       operator,
       sessionStorage.getItem('searchState') ?? searchState
     )
-    //if error, rollback
-    if (promiseResult && updateQueryError.current) {
-      pageDispatch({ type: 'ROLLBACK', args: { rollbackState } })
-      setQuery({ page: pageState.page }, { replace: true })
-      setInfiniteScrollError(true)
-      updateQueryError.current = false
+
+    // success
+    if (!promiseResult || !updateQueryError.current) {
+      return
     }
+
+    // if error, rollback
+    pageDispatch({ type: 'ROLLBACK', args: { rollbackState } })
+    setQuery({ page: pageState.page }, { replace: true })
+    setInfiniteScrollError(true)
+    updateQueryError.current = false
   }
 
   const handleFetchMorePrevious = async () => {
     const rollbackState = pageState
     const to = pageState.from - 1
     const from = max(0, to - maxItemsPerPage + 1)
+
     setInfiniteScrollError(false)
     pageDispatch({ type: 'PREVIOUS_PAGE', args: { from } })
 
@@ -234,13 +254,17 @@ export const useFetchMore = props => {
       operator,
       sessionStorage.getItem('searchState') ?? searchState
     )
-    //if error, rollback
-    if (promiseResult && updateQueryError.current) {
-      pageDispatch({ type: 'ROLLBACK', args: { rollbackState } })
-      setQuery({ page: pageState.page }, { replace: true, merge: true })
-      setInfiniteScrollError(true)
-      updateQueryError.current = false
+
+    // success
+    if (!promiseResult || !updateQueryError.current) {
+      return
     }
+
+    // if error, rollback
+    pageDispatch({ type: 'ROLLBACK', args: { rollbackState } })
+    setQuery({ page: pageState.page }, { replace: true, merge: true })
+    setInfiniteScrollError(true)
+    updateQueryError.current = false
   }
 
   return {
@@ -249,6 +273,8 @@ export const useFetchMore = props => {
     loading,
     from: pageState.from,
     to: pageState.to,
+    nextPage: pageState.nextPage,
+    previousPage: pageState.previousPage,
     infiniteScrollError,
   }
 }

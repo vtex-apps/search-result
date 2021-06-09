@@ -57,6 +57,7 @@
   "store/search-result.filter-action.title": "Filter",
   "store/search.filter.title.categories": "Afdelingen",
   "store/filter.more-departments": "Zie {quantity} meer afdelingen",
+  "store/search.filter.title.color": "Kleur",
   "store/filter.more-categories": "Zie {quantity} meer categorieën",
   "store/filter.more-items": "Zie meer",
   "store/filter.less-items": "Zie minder",

@@ -83,6 +83,7 @@ const CategoryFilter = ({
         )}
         onClick={handleRootCategoryClick}
         onKeyDown={(e) => e.key === 'Enter' && handleRootCategoryClick()}
+        data-testid={`root-category-${category.value}`}
       >
         <div className="flex-grow-1 dim">
           <span
@@ -121,6 +122,7 @@ const CategoryFilter = ({
             onKeyDown={(e) =>
               e.key === 'Enter' && handleUnselectCategories(index + 1)
             }
+            data-testid={`selected-category-${subCategory.value}`}
           >
             <span className={handles.selectedCategoryName}>
               {subCategory.name}

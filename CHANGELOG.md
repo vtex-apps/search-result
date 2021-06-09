@@ -6,9 +6,27 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-
 ## Fixed
-- add scroll to top in `PriceRange`
+- `scrollToTop` prop not being passed down to `PriceRange` component
+## [3.99.1] - 2021-06-08
+### Fixed
+- `FetchPrevious` and `FetchMore` links now consider the page number to improve SEO
+
+## [3.99.0] - 2021-05-24
+### Added
+- Pixel event triggered when a filter is changed
+
+## [3.98.4] - 2021-05-18
+### Fixed
+- Issue where paginated results would not render properly when lazy rendering is enabled.
+
+## [3.98.3] - 2021-04-15
+### Fixed
+- Add new category mapping compatibility to `SearchTitle`
+
+## [3.98.2] - 2021-04-06
+### Added
+- Main tests to the `FilterNavigator`.
 
 ## [3.98.1] - 2021-03-26
 

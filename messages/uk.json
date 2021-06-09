@@ -57,6 +57,7 @@
   "store/search-result.filter-action.title": "Фільтр",
   "store/search.filter.title.categories": "Відділення",
   "store/filter.more-departments": "Побачити {quantity} більше відділень",
+  "store/search.filter.title.color": "Колір",
   "store/filter.more-categories": "Побачити {quantity} більше категорій",
   "store/filter.more-items": "Побачити більше",
   "store/filter.less-items": "Побачити менше",
