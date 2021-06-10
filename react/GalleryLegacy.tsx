@@ -16,6 +16,8 @@ import GalleryRow from './components/GalleryRow'
 import ProductListEventCaller from './utils/ProductListEventCaller'
 import SettingsContext from './components/SettingsContext'
 import type { Product } from './Gallery'
+import { useBreadcrumb } from './hooks/useBreadcrumb'
+import { useSearchTitle } from './hooks/useSearchTitle'
 
 /** Layout with one column */
 const ONE_COLUMN_LAYOUT = 1
@@ -61,10 +63,16 @@ const Gallery: React.FC<GalleryProps> = ({
   CustomSummary,
 }) => {
   const { isMobile } = useDevice()
-  const { trackingId = 'Search result' } = useContext(SettingsContext) || {}
+  const { trackingId } = useContext(SettingsContext) || {}
   const handles = useCssHandles(CSS_HANDLES)
   const { getSettings } = useRuntime()
   const responsiveMaxItemsPerRow = useResponsiveValue(maxItemsPerRow)
+  const breadcrumb = useBreadcrumb()
+  const searchTitle = useSearchTitle(breadcrumb ?? []).trim()
+
+  // Not using ?? operator because trackingId and searchTitle can be ''
+  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+  const listName = trackingId || searchTitle || 'Search result'
 
   const layoutMode = isMobile ? mobileLayoutMode : 'normal'
 
@@ -109,7 +117,7 @@ const Gallery: React.FC<GalleryProps> = ({
     ?.enableSearchRenderingOptimization
 
   return (
-    <ProductListProvider listName={trackingId}>
+    <ProductListProvider listName={listName}>
       <div className={galleryClasses}>
         {rows.map((rowProducts, index) => (
           <GalleryRow
@@ -120,6 +128,7 @@ const Gallery: React.FC<GalleryProps> = ({
             displayMode={layoutMode}
             itemsPerRow={itemsPerRow}
             rowIndex={index}
+            listName={listName}
             customSummaryInterval={customSummaryInterval}
             CustomSummary={CustomSummary}
           />

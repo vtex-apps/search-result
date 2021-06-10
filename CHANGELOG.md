@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Gallery item's position now starts at 1
+
+### Added
+- List name to GTM `productClick` event
+- Passing `listName` and `position` prop to Product Summary
 
 ## [3.99.1] - 2021-06-08
 ### Fixed

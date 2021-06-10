@@ -21,6 +21,7 @@ interface GalleryRowProps {
   itemsPerRow: number
   lazyRender?: boolean
   rowIndex?: number
+  listName: string
   customSummaryInterval?: number
   CustomSummary?: ComponentType
 }
@@ -32,6 +33,7 @@ function GalleryRow({
   itemsPerRow,
   lazyRender,
   rowIndex = 0,
+  listName,
   customSummaryInterval,
   CustomSummary,
 }: GalleryRowProps) {
@@ -78,7 +80,8 @@ function GalleryRow({
               item={product}
               summary={summary}
               displayMode={displayMode}
-              position={rowIndex * itemsPerRow + index}
+              position={absoluteProductIndex}
+              listName={listName}
               CustomSummary={shouldRenderCustom ? CustomSummary : undefined}
             />
           </div>
