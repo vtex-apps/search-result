@@ -17,7 +17,7 @@ interface GalleryItemProps {
   summary: any
   /** Item position in the gallery */
   position: number
-  /** Name of the list of products */
+  /** Name of the list of products. This name will be used when sending pixel events */
   listName: string
   CustomSummary?: ComponentType
 }
