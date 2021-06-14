@@ -11,7 +11,6 @@ import AccordionFilterItem from './AccordionFilterItem'
 import DepartmentFilters from './DepartmentFilters'
 import AccordionFilterGroup from './AccordionFilterGroup'
 import AccordionFilterPriceRange from './AccordionFilterPriceRange'
-import MobileFiltersCloseButton from './MobileFiltersCloseButton'
 import styles from '../searchResult.css'
 
 const CSS_HANDLES = [
@@ -135,7 +134,6 @@ const AccordionFilterContainer = ({
             </div>
           </div>
         )}
-        <MobileFiltersCloseButton onClose={onClose} />
       </div>
 
       {tree.length > 0 && (
@@ -258,7 +256,6 @@ AccordionFilterContainer.propTypes = {
   updateOnFilterSelectionOnMobile: PropTypes.bool,
   /** Price range layout (default or inputAndSlider) */
   priceRangeLayout: PropTypes.string,
-  onClose: PropTypes.func,
 }
 
 export default AccordionFilterContainer

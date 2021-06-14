@@ -165,7 +165,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Pixel event triggered when a filter is changed
-- Close button on mobile filters drawer
 - Mobile filters drawer open direction prop to filters.V3
 
 ## [3.98.4] - 2021-05-18
