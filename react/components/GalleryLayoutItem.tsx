@@ -12,6 +12,7 @@ interface GalleryLayoutItemProps {
   displayMode: string
   summary: unknown
   position: number
+  listName: string
 }
 
 const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
@@ -20,6 +21,7 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
   displayMode,
   summary,
   position,
+  listName,
 }) => {
   const { push } = usePixel()
   const { searchQuery } = useSearchPage()
@@ -36,6 +38,7 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
       query: searchQuery?.variables?.query,
       map: searchQuery?.variables?.map,
       position,
+      list: listName,
     })
   }, [
     product,
@@ -43,6 +46,7 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
     searchQuery?.variables?.map,
     searchQuery?.variables?.query,
     position,
+    listName,
   ])
 
   return (
@@ -51,6 +55,8 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
       product={product}
       displayMode={displayMode}
       actionOnClick={handleClick}
+      listName={listName}
+      position={position}
     />
   )
 }

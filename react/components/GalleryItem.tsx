@@ -17,6 +17,8 @@ interface GalleryItemProps {
   summary: any
   /** Item position in the gallery */
   position: number
+  /** Name of the list of products. This name will be used when sending pixel events */
+  listName: string
   CustomSummary?: ComponentType
 }
 
@@ -27,6 +29,7 @@ function GalleryItem({
   item,
   displayMode,
   position,
+  listName,
   summary,
   CustomSummary,
 }: GalleryItemProps) {
@@ -45,6 +48,7 @@ function GalleryItem({
       query: searchQuery?.variables?.query,
       map: searchQuery?.variables?.map,
       position,
+      list: listName,
     })
   }, [
     product,
@@ -52,13 +56,16 @@ function GalleryItem({
     searchQuery?.variables?.map,
     searchQuery?.variables?.query,
     position,
+    listName,
   ])
 
   const productSummaryProps = {
     ...summary,
     product,
     displayMode,
+    listName,
     actionOnClick: handleClick,
+    position,
   }
 
   if (CustomSummary) {

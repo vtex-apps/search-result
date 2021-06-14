@@ -10,6 +10,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Added `preventRouteChange` prop to the app documentation (README.md file).
 
+## [3.100.0] - 2021-06-10
+### Fixed
+- Gallery item's position now starts at 1
+
+### Added
+- List name to GTM `productClick` event
+- Passing `listName` and `position` prop to Product Summary
+
+## [3.99.1] - 2021-06-08
+### Fixed
+- `FetchPrevious` and `FetchMore` links now consider the page number to improve SEO
+
 ## [3.99.0] - 2021-05-24
 ### Added
 - Pixel event triggered when a filter is changed
