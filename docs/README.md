@@ -51,7 +51,7 @@ Now, you can use all the blocks exported by the `search-result` app. Check out t
 | `filter-navigator.v3`        | Allows users to apply different filters to the search. On mobile, renders a button that, when clicked on, displays all available filters in a sidebar. | 
 | `total-products.v2`        | Displays the total amount of products found for that search. | 
 | `search-title.v2`         | Displays a title for the search that was done. |                                                                                              |
-| `search-fetch-more`         | Displays the **Show More** button. This button isn not rendered when the user is on the last page. |                                                                                              |
+| `search-fetch-more`         | Displays the **Show More** button. This button is not rendered when the user is on the last page. |                                                                                              |
 | `search-fetch-previous`         | Displays the **Show Previous** button. This button is not rendered when the user is on the first page. |                                                                                              |
 | `search-products-count-per-page`         | Displays the number of products currently on the page. |                                                                                              |
 | `sidebar-close-button`         | Displays an `X` button on the filter sidebar on mobile. |                                                                                              |
