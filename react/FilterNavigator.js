@@ -262,6 +262,7 @@ const FilterNavigator = ({
               appliedFiltersOverview={appliedFiltersOverview}
               showClearByFilter={showClearByFilter}
               priceRangeLayout={priceRangeLayout}
+              scrollToTop={scrollToTop}
             />
           </div>
           <ExtensionPoint id="shop-review-summary" />
