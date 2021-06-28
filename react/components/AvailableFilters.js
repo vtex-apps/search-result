@@ -38,6 +38,7 @@ const Filter = ({
   appliedFiltersOverview,
   showClearByFilter,
   priceRangeLayout,
+  scrollToTop,
 }) => {
   const { type, title, facets, quantity, oneSelectedCollapse = false } = filter
 
