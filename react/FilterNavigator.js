@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useMemo, Fragment, useState, useEffect } from 'react'
 import ContentLoader from 'react-content-loader'
-import { ExtensionPoint, useRuntime } from 'vtex.render-runtime'
+import { ExtensionPoint } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
@@ -167,9 +167,8 @@ const FilterNavigator = ({
   const { searchQuery } = useSearchPage()
   const hasFiltersApplied = searchQuery.variables.selectedFacets.length > 1
 
-  const { history, navigate } = useRuntime()
   const handleResetFilters = () => {
-    navigate({ to: history.location.pathname })
+    navigateToFacet(selectedFilters, preventRouteChange)
   }
 
   const selectedCategories = getSelectedCategories(tree)
