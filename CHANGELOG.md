@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.102.0] - 2021-06-29
+
 ## [3.101.0] - 2021-06-24
 ## Fixed
 - `scrollToTop` prop not being passed down to `PriceRange` component
