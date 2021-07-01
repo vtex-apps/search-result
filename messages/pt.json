@@ -97,5 +97,10 @@
   "admin/editor.search-result-layout.title": "Resultado de busca flexível",
   "admin/editor.search-result-mobile.title": "Resultado de busca flexível para dispositivo móvel",
   "admin/editor.search-result-desktop.title": "Resultado de busca flexível para Desktop",
-  "store/search-result.price-ranges.submit": "Ir"
+  "store/search-result.price-ranges.submit": "Pesquisar",
+  "admin/editor.search-result.fetch-more": "Mostrar mais",
+  "admin/editor.search-result.fetch-previous": "Mostrar anteriores",
+  "admin/editor.search-result.fetch-button.button-behavior": "Comportamento do botão",
+  "admin/editor.search-result.fetch-button.button-behavior.button": "Botão",
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link para a página – Melhora o SEO, pode mudar a aparência do botão"
 }

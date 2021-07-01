@@ -68,4 +68,8 @@ FetchMore.propTypes = {
   htmlElementForButton: PropTypes.string,
 }
 
+FetchMore.schema = {
+  title: 'admin/editor.search-result.fetch-more',
+}
+
 export default FetchMore
