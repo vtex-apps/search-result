@@ -96,10 +96,10 @@
   "admin/editor.search-result-layout.title": "Title of Search Result Layout",
   "admin/editor.search-result-mobile.title": "Title of Search Result Layout for Mobile",
   "admin/editor.search-result-desktop.title": "Title of Search Result Layout for Deskptop",
-  "store/search-result.price-ranges.submit": "Price Range submit button",
-  "admin/editor.search-result.fetch-more": "Fetch more",
-  "admin/editor.search-result.fetch-previous": "Fetch previous",
+  "store/search-result.price-ranges.submit": "Go",
+  "admin/editor.search-result.fetch-more": "Show more",
+  "admin/editor.search-result.fetch-previous": "Show previous",
   "admin/editor.search-result.fetch-button.button-behavior": "Button behavior",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Button",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link to page - improves SEO, may change how the button looks"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link to page - Improves SEO, may change how the button looks"
 }
