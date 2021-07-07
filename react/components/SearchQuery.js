@@ -146,7 +146,7 @@ const useCorrectSearchStateVariables = (
 }
 
 const useQueries = (variables, facetsArgs) => {
-  const { getSettings } = useRuntime()
+  const { getSettings, query: runtimeQuery } = useRuntime()
   const isLazyFacetsFetchEnabled = getSettings('vtex.store')
     ?.enableFiltersFetchOptimization
 
@@ -187,6 +187,7 @@ const useQueries = (variables, facetsArgs) => {
       operator: variables.operator,
       fuzzy: variables.fuzzy,
       searchState: variables.searchState,
+      initialAttributes: runtimeQuery?.initialMap,
     },
     skip: !facetsArgs.withFacets,
   })

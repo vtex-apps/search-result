@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- Pass `initialMap` to facets query.
+
 ## [3.103.0] - 2021-07-01
 ### Added
 - Schemas for customizing Fetch More and Fetch Previous buttons behaviors through site-editor
