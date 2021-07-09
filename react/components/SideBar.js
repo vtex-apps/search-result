@@ -48,6 +48,12 @@ class Sidebar extends Component {
       }
     )
 
+    const sidebarClasses = classNames(
+      `${searchResult.sidebar} w-auto-ns h-100 fixed top-0 z-9999 bg-base shadow-2 flex flex-column`,
+      this.props.fullWidth ? 'w-100' : 'w-80',
+      filtersDrawerDirectionMobile === 'drawerLeft' ? 'right-0' : 'left-0'
+    )
+
     return ReactDOM.createPortal(
       <OutsideClickHandler onOutsideClick={onOutsideClick}>
         <div
@@ -56,10 +62,7 @@ class Sidebar extends Component {
           onClick={onOutsideClick}
         />
         <Animation
-          className={classNames(
-            `${searchResult.sidebar} w-auto-ns h-100 fixed top-0 right-0 z-9999 bg-base shadow-2 flex flex-column`,
-            this.props.fullWidth ? 'w-100' : 'w-80'
-          )}
+          className={sidebarClasses}
           isActive={isOpen}
           type={filtersDrawerDirectionMobile}
         >
