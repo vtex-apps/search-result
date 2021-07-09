@@ -35,6 +35,7 @@ const FacetCheckboxList = ({
   const [truncated, setTruncated] = useState(true)
   const isLazyFacetsFetchEnabled = getSettings('vtex.store')
     ?.enableFiltersFetchOptimization
+  const sampling = searchQuery?.facets?.sampling
 
   const filteredFacets = useMemo(() => {
     if (thresholdForFacetSearch === undefined || searchTerm === '') {
@@ -92,7 +93,7 @@ const FacetCheckboxList = ({
               checked={facet.selected}
               id={name}
               label={
-                showFacetQuantity
+                (showFacetQuantity && !sampling)
                   ? `${facet.name} (${facet.quantity})`
                   : facet.name
               }

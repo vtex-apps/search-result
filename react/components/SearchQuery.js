@@ -230,6 +230,7 @@ const useQueries = (variables, facetsArgs) => {
         queryArgs,
         breadcrumb: facets && facets.breadcrumb,
         facetsFetchMore,
+        sampling: facets?.sampling,
       },
       searchMetadata,
     },
