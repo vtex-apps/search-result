@@ -11,13 +11,11 @@ const noProducts = compose(
   pathOr([], ['data', 'productSearch', 'products'])
 )
 
-const isFtOnly = compose(equals('ft'), path(['variables', 'map']))
-
 const noRedirect = compose(isNil, path(['data', 'productSearch', 'redirect']))
 
 const foundNothing = searchQuery => {
   const { loading } = searchQuery || {}
-  return isFtOnly(searchQuery) && !loading && noProducts(searchQuery)
+  return !loading && noProducts(searchQuery)
 }
 
 const SearchResultLayout = props => {
