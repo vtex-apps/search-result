@@ -5,11 +5,8 @@ import ContentLoader from 'react-content-loader'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
-import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 // eslint-disable-next-line no-restricted-imports
 import { flatten } from 'ramda'
-import { FormattedMessage } from 'react-intl'
-import { Button } from 'vtex.styleguide'
 
 import FilterSidebar from './components/FilterSidebar'
 import SelectedFilters from './components/SelectedFilters'
@@ -31,7 +28,6 @@ const CSS_HANDLES = [
   'filter__container',
   'filtersWrapper',
   'filtersWrapperMobile',
-  'clearAllFilters',
 ]
 
 const LAYOUT_TYPES = {
@@ -91,7 +87,6 @@ const FilterNavigator = ({
   navigationTypeOnMobile = 'page',
   updateOnFilterSelectionOnMobile = false,
   showClearByFilter = false,
-  showClearAllFiltersOnDesktop = false,
   priceRangeLayout = 'slider',
 }) => {
   const { isMobile } = useDevice()
@@ -165,13 +160,6 @@ const FilterNavigator = ({
   }, [brands, priceRanges, specificationFilters]).filter(
     (facet) => facet.selected
   )
-
-  const { searchQuery } = useSearchPage()
-  const hasFiltersApplied = searchQuery.variables.selectedFacets.length > 1
-
-  const handleResetFilters = () => {
-    navigateToFacet(selectedFilters, preventRouteChange)
-  }
 
   const selectedCategories = getSelectedCategories(tree)
   const navigateToFacet = useFacetNavigation(
@@ -278,18 +266,6 @@ const FilterNavigator = ({
               priceRangeLayout={priceRangeLayout}
               scrollToTop={scrollToTop}
             />
-            {showClearAllFiltersOnDesktop && hasFiltersApplied && (
-              <div
-                className={`${applyModifiers(
-                  handles.filter__container,
-                  'clearAllFilters'
-                )} bb b--muted-4`}
-              >
-                <Button onClick={handleResetFilters}>
-                  <FormattedMessage id="store/search-result.filter-button.clearAll" />
-                </Button>
-              </div>
-            )}
           </div>
           <ExtensionPoint id="shop-review-summary" />
         </Fragment>

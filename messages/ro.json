@@ -52,7 +52,6 @@
   "store/search-result.filter-breadcrumbs.primary": "Filtre",
   "store/search-result.filter-button.apply": "Aplică",
   "store/search-result.filter-button.clear": "Curățare",
-  "store/search-result.filter-button.clearAll": "Șterge tot",
   "store/search-result.orderby.title": "Sortează după",
   "store/search-result.clear-filters.title": "Golește înregistrări",
   "store/search-result.filter-action.title": "Filtrează",

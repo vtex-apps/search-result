@@ -52,7 +52,6 @@
   "store/search-result.filter-breadcrumbs.primary": "Фильтры",
   "store/search-result.filter-button.apply": "Применить",
   "store/search-result.filter-button.clear": "Очистить",
-  "store/search-result.filter-button.clearAll": "Очистить все",
   "store/search-result.orderby.title": "Сортировать по",
   "store/search-result.clear-filters.title": "Удалить",
   "store/search-result.filter-action.title": "Фильтр",

@@ -52,7 +52,6 @@
   "store/search-result.filter-breadcrumbs.primary": "Filtry",
   "store/search-result.filter-button.apply": "Zastosuj",
   "store/search-result.filter-button.clear": "Wyczyść",
-  "store/search-result.filter-button.clearAll": "Wyczyść wszystko",
   "store/search-result.orderby.title": "Sortuj według",
   "store/search-result.clear-filters.title": "Wymaż",
   "store/search-result.filter-action.title": "Filtruj",

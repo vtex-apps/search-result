@@ -52,7 +52,6 @@
   "store/search-result.filter-breadcrumbs.primary": "Filter",
   "store/search-result.filter-button.apply": "Tillämpa",
   "store/search-result.filter-button.clear": "Rengör",
-  "store/search-result.filter-button.clearAll": "Rensa alla",
   "store/search-result.orderby.title": "Sortera efter",
   "store/search-result.clear-filters.title": "Rengör",
   "store/search-result.filter-action.title": "Filter",

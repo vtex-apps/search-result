@@ -52,7 +52,6 @@
   "store/search-result.filter-breadcrumbs.primary": "Φίλτρα",
   "store/search-result.filter-button.apply": "Εφαρμογή",
   "store/search-result.filter-button.clear": "Καθαρισμός",
-  "store/search-result.filter-button.clearAll": "Απαλοιφή Όλων",
   "store/search-result.orderby.title": "Ταξινόμηση ανά",
   "store/search-result.clear-filters.title": "Εκκαθάριση",
   "store/search-result.filter-action.title": "Φίλτρο",
