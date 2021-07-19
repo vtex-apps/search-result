@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- Use `cacheId` instead of `productId` as `Gallery` key.
+
 ## [3.106.0] - 2021-07-28
 
 ### Changed
