@@ -53,7 +53,6 @@
   "store/search-result.filter-breadcrumbs.primary": "Filtros",
   "store/search-result.filter-button.apply": "Aplicar",
   "store/search-result.filter-button.clear": "Limpiar",
-  "store/search-result.filter-button.clearAll": "Limpiar todo",
   "store/search-result.orderby.title": "Ordenar por",
   "store/search-result.filter-action.title": "Filtrar",
   "store/search-result.clear-filters.title": "Limpiar",

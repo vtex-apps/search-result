@@ -52,7 +52,6 @@
   "store/search-result.filter-breadcrumbs.primary": "필터",
   "store/search-result.filter-button.apply": "적용",
   "store/search-result.filter-button.clear": "깨끗한",
-  "store/search-result.filter-button.clearAll": "모두 지우기",
   "store/search-result.orderby.title": "정렬 기준",
   "store/search-result.clear-filters.title": "분명한",
   "store/search-result.filter-action.title": "필터",

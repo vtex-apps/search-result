@@ -53,7 +53,6 @@
   "store/search-result.filter-breadcrumbs.primary": "Filters",
   "store/search-result.filter-button.apply": "Apply",
   "store/search-result.filter-button.clear": "Clear",
-  "store/search-result.filter-button.clearAll": "Clear all",
   "store/search-result.orderby.title": "Sort by",
   "store/search-result.clear-filters.title": "Clear",
   "store/search-result.filter-action.title": "Filter",
