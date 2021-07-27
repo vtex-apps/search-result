@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Button } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { FormattedMessage } from 'react-intl'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
+
+import { getMapQueryString } from './FetchMoreButton'
 
 const CSS_HANDLES = ['buttonShowMore']
 
@@ -32,6 +35,7 @@ const FetchPreviousButton = (props) => {
   const isAnchor = htmlElementForButton === 'a'
   const showButton = useShowButton(from, products, loading)
   const handles = useCssHandles(CSS_HANDLES)
+  const { searchQuery } = useSearchPage()
 
   const handleFetchMoreClick = (ev) => {
     isAnchor && ev.preventDefault()
@@ -43,7 +47,9 @@ const FetchPreviousButton = (props) => {
       {showButton && (
         <Button
           onClick={(ev) => handleFetchMoreClick(ev)}
-          href={isAnchor && `?page=${previousPage}`}
+          href={
+            isAnchor && `?page=${previousPage}${getMapQueryString(searchQuery)}`
+          }
           rel={isAnchor && 'prev'}
           isLoading={loading}
           size="small"
