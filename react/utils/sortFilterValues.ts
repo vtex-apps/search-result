@@ -19,17 +19,15 @@ interface SortRules {
   order: typeof ASC | typeof DESC
 }
 
+// Handle string and number comparation
 const compare = (
   a: string | number,
   b: string | number,
   order: SortRules['order']
 ) => {
-  const hasSameType = typeof a === typeof b
   const isASC = order.toUpperCase() === ASC
-
-  if (!hasSameType) return 0
-
   const isString = typeof a === 'string'
+  const isNumber = typeof a === 'number'
 
   if (isString) {
     if (isASC) return (a as string).localeCompare(b as string)
@@ -37,11 +35,16 @@ const compare = (
     return (b as string).localeCompare(a as string)
   }
 
-  if (isASC) return (a as number) - (b as number)
+  if (isNumber) {
+    if (isASC) return (a as number) - (b as number)
 
-  return (b as number) - (a as number)
+    return (b as number) - (a as number)
+  }
+
+  return 0
 }
 
+// Make sure rule has key and orderBy
 const validateRule = (rule: unknown): boolean => {
   if (typeof rule !== 'object' || rule === null) return false
 
@@ -50,6 +53,7 @@ const validateRule = (rule: unknown): boolean => {
   return ruleKeys.indexOf('key') > -1 && ruleKeys.indexOf('orderBy') > -1
 }
 
+// Handle cases where user pass a non valid string to order field, defaulting to ASC
 const ensureOrderValue = (order: string): SortRules['order'] => {
   const isDESC = order.toUpperCase() === DESC
 
@@ -62,6 +66,7 @@ export const sortFilterValues = (
   filters: Filters[],
   sortingRules: SortRules[]
 ): Filters[] => {
+  // Check if user has entered the right type on store-theme
   if (!Array.isArray(sortingRules)) {
     console.warn(
       'Wrong type passed as facetOrdering prop to filter-navigator.v3 block. It should be an array.'
@@ -70,6 +75,12 @@ export const sortFilterValues = (
     return filters
   }
 
+  // Skip logic if there is no sorting rules
+  if (!sortingRules.length) {
+    return filters
+  }
+
+  // Map rules for all keys
   const mappedRules = sortingRules.reduce<
     Record<SortRules['key'], Omit<SortRules, 'key'>>
   >((map, rule) => {
@@ -89,6 +100,7 @@ export const sortFilterValues = (
     return map
   }, {})
 
+  // Apply rules for each facet
   const filtersAdjusted = filters.map((filter) => {
     const isSpecFilter = filter.type === SPEC_FILTERS
     const hasSortingRule = filter.key
