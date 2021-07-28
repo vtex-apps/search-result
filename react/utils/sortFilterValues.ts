@@ -16,7 +16,7 @@ interface Facets {
 
 interface SortRules {
   key: string
-  field: keyof Facets
+  orderBy: keyof Facets
   order: typeof ASC | typeof DESC
 }
 
@@ -52,7 +52,7 @@ export const sortFilterValues = (
     Record<SortRules['key'], Omit<SortRules, 'key'>>
   >((map, rule) => {
     map[rule.key.toLowerCase()] = {
-      field: rule.field,
+      orderBy: rule.orderBy,
       order: rule.order ?? ASC,
     }
 
@@ -68,11 +68,11 @@ export const sortFilterValues = (
 
     if (!hasSortingRule) return filter
 
-    const { field, order } = mappedRules[filter.key.toLowerCase()]
+    const { orderBy, order } = mappedRules[filter.key.toLowerCase()]
 
     const filterCopy = { ...filter }
 
-    filterCopy.facets.sort((a, b) => compare(a[field], b[field], order))
+    filterCopy.facets.sort((a, b) => compare(a[orderBy], b[orderBy], order))
 
     return filterCopy
   })
