@@ -1,5 +1,4 @@
-import type { DESC } from '../constants'
-import { SPEC_FILTERS, ASC } from '../constants'
+import { SPEC_FILTERS, ASC, DESC } from '../constants'
 
 interface Filters {
   key: string
@@ -43,17 +42,48 @@ const compare = (
   return (b as number) - (a as number)
 }
 
+const validateRule = (rule: unknown): boolean => {
+  if (typeof rule !== 'object' || rule === null) return false
+
+  const ruleKeys = Object.keys(rule)
+
+  return ruleKeys.indexOf('key') > -1 && ruleKeys.indexOf('orderBy') > -1
+}
+
+const ensureOrderValue = (order: string): SortRules['order'] => {
+  const isDESC = order.toUpperCase() === DESC
+
+  if (isDESC) return DESC
+
+  return ASC
+}
+
 export const sortFilterValues = (
   filters: Filters[],
   sortingRules: SortRules[]
 ): Filters[] => {
-  if (!Array.isArray(sortingRules)) return filters
+  if (!Array.isArray(sortingRules)) {
+    console.warn(
+      'Wrong type passed as facetOrdering prop to filter-navigator.v3 block. It should be an array.'
+    )
+
+    return filters
+  }
+
   const mappedRules = sortingRules.reduce<
     Record<SortRules['key'], Omit<SortRules, 'key'>>
   >((map, rule) => {
+    if (!validateRule(rule)) {
+      console.warn(
+        'One of the rules passed inside facetOrdering prop to filter-navigator.v3 block has the wrong signature and was ignored.'
+      )
+
+      return map
+    }
+
     map[rule.key.toLowerCase()] = {
       orderBy: rule.orderBy,
-      order: rule.order ?? ASC,
+      order: ensureOrderValue(rule.order ?? ASC),
     }
 
     return map
@@ -61,12 +91,11 @@ export const sortFilterValues = (
 
   const filtersAdjusted = filters.map((filter) => {
     const isSpecFilter = filter.type === SPEC_FILTERS
+    const hasSortingRule = filter.key
+      ? !!mappedRules[filter.key.toLowerCase()]
+      : false
 
-    if (!isSpecFilter) return filter
-
-    const hasSortingRule = !!mappedRules[filter.key.toLowerCase()]
-
-    if (!hasSortingRule) return filter
+    if (!isSpecFilter || !hasSortingRule) return filter
 
     const { orderBy, order } = mappedRules[filter.key.toLowerCase()]
 
