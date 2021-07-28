@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - `facetOrdering` prop to the `filter-navigator.v3`.
+## [3.106.0] - 2021-07-28
+
 ### Changed
 - Hide the facet quantity when search result is sampling.
 
