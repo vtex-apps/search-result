@@ -54,7 +54,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
         const absoluteProductIndex = rowIndex * itemsPerRow + index + 1
         return (
           <div
-            key={product.cacheId}
+            key={product.cacheId ?? product.productId}
             style={style}
             className={classNames(
               applyModifiers(handles.galleryItem, [

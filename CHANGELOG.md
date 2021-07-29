@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Error in dispatch when `cacheId` is `null`.
+
 ## [3.106.1] - 2021-07-29
 
 ### Changed
