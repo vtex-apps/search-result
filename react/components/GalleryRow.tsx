@@ -66,7 +66,7 @@ function GalleryRow({
 
         return (
           <div
-            key={product.productId}
+            key={product.cacheId}
             style={style}
             className={classNames(
               applyModifiers(handles.galleryItem, [

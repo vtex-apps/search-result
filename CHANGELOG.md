@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - `facetOrdering` prop to the `filter-navigator.v3`.
+## [3.106.1] - 2021-07-29
+
+### Changed
+- Use `cacheId` instead of `productId` as `Gallery` key.
+
 ## [3.106.0] - 2021-07-28
 
 ### Changed

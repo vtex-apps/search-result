@@ -44,6 +44,8 @@ const Gallery: React.FC<GalleryLegacyProps | GalleryLayoutPropsWithSlots> = (
 export interface Product {
   /** Product's id. */
   productId: string
+  /** Product's cache id. */
+  cacheId: string
   /** Product's name. */
   productName: string
   /** Product's description. */
