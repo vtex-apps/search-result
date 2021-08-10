@@ -41,6 +41,8 @@ export interface GalleryProps {
   lazyItemsRemaining: number
   customSummaryInterval?: number
   CustomSummary?: ComponentType
+  /** Logic to enable which SKU will be the selected item */
+  preferredSKU?: string
 }
 
 /**
@@ -61,6 +63,7 @@ const Gallery: React.FC<GalleryProps> = ({
   lazyItemsRemaining,
   customSummaryInterval,
   CustomSummary,
+  preferredSKU
 }) => {
   const { isMobile } = useDevice()
   const { trackingId } = useContext(SettingsContext) || {}
@@ -131,6 +134,7 @@ const Gallery: React.FC<GalleryProps> = ({
             listName={listName}
             customSummaryInterval={customSummaryInterval}
             CustomSummary={CustomSummary}
+            preferredSKU={preferredSKU}
           />
         ))}
         {typeof lazyItemsRemaining === 'number' && lazyItemsRemaining > 0 && (

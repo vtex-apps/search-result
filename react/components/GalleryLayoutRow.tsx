@@ -19,6 +19,8 @@ interface GalleryLayoutRowProps {
   summary: unknown
   rowIndex: number
   listName: string
+  /** Logic to enable which SKU will be the selected item */
+  preferredSKU?: string
 }
 
 const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
@@ -31,6 +33,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
   currentLayoutName,
   rowIndex,
   listName,
+  preferredSKU
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -71,6 +74,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
               displayMode={displayMode}
               position={absoluteProductIndex}
               listName={listName}
+              preferredSKU={preferredSKU}
             />
           </div>
         )

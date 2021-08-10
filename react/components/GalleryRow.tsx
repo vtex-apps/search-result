@@ -24,6 +24,8 @@ interface GalleryRowProps {
   listName: string
   customSummaryInterval?: number
   CustomSummary?: ComponentType
+  /** Logic to enable which SKU will be the selected item */
+  preferredSKU?: string
 }
 
 function GalleryRow({
@@ -36,6 +38,7 @@ function GalleryRow({
   listName,
   customSummaryInterval,
   CustomSummary,
+  preferredSKU
 }: GalleryRowProps) {
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -83,6 +86,7 @@ function GalleryRow({
               position={absoluteProductIndex}
               listName={listName}
               CustomSummary={shouldRenderCustom ? CustomSummary : undefined}
+              preferredSKU={preferredSKU}
             />
           </div>
         )

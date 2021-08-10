@@ -13,6 +13,8 @@ interface GalleryLayoutItemProps {
   summary: unknown
   position: number
   listName: string
+  /** Logic to enable which SKU will be the selected item */
+  preferredSKU?: string
 }
 
 const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
@@ -22,12 +24,13 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
   summary,
   position,
   listName,
+  preferredSKU
 }) => {
   const { push } = usePixel()
   const { searchQuery } = useSearchPage()
 
   const product = useMemo(
-    () => ProductSummary.mapCatalogProductToProductSummary(item),
+    () => ProductSummary.mapCatalogProductToProductSummary(item, preferredSKU),
     [item]
   )
 

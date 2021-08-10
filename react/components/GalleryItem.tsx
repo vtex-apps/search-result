@@ -20,6 +20,8 @@ interface GalleryItemProps {
   /** Name of the list of products. This name will be used when sending pixel events */
   listName: string
   CustomSummary?: ComponentType
+  /** Logic to enable which SKU will be the selected item */
+  preferredSKU?: string
 }
 
 /**
@@ -32,12 +34,13 @@ function GalleryItem({
   listName,
   summary,
   CustomSummary,
+  preferredSKU
 }: GalleryItemProps) {
   const { push } = usePixel()
   const { searchQuery } = useSearchPage()
 
   const product = useMemo(
-    () => ProductSummary.mapCatalogProductToProductSummary(item),
+    () => ProductSummary.mapCatalogProductToProductSummary(item, preferredSKU),
     [item]
   )
 
