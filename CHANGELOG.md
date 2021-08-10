@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- `preferredSKU` prop to the `Gallery`.
 ## [3.108.0] - 2021-08-24
 
 ### Added
