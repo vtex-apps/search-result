@@ -63,7 +63,7 @@ const Gallery: React.FC<GalleryProps> = ({
   lazyItemsRemaining,
   customSummaryInterval,
   CustomSummary,
-  preferredSKU
+  preferredSKU,
 }) => {
   const { isMobile } = useDevice()
   const { trackingId } = useContext(SettingsContext) || {}
