@@ -104,7 +104,7 @@ export const sortFilterValues = (
   const filtersAdjusted = filters.map((filter) => {
     const isSpecFilter = filter.type === SPEC_FILTERS
     const hasSortingRule = filter.key
-      ? !!mappedRules[filter.key.toLowerCase()]
+      ? Boolean(mappedRules[filter.key.toLowerCase()])
       : false
 
     if (!isSpecFilter || !hasSortingRule) return filter
