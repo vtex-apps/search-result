@@ -451,7 +451,7 @@ For example:
 }
 ```
 
-> ⚠️ *The `facetOrdering` prop will conflict with the `enableFiltersFetchOptimization` flag on `vtex.store`, since, when it's on, it returns only the top filter values ordered by count. In order to achieve the desire outcome with `facetOrdering`, it's necessary to set `enableFiltersFetchOptimization` as false on `vtex.store` admin settings.
+> ⚠️ The `facetOrdering` prop will conflict with the `enableFiltersFetchOptimization` flag on `vtex.store`, since it returns only the top filter values ordered by count. In order to achieve the desired outcome with `facetOrdering`, it is necessary to set `enableFiltersFetchOptimization` as `false` on `vtex.store` Admin settings.
 
 #### `order-by` block
 
