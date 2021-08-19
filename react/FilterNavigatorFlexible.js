@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { useDevice } from 'vtex.device-detector'
 
 import FilterNavigator from './FilterNavigator'
 import FilterNavigatorContext from './components/FilterNavigatorContext'
 import styles from './searchResult.css'
+import { sortFilterValues } from './utils/sortFilterValues'
 
 const withSearchPageContextProps = (Component) => ({
   layout,
@@ -24,6 +25,7 @@ const withSearchPageContextProps = (Component) => ({
   updateOnFilterSelectionOnMobile,
   showClearByFilter,
   priceRangeLayout,
+  facetOrdering = [],
 }) => {
   const {
     searchQuery,
@@ -57,6 +59,11 @@ const withSearchPageContextProps = (Component) => ({
     queryArgs,
   } = facets
 
+  const sortedFilters = useMemo(
+    () => sortFilterValues(filters, facetOrdering),
+    [filters, facetOrdering]
+  )
+
   if (showFacets === false || !map) {
     return null
   }
@@ -77,7 +84,7 @@ const withSearchPageContextProps = (Component) => ({
           specificationFilters={specificationFilters}
           tree={categoriesTrees}
           loading={facetsLoading}
-          filters={filters}
+          filters={sortedFilters}
           filtersFetchMore={filtersFetchMore}
           hiddenFacets={hiddenFacets}
           layout={layout}

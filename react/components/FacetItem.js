@@ -61,19 +61,20 @@ const FacetItem = ({
 
   const shouldDisable = useShouldDisableFacet(facet)
 
-  const facetLabel = (showFacetQuantity && !sampling) ? (
-    <>
-      {facet.name}{' '}
-      <span
-        data-testid={`facet-quantity-${facet.value}-${facet.quantity}`}
-        className={handles.productCount}
-      >
-        ({facet.quantity})
-      </span>
-    </>
-  ) : (
-    facet.name
-  )
+  const facetLabel =
+    showFacetQuantity && !sampling ? (
+      <>
+        {facet.name}{' '}
+        <span
+          data-testid={`facet-quantity-${facet.value}-${facet.quantity}`}
+          className={handles.productCount}
+        >
+          ({facet.quantity})
+        </span>
+      </>
+    ) : (
+      facet.name
+    )
 
   return (
     <div

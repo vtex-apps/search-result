@@ -423,6 +423,35 @@ Renders a filter selector for the fetched results.
 | `updateOnFilterSelectionOnMobile` | `boolean` | Whether the search results on mobile should be updated according to filter selection (`true`) or not (`false`). Notice: this prop only works if the `preventRouteChange` prop is declared as `true`.                                                                        | `false`       |
 | `showClearByFilter`       | `boolean` | Whether a clear button (responsible for erasing all filter options selected by the user) should be displayed alongside the filter name (`true`) or not (`false`).                                                                                                                              | `false`       |
 | `priceRangeLayout` | `enum` | Whether a text field to enter the desired price range should be displayed  (`inputAndSlider`) or not (`slider`). | `slider` |
+| `facetOrdering` | `array` | Array of objects (see below) that applies custom sorting rules for filters. The default behavior sorts descending the items by quantity. | `undefined` |
+
+- **`facetOrdering` object:** 
+  
+| Prop name | Type     | Description | Default value   |
+| :-------: | :------: | :--------:  | :-------------: | 
+| `key` | `string` | Facets key that will be sorted. Possible values are `category-1`, `category-2`, `category-3` (for department, category and subcategory), `brand` or a product specification name. |  `undefined` | 
+| `orderBy` | `enum` | Field from facets that should be used when sorting the entries. Possible values are `name` and `quantity`. | `undefined` | 
+| `order` | `enum` | Whether the filter should be sorted by ascending (`ASC`) or descending (`DESC`) order. | `ASC` |
+
+For example:
+
+```jsonc
+{
+  "filter-navigator.v3": {
+    "props": {
+      "facetOrdering": [
+        {
+          "key": "brand",
+          "orderBy": "name",
+          "order": "ASC"
+        }
+      ]
+    },
+  }
+}
+```
+
+> ⚠️ The `facetOrdering` prop will conflict with the `enableFiltersFetchOptimization` flag on `vtex.store`, since it returns only the top filter values ordered by count. In order to achieve the desired outcome with `facetOrdering`, it is necessary to set `enableFiltersFetchOptimization` as `false` on `vtex.store` Admin settings.
 
 #### `order-by` block
 
