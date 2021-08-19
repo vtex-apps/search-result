@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.107.0] - 2021-08-19
+
 ### Added
 - `facetOrdering` prop to the `filter-navigator.v3`.
 ## [3.106.1] - 2021-07-29
