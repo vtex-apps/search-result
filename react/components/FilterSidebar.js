@@ -228,7 +228,12 @@ const FilterSidebar = ({
         </span>
       </button>
 
-      <Sidebar onOutsideClick={handleClose} isOpen={open} fullWidth={fullWidth} filtersDrawerDirectionMobile={filtersDrawerDirectionMobile}>
+      <Sidebar
+        onOutsideClick={handleClose}
+        isOpen={open}
+        fullWidth={fullWidth}
+        filtersDrawerDirectionMobile={filtersDrawerDirectionMobile}
+      >
         <FilterNavigatorContext.Provider value={context}>
           <AccordionFilterContainer
             filters={filters}
@@ -250,7 +255,6 @@ const FilterSidebar = ({
             showClearByFilter={showClearByFilter}
             updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
             priceRangeLayout={priceRangeLayout}
-            onClose={handleClose}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>
@@ -324,8 +328,8 @@ const updateTree = (categories) =>
         (cat) => cat.value === category.value
       )
 
-      currentLevel[selectedIndex].selected = !currentLevel[selectedIndex]
-        .selected
+      currentLevel[selectedIndex].selected =
+        !currentLevel[selectedIndex].selected
       currentLevel = currentLevel[selectedIndex].children
     })
   })

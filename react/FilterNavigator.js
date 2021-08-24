@@ -96,7 +96,7 @@ const FilterNavigator = ({
   fullWidthOnMobile = false,
   navigationTypeOnMobile = 'page',
   updateOnFilterSelectionOnMobile = false,
-  filtersDrawerDirectionMobile = DRAWER_DIRECTION_MOBILE.left,
+  drawerDirectionMobile = DRAWER_DIRECTION_MOBILE.left,
   showClearByFilter = false,
   showClearAllFiltersOnDesktop = false,
   priceRangeLayout = 'slider',
@@ -111,9 +111,11 @@ const FilterNavigator = ({
     layout === LAYOUT_TYPES.mobile ||
     layout === LAYOUT_TYPES.phone
 
-  if(!Object.values(DRAWER_DIRECTION_MOBILE).includes(filtersDrawerDirectionMobile)) {
-    filtersDrawerDirectionMobile = DRAWER_DIRECTION_MOBILE.left
-  }
+  const filtersDrawerDirectionMobile = Object.values(
+    DRAWER_DIRECTION_MOBILE
+  ).includes(drawerDirectionMobile)
+    ? drawerDirectionMobile
+    : DRAWER_DIRECTION_MOBILE.left
 
   useEffect(() => {
     // This condition confirms if there are facets that still need fetching
@@ -339,7 +341,9 @@ FilterNavigator.propTypes = {
   /** Loading indicator */
   loading: PropTypes.bool,
   layout: PropTypes.oneOf(Object.values(LAYOUT_TYPES)),
-  filtersDrawerDirectionMobile: PropTypes.oneOf(Object.values(DRAWER_DIRECTION_MOBILE)),
+  filtersDrawerDirectionMobile: PropTypes.oneOf(
+    Object.values(DRAWER_DIRECTION_MOBILE)
+  ),
   initiallyCollapsed: PropTypes.bool,
   truncateFilters: PropTypes.bool,
   filtersTitleHtmlTag: PropTypes.string,
