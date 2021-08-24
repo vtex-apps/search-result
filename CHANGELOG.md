@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- `alt` and `title` into facet's div at `FacetItem.js`
+
 ## [3.107.0] - 2021-08-19
 
 ### Added
