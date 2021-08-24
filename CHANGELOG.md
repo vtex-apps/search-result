@@ -6,30 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-
-## [3.107.0] - 2021-08-19
-
-### Added
-- `facetOrdering` prop to the `filter-navigator.v3`.
-## [3.106.1] - 2021-07-29
-
-### Changed
-- Use `cacheId` instead of `productId` as `Gallery` key.
-
-## [3.106.0] - 2021-07-28
-
-### Changed
-- Hide the facet quantity when search result is sampling.
-
-## [3.105.1] - 2021-07-26
-
-### Fixed
-- Remove the code introduced by version `3.105.0`.
-
-## [3.105.0] - 2021-07-15 [YANKED]
-### Added
-- `showClearAllFiltersOnDesktop` prop to the `FilterNavigator`.
-
+- Mobile filters drawer open direction prop to filters.V3
 ## [3.104.0] - 2021-07-08
 
 ### Changed
@@ -44,7 +21,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.101.0] - 2021-06-24
 ## Fixed
 - `scrollToTop` prop not being passed down to `PriceRange` component
-
 ## [3.100.0] - 2021-06-10
 ### Fixed
 - Gallery item's position now starts at 1
@@ -63,7 +39,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Pixel event triggered when a filter is changed
-- Mobile filters drawer open direction prop to filters.V3
 
 ## [3.98.4] - 2021-05-18
 ### Fixed
