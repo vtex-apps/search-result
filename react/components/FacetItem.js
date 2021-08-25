@@ -80,6 +80,8 @@ const FacetItem = ({
     <div
       className={classes}
       style={{ hyphens: 'auto', wordBreak: 'break-word' }}
+      alt={facet.name}
+      title={facet.name}
     >
       <Checkbox
         id={checkBoxId}

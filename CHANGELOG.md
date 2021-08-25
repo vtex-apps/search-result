@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 - Mobile filters drawer open direction prop to filters.V3
+
+## [3.108.0] - 2021-08-24
+
+### Added
+- `alt` and `title` into facet's div at `FacetItem.js`
+
+## [3.107.0] - 2021-08-19
+
+### Added
+- `facetOrdering` prop to the `filter-navigator.v3`.
+## [3.106.1] - 2021-07-29
+
+### Changed
+- Use `cacheId` instead of `productId` as `Gallery` key.
+
+## [3.106.0] - 2021-07-28
+
+### Changed
+- Hide the facet quantity when search result is sampling.
+
+## [3.105.1] - 2021-07-26
+
+### Fixed
+- Remove the code introduced by version `3.105.0`.
+
+## [3.105.0] - 2021-07-15 [YANKED]
+### Added
+- `showClearAllFiltersOnDesktop` prop to the `FilterNavigator`.
+
 ## [3.104.0] - 2021-07-08
 
 ### Changed
