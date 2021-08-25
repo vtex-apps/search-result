@@ -5521,10 +5521,6 @@ verror@1.10.0:
   version "0.4.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-list-context@0.4.0/public/@types/vtex.product-list-context#79bff31f1baa7da07327a2075170520758d55ef5"
 
-"vtex.product-summary@https://specification--motoroladevelopment.myvtex.com/_v/private/typings/linked/v1/vtex.product-summary@2.74.1+build1628605519/public/@types/vtex.product-summary":
-  version "2.74.1"
-  resolved "https://specification--motoroladevelopment.myvtex.com/_v/private/typings/linked/v1/vtex.product-summary@2.74.1+build1628605519/public/@types/vtex.product-summary#ec208382c77a57bc3fe48fa01cda790a4039a364"
-
 "vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.131.0/public/@types/vtex.render-runtime":
   version "8.131.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.131.0/public/@types/vtex.render-runtime#dcc88828e3d65ecb4e7538a3623a4b1ddd77e034"
@@ -5540,10 +5536,6 @@ verror@1.10.0:
 "vtex.search-page-context@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-page-context@0.2.0/public/@types/vtex.search-page-context":
   version "0.2.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.search-page-context@0.2.0/public/@types/vtex.search-page-context#1b37f20648d8e4ff062ae9fffb0aa2718f172af7"
-
-"vtex.search-result@https://specification--motoroladevelopment.myvtex.com/_v/private/typings/linked/v1/vtex.search-result@3.106.1+build1628605526/public/@types/vtex.search-result":
-  version "3.106.1"
-  resolved "https://specification--motoroladevelopment.myvtex.com/_v/private/typings/linked/v1/vtex.search-result@3.106.1+build1628605526/public/@types/vtex.search-result#65efc0ce02fa2bf5cde0c894234e56c160ffeb27"
 
 "vtex.shelf@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.shelf@1.45.0/public/@types/vtex.shelf":
   version "1.45.0"
