@@ -5,6 +5,7 @@ import { usePixel } from 'vtex.pixel-manager'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import type { Product } from '../Gallery'
+import type { PreferredSKU } from '../GalleryLayout'
 
 interface GalleryLayoutItemProps {
   GalleryItemComponent: ComponentType<any>
@@ -14,7 +15,7 @@ interface GalleryLayoutItemProps {
   position: number
   listName: string
   /** Logic to enable which SKU will be the selected item */
-  preferredSKU?: string
+  preferredSKU?: PreferredSKU
 }
 
 const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({

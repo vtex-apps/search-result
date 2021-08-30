@@ -7,6 +7,7 @@ import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import type { Product } from '../Gallery'
 import type { MobileLayoutMode } from '../GalleryLegacy'
+import type { PreferredSKU } from '../GalleryLayout'
 
 interface GalleryItemProps {
   /** Item info that will be rendered. */
@@ -21,7 +22,7 @@ interface GalleryItemProps {
   listName: string
   CustomSummary?: ComponentType
   /** Logic to enable which SKU will be the selected item */
-  preferredSKU?: string
+  preferredSKU?: PreferredSKU
 }
 
 /**

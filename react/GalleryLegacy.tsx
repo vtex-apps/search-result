@@ -16,6 +16,7 @@ import GalleryRow from './components/GalleryRow'
 import ProductListEventCaller from './utils/ProductListEventCaller'
 import SettingsContext from './components/SettingsContext'
 import type { Product } from './Gallery'
+import type { PreferredSKU } from './GalleryLayout'
 import { useBreadcrumb } from './hooks/useBreadcrumb'
 import { useSearchTitle } from './hooks/useSearchTitle'
 
@@ -42,7 +43,7 @@ export interface GalleryProps {
   customSummaryInterval?: number
   CustomSummary?: ComponentType
   /** Logic to enable which SKU will be the selected item */
-  preferredSKU?: string
+  preferredSKU?: PreferredSKU
 }
 
 /**

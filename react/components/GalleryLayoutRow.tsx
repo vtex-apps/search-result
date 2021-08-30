@@ -6,6 +6,7 @@ import classNames from 'classnames'
 import { useRenderOnView } from '../hooks/useRenderOnView'
 import GalleryItem from './GalleryLayoutItem'
 import type { Product } from '../Gallery'
+import type { PreferredSKU } from '../GalleryLayout'
 
 const CSS_HANDLES = ['galleryItem'] as const
 
@@ -20,7 +21,7 @@ interface GalleryLayoutRowProps {
   rowIndex: number
   listName: string
   /** Logic to enable which SKU will be the selected item */
-  preferredSKU?: string
+  preferredSKU?: PreferredSKU
 }
 
 const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
