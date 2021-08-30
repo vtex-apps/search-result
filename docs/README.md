@@ -126,7 +126,7 @@ or
 }
 ```
 
-> ⚠️ \*When set as `skip`, the `simulationBehavior` prop defines that the search data should only be fetched using the store's Cache. Caution: In practice, **this may impact the content displayed on store pages, since the cache storage changes according to user interaction in each page**. In order to understand this prop behavior, take a look at the table below!
+> ⚠️ *When set as `skip`, the `simulationBehavior` prop defines that the search data should only be fetched using the store's Cache. Caution: In practice, **this may impact the content displayed on store pages, since the cache storage changes according to user interaction in each page**. In order to understand this prop behavior, take a look at the table below!
 
 :warning: **You must define the query for the following search pages: brand, department, category and subcategory**. This will allow you to define custom behaviors for each of your store's possible search pages. For example:
 
@@ -180,7 +180,7 @@ or
 }
 ```
 
-> ⚠️ \*When set as `skip`, the `simulationBehavior` prop defines that the search data should only be fetched using the store's Cache. Caution: In practice, **this may impact the content displayed on store pages, since the cache storage changes according to user interaction in each page**. In order to understand this prop behavior, take a look at the table below!
+> ⚠️ *When set as `skip`, the `simulationBehavior` prop defines that the search data should only be fetched using the store's Cache. Caution: In practice, **this may impact the content displayed on store pages, since the cache storage changes according to user interaction in each page**. In order to understand this prop behavior, take a look at the table below!
 
 Below you may find all available props to configure your search data (be it by using a context or a custom query through the `querySchema` block):
 
@@ -483,7 +483,7 @@ The sorting options are:
 
 Renders a `Show More` button used to load the results of the next search results page.
 
-:information*source: \_This block is not rendered if there is no next page.*
+:information_source: *This block is not rendered if there is no next page.*
 
 | Prop name              | Type   | Description                                                                                                                                                                                                                                  | Default value |
 | ---------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
@@ -493,7 +493,7 @@ Renders a `Show More` button used to load the results of the next search results
 
 Renders a `Show Previous` button used to load the results of the previous search results page.
 
-:information*source: \_This block is not rendered if there is no previous page.*
+:information_source: *This block is not rendered if there is no previous page.*
 
 | Prop name              | Type   | Description                                                                                                                                                                                                                                      | Default value |
 | ---------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------- |
@@ -503,7 +503,7 @@ Renders a `Show Previous` button used to load the results of the previous search
 
 Shows the product count per search page. This block does not need any prop when declared.
 
-#### `search-products-progress-bar` block\*\*
+#### `search-products-progress-bar` block
 
 Shows a progress bar of search results. This block does not need any prop when declared.
 
