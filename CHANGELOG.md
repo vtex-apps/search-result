@@ -6,9 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-
 ### Added
 - `preferredSKU` prop to the `Gallery`.
+
 ## [3.108.0] - 2021-08-24
 
 ### Added
