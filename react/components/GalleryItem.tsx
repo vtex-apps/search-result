@@ -35,14 +35,14 @@ function GalleryItem({
   listName,
   summary,
   CustomSummary,
-  preferredSKU
+  preferredSKU,
 }: GalleryItemProps) {
   const { push } = usePixel()
   const { searchQuery } = useSearchPage()
 
   const product = useMemo(
     () => ProductSummary.mapCatalogProductToProductSummary(item, preferredSKU),
-    [item]
+    [item, preferredSKU]
   )
 
   const handleClick = useCallback(() => {

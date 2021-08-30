@@ -25,14 +25,14 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
   summary,
   position,
   listName,
-  preferredSKU
+  preferredSKU,
 }) => {
   const { push } = usePixel()
   const { searchQuery } = useSearchPage()
 
   const product = useMemo(
     () => ProductSummary.mapCatalogProductToProductSummary(item, preferredSKU),
-    [item]
+    [item, preferredSKU]
   )
 
   const handleClick = useCallback(() => {
