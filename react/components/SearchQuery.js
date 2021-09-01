@@ -20,6 +20,7 @@ const DEFAULT_QUERY_VALUES = {
   installmentCriteria: 'MAX_WITHOUT_INTEREST',
   skusFilter: 'ALL_AVAILABLE',
   simulationBehavior: 'default',
+  orderBy: 'OrderByScoreDESC',
 }
 
 // Has to match the value in the query middleware,
@@ -182,7 +183,7 @@ const useQueries = (variables, facetsArgs) => {
       fullText: variables.fullText,
       selectedFacets: variables.selectedFacets,
       hideUnavailableItems: variables.hideUnavailableItems,
-      behavior: variables.facetsBehavior,
+      behavior: variables.facetsBehavior || DEFAULT_QUERY_VALUES.facetsBehavior,
       categoryTreeBehavior: variables.categoryTreeBehavior,
       operator: variables.operator,
       fuzzy: variables.fuzzy,
@@ -312,7 +313,7 @@ const SearchQuery = ({
     return {
       map,
       query,
-      orderBy: 'OrderByScoreDESC',
+      orderBy: orderBy || DEFAULT_QUERY_VALUES.orderBy,
       from,
       to,
       selectedFacets,
