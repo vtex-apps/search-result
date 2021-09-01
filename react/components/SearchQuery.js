@@ -312,7 +312,7 @@ const SearchQuery = ({
     return {
       map,
       query,
-      orderBy,
+      orderBy: 'OrderByScoreDESC',
       from,
       to,
       selectedFacets,
