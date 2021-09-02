@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Issue where the `productSearch` query result was being ignored during SSR and the products wouldn't render.
 
 ## [3.108.1] - 2021-08-31
 ### Fixed
