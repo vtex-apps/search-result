@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Fixed
-- Issue where the `productSearch` query result was being ignored during SSR and the products wouldn't render.
+- Issue where the `productSearch` and the `facets` query result were being ignored during SSR and the products and facets wouldn't render.
 
 ## [3.108.1] - 2021-08-31
 ### Fixed

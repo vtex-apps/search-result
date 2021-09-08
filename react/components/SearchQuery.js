@@ -187,7 +187,7 @@ const useQueries = (variables, facetsArgs) => {
       categoryTreeBehavior: variables.categoryTreeBehavior,
       operator: variables.operator,
       fuzzy: variables.fuzzy,
-      searchState: variables.searchState,
+      searchState: variables.searchState || null,
       initialAttributes: runtimeQuery?.initialMap,
     },
     skip: !facetsArgs.withFacets,
