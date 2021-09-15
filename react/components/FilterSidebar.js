@@ -322,8 +322,8 @@ const updateTree = (categories) =>
         (cat) => cat.value === category.value
       )
 
-      currentLevel[selectedIndex].selected =
-        !currentLevel[selectedIndex].selected
+      currentLevel[selectedIndex].selected = !currentLevel[selectedIndex]
+        .selected
       currentLevel = currentLevel[selectedIndex].children
     })
   })
