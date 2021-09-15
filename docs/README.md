@@ -302,6 +302,18 @@ To understand how to build your search results with multiple layouts using the `
 | `name`   | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Layout name. This value must be unique i.e. not equal to other layout names declared in the `gallery` block. | `undefined` |
 | `component`   | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Names the `undefined` prop from the `gallery` block, which is responsible for declaring the block to be rendered in this layout. This prop's value can be any of your choosing as long as it is PascalCased i.e. has the first letter of each word in its name capitalized. **Caution**: For this to work, the chosen value must name afterwards the `gallery` block' `undefined` prop - *Do not use the `component` prop's value to directly pass the desired block name itself*. Check out the example below in order to understand the underlying logic behind this prop. | `undefined` |
 | `itemsPerRow`   | `number` / `object` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Number of items to be displayed in each row of this layout. This prop works with [responsive values](https://vtex.io/docs/app/vtex.responsive-values/), therefore it also accepts an object with different numbers for desktop, tablet or phone screen sizes (*see the table below*). | `undefined` |
+|     `preferredSKU`      | `PreferredSKUEnum` | Controls which SKU will be initially selected in the product summary                                                                                                                                                                                                                                                                                                                                 | `"FIRST_AVAILABLE"` |
+
+For `PreferredSKUEnum`:
+
+| Name            | Value             | Description                                        |
+| --------------- | ----------------- | -------------------------------------------------- |
+| First Available | `FIRST_AVAILABLE` | First available SKU in stock found or first SKU without stock. |
+| Last Available  | `LAST_AVAILABLE`  | Last available SKU in stock found or last SKU without stock.  |
+| Cheapest        | `PRICE_ASC`       | Cheapest SKU in stock found or first SKU without stock.        |
+| Most Expensive  | `PRICE_DESC`      | Most expensive SKU in stock found or first SKU without stock.  |
+
+⚠️ There's a way to select which SKU should take preference over this prop. You can create a Product (field) specification and per product assign the value of the desired SKU to be initially selected. Keep in mind that If the specification doesn't exist or if the value is empty, it will use the `preferredSKU` prop as fallback. You can read more about it, and how to implement it in [Recipes](https://vtex.io/docs/recipes/all)
 
 - **`itemsPerRow` object:** 
   
