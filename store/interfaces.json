@@ -72,10 +72,16 @@
     "component": "SearchContent"
   },
   "search-fetch-more": {
-    "component": "FetchMore"
+    "component": "FetchMore",
+    "content": {
+      "$ref": "app:vtex.search-result#/definitions/FetchMore"
+    }
   },
   "search-fetch-previous": {
-    "component": "FetchPrevious"
+    "component": "FetchPrevious",
+    "content": {
+      "$ref": "app:vtex.search-result#/definitions/FetchPrevious"
+    }
   },
   "search-result-layout.desktop": {
     "allowed": [

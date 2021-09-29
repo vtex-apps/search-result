@@ -97,5 +97,10 @@
   "admin/editor.search-result-layout.title": "Search Result Flexible Layout",
   "admin/editor.search-result-mobile.title": "Search Result Flexible Layout Mobile",
   "admin/editor.search-result-desktop.title": "Search Result Flexible Layout Desktop",
-  "store/search-result.price-ranges.submit": "Go"
+  "store/search-result.price-ranges.submit": "Go",
+  "admin/editor.search-result.fetch-more": "Fetch more",
+  "admin/editor.search-result.fetch-previous": "Fetch previous",
+  "admin/editor.search-result.fetch-button.button-behavior": "Button behavior",
+  "admin/editor.search-result.fetch-button.button-behavior.button": "Button",
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link to page - Improves SEO, may change how the button looks"
 }

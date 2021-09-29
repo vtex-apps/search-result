@@ -10,6 +10,62 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Added `preventRouteChange` prop to the app documentation (README.md file).
 
+## [3.109.0] - 2021-09-15
+### Added
+- `preferredSKU` prop to the `Gallery`.
+
+## [3.108.2] - 2021-09-09
+### Fixed
+- Issue where the `facets` and the `productSearch` query result were being ignored during SSR and the products and facets wouldn't render.
+
+## [3.108.1] - 2021-08-31
+### Fixed
+- Urls on Fetch more/Fetch previous buttons now includes the map query string
+
+## [3.108.0] - 2021-08-24
+
+### Added
+- `alt` and `title` into facet's div at `FacetItem.js`
+
+## [3.107.0] - 2021-08-19
+
+### Added
+- `facetOrdering` prop to the `filter-navigator.v3`.
+## [3.106.1] - 2021-07-29
+
+### Changed
+- Use `cacheId` instead of `productId` as `Gallery` key.
+
+## [3.106.0] - 2021-07-28
+
+### Changed
+- Hide the facet quantity when search result is sampling.
+
+## [3.105.1] - 2021-07-26
+
+### Fixed
+- Remove the code introduced by version `3.105.0`.
+
+## [3.105.0] - 2021-07-15 [YANKED]
+### Added
+- `showClearAllFiltersOnDesktop` prop to the `FilterNavigator`.
+
+## [3.104.0] - 2021-07-08
+
+### Changed
+- Pass `initialMap` to facets query.
+
+## [3.103.0] - 2021-07-01
+### Added
+- Schemas for customizing Fetch More and Fetch Previous buttons behaviors through site-editor
+
+## [3.102.0] - 2021-06-29
+
+## [3.101.0] - 2021-06-24
+## Fixed
+- `scrollToTop` prop not being passed down to `PriceRange` component
+
+
 ## [3.100.0] - 2021-06-10
 ### Fixed
 - Gallery item's position now starts at 1
@@ -23,6 +79,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `FetchPrevious` and `FetchMore` links now consider the page number to improve SEO
 
 ## [3.99.0] - 2021-05-24
+### Added
+- `phone` option to the `layout` prop  from `FilterNavigator` component.
+
 ### Added
 - Pixel event triggered when a filter is changed
 

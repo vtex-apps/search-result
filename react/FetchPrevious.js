@@ -61,4 +61,8 @@ FetchPrevious.propTypes = {
   htmlElementForButton: PropTypes.string,
 }
 
+FetchPrevious.schema = {
+  title: 'admin/editor.search-result.fetch-previous',
+}
+
 export default FetchPrevious

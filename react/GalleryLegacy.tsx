@@ -16,6 +16,7 @@ import GalleryRow from './components/GalleryRow'
 import ProductListEventCaller from './utils/ProductListEventCaller'
 import SettingsContext from './components/SettingsContext'
 import type { Product } from './Gallery'
+import type { PreferredSKU } from './GalleryLayout'
 import { useBreadcrumb } from './hooks/useBreadcrumb'
 import { useSearchTitle } from './hooks/useSearchTitle'
 
@@ -41,6 +42,8 @@ export interface GalleryProps {
   lazyItemsRemaining: number
   customSummaryInterval?: number
   CustomSummary?: ComponentType
+  /** Logic to enable which SKU will be the selected item */
+  preferredSKU?: PreferredSKU
 }
 
 /**
@@ -61,6 +64,7 @@ const Gallery: React.FC<GalleryProps> = ({
   lazyItemsRemaining,
   customSummaryInterval,
   CustomSummary,
+  preferredSKU,
 }) => {
   const { isMobile } = useDevice()
   const { trackingId } = useContext(SettingsContext) || {}
@@ -131,6 +135,7 @@ const Gallery: React.FC<GalleryProps> = ({
             listName={listName}
             customSummaryInterval={customSummaryInterval}
             CustomSummary={CustomSummary}
+            preferredSKU={preferredSKU}
           />
         ))}
         {typeof lazyItemsRemaining === 'number' && lazyItemsRemaining > 0 && (

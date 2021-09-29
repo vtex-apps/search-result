@@ -51,7 +51,7 @@
   "store/search-result.filter-button.title": "Filtres",
   "store/search-result.filter-breadcrumbs.primary": "Filtres",
   "store/search-result.filter-button.apply": "Faire la demande",
-  "store/search-result.filter-button.clear": "Nettoyer",
+  "store/search-result.filter-button.clear": "Effacer",
   "store/search-result.orderby.title": "Trier par",
   "store/search-result.clear-filters.title": "Effacer",
   "store/search-result.filter-action.title": "Filtre",
@@ -94,5 +94,11 @@
   "admin/editor.search-result-layout-custom.title": "Mise en page flexible et personnalisée du résultat de recherche",
   "admin/editor.search-result-layout.title": "Mise en page flexible du résultat de recherche",
   "admin/editor.search-result-mobile.title": "Mise en page flexible du résultat de recherche sur mobile",
-  "admin/editor.search-result-desktop.title": "Mise en page flexible du résultat de recherche sur ordinateur"
+  "admin/editor.search-result-desktop.title": "Mise en page flexible du résultat de recherche sur ordinateur",
+  "store/search-result.price-ranges.submit": "Aller",
+  "admin/editor.search-result.fetch-more": "Récupérer plus",
+  "admin/editor.search-result.fetch-previous": "Récupérer le précédent",
+  "admin/editor.search-result.fetch-button.button-behavior": "Comportement du bouton",
+  "admin/editor.search-result.fetch-button.button-behavior.button": "Bouton",
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Lien vers la page - Améliore le référencement SEO, peut changer l’apparence du bouton"
 }

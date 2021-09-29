@@ -303,6 +303,18 @@ To understand how to build your search results with multiple layouts using the `
 | `name`   | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Layout name. This value must be unique i.e. not equal to other layout names declared in the `gallery` block. | `undefined` |
 | `component`   | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Names the `undefined` prop from the `gallery` block, which is responsible for declaring the block to be rendered in this layout. This prop's value can be any of your choosing as long as it is PascalCased i.e. has the first letter of each word in its name capitalized. **Caution**: For this to work, the chosen value must name afterwards the `gallery` block' `undefined` prop - *Do not use the `component` prop's value to directly pass the desired block name itself*. Check out the example below in order to understand the underlying logic behind this prop. | `undefined` |
 | `itemsPerRow`   | `number` / `object` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Number of items to be displayed in each row of this layout. This prop works with [responsive values](https://vtex.io/docs/app/vtex.responsive-values/), therefore it also accepts an object with different numbers for desktop, tablet or phone screen sizes (*see the table below*). | `undefined` |
+|     `preferredSKU`      | `PreferredSKUEnum` | Controls which SKU will be initially selected in the product summary                                                                                                                                                                                                                                                                                                                                 | `"FIRST_AVAILABLE"` |
+
+For `PreferredSKUEnum`:
+
+| Name            | Value             | Description                                        |
+| --------------- | ----------------- | -------------------------------------------------- |
+| First Available | `FIRST_AVAILABLE` | First available SKU in stock found or first SKU without stock. |
+| Last Available  | `LAST_AVAILABLE`  | Last available SKU in stock found or last SKU without stock.  |
+| Cheapest        | `PRICE_ASC`       | Cheapest SKU in stock found or first SKU without stock.        |
+| Most Expensive  | `PRICE_DESC`      | Most expensive SKU in stock found or first SKU without stock.  |
+
+⚠️ There's a way to select which SKU should take preference over this prop. You can create a Product (field) specification and per product assign the value of the desired SKU to be initially selected. Keep in mind that If the specification doesn't exist or if the value is empty, it will use the `preferredSKU` prop as fallback. You can read more about it, and how to implement it in [Recipes](https://vtex.io/docs/recipes/all)
 
 - **`itemsPerRow` object:** 
   
@@ -408,7 +420,7 @@ Renders a filter selector for the fetched results.
 | Prop name | Type                      | Description                                                                                       | Default value |
 | --------- | ------------------------- | ------------------------------------------------------------------------------------------------- | ------------- |
 | `categoryFiltersMode`  | `enum` | Whether the category filters should use the `href` attribute with the category pages' URLs (`href`) or not (`default`). By default, the filters use HTML divs with `role="link"`. You may change this behavior by setting this prop's value to `href`, thereby creating a link building to improve the SEO ranking of your category pages. | `default`  |
-| `layout`  | `Enum` | Whether the Filter Navigator layout should be responsive (`responsive`) or not (`desktop`). You may use `desktop` when the Filter Navigator was configured to be displayed in a [drawer](https://vtex.io/docs/components/content-blocks/vtex.store-drawer@0.9.0). | `responsive`  |
+| `layout`  | `Enum` | Whether the Filter Navigator layout should be responsive (`responsive`) or not (`desktop`, `phone`). You may use`phone` when mobile layout is needed on the desktop resolution and `desktop` when the Filter Navigator was configured to be displayed in a [drawer](https://vtex.io/docs/components/content-blocks/vtex.store-drawer@0.9.0). | `responsive`  |
 | `maxItemsDepartment` | `number`                 | Maximum number of departments to be displayed before the See More button is triggered.          | `8`             |
 | `maxItemsCategory`   | `number`                 | Maximum number of category items to be displayed before the See More button is triggered.     | `8`             |
 | `initiallyCollapsed` | `Boolean` | Makes the search filters start out collapsed (`true`) or open (`false`). | `false` |
@@ -424,6 +436,35 @@ Renders a filter selector for the fetched results.
 | `updateOnFilterSelectionOnMobile` | `boolean` | Whether the search results on mobile should be updated according to filter selection (`true`) or not (`false`). Notice: this prop only works if the `preventRouteChange` prop is declared as `true`.                                                                        | `false`       |
 | `showClearByFilter`       | `boolean` | Whether a clear button (responsible for erasing all filter options selected by the user) should be displayed alongside the filter name (`true`) or not (`false`).                                                                                                                              | `false`       |
 | `priceRangeLayout` | `enum` | Whether a text field to enter the desired price range should be displayed  (`inputAndSlider`) or not (`slider`). | `slider` |
+| `facetOrdering` | `array` | Array of objects (see below) that applies custom sorting rules for filters. The default behavior sorts descending the items by quantity. | `undefined` |
+
+- **`facetOrdering` object:** 
+  
+| Prop name | Type     | Description | Default value   |
+| :-------: | :------: | :--------:  | :-------------: | 
+| `key` | `string` | Facets key that will be sorted. Possible values are `category-1`, `category-2`, `category-3` (for department, category and subcategory), `brand` or a product specification name. |  `undefined` | 
+| `orderBy` | `enum` | Field from facets that should be used when sorting the entries. Possible values are `name` and `quantity`. | `undefined` | 
+| `order` | `enum` | Whether the filter should be sorted by ascending (`ASC`) or descending (`DESC`) order. | `ASC` |
+
+For example:
+
+```jsonc
+{
+  "filter-navigator.v3": {
+    "props": {
+      "facetOrdering": [
+        {
+          "key": "brand",
+          "orderBy": "name",
+          "order": "ASC"
+        }
+      ]
+    },
+  }
+}
+```
+
+> ⚠️ The `facetOrdering` prop will conflict with the `enableFiltersFetchOptimization` flag on `vtex.store`, since it returns only the top filter values ordered by count. In order to achieve the desired outcome with `facetOrdering`, it is necessary to set `enableFiltersFetchOptimization` as `false` on `vtex.store` Admin settings.
 
 #### `order-by` block
 

@@ -94,5 +94,11 @@
   "admin/editor.search-result-layout-custom.title": "Zoekresultaat Aangepaste Flexibele Lay-out",
   "admin/editor.search-result-layout.title": "Zoekresultaat Flexibele Layout",
   "admin/editor.search-result-mobile.title": "Zoekresultaat Flexibele Layout Mobiel",
-  "admin/editor.search-result-desktop.title": "Zoekresultaat Flexibele Layout Desktop"
+  "admin/editor.search-result-desktop.title": "Zoekresultaat Flexibele Layout Desktop",
+  "store/search-result.price-ranges.submit": "Ga",
+  "admin/editor.search-result.fetch-more": "Meer halen",
+  "admin/editor.search-result.fetch-previous": "Vorige halen",
+  "admin/editor.search-result.fetch-button.button-behavior": "Knopgedrag",
+  "admin/editor.search-result.fetch-button.button-behavior.button": "Knop",
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link naar pagina - Verbetert SEO, kan veranderen hoe de knop eruit ziet"
 }

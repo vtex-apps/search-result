@@ -94,5 +94,11 @@
   "admin/editor.search-result-layout-custom.title": "Mod de afișare rezultat personalizat flexibil",
   "admin/editor.search-result-layout.title": "Mod de afișare rezultat flexibil",
   "admin/editor.search-result-mobile.title": "Mod de afișare rezultat flexibil pentru mobil",
-  "admin/editor.search-result-desktop.title": "Mod de afișare rezultat pentru desktop"
+  "admin/editor.search-result-desktop.title": "Mod de afișare rezultat pentru desktop",
+  "store/search-result.price-ranges.submit": "Caută",
+  "admin/editor.search-result.fetch-more": "Preia mai multe",
+  "admin/editor.search-result.fetch-previous": "Preia anterioarele",
+  "admin/editor.search-result.fetch-button.button-behavior": "Comportament buton",
+  "admin/editor.search-result.fetch-button.button-behavior.button": "Buton",
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link către pagină - Îmbunătățește SEO, poate schimba modul în care arată butonul"
 }

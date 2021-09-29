@@ -5,6 +5,7 @@ import { usePixel } from 'vtex.pixel-manager'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import type { Product } from '../Gallery'
+import type { PreferredSKU } from '../GalleryLayout'
 
 interface GalleryLayoutItemProps {
   GalleryItemComponent: ComponentType<any>
@@ -13,6 +14,8 @@ interface GalleryLayoutItemProps {
   summary: unknown
   position: number
   listName: string
+  /** Logic to enable which SKU will be the selected item */
+  preferredSKU?: PreferredSKU
 }
 
 const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
@@ -22,13 +25,14 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
   summary,
   position,
   listName,
+  preferredSKU,
 }) => {
   const { push } = usePixel()
   const { searchQuery } = useSearchPage()
 
   const product = useMemo(
-    () => ProductSummary.mapCatalogProductToProductSummary(item),
-    [item]
+    () => ProductSummary.mapCatalogProductToProductSummary(item, preferredSKU),
+    [item, preferredSKU]
   )
 
   const handleClick = useCallback(() => {
