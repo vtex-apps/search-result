@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- `facets` query result that was being ignored from SSR.
+
 ## [3.109.0] - 2021-09-15
 ### Added
 - `preferredSKU` prop to the `Gallery`.
