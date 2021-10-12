@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.109.1] - 2021-10-12
+
 ### Fixed
 - `facets` query result that was being ignored from SSR.
 
