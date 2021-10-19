@@ -5,6 +5,7 @@ import ContentLoader from 'react-content-loader'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
+import { usePixel } from 'vtex.pixel-manager'
 // eslint-disable-next-line no-restricted-imports
 import { flatten } from 'ramda'
 
@@ -92,6 +93,7 @@ const FilterNavigator = ({
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
   const [truncatedFacetsFetched, setTruncatedFacetsFetched] = useState(false)
+  const { push } = usePixel()
 
   const mobileLayout =
     (isMobile && layout === LAYOUT_TYPES.responsive) ||
@@ -164,6 +166,13 @@ const FilterNavigator = ({
   const selectedCategories = getSelectedCategories(tree)
   const navigateToFacet = useFacetNavigation(
     useMemo(() => {
+      if (selectedFilters.length) {
+        push({
+          event: 'filterProducts',
+          values: selectedFilters,
+        })
+      }
+
       return selectedCategories.concat(selectedFilters)
     }, [selectedFilters, selectedCategories]),
     scrollToTop
