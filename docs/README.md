@@ -478,7 +478,7 @@ The sorting options are:
 
 | Sorting option           | Value                       |
 | ------------------------ | --------------------------- |
-| Relevance                | `"OrderByScoreDESC"`        |
+| Relevance                | `""`        |
 | Top Sales Descending     | `"OrderByTopSaleDESC"`      |
 | Release Date Descending  | `"OrderByReleaseDateDESC"`  |
 | Best Discount Descending | `"OrderByBestDiscountDESC"` |
