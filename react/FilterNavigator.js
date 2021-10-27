@@ -96,7 +96,7 @@ const FilterNavigator = ({
   fullWidthOnMobile = false,
   navigationTypeOnMobile = 'page',
   updateOnFilterSelectionOnMobile = false,
-  drawerDirectionMobile = DRAWER_DIRECTION_MOBILE.left,
+  drawerDirectionMobile = DRAWER_DIRECTION_MOBILE.drawerLeft,
   showClearByFilter = false,
   showClearAllFiltersOnDesktop = false,
   priceRangeLayout = 'slider',
@@ -111,11 +111,9 @@ const FilterNavigator = ({
     layout === LAYOUT_TYPES.mobile ||
     layout === LAYOUT_TYPES.phone
 
-  const filtersDrawerDirectionMobile = Object.values(
-    DRAWER_DIRECTION_MOBILE
-  ).includes(drawerDirectionMobile)
-    ? drawerDirectionMobile
-    : DRAWER_DIRECTION_MOBILE.left
+  const filtersDrawerDirectionMobile =
+    DRAWER_DIRECTION_MOBILE[drawerDirectionMobile] ??
+    DRAWER_DIRECTION_MOBILE.drawerRight
 
   useEffect(() => {
     // This condition confirms if there are facets that still need fetching
