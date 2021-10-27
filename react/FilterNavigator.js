@@ -37,8 +37,8 @@ const LAYOUT_TYPES = {
 }
 
 const DRAWER_DIRECTION_MOBILE = {
-  right: 'drawerRight',
-  left: 'drawerLeft',
+  drawerRight: 'drawerRight',
+  drawerLeft: 'drawerLeft',
 }
 
 const getSelectedCategories = (tree) => {
