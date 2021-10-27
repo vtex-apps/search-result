@@ -85,6 +85,6 @@ Sidebar.propTypes = {
   onOutsideClick: PropTypes.func,
   /* The SideBar will occupy the entire length of the window */
   fullWidth: PropTypes.bool,
-  filtersDrawerDirectionMobile: PropTypes.string,
+  filtersDrawerDirectionMobile: PropTypes.oneOf(['drawerRight', 'drawerLeft']),
 }
 export default injectIntl(Sidebar)
