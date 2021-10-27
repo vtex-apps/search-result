@@ -50,6 +50,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.101.0] - 2021-06-24
 ## Fixed
 - `scrollToTop` prop not being passed down to `PriceRange` component
+
 ## [3.100.0] - 2021-06-10
 ### Fixed
 - Gallery item's position now starts at 1
