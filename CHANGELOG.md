@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- `specificationOptions` to `OrderBy`.
+
 ## [3.109.1] - 2021-10-12
 
 ### Fixed

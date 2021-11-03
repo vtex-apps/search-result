@@ -471,6 +471,7 @@ Renders a dropdown button with sorting options to display the fetched results (t
 
 | Prop name       | Type            | Description                 | Default value |
 | --------------- | --------------- | --------------------------- | ------------- |
+| `specificationOptions` | `[object]` | Indicates which sorting options by specification will be displayed. This only works for stores using `vtex.search-resolver@1.x` | `undefined` |
 | `hiddenOptions` | `[string]` | Indicates which sorting options will be hidden. (e.g. `["OrderByNameASC", "OrderByNameDESC"]`) | `undefined`      |
 | `showOrderTitle` | `boolean` | Whether the selected order value (e.g. `Relevance`) will be displayed (`true`) or not (`false`).  | `true`           |
 
@@ -487,6 +488,12 @@ The sorting options are:
 | Name Ascending           | `"OrderByNameASC"`          |
 | Name Descending          | `"OrderByNameDESC"`         |
 | Collection          | `"OrderByCollection"`         |
+
+- **`specificationOptions` Object:**
+| Prop name | Type    | Description    | Default value |
+| --------- | ------- | -------------- | ------------- |
+| value     | string  | Value that will be sent for ordering in the API. Must be in the format `{specification key}:{asc|desc}`. For example: `"size:desc"` or `"priceByUnit:asc"`. | `undefined` |
+| label     | string  | Label that will be displayed in the sorting options. E.g.: `"Price by unit, ascending"` | `undefined` |
 
 #### `search-fetch-more` block
 
