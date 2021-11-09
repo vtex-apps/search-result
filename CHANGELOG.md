@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.110.2] - 2021-11-09
+
 ### Fixed
 - Added `preventRouteChange` prop to the app documentation (README.md file).
 
