@@ -10,6 +10,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Added `preventRouteChange` prop to the app documentation (README.md file).
 
+## [3.110.1] - 2021-11-09
+### Fixed
+- General review of the documentation (README.md file)
+
+## [3.110.0] - 2021-11-03
+
+### Added
+- `specificationOptions` to `OrderBy`.
+
+## [3.109.1] - 2021-10-12
+
+### Fixed
+- `facets` query result that was being ignored from SSR.
+
 ## [3.109.0] - 2021-09-15
 ### Added
 - `preferredSKU` prop to the `Gallery`.
