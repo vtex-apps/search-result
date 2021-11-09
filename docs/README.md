@@ -251,6 +251,8 @@ According to your store's scenario, structure the `search-result-layout` or the 
 | `mobileLayout`      | `object` | Controls how the search results page will be displayed to users using the mobile layout. The possible values are in [this table](#the-mobilelayout-object).                                                                                                               | `undefined`              |
 | `defaultGalleryLayout` | `string` | Name of the gallery layout to be used by default in the search results page. This prop is required when several layouts are explicitly defined by the `gallery` block. This prop's value must match the layout name defined in the `name` prop from `layouts` object. |  `undefined` | 
 | `thresholdForFacetSearch` | `number` | The minimum number of facets must be displayed on the interface for a search bar to be displayed. If you declare `0`, the search bar will always be displayed. |  `undefined` | 
+| `preventRouteChange` | `boolean` | Keeps page customizations even when the user applies new filters on it. This prop will merely change the URL’s query string instead of the entire URL; therefore, it prevents a full page reload whenever filters are applied. |  `false` | 
+
 
 #### The `mobileLayout` object
 
