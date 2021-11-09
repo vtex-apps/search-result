@@ -1,11 +1,12 @@
 import React from 'react'
+// eslint-disable-next-line no-restricted-imports
 import { path } from 'ramda'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
-import FetchPreviousButton from './components/loaders/FetchPreviousButton'
-import { useFetchMore } from './hooks/useFetchMore'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
+import FetchPreviousButton from './components/loaders/FetchPreviousButton'
+import { useFetchMore } from './hooks/useFetchMore'
 import styles from './searchResult.css'
 
 const FetchPrevious = ({ htmlElementForButton = 'button' }) => {
@@ -24,14 +25,16 @@ const FetchPrevious = ({ htmlElementForButton = 'button' }) => {
     priceRange: path(['variables', 'priceRange'], searchQuery),
   }
 
-  const { handleFetchMorePrevious, loading, from } = useFetchMore({
-    page,
-    recordsFiltered,
-    maxItemsPerPage,
-    fetchMore,
-    products,
-    queryData,
-  })
+  const { handleFetchMorePrevious, loading, from, previousPage } = useFetchMore(
+    {
+      page,
+      recordsFiltered,
+      maxItemsPerPage,
+      fetchMore,
+      products,
+      queryData,
+    }
+  )
 
   return (
     <div
@@ -47,6 +50,7 @@ const FetchPrevious = ({ htmlElementForButton = 'button' }) => {
         onFetchPrevious={handleFetchMorePrevious}
         loading={loading}
         htmlElementForButton={htmlElementForButton}
+        previousPage={previousPage}
       />
     </div>
   )
@@ -55,6 +59,10 @@ const FetchPrevious = ({ htmlElementForButton = 'button' }) => {
 FetchPrevious.propTypes = {
   /* html element to render for fetch previous button */
   htmlElementForButton: PropTypes.string,
+}
+
+FetchPrevious.schema = {
+  title: 'admin/editor.search-result.fetch-previous',
 }
 
 export default FetchPrevious

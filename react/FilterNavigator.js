@@ -33,6 +33,7 @@ const CSS_HANDLES = [
 const LAYOUT_TYPES = {
   responsive: 'responsive',
   desktop: 'desktop',
+  phone: 'phone',
 }
 
 const getSelectedCategories = (tree) => {
@@ -94,7 +95,8 @@ const FilterNavigator = ({
 
   const mobileLayout =
     (isMobile && layout === LAYOUT_TYPES.responsive) ||
-    layout === LAYOUT_TYPES.mobile
+    layout === LAYOUT_TYPES.mobile ||
+    layout === LAYOUT_TYPES.phone
 
   useEffect(() => {
     // This condition confirms if there are facets that still need fetching
@@ -262,6 +264,7 @@ const FilterNavigator = ({
               appliedFiltersOverview={appliedFiltersOverview}
               showClearByFilter={showClearByFilter}
               priceRangeLayout={priceRangeLayout}
+              scrollToTop={scrollToTop}
             />
           </div>
           <ExtensionPoint id="shop-review-summary" />

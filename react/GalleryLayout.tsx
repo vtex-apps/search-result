@@ -1,6 +1,6 @@
-import React, { ComponentType, useContext, useEffect, useMemo } from 'react'
+import React, { useContext, useEffect, useMemo } from 'react'
+import type { ComponentType } from 'react'
 import classNames from 'classnames'
-
 import { ProductListContext } from 'vtex.product-list-context'
 import { Spinner } from 'vtex.styleguide'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
@@ -17,6 +17,8 @@ import {
   SET_GALLERY_LAYOUTS_TYPE,
   SWITCH_GALLERY_LAYOUT_TYPE,
 } from './constants'
+import { useBreadcrumb } from './hooks/useBreadcrumb'
+import { useSearchTitle } from './hooks/useSearchTitle'
 
 const LAZY_RENDER_THRESHOLD = 2
 
@@ -39,8 +41,16 @@ export interface GalleryLayoutProps {
   products: Product[]
   showingFacets: boolean
   summary: unknown
+  /** Logic to enable which SKU will be the selected item */
+  preferredSKU?: PreferredSKU
   slots: Slots
 }
+
+export type PreferredSKU =
+  | 'FIRST_AVAILABLE'
+  | 'LAST_AVAILABLE'
+  | 'PRICE_ASC'
+  | 'PRICE_DESC'
 
 const GalleryLayout: React.FC<GalleryLayoutProps> = ({
   layouts,
@@ -48,20 +58,28 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
   products,
   showingFacets,
   summary,
+  preferredSKU,
   slots,
 }) => {
-  const { trackingId = 'Search result' } = useContext(SettingsContext) || {}
+  const { trackingId } = useContext(SettingsContext) || {}
   const handles = useCssHandles(CSS_HANDLES)
   const { getSettings } = useRuntime()
   const { selectedGalleryLayout } = useSearchPageState()
   const searchPageStateDispatch = useSearchPageStateDispatch()
+
+  const breadcrumb = useBreadcrumb()
+  const searchTitle = useSearchTitle(breadcrumb ?? []).trim()
+
+  // Not using ?? operator because trackingId and searchTitle can be ''
+  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+  const listName = trackingId || searchTitle || 'Search result'
 
   useEffect(() => {
     searchPageStateDispatch({
       type: SET_GALLERY_LAYOUTS_TYPE,
       args: { galleryLayouts: layouts },
     })
-  }, [layouts])
+  }, [layouts, searchPageStateDispatch])
 
   const currentLayoutOption = useMemo(() => {
     let layoutOption
@@ -89,12 +107,12 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
     }
 
     return layoutOption
-  }, [selectedGalleryLayout, layouts])
+  }, [selectedGalleryLayout, layouts, searchPageStateDispatch])
 
   const itemsPerRow = useResponsiveValue(currentLayoutOption.itemsPerRow)
 
   const galleryRows = useMemo(() => {
-    const galleryRows = []
+    const rows = []
 
     let i = 0
 
@@ -102,11 +120,11 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
       const start = i * itemsPerRow
       const end = (i + 1) * itemsPerRow
 
-      galleryRows.push(products.slice(start, end))
+      rows.push(products.slice(start, end))
       i++
     }
 
-    return galleryRows
+    return rows
   }, [itemsPerRow, products])
 
   if (!layouts || layouts.length === 0) {
@@ -117,6 +135,7 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
     console.error(
       `Define a Slot with name "${currentLayoutOption.component}" for the layout "${currentLayoutOption.name}".`
     )
+
     return null
   }
 
@@ -133,7 +152,7 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
     ?.enableSearchRenderingOptimization
 
   return (
-    <ProductListProvider listName={trackingId as string}>
+    <ProductListProvider listName={listName as string}>
       <div id="gallery-layout-container" className={galleryClasses}>
         {galleryRows.map((rowProducts, index) => (
           <GalleryLayoutRow
@@ -145,6 +164,8 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
             itemsPerRow={itemsPerRow}
             currentLayoutName={currentLayoutOption.name}
             rowIndex={index}
+            listName={listName}
+            preferredSKU={preferredSKU}
             GalleryItemComponent={slots[currentLayoutOption.component]}
           />
         ))}

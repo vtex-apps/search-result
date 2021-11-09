@@ -94,5 +94,11 @@
   "admin/editor.search-result-layout-custom.title": "검색 결과 사용자 정의 플렉시블 레이아웃",
   "admin/editor.search-result-layout.title": "검색 결과 플렉시블 레이아웃",
   "admin/editor.search-result-mobile.title": "검색 결과 플렉시블 레이아웃 모바일",
-  "admin/editor.search-result-desktop.title": "검색 결과 플렉시블 레이아웃 데스크탑"
+  "admin/editor.search-result-desktop.title": "검색 결과 플렉시블 레이아웃 데스크탑",
+  "store/search-result.price-ranges.submit": "이동",
+  "admin/editor.search-result.fetch-more": "추가 가져오기",
+  "admin/editor.search-result.fetch-previous": "이전 가져오기",
+  "admin/editor.search-result.fetch-button.button-behavior": "단추 동작",
+  "admin/editor.search-result.fetch-button.button-behavior.button": "단추",
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "페이지 링크 - SEO 개선, 버튼 모양 변경 가능"
 }

@@ -1,0 +1,7 @@
+13:14:25.051 - [32minfo[39m: Connecting to logs stream for segurosexito  
+13:14:25.052 - [32minfo[39m: Press CTRL+C to abort  
+13:15:10.981 - [32minfo[39m: Listening to segurosexito's logs  
+13:41:30.979 - [31merror[39m: Error reading logs: SSE error on endpoint http://infra.io.vtex.com/skidder/v1/segurosexito/iespinoza/logs/stream - [ErrorID: 4f5a408feac2e08a1adb15990ff26abd]  
+13:42:17.655 - [32minfo[39m: Listening to segurosexito's logs  
+14:13:11.360 - [31merror[39m: Error reading logs: SSE error on endpoint http://infra.io.vtex.com/skidder/v1/segurosexito/iespinoza/logs/stream - [ErrorID: 7d57df21c604817ca851b5abe0ffa2d4]  
+14:14:38.413 - [32minfo[39m: Listening to segurosexito's logs  

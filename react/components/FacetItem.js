@@ -41,6 +41,7 @@ const FacetItem = ({
   )
 
   const { searchQuery } = useSearchPage()
+  const sampling = searchQuery?.facets?.sampling
 
   const checkBoxId = reservedVariableNames.includes(facet.value)
     ? `filterItem--${facet.key}-${facet.value}`
@@ -60,24 +61,27 @@ const FacetItem = ({
 
   const shouldDisable = useShouldDisableFacet(facet)
 
-  const facetLabel = showFacetQuantity ? (
-    <>
-      {facet.name}{' '}
-      <span
-        data-testid={`facet-quantity-${facet.value}-${facet.quantity}`}
-        className={handles.productCount}
-      >
-        ({facet.quantity})
-      </span>
-    </>
-  ) : (
-    facet.name
-  )
+  const facetLabel =
+    showFacetQuantity && !sampling ? (
+      <>
+        {facet.name}{' '}
+        <span
+          data-testid={`facet-quantity-${facet.value}-${facet.quantity}`}
+          className={handles.productCount}
+        >
+          ({facet.quantity})
+        </span>
+      </>
+    ) : (
+      facet.name
+    )
 
   return (
     <div
       className={classes}
       style={{ hyphens: 'auto', wordBreak: 'break-word' }}
+      alt={facet.name}
+      title={facet.name}
     >
       <Checkbox
         id={checkBoxId}

@@ -20,6 +20,7 @@ const DEFAULT_QUERY_VALUES = {
   installmentCriteria: 'MAX_WITHOUT_INTEREST',
   skusFilter: 'ALL_AVAILABLE',
   simulationBehavior: 'default',
+  orderBy: 'OrderByScoreDESC',
 }
 
 // Has to match the value in the query middleware,
@@ -146,7 +147,7 @@ const useCorrectSearchStateVariables = (
 }
 
 const useQueries = (variables, facetsArgs) => {
-  const { getSettings } = useRuntime()
+  const { getSettings, query: runtimeQuery } = useRuntime()
   const isLazyFacetsFetchEnabled = getSettings('vtex.store')
     ?.enableFiltersFetchOptimization
 
@@ -182,11 +183,12 @@ const useQueries = (variables, facetsArgs) => {
       fullText: variables.fullText,
       selectedFacets: variables.selectedFacets,
       hideUnavailableItems: variables.hideUnavailableItems,
-      behavior: variables.facetsBehavior,
+      behavior: variables.facetsBehavior || DEFAULT_QUERY_VALUES.facetsBehavior,
       categoryTreeBehavior: variables.categoryTreeBehavior,
       operator: variables.operator,
       fuzzy: variables.fuzzy,
-      searchState: variables.searchState,
+      searchState: variables.searchState || undefined,
+      initialAttributes: runtimeQuery?.initialMap,
     },
     skip: !facetsArgs.withFacets,
   })
@@ -229,6 +231,7 @@ const useQueries = (variables, facetsArgs) => {
         queryArgs,
         breadcrumb: facets && facets.breadcrumb,
         facetsFetchMore,
+        sampling: facets?.sampling,
       },
       searchMetadata,
     },
@@ -310,7 +313,7 @@ const SearchQuery = ({
     return {
       map,
       query,
-      orderBy,
+      orderBy: orderBy || DEFAULT_QUERY_VALUES.orderBy,
       from,
       to,
       selectedFacets,

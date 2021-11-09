@@ -1,13 +1,7 @@
 {
   "extends": "vtex",
   "root": true,
-  "overrides": [
-    {
-      "files": ["*.js", "*.jsx"],
-      "parser": "babel-eslint",
-      "parserOptions": {
-        "sourceType": "module"
-      }
-    }
-  ]
+  "env": {
+    "node": true
+  }
 }

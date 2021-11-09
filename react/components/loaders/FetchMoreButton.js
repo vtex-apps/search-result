@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { Button } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { FormattedMessage } from 'react-intl'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 const CSS_HANDLES = [
   'buttonShowMore',
@@ -13,6 +14,7 @@ const useShowButton = (to, products, loading, recordsFiltered) => {
   const [showButton, setShowButton] = useState(
     !!products && to + 1 < recordsFiltered
   )
+
   useEffect(() => {
     if (!loading) {
       setShowButton(!!products && to + 1 < recordsFiltered)
@@ -22,7 +24,29 @@ const useShowButton = (to, products, loading, recordsFiltered) => {
   return showButton
 }
 
-const FetchMoreButton = props => {
+function shouldNotIncludeMap(map) {
+  if (!map || map === 'b' || map === 'brand') {
+    return true
+  }
+
+  const mapTree = map.split(',')
+
+  if (mapTree.length > 3) {
+    return false
+  }
+
+  return mapTree.every((mapItem) => mapItem === 'c')
+}
+
+export function getMapQueryString(searchQuery) {
+  if (shouldNotIncludeMap(searchQuery?.variables?.map)) {
+    return ''
+  }
+
+  return `&map=${searchQuery?.variables?.map}`
+}
+
+const FetchMoreButton = (props) => {
   const {
     products,
     to,
@@ -30,14 +54,16 @@ const FetchMoreButton = props => {
     onFetchMore,
     loading,
     showProductsCount,
+    nextPage,
     htmlElementForButton,
   } = props
 
   const isAnchor = htmlElementForButton === 'a'
   const showButton = useShowButton(to, products, loading, recordsFiltered)
   const handles = useCssHandles(CSS_HANDLES)
+  const { searchQuery } = useSearchPage()
 
-  const handleFetchMoreClick = ev => {
+  const handleFetchMoreClick = (ev) => {
     isAnchor && ev.preventDefault()
     onFetchMore()
   }
@@ -47,8 +73,10 @@ const FetchMoreButton = props => {
       <div className={`${handles.buttonShowMore} w-100 flex justify-center`}>
         {showButton && (
           <Button
-            onClick={ev => handleFetchMoreClick(ev)}
-            href={isAnchor && '#'}
+            onClick={(ev) => handleFetchMoreClick(ev)}
+            href={
+              isAnchor && `?page=${nextPage}${getMapQueryString(searchQuery)}`
+            }
             rel={isAnchor && 'next'}
             isLoading={loading}
             size="small"
