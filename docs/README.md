@@ -5,7 +5,7 @@
 # Search Result
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 VTEX Search Result app is responsible for handling the result fetched by the [VTEX Search API](https://developers.vtex.com/vtex-developer-docs/reference/search-api-overview) and displaying it to users.
@@ -313,9 +313,21 @@ To understand how to build your search results with multiple layouts using the `
 
 | Prop name   | Type     | Description                                                             | Default value   |
 | :---------: | :------: | :---------------------------------------------------------------------: | :-------------: |
-| `name`   | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Layout name. This value must be unique, different of the others layout names declared in the `gallery` block. | `undefined` |
-| `component`   | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Names the `undefined` prop from the `gallery` block, responsible for declaring the block to be rendered in this layout. This prop's value can be any of your choosing as long as it is PascalCased - it has the first letter of each word in its name capitalized. The chosen value must name the `gallery` block as [`undefined` prop](#the-gallery-layout-switcherprops) afterward. Do not use the `component` prop's value to pass the desired block name itself directly. | `undefined` |
-| `itemsPerRow`   | `number` / `object` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Number of items to be displayed in each row of this layout. This prop works with [responsive values](https://developers.vtex.com/vtex-developer-docs/docs/vtex-responsive-values); therefore, it also accepts an object with different numbers for desktop, tablet, or phone screen sizes. Check the prop's possible values on [this table](#the-itemsPerRow-object). | `undefined` |
+| `name`   | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Layout name. This value must be unique i.e. not equal to other layout names declared in the `gallery` block. | `undefined` |
+| `component`   | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Names the `undefined` prop from the `gallery` block, which is responsible for declaring the block to be rendered in this layout. This prop's value can be any of your choosing as long as it is PascalCased i.e. has the first letter of each word in its name capitalized. **Caution**: For this to work, the chosen value must name afterwards the `gallery` block' `undefined` prop - *Do not use the `component` prop's value to directly pass the desired block name itself*. Check out the example below in order to understand the underlying logic behind this prop. | `undefined` |
+| `itemsPerRow`   | `number` / `object` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Number of items to be displayed in each row of this layout. This prop works with [responsive values](https://vtex.io/docs/app/vtex.responsive-values/), therefore it also accepts an object with different numbers for desktop, tablet or phone screen sizes (*see the table below*). | `undefined` |
+|     `preferredSKU`      | `PreferredSKUEnum` | Controls which SKU will be initially selected in the product summary                                                                                                                                                                                                                                                                                                                                 | `"FIRST_AVAILABLE"` |
+
+For `PreferredSKUEnum`:
+
+| Name            | Value             | Description                                        |
+| --------------- | ----------------- | -------------------------------------------------- |
+| First Available | `FIRST_AVAILABLE` | First available SKU in stock found or first SKU without stock. |
+| Last Available  | `LAST_AVAILABLE`  | Last available SKU in stock found or last SKU without stock.  |
+| Cheapest        | `PRICE_ASC`       | Cheapest SKU in stock found or first SKU without stock.        |
+| Most Expensive  | `PRICE_DESC`      | Most expensive SKU in stock found or first SKU without stock.  |
+
+⚠️ There's a way to select which SKU should take preference over this prop. You can create a Product (field) specification and per product assign the value of the desired SKU to be initially selected. Keep in mind that If the specification doesn't exist or if the value is empty, it will use the `preferredSKU` prop as fallback. You can read more about it, and how to implement it in [Recipes](https://vtex.io/docs/recipes/all)
 
 
 ##### The `itemsPerRow` object
@@ -438,6 +450,36 @@ This block renders a filter selector for the fetched results.
 | `updateOnFilterSelectionOnMobile` | `boolean` | Whether the search results on mobile should be updated according to filter selection (`true`) or not (`false`). This prop only works if the `preventRouteChange` prop is declared as `true`.         | `false`       |
 | `showClearByFilter`       | `boolean` | Whether a clear button (responsible for erasing all filter options selected by the user) should be displayed alongside the filter name (`true`) or not (`false`).   | `false`       |
 | `priceRangeLayout` | `enum` | Whether a text field enters the desired price range should be displayed  (`inputAndSlider`) or not (`slider`). | `slider` |
+| `facetOrdering` | `array` | Array of objects (see below) that applies custom sorting rules for filters. The default behavior sorts descending the items by quantity. | `undefined` |
+
+- **`facetOrdering` object:** 
+  
+| Prop name | Type     | Description | Default value   |
+| :-------: | :------: | :--------:  | :-------------: | 
+| `key` | `string` | Facets key that will be sorted. Possible values are `category-1`, `category-2`, `category-3` (for department, category and subcategory), `brand` or a product specification name. |  `undefined` | 
+| `orderBy` | `enum` | Field from facets that should be used when sorting the entries. Possible values are `name` and `quantity`. | `undefined` | 
+| `order` | `enum` | Whether the filter should be sorted by ascending (`ASC`) or descending (`DESC`) order. | `ASC` |
+
+For example:
+
+```jsonc
+{
+  "filter-navigator.v3": {
+    "props": {
+      "facetOrdering": [
+        {
+          "key": "brand",
+          "orderBy": "name",
+          "order": "ASC"
+        }
+      ]
+    },
+  }
+}
+```
+
+> ⚠️ The `facetOrdering` prop will conflict with the `enableFiltersFetchOptimization` flag on `vtex.store`, since it returns only the top filter values ordered by count. In order to achieve the desired outcome with `facetOrdering`, it is necessary to set `enableFiltersFetchOptimization` as `false` on `vtex.store` Admin settings.
+
 
 #### The `order-by` block
 
@@ -446,7 +488,8 @@ The `order-by` block renders a dropdown button with [sorting options](#the-sorti
 ##### The `order-by` props
 | Prop name       | Type            | Description                 | Default value |
 | --------------- | --------------- | --------------------------- | ------------- |
-| `hiddenOptions` | `string` | Indicates which sorting options will be hidden. (e.g. `["OrderByNameASC", "OrderByNameDESC"]`) | `undefined`      |
+| `specificationOptions` | `[object]` | Indicates which sorting options by specification will be displayed. This only works for stores using `vtex.search-resolver@1.x` | `undefined` |
+| `hiddenOptions` | `[string]` | Indicates which sorting options will be hidden. (e.g. `["OrderByNameASC", "OrderByNameDESC"]`) | `undefined`      |
 | `showOrderTitle` | `boolean` | Whether the selected order value (e.g. `Relevance`) will be displayed (`true`) or not (`false`).  | `true`           |
 
 ##### The sorting options for the `order-by` block
@@ -463,7 +506,14 @@ The `order-by` block renders a dropdown button with [sorting options](#the-sorti
 | Name Descending          | `"OrderByNameDESC"`         |
 | Collection               | `"OrderByCollection"`         |
 
+
 #### The `search-fetch-more` block
+
+- **`specificationOptions` Object:**
+| Prop name | Type    | Description    | Default value |
+| --------- | ------- | -------------- | ------------- |
+| value     | string  | Value that will be sent for ordering in the API. Must be in the format `{specification key}:{asc|desc}`. For example: `"size:desc"` or `"priceByUnit:asc"`. | `undefined` |
+| label     | string  | Label that will be displayed in the sorting options. E.g.: `"Price by unit, ascending"` | `undefined` |
 
 The `search-fetch-more` block renders a **Show More** button used to load the results of the next search results page. Check the block props in the table below.
 
@@ -626,6 +676,7 @@ Thanks goes out to these wonderful people ([emoji key](https://allcontributors.o
     <td align="center"><a href="https://github.com/BeatrizMiranda"><img src="https://avatars2.githubusercontent.com/u/28959326?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Beatriz Miranda</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=BeatrizMiranda" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/felipeireslan"><img src="https://avatars3.githubusercontent.com/u/47363947?v=4?s=100" width="100px;" alt=""/><br /><sub><b>felipeireslan</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=felipeireslan" title="Code">💻</a></td>
     <td align="center"><a href="https://juliomoreira.pro"><img src="https://avatars2.githubusercontent.com/u/1207017?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Julio Moreira</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=juliomoreira" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/anto90fg"><img src="https://avatars.githubusercontent.com/u/73878310?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Antonio Cervelione</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=anto90fg" title="Code">💻</a></td>
   </tr>
 </table>
 

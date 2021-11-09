@@ -7,6 +7,7 @@ import { useRenderOnView } from '../hooks/useRenderOnView'
 import GalleryItem from './GalleryItem'
 import type { Product } from '../Gallery'
 import type { MobileLayoutMode } from '../GalleryLegacy'
+import type { PreferredSKU } from '../GalleryLayout'
 
 const CSS_HANDLES = ['galleryItem'] as const
 
@@ -21,8 +22,11 @@ interface GalleryRowProps {
   itemsPerRow: number
   lazyRender?: boolean
   rowIndex?: number
+  listName: string
   customSummaryInterval?: number
   CustomSummary?: ComponentType
+  /** Logic to enable which SKU will be the selected item */
+  preferredSKU?: PreferredSKU
 }
 
 function GalleryRow({
@@ -32,8 +36,10 @@ function GalleryRow({
   itemsPerRow,
   lazyRender,
   rowIndex = 0,
+  listName,
   customSummaryInterval,
   CustomSummary,
+  preferredSKU
 }: GalleryRowProps) {
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -64,7 +70,7 @@ function GalleryRow({
 
         return (
           <div
-            key={product.productId}
+            key={product.cacheId}
             style={style}
             className={classNames(
               applyModifiers(handles.galleryItem, [
@@ -78,8 +84,10 @@ function GalleryRow({
               item={product}
               summary={summary}
               displayMode={displayMode}
-              position={rowIndex * itemsPerRow + index}
+              position={absoluteProductIndex}
+              listName={listName}
               CustomSummary={shouldRenderCustom ? CustomSummary : undefined}
+              preferredSKU={preferredSKU}
             />
           </div>
         )

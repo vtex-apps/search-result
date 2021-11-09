@@ -23,6 +23,7 @@ const Gallery: React.FC<GalleryLegacyProps | GalleryLayoutPropsWithSlots> = (
       products,
       showingFacets,
       summary,
+      preferredSKU,
       ...slots
     } = props as GalleryLayoutPropsWithSlots
 
@@ -34,6 +35,7 @@ const Gallery: React.FC<GalleryLegacyProps | GalleryLayoutPropsWithSlots> = (
         showingFacets={showingFacets}
         summary={summary}
         slots={slots}
+        preferredSKU={preferredSKU}
       />
     )
   }
@@ -44,6 +46,8 @@ const Gallery: React.FC<GalleryLegacyProps | GalleryLayoutPropsWithSlots> = (
 export interface Product {
   /** Product's id. */
   productId: string
+  /** Product's cache id. */
+  cacheId: string
   /** Product's name. */
   productName: string
   /** Product's description. */

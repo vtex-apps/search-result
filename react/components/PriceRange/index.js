@@ -17,7 +17,7 @@ import PriceRangeInput from './PriceRangeInput'
 const DEBOUNCE_TIME = 500 // ms
 
 /** Price range slider component */
-const PriceRange = ({ title, facets, priceRange, priceRangeLayout }) => {
+const PriceRange = ({ title, facets, priceRange, priceRangeLayout, scrollToTop }) => {
   const [range, setRange] = useState()
   const { culture, setQuery } = useRuntime()
   const intl = useIntl()
@@ -55,6 +55,11 @@ const PriceRange = ({ title, facets, priceRange, priceRangeLayout }) => {
       })
 
       setRange([left, right])
+      
+      if(scrollToTop !== 'none'){
+        window.scroll({ top: 0, left: 0, behavior: scrollToTop })
+      }
+      
     }, DEBOUNCE_TIME)
   }
 
