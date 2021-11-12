@@ -23,6 +23,7 @@ const Gallery: React.FC<GalleryLegacyProps | GalleryLayoutPropsWithSlots> = (
       products,
       showingFacets,
       summary,
+      preferredSKU,
       ...slots
     } = props as GalleryLayoutPropsWithSlots
 
@@ -34,6 +35,7 @@ const Gallery: React.FC<GalleryLegacyProps | GalleryLayoutPropsWithSlots> = (
         showingFacets={showingFacets}
         summary={summary}
         slots={slots}
+        preferredSKU={preferredSKU}
       />
     )
   }

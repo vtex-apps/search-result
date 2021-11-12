@@ -41,8 +41,16 @@ export interface GalleryLayoutProps {
   products: Product[]
   showingFacets: boolean
   summary: unknown
+  /** Logic to enable which SKU will be the selected item */
+  preferredSKU?: PreferredSKU
   slots: Slots
 }
+
+export type PreferredSKU =
+  | 'FIRST_AVAILABLE'
+  | 'LAST_AVAILABLE'
+  | 'PRICE_ASC'
+  | 'PRICE_DESC'
 
 const GalleryLayout: React.FC<GalleryLayoutProps> = ({
   layouts,
@@ -50,6 +58,7 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
   products,
   showingFacets,
   summary,
+  preferredSKU,
   slots,
 }) => {
   const { trackingId } = useContext(SettingsContext) || {}
@@ -156,6 +165,7 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
             currentLayoutName={currentLayoutOption.name}
             rowIndex={index}
             listName={listName}
+            preferredSKU={preferredSKU}
             GalleryItemComponent={slots[currentLayoutOption.component]}
           />
         ))}

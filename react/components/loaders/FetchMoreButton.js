@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { Button } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { FormattedMessage } from 'react-intl'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 const CSS_HANDLES = [
   'buttonShowMore',
@@ -23,6 +24,28 @@ const useShowButton = (to, products, loading, recordsFiltered) => {
   return showButton
 }
 
+function shouldNotIncludeMap(map) {
+  if (!map || map === 'b' || map === 'brand') {
+    return true
+  }
+
+  const mapTree = map.split(',')
+
+  if (mapTree.length > 3) {
+    return false
+  }
+
+  return mapTree.every((mapItem) => mapItem === 'c')
+}
+
+export function getMapQueryString(searchQuery) {
+  if (shouldNotIncludeMap(searchQuery?.variables?.map)) {
+    return ''
+  }
+
+  return `&map=${searchQuery?.variables?.map}`
+}
+
 const FetchMoreButton = (props) => {
   const {
     products,
@@ -38,6 +61,7 @@ const FetchMoreButton = (props) => {
   const isAnchor = htmlElementForButton === 'a'
   const showButton = useShowButton(to, products, loading, recordsFiltered)
   const handles = useCssHandles(CSS_HANDLES)
+  const { searchQuery } = useSearchPage()
 
   const handleFetchMoreClick = (ev) => {
     isAnchor && ev.preventDefault()
@@ -50,7 +74,9 @@ const FetchMoreButton = (props) => {
         {showButton && (
           <Button
             onClick={(ev) => handleFetchMoreClick(ev)}
-            href={isAnchor && `?page=${nextPage}`}
+            href={
+              isAnchor && `?page=${nextPage}${getMapQueryString(searchQuery)}`
+            }
             rel={isAnchor && 'next'}
             isLoading={loading}
             size="small"

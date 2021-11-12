@@ -6,6 +6,7 @@ import classNames from 'classnames'
 import { useRenderOnView } from '../hooks/useRenderOnView'
 import GalleryItem from './GalleryLayoutItem'
 import type { Product } from '../Gallery'
+import type { PreferredSKU } from '../GalleryLayout'
 
 const CSS_HANDLES = ['galleryItem'] as const
 
@@ -19,6 +20,8 @@ interface GalleryLayoutRowProps {
   summary: unknown
   rowIndex: number
   listName: string
+  /** Logic to enable which SKU will be the selected item */
+  preferredSKU?: PreferredSKU
 }
 
 const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
@@ -31,6 +34,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
   currentLayoutName,
   rowIndex,
   listName,
+  preferredSKU
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -71,6 +75,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
               displayMode={displayMode}
               position={absoluteProductIndex}
               listName={listName}
+              preferredSKU={preferredSKU}
             />
           </div>
         )

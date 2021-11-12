@@ -7,6 +7,7 @@ import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import type { Product } from '../Gallery'
 import type { MobileLayoutMode } from '../GalleryLegacy'
+import type { PreferredSKU } from '../GalleryLayout'
 
 interface GalleryItemProps {
   /** Item info that will be rendered. */
@@ -20,6 +21,8 @@ interface GalleryItemProps {
   /** Name of the list of products. This name will be used when sending pixel events */
   listName: string
   CustomSummary?: ComponentType
+  /** Logic to enable which SKU will be the selected item */
+  preferredSKU?: PreferredSKU
 }
 
 /**
@@ -32,13 +35,14 @@ function GalleryItem({
   listName,
   summary,
   CustomSummary,
+  preferredSKU,
 }: GalleryItemProps) {
   const { push } = usePixel()
   const { searchQuery } = useSearchPage()
 
   const product = useMemo(
-    () => ProductSummary.mapCatalogProductToProductSummary(item),
-    [item]
+    () => ProductSummary.mapCatalogProductToProductSummary(item, preferredSKU),
+    [item, preferredSKU]
   )
 
   const handleClick = useCallback(() => {

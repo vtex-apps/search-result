@@ -8,6 +8,37 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 - Mobile filters drawer open direction prop to filters.V3
 
+## [3.110.2] - 2021-11-09
+
+### Fixed
+- Added `preventRouteChange` prop to the app documentation (README.md file).
+
+## [3.110.1] - 2021-11-09
+### Fixed
+- General review of the documentation (README.md file)
+
+## [3.110.0] - 2021-11-03
+
+### Added
+- `specificationOptions` to `OrderBy`.
+
+## [3.109.1] - 2021-10-12
+
+### Fixed
+- `facets` query result that was being ignored from SSR.
+
+## [3.109.0] - 2021-09-15
+### Added
+- `preferredSKU` prop to the `Gallery`.
+
+## [3.108.2] - 2021-09-09
+### Fixed
+- Issue where the `facets` and the `productSearch` query result were being ignored during SSR and the products and facets wouldn't render.
+
+## [3.108.1] - 2021-08-31
+### Fixed
+- Urls on Fetch more/Fetch previous buttons now includes the map query string
+
 ## [3.108.0] - 2021-08-24
 
 ### Added
@@ -51,6 +82,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Fixed
 - `scrollToTop` prop not being passed down to `PriceRange` component
 
+
 ## [3.100.0] - 2021-06-10
 ### Fixed
 - Gallery item's position now starts at 1
@@ -77,6 +109,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.98.3] - 2021-04-15
 ### Fixed
 - Add new category mapping compatibility to `SearchTitle`
+
 
 ## [3.98.2] - 2021-04-06
 ### Added
