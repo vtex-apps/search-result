@@ -103,7 +103,7 @@ Using `search-result-layout`
     "props": {
       "context": {
         "skusFilter": "FIRST_AVAILABLE",
-        "simulationBehavior": "skip"
+        "simulationBehavior": "default"
       }
     }
   }
@@ -125,7 +125,7 @@ Using `search-result-layout.customQuery`
     "props": {
       "querySchema": {
         "skusFilter": "FIRST_AVAILABLE",
-        "simulationBehavior": "skip"
+        "simulationBehavior": "default"
       }
     }
   }
@@ -143,14 +143,14 @@ Check all props to configure your search data int the table below:
 | `hideUnavailableItems` | `boolean`     | Whether the search result should hide unavailable items (`true`) or not (`false`).     | `false`           |
 | `facetsBehavior` |  `string`        | Defines the filter's behavior. When set to `Dynamic`, it restricts the results according to the filters that the user has already selected. If set to `Static`, all filters will continue to be displayed to the user, even if no results exist.       | `Static`           |
 | `skusFilter`           | `enum` | Refines the SKUs returned for each product in the query. The fewer returned SKUs, the more performant your shelf query will be. Available value options: `FIRST_AVAILABLE` (returns only the first available SKU), `ALL_AVAILABLE` (returns all available SKUs), and `ALL` (returns all product's SKUs).                                     | `ALL_AVAILABLE` |
-| `simulationBehavior`     | `enum` | Defines whether the search data will be up-to-date (`default`) or fetched using the Cache (`skip`). You should only use the last option if you prefer faster queries than the most up-to-date prices or inventory.                                                               | `default` |
+| `simulationBehavior`     | `enum` | Defines whether the search data will be up-to-date (`default`) or fetched using the Cache (`default`). You should only use the last option if you prefer faster queries than the most up-to-date prices or inventory.                                                               | `default` |
 | `installmentCriteria`               | `enum`                 | Defines which price should be displayed when different installments are available for it. Possible values are: `MAX_WITHOUT_INTEREST` (displays the maximum installment option with no interest attached to it) or `MAX_WITH_INTEREST` (displays the maximum installment option whether it has interest attached to it or not).                                 | `"MAX_WITHOUT_INTEREST"` |
 | `excludedPaymentSystems`               | `string`                 | List of payment systems that should not be considered when displaying the installment options to users. This prop configuration only works if the `installmentCriteria` prop was also declared. In case it was not, all available payment systems will be displayed regardless.   | `undefined` |
 | `includedPaymentSystems`               | `string`                 | List of payment systems that should be considered when displaying the installment options to users. This prop configuration only works if the `installmentCriteria` prop was also declared. In case it was not, all available payment systems will be displayed regardless.                                  | `undefined` |
 
 
 
-> ⚠️ When the `simulationBehavior` prop is set as `skip`, it defines that the search data should only be fetched using the store's cache. This may impact the content displayed on store pages since the cache storage changes according to user interaction in each page.
+> ⚠️ When the `simulationBehavior` prop is set as `default`, it defines that the search data should only be fetched using the store's cache. This may impact the content displayed on store pages since the cache storage changes according to user interaction in each page.
 
 You must define the query for the following search pages:
 
@@ -168,7 +168,7 @@ This allows you to define custom behaviors for each of your store's search pages
     "props": {
         "context": {
             "skusFilter": "FIRST_AVAILABLE",
-            "simulationBehavior": "skip"
+            "simulationBehavior": "default"
         }
      }
   },
@@ -177,7 +177,7 @@ This allows you to define custom behaviors for each of your store's search pages
     "props": {
         "context": {
             "skusFilter": "FIRST_AVAILABLE",
-            "simulationBehavior": "skip"
+            "simulationBehavior": "default"
         }
      }
   },
@@ -186,7 +186,7 @@ This allows you to define custom behaviors for each of your store's search pages
     "props": {
         "context": {
             "skusFilter": "FIRST_AVAILABLE",
-            "simulationBehavior": "skip"
+            "simulationBehavior": "default"
         }
      }
   },
@@ -195,7 +195,7 @@ This allows you to define custom behaviors for each of your store's search pages
     "props": {
         "context": {
             "skusFilter": "FIRST_AVAILABLE",
-            "simulationBehavior": "skip"
+            "simulationBehavior": "default"
         }
      }
   },
@@ -204,7 +204,7 @@ This allows you to define custom behaviors for each of your store's search pages
     "props": {
         "context": {
             "skusFilter": "FIRST_AVAILABLE",
-            "simulationBehavior": "skip"
+            "simulationBehavior": "default"
         }
      }
   }
