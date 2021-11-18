@@ -42,21 +42,22 @@ export const SORT_OPTIONS = [
 const OrderBy = ({
   orderBy,
   message,
+  specificationOptions = [],
   hiddenOptions = [],
   showOrderTitle = true,
 }) => {
   const intl = useIntl()
 
   const sortingOptions = useMemo(() => {
-    return SORT_OPTIONS.filter(
-      (option) => !hiddenOptions.includes(option.value)
+    return SORT_OPTIONS.concat(specificationOptions).filter(
+      (option) => !hiddenOptions.includes(option.value) && option.label
     ).map(({ value, label }) => {
       return {
         value,
         label: intl.formatMessage({ id: label }),
       }
     })
-  }, [intl, hiddenOptions])
+  }, [intl, hiddenOptions, specificationOptions])
 
   return (
     <SelectionListOrderBy
@@ -71,6 +72,8 @@ const OrderBy = ({
 OrderBy.propTypes = {
   /** Which sorting option is selected. */
   orderBy: PropTypes.string,
+  /** Specification sorting options to be displayed in the list */
+  specificationOptions: PropTypes.arrayOf(PropTypes.object),
   /** Options to be hidden. (e.g. `["OrderByNameASC", "OrderByNameDESC"]`) */
   hiddenOptions: PropTypes.arrayOf(PropTypes.string),
   /** Message to be displayed */
