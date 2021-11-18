@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Replaced `skip` values for `default` on the app documentation (README.md file).
 
+### Fixed
+- Fixing the default value of `Relevance` on the documentation.
+
+
 ## [3.110.2] - 2021-11-09
 
 ### Fixed
@@ -23,6 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - `specificationOptions` to `OrderBy`.
+
 
 ## [3.109.1] - 2021-10-12
 
