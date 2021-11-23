@@ -97,14 +97,10 @@
   "admin/editor.search-result-layout.title": "Mise en page flexible du résultat de recherche",
   "admin/editor.search-result-mobile.title": "Mise en page flexible du résultat de recherche sur mobile",
   "admin/editor.search-result-desktop.title": "Mise en page flexible du résultat de recherche sur ordinateur",
-<<<<<<< HEAD
   "store/search-result.price-ranges.submit": "Aller",
   "admin/editor.search-result.fetch-more": "Récupérer plus",
   "admin/editor.search-result.fetch-previous": "Récupérer le précédent",
   "admin/editor.search-result.fetch-button.button-behavior": "Comportement du bouton",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Bouton",
   "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Lien vers la page - Améliore le référencement SEO, peut changer l’apparence du bouton"
-=======
-  "store/search-result.price-ranges.submit": "Aller"
->>>>>>> 65824a4 (fixing translations and adding new ones)
 }
