@@ -103,7 +103,7 @@ Using `search-result-layout`
     "props": {
       "context": {
         "skusFilter": "FIRST_AVAILABLE",
-        "simulationBehavior": "skip"
+        "simulationBehavior": "default"
       }
     }
   }
@@ -125,7 +125,7 @@ Using `search-result-layout.customQuery`
     "props": {
       "querySchema": {
         "skusFilter": "FIRST_AVAILABLE",
-        "simulationBehavior": "skip"
+        "simulationBehavior": "default"
       }
     }
   }
@@ -168,7 +168,7 @@ This allows you to define custom behaviors for each of your store's search pages
     "props": {
         "context": {
             "skusFilter": "FIRST_AVAILABLE",
-            "simulationBehavior": "skip"
+            "simulationBehavior": "default"
         }
      }
   },
@@ -177,7 +177,7 @@ This allows you to define custom behaviors for each of your store's search pages
     "props": {
         "context": {
             "skusFilter": "FIRST_AVAILABLE",
-            "simulationBehavior": "skip"
+            "simulationBehavior": "default"
         }
      }
   },
@@ -186,7 +186,7 @@ This allows you to define custom behaviors for each of your store's search pages
     "props": {
         "context": {
             "skusFilter": "FIRST_AVAILABLE",
-            "simulationBehavior": "skip"
+            "simulationBehavior": "default"
         }
      }
   },
@@ -195,7 +195,7 @@ This allows you to define custom behaviors for each of your store's search pages
     "props": {
         "context": {
             "skusFilter": "FIRST_AVAILABLE",
-            "simulationBehavior": "skip"
+            "simulationBehavior": "default"
         }
      }
   },
@@ -204,7 +204,7 @@ This allows you to define custom behaviors for each of your store's search pages
     "props": {
         "context": {
             "skusFilter": "FIRST_AVAILABLE",
-            "simulationBehavior": "skip"
+            "simulationBehavior": "default"
         }
      }
   }
