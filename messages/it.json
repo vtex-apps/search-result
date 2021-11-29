@@ -11,7 +11,7 @@
   "admin/editor.search-result.query.skusFilter.first-available": "Primo disponibile",
   "admin/editor.search-result.query.skusFilter.all-available": "Tutti i disponibili",
   "admin/editor.search-result.query.simulationBehavior": "Comportamento di simulazione",
-  "admin/editor.search-result.query.simulationBehavior.description": "Imposta su \"Salta\" se desideri query più rapide, ma gli SKU potrebbero non riportare prezzi o scorte aggiornati",
+  "admin/editor.search-result.query.simulationBehavior.description": "Imposta su \"skip\" se desideri query più rapide, ma gli SKU potrebbero non riportare prezzi o scorte aggiornati",
   "admin/editor.search-result.query.simulationBehavior.default": "Predefinito",
   "admin/editor.search-result.query.simulationBehavior.skip": "Salta simulazione",
   "admin/editor.search-result.query.installmentCriteria.title": "Rateizzazione",
