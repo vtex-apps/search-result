@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Safely URI decoding `query` to prevent errors when the search query contains breaking characters such as "%"
 
 ## [3.110.5] - 2021-12-06
 
