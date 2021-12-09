@@ -42,7 +42,6 @@
   "admin.editor.search-result.advanced-settings.trackingId.description": "Nome da mostrare in Google Analytics. Nel caso non venga impostato, verrà visualizzato semplicemente \"Risultati di ricerca\"",
   "admin/editor.search-result.ordination.sort-by": "Ordina per",
   "admin/editor.search-result.total-products": "Totale prodotti",
-  
   "store/search-result.show-more-button": "Mostra di più",
   "store/search-result.show-previous-button": "Mostra precedenti",
   "store/search-result.showing-products": "Mostrando {value}",
