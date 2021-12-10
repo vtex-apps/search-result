@@ -83,6 +83,9 @@
       "$ref": "app:vtex.search-result#/definitions/FetchPrevious"
     }
   },
+  "search-fetch-pagination": {
+    "component": "Pagination"
+  },
   "search-result-layout.desktop": {
     "allowed": [
       "breadcrumb.search",
@@ -98,6 +101,7 @@
       "tab-content",
       "search-fetch-previous",
       "search-fetch-more",
+      "search-fetch-pagination",
       "search-content",
       "search-products-count-per-page",
       "search-blog-articles-preview",
@@ -121,6 +125,7 @@
       "search-layout-switcher",
       "search-fetch-previous",
       "search-fetch-more",
+      "search-fetch-pagination",
       "search-content",
       "search-products-count-per-page",
       "search-blog-articles-preview",

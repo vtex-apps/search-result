@@ -12,10 +12,11 @@ import useSearchState from './useSearchState'
 export const FETCH_TYPE = {
   NEXT: 'next',
   PREVIOUS: 'previous',
+  PAGINATION: 'pagination'
 }
 
 function reducer(state, action) {
-  const { maxItemsPerPage, to, from, rollbackState } = action.args
+  const { maxItemsPerPage, to, from, rollbackState, page } = action.args
 
   switch (action.type) {
     case 'RESET':
@@ -41,6 +42,15 @@ function reducer(state, action) {
         page: state.previousPage,
         previousPage: state.previousPage - 1,
         from,
+      }
+
+    case 'PAGINATION':
+      return {
+        page,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        from,
+        to,
       }
 
     case 'ROLLBACK':
@@ -69,6 +79,7 @@ const handleFetchMore = async (
   }
 
   const isForward = direction === FETCH_TYPE.NEXT
+  const isPagination = direction === FETCH_TYPE.PAGINATION
 
   fetchMoreLocked.current = true
 
@@ -116,6 +127,7 @@ const handleFetchMore = async (
           ...fetchMoreResult.productSearch,
           products: isForward
             ? [...products, ...fetchMoreResult.productSearch.products]
+            : isPagination ? [...fetchMoreResult.productSearch.products]
             : [...fetchMoreResult.productSearch.products, ...products],
         },
       }
@@ -184,6 +196,141 @@ export const useFetchMore = (props) => {
 
     isFirstRender.current = false
   }, [maxItemsPerPage, query, map, orderBy, priceRange])
+
+  //PAGINATION
+  const handleFetchSpecificPage = async (page) => {
+    const rollbackState = pageState
+    const nextPage = page + 1
+    const previousPage = page - 1
+    const from = maxItemsPerPage * previousPage
+    const to = from + (maxItemsPerPage - 1)
+    const pageQueryParam = (window.location && window.location.search !== "") && new URLSearchParams(window.location.search)
+
+    setInfiniteScrollError(false)
+    pageDispatch({type: 'PAGINATION', args: {page, nextPage, previousPage, from, to}})
+
+    setQuery(
+      {
+        page: page !== 1 ? page : pageQueryParam.delete('page'),
+      },
+      { replace: true }
+    )
+
+    const promiseResult = await handleFetchMore(
+      from,
+      to,
+      FETCH_TYPE.PAGINATION,
+      fetchMoreLocked,
+      setLoading,
+      fetchMore,
+      products,
+      updateQueryError,
+      fuzzy,
+      operator,
+      sessionStorage.getItem('searchState') ?? searchState
+    )
+
+    // success
+    if (!promiseResult || !updateQueryError.current) {
+      return
+    }
+    // if error, rollback
+    pageDispatch({ type: 'ROLLBACK', args: { rollbackState } })
+    setQuery({ page: pageState.page }, { replace: true })
+    setInfiniteScrollError(true)
+    updateQueryError.current = false
+  }
+
+  //PAGINATION PREV
+  const handleFetchSpecificPagePrev = async (activePage) => {
+    const rollbackState = pageState
+    const page = Number(activePage)
+    const nextPage = page + 1
+    const previousPage = page - 1
+    const to = (maxItemsPerPage * previousPage) - 1
+    const from = to - maxItemsPerPage + 1
+    const pageQueryParam = (window.location && window.location.search !== "") && new URLSearchParams(window.location.search)
+
+      setInfiniteScrollError(false)
+      pageDispatch({type: 'PAGINATION', args: {page, nextPage, previousPage, from, to}})
+  
+      setQuery(
+        {
+          page: previousPage > 1 ? previousPage : pageQueryParam.delete('page'),
+        },
+        { replace: true, merge: true }
+      )
+  
+      const promiseResult = await handleFetchMore(
+        from,
+        to,
+        FETCH_TYPE.PAGINATION,
+        fetchMoreLocked,
+        setLoading,
+        fetchMore,
+        products,
+        updateQueryError,
+        fuzzy,
+        operator,
+        sessionStorage.getItem('searchState') ?? searchState
+      )
+  
+      // success
+      if (!promiseResult || !updateQueryError.current) {
+        return
+      }
+      // if error, rollback
+      pageDispatch({ type: 'ROLLBACK', args: { rollbackState } })
+      setQuery({ page: pageState.page }, { replace: true })
+      setInfiniteScrollError(true)
+      updateQueryError.current = false
+  }
+
+//PAGINATION NEXT
+  const handleFetchSpecificPageNext = async (activePage, pagesArray) => {
+    const rollbackState = pageState
+    const page = Number(activePage)
+    const nextPage = page + 1
+    const previousPage = page - 1
+    const from = maxItemsPerPage * page
+    const to = from + (maxItemsPerPage - 1)
+
+  if(nextPage <= pagesArray.length) {
+    setInfiniteScrollError(false)
+    pageDispatch({type: 'PAGINATION', args: {page, nextPage, previousPage, from, to}})
+
+    setQuery(
+      {
+        page: nextPage,
+      },
+      { replace: true }
+    )
+
+    const promiseResult = await handleFetchMore(
+      from,
+      to,
+      FETCH_TYPE.PAGINATION,
+      fetchMoreLocked,
+      setLoading,
+      fetchMore,
+      products,
+      updateQueryError,
+      fuzzy,
+      operator,
+      sessionStorage.getItem('searchState') ?? searchState
+    )
+
+    // success
+    if (!promiseResult || !updateQueryError.current) {
+      return
+    }
+    // if error, rollback
+    pageDispatch({ type: 'ROLLBACK', args: { rollbackState } })
+    setQuery({ page: pageState.page }, { replace: true })
+    setInfiniteScrollError(true)
+    updateQueryError.current = false
+  }
+  }
 
   const handleFetchMoreNext = async () => {
     const rollbackState = pageState
@@ -270,6 +417,9 @@ export const useFetchMore = (props) => {
   return {
     handleFetchMoreNext,
     handleFetchMorePrevious,
+    handleFetchSpecificPagePrev,
+    handleFetchSpecificPageNext,
+    handleFetchSpecificPage,
     loading,
     from: pageState.from,
     to: pageState.to,

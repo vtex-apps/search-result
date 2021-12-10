@@ -53,6 +53,8 @@ Now, you can use all the blocks exported by the `search-result` app. Check out t
 | `search-title.v2`         | Displays a title for the search that was done. |                                                                                              |
 | `search-fetch-more`         | Displays the **Show More** button. This button is not rendered when the user is on the last page. |                                                                                              |
 | `search-fetch-previous`         | Displays the **Show Previous** button. This button is not rendered when the user is on the first page. |                                                                                              |
+| `search-fetch-pagination`         | Displays the **Numeric Pagination** component with the related **Show Previous** and **Show More** arrows.
+|                                                                                              |
 | `search-products-count-per-page`         | Displays the number of products currently on the page. |                                                                                              |
 | `sidebar-close-button`         | Displays an `X` button on the filter sidebar on mobile. |                                                                                              |
 | `search-title.v2`         | Displays a title for the search that was done. |         
@@ -536,6 +538,10 @@ The `search-fetch-previous` block renders a `Show Previous` button used to load 
 | Prop name       | Type            | Description        | Default value |
 | --------------- | --------------- | ------------------ | ------------- |
 | `htmlElementForButton` | `enum` | Which HTML element will be displayed for `Show previous` button component. Possible values are: `a` (displays a `<a>` element with `href` and `rel` attributes)  or `button` (displays a `<button>` element without `href` and `rel` attributes). | `button` |
+
+#### The `search-fetch-pagination` block
+
+The `search-fetch-pagination` block renders a Numeric Pagination component used to load a specific result page. Also the Show Previous and the Show More arrows are displayed in order to fetch the prev page and the next page.
 
 #### The `search-products-count-per-page` block
 
