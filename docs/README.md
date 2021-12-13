@@ -573,6 +573,9 @@ To apply CSS customization in this and other blocks, follow the instructions giv
 | `accordionFilterItem`                 |
 | `accordionFilterOpen`                 |
 | `accordionSelectedFilters`            |
+| `accordionCollapseOpen`               |
+| `accordionCollapseClose`              |
+| `accordionCollapseContent`            |
 | `border`                              |
 | `breadcrumb`                          |
 | `buttonShowMore`                      |
@@ -679,6 +682,7 @@ Thanks goes out to these wonderful people ([emoji key](https://allcontributors.o
     <td align="center"><a href="https://github.com/felipeireslan"><img src="https://avatars3.githubusercontent.com/u/47363947?v=4?s=100" width="100px;" alt=""/><br /><sub><b>felipeireslan</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=felipeireslan" title="Code">💻</a></td>
     <td align="center"><a href="https://juliomoreira.pro"><img src="https://avatars2.githubusercontent.com/u/1207017?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Julio Moreira</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=juliomoreira" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/anto90fg"><img src="https://avatars.githubusercontent.com/u/73878310?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Antonio Cervelione</b></sub></a><br /><a href="https://github.com/vtex-apps/search-result/commits?author=anto90fg" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/lucas-castro-developer"><img src="https://avatars.githubusercontent.com/lucas-castro-developer" width="100px;" alt=""/><br /><sub><b>Lucas Castro Developer</b></sub></a><br /><a href="#" title="Code">💻</a></td>
   </tr>
 </table>
 
