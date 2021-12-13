@@ -21,9 +21,12 @@ const CSS_HANDLES = [
   'accordionFilterItemTag',
   'accordionFilterItemIcon',
   'accordionSelectedFilters',
-  'accordionCollapseOpen',
-  'accordionCollapseClose',
-  'accordionCollapseContent'
+  'accordionCollapseContainerOpen',
+  'accordionCollapseContainerClose',
+  'accordionCollapseButtonOpen',
+  'accordionCollapseButtonClose',
+  'accordionCollapseContentOpen',
+  'accordionCollapseContentClose'
 ]
 
 const AccordionFilterItem = ({
@@ -59,8 +62,17 @@ const AccordionFilterItem = ({
     }
   }
 
-  const applyAccordionCollapseClasses = () => {
-    return !isCollapsed ? `${handles.accordionCollapseOpen}` : `${handles.accordionCollapseClose}`
+  const applyAccordionCollapseClasses = (param) => {
+    switch(param) {
+      case "Button":
+        return !isCollapsed ? `${handles.accordionCollapseButtonOpen}` : `${handles.accordionCollapseButtonClose}`
+      case "Content":
+        return !isCollapsed ? `${handles.accordionCollapseContentOpen}` : `${handles.accordionCollapseContentClose}`
+      case "Container":
+        return !isCollapsed ? `${handles.accordionCollapseContainerOpen}` : `${handles.accordionCollapseContainerClose}`
+      default:
+        return null
+    }
   }
 
   const quantitySelected = selectedFilters.length
@@ -74,14 +86,14 @@ const AccordionFilterItem = ({
           className={`${applyModifiers(
             handles.accordionFilterContainer,
             titleSlug
-          )} ${applyAccordionCollapseClasses()} pl7`}
+          )} ${applyAccordionCollapseClasses("Container")} pl7`}
         >
           <div
             role="button"
             tabIndex={0}
             className={classNames(
               handles.accordionFilterItem,
-              applyAccordionCollapseClasses(),
+              applyAccordionCollapseClasses("Button"),
               applyModifiers(handles.filterAccordionItemBox, titleSlug),
               't-body pr5 pv3 pointer bb b--muted-5 outline-0',
               {
@@ -158,7 +170,7 @@ const AccordionFilterItem = ({
       {!isNavigationCollapsible ? (
         open && children
       ) : (
-        <Collapse className={applyAccordionCollapseClasses()} isOpened={!isCollapsed && isNavigationCollapsible}>
+        <Collapse className={applyAccordionCollapseClasses("Content")} isOpened={!isCollapsed && isNavigationCollapsible}>
           <div className="pl8">{children}</div>
         </Collapse>
       )}

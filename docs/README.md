@@ -573,9 +573,12 @@ To apply CSS customization in this and other blocks, follow the instructions giv
 | `accordionFilterItem`                 |
 | `accordionFilterOpen`                 |
 | `accordionSelectedFilters`            |
-| `accordionCollapseOpen`               |
-| `accordionCollapseClose`              |
-| `accordionCollapseContent`            |
+| `accordionCollapseContainerOpen`      |
+| `accordionCollapseContainerClose`     |
+| `accordionCollapseButtonOpen`         |
+| `accordionCollapseButtonClose`        |
+| `accordionCollapseContentOpen`        |
+| `accordionCollapseContentClose`       |
 | `border`                              |
 | `breadcrumb`                          |
 | `buttonShowMore`                      |
