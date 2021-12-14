@@ -579,6 +579,7 @@ To apply CSS customization in this and other blocks, follow the instructions giv
 | `accordionCollapseButtonClose`        |
 | `accordionCollapseContentOpen`        |
 | `accordionCollapseContentClose`       |
+| `accordionCollapseContentChildren`    |
 | `border`                              |
 | `breadcrumb`                          |
 | `buttonShowMore`                      |
