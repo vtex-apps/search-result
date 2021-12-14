@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fix
+- Fixed the orderBy behaviour when using SearchResultLayoutCustomQuery block
+
 ## [3.110.6] - 2021-12-08
 ### Fixed
 - Safely URI decoding `query` to prevent errors when the search query contains breaking characters such as "%"
