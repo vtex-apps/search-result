@@ -67,7 +67,7 @@ const SearchResultLayoutCustomQuery = props => {
             queryField: props.querySchema.queryField,
             mapField: props.querySchema.mapField,
           })}
-      orderByField={props.querySchema.orderByField}
+      orderByField={query.order ?? props.querySchema.orderByField}
       hideUnavailableItems={props.querySchema.hideUnavailableItems}
       facetsBehavior={props.querySchema.facetsBehavior}
       skusFilter={props.querySchema.skusFilter}
