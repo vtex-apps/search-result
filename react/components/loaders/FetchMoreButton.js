@@ -12,12 +12,14 @@ const CSS_HANDLES = [
 
 const useShowButton = (to, products, loading, recordsFiltered) => {
   const [showButton, setShowButton] = useState(
-    !!products && to + 1 < recordsFiltered
+    !!products && Math.max(to + 1, products.length) < recordsFiltered
   )
 
   useEffect(() => {
     if (!loading) {
-      setShowButton(!!products && to + 1 < recordsFiltered)
+      setShowButton(
+        !!products && Math.max(to + 1, products.length) < recordsFiltered
+      )
     }
   }, [to, products, loading, recordsFiltered])
 
@@ -39,11 +41,15 @@ function shouldNotIncludeMap(map) {
 }
 
 export function getMapQueryString(searchQuery) {
-  if (shouldNotIncludeMap(searchQuery?.variables?.map)) {
+  if (
+    !searchQuery ||
+    !searchQuery.variables ||
+    shouldNotIncludeMap(searchQuery.variables.map)
+  ) {
     return ''
   }
 
-  return `&map=${searchQuery?.variables?.map}`
+  return `&map=${searchQuery.variables.map}`
 }
 
 const FetchMoreButton = (props) => {
