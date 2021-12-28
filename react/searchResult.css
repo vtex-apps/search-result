@@ -26,6 +26,15 @@
   justify-self: end;
   align-self: center;
 }
+.filterTitleSpan {
+  overflow: hidden;
+}
+.clearAllFilters {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
 
 .switch {
   -ms-grid-row: 1;
