@@ -25,6 +25,7 @@ const withSearchPageContextProps = (Component) => ({
   updateOnFilterSelectionOnMobile,
   drawerDirectionMobile,
   showClearByFilter,
+  showClearAllFiltersOnDesktop,
   priceRangeLayout,
   facetOrdering = [],
 }) => {
@@ -104,6 +105,7 @@ const withSearchPageContextProps = (Component) => ({
           navigationTypeOnMobile={navigationTypeOnMobile}
           updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
           showClearByFilter={showClearByFilter}
+          showClearAllFiltersOnDesktop={showClearAllFiltersOnDesktop}
           priceRangeLayout={priceRangeLayout}
           drawerDirectionMobile={drawerDirectionMobile}
         />

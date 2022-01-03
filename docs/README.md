@@ -103,7 +103,7 @@ Using `search-result-layout`
     "props": {
       "context": {
         "skusFilter": "FIRST_AVAILABLE",
-        "simulationBehavior": "skip"
+        "simulationBehavior": "default"
       }
     }
   }
@@ -125,7 +125,7 @@ Using `search-result-layout.customQuery`
     "props": {
       "querySchema": {
         "skusFilter": "FIRST_AVAILABLE",
-        "simulationBehavior": "skip"
+        "simulationBehavior": "default"
       }
     }
   }
@@ -168,7 +168,7 @@ This allows you to define custom behaviors for each of your store's search pages
     "props": {
         "context": {
             "skusFilter": "FIRST_AVAILABLE",
-            "simulationBehavior": "skip"
+            "simulationBehavior": "default"
         }
      }
   },
@@ -177,7 +177,7 @@ This allows you to define custom behaviors for each of your store's search pages
     "props": {
         "context": {
             "skusFilter": "FIRST_AVAILABLE",
-            "simulationBehavior": "skip"
+            "simulationBehavior": "default"
         }
      }
   },
@@ -186,7 +186,7 @@ This allows you to define custom behaviors for each of your store's search pages
     "props": {
         "context": {
             "skusFilter": "FIRST_AVAILABLE",
-            "simulationBehavior": "skip"
+            "simulationBehavior": "default"
         }
      }
   },
@@ -195,7 +195,7 @@ This allows you to define custom behaviors for each of your store's search pages
     "props": {
         "context": {
             "skusFilter": "FIRST_AVAILABLE",
-            "simulationBehavior": "skip"
+            "simulationBehavior": "default"
         }
      }
   },
@@ -204,7 +204,7 @@ This allows you to define custom behaviors for each of your store's search pages
     "props": {
         "context": {
             "skusFilter": "FIRST_AVAILABLE",
-            "simulationBehavior": "skip"
+            "simulationBehavior": "default"
         }
      }
   }
@@ -447,12 +447,13 @@ This block renders a filter selector for the fetched results.
 | `closeOnOutsideClick` | `boolean` | Whether the **Filter Navigator** component should be closed when users click outside of it (`true`) or not (`false`). This prop only works if the `openFiltersMode` prop is set as `one`.  | `false` |
 | `appliedFiltersOverview` | `enum` | Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). | `"hide"` |
 | `totalProductsOnMobile` | `enum` | Whether the Filter Navigator should display the total number of products on mobile devices  (`show`) or not (`hide`). | `hide` |
-| `fullWidthOnMobile`      | `boolean` | Whether the `filter-navigator.v3` will be rendered on mobile using the screen full width (`true`) or not (`false`).                                                                                                                                               | `false`       |
-| `navigationTypeOnMobile` | `Enum`    | Defines how mobile users should navigate on the filter selector component. Possible values are: `page` (only one list of options can be seen at a time) or `collapsible` (all lists of options can be seen at the same time).                                    | `page`        |
-| `updateOnFilterSelectionOnMobile` | `boolean` | Whether the search results on mobile should be updated according to filter selection (`true`) or not (`false`). Notice: this prop only works if the `preventRouteChange` prop is declared as `true`.                                                                        | `false`       |
+| `fullWidthOnMobile`      | `boolean` | Whether the `filter-navigator.v3` will be rendered on mobile using the full screen width (`true`) or not (`false`).     | `false`       |
+| `navigationTypeOnMobile` | `enum`    | Defines how mobile users should navigate on the filter selector component. The possible values are `page` (only one list of options can be seen at a time) or `collapsible` (all lists of options can be seen simultaneously).                                    | `page`        |
+| `updateOnFilterSelectionOnMobile` | `boolean` | Whether the search results on mobile should be updated according to filter selection (`true`) or not (`false`). This prop only works if the `preventRouteChange` prop is declared as `true`.         | `false`       |
 | `drawerDirectionMobile` | `Enum` | Whether the search filters on mobile opens to the left (`drawerLeft`) or to the right (`drawerRight`) | `drawerLeft` |
-| `showClearByFilter`       | `boolean` | Whether a clear button (responsible for erasing all filter options selected by the user) should be displayed alongside the filter name (`true`) or not (`false`).                                                                                                                              | `false`       |
-| `priceRangeLayout` | `enum` | Whether a text field to enter the desired price range should be displayed  (`inputAndSlider`) or not (`slider`). | `slider` |
+| `showClearByFilter`       | `boolean` | Whether a clear button (responsible for erasing all filter options selected by the user) should be displayed alongside the filter name (`true`) or not (`false`).   | `false`       |
+| `showClearAllFiltersOnDesktop`       | `boolean` |  Whether a clear button should be displayed (`true`) or not (`false`). This button will reset all selected filters.   | `false`       |
+| `priceRangeLayout` | `enum` | Whether a text field enters the desired price range should be displayed  (`inputAndSlider`) or not (`slider`). | `slider` |
 | `facetOrdering` | `array` | Array of objects (see below) that applies custom sorting rules for filters. The default behavior sorts descending the items by quantity. | `undefined` |
 
 - **`facetOrdering` object:** 
@@ -499,7 +500,7 @@ The `order-by` block renders a dropdown button with [sorting options](#the-sorti
 
 | Sorting option           | Value                       |
 | ------------------------ | --------------------------- |
-| Relevance                | `"OrderByScoreDESC"`        |
+| Relevance                | `""`        |
 | Top Sales Descending     | `"OrderByTopSaleDESC"`      |
 | Release Date Descending  | `"OrderByReleaseDateDESC"`  |
 | Best Discount Descending | `"OrderByBestDiscountDESC"` |
@@ -580,6 +581,7 @@ To apply CSS customization in this and other blocks, follow the instructions giv
 | `categoriesContainer`                 |
 | `categoryGroup`                       |
 | `categoryParent`                      |
+| `clearAllFilters`                     |
 | `container`                           |
 | `dropdownMobile`                      |
 | `filter`                              |
@@ -622,6 +624,7 @@ To apply CSS customization in this and other blocks, follow the instructions giv
 | `filtersWrapperMobile`                |
 | `filterTemplateOverflow`              |
 | `filterTitle`                         |
+| `filterTitleSpan`                     |
 | `footerButton`                        |
 | `galleryItem`                         |
 | `galleryItem--custom`                 |
