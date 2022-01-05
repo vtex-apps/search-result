@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.111.1] - 2022-01-05
+
 ## [3.111.0] - 2021-12-28
 ### Added
 - `showClearAllFiltersOnDesktop` prop to the `FilterNavigator`.
