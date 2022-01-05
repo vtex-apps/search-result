@@ -451,6 +451,7 @@ This block renders a filter selector for the fetched results.
 | `navigationTypeOnMobile` | `enum`    | Defines how mobile users should navigate on the filter selector component. The possible values are `page` (only one list of options can be seen at a time) or `collapsible` (all lists of options can be seen simultaneously).                                    | `page`        |
 | `updateOnFilterSelectionOnMobile` | `boolean` | Whether the search results on mobile should be updated according to filter selection (`true`) or not (`false`). This prop only works if the `preventRouteChange` prop is declared as `true`.         | `false`       |
 | `showClearByFilter`       | `boolean` | Whether a clear button (responsible for erasing all filter options selected by the user) should be displayed alongside the filter name (`true`) or not (`false`).   | `false`       |
+| `showClearAllFiltersOnDesktop`       | `boolean` |  Whether a clear button should be displayed (`true`) or not (`false`). This button will reset all selected filters.   | `false`       |
 | `priceRangeLayout` | `enum` | Whether a text field enters the desired price range should be displayed  (`inputAndSlider`) or not (`slider`). | `slider` |
 | `facetOrdering` | `array` | Array of objects (see below) that applies custom sorting rules for filters. The default behavior sorts descending the items by quantity. | `undefined` |
 
@@ -512,10 +513,11 @@ The `order-by` block renders a dropdown button with [sorting options](#the-sorti
 #### The `search-fetch-more` block
 
 - **`specificationOptions` Object:**
-| Prop name | Type    | Description    | Default value |
-| --------- | ------- | -------------- | ------------- |
-| value     | string  | Value that will be sent for ordering in the API. Must be in the format `{specification key}:{asc|desc}`. For example: `"size:desc"` or `"priceByUnit:asc"`. | `undefined` |
-| label     | string  | Label that will be displayed in the sorting options. E.g.: `"Price by unit, ascending"` | `undefined` |
+
+| Prop name  | Type      | Description                             | Default value |
+| ---------- | --------- | --------------------------------------- | ------------- |
+| value      | string | Value that will be sent for ordering in the API. It must be in the format `{specification key}:{asc|desc}`. For example: `"size:desc"` or `"priceByUnit:asc"`. | `undefined` |
+| label      | string | Label that will be displayed in the sorting options. E.g.: `"Price by unit, ascending"` | `undefined` |
 
 The `search-fetch-more` block renders a **Show More** button used to load the results of the next search results page. Check the block props in the table below.
 
@@ -579,6 +581,7 @@ To apply CSS customization in this and other blocks, follow the instructions giv
 | `categoriesContainer`                 |
 | `categoryGroup`                       |
 | `categoryParent`                      |
+| `clearAllFilters`                     |
 | `container`                           |
 | `dropdownMobile`                      |
 | `filter`                              |
@@ -621,6 +624,7 @@ To apply CSS customization in this and other blocks, follow the instructions giv
 | `filtersWrapperMobile`                |
 | `filterTemplateOverflow`              |
 | `filterTitle`                         |
+| `filterTitleSpan`                     |
 | `footerButton`                        |
 | `galleryItem`                         |
 | `galleryItem--custom`                 |

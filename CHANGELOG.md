@@ -10,10 +10,35 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Setting `simulationBehavior` examples as `"default"`.
 
-## [3.110.3] - 2021-11-18
+## [3.111.0] - 2021-12-28
+### Added
+- `showClearAllFiltersOnDesktop` prop to the `FilterNavigator`.
+
+## [3.110.7] - 2021-12-22
+### Fixed
+- Show More button now no longer appears on the last page when users leave a search page and access it again
+
+## [3.110.6] - 2021-12-08
+### Fixed
+- Safely URI decoding `query` to prevent errors when the search query contains breaking characters such as "%"
+
+## [3.110.5] - 2021-12-06
+
+### Added
+- Crowdin configuration file.
+
+### Fixed
+- Italian translations.
+
+## [3.110.4] - 2021-11-24
+
+### Fixed
+- Replaced `skip` values for `default` on the app documentation (README.md file).
+
 
 ### Fixed
 - Fixing the default value of `Relevance` on the documentation.
+
 
 ## [3.110.2] - 2021-11-09
 

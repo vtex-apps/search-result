@@ -1,4 +1,6 @@
+// eslint-disable-next-line no-restricted-imports
 import { groupBy, pathOr, zipObj } from 'ramda'
+
 import { PATH_SEPARATOR, MAP_VALUES_SEP } from '../constants'
 
 export const getMainSearches = (query, map) => {
@@ -25,9 +27,13 @@ export const buildSelectedFacetsAndFullText = (query, map, priceRange) => {
 
   const selectedFacets =
     queryValues.length >= mapValues.length
-      ? mapValues.map((map, i) => {
-          if (map === 'ft') {
-            fullText = decodeURI(queryValues[i])
+      ? mapValues.map((mapValue, i) => {
+          if (mapValue === 'ft') {
+            try {
+              fullText = decodeURI(queryValues[i])
+            } catch {
+              fullText = queryValues[i]
+            }
           }
 
           return {
@@ -47,18 +53,18 @@ export const buildSelectedFacetsAndFullText = (query, map, priceRange) => {
   return [selectedFacets, fullText]
 }
 
-const addMap = facet => {
+const addMap = (facet) => {
   facet.map = facet.key
 
   if (facet.children) {
-    facet.children.forEach(facet => addMap(facet))
+    facet.children.forEach((facetChild) => addMap(facetChild))
   }
 }
 
-export const detachFiltersByType = facets => {
-  facets.forEach(facet => facet.facets.forEach(value => addMap(value)))
+export const detachFiltersByType = (facets) => {
+  facets.forEach((facet) => facet.facets.forEach((value) => addMap(value)))
 
-  const byType = groupBy(filter => filter.type)
+  const byType = groupBy((filter) => filter.type)
 
   const groupedFilters = byType(facets)
 
@@ -71,8 +77,8 @@ export const detachFiltersByType = facets => {
       ? groupedFilters.BRAND[0].quantity
       : 0
 
-  const specificationFilters = (groupedFilters['NUMBER'] || []).concat(
-    groupedFilters['TEXT'] || []
+  const specificationFilters = (groupedFilters.NUMBER || []).concat(
+    groupedFilters.TEXT || []
   )
 
   const categoriesTrees = pathOr(
@@ -80,11 +86,12 @@ export const detachFiltersByType = facets => {
     ['CATEGORYTREE', 0, 'facets'],
     groupedFilters
   )
+
   const priceRanges = pathOr(
     [],
     ['PRICERANGE', 0, 'facets'],
     groupedFilters
-  ).map(priceRange => {
+  ).map((priceRange) => {
     return {
       ...priceRange,
       slug: `de-${priceRange.range.from}-a-${priceRange.range.to}`,
@@ -100,11 +107,12 @@ export const detachFiltersByType = facets => {
   }
 }
 
-export const buildQueryArgsFromSelectedFacets = selectedFacets => {
+export const buildQueryArgsFromSelectedFacets = (selectedFacets) => {
   return selectedFacets.reduce(
     (queryArgs, facet, index) => {
       queryArgs.query += `${index > 0 ? '/' : ''}${facet.value}`
       queryArgs.map += `${index > 0 ? ',' : ''}${facet.key}`
+
       return queryArgs
     },
     { query: '', map: '' }
