@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Setting `simulationBehavior` examples as `"default"`.
+
 ## [3.110.3] - 2021-11-18
 
 ### Fixed
