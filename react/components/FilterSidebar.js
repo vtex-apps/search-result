@@ -32,6 +32,7 @@ const CSS_HANDLES = [
   'filterClearButtonWrapper',
   'filterApplyButtonWrapper',
   'filterTotalProducts',
+  'filterQuantityBadge',
 ]
 
 const FilterSidebar = ({
@@ -55,6 +56,7 @@ const FilterSidebar = ({
   showClearByFilter,
   priceRangeLayout,
   filtersDrawerDirectionMobile,
+  showQuantityBadgeOnMobile,
 }) => {
   const { searchQuery } = useSearchPage()
   const filterContext = useFilterNavigator()
@@ -71,6 +73,16 @@ const FilterSidebar = ({
   const [categoryTreeOperations, setCategoryTreeOperations] = useState([])
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const currentTree = useCategoryTree(tree, categoryTreeOperations)
+
+  console.log({ filters, selectedFilters });
+
+  const selectedFacets = React.useMemo(() => { 
+    const filterKeys = filters.map(filter => filter.key);
+
+    return selectedFilters.filter((facet) => (
+      filterKeys.includes(facet.key) 
+      && facet.selected
+    )) }, [filters, selectedFilters]);
 
   const isFilterSelected = (slectableFilters, filter) => {
     return slectableFilters.find(
@@ -210,7 +222,7 @@ const FilterSidebar = ({
     <Fragment>
       <button
         className={classNames(
-          `${styles.filterPopupButton} ph3 pv5 mv0 mv0 pointer flex justify-center items-center`,
+          `${styles.filterPopupButton} relative ph3 pv5 mv0 mv0 pointer flex justify-center items-center`,
           {
             'bb b--muted-1': open,
             bn: !open,
@@ -225,6 +237,15 @@ const FilterSidebar = ({
         </span>
         <span className={`${handles.filterPopupArrowIcon} ml-auto pl3 pt2`}>
           <IconFilter size={16} viewBox="0 0 17 17" />
+
+          {showQuantityBadgeOnMobile && selectedFacets.length > 0 && (
+            <span
+              style={{ userSelect: 'none' }}
+              className={`${styles.filterQuantityBadgeDefault} ${handles.filterQuantityBadge} absolute t-mini bg-muted-2 c-on-muted-2 br4 w1 h1 pa1 flex justify-center items-center lh-solid`}
+            >
+              {selectedFacets.length}
+            </span>
+          )}
         </span>
       </button>
 

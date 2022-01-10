@@ -233,6 +233,11 @@
   overflow: hidden;
 }
 
+.filterQuantityBadgeDefault {
+  top: -0.7rem;
+  right: -0.8rem;
+}
+
 .filters--layout {
 }
 
