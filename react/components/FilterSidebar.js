@@ -74,8 +74,6 @@ const FilterSidebar = ({
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const currentTree = useCategoryTree(tree, categoryTreeOperations)
 
-  console.log({ filters, selectedFilters });
-
   const selectedFacets = React.useMemo(() => { 
     const filterKeys = filters.map(filter => filter.key);
 
