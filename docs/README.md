@@ -454,6 +454,7 @@ This block renders a filter selector for the fetched results.
 | `showClearAllFiltersOnDesktop`       | `boolean` |  Whether a clear button should be displayed (`true`) or not (`false`). This button will reset all selected filters.   | `false`       |
 | `priceRangeLayout` | `enum` | Whether a text field enters the desired price range should be displayed  (`inputAndSlider`) or not (`slider`). | `slider` |
 | `facetOrdering` | `array` | Array of objects (see below) that applies custom sorting rules for filters. The default behavior sorts descending the items by quantity. | `undefined` |
+| `showQuantityBadgeOnMobile` | `boolean` | Displays a badge for mobile users indicating how many active filters there are. | `false` |
 
 - **`facetOrdering` object:** 
   
