@@ -8,7 +8,7 @@
   "admin/editor.search-result.query.skusFilter": "ترشيح الـ SKU",
   "admin/editor.search-result.query.skusFilter.description": "إعداد أول فلتر متاح يجعل استعلامك أسرع بكثير!",
   "admin/editor.search-result.query.skusFilter.none": "لا شيء",
-  "admin/editor.search-result.query.skusFilter.first-available": "‮المتاح أولًا",
+  "admin/editor.search-result.query.skusFilter.first-available": "المتاح أولً",
   "admin/editor.search-result.query.skusFilter.all-available": "كل العناصر المتاحة",
   "admin/editor.search-result.query.simulationBehavior": "سلوك المحاكاة",
   "admin/editor.search-result.query.simulationBehavior.description": "تعيين للتخطي إذا كنت تريد استعلامات أسرع ولكن قد لا يكون لدى وحدات SKU الأسعار أو المخزون الأكثر تحديثاً",
