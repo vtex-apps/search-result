@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.112.0] - 2022-01-12
+
 ### Added
 
 - Arabic translation.
