@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useRuntime } from 'vtex.render-runtime'
 import { useIntl } from 'react-intl'
@@ -17,7 +17,7 @@ import PriceRangeInput from './PriceRangeInput'
 const DEBOUNCE_TIME = 500 // ms
 
 /** Price range slider component */
-const PriceRange = ({ title, facets, priceRange, priceRangeLayout, scrollToTop }) => {
+const PriceRange = ({ title, facets, priceRange, priceRangeLayout, scrollToTop, clearPriceRange,setClearPriceRange }) => {
   const [range, setRange] = useState()
   const { culture, setQuery } = useRuntime()
   const intl = useIntl()
@@ -29,6 +29,7 @@ const PriceRange = ({ title, facets, priceRange, priceRangeLayout, scrollToTop }
   const { fuzzy, operator, searchState } = useSearchState()
 
   const handleChange = ([left, right]) => {
+
     if (navigateTimeoutId.current) {
       clearTimeout(navigateTimeoutId.current)
     }
@@ -97,6 +98,21 @@ const PriceRange = ({ title, facets, priceRange, priceRangeLayout, scrollToTop }
     defaultValues[0] = parseInt(currentMin, 10)
     defaultValues[1] = parseInt(currentMax, 10)
   }
+
+  const resetOnClear = () => {
+
+    setQuery({
+      priceRange: `${minValue} TO ${maxValue}`
+    })
+
+    setRange([minValue, maxValue])
+
+    setClearPriceRange(false)
+  } 
+
+  useEffect(() => {
+    clearPriceRange && resetOnClear()
+  }, [clearPriceRange])
 
   return (
     <FilterOptionTemplate
