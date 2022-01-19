@@ -22,7 +22,7 @@ const FetchPrevious = ({ htmlElementForButton = 'button' }) => {
     query: path(['variables', 'query'], searchQuery),
     map: path(['variables', 'map'], searchQuery),
     orderBy: path(['variables', 'orderBy'], searchQuery),
-    priceRange: path(['variables', 'priceRange'], searchQuery),
+    priceRange: path(['variables', 'selectedFacets'], searchQuery)?.find(facet => facet.key === 'priceRange')?.value,
   }
 
   const { handleFetchMorePrevious, loading, from, previousPage } = useFetchMore(
