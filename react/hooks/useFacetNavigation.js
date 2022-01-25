@@ -238,6 +238,8 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
           fuzzy: fullTextQuery ? fuzzy || undefined : undefined,
           operator: fullTextQuery ? operator || undefined : undefined,
           searchState: state,
+          initialMap: runtimeQuery.initialMap ?? map,
+          initialQuery: runtimeQuery.initialQuery ?? query,
         }
 
         setQuery(queries)

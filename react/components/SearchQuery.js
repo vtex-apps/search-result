@@ -188,7 +188,7 @@ const useQueries = (variables, facetsArgs) => {
       operator: variables.operator,
       fuzzy: variables.fuzzy,
       searchState: variables.searchState || undefined,
-      initialAttributes: runtimeQuery?.initialMap,
+      initialAttributes: runtimeQuery?.initialMap || facetsArgs.facetMap,
     },
     skip: !facetsArgs.withFacets,
   })
