@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Reset page when `priceRange` changes.
+
 ## [3.113.0] - 2022-01-25
 
 ### Changed
