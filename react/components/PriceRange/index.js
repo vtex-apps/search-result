@@ -17,7 +17,15 @@ import PriceRangeInput from './PriceRangeInput'
 const DEBOUNCE_TIME = 500 // ms
 
 /** Price range slider component */
-const PriceRange = ({ title, facets, priceRange, priceRangeLayout, scrollToTop, clearPriceRange,setClearPriceRange }) => {
+const PriceRange = ({
+  title,
+  facets,
+  priceRange,
+  priceRangeLayout,
+  scrollToTop,
+  clearPriceRange,
+  setClearPriceRange
+}) => {
   const [range, setRange] = useState()
   const { culture, setQuery } = useRuntime()
   const intl = useIntl()
@@ -100,13 +108,10 @@ const PriceRange = ({ title, facets, priceRange, priceRangeLayout, scrollToTop, 
   }
 
   const resetOnClear = () => {
-
     setQuery({
       priceRange: `${minValue} TO ${maxValue}`
     })
-
     setRange([minValue, maxValue])
-
     setClearPriceRange(false)
   } 
 
@@ -151,6 +156,10 @@ PriceRange.propTypes = {
   priceRange: PropTypes.string,
   /** Price range layout (default or inputAndSlider) */
   priceRangeLayout: PropTypes.string,
+  /** Defines whether the price range should be cleared or not */
+  clearPriceRange: PropTypes.bool,
+  /** Set the value of clearPriceRange prop */
+  setClearPriceRange: PropTypes.func,
 }
 
 export default PriceRange

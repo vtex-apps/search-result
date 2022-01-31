@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Clear the price range when clicking "Clear" button on mobile.
+
 ## [3.113.1] - 2022-01-26
 
 ### Fixed

@@ -114,7 +114,7 @@ const FilterSidebar = ({
 
   const { push } = usePixel()
   
-  const [clearPriceRange, setClearPriceRange] = useState();
+  const [clearPriceRange, setClearPriceRange] = useState()
 
   const handleClearFilters = (key) => {
     pushFilterManipulationPixelEvent({
