@@ -14,6 +14,8 @@ const AccordionFilterPriceRange = ({
   navigationType,
   initiallyCollapsed,
   priceRangeLayout,
+  clearPriceRange,
+  setClearPriceRange
 }) => {
   return (
     <AccordionFilterItem
@@ -30,6 +32,8 @@ const AccordionFilterPriceRange = ({
           facets={facets}
           priceRange={priceRange}
           priceRangeLayout={priceRangeLayout}
+          clearPriceRange={clearPriceRange}
+          setClearPriceRange={setClearPriceRange}
         />
       </div>
     </AccordionFilterItem>

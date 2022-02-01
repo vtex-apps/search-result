@@ -113,6 +113,8 @@ const FilterSidebar = ({
   }
 
   const { push } = usePixel()
+  
+  const [clearPriceRange, setClearPriceRange] = useState()
 
   const handleClearFilters = (key) => {
     pushFilterManipulationPixelEvent({
@@ -145,6 +147,7 @@ const FilterSidebar = ({
       return
     }
 
+    setClearPriceRange(true)
     setFilterOperations(facetsToRemove)
   }
 
@@ -240,6 +243,8 @@ const FilterSidebar = ({
             categoryFiltersMode={categoryFiltersMode}
             loading={loading}
             onClearFilter={handleClearFilters}
+            clearPriceRange={clearPriceRange}
+            setClearPriceRange={setClearPriceRange}
             showClearByFilter={showClearByFilter}
             updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
             priceRangeLayout={priceRangeLayout}
