@@ -13,6 +13,7 @@ import { getFilterTitle } from '../../constants/SearchHelpers'
 import FilterOptionTemplate from '../FilterOptionTemplate'
 import useSearchState from '../../hooks/useSearchState'
 import PriceRangeInput from './PriceRangeInput'
+import { useFilterNavigator } from '../FilterNavigatorContext'
 
 const DEBOUNCE_TIME = 500 // ms
 
@@ -27,9 +28,10 @@ const PriceRange = ({
   setClearPriceRange
 }) => {
   const [range, setRange] = useState()
-  const { culture, setQuery } = useRuntime()
+  const { culture, setQuery, query: runtimeQuery } = useRuntime()
   const intl = useIntl()
   const navigateTimeoutId = useRef()
+  const { map, query } = useFilterNavigator()
 
   const { push } = usePixel()
   const { searchQuery } = useSearchPage()
@@ -61,6 +63,8 @@ const PriceRange = ({
         fuzzy: fuzzy || undefined,
         operator: operator || undefined,
         searchState: state,
+        initialMap: runtimeQuery.initialMap ?? map,
+        initialQuery: runtimeQuery.initialQuery ?? query,
       })
 
       setRange([left, right])
