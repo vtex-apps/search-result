@@ -72,6 +72,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "VitorTheGreat",
+      "name": "Vitor Hugo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11010539?v=4",
+      "profile": "http://none",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
