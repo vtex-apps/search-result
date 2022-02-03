@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 - Mobile filters drawer open direction prop to filters.V3
 
+## [3.113.3] - 2022-02-03
+
 ### Fixed
 - Price range that was disappearing when clearing filters on mobile.
 
