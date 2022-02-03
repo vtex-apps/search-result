@@ -143,6 +143,7 @@ const FilterSidebar = ({
 
     if (updateOnFilterSelectionOnMobile && preventRouteChange) {
       navigateToFacet(facetsToRemove, preventRouteChange)
+      setClearPriceRange(true)
 
       return
     }
