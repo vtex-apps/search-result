@@ -255,7 +255,6 @@ const FilterSidebar = ({
             showClearByFilter={showClearByFilter}
             updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
             priceRangeLayout={priceRangeLayout}
-            onClose={handleClose}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>
@@ -329,8 +328,8 @@ const updateTree = (categories) =>
         (cat) => cat.value === category.value
       )
 
-      currentLevel[selectedIndex].selected = !currentLevel[selectedIndex]
-        .selected
+      currentLevel[selectedIndex].selected =
+        !currentLevel[selectedIndex].selected
       currentLevel = currentLevel[selectedIndex].children
     })
   })
