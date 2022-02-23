@@ -666,6 +666,7 @@ To apply CSS customization in this and other blocks, follow the instructions giv
 | `switch`                              |
 | `totalProductsMessage`                |
 | `totalProducts`                       |
+| `closeFiltersButton`                  |
 
 ## Contributors ✨
 
