@@ -113,7 +113,7 @@ const FilterNavigator = ({
 
   const filtersDrawerDirectionMobile =
     DRAWER_DIRECTION_MOBILE[drawerDirectionMobile] ??
-    DRAWER_DIRECTION_MOBILE.drawerRight
+    DRAWER_DIRECTION_MOBILE.drawerLeft
 
   useEffect(() => {
     // This condition confirms if there are facets that still need fetching
