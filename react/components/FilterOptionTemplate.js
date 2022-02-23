@@ -55,6 +55,7 @@ const CSS_HANDLES = [
   'filterAvailable',
   'filterIsOpen',
   'filterTitle',
+  'filterTitleSpan',
   'filterIcon',
   'filterContent',
   'filterTemplateOverflow',
@@ -246,7 +247,7 @@ const FilterOptionTemplate = ({
           aria-disabled={!collapsable}
         >
           <div className={titleClassName}>
-            <span>
+            <span className={`${handles.filterTitleSpan}`}>
               {title}
               {showClearButton && (
                 <span className="ml2">

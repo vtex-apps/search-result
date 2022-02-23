@@ -9,6 +9,83 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Two new events for GTM `sortProducts` and `filterProducts`
 
+## [3.113.4] - 2022-02-09
+### Fixed
+- search-title.v2 block is written twice in the doc.
+
+## [3.113.3] - 2022-02-03
+
+### Fixed
+- Price range that was disappearing when clearing filters on mobile.
+
+## [3.113.2] - 2022-02-01
+
+### Fixed
+- Clear the price range when clicking "Clear" button on mobile.
+
+## [3.113.1] - 2022-01-26
+
+### Fixed
+- Reset page when `priceRange` changes.
+
+## [3.113.0] - 2022-01-25
+
+### Changed
+
+- Send `initialAttributes` on first iteration.
+
+## [3.112.0] - 2022-01-12
+
+### Added
+
+- Arabic translation.
+
+## [3.111.1] - 2022-01-05
+
+## [3.111.0] - 2021-12-28
+### Added
+- `showClearAllFiltersOnDesktop` prop to the `FilterNavigator`.
+
+## [3.110.7] - 2021-12-22
+### Fixed
+- Show More button now no longer appears on the last page when users leave a search page and access it again
+
+## [3.110.6] - 2021-12-08
+### Fixed
+- Safely URI decoding `query` to prevent errors when the search query contains breaking characters such as "%"
+
+## [3.110.5] - 2021-12-06
+
+### Added
+- Crowdin configuration file.
+
+### Fixed
+- Italian translations.
+
+## [3.110.4] - 2021-11-24
+
+### Fixed
+- Replaced `skip` values for `default` on the app documentation (README.md file).
+
+### Fixed
+- Fixing the default value of `Relevance` on the documentation.
+
+
+## [3.110.2] - 2021-11-09
+
+### Fixed
+- Added `preventRouteChange` prop to the app documentation (README.md file).
+
+## [3.110.1] - 2021-11-09
+### Fixed
+- General review of the documentation (README.md file)
+
+## [3.110.0] - 2021-11-03
+
+### Added
+- `specificationOptions` to `OrderBy`.
+
+
 ## [3.109.1] - 2021-10-12
 
 ### Fixed
@@ -69,6 +146,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Fixed
 - `scrollToTop` prop not being passed down to `PriceRange` component
 
+
 ## [3.100.0] - 2021-06-10
 ### Fixed
 - Gallery item's position now starts at 1
@@ -95,6 +173,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.98.3] - 2021-04-15
 ### Fixed
 - Add new category mapping compatibility to `SearchTitle`
+
 
 ## [3.98.2] - 2021-04-06
 ### Added

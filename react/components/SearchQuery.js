@@ -104,15 +104,17 @@ const useCombinedRefetch = (productRefetch, facetsRefetch) => {
 
 const isCurrentDifferent = (ref, currentVal) => ref.current !== currentVal
 
-const useShouldResetPage = (query, map, orderBy) => {
+const useShouldResetPage = (query, map, orderBy, priceRange) => {
   const queryRef = useRef(query)
   const mapRef = useRef(map)
   const orderByRef = useRef(orderBy)
+  const priceRangeRef = useRef(priceRange)
 
   return (
     isCurrentDifferent(queryRef, query) ||
     isCurrentDifferent(mapRef, map) ||
-    isCurrentDifferent(orderByRef, orderBy)
+    isCurrentDifferent(orderByRef, orderBy) ||
+    isCurrentDifferent(priceRangeRef, priceRange)
   )
 }
 
@@ -188,7 +190,7 @@ const useQueries = (variables, facetsArgs) => {
       operator: variables.operator,
       fuzzy: variables.fuzzy,
       searchState: variables.searchState || undefined,
-      initialAttributes: runtimeQuery?.initialMap,
+      initialAttributes: runtimeQuery?.initialMap || facetsArgs.facetMap,
     },
     skip: !facetsArgs.withFacets,
   })
@@ -285,7 +287,7 @@ const SearchQuery = ({
   We want this behaviour so we can show the correct items even if the pageQuery
   changes. It should change only on a new render or if the query or orderby 
   change, hence the useCorrectPage that updates its value */
-  const shouldReset = useShouldResetPage(query, map, orderBy)
+  const shouldReset = useShouldResetPage(query, map, orderBy, priceRange)
   const page = useCorrectPage(
     pageQuery ? parseInt(pageQuery, 10) : DEFAULT_PAGE,
     shouldReset
