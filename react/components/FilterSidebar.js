@@ -255,6 +255,7 @@ const FilterSidebar = ({
             showClearByFilter={showClearByFilter}
             updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
             priceRangeLayout={priceRangeLayout}
+            onClose={handleClose}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>
