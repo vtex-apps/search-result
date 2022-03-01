@@ -602,6 +602,7 @@ To apply CSS customization in this and other blocks, follow the instructions giv
 | `filterContainer--{selectedFilters}`  |
 | `filterContainer--{title}`            |
 | `filterContainer`                     |
+| `filterCollapsable`                     |
 | `filterIcon`                          |
 | `filterItem--{facetValue}`            |
 | `filterItem--selected`                |
