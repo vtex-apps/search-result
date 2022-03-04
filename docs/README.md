@@ -52,8 +52,7 @@ Now, you can use all the blocks exported by the `search-result` app. Check out t
 | `total-products.v2`        | Displays the total amount of products found for that search. | 
 | `search-title.v2`         | Displays a title for the search that was done. |                                                                                              |
 | `search-fetch-more`         | Displays the **Show More** button. This button is not rendered when the user is on the last page. |                                                                                              |
-| `search-fetch-previous`         | Displays the **Show Previous** button. This button is not rendered when the user is on the first page. |                                                                                              |
-| `search-products-count-per-page`         | Displays the number of products currently on the page. |                                                                                              |
+| `search-fetch-previous`         | Displays the **Show Previous** button. This button is not rendered when the user is on the first page. |                                   
 | `sidebar-close-button`         | Displays an `X` button on the filter sidebar on mobile. |                                                                                       
 
 
