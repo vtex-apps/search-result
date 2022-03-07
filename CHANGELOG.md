@@ -6,6 +6,36 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Mobile filters drawer open direction prop to filters.V3
+
+## [3.113.3] - 2022-02-03
+
+### Fixed
+- Price range that was disappearing when clearing filters on mobile.
+
+## [3.113.2] - 2022-02-01
+
+### Fixed
+- Clear the price range when clicking "Clear" button on mobile.
+
+## [3.113.1] - 2022-01-26
+
+### Fixed
+- Reset page when `priceRange` changes.
+
+## [3.113.0] - 2022-01-25
+
+### Changed
+
+- Send `initialAttributes` on first iteration.
+
+## [3.112.0] - 2022-01-12
+
+### Added
+
+- Arabic translation.
+
+## [3.111.1] - 2022-01-05
 
 ## [3.113.4] - 2022-02-09
 ### Fixed
@@ -143,7 +173,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.101.0] - 2021-06-24
 ## Fixed
 - `scrollToTop` prop not being passed down to `PriceRange` component
-
 
 ## [3.100.0] - 2021-06-10
 ### Fixed

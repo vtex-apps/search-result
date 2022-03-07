@@ -54,6 +54,7 @@ const FilterSidebar = ({
   updateOnFilterSelectionOnMobile,
   showClearByFilter,
   priceRangeLayout,
+  filtersDrawerDirectionMobile,
 }) => {
   const { searchQuery } = useSearchPage()
   const filterContext = useFilterNavigator()
@@ -227,7 +228,12 @@ const FilterSidebar = ({
         </span>
       </button>
 
-      <Sidebar onOutsideClick={handleClose} isOpen={open} fullWidth={fullWidth}>
+      <Sidebar
+        onOutsideClick={handleClose}
+        isOpen={open}
+        fullWidth={fullWidth}
+        filtersDrawerDirectionMobile={filtersDrawerDirectionMobile}
+      >
         <FilterNavigatorContext.Provider value={context}>
           <AccordionFilterContainer
             filters={filters}

@@ -23,6 +23,7 @@ const withSearchPageContextProps = (Component) => ({
   fullWidthOnMobile,
   navigationTypeOnMobile,
   updateOnFilterSelectionOnMobile,
+  drawerDirectionMobile,
   showClearByFilter,
   showClearAllFiltersOnDesktop,
   priceRangeLayout,
@@ -106,6 +107,7 @@ const withSearchPageContextProps = (Component) => ({
           showClearByFilter={showClearByFilter}
           showClearAllFiltersOnDesktop={showClearAllFiltersOnDesktop}
           priceRangeLayout={priceRangeLayout}
+          drawerDirectionMobile={drawerDirectionMobile}
         />
       </FilterNavigatorContext.Provider>
     </div>
