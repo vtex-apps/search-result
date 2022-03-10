@@ -7,9 +7,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-### Added
-- Two new events for GTM `sortProducts` and `filterProducts`
-
 ## [3.114.0] - 2022-03-07
 - Mobile filters drawer open direction prop to filters.V3
 
