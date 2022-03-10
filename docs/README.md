@@ -449,6 +449,7 @@ This block renders a filter selector for the fetched results.
 | `fullWidthOnMobile`      | `boolean` | Whether the `filter-navigator.v3` will be rendered on mobile using the full screen width (`true`) or not (`false`).     | `false`       |
 | `navigationTypeOnMobile` | `enum`    | Defines how mobile users should navigate on the filter selector component. The possible values are `page` (only one list of options can be seen at a time) or `collapsible` (all lists of options can be seen simultaneously).                                    | `page`        |
 | `updateOnFilterSelectionOnMobile` | `boolean` | Whether the search results on mobile should be updated according to filter selection (`true`) or not (`false`). This prop only works if the `preventRouteChange` prop is declared as `true`.         | `false`       |
+| `drawerDirectionMobile` | `Enum` | Whether the search filters on mobile opens to the left (`drawerLeft`) or to the right (`drawerRight`) | `drawerLeft` |
 | `showClearByFilter`       | `boolean` | Whether a clear button (responsible for erasing all filter options selected by the user) should be displayed alongside the filter name (`true`) or not (`false`).   | `false`       |
 | `showClearAllFiltersOnDesktop`       | `boolean` |  Whether a clear button should be displayed (`true`) or not (`false`). This button will reset all selected filters.   | `false`       |
 | `priceRangeLayout` | `enum` | Whether a text field enters the desired price range should be displayed  (`inputAndSlider`) or not (`slider`). | `slider` |
