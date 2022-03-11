@@ -220,7 +220,7 @@ const FilterSidebar = ({
     <Fragment>
       <button
         className={classNames(
-          `${styles.filterPopupButton} relative ph3 pv5 mv0 mv0 pointer flex justify-center items-center`,
+          `${styles.filterPopupButton} ${showQuantityBadgeOnMobile ? 'relative' :  ''}  ph3 pv5 mv0 mv0 pointer flex justify-center items-center`,
           {
             'bb b--muted-1': open,
             bn: !open,
@@ -238,7 +238,6 @@ const FilterSidebar = ({
 
           {showQuantityBadgeOnMobile && selectedFacets.length > 0 && (
             <span
-              style={{ userSelect: 'none' }}
               className={`${styles.filterQuantityBadgeDefault} ${handles.filterQuantityBadge} absolute t-mini bg-muted-2 c-on-muted-2 br4 w1 h1 pa1 flex justify-center items-center lh-solid`}
             >
               {selectedFacets.length}
