@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Arabic translation.
+
+### Added
+- Norwegian and Norwegian variant translation.
+
 ## [3.114.0] - 2022-03-07
 - Mobile filters drawer open direction prop to filters.V3
 
@@ -326,7 +332,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.86.4] - 2020-12-02
 ### Fixed
-- `fetchMore` would not work correctly in some cases due to the `updateQuery` method being called with `prevResults` argument set to `undefined`. 
+- `fetchMore` would not work correctly in some cases due to the `updateQuery` method being called with `prevResults` argument set to `undefined`.
 
 ## [3.86.3] - 2020-12-02
 
@@ -863,7 +869,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.42.0] - 2020-01-04
 
 ### Added
-- `showFacetQuantity` settings to `SearchResultFlexible` component. 
+- `showFacetQuantity` settings to `SearchResultFlexible` component.
 
 ## [3.41.1] - 2020-01-02
 ### Fixed
@@ -888,7 +894,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.39.8] - 2019-12-04
 ### Added
-- New CSS handles and updated some of the old ones. 
+- New CSS handles and updated some of the old ones.
 
 ## [3.39.7] - 2019-12-04
 ### Fixed
