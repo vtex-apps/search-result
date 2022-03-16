@@ -12,7 +12,7 @@
   "admin/editor.search-result.query.skusFilter.all-available": "كل العناصر المتاحة",
   "admin/editor.search-result.query.simulationBehavior": "سلوك المحاكاة",
   "admin/editor.search-result.query.simulationBehavior.description": "تعيين للتخطي إذا كنت تريد استعلامات أسرع ولكن قد لا يكون لدى وحدات SKU الأسعار أو المخزون الأكثر تحديثاً",
-  "admin/editor.search-result.query.simulationBehavior.default": "افتراضي",
+  "admin/editor.search-result.query.simulationBehavior.default": "العنوان الرئيسي",
   "admin/editor.search-result.query.simulationBehavior.skip": "تخطي المحاكاة",
   "admin/editor.search-result.query.installmentCriteria.title": "الدفعات المعروضة",
   "admin/editor.search-result.query.installmentCriteria.description": "اختر نوع الدفعات التي سيتم عرضها (على سبيل المثال: الحد الأقصى بدون فائدة أو مع الاهتمام).",
