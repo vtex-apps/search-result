@@ -63,8 +63,8 @@ const PriceRange = ({
         fuzzy: fuzzy || undefined,
         operator: operator || undefined,
         searchState: state,
-        initialMap: runtimeQuery.initialMap ?? map,
-        initialQuery: runtimeQuery.initialQuery ?? query,
+        initialMap: runtimeQuery?.initialMap ?? map,
+        initialQuery: runtimeQuery?.initialQuery ?? query,
       })
 
       setRange([left, right])

@@ -178,7 +178,7 @@ const FilterNavigator = ({
   )
 
   const { searchQuery } = useSearchPage()
-  const hasFiltersApplied = searchQuery.variables?.selectedFacets?.length > 1
+  const hasFiltersApplied = searchQuery?.variables?.selectedFacets?.length > 1
 
   const handleResetFilters = () => {
     navigateToFacet(selectedFilters, preventRouteChange)
