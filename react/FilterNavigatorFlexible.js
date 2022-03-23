@@ -108,11 +108,8 @@ const withSearchPageContextProps = (Component) => ({
           showClearByFilter={showClearByFilter}
           showClearAllFiltersOnDesktop={showClearAllFiltersOnDesktop}
           priceRangeLayout={priceRangeLayout}
-<<<<<<< HEAD
           drawerDirectionMobile={drawerDirectionMobile}
-=======
           showQuantityBadgeOnMobile={showQuantityBadgeOnMobile}
->>>>>>> ab000fa (Adds showQuantityBadgeOnMobile prop to FilterNavigatorFlexible component)
         />
       </FilterNavigatorContext.Provider>
     </div>
