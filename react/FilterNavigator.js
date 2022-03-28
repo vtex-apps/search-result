@@ -186,7 +186,7 @@ const FilterNavigator = ({
   const handleResetFilters = () => {
     pushFilterManipulationPixelEvent({
       name: "reset",
-      value: intl.formatMessage("store/search-result.filter-button.clearAll"),
+      value: intl.formatMessage({id: "store/search-result.filter-button.clearAll"}),
       products: searchQuery?.products ?? [],
       push,
     })
