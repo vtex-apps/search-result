@@ -74,13 +74,19 @@ const FilterSidebar = ({
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const currentTree = useCategoryTree(tree, categoryTreeOperations)
 
-  const selectedFacets = React.useMemo(() => { 
+  /* Sometimes there are categories included in selectedFilters
+   * This useMemo extracts only filters that users can
+   * enable and disable directly */
+  const selectedFacetsLength = React.useMemo(() => { 
     const filterKeys = filters.map(filter => filter.key);
 
-    return selectedFilters.filter((facet) => (
+    const selectedFacets = selectedFilters.filter((facet) => (
       filterKeys.includes(facet.key) 
       && facet.selected
-    )) }, [filters, selectedFilters]);
+    ));
+
+    return (selectedFacets || []).length;
+  }, [filters, selectedFilters]);
 
   const isFilterSelected = (slectableFilters, filter) => {
     return slectableFilters.find(
@@ -236,11 +242,11 @@ const FilterSidebar = ({
         <span className={`${handles.filterPopupArrowIcon} ml-auto pl3 pt2`}>
           <IconFilter size={16} viewBox="0 0 17 17" />
 
-          {showQuantityBadgeOnMobile && selectedFacets.length > 0 && (
+          {showQuantityBadgeOnMobile && selectedFacetsLength > 0 && (
             <span
               className={`${styles.filterQuantityBadgeDefault} ${handles.filterQuantityBadge} absolute t-mini bg-muted-2 c-on-muted-2 br4 w1 h1 pa1 flex justify-center items-center lh-solid`}
             >
-              {selectedFacets.length}
+              {selectedFacetsLength}
             </span>
           )}
         </span>
