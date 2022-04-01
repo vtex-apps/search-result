@@ -83,9 +83,9 @@ const FilterSidebar = ({
     const selectedFacets = selectedFilters.filter((facet) => (
       filterKeys.includes(facet.key) 
       && facet.selected
-    ));
+    )) ?? [];
 
-    return (selectedFacets || []).length;
+    return selectedFacets.length;
   }, [filters, selectedFilters]);
 
   const isFilterSelected = (slectableFilters, filter) => {
