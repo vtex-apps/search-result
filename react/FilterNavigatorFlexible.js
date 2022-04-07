@@ -28,6 +28,7 @@ const withSearchPageContextProps = (Component) => ({
   showClearAllFiltersOnDesktop,
   priceRangeLayout,
   facetOrdering = [],
+  showQuantityBadgeOnMobile = false,
 }) => {
   const {
     searchQuery,
@@ -108,6 +109,7 @@ const withSearchPageContextProps = (Component) => ({
           showClearAllFiltersOnDesktop={showClearAllFiltersOnDesktop}
           priceRangeLayout={priceRangeLayout}
           drawerDirectionMobile={drawerDirectionMobile}
+          showQuantityBadgeOnMobile={showQuantityBadgeOnMobile}
         />
       </FilterNavigatorContext.Provider>
     </div>

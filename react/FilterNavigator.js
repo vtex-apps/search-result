@@ -99,6 +99,7 @@ const FilterNavigator = ({
   showClearByFilter = false,
   showClearAllFiltersOnDesktop = false,
   priceRangeLayout = 'slider',
+  showQuantityBadgeOnMobile = false
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -177,7 +178,7 @@ const FilterNavigator = ({
   )
 
   const { searchQuery } = useSearchPage()
-  const hasFiltersApplied = searchQuery.variables?.selectedFacets?.length > 1
+  const hasFiltersApplied = searchQuery?.variables?.selectedFacets?.length > 1
 
   const handleResetFilters = () => {
     navigateToFacet(selectedFilters, preventRouteChange)
@@ -242,6 +243,7 @@ const FilterNavigator = ({
               showClearByFilter={showClearByFilter}
               priceRangeLayout={priceRangeLayout}
               filtersDrawerDirectionMobile={filtersDrawerDirectionMobile}
+              showQuantityBadgeOnMobile={showQuantityBadgeOnMobile}
             />
           </div>
         </div>
