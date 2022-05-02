@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.117.1] - 2022-05-02
 ### Fixed
 - `searchTitle`s would always be `undefined` inside of gallery components when rendering the results of a full-text search.
 
