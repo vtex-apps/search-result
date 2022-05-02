@@ -72,7 +72,7 @@ const Gallery: React.FC<GalleryProps> = ({
   const { getSettings } = useRuntime()
   const responsiveMaxItemsPerRow = useResponsiveValue(maxItemsPerRow)
   const breadcrumb = useBreadcrumb()
-  const searchTitle = useSearchTitle(breadcrumb ?? []).trim()
+  const searchTitle = useSearchTitle(breadcrumb ?? [], { matchFt: true }).trim()
 
   // Not using ?? operator because trackingId and searchTitle can be ''
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
