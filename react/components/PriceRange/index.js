@@ -113,7 +113,7 @@ const PriceRange = ({
 
   const resetOnClear = () => {
     setQuery({
-      priceRange: `${minValue} TO ${maxValue}`
+      priceRange: undefined
     })
     setRange([minValue, maxValue])
     setClearPriceRange(false)

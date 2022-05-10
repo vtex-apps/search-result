@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Remove `priceRange` from the URL when clearing all filters.
+
 ## [3.117.1] - 2022-05-02
 ### Fixed
 - `searchTitle`s would always be `undefined` inside of gallery components when rendering the results of a full-text search.
