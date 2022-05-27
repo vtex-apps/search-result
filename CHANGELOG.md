@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.117.2] - 2022-05-27
+
 ### Fixed
 - Remove `priceRange` from the URL when clearing all filters.
 
