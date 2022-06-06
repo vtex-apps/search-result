@@ -147,6 +147,7 @@ Check all props to configure your search data int the table below:
 | `excludedPaymentSystems`               | `string`                 | List of payment systems that should not be considered when displaying the installment options to users. This prop configuration only works if the `installmentCriteria` prop was also declared. In case it was not, all available payment systems will be displayed regardless.   | `undefined` |
 | `includedPaymentSystems`               | `string`                 | List of payment systems that should be considered when displaying the installment options to users. This prop configuration only works if the `installmentCriteria` prop was also declared. In case it was not, all available payment systems will be displayed regardless.                                  | `undefined` |
 
+> ℹ️ Pagination does not display results after the page 50. You can configure it to display more products per page using the prop `maxItemsPerPage` by increasing the quantity of products on each page.
 
 > ⚠️ When the `simulationBehavior` prop is set as `skip`, it defines that the search data should only be fetched using the store's cache. This may impact the content displayed on store pages since the cache storage changes according to user interaction in each page.
 
