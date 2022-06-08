@@ -138,7 +138,7 @@ Check all props to configure your search data int the table below:
 | `queryField` | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Search URL's query string to define which results should be fetched in the custom query. For example: `Blue`. This prop only works if the `mapField` prop is declared as well.  | `undefined` | 
 | `mapField` | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Search URL's `map` parameter to define which results should be fetched in the custom query, for example `specificationFilter_100`. This prop only works if the `queryField` prop is declared as well. | `undefined` | 
 | `maxItemsPerPage`      | `number`         | Maximum number of items per search page. The maximum value of this prop is `50`. If a larger number is added, the query will fail.                 | `10`                |
-| `orderByField`         | `enum`           | Decides which order products must follow when displayed. The possible values are named after the order type: `OrderByTopSaleDESC`, `OrderByReleaseDateDESC`, `OrderByBestDiscountDESC`, `OrderByPriceDESC`, `OrderByPriceASC`, `OrderByNameASC`, `OrderByNameDESC` or `OrderByScoreDESC` ([relevance Score](https://help.vtex.com/en/tutorial/how-does-the-score-field-work--1BUZC0mBYEEIUgeQYAKcae)). `ASC` and `DESC` stand for ascending order and descending order, respectively.  | `OrderByScoreDESC`    |
+| `orderByField`         | `enum`           | Decides which order products must follow when displayed. The possible values are named after the order type: `OrderByTopSaleDESC` (it considers the number of sold units of the product), `OrderByReleaseDateDESC`, `OrderByBestDiscountDESC`, `OrderByPriceDESC`, `OrderByPriceASC`, `OrderByNameASC`, `OrderByNameDESC` or `OrderByScoreDESC` ([relevance Score](https://help.vtex.com/en/tutorial/how-does-the-score-field-work--1BUZC0mBYEEIUgeQYAKcae)). `ASC` and `DESC` stand for ascending order and descending order, respectively.  | `OrderByScoreDESC`    |
 | `hideUnavailableItems` | `boolean`     | Whether the search result should hide unavailable items (`true`) or not (`false`).     | `false`           |
 | `facetsBehavior` |  `string`        | Defines the filter's behavior. When set to `Dynamic`, it restricts the results according to the filters that the user has already selected. If set to `Static`, all filters will continue to be displayed to the user, even if no results exist.       | `Static`           |
 | `skusFilter`           | `enum` | Refines the SKUs returned for each product in the query. The fewer returned SKUs, the more performant your shelf query will be. Available value options: `FIRST_AVAILABLE` (returns only the first available SKU), `ALL_AVAILABLE` (returns all available SKUs), and `ALL` (returns all product's SKUs).                                     | `ALL_AVAILABLE` |
@@ -147,7 +147,7 @@ Check all props to configure your search data int the table below:
 | `excludedPaymentSystems`               | `string`                 | List of payment systems that should not be considered when displaying the installment options to users. This prop configuration only works if the `installmentCriteria` prop was also declared. In case it was not, all available payment systems will be displayed regardless.   | `undefined` |
 | `includedPaymentSystems`               | `string`                 | List of payment systems that should be considered when displaying the installment options to users. This prop configuration only works if the `installmentCriteria` prop was also declared. In case it was not, all available payment systems will be displayed regardless.                                  | `undefined` |
 
-
+> ℹ️ Pagination does not display results after the page 50. You can configure it to display more products per page using the prop `maxItemsPerPage` by increasing the quantity of products on each page.
 
 > ⚠️ When the `simulationBehavior` prop is set as `skip`, it defines that the search data should only be fetched using the store's cache. This may impact the content displayed on store pages since the cache storage changes according to user interaction in each page.
 
@@ -209,6 +209,7 @@ This allows you to define custom behaviors for each of your store's search pages
   }
 }
 ```
+
 
 
 ### Defining your search results page layouts and behavior
