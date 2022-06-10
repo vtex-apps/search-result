@@ -75,6 +75,18 @@ const withSearchPageContextProps = (Component) => ({
 
   Me quedo con el FieldId
   https://tiendadevi.vtexcommercestable.com.br/api/catalog/pvt/specification/FieldId
+  const id = FieldId
+  query test ($id: ID){
+  field(id: $id) @context(provider: "vtex.catalog-graphql") {
+    description
+    categoryId
+    position
+  }
+  }
+
+  {
+    "id": "26"
+  }
 
   {
       "Id": 26,
