@@ -1,12 +1,14 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { useDevice } from 'vtex.device-detector'
+import { useLazyQuery } from 'react-apollo'
 
 import FilterNavigator from './FilterNavigator'
 import FilterNavigatorContext from './components/FilterNavigatorContext'
 import styles from './searchResult.css'
 import { sortFilterValues } from './utils/sortFilterValues'
-
+import getFieldPosition from './graphql/getFieldPosition.gql'
+ 
 const withSearchPageContextProps = (Component) => ({
   layout,
   initiallyCollapsed,
@@ -30,6 +32,12 @@ const withSearchPageContextProps = (Component) => ({
   facetOrdering = [],
   showQuantityBadgeOnMobile = false,
 }) => {
+
+  const [
+    getFieldPositionQuery,
+    { loading: loadingGetFieldPosition, error: errorGetFieldPosition, data: dataGetFieldPosition },
+  ] = useLazyQuery(getFieldPosition)
+
   const {
     searchQuery,
     map,
@@ -61,6 +69,26 @@ const withSearchPageContextProps = (Component) => ({
     categoriesTrees,
     queryArgs,
   } = facets
+
+  useEffect(() => {
+    getFieldPositionQuery({ variables: { id: 30 } })
+  }, [])
+
+  useEffect(() => {
+    if(loadingGetFieldPosition) {
+      console.log('loadingGetFieldPosition', loadingGetFieldPosition)
+    }
+
+    if(errorGetFieldPosition) {
+      console.log('errorGetFieldPosition', errorGetFieldPosition)
+    }
+
+    if (dataGetFieldPosition) {
+      console.log('dataGetFieldPosition', dataGetFieldPosition)
+    }
+    
+  }, [loadingGetFieldPosition,errorGetFieldPosition,dataGetFieldPosition])
+  
 
   /*https://tiendadevi.vtexcommercestable.com.br/api/catalog_system/pvt/specification/fieldValue/127
 

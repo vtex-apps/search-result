@@ -1,0 +1,6 @@
+query getFieldPosition ($id: ID){
+  field(id: $id) @context(provider: "vtex.catalog-graphql") {
+    id
+    position
+  }
+}
