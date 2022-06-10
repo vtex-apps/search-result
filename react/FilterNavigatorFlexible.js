@@ -54,7 +54,7 @@ const withSearchPageContextProps = (Component) => ({
       ? searchQuery.data.facets
       : {}
 
-  const {
+    const {
     brands,
     priceRanges,
     specificationFilters,
@@ -62,10 +62,61 @@ const withSearchPageContextProps = (Component) => ({
     queryArgs,
   } = facets
 
+  /*https://tiendadevi.vtexcommercestable.com.br/api/catalog_system/pvt/specification/fieldValue/127
+
+  {
+    "FieldValueId": 127,
+    "FieldId": 30,
+    "Name": "30ml",
+    "Text": null,
+    "IsActive": true,
+    "Position": 1
+  }
+
+  Me quedo con el FieldId
+  https://tiendadevi.vtexcommercestable.com.br/api/catalog/pvt/specification/FieldId
+
+  {
+      "Id": 26,
+      "FieldTypeId": 6,
+      "CategoryId": 4,
+      "FieldGroupId": 7,
+      "Name": "EXM Aromas Victoria Chacin",
+      "Description": "Aromas",
+      "Position": 1,
+      "IsFilter": true,
+      "IsRequired": false,
+      "IsOnProductDetails": true,
+      "IsStockKeepingUnit": false,
+      "IsWizard": false,
+      "IsActive": true,
+      "IsTopMenuLinkActive": true,
+      "IsSideMenuLinkActive": true,
+      "DefaultValue": ""
+  }
+
+  Me quedo con el Position
+
+  */
+  console.log('filters', filters)
   const sortedFilters = useMemo(
     () => sortFilterValues(filters, facetOrdering),
     [filters, facetOrdering]
   )
+  console.log('sortedFilters', sortedFilters)
+  const sortedFiltersAux = []
+
+  //Aca obtengo la posicion de cada Categoria
+    //-> Traerlos por API
+  sortedFilters.forEach((filter) => {
+    if (filter.title === 'EXM Aromas Victoria Chacin') {
+      sortedFiltersAux.push(filter)
+    }
+    if (filter.title === 'EXM Género Victoria Chacin') {
+      sortedFiltersAux.push(filter)
+    }
+  })
+  console.log('sortedFiltersAux', sortedFiltersAux)
 
   if (showFacets === false || !map) {
     return null
