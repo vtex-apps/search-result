@@ -5,17 +5,17 @@ interface Filter {
   quantity: number
   title: string
   type: string
-  facets: Facets[]
+  facets: Facet[]
 }
 
-interface Facets {
+interface Facet {
   name: string
   quantity: number
 }
 
 interface SortRules {
   key: string
-  orderBy: keyof Facets
+  orderBy: keyof Facet
   order: typeof ASC | typeof DESC
 }
 
