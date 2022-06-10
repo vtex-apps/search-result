@@ -111,11 +111,9 @@ export const sortFilterValues = (
 
     const { orderBy, order } = mappedRules[filter.key.toLowerCase()]
 
-    const filterCopy = JSON.parse(JSON.stringify(filter));
+    filter.facets.sort((a, b) => compare(a[orderBy], b[orderBy], order))
 
-    filterCopy.facets.sort((a, b) => compare(a[orderBy], b[orderBy], order))
-
-    return filterCopy
+    return filter
   })
 
   return filtersAdjusted
