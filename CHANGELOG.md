@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Clear filter behavior when the filter is not applied yet.
+
 ## [3.117.4] - 2022-06-08
 
 ### Fixed

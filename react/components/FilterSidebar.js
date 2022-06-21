@@ -151,6 +151,11 @@ const FilterSidebar = ({
         (!key || (key && key === facet.key))
     )
 
+    if (selectedFacets.length === 0 && key) {
+      setFilterOperations(filterOperations.filter(filter => filter.key !== key))
+      return
+    }
+
     // Should not clear categories, departments and clusterIds
     const selectedRest = filterOperations.filter((facet) =>
       isCategoryDepartmentCollectionOrFT(facet.key)
