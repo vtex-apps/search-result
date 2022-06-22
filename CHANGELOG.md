@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- Replaces `react-outside-click-handler` with a first party component.
+
 ## [3.117.5] - 2022-06-21
 
 ### Fixed

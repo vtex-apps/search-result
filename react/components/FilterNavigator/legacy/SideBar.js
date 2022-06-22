@@ -4,11 +4,11 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import { injectIntl } from 'react-intl'
-import OutsideClickHandler from 'react-outside-click-handler'
 import Animation from 'vtex.store-components/Animation'
 import classNames from 'classnames'
 
 import searchResult from './searchResult.css'
+import OutsideClickHandler from '../../../utils/OutsideClickHandler'
 
 const OPEN_SIDEBAR_CLASS = 'overflow-hidden-ns'
 
