@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Render `ProductList` component from `vtex.structured-data` in `Gallery` for SEO
+
 ## [3.117.5] - 2022-06-21
 
 ### Fixed
