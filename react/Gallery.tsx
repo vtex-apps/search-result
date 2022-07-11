@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import { ProductList as ProductListStructuredData } from 'vtex.structured-data'
+
 import GalleryLayout from './GalleryLayout'
 import type { GalleryLayoutProps, Slots } from './GalleryLayout'
-//@ts-ignore
-import GalleryLegacy, {
-  GalleryProps as GalleryLegacyProps,
-} from './GalleryLegacy'
+import type { GalleryProps as GalleryLegacyProps } from './GalleryLegacy'
+import GalleryLegacy from './GalleryLegacy'
 
 /*
  * This type receives Slots directly, instead of using the 'slots' prop to do it.
@@ -28,15 +28,18 @@ const Gallery: React.FC<GalleryLegacyProps | GalleryLayoutPropsWithSlots> = (
     } = props as GalleryLayoutPropsWithSlots
 
     return (
-      <GalleryLayout
-        layouts={layouts}
-        lazyItemsRemaining={lazyItemsRemaining}
-        products={products}
-        showingFacets={showingFacets}
-        summary={summary}
-        slots={slots}
-        preferredSKU={preferredSKU}
-      />
+      <Fragment>
+        <ProductListStructuredData products={products} />
+        <GalleryLayout
+          layouts={layouts}
+          lazyItemsRemaining={lazyItemsRemaining}
+          products={products}
+          showingFacets={showingFacets}
+          summary={summary}
+          slots={slots}
+          preferredSKU={preferredSKU}
+        />
+      </Fragment>
     )
   }
 

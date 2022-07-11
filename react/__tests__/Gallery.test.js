@@ -1,11 +1,12 @@
 /* eslint-disable jest/no-mocks-import */
 /* eslint-env jest */
-import React from 'react'
+import React, { Fragment } from 'react'
 import { render } from '@vtex/test-tools/react'
 import { useDevice } from 'vtex.device-detector'
 import { products, summary } from 'GalleryMocks'
 
 import Gallery from '../Gallery'
+import { ProductList as ProductListStructuredData } from '../__mocks__/vtex.structured-data'
 import { useRuntime } from '../__mocks__/vtex.render-runtime'
 import { SearchPageContext } from '../__mocks__/vtex.search-page-context'
 
@@ -36,7 +37,12 @@ describe('<Gallery />', () => {
       ...customProps,
     }
 
-    return render(<Gallery {...props} />)
+    return render(
+      <Fragment>
+        <ProductListStructuredData products={products} />
+        <Gallery {...props} />
+      </Fragment>
+    )
   }
 
   it('should match snapshot', () => {
