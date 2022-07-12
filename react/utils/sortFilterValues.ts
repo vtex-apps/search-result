@@ -1,21 +1,21 @@
 import { SPEC_FILTERS, ASC, DESC } from '../constants'
 
-interface Filters {
+interface Filter {
   key: string
   quantity: number
   title: string
   type: string
-  facets: Facets[]
+  facets: Facet[]
 }
 
-interface Facets {
+interface Facet {
   name: string
   quantity: number
 }
 
 interface SortRules {
   key: string
-  orderBy: keyof Facets
+  orderBy: keyof Facet
   order: typeof ASC | typeof DESC
 }
 
@@ -63,9 +63,9 @@ const ensureOrderValue = (order: string): SortRules['order'] => {
 }
 
 export const sortFilterValues = (
-  filters: Filters[],
+  filters: Filter[],
   sortingRules: SortRules[]
-): Filters[] => {
+): Filter[] => {
   // Check if user has entered the right type on store-theme
   if (!Array.isArray(sortingRules)) {
     console.warn(
@@ -101,7 +101,7 @@ export const sortFilterValues = (
   }, {})
 
   // Apply rules for each facet
-  const filtersAdjusted = filters.map((filter) => {
+  const filtersAdjusted = filters.map((filter: Filter) => {
     const isSpecFilter = filter.type === SPEC_FILTERS
     const hasSortingRule = filter.key
       ? Boolean(mappedRules[filter.key.toLowerCase()])
@@ -111,11 +111,9 @@ export const sortFilterValues = (
 
     const { orderBy, order } = mappedRules[filter.key.toLowerCase()]
 
-    const filterCopy = { ...filter }
+    filter.facets.sort((a, b) => compare(a[orderBy], b[orderBy], order))
 
-    filterCopy.facets.sort((a, b) => compare(a[orderBy], b[orderBy], order))
-
-    return filterCopy
+    return filter
   })
 
   return filtersAdjusted
