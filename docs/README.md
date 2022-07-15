@@ -497,6 +497,12 @@ The `order-by` block renders a dropdown button with [sorting options](#the-sorti
 | `hiddenOptions` | `[string]` | Indicates which sorting options will be hidden. (e.g. `["OrderByNameASC", "OrderByNameDESC"]`) | `undefined`      |
 | `showOrderTitle` | `boolean` | Whether the selected order value (e.g. `Relevance`) will be displayed (`true`) or not (`false`).  | `true`           |
 
+- **`specificationOptions` Object:**
+| Prop name  | Type      | Description                             | Default value |
+| ---------- | --------- | --------------------------------------- | ------------- |
+| value      | string | Value that will be sent for ordering in the API. It must be in the format `{specification key}:{asc/desc}`. For example: `"size:desc"` or `"priceByUnit:asc"`. | `undefined` |
+| label      | string | Label that will be displayed in the sorting options. E.g.: `"Price by unit, ascending"` | `undefined` |
+
 ##### The sorting options for the `order-by` block
 
 | Sorting option           | Value                       |
@@ -513,13 +519,6 @@ The `order-by` block renders a dropdown button with [sorting options](#the-sorti
 
 
 #### The `search-fetch-more` block
-
-- **`specificationOptions` Object:**
-
-| Prop name  | Type      | Description                             | Default value |
-| ---------- | --------- | --------------------------------------- | ------------- |
-| value      | string | Value that will be sent for ordering in the API. It must be in the format `{specification key}:{asc|desc}`. For example: `"size:desc"` or `"priceByUnit:asc"`. | `undefined` |
-| label      | string | Label that will be displayed in the sorting options. E.g.: `"Price by unit, ascending"` | `undefined` |
 
 The `search-fetch-more` block renders a **Show More** button used to load the results of the next search results page. Check the block props in the table below.
 
