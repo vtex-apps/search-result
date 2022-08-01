@@ -2,5 +2,10 @@
   "extends": "vtex-react/io",
   "rules": {
     "react/jsx-filename-extension": 0
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
