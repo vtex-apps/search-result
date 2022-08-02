@@ -9,11 +9,9 @@ const CSS_HANDLES = ['galleryLayoutSwitcher'] as const
 
 const GalleryLayoutSwitcher: React.FC = ({ children }) => {
   const handles = useCssHandles(CSS_HANDLES)
-  const {
-    selectedGalleryLayout,
-    focusedGalleryLayout,
-    galleryLayouts,
-  } = useSearchPageState()
+  const { selectedGalleryLayout, focusedGalleryLayout, galleryLayouts } =
+    useSearchPageState()
+
   const dispatch = useSearchPageStateDispatch()
 
   const gallerySwitcherClasses = classNames(
@@ -36,7 +34,7 @@ const GalleryLayoutSwitcher: React.FC = ({ children }) => {
       }
 
       const currentFocusedIndex = galleryLayouts.findIndex(
-        (layout) =>
+        layout =>
           layout.name === (focusedGalleryLayout ?? selectedGalleryLayout)
       )
 
@@ -86,10 +84,11 @@ const GalleryLayoutSwitcher: React.FC = ({ children }) => {
         },
       })
     },
-    [selectedGalleryLayout, focusedGalleryLayout, galleryLayouts]
+    [galleryLayouts, dispatch, focusedGalleryLayout, selectedGalleryLayout]
   )
 
   return (
+    // eslint-disable-next-line jsx-a11y/interactive-supports-focus
     <div
       className={gallerySwitcherClasses}
       role="radiogroup"

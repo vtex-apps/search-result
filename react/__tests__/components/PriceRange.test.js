@@ -65,7 +65,7 @@ const mockProps = {
 }
 
 describe('<PriceRange />', () => {
-  const renderComponent = (customProps) => {
+  const renderComponent = customProps => {
     const props = { ...mockProps, ...customProps }
 
     return render(<PriceRange {...props} />)

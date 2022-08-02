@@ -22,6 +22,7 @@ const CSS_HANDLES = [
  */
 const NotFoundSearch = ({ term }) => {
   const handles = useCssHandles(CSS_HANDLES)
+
   return (
     <Fragment>
       <div

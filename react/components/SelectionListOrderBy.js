@@ -45,8 +45,8 @@ const SelectionListOrderBy = ({
 
   const { isMobile } = useDevice()
 
-  const renderOptions = (orderByOption) => {
-    return options.map((option) => {
+  const renderOptions = orderByOption => {
+    return options.map(option => {
       return (
         <SelectionListItem
           key={option.value}
@@ -61,7 +61,7 @@ const SelectionListOrderBy = ({
   const sortByMessage = formatIOMessage({ id: message, intl })
 
   const getOptionTitle = useCallback(
-    (option) => {
+    option => {
       const selectedOption = find(propEq('value', option), options)
 
       return selectedOption ? selectedOption.label : ''

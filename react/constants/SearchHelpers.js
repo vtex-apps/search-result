@@ -1,3 +1,4 @@
+// eslint-disable-next-line default-param-last
 export function getFilterTitle(title = '', intl) {
   return intl.messages[title] ? intl.formatMessage({ id: title }) : title
 }

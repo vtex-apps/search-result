@@ -235,13 +235,13 @@ const mockProps = {
 }
 
 describe('<FilterOptionTemplate />', () => {
-  const renderComponent = (customProps) => {
+  const renderComponent = customProps => {
     const props = { ...mockProps, ...customProps }
 
     return render(
       <SettingsContext.Provider value={{ thresholdForFacetSearch: 10 }}>
         <FilterOptionTemplate {...props}>
-          {(facet) => (
+          {facet => (
             <FacetItem
               key={facet.name}
               facetTitle={facet.title}

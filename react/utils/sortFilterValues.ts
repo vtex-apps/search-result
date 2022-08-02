@@ -101,7 +101,7 @@ export const sortFilterValues = (
   }, {})
 
   // Apply rules for each facet
-  const filtersAdjusted = filters.map((filter) => {
+  const filtersAdjusted = filters.map(filter => {
     const isSpecFilter = filter.type === SPEC_FILTERS
     const hasSortingRule = filter.key
       ? Boolean(mappedRules[filter.key.toLowerCase()])

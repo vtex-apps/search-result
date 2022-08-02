@@ -31,7 +31,7 @@ const AccordionFilterGroup = ({
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const filters = useSelectedFilters(facets)
-  const selectedFilters = filters.filter((facet) => facet.selected)
+  const selectedFilters = filters.filter(facet => facet.selected)
   const intl = useIntl()
   const facetTitle = getFilterTitle(title, intl)
   const slugifiedFacetTitle = searchSlugify(facetTitle)

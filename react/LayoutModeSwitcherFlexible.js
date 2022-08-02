@@ -8,6 +8,7 @@ import { prop } from 'ramda'
 
 import LayoutModeSwitcher from './LayoutModeSwitcher'
 
+// eslint-disable-next-line react/display-name
 const withSearchPageContextProps = Component => () => {
   const { mobileLayout: layoutOptions } = useSearchPage()
   const { mobileLayout } = useSearchPageState()
@@ -17,7 +18,9 @@ const withSearchPageContextProps = Component => () => {
     e.preventDefault()
     const newLayoutIndex =
       prop('mode1', layoutOptions) === mobileLayout ? 'mode2' : 'mode1'
+
     const newLayout = prop(newLayoutIndex, layoutOptions)
+
     dispatch({ type: 'SWITCH_LAYOUT', args: { mobileLayout: newLayout } })
   }
 

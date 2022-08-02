@@ -21,21 +21,21 @@ const PriceRangeInput = ({ defaultValues, onSubmit, min, max }) => {
     right: defaultRight,
   })
 
-  useEffect(() => setValues({ left: defaultLeft, right: defaultRight }), [
-    defaultLeft,
-    defaultRight,
-  ])
+  useEffect(
+    () => setValues({ left: defaultLeft, right: defaultRight }),
+    [defaultLeft, defaultRight]
+  )
 
-  const handleChange = (name) => (e) => {
+  const handleChange = name => e => {
     const { value } = e.target
 
     if (name === 'min') {
-      setValues((currentValues) => ({
+      setValues(currentValues => ({
         ...currentValues,
         left: parseFloat(value),
       }))
     } else {
-      setValues((currentValues) => ({
+      setValues(currentValues => ({
         ...currentValues,
         right: parseFloat(value),
       }))
@@ -57,7 +57,7 @@ const PriceRangeInput = ({ defaultValues, onSubmit, min, max }) => {
     onSubmit(definedValues)
   }
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = e => {
     if (e.key === 'Enter') {
       handleSubmit()
     }

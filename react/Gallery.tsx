@@ -13,9 +13,9 @@ import GalleryLegacy from './GalleryLegacy'
  */
 type GalleryLayoutPropsWithSlots = Omit<GalleryLayoutProps, 'slots'> & Slots
 
-const Gallery: React.FC<GalleryLegacyProps | GalleryLayoutPropsWithSlots> = (
-  props
-) => {
+const Gallery: React.FC<
+  GalleryLegacyProps | GalleryLayoutPropsWithSlots
+> = props => {
   if ('layouts' in props && props.layouts.length > 0) {
     const {
       layouts,

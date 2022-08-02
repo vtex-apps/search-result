@@ -4,7 +4,8 @@ import { useBreadcrumb } from './hooks/useBreadcrumb'
 import SearchTitle from './SearchTitle'
 import styles from './searchResult.css'
 
-const withSearchPageContextProps = (Component) => () => {
+// eslint-disable-next-line react/display-name
+const withSearchPageContextProps = Component => () => {
   const breadcrumb = useBreadcrumb()
 
   return (

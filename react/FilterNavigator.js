@@ -45,7 +45,7 @@ const DRAWER_DIRECTION_MOBILE = {
   drawerLeft: 'drawerLeft',
 }
 
-const getSelectedCategories = (tree) => {
+const getSelectedCategories = tree => {
   for (const node of tree) {
     if (!node.selected) {
       continue
@@ -61,7 +61,7 @@ const getSelectedCategories = (tree) => {
   return []
 }
 
-const newNamedFacet = (facet) => {
+const newNamedFacet = facet => {
   return { ...facet, newQuerySegment: newFacetPathName(facet) }
 }
 
@@ -99,7 +99,7 @@ const FilterNavigator = ({
   showClearByFilter = false,
   showClearAllFiltersOnDesktop = false,
   priceRangeLayout = 'slider',
-  showQuantityBadgeOnMobile = false
+  showQuantityBadgeOnMobile = false,
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -117,7 +117,7 @@ const FilterNavigator = ({
   useEffect(() => {
     // This condition confirms if there are facets that still need fetching
     const needsFetching = !!filters.find(
-      (filter) => filter.quantity > filter.facets.length
+      filter => filter.quantity > filter.facets.length
     )
 
     if (truncatedFacetsFetched && needsFetching && !loading) {
@@ -160,8 +160,8 @@ const FilterNavigator = ({
 
   const selectedFilters = useMemo(() => {
     const options = [
-      ...specificationFilters.map((filter) => {
-        return filter.facets.map((facet) => {
+      ...specificationFilters.map(filter => {
+        return filter.facets.map(facet => {
           return {
             ...newNamedFacet({ ...facet, title: filter.name }),
             hidden: filter.hidden,
@@ -174,7 +174,7 @@ const FilterNavigator = ({
 
     return flatten(options)
   }, [brands, priceRanges, specificationFilters]).filter(
-    (facet) => facet.selected
+    facet => facet.selected
   )
 
   const { searchQuery } = useSearchPage()

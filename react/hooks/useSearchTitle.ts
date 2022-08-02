@@ -35,7 +35,7 @@ function findLastCategory(mapArray: string[]) {
   const index = [...mapArray].reverse().findIndex(
     // traditional mapping for category (c)
     // or compatibility with VTEX IS approach (category-)
-    (mapItem) => mapItem === 'c' || mapItem.startsWith('category-')
+    mapItem => mapItem === 'c' || mapItem.startsWith('category-')
   )
 
   if (index === -1) {
@@ -52,7 +52,7 @@ const getQueryNameIndex = (mapArray: string[], matchFt: boolean) => {
   }
 
   if (matchFt) {
-    const ftIndex = mapArray.findIndex((mapItem) => mapItem === 'ft')
+    const ftIndex = mapArray.findIndex(mapItem => mapItem === 'ft')
 
     if (ftIndex >= 0) {
       return ftIndex
@@ -60,7 +60,7 @@ const getQueryNameIndex = (mapArray: string[], matchFt: boolean) => {
   }
 
   const clusterIndex = mapArray.findIndex(
-    (mapItem) => mapItem === 'productClusterIds'
+    mapItem => mapItem === 'productClusterIds'
   )
 
   if (clusterIndex >= 0) {

@@ -22,9 +22,10 @@ const DepartmentFilters = ({
   preventRouteChange,
   maxItemsDepartment,
   maxItemsCategory,
-  categoryFiltersMode
+  categoryFiltersMode,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
+
   if (!isVisible || tree.length === 0) {
     return null
   }

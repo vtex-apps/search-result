@@ -1,5 +1,4 @@
 import React from 'react'
-// eslint-disable-next-line no-restricted-imports
 import { path } from 'ramda'
 import { FormattedMessage, defineMessages } from 'react-intl'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'

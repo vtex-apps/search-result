@@ -18,12 +18,12 @@ const CSS_HANDLES = [
   'selectedCategoryIcon',
 ]
 
-const getSelectedCategories = (rootCategory) => {
+const getSelectedCategories = rootCategory => {
   let node = rootCategory.children
   const selectedCategories = [rootCategory]
 
   while (node) {
-    const category = node.find((categ) => categ.selected)
+    const category = node.find(categ => categ.selected)
 
     if (!category) {
       break
@@ -49,7 +49,7 @@ const CategoryFilter = ({
 
   const selectedCategories = getSelectedCategories(category)
 
-  const handleUnselectCategories = (index) => {
+  const handleUnselectCategories = index => {
     const categoriesToRemove = selectedCategories.slice(index)
 
     onCategorySelect(categoriesToRemove, preventRouteChange)
@@ -82,7 +82,7 @@ const CategoryFilter = ({
           'flex items-center pointer'
         )}
         onClick={handleRootCategoryClick}
-        onKeyDown={(e) => e.key === 'Enter' && handleRootCategoryClick()}
+        onKeyDown={e => e.key === 'Enter' && handleRootCategoryClick()}
         data-testid={`root-category-${category.value}`}
       >
         <div className="flex-grow-1 dim">
@@ -119,7 +119,7 @@ const CategoryFilter = ({
               'mt5 mt4-ns flex items-center justify-between pointer f5 f6-ns'
             )}
             onClick={() => handleUnselectCategories(index + 1)}
-            onKeyDown={(e) =>
+            onKeyDown={e =>
               e.key === 'Enter' && handleUnselectCategories(index + 1)
             }
             data-testid={`selected-category-${subCategory.value}`}

@@ -29,7 +29,7 @@ const removeElementAtIndex = (strArray, index) =>
 
 const upsert = (array, item) => {
   const foundItemIndex = array.findIndex(
-    (e) => e.value === item.value && e.map === item.map
+    e => e.value === item.value && e.map === item.map
   )
 
   if (foundItemIndex === -1) {
@@ -59,7 +59,7 @@ const replaceQueryForNewQueryFormat = (
   const mapArray = mapString.split(MAP_VALUES_SEP)
   const newQueryFormatArray = zip(queryArray, mapArray).map(
     ([querySegment, mapSegment]) => {
-      const facetForQuery = selectedFacets.find((facet) => {
+      const facetForQuery = selectedFacets.find(facet => {
         return compareFacetWithQueryValues(querySegment, mapSegment, facet)
       })
 
@@ -85,11 +85,11 @@ const removeMapForNewURLFormat = (map, selectedFacets) => {
   }, [])
 
   return mapArray
-    .filter((mapItem) => !mapsToFilter.includes(mapItem))
+    .filter(mapItem => !mapsToFilter.includes(mapItem))
     .join(MAP_VALUES_SEP)
 }
 
-const getCleanUrlParams = (currentMap) => {
+const getCleanUrlParams = currentMap => {
   const urlParams = new URLSearchParams(window.location.search)
 
   urlParams.set(MAP_QUERY_KEY, currentMap)
@@ -120,7 +120,7 @@ const buildQueryAndMap = (
         )
 
         selectedFacets = selectedFacets.filter(
-          (selectedFacet) =>
+          selectedFacet =>
             selectedFacet.value !== facet.value &&
             selectedFacet.map !== facet.map
         )
@@ -174,8 +174,8 @@ export const buildNewQueryMap = (
   facets,
   selectedFacets
 ) => {
-  const querySegments = selectedFacets.map((facet) => facet.value)
-  const mapSegments = selectedFacets.map((facet) => facet.map)
+  const querySegments = selectedFacets.map(facet => facet.value)
+  const mapSegments = selectedFacets.map(facet => facet.map)
 
   const {
     ft: fullText,
@@ -301,7 +301,22 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
           LOWERCASE: false,
         },
       })
-    }
+    },
+    [
+      fullTextQuery,
+      fuzzy,
+      mainSearches,
+      map,
+      navigate,
+      operator,
+      query,
+      runtimeQuery,
+      scrollToTop,
+      searchQuery,
+      searchState,
+      selectedFacets,
+      setQuery,
+    ]
   )
 
   return navigateToFacet

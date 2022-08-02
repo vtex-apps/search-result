@@ -34,7 +34,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
   currentLayoutName,
   rowIndex,
   listName,
-  preferredSKU
+  preferredSKU,
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -56,6 +56,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
     <>
       {products.map((product, index) => {
         const absoluteProductIndex = rowIndex * itemsPerRow + index + 1
+
         return (
           <div
             key={product.cacheId}

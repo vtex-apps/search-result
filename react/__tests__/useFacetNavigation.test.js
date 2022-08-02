@@ -45,7 +45,11 @@ test('navigating to another category facet', () => {
     result.current({ map: 'c', value: 'shorts' })
   })
 
-  const navigateCall = mockNavigate.mock.calls[0][0]
+  const {
+    mock: {
+      calls: [[navigateCall]],
+    },
+  } = mockNavigate
 
   expect(navigateCall.to).toBe('/clothing/shorts')
 })
@@ -69,7 +73,11 @@ test('joins categories', () => {
     result.current({ map: 'c', value: 'shorts' })
   })
 
-  const navigateCall = mockNavigate.mock.calls[0][0]
+  const {
+    mock: {
+      calls: [[navigateCall]],
+    },
+  } = mockNavigate
 
   expect(navigateCall.to).toBe('/clothing/shorts/brand')
   expect(navigateCall.query).toBe('map=b')
@@ -108,7 +116,11 @@ test('pass array of facets as args work', () => {
     result.current(facets)
   })
 
-  const navigateCall = mockNavigate.mock.calls[0][0]
+  const {
+    mock: {
+      calls: [[navigateCall]],
+    },
+  } = mockNavigate
 
   expect(navigateCall.to).toBe('/clothing/shorts/brand/otherbrand/gender_Mens')
   expect(navigateCall.query).toBe('map=b%2Cb')

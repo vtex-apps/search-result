@@ -25,7 +25,7 @@ beforeEach(() => {
 })
 
 describe('<OrderBy />', () => {
-  const renderComponent = (customProps) => (mobile) => {
+  const renderComponent = customProps => mobile => {
     setMobileState(mobile)
 
     const props = {

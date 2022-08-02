@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import PropTypes from 'prop-types'
 import { range } from 'ramda'
 import React, { Component, Fragment } from 'react'
@@ -25,9 +27,14 @@ class SearchFooter extends Component {
   handleClick = pageNumber => this.navigateTo(pageNumber)
 
   navigateTo = pageNumber => {
-    const { page, params, queryString: query } = this.props.getLinkProps({
+    const {
+      page,
+      params,
+      queryString: query,
+    } = this.props.getLinkProps({
       pageNumber,
     })
+
     return this.props.runtime.navigate({
       page,
       params,
@@ -57,6 +64,7 @@ class SearchFooter extends Component {
     const { recordsFiltered, page, maxItemsPerPage } = this.props
     const lastPage = Math.ceil(recordsFiltered / maxItemsPerPage)
     const maxNumberButtons = 5
+
     return (
       <div className="flex justify-center b">
         {page > 1 && (

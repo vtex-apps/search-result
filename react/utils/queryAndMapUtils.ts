@@ -20,6 +20,7 @@ export const isSameMap = (map1: string, map2: string) => {
   if (CATEGORY_DEPARTMENTS_FT.includes(map1)) {
     return CATEGORY_DEPARTMENTS_FT.includes(map2)
   }
+
   return map1 === map2
 }
 
@@ -32,12 +33,14 @@ export const filterCategoryDepartmentCollectionAndFT = (context: any) => {
   const map = context.map.split(MAP_VALUES_SEP)
   const newQuery = []
   const newMap = []
+
   for (let i = 0; i < map.length; i++) {
     if (isCategoryDepartmentCollectionOrFT(map[i])) {
       newQuery.push(query[i])
       newMap.push(map[i])
     }
   }
+
   return {
     query: newQuery.join(PATH_SEPARATOR),
     map: newMap.join(MAP_VALUES_SEP),

@@ -53,7 +53,7 @@ const mockProps = {
 }
 
 describe('<AvailableFilters />', () => {
-  const renderComponent = (customProps) => {
+  const renderComponent = customProps => {
     const props = { ...mockProps, ...customProps }
 
     return render(<AvailableFilters {...props} />)

@@ -103,10 +103,10 @@ const Gallery: React.FC<GalleryProps> = ({
 
   const itemsPerRow = getItemsPerRow() || responsiveMaxItemsPerRow
 
-  const rows = useMemo(() => splitEvery(itemsPerRow, products), [
-    itemsPerRow,
-    products,
-  ])
+  const rows = useMemo(
+    () => splitEvery(itemsPerRow, products),
+    [itemsPerRow, products]
+  )
 
   const galleryClasses = classNames(
     handles.gallery,
@@ -117,8 +117,8 @@ const Gallery: React.FC<GalleryProps> = ({
     }
   )
 
-  const isLazyRenderEnabled = getSettings('vtex.store')
-    ?.enableSearchRenderingOptimization
+  const isLazyRenderEnabled =
+    getSettings('vtex.store')?.enableSearchRenderingOptimization
 
   return (
     <ProductListProvider listName={listName}>
