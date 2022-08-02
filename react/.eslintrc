@@ -8,6 +8,9 @@
       "version": "detect"
     }
   },
+  "env": {
+    "jest": true
+  },
   "overrides": [
     {
       "files": ["*.js", "*.jsx"],

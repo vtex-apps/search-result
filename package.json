@@ -15,9 +15,6 @@
     ],
     "*.{json,graphql,gql}": [
       "prettier --write"
-    ],
-    "*.json": [
-      "prettier --write"
     ]
   },
   "devDependencies": {
