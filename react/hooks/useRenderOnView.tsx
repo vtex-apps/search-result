@@ -1,5 +1,6 @@
-import { useOnView } from './useOnView'
 import React, { useState, useRef } from 'react'
+
+import { useOnView } from './useOnView'
 
 const useRenderOnView = ({
   lazyRender = false,

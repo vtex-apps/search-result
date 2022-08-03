@@ -4,15 +4,15 @@ import { PropTypes } from 'prop-types'
 /**
  * Link Mocked Component.
  */
+// eslint-disable-next-line react/prefer-stateless-function
 export class Link extends Component {
   static propTypes = {
     children: PropTypes.element,
   }
 
   render() {
-    return (
-      <a href="#">{this.props.children}</a>
-    )
+    // eslint-disable-next-line jsx-a11y/anchor-is-valid
+    return <a href="#">{this.props.children}</a>
   }
 }
 

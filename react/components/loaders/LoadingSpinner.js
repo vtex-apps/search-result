@@ -10,6 +10,7 @@ const CSS_HANDLES = [
 const LoadingSpinner = props => {
   const { loading } = props
   const handles = useCssHandles(CSS_HANDLES)
+
   return (
     loading && (
       <div

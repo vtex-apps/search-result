@@ -39,7 +39,7 @@ function GalleryRow({
   listName,
   customSummaryInterval,
   CustomSummary,
-  preferredSKU
+  preferredSKU,
 }: GalleryRowProps) {
   const handles = useCssHandles(CSS_HANDLES)
 

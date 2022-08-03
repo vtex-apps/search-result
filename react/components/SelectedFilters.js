@@ -25,7 +25,7 @@ const SelectedFilters = ({
     return null
   }
 
-  const visibleFilters = filters.filter((filter) => !filter.hidden)
+  const visibleFilters = filters.filter(filter => !filter.hidden)
 
   const title = intl.formatMessage({ id: 'store/search.selected-filters' })
 
@@ -37,7 +37,7 @@ const SelectedFilters = ({
       collapsable={false}
       selected
     >
-      {(facet) => (
+      {facet => (
         <FacetItem
           map={map}
           key={facet.name}

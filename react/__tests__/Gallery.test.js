@@ -30,7 +30,7 @@ beforeEach(() => {
 })
 
 describe('<Gallery />', () => {
-  const renderComponent = (customProps) => {
+  const renderComponent = customProps => {
     const props = {
       products,
       summary,

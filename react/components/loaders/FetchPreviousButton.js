@@ -22,7 +22,7 @@ const useShowButton = (from, products, loading) => {
   return showButton
 }
 
-const FetchPreviousButton = (props) => {
+const FetchPreviousButton = props => {
   const {
     products,
     from,
@@ -37,7 +37,7 @@ const FetchPreviousButton = (props) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { searchQuery } = useSearchPage()
 
-  const handleFetchMoreClick = (ev) => {
+  const handleFetchMoreClick = ev => {
     isAnchor && ev.preventDefault()
     onFetchPrevious()
   }
@@ -46,7 +46,7 @@ const FetchPreviousButton = (props) => {
     <div className={`${handles.buttonShowMore} w-100 flex justify-center`}>
       {showButton && (
         <Button
-          onClick={(ev) => handleFetchMoreClick(ev)}
+          onClick={ev => handleFetchMoreClick(ev)}
           href={
             isAnchor && `?page=${previousPage}${getMapQueryString(searchQuery)}`
           }

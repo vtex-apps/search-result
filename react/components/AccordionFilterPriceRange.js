@@ -15,7 +15,7 @@ const AccordionFilterPriceRange = ({
   initiallyCollapsed,
   priceRangeLayout,
   clearPriceRange,
-  setClearPriceRange
+  setClearPriceRange,
 }) => {
   return (
     <AccordionFilterItem

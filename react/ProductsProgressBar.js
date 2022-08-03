@@ -12,6 +12,7 @@ const ProductsProgressBar = props => {
     path(['data', 'productSearch', 'products'], searchQuery) ||
     props.products ||
     []
+
   const recordsFiltered =
     path(['data', 'productSearch', 'recordsFiltered'], searchQuery) ||
     props.recordsFiltered ||
@@ -20,6 +21,7 @@ const ProductsProgressBar = props => {
   const productsLoadedPercentage = Math.round(
     (100 * products.length) / recordsFiltered
   )
+
   if (products.length === 0) {
     return null
   }

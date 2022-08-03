@@ -42,15 +42,15 @@ const AccordionFilterItem = ({
   const isNavigationCollapsible = navigationType === 'collapsible'
   const [isCollapsed, setIsCollapsed] = useState(initiallyCollapsed)
 
-  const handleOnOpen = (e) => {
+  const handleOnOpen = e => {
     if (isNavigationCollapsible) {
-      setIsCollapsed((prevIsCollapsed) => !prevIsCollapsed)
+      setIsCollapsed(prevIsCollapsed => !prevIsCollapsed)
     }
 
     onOpen(e)
   }
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = e => {
     if (e.key === ' ') {
       handleOnOpen(e)
     }
@@ -140,7 +140,7 @@ const AccordionFilterItem = ({
                 <div
                   className={classNames(handles.accordionSelectedFilters, 'f6')}
                 >
-                  {selectedFilters.map((facet) => facet.name).join(', ')}
+                  {selectedFilters.map(facet => facet.name).join(', ')}
                 </div>
               )}
             </div>

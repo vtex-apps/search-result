@@ -14,9 +14,7 @@ import FetchMoreButton from './loaders/FetchMoreButton'
 import LoadingSpinner from './loaders/LoadingSpinner'
 import { PAGINATION_TYPE } from '../constants/paginationType'
 import FilterNavigatorContext from './FilterNavigatorContext'
-
 import getFilters from '../utils/getFilters'
-
 import styles from '../searchResult.css'
 
 /**

@@ -19,7 +19,7 @@ const AccordionFilterItem = ({
   isOptionSelected,
 }) => {
   const intl = useIntl()
-  const handleKeyDown = (e) => {
+  const handleKeyDown = e => {
     if (e.key === ' ') {
       onOpen(e)
     }
@@ -63,7 +63,7 @@ const AccordionFilterItem = ({
         <div
           className={`${searchResult.accordionFilterItemOptions} pl7 overflow-scroll h-100`}
         >
-          {facets.map((facet) => {
+          {facets.map(facet => {
             const { name } = facet
 
             return (

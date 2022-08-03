@@ -1,8 +1,8 @@
 import { path } from 'ramda'
 import React from 'react'
 import { useRuntime } from 'vtex.render-runtime'
-import SearchQuery from './SearchQuery'
 
+import SearchQuery from './SearchQuery'
 import { SORT_OPTIONS } from '../OrderBy'
 
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10

@@ -4,11 +4,9 @@ import React from 'react'
 import styles from './searchResult.css'
 import { useSearchTitle } from './hooks/useSearchTitle'
 
-const SearchTitle = (props) => {
-  const {
-    breadcrumb: breadcrumbProp,
-    wrapperClass = styles.galleryTitle,
-  } = props
+const SearchTitle = props => {
+  const { breadcrumb: breadcrumbProp, wrapperClass = styles.galleryTitle } =
+    props
 
   const title = useSearchTitle(breadcrumbProp || [], {
     matchFt: true,

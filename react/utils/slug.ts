@@ -8,13 +8,17 @@ import {
 
 const from =
   'ÁÄÂÀÃÅČÇĆĎÉĚËÈÊẼĔȆÍÌÎÏŇÑÓÖÒÔÕØŘŔŠŤÚŮÜÙÛÝŸŽáäâàãåčçćďéěëèêẽĕȇíìîïňñóöòôõøðřŕšťúůüùûýÿžþÞĐđßÆa·/_,:;'
+
 const to =
   'AAAAAACCCDEEEEEEEEIIIINNOOOOOORRSTUUUUUYYZaaaaaacccdeeeeeeeeiiiinnooooooorrstuuuuuyyzbBDdBAa------'
+
 const removeAccents = (str: string) => {
   let newStr = str.slice(0)
+
   for (let i = 0; i < from.length; i++) {
     newStr = newStr.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i))
   }
+
   return newStr
 }
 
@@ -24,16 +28,20 @@ export function searchSlugify(str: string) {
   // replaces special characters with dashes, remove accents and lower cases everything
   // eslint-disable-next-line no-useless-escape
   const replaced = str.replace(/[*+~.()'"!:@&\[\]`,/ %$#?{}|><=_^]/g, '-')
+
   return removeAccents(replaced).toLowerCase()
 }
 
 export const newFacetPathName = (facet: any) => {
-  if (facet.map && facet.map.includes(SPEC_FILTER)) {
+  if (facet.map?.includes(SPEC_FILTER)) {
     return `${searchSlugify(
       facet.title
     )}${FILTER_TITLE_SEP}${facet.value.replace(/\s/g, SPACE_REPLACER)}`
-  } else if (facet.map === MAP_CATEGORY_CHAR || facet.map === MAP_BRAND_CHAR) {
+  }
+
+  if (facet.map === MAP_CATEGORY_CHAR || facet.map === MAP_BRAND_CHAR) {
     return facet.value.toLowerCase()
   }
+
   return facet.value
 }

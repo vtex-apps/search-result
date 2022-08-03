@@ -1,4 +1,5 @@
-import React, { ComponentType } from 'react'
+import type { ComponentType } from 'react'
+import React from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 
 interface WrappedComponentProps {
@@ -8,7 +9,8 @@ interface WrappedComponentProps {
 function withResizeDetector<P extends WrappedComponentProps>(
   WrappedComponent: ComponentType<P>
 ): ComponentType<P> {
-  return (props) => (
+  // eslint-disable-next-line react/display-name
+  return props => (
     <ReactResizeDetector handleWidth>
       {(width: number) => <WrappedComponent {...props} width={width} />}
     </ReactResizeDetector>

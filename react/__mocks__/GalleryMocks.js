@@ -257,8 +257,7 @@ export const products = [
     productName: 'Long Sleeve Shirt - Regular',
     linkText: 'long-sleeve-shirt',
     brand: 'Apple',
-    link:
-      'https://storecomponents.vtexcommercestable.com.br/long-sleeve-shirt/p',
+    link: 'https://storecomponents.vtexcommercestable.com.br/long-sleeve-shirt/p',
     items: [
       {
         itemId: '2000539',
@@ -319,8 +318,7 @@ export const products = [
     productName: 'St Tropez Shorts - 1',
     linkText: 'st-tropez-shorts',
     brand: 'Samsung',
-    link:
-      'https://storecomponents.vtexcommercestable.com.br/st-tropez-shorts/p',
+    link: 'https://storecomponents.vtexcommercestable.com.br/st-tropez-shorts/p',
     items: [
       {
         itemId: '2000535',
@@ -374,8 +372,7 @@ export const products = [
     productName: 'Trendy Sweatshirt - Pink',
     linkText: 'trendy-sweatshirt',
     brand: 'Samsung',
-    link:
-      'https://storecomponents.vtexcommercestable.com.br/trendy-sweatshirt/p',
+    link: 'https://storecomponents.vtexcommercestable.com.br/trendy-sweatshirt/p',
     items: [
       {
         itemId: '22',

@@ -8,6 +8,7 @@ const useOutsideClick = (ref, handler, activeWhen) => {
 
   useLayoutEffect(() => {
     activeWhen && document.addEventListener('mousedown', handle)
+
     return () => document.removeEventListener('mousedown', handle)
   }, [activeWhen, handle])
 }

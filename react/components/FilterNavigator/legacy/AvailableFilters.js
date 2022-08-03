@@ -22,6 +22,7 @@ const AvailableFilters = ({
             priceRange={priceRange}
           />
         )
+
       default:
         return (
           <SearchFilter

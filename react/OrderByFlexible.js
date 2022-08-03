@@ -2,11 +2,12 @@ import React from 'react'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import OrderBy from './OrderBy'
-
 import styles from './searchResult.css'
 
+// eslint-disable-next-line react/display-name
 const withSearchPageContextProps = Component => props => {
   const { orderBy } = useSearchPage()
+
   if (orderBy == null) {
     return null
   }

@@ -33,8 +33,8 @@ const FacetCheckboxList = ({
   const { thresholdForFacetSearch } = useSettings()
   const [searchTerm, setSearchTerm] = useState('')
   const [truncated, setTruncated] = useState(true)
-  const isLazyFacetsFetchEnabled = getSettings('vtex.store')
-    ?.enableFiltersFetchOptimization
+  const isLazyFacetsFetchEnabled =
+    getSettings('vtex.store')?.enableFiltersFetchOptimization
 
   const sampling = searchQuery?.facets?.sampling
 
@@ -44,7 +44,7 @@ const FacetCheckboxList = ({
     }
 
     return facets.filter(
-      (facet) => facet.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+      facet => facet.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
     )
   }, [facets, searchTerm, thresholdForFacetSearch])
 
@@ -63,7 +63,7 @@ const FacetCheckboxList = ({
     thresholdForFacetSearch !== undefined &&
     thresholdForFacetSearch < facets.length
 
-  const openTruncated = (value) => {
+  const openTruncated = value => {
     if (isLazyFacetsFetchEnabled && !truncatedFacetsFetched) {
       setTruncatedFacetsFetched(true)
     }
@@ -76,7 +76,7 @@ const FacetCheckboxList = ({
       {showSearchBar ? (
         <SearchFilterBar name={facetTitle} handleChange={setSearchTerm} />
       ) : null}
-      {filteredFacets.slice(0, endSlice).map((facet) => {
+      {filteredFacets.slice(0, endSlice).map(facet => {
         const { name } = facet
         const slugifiedName = searchSlugify(name)
 
@@ -118,9 +118,7 @@ const FacetCheckboxList = ({
         <ShowMoreFilterButton
           quantity={quantity - FACETS_RENDER_THRESHOLD}
           truncated={truncated}
-          toggleTruncate={() =>
-            openTruncated((prevTruncated) => !prevTruncated)
-          }
+          toggleTruncate={() => openTruncated(prevTruncated => !prevTruncated)}
         />
       )}
     </>

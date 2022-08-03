@@ -86,7 +86,7 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
 
     if (selectedGalleryLayout) {
       layoutOption = layouts.find(
-        (layout) => layout.name === selectedGalleryLayout
+        layout => layout.name === selectedGalleryLayout
       )
     } else {
       console.error(
@@ -148,8 +148,8 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
     }
   )
 
-  const isLazyRenderEnabled = getSettings('vtex.store')
-    ?.enableSearchRenderingOptimization
+  const isLazyRenderEnabled =
+    getSettings('vtex.store')?.enableSearchRenderingOptimization
 
   return (
     <ProductListProvider listName={listName as string}>

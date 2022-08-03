@@ -37,7 +37,7 @@ function shouldNotIncludeMap(map) {
     return false
   }
 
-  return mapTree.every((mapItem) => mapItem === 'c')
+  return mapTree.every(mapItem => mapItem === 'c')
 }
 
 export function getMapQueryString(searchQuery) {
@@ -52,7 +52,7 @@ export function getMapQueryString(searchQuery) {
   return `&map=${searchQuery.variables.map}`
 }
 
-const FetchMoreButton = (props) => {
+const FetchMoreButton = props => {
   const {
     products,
     to,
@@ -69,7 +69,7 @@ const FetchMoreButton = (props) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { searchQuery } = useSearchPage()
 
-  const handleFetchMoreClick = (ev) => {
+  const handleFetchMoreClick = ev => {
     isAnchor && ev.preventDefault()
     onFetchMore()
   }
@@ -79,7 +79,7 @@ const FetchMoreButton = (props) => {
       <div className={`${handles.buttonShowMore} w-100 flex justify-center`}>
         {showButton && (
           <Button
-            onClick={(ev) => handleFetchMoreClick(ev)}
+            onClick={ev => handleFetchMoreClick(ev)}
             href={
               isAnchor && `?page=${nextPage}${getMapQueryString(searchQuery)}`
             }

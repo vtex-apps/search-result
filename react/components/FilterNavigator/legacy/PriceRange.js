@@ -97,7 +97,7 @@ const PriceRange = ({ title, facets, priceRange }) => {
         max={maxValue}
         onChange={handleChange}
         defaultValues={defaultValues}
-        formatValue={(value) => intl.formatNumber(value, currencyOptions)}
+        formatValue={value => intl.formatNumber(value, currencyOptions)}
         range
       />
     </FilterOptionTemplate>

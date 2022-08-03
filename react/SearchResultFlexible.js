@@ -1,6 +1,4 @@
 import React, { useMemo, useEffect, useRef } from 'react'
-import ContextProviders from './components/ContextProviders'
-import SearchResultContainer from './components/SearchResultContainer'
 import {
   SearchPageContext,
   SearchPageStateContext,
@@ -9,14 +7,14 @@ import {
 } from 'vtex.search-page-context/SearchPageContext'
 import { useCssHandles } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
-
 import { generateBlockClass } from '@vtex/css-handles'
 import { pathOr, isEmpty } from 'ramda'
 
+import SearchResultContainer from './components/SearchResultContainer'
+import ContextProviders from './components/ContextProviders'
 import getFilters from './utils/getFilters'
 import LoadingOverlay from './components/LoadingOverlay'
 import { PAGINATION_TYPE } from './constants/paginationType'
-
 import styles from './searchResult.css'
 
 const emptyFacets = {
@@ -32,6 +30,7 @@ const useShowContentLoader = (searchQuery, dispatch) => {
   const loadingRef = useRef(searchQuery.loading)
   const previousLoading = loadingRef.current
   const isLoading = searchQuery && searchQuery.loading
+
   useEffect(() => {
     if (previousLoading && !isLoading) {
       loadingRef.current = false
@@ -63,13 +62,14 @@ const SearchResultFlexible = ({
   thresholdForFacetSearch,
   lazyItemsRemaining,
 }) => {
-  //This makes infinite scroll unavailable.
-  //Infinite scroll was deprecated and we have
-  //removed it since the flexible search release
+  // This makes infinite scroll unavailable.
+  // Infinite scroll was deprecated and we have
+  // removed it since the flexible search release
   if (pagination === PAGINATION_TYPE.INFINITE_SCROLL) {
     pagination = PAGINATION_TYPE.SHOW_MORE
     console.warn('Infinite scroll cannot be used in flexible search')
   }
+
   pagination =
     pagination === PAGINATION_TYPE.INFINITE_SCROLL
       ? PAGINATION_TYPE.SHOW_MORE
@@ -82,6 +82,7 @@ const SearchResultFlexible = ({
     specificationFilters,
     categoriesTrees,
   } = facets
+
   const filters = useMemo(
     () =>
       getFilters({
@@ -102,6 +103,7 @@ const SearchResultFlexible = ({
     hiddenFacets.categories === false &&
     categoriesTrees &&
     categoriesTrees.length > 0
+
   const showFacets = showCategories || (!hideFacets && !isEmpty(filters))
   const { query: runtimeQuery } = useRuntime()
   const [state, dispatch] = useSearchPageStateReducer({
@@ -132,8 +134,8 @@ const SearchResultFlexible = ({
   )
 
   const context = useMemo(() => {
-    const selectedFacets = filters.flatMap((filter) =>
-      filter.facets.filter((facet) => facet.selected)
+    const selectedFacets = filters.flatMap(filter =>
+      filter.facets.filter(facet => facet.selected)
     )
 
     return {
@@ -175,6 +177,7 @@ const SearchResultFlexible = ({
   ])
 
   const showLoading = searchQuery.loading && !state.isFetchingMore
+
   return (
     <SearchPageContext.Provider value={context}>
       <SearchPageStateContext.Provider value={state}>

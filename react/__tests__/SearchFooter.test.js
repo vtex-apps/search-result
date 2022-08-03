@@ -11,6 +11,7 @@ describe('<SearchFooter /> component', () => {
       params: 'mockedParams',
     }
   })
+
   const renderComponent = customProps => {
     const props = {
       recordsFiltered: 20,
@@ -20,26 +21,29 @@ describe('<SearchFooter /> component', () => {
       getLinkProps,
       ...customProps,
     }
+
     return { ...render(<SearchFooter {...props} />), getLinkProps }
   }
 
   it('should be rendered', () => {
     const { asFragment } = renderComponent()
+
     expect(asFragment()).toBeDefined()
   })
 
   it('should return link', () => {
-    const { getAllByTestId, getLinkProps } = renderComponent()
-    const firstLink = getAllByTestId('page-button')[0]
+    const { getAllByTestId, getLinkProps: props } = renderComponent()
+    const [firstLink] = getAllByTestId('page-button')
 
     fireEvent.click(firstLink)
 
     // Expect getLinkProps has been called
-    expect(getLinkProps).toBeCalledTimes(1)
+    expect(props).toBeCalledTimes(1)
   })
 
   it('should match snapshot', () => {
     const { asFragment } = renderComponent()
+
     expect(asFragment()).toMatchSnapshot()
   })
 })

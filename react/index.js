@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import { useRuntime } from 'vtex.render-runtime'
+import { SearchPageContext } from 'vtex.search-page-context/SearchPageContext'
 
 import SearchResultContainer from './components/SearchResultContainer'
 import { SORT_OPTIONS } from './OrderBy'
@@ -7,7 +8,6 @@ import LocalQuery from './components/LocalQuery'
 import { LAYOUT_MODE } from './components/LayoutModeSwitcher'
 import ContextProviders from './components/ContextProviders'
 import { PAGINATION_TYPES } from './constants/paginationType'
-import { SearchPageContext } from 'vtex.search-page-context/SearchPageContext'
 
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
 
@@ -26,6 +26,7 @@ const SearchResult = props => {
     searchQuery,
     trackingId,
   } = props
+
   const { query } = useRuntime()
   const settings = useMemo(
     () => ({
@@ -65,7 +66,7 @@ const SearchResult = props => {
       )}
     />
   ) : (
-    <SearchPageContext.Provider value={{ searchQuery: searchQuery }}>
+    <SearchPageContext.Provider value={{ searchQuery }}>
       <ContextProviders
         queryVariables={searchQuery.variables}
         settings={settings}

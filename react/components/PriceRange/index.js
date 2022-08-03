@@ -25,7 +25,7 @@ const PriceRange = ({
   priceRangeLayout,
   scrollToTop,
   clearPriceRange,
-  setClearPriceRange
+  setClearPriceRange,
 }) => {
   const [range, setRange] = useState()
   const { culture, setQuery, query: runtimeQuery } = useRuntime()
@@ -39,7 +39,6 @@ const PriceRange = ({
   const { fuzzy, operator, searchState } = useSearchState()
 
   const handleChange = ([left, right]) => {
-
     if (navigateTimeoutId.current) {
       clearTimeout(navigateTimeoutId.current)
     }
@@ -68,11 +67,10 @@ const PriceRange = ({
       })
 
       setRange([left, right])
-      
-      if(scrollToTop !== 'none'){
+
+      if (scrollToTop !== 'none') {
         window.scroll({ top: 0, left: 0, behavior: scrollToTop })
       }
-      
     }, DEBOUNCE_TIME)
   }
 
@@ -113,14 +111,16 @@ const PriceRange = ({
 
   const resetOnClear = () => {
     setQuery({
-      priceRange: undefined
+      priceRange: undefined,
     })
     setRange([minValue, maxValue])
     setClearPriceRange(false)
-  } 
+  }
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     clearPriceRange && resetOnClear()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clearPriceRange])
 
   return (
@@ -132,7 +132,7 @@ const PriceRange = ({
       {priceRangeLayout === 'inputAndSlider' && (
         <PriceRangeInput
           defaultValues={defaultValues}
-          onSubmit={(newRange) => setRange(newRange)}
+          onSubmit={newRange => setRange(newRange)}
           max={maxValue}
           min={minValue}
         />
@@ -143,7 +143,7 @@ const PriceRange = ({
         max={maxValue}
         onChange={handleChange}
         defaultValues={defaultValues}
-        formatValue={(value) => formatCurrency({ intl, culture, value })}
+        formatValue={value => formatCurrency({ intl, culture, value })}
         values={range}
         range
       />
@@ -160,6 +160,8 @@ PriceRange.propTypes = {
   priceRange: PropTypes.string,
   /** Price range layout (default or inputAndSlider) */
   priceRangeLayout: PropTypes.string,
+  /** Scroll behavior */
+  scrollToTop: PropTypes.string,
   /** Defines whether the price range should be cleared or not */
   clearPriceRange: PropTypes.bool,
   /** Set the value of clearPriceRange prop */
