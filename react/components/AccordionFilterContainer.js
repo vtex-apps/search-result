@@ -13,6 +13,10 @@ import AccordionFilterGroup from './AccordionFilterGroup'
 import AccordionFilterPriceRange from './AccordionFilterPriceRange'
 import styles from '../searchResult.css'
 
+import SelectedFilters from './SelectedFilters'
+import { Button } from 'vtex.styleguide'
+import { FormattedMessage } from 'react-intl'
+
 const CSS_HANDLES = [
   'filterBreadcrumbsItem',
   'filterBreadcrumbsItemName',
@@ -25,6 +29,9 @@ const CSS_HANDLES = [
 const CATEGORIES_TITLE = 'store/search.filter.title.categories'
 
 const AccordionFilterContainer = ({
+  preventRouteChange,
+  navigateToFacet,
+  filterSelected,
   filters,
   onFilterCheck,
   tree,
@@ -136,27 +143,39 @@ const AccordionFilterContainer = ({
       </div>
 
       {tree.length > 0 && (
-        <AccordionFilterItem
-          title={CATEGORIES_TITLE}
-          open={departmentsOpen}
-          show={!openItem || departmentsOpen}
-          onOpen={handleOpen(CATEGORIES_TITLE)}
-          appliedFiltersOverview={appliedFiltersOverview}
-          navigationType={navigationType}
-          initiallyCollapsed={initiallyCollapsed}
-          onClearFilter={onClearFilter}
-        >
-          <div className={itemClassName}>
-            <DepartmentFilters
-              tree={tree}
-              isVisible={tree.length > 0}
-              onCategorySelect={onCategorySelect}
-              categoryFiltersMode={categoryFiltersMode}
-              hideBorder
-            />
-          </div>
-        </AccordionFilterItem>
+          <AccordionFilterItem
+            title={CATEGORIES_TITLE}
+            open={departmentsOpen}
+            show={!openItem || departmentsOpen}
+            onOpen={handleOpen(CATEGORIES_TITLE)}
+            appliedFiltersOverview={appliedFiltersOverview}
+            navigationType={navigationType}
+            initiallyCollapsed={initiallyCollapsed}
+            onClearFilter={onClearFilter}
+          >
+            <div className={itemClassName}>
+              <DepartmentFilters
+                tree={tree}
+                isVisible={tree.length > 0}
+                onCategorySelect={onCategorySelect}
+                categoryFiltersMode={categoryFiltersMode}
+                hideBorder
+              />
+            </div>
+          </AccordionFilterItem>
+        
       )}
+      <div>
+        <Button onClick={()  => navigateToFacet(filterSelected, preventRouteChange)}>
+          <FormattedMessage id="store/search-result.filter-button.clearAll" />
+        </Button>
+      </div>
+      <SelectedFilters
+          filters={filterSelected}
+          preventRouteChange={preventRouteChange}
+          navigateToFacet={navigateToFacet}
+      />
+
 
       {nonEmptyFilters.map(filter => {
         const { type, title } = filter

@@ -199,8 +199,6 @@ const FilterNavigator = ({
 
   return (
     <Fragment>
-      TESTE
-    
       {loading && !mobileLayout ? (
         <div className="mv5">
           <ContentLoader
@@ -225,6 +223,7 @@ const FilterNavigator = ({
         <div className={styles.filters}>
           <div className={`${filterClasses} ${handles.filtersWrapperMobile}`}>
             <FilterSidebar
+              filterSelected={selectedFilters}
               selectedFilters={selectedCategories.concat(selectedFilters)}
               filters={filters}
               tree={tree}
