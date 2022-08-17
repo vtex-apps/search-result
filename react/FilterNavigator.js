@@ -100,6 +100,7 @@ const FilterNavigator = ({
   showClearAllFiltersOnDesktop = false,
   priceRangeLayout = 'slider',
   showQuantityBadgeOnMobile = false,
+  showFilterSelectedOnMobile = false,
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -223,7 +224,8 @@ const FilterNavigator = ({
         <div className={styles.filters}>
           <div className={`${filterClasses} ${handles.filtersWrapperMobile}`}>
             <FilterSidebar
-              filterSelected={selectedFilters}
+              showFilterSelectedOnMobile={showFilterSelectedOnMobile}
+              filterSelectedMobile={selectedFilters}
               selectedFilters={selectedCategories.concat(selectedFilters)}
               filters={filters}
               tree={tree}

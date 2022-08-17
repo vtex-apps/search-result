@@ -6,16 +6,15 @@ import { IconCaret } from 'vtex.store-icons'
 import { useRuntime } from 'vtex.render-runtime'
 import { useCssHandles } from 'vtex.css-handles'
 import { Spinner } from 'vtex.styleguide'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import AccordionFilterItem from './AccordionFilterItem'
 import DepartmentFilters from './DepartmentFilters'
 import AccordionFilterGroup from './AccordionFilterGroup'
 import AccordionFilterPriceRange from './AccordionFilterPriceRange'
 import styles from '../searchResult.css'
-
-import SelectedFilters from './SelectedFilters'
-import { Button } from 'vtex.styleguide'
-import { FormattedMessage } from 'react-intl'
+import FilterSelectedMobile from './FilterSelectedMobile'
+import { filter } from 'ramda'
 
 const CSS_HANDLES = [
   'filterBreadcrumbsItem',
@@ -29,9 +28,8 @@ const CSS_HANDLES = [
 const CATEGORIES_TITLE = 'store/search.filter.title.categories'
 
 const AccordionFilterContainer = ({
-  preventRouteChange,
-  navigateToFacet,
-  filterSelected,
+  showFilterSelectedOnMobile,
+  filterSelectedMobile,
   filters,
   onFilterCheck,
   tree,
@@ -94,6 +92,11 @@ const AccordionFilterContainer = ({
   )
 
   const showOverlay = updateOnFilterSelectionOnMobile && loading
+
+
+  const { searchQuery } = useSearchPage()
+  const hasFiltersApplied = searchQuery?.variables?.selectedFacets?.length > 1
+
 
   return (
     <div
@@ -165,17 +168,10 @@ const AccordionFilterContainer = ({
           </AccordionFilterItem>
         
       )}
-      <div>
-        <Button onClick={()  => navigateToFacet(filterSelected, preventRouteChange)}>
-          <FormattedMessage id="store/search-result.filter-button.clearAll" />
-        </Button>
-      </div>
-      <SelectedFilters
-          filters={filterSelected}
-          preventRouteChange={preventRouteChange}
-          navigateToFacet={navigateToFacet}
-      />
 
+      {showFilterSelectedOnMobile && hasFiltersApplied && (<FilterSelectedMobile
+        filterSelectedMobile={filterSelectedMobile}
+      />)}
 
       {nonEmptyFilters.map(filter => {
         const { type, title } = filter

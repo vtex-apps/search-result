@@ -36,7 +36,8 @@ const CSS_HANDLES = [
 ]
 
 const FilterSidebar = ({
-  filterSelected,
+  showFilterSelectedOnMobile,
+  filterSelectedMobile,
   selectedFilters,
   filters,
   tree,
@@ -269,9 +270,8 @@ const FilterSidebar = ({
       >
         <FilterNavigatorContext.Provider value={context}>
           <AccordionFilterContainer
-            preventRouteChange={preventRouteChange}
-            navigateToFacet={navigateToFacet}
-            filterSelected={filterSelected}
+            showFilterSelectedOnMobile={showFilterSelectedOnMobile}
+            filterSelectedMobile={({navigateToFacet,filterSelected: filterSelectedMobile,preventRouteChange})}
             filters={filters}
             tree={currentTree}
             onFilterCheck={handleFilterCheck}
