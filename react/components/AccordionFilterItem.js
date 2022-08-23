@@ -21,7 +21,7 @@ const CSS_HANDLES = [
   'accordionFilterItemTag',
   'accordionFilterItemIcon',
   'accordionSelectedFilters',
-]
+] 
 
 const AccordionFilterItem = ({
   title,
