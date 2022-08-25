@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Added
 
-- Selected filter information on mobile
+- | `showFilterSelectedOnMobile` prop on filter-navigator,v3 block, for displaying selected filter information on mobile
 
 ## [3.118.14] - 2022-08-04
 
