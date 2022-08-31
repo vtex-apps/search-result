@@ -12,6 +12,7 @@ const LocalQuery = props => {
     maxItemsPerPage = DEFAULT_MAX_ITEMS_PER_PAGE,
     queryField = '',
     mapField = '',
+    priceRangeField = '',
     orderByField = SORT_OPTIONS[0].value,
     hideUnavailableItems,
     facetsBehavior,
@@ -20,7 +21,7 @@ const LocalQuery = props => {
     query: {
       order: orderBy = orderByField,
       page: pageQuery,
-      priceRange,
+      priceRange = priceRangeField,
       map = mapField,
     } = {},
     render,

@@ -47,6 +47,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Romanina translations
 
+### Added
+- `priceRange` to the `SearchResultLayoutCustomQuery` site editor schema.
+
 ## [3.118.14] - 2022-08-04
 ### Added
 - `json-schema`, `jsdom`, `jest-environment-jsdom` and `node-notifier` to resolutions yarn field

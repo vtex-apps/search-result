@@ -102,6 +102,11 @@ SearchResult.getSchema = props => {
               title: 'Map',
               type: 'string',
             },
+            priceRangeField: {
+              title: 'PriceRange',
+              type: 'string',
+              description: 'e.g., "10 TO 233"'
+            },
             orderByField: {
               title: 'Order by field',
               type: 'string',
