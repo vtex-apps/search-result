@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Export filter navigator context
+- Trigger url navigation
+
 ## [3.118.14] - 2022-08-04
 ### Added
 - `json-schema`, `jsdom`, `jest-environment-jsdom` and `node-notifier` to resolutions yarn field
