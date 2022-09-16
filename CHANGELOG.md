@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Add `prev` and `next` meta tags to page when using `SearchResultLayoutCustomQuery`
+- `prev` and `next` tags to page when using `SearchResultLayoutCustomQuery`
+- `page` query parameter to `canonical` link in custom search result pages
 
 ## [3.118.15] - 2022-09-15
 
