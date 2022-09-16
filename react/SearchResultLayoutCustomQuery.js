@@ -6,6 +6,7 @@ import { path, compose, equals, pathOr, isEmpty } from 'ramda'
 import LocalQuery from './components/LocalQuery'
 import OldSearchResult from './index'
 import { removeTreePath } from './utils/removeTreePath'
+import SearchResultCustomQueryWrapper from './components/SearchResultCustomQueryWrapper'
 
 const noProducts = compose(
   isEmpty,
@@ -24,17 +25,19 @@ const foundNothing = searchQuery => {
 
 const ExtensionPointWithProps = ({ id, parentProps, localSearchQueryData }) => {
   return (
-    <ExtensionPoint
-      id={id}
-      {...removeTreePath(parentProps)}
-      searchQuery={localSearchQueryData.searchQuery}
-      maxItemsPerPage={localSearchQueryData.maxItemsPerPage}
-      map={localSearchQueryData.map}
-      params={localSearchQueryData.params}
-      priceRange={localSearchQueryData.priceRange}
-      orderBy={localSearchQueryData.orderBy}
-      page={localSearchQueryData.page}
-    />
+    <SearchResultCustomQueryWrapper localSearchQueryData={localSearchQueryData}>
+      <ExtensionPoint
+        id={id}
+        {...removeTreePath(parentProps)}
+        searchQuery={localSearchQueryData.searchQuery}
+        maxItemsPerPage={localSearchQueryData.maxItemsPerPage}
+        map={localSearchQueryData.map}
+        params={localSearchQueryData.params}
+        priceRange={localSearchQueryData.priceRange}
+        orderBy={localSearchQueryData.orderBy}
+        page={localSearchQueryData.page}
+      />
+    </SearchResultCustomQueryWrapper>
   )
 }
 
