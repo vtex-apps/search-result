@@ -205,7 +205,6 @@ const FilterNavigator = ({
     }
   }, [triggerNavigation])
   
-
   return (
     <Fragment>
       {loading && !mobileLayout ? (
