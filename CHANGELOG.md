@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.118.16] - 2022-09-23
+
 ### Added
 
 - `prev` and `next` tags to page when using `SearchResultLayoutCustomQuery`
