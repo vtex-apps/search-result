@@ -100,7 +100,6 @@ const FilterNavigator = ({
   showClearAllFiltersOnDesktop = false,
   priceRangeLayout = 'slider',
   showQuantityBadgeOnMobile = false,
-  triggerNavigation = false,
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -197,13 +196,6 @@ const FilterNavigator = ({
     'flex items-center justify-center flex-auto h-100': mobileLayout,
     dn: loading,
   })
-
-  useEffect(() => {
-    if(triggerNavigation)
-    {
-      navigateToFacet([], preventRouteChange)
-    }
-  }, [triggerNavigation])
   
   return (
     <Fragment>

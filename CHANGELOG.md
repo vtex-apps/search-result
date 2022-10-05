@@ -10,7 +10,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - Export filter navigator context
-- Trigger url navigation
 
 ## [3.118.14] - 2022-08-04
 ### Added
