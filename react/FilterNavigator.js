@@ -196,7 +196,7 @@ const FilterNavigator = ({
     'flex items-center justify-center flex-auto h-100': mobileLayout,
     dn: loading,
   })
-  
+
   return (
     <Fragment>
       {loading && !mobileLayout ? (
