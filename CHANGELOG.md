@@ -11,6 +11,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Export filter navigator context
 
+## [3.118.16] - 2022-09-23
+
+### Added
+
+- `prev` and `next` tags to page when using `SearchResultLayoutCustomQuery`
+- `page` query parameter to `canonical` link in custom search result pages
+
+## [3.118.15] - 2022-09-15
+
+### Fixed
+- Romanina translations
+
 ## [3.118.14] - 2022-08-04
 ### Added
 - `json-schema`, `jsdom`, `jest-environment-jsdom` and `node-notifier` to resolutions yarn field
