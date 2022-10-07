@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.118.17] - 2022-10-07
+
 ### Fixed
 
 - Render `prev` and `next` tags server side for pages using `SearchResultLayoutCustomQuery`
