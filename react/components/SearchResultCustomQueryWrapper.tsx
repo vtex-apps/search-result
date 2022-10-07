@@ -71,7 +71,7 @@ function useCanonicalLink() {
   const { route, rootPath = '' } = useRuntime() as RuntimeWithRoute
   const { canonicalPath } = route
 
-  const canonicalHost = window.location?.hostname
+  const canonicalHost = window.__hostname__ ?? window.location?.hostname
 
   if (!canonicalHost || !canonicalPath) {
     return undefined

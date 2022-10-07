@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Export filter navigator context
 
+## [3.118.17] - 2022-10-07
+
+### Fixed
+
+- Render `prev` and `next` tags server side for pages using `SearchResultLayoutCustomQuery`
+
 ## [3.118.16] - 2022-09-23
 
 ### Added
