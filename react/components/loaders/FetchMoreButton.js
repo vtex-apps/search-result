@@ -27,7 +27,7 @@ const useShowButton = (to, products, loading, recordsFiltered) => {
 }
 
 function shouldNotIncludeMap(map) {
-  if (!map || map === 'b' || map === 'brand') {
+  if (!map || map === 'b' || map === 'brand' || map === 'department') {
     return true
   }
 
