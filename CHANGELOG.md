@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.118.19] - 2022-10-14
+
 ### Fixed
 - Remove `map` query parameter from `ShowMoreFilterButton` href attribute when map is `department`
 
