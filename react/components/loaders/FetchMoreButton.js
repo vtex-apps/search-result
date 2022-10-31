@@ -3,6 +3,7 @@ import { Button } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { FormattedMessage } from 'react-intl'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
+import { useRuntime } from 'vtex.render-runtime'
 
 const CSS_HANDLES = [
   'buttonShowMore',
@@ -47,8 +48,9 @@ function shouldNotIncludeMap(map) {
   return mapTree.every(mapItem => mapItem === 'c')
 }
 
-export function getMapQueryString(searchQuery) {
+export function getMapQueryString(searchQuery, hideMap) {
   if (
+    hideMap ||
     !searchQuery ||
     !searchQuery.variables ||
     shouldNotIncludeMap(searchQuery.variables.map)
@@ -75,6 +77,8 @@ const FetchMoreButton = props => {
   const showButton = useShowButton(to, products, loading, recordsFiltered)
   const handles = useCssHandles(CSS_HANDLES)
   const { searchQuery } = useSearchPage()
+  const { query } = useRuntime()
+  const hideMap = !query?.map
 
   const handleFetchMoreClick = ev => {
     isAnchor && ev.preventDefault()
@@ -88,7 +92,8 @@ const FetchMoreButton = props => {
           <Button
             onClick={ev => handleFetchMoreClick(ev)}
             href={
-              isAnchor && `?page=${nextPage}${getMapQueryString(searchQuery)}`
+              isAnchor &&
+              `?page=${nextPage}${getMapQueryString(searchQuery, hideMap)}`
             }
             rel={isAnchor && 'next'}
             isLoading={loading}

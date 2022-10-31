@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Remove `map` query parameter from `FetchMoreButton` / `FetchPreviousButton` href attribute if map is not part of current URL params
+
 ## [3.118.20] - 2022-10-25
 
 ### Fixed
