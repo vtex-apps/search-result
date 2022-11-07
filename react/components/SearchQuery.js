@@ -164,14 +164,15 @@ const useQueries = (variables, facetsArgs, price) => {
     },
   })
 
-  const initialMap = (price, runtimeQuery, facetsArgs) => {
-    if(runtimeQuery && runtimeQuery.initialMap) return runtimeQuery.initialMap
-    
-    if(price && facetsArgs.facetMap.indexOf("price") == -1) return (facetsArgs.facetMap + ",price")
-    
+  const initialMap = () => {
+    if (runtimeQuery && runtimeQuery.initialMap) return runtimeQuery.initialMap
+
+    if (price && facetsArgs.facetMap.indexOf('price') === -1) {
+      return `${facetsArgs.facetMap},price`
+    }
+
     return facetsArgs.facetMap
   }
-  
 
   const {
     data: { facets } = {},
@@ -192,7 +193,7 @@ const useQueries = (variables, facetsArgs, price) => {
       operator: variables.operator,
       fuzzy: variables.fuzzy,
       searchState: variables.searchState || undefined,
-      initialAttributes: initialMap(price, runtimeQuery, facetsArgs),
+      initialAttributes: initialMap(),
     },
     skip: !facetsArgs.withFacets,
   })
