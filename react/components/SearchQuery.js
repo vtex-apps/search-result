@@ -164,7 +164,7 @@ const useQueries = (variables, facetsArgs, price) => {
     },
   })
 
-  const initialMap = () => {
+  const getInitialAttributes = () => {
     if (runtimeQuery && runtimeQuery.initialMap) return runtimeQuery.initialMap
 
     if (price && facetsArgs.facetMap.indexOf('price') === -1) {
@@ -193,7 +193,7 @@ const useQueries = (variables, facetsArgs, price) => {
       operator: variables.operator,
       fuzzy: variables.fuzzy,
       searchState: variables.searchState || undefined,
-      initialAttributes: initialMap(),
+      initialAttributes: getInitialAttributes(),
     },
     skip: !facetsArgs.withFacets,
   })
