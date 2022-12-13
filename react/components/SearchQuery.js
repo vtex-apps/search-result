@@ -141,7 +141,7 @@ const useCorrectSearchStateVariables = (
   return result
 }
 
-const useQueries = (variables, facetsArgs) => {
+const useQueries = (variables, facetsArgs, price) => {
   const { getSettings, query: runtimeQuery } = useRuntime()
   const isLazyFacetsFetchEnabled =
     getSettings('vtex.store')?.enableFiltersFetchOptimization
@@ -164,6 +164,16 @@ const useQueries = (variables, facetsArgs) => {
     },
   })
 
+  const getInitialAttributes = () => {
+    if (runtimeQuery && runtimeQuery.initialMap) return runtimeQuery.initialMap
+
+    if (price && facetsArgs.facetMap.indexOf('price') === -1) {
+      return `${facetsArgs.facetMap},price`
+    }
+
+    return facetsArgs.facetMap
+  }
+
   const {
     data: { facets } = {},
     loading: facetsLoading,
@@ -183,7 +193,7 @@ const useQueries = (variables, facetsArgs) => {
       operator: variables.operator,
       fuzzy: variables.fuzzy,
       searchState: variables.searchState || undefined,
-      initialAttributes: runtimeQuery?.initialMap || facetsArgs.facetMap,
+      initialAttributes: getInitialAttributes(),
     },
     skip: !facetsArgs.withFacets,
   })
@@ -359,7 +369,7 @@ const SearchQuery = ({
     productSearchResult,
     facetsLoading,
     fetchMore,
-  } = useQueries(variables, facetsArgs)
+  } = useQueries(variables, facetsArgs, priceRange)
 
   const redirectUrl = data && data.productSearch && data.productSearch.redirect
 
