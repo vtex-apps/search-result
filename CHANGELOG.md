@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- `priceRange` to the `SearchResultLayoutCustomQuery` site editor schema.
+
 ## [3.118.21] - 2022-10-31
 
 ### Fixed
@@ -46,9 +49,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - Romanina translations
-
-### Added
-- `priceRange` to the `SearchResultLayoutCustomQuery` site editor schema.
 
 ## [3.118.14] - 2022-08-04
 ### Added
