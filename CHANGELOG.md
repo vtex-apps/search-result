@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Indonesian translation.
+
 ## [3.118.22] - 2022-12-13
 
 ### Added
@@ -50,7 +53,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.118.15] - 2022-09-15
 
 ### Fixed
-- Romanina translations
+- Romanian translations
 
 ## [3.118.14] - 2022-08-04
 ### Added
