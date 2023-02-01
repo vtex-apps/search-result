@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `infiniteScrollThreshold` prop to the `SearchResultContainer`.
+
 ## [3.119.0] - 2022-12-23
 
 ### Added

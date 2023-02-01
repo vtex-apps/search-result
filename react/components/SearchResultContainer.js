@@ -39,6 +39,7 @@ const SearchResultContainer = props => {
     page,
     children,
     lazyItemsRemaining,
+    infiniteScrollThreshold,
   } = props
 
   const queryData = {
@@ -98,6 +99,7 @@ const SearchResultContainer = props => {
       next={handleFetchMoreNext}
       hasMore={to + 1 < recordsFiltered}
       useWindow={false}
+      scrollThreshold={infiniteScrollThreshold}
     >
       {resultComponent}
     </InfiniteScroll>

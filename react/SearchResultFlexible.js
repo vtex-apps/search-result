@@ -61,6 +61,7 @@ const SearchResultFlexible = ({
   trackingId,
   thresholdForFacetSearch,
   lazyItemsRemaining,
+  infiniteScrollThreshold,
 }) => {
   // This makes infinite scroll unavailable.
   // Infinite scroll was deprecated and we have
@@ -156,6 +157,7 @@ const SearchResultFlexible = ({
       facetsLoading,
       lazyItemsRemaining,
       selectedFacets,
+      infiniteScrollThreshold,
     }
   }, [
     hiddenFacets,
@@ -174,6 +176,7 @@ const SearchResultFlexible = ({
     preventRouteChange,
     facetsLoading,
     lazyItemsRemaining,
+    infiniteScrollThreshold,
   ])
 
   const showLoading = searchQuery.loading && !state.isFetchingMore
@@ -199,6 +202,7 @@ const SearchResultFlexible = ({
               page={page}
               facetsLoading={facetsLoading}
               lazyItemsRemaining={lazyItemsRemaining}
+              infiniteScrollThreshold={infiniteScrollThreshold}
             >
               <LoadingOverlay loading={showLoading}>
                 <div
