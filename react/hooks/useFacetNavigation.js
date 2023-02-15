@@ -13,7 +13,6 @@ import {
   MAP_VALUES_SEP,
   PATH_SEPARATOR,
   FULLTEXT_QUERY_KEY,
-  PRODUCT_CLUSTER_IDS,
   SELLER_QUERY_KEY,
 } from '../constants'
 import useSearchState from './useSearchState'
@@ -177,22 +176,11 @@ export const buildNewQueryMap = (
   const querySegments = selectedFacets.map(facet => facet.value)
   const mapSegments = selectedFacets.map(facet => facet.map)
 
-  const {
-    ft: fullText,
-    productClusterIds: collection,
-    seller,
-  } = fullTextSellerAndCollection
+  const { ft: fullText, seller } = fullTextSellerAndCollection
 
   if (fullText) {
     querySegments.push(fullText)
     mapSegments.push(FULLTEXT_QUERY_KEY)
-  }
-
-  // In search-resolver@v1.x, the productClusterIds is sent as a hidden facet, but in 0.x it is not.
-  // This way, we only need to push the collection when it is not in the mapSegments.
-  if (collection && mapSegments.indexOf(PRODUCT_CLUSTER_IDS) === -1) {
-    querySegments.push(collection)
-    mapSegments.push(PRODUCT_CLUSTER_IDS)
   }
 
   if (seller && mapSegments.indexOf(SELLER_QUERY_KEY) === -1) {
