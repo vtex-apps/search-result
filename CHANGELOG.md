@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.119.1] - 2023-02-15
+
 ### Fixed
 - Since the `vtex.search-resolver@1.63.1` we use `productClusterNames` instead of `productClusterIds`. For this reason, we don't need to add the `productClusterIds` to the `selectedFacets` variable.
 
