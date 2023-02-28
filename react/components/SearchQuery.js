@@ -12,6 +12,7 @@ import {
 } from '../utils/compatibilityLayer'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
 import useRedirect from '../hooks/useRedirect'
+import useSession from '../hooks/useSession'
 
 const DEFAULT_PAGE = 1
 
@@ -273,6 +274,8 @@ const SearchQuery = ({
     priceRange
   )
 
+  const [facetsFromSession, setFacetsFromSession] = useState([])
+
   const { getSettings } = useRuntime()
   const lazyItemsQuerySetting = getSettings('vtex.store')?.enableLazySearchQuery
 
@@ -315,6 +318,20 @@ const SearchQuery = ({
     withFacets: includeFacets(map, query),
   }
 
+  const { getSession } = useSession()
+
+  useEffect(() => {
+    async function getShippingFromSession() {
+      const result = await getSession()
+
+      if (result) {
+        setFacetsFromSession(result)
+      }
+    }
+
+    getShippingFromSession()
+  }, [getSession, selectedFacets])
+
   const variables = useMemo(() => {
     return {
       map,
@@ -322,7 +339,7 @@ const SearchQuery = ({
       orderBy: orderBy || DEFAULT_QUERY_VALUES.orderBy,
       from,
       to,
-      selectedFacets,
+      selectedFacets: selectedFacets.concat(facetsFromSession),
       fullText,
       operator,
       fuzzy,
@@ -353,6 +370,7 @@ const SearchQuery = ({
     simulationBehavior,
     installmentCriteria,
     selectedFacets,
+    facetsFromSession,
     fullText,
     operator,
     fuzzy,
