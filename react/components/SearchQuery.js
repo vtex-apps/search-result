@@ -4,6 +4,7 @@ import { useRuntime } from 'vtex.render-runtime'
 import productSearchQuery from 'vtex.store-resources/QueryProductSearchV3'
 import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadataV2'
 import facetsQuery from 'vtex.store-resources/QueryFacetsV2'
+import { equals } from 'ramda'
 
 import {
   buildSelectedFacetsAndFullText,
@@ -324,13 +325,13 @@ const SearchQuery = ({
     async function getShippingFromSession() {
       const result = await getSession()
 
-      if (result) {
+      if (result && !equals(result, facetsFromSession)) {
         setFacetsFromSession(result)
       }
     }
 
     getShippingFromSession()
-  }, [getSession, selectedFacets])
+  }, [facetsFromSession, getSession, selectedFacets])
 
   const variables = useMemo(() => {
     return {
