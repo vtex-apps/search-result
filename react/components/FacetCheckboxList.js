@@ -77,8 +77,7 @@ const FacetCheckboxList = ({
         <SearchFilterBar name={facetTitle} handleChange={setSearchTerm} />
       ) : null}
       {filteredFacets.slice(0, endSlice).map(facet => {
-        const { name } = facet
-        const slugifiedName = searchSlugify(name)
+        const { name, value: slugifiedName } = facet
 
         return (
           <div
