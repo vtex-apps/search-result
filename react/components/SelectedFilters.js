@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useContext } from 'react'
 import { useIntl } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
 
 import FacetItem from './FacetItem'
 import FilterOptionTemplate from './FilterOptionTemplate'
 import { facetOptionShape } from '../constants/propTypes'
+import SettingsContext from './SettingsContext'
 
 const CSS_HANDLES = ['selectedFilterItem']
 
@@ -20,6 +21,7 @@ const SelectedFilters = ({
 }) => {
   const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
+  const { showFacetTitle } = useContext(SettingsContext)
 
   if (!filters.length) {
     return null
@@ -37,17 +39,20 @@ const SelectedFilters = ({
       collapsable={false}
       selected
     >
-      {facet => (
-        <FacetItem
-          map={map}
-          key={facet.name}
-          facetTitle={facet.title}
-          facet={facet}
-          className={handles.selectedFilterItem}
-          preventRouteChange={preventRouteChange}
-          navigateToFacet={navigateToFacet}
-        />
-      )}
+      {facet => {
+        return (
+          <FacetItem
+            map={map}
+            key={facet.name}
+            showTitle={showFacetTitle}
+            facetTitle={facet.title}
+            facet={facet}
+            className={handles.selectedFilterItem}
+            preventRouteChange={preventRouteChange}
+            navigateToFacet={navigateToFacet}
+          />
+        )
+      }}
     </FilterOptionTemplate>
   )
 }

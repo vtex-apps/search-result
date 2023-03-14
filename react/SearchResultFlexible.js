@@ -49,6 +49,7 @@ const SearchResultFlexible = ({
   blockClass,
   preventRouteChange = false,
   showFacetQuantity = false,
+  showFacetTitle = false,
   // Below are set by SearchContext
   searchQuery,
   maxItemsPerPage,
@@ -120,6 +121,7 @@ const SearchResultFlexible = ({
       pagination,
       mobileLayout,
       showFacetQuantity,
+      showFacetTitle,
       trackingId,
       thresholdForFacetSearch,
     }),
@@ -128,6 +130,7 @@ const SearchResultFlexible = ({
       mobileLayout,
       pagination,
       showFacetQuantity,
+      showFacetTitle,
       trackingId,
       thresholdForFacetSearch,
     ]
