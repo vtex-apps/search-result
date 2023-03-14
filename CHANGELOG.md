@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- CheckboxList to use the value from facets API as slug instead of calculate from name
+
 ## [3.119.1] - 2023-02-15
 
 ### Fixed

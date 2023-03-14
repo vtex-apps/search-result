@@ -9,7 +9,6 @@ import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
 import styles from '../searchResult.css'
 import SettingsContext from './SettingsContext'
-import { searchSlugify } from '../utils/slug'
 import { SearchFilterBar } from './SearchFilterBar'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
 import ShowMoreFilterButton from './ShowMoreFilterButton'
@@ -77,8 +76,7 @@ const FacetCheckboxList = ({
         <SearchFilterBar name={facetTitle} handleChange={setSearchTerm} />
       ) : null}
       {filteredFacets.slice(0, endSlice).map(facet => {
-        const { name } = facet
-        const slugifiedName = searchSlugify(name)
+        const { name, value: slugifiedName } = facet
 
         return (
           <div
