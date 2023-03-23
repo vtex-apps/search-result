@@ -24,7 +24,9 @@ const CSS_HANDLES = [
 const NotFoundSearch = () => {
   const handles = useCssHandles(CSS_HANDLES)
 
-  const { params: { term } } = useSearchPage()
+  const {
+    params: { term },
+  } = useSearchPage()
 
   return (
     <Fragment>
