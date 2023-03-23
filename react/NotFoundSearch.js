@@ -3,7 +3,9 @@ import React, { Fragment } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { ExtensionPoint } from 'vtex.render-runtime'
 import { useCssHandles } from 'vtex.css-handles'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { range } from 'ramda'
+
 
 const CSS_HANDLES = [
   'searchNotFound',
@@ -20,8 +22,10 @@ const CSS_HANDLES = [
  * Not found page component, rendered when the search doesn't return any
  * products from the API.
  */
-const NotFoundSearch = ({ term }) => {
+const NotFoundSearch = () => {
   const handles = useCssHandles(CSS_HANDLES)
+
+  const { params:{term} } = useSearchPage()
 
   return (
     <Fragment>
