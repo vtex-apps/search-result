@@ -23,11 +23,11 @@ const SelectedFilters = ({
   const handles = useCssHandles(CSS_HANDLES)
   const { showFacetTitle } = useContext(SettingsContext)
 
-  if (!filters.length) {
+  const visibleFilters = filters.filter(filter => !filter.hidden)
+
+  if (!visibleFilters.length) {
     return null
   }
-
-  const visibleFilters = filters.filter(filter => !filter.hidden)
 
   const title = intl.formatMessage({ id: 'store/search.selected-filters' })
 
