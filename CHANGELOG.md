@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.120.1] - 2023-03-27
+
 ### Fixed
 - Term is not passed as props to NotFoundSearch
 
