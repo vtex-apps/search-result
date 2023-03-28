@@ -7,12 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Rollback v3.120.0 that caused issues with Custom Queries Search Result.
+
 ## [3.120.1] - 2023-03-27
 
 ### Fixed
 - Term is not passed as props to NotFoundSearch
 
-## [3.120.0] - 2023-03-22
+## [3.120.0] - 2023-03-22 [YANKED]
 
 ### Added
 - Shipping option filter from session.

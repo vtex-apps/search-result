@@ -4,7 +4,6 @@ import { useRuntime } from 'vtex.render-runtime'
 import productSearchQuery from 'vtex.store-resources/QueryProductSearchV3'
 import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadataV2'
 import facetsQuery from 'vtex.store-resources/QueryFacetsV2'
-import { equals } from 'ramda'
 
 import {
   buildSelectedFacetsAndFullText,
@@ -13,7 +12,6 @@ import {
 } from '../utils/compatibilityLayer'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
 import useRedirect from '../hooks/useRedirect'
-import useSession from '../hooks/useSession'
 
 const DEFAULT_PAGE = 1
 
@@ -275,8 +273,6 @@ const SearchQuery = ({
     priceRange
   )
 
-  const [facetsFromSession, setFacetsFromSession] = useState([])
-
   const { getSettings } = useRuntime()
   const lazyItemsQuerySetting = getSettings('vtex.store')?.enableLazySearchQuery
 
@@ -319,20 +315,6 @@ const SearchQuery = ({
     withFacets: includeFacets(map, query),
   }
 
-  const { getSession } = useSession()
-
-  useEffect(() => {
-    async function getShippingFromSession() {
-      const result = await getSession()
-
-      if (result && !equals(result, facetsFromSession)) {
-        setFacetsFromSession(result)
-      }
-    }
-
-    getShippingFromSession()
-  }, [facetsFromSession, getSession, selectedFacets])
-
   const variables = useMemo(() => {
     return {
       map,
@@ -340,7 +322,7 @@ const SearchQuery = ({
       orderBy: orderBy || DEFAULT_QUERY_VALUES.orderBy,
       from,
       to,
-      selectedFacets: selectedFacets.concat(facetsFromSession),
+      selectedFacets,
       fullText,
       operator,
       fuzzy,
@@ -371,7 +353,6 @@ const SearchQuery = ({
     simulationBehavior,
     installmentCriteria,
     selectedFacets,
-    facetsFromSession,
     fullText,
     operator,
     fuzzy,
