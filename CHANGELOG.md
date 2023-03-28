@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Term is not passed as props to NotFoundSearch
 
-## [3.120.0] - 2023-03-22
+## [3.120.0] - 2023-03-22 [YANKED]
 
 ### Added
 - Shipping option filter from session.
