@@ -4,6 +4,7 @@ import { useRuntime } from 'vtex.render-runtime'
 import productSearchQuery from 'vtex.store-resources/QueryProductSearchV3'
 import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadataV2'
 import facetsQuery from 'vtex.store-resources/QueryFacetsV2'
+import { equals } from 'ramda'
 
 import {
   buildSelectedFacetsAndFullText,
@@ -12,6 +13,7 @@ import {
 } from '../utils/compatibilityLayer'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
 import useRedirect from '../hooks/useRedirect'
+import useSession from '../hooks/useSession'
 
 const DEFAULT_PAGE = 1
 
@@ -33,13 +35,18 @@ const includeFacets = (map, query) =>
 
 const useCombinedRefetch = (productRefetch, facetsRefetch) => {
   return useCallback(
-    async refetchVariables => {
+    async (refetchVariables) => {
       let productVariables
       let facetsVariables
 
       if (refetchVariables) {
-        const { query, map, priceRange, facetQuery, facetMap } =
-          refetchVariables
+        const {
+          query,
+          map,
+          priceRange,
+          facetQuery,
+          facetMap,
+        } = refetchVariables
 
         productVariables = {
           ...refetchVariables,
@@ -66,8 +73,10 @@ const useCombinedRefetch = (productRefetch, facetsRefetch) => {
         }
 
         if (facetQuery && facetMap) {
-          const [facetSelectedFacets, facetFullText] =
-            buildSelectedFacetsAndFullText(facetQuery, facetMap, priceRange)
+          const [
+            facetSelectedFacets,
+            facetFullText,
+          ] = buildSelectedFacetsAndFullText(facetQuery, facetMap, priceRange)
 
           facetsVariables = {
             ...facetsVariables,
@@ -143,8 +152,8 @@ const useCorrectSearchStateVariables = (
 
 const useQueries = (variables, facetsArgs, price) => {
   const { getSettings, query: runtimeQuery } = useRuntime()
-  const isLazyFacetsFetchEnabled =
-    getSettings('vtex.store')?.enableFiltersFetchOptimization
+  const isLazyFacetsFetchEnabled = getSettings('vtex.store')
+    ?.enableFiltersFetchOptimization
 
   const productSearchResult = useQuery(productSearchQuery, {
     variables,
@@ -273,6 +282,8 @@ const SearchQuery = ({
     priceRange
   )
 
+  const [facetsFromSession, setFacetsFromSession] = useState([])
+
   const { getSettings } = useRuntime()
   const lazyItemsQuerySetting = getSettings('vtex.store')?.enableLazySearchQuery
 
@@ -315,6 +326,20 @@ const SearchQuery = ({
     withFacets: includeFacets(map, query),
   }
 
+  const { getSession } = useSession()
+
+  useEffect(() => {
+    async function getShippingFromSession() {
+      const result = await getSession()
+
+      if (result && !equals(result, facetsFromSession)) {
+        setFacetsFromSession(result)
+      }
+    }
+
+    getShippingFromSession()
+  }, [facetsFromSession, getSession, selectedFacets])
+
   const variables = useMemo(() => {
     return {
       map,
@@ -322,7 +347,7 @@ const SearchQuery = ({
       orderBy: orderBy || DEFAULT_QUERY_VALUES.orderBy,
       from,
       to,
-      selectedFacets,
+      selectedFacets: selectedFacets?.concat(facetsFromSession),
       fullText,
       operator,
       fuzzy,
@@ -353,6 +378,7 @@ const SearchQuery = ({
     simulationBehavior,
     installmentCriteria,
     selectedFacets,
+    facetsFromSession,
     fullText,
     operator,
     fuzzy,
