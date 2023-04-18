@@ -35,18 +35,13 @@ const includeFacets = (map, query) =>
 
 const useCombinedRefetch = (productRefetch, facetsRefetch) => {
   return useCallback(
-    async (refetchVariables) => {
+    async refetchVariables => {
       let productVariables
       let facetsVariables
 
       if (refetchVariables) {
-        const {
-          query,
-          map,
-          priceRange,
-          facetQuery,
-          facetMap,
-        } = refetchVariables
+        const { query, map, priceRange, facetQuery, facetMap } =
+          refetchVariables
 
         productVariables = {
           ...refetchVariables,
@@ -73,10 +68,8 @@ const useCombinedRefetch = (productRefetch, facetsRefetch) => {
         }
 
         if (facetQuery && facetMap) {
-          const [
-            facetSelectedFacets,
-            facetFullText,
-          ] = buildSelectedFacetsAndFullText(facetQuery, facetMap, priceRange)
+          const [facetSelectedFacets, facetFullText] =
+            buildSelectedFacetsAndFullText(facetQuery, facetMap, priceRange)
 
           facetsVariables = {
             ...facetsVariables,
@@ -152,8 +145,8 @@ const useCorrectSearchStateVariables = (
 
 const useQueries = (variables, facetsArgs, price) => {
   const { getSettings, query: runtimeQuery } = useRuntime()
-  const isLazyFacetsFetchEnabled = getSettings('vtex.store')
-    ?.enableFiltersFetchOptimization
+  const isLazyFacetsFetchEnabled =
+    getSettings('vtex.store')?.enableFiltersFetchOptimization
 
   const productSearchResult = useQuery(productSearchQuery, {
     variables,
