@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Shipping option filter from session.
+
 ## [3.121.1] - 2023-04-17
 
 ### Fixed
