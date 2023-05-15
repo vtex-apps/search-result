@@ -181,6 +181,7 @@ const useQueries = (
 
   const productSearchResult = useQuery(productSearchQuery, {
     ssr: false,
+    skip: !canUseDOM,
     variables: {
       ...variables,
       variant: getCookie('sp-variant'),
