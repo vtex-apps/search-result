@@ -39,6 +39,8 @@ const Filter = ({
   showClearByFilter,
   priceRangeLayout,
   scrollToTop,
+  clearPriceRange,
+  setClearPriceRange,
 }) => {
   const { type, title, facets, quantity, oneSelectedCollapse = false } = filter
 
@@ -53,6 +55,8 @@ const Filter = ({
           preventRouteChange={preventRouteChange}
           priceRangeLayout={priceRangeLayout}
           scrollToTop={scrollToTop}
+          clearPriceRange={clearPriceRange}
+          setClearPriceRange={setClearPriceRange}
         />
       )
 

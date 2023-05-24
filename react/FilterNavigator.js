@@ -104,6 +104,7 @@ const FilterNavigator = ({
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
   const [truncatedFacetsFetched, setTruncatedFacetsFetched] = useState(false)
+  const [clearPriceRange, setClearPriceRange] = useState()
 
   const mobileLayout =
     (isMobile && layout === LAYOUT_TYPES.responsive) ||
@@ -182,6 +183,7 @@ const FilterNavigator = ({
 
   const handleResetFilters = () => {
     navigateToFacet(selectedFilters, preventRouteChange)
+    setClearPriceRange(true)
   }
 
   const selectedCategories = getSelectedCategories(tree)
@@ -290,6 +292,8 @@ const FilterNavigator = ({
               showClearByFilter={showClearByFilter}
               priceRangeLayout={priceRangeLayout}
               scrollToTop={scrollToTop}
+              clearPriceRange={clearPriceRange}
+              setClearPriceRange={setClearPriceRange}
             />
             {showClearAllFiltersOnDesktop && hasFiltersApplied && (
               <div

@@ -144,7 +144,7 @@ const PriceRange = ({
         onChange={handleChange}
         defaultValues={defaultValues}
         formatValue={value => formatCurrency({ intl, culture, value })}
-        values={range}
+        values={priceRange && range ? range : [minValue, maxValue]}
         range
       />
     </FilterOptionTemplate>
