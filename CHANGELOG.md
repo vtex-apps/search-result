@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Not found pages crashing due term
+
 ## [3.122.1] - 2023-04-25
 ### Fixed
 - Updated readme.md according to task LOC-10476.
