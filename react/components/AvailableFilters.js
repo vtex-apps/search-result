@@ -53,6 +53,7 @@ const Filter = ({
           preventRouteChange={preventRouteChange}
           priceRangeLayout={priceRangeLayout}
           scrollToTop={scrollToTop}
+          showClearByFilter={showClearByFilter}
         />
       )
 

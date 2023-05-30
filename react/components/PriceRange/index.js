@@ -24,6 +24,7 @@ const PriceRange = ({
   priceRange,
   priceRangeLayout,
   scrollToTop,
+  showClearByFilter,
 }) => {
   const { culture, setQuery, query: runtimeQuery } = useRuntime()
   const intl = useIntl()
@@ -112,6 +113,8 @@ const PriceRange = ({
       id="priceRange"
       title={getFilterTitle(title, intl)}
       collapsable={false}
+      showClearButton={priceRange && showClearByFilter}
+      handleClear={() => setQuery({ priceRange: undefined })}
     >
       {priceRangeLayout === 'inputAndSlider' && (
         <PriceRangeInput
@@ -149,6 +152,8 @@ PriceRange.propTypes = {
   clearPriceRange: PropTypes.bool,
   /** Set the value of clearPriceRange prop */
   setClearPriceRange: PropTypes.func,
+  /** Whether a clear button that clear all options in a specific filter should appear beside the filter's name (true) or not (false). */
+  showClearByFilter: PropTypes.bool,
 }
 
 export default PriceRange

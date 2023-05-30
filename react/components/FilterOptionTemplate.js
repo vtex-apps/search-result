@@ -88,6 +88,8 @@ const FilterOptionTemplate = ({
   navigateToFacet,
   showClearByFilter,
   preventRouteChange,
+  handleClear,
+  showClearButton,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
@@ -130,7 +132,7 @@ const FilterOptionTemplate = ({
     setTruncated(value)
   }
 
-  const handleClear = useCallback(
+  const onClear = useCallback(
     () =>
       navigateToFacet(
         filters.filter(filter => filter.selected),
@@ -198,11 +200,12 @@ const FilterOptionTemplate = ({
     },
     isOpen
   )
-  const showClearButton =
-    showClearByFilter &&
-    !selected &&
-    filters &&
-    filters.some(filter => filter.selected)
+  const isClearButtonVisible =
+    showClearButton ||
+    (showClearByFilter &&
+      !selected &&
+      filters &&
+      filters.some(filter => filter.selected))
 
   const handleKeyDown = useCallback(
     e => {
@@ -248,13 +251,14 @@ const FilterOptionTemplate = ({
           <div className={titleClassName}>
             <span className={`${handles.filterTitleSpan}`}>
               {title}
-              {showClearButton && (
+              {isClearButtonVisible && (
                 <span className="ml2">
                   <Tag
                     size="small"
                     onClick={e => {
                       e.stopPropagation()
-                      handleClear()
+
+                      handleClear ? handleClear() : onClear()
                     }}
                   >
                     <FormattedMessage id="store/search-result.filter-button.clear" />
@@ -356,6 +360,10 @@ FilterOptionTemplate.propTypes = {
   navigateToFacet: PropTypes.func,
   showClearByFilter: PropTypes.bool,
   preventRouteChange: PropTypes.bool,
+  /** Custom clear handler */
+  handleClear: PropTypes.func,
+  /** If the clear button should be shown. If undefined only selected filters will show the clear button */
+  showClearButton: PropTypes.bool,
 }
 
 export default FilterOptionTemplate
