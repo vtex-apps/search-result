@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useRuntime } from 'vtex.render-runtime'
 import { useIntl } from 'react-intl'
@@ -27,7 +27,6 @@ const PriceRange = ({
   clearPriceRange,
   setClearPriceRange,
 }) => {
-  const [range, setRange] = useState()
   const { culture, setQuery, query: runtimeQuery } = useRuntime()
   const intl = useIntl()
   const navigateTimeoutId = useRef()
@@ -69,8 +68,6 @@ const PriceRange = ({
         })
       }
 
-      setRange([left, right])
-
       if (scrollToTop !== 'none') {
         window.scroll({ top: 0, left: 0, behavior: scrollToTop })
       }
@@ -102,21 +99,20 @@ const PriceRange = ({
     }
   })
 
-  const defaultValues = [minValue, maxValue]
+  const values = [minValue, maxValue]
   const currentValuesRegex = /^(.*) TO (.*)$/
 
   if (priceRange && currentValuesRegex.test(priceRange)) {
     const [, currentMin, currentMax] = priceRange.match(currentValuesRegex)
 
-    defaultValues[0] = parseInt(currentMin, 10)
-    defaultValues[1] = parseInt(currentMax, 10)
+    values[0] = parseInt(currentMin, 10)
+    values[1] = parseInt(currentMax, 10)
   }
 
   const resetOnClear = () => {
     setQuery({
       priceRange: undefined,
     })
-    setRange([minValue, maxValue])
     setClearPriceRange(false)
   }
 
@@ -134,8 +130,8 @@ const PriceRange = ({
     >
       {priceRangeLayout === 'inputAndSlider' && (
         <PriceRangeInput
-          defaultValues={defaultValues}
-          onSubmit={newRange => setRange(newRange)}
+          defaultValues={values}
+          onSubmit={newRange => handleChange(newRange)}
           max={maxValue}
           min={minValue}
         />
@@ -145,9 +141,9 @@ const PriceRange = ({
         min={minValue}
         max={maxValue}
         onChange={handleChange}
-        defaultValues={defaultValues}
+        defaultValues={values}
         formatValue={value => formatCurrency({ intl, culture, value })}
-        values={priceRange && range ? range : [minValue, maxValue]}
+        values={values}
         range
       />
     </FilterOptionTemplate>
