@@ -44,7 +44,7 @@ const AccordionFilterContainer = ({
   priceRangeLayout,
 }) => {
   const intl = useIntl()
-  const { getSettings } = useRuntime()
+  const { getSettings, setQuery } = useRuntime()
   const [openItem, setOpenItem] = useState(null)
   const handles = useCssHandles(CSS_HANDLES)
   const isLazyFacetsFetchEnabled =
@@ -176,6 +176,10 @@ const AccordionFilterContainer = ({
                 navigationType={navigationType}
                 initiallyCollapsed={initiallyCollapsed}
                 priceRangeLayout={priceRangeLayout}
+                onClearFilter={() => {
+                  setQuery({ priceRange: undefined })
+                }}
+                showClearByFilter={showClearByFilter}
               />
             )
 

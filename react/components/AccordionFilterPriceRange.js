@@ -14,7 +14,12 @@ const AccordionFilterPriceRange = ({
   navigationType,
   initiallyCollapsed,
   priceRangeLayout,
+  onClearFilter,
+  showClearByFilter,
 }) => {
+  const priceRangeRegex = /^(.*) TO (.*)$/
+  const isPriceRangeSelected = priceRange && priceRangeRegex.test(priceRange)
+
   return (
     <AccordionFilterItem
       title={title}
@@ -23,6 +28,9 @@ const AccordionFilterPriceRange = ({
       onOpen={onOpen}
       navigationType={navigationType}
       initiallyCollapsed={initiallyCollapsed}
+      showClearByFilter={showClearByFilter}
+      quantity={isPriceRangeSelected ? 1 : undefined}
+      onClearFilter={onClearFilter}
     >
       <div className={className}>
         <PriceRange
