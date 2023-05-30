@@ -122,13 +122,12 @@ const PriceRange = ({
         />
       )}
       <Slider
-        // It is impossible to change the slider value programmatically, so I need to reset the whole component
         min={minValue}
         max={maxValue}
         onChange={handleChange}
-        defaultValues={values}
         formatValue={value => formatCurrency({ intl, culture, value })}
         values={values}
+        defaultValues={values}
         range
       />
     </FilterOptionTemplate>

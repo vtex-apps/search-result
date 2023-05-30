@@ -139,6 +139,8 @@ const FilterSidebar = ({
       push,
     })
 
+    const isClearByFacet = !!key
+
     shouldClear.current =
       !updateOnFilterSelectionOnMobile || !preventRouteChange
     // Gets the previously selected facets that should be cleared
@@ -162,7 +164,7 @@ const FilterSidebar = ({
 
     const facetsToRemove = [...selectedFacets, ...selectedRest]
 
-    navigateToFacet(facetsToRemove, preventRouteChange, true)
+    navigateToFacet(facetsToRemove, preventRouteChange, !isClearByFacet)
   }
 
   const handleUpdateCategories = maybeCategories => {
