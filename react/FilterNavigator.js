@@ -181,7 +181,7 @@ const FilterNavigator = ({
   const hasFiltersApplied = searchQuery?.variables?.selectedFacets?.length > 1
 
   const handleResetFilters = () => {
-    navigateToFacet(selectedFilters, preventRouteChange)
+    navigateToFacet(selectedFilters, preventRouteChange, true)
   }
 
   const selectedCategories = getSelectedCategories(tree)

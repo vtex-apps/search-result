@@ -56,15 +56,18 @@ const PriceRange = ({
           ? sessionStorage.getItem('searchState') ?? searchState
           : searchState ?? undefined
 
-      setQuery({
-        priceRange: `${left} TO ${right}`,
-        page: undefined,
-        fuzzy: fuzzy || undefined,
-        operator: operator || undefined,
-        searchState: state,
-        initialMap: runtimeQuery?.initialMap ?? map,
-        initialQuery: runtimeQuery?.initialQuery ?? query,
-      })
+      // avoid page from reloading again after clear all button is clicked
+      if (runtimeQuery?.priceRange || left !== minValue || right !== maxValue) {
+        setQuery({
+          priceRange: `${left} TO ${right}`,
+          page: undefined,
+          fuzzy: fuzzy || undefined,
+          operator: operator || undefined,
+          searchState: state,
+          initialMap: runtimeQuery?.initialMap ?? map,
+          initialQuery: runtimeQuery?.initialQuery ?? query,
+        })
+      }
 
       setRange([left, right])
 
@@ -144,7 +147,7 @@ const PriceRange = ({
         onChange={handleChange}
         defaultValues={defaultValues}
         formatValue={value => formatCurrency({ intl, culture, value })}
-        values={range}
+        values={priceRange && range ? range : [minValue, maxValue]}
         range
       />
     </FilterOptionTemplate>
