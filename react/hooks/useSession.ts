@@ -16,7 +16,7 @@ const useSession = () => {
     }
 
     const session = await fetch(
-      `${rootPath}/api/sessions?items=public.shippingOption`,
+      `${rootPath || ''}/api/sessions?items=public.shippingOption`,
       requestOptions
     )
 
