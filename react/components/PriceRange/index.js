@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useRuntime } from 'vtex.render-runtime'
 import { useIntl } from 'react-intl'
@@ -24,8 +24,6 @@ const PriceRange = ({
   priceRange,
   priceRangeLayout,
   scrollToTop,
-  clearPriceRange,
-  setClearPriceRange,
 }) => {
   const { culture, setQuery, query: runtimeQuery } = useRuntime()
   const intl = useIntl()
@@ -108,19 +106,6 @@ const PriceRange = ({
     values[0] = parseInt(currentMin, 10)
     values[1] = parseInt(currentMax, 10)
   }
-
-  const resetOnClear = () => {
-    setQuery({
-      priceRange: undefined,
-    })
-    setClearPriceRange(false)
-  }
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  useEffect(() => {
-    clearPriceRange && resetOnClear()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clearPriceRange])
 
   return (
     <FilterOptionTemplate

@@ -42,8 +42,6 @@ const AccordionFilterContainer = ({
   showClearByFilter,
   updateOnFilterSelectionOnMobile,
   priceRangeLayout,
-  clearPriceRange,
-  setClearPriceRange,
 }) => {
   const intl = useIntl()
   const { getSettings } = useRuntime()
@@ -178,8 +176,6 @@ const AccordionFilterContainer = ({
                 navigationType={navigationType}
                 initiallyCollapsed={initiallyCollapsed}
                 priceRangeLayout={priceRangeLayout}
-                clearPriceRange={clearPriceRange}
-                setClearPriceRange={setClearPriceRange}
               />
             )
 
