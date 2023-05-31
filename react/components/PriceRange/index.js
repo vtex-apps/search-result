@@ -113,8 +113,8 @@ const PriceRange = ({
       id="priceRange"
       title={getFilterTitle(title, intl)}
       collapsable={false}
-      showClearButton={priceRange && showClearByFilter}
       handleClear={() => setQuery({ priceRange: undefined })}
+      showClearByFilter={priceRange && showClearByFilter}
     >
       {priceRangeLayout === 'inputAndSlider' && (
         <PriceRangeInput

@@ -89,7 +89,6 @@ const FilterOptionTemplate = ({
   showClearByFilter,
   preventRouteChange,
   handleClear,
-  showClearButton,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
@@ -201,11 +200,9 @@ const FilterOptionTemplate = ({
     isOpen
   )
   const isClearButtonVisible =
-    showClearButton ||
-    (showClearByFilter &&
-      !selected &&
-      filters &&
-      filters.some(filter => filter.selected))
+    showClearByFilter &&
+    (id === 'priceRange' ||
+      (!selected && filters && filters.some(filter => filter.selected)))
 
   const handleKeyDown = useCallback(
     e => {
@@ -362,8 +359,6 @@ FilterOptionTemplate.propTypes = {
   preventRouteChange: PropTypes.bool,
   /** Custom clear handler */
   handleClear: PropTypes.func,
-  /** If the clear button should be shown. If undefined only selected filters will show the clear button */
-  showClearButton: PropTypes.bool,
 }
 
 export default FilterOptionTemplate
