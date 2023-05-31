@@ -164,6 +164,13 @@ const FilterSidebar = ({
 
     const facetsToRemove = [...selectedFacets, ...selectedRest]
 
+    if (updateOnFilterSelectionOnMobile && preventRouteChange) {
+      navigateToFacet(facetsToRemove, preventRouteChange)
+
+      return
+    }
+
+    setFilterOperations(facetsToRemove)
     navigateToFacet(facetsToRemove, preventRouteChange, !isClearByFacet)
   }
 
