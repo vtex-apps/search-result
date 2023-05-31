@@ -8,7 +8,7 @@ import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 // eslint-disable-next-line no-restricted-imports
 import { flatten } from 'ramda'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
 import FilterSidebar from './components/FilterSidebar'
@@ -26,6 +26,8 @@ import styles from './searchResult.css'
 import { CATEGORIES_TITLE } from './utils/getFilters'
 import { newFacetPathName } from './utils/slug'
 import { FACETS_RENDER_THRESHOLD } from './constants/filterConstants'
+import { pushFilterManipulationPixelEvent } from './utils/filterManipulationPixelEvents'
+import { usePixel } from 'vtex.pixel-manager'
 
 const CSS_HANDLES = [
   'filter__container',
@@ -101,6 +103,8 @@ const FilterNavigator = ({
   priceRangeLayout = 'slider',
   showQuantityBadgeOnMobile = false,
 }) => {
+  const { push } = usePixel()
+  const intl = useIntl()
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
   const [truncatedFacetsFetched, setTruncatedFacetsFetched] = useState(false)
@@ -181,6 +185,12 @@ const FilterNavigator = ({
   const hasFiltersApplied = searchQuery?.variables?.selectedFacets?.length > 1
 
   const handleResetFilters = () => {
+    pushFilterManipulationPixelEvent({
+      name: "reset",
+      value: intl.formatMessage({id: "store/search-result.filter-button.clearAll"}),
+      products: searchQuery?.products ?? [],
+      push,
+    })
     navigateToFacet(selectedFilters, preventRouteChange)
   }
 
