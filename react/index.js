@@ -176,9 +176,9 @@ SearchResult.getSchema = props => {
               },
               trackingId: {
                 title:
-                  'admin.editor.search-result.advanced-settings.trackingId.title',
+                  'admin/editor.search-result.advanced-settings.trackingId.title',
                 description:
-                  'admin.editor.search-result.advanced-settings.trackingId.description',
+                  'admin/editor.search-result.advanced-settings.trackingId.description',
                 type: 'string',
               },
             },
@@ -277,7 +277,7 @@ SearchResult.getSchema = props => {
         isLayout: true,
       },
       advancedSettings: {
-        title: 'admin.editor.search-result.advanced-settings.title',
+        title: 'admin/editor.search-result.advanced-settings.title',
         type: 'boolean',
       },
     },
