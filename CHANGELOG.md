@@ -7,8 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-### Fixed
-- Messages standardization to fit localization process.
+### Changed
+- Updated documentation on readme.md
 
 ## [3.122.2] - 2023-05-31
 
