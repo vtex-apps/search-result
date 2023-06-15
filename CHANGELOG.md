@@ -10,6 +10,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Add `rootPath` prefix to Session API calls.
 
+## [3.122.3] - 2023-06-12
+
+### Fixed
+- Messages standardization to fit localization process.
+
+## [3.122.2] - 2023-05-31
+
+### Fixed
+- Not found pages crashing due to not having term in params
+
 ## [3.122.1] - 2023-04-25
 ### Fixed
 - Updated readme.md according to task LOC-10476.
