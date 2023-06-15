@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.122.4] - 2023-06-15
+
 ### Fixed
 - Add `rootPath` prefix to Session API calls.
 
