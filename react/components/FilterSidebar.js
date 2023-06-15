@@ -131,8 +131,6 @@ const FilterSidebar = ({
 
   const { push } = usePixel()
 
-  const [clearPriceRange, setClearPriceRange] = useState()
-
   const handleClearFilters = key => {
     pushFilterManipulationPixelEvent({
       name: 'CleanFilters',
@@ -140,6 +138,8 @@ const FilterSidebar = ({
       products: searchQuery?.products ?? [],
       push,
     })
+
+    const isClearByFacet = !!key
 
     shouldClear.current =
       !updateOnFilterSelectionOnMobile || !preventRouteChange
@@ -166,13 +166,12 @@ const FilterSidebar = ({
 
     if (updateOnFilterSelectionOnMobile && preventRouteChange) {
       navigateToFacet(facetsToRemove, preventRouteChange)
-      setClearPriceRange(true)
 
       return
     }
 
-    setClearPriceRange(true)
     setFilterOperations(facetsToRemove)
+    navigateToFacet(facetsToRemove, preventRouteChange, !isClearByFacet)
   }
 
   const handleUpdateCategories = maybeCategories => {
@@ -282,8 +281,6 @@ const FilterSidebar = ({
             categoryFiltersMode={categoryFiltersMode}
             loading={loading}
             onClearFilter={handleClearFilters}
-            clearPriceRange={clearPriceRange}
-            setClearPriceRange={setClearPriceRange}
             showClearByFilter={showClearByFilter}
             updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
             priceRangeLayout={priceRangeLayout}

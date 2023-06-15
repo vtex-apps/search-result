@@ -36,6 +36,7 @@ const AccordionFilterItem = ({
   onClearFilter,
   facetKey,
   showClearByFilter,
+  quantity,
 }) => {
   const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
@@ -56,7 +57,8 @@ const AccordionFilterItem = ({
     }
   }
 
-  const quantitySelected = selectedFilters.length
+  const quantitySelected =
+    typeof quantity !== 'undefined' ? quantity : selectedFilters.length
 
   const titleSlug = generateSlug(getFilterTitle(title, intl))
 
@@ -169,6 +171,8 @@ AccordionFilterItem.propTypes = {
   onOpen: PropTypes.func,
   /** List of selected filters */
   selectedFilters: PropTypes.arrayOf(PropTypes.object),
+  /** quantity that will be shown besides the filter title. If `undefined` selectedFacets.length will be used */
+  quantity: PropTypes.number,
   /** content */
   children: PropTypes.node,
   /** Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). */

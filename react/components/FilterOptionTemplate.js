@@ -88,6 +88,7 @@ const FilterOptionTemplate = ({
   navigateToFacet,
   showClearByFilter,
   preventRouteChange,
+  handleClear,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
@@ -130,7 +131,7 @@ const FilterOptionTemplate = ({
     setTruncated(value)
   }
 
-  const handleClear = useCallback(
+  const onClear = useCallback(
     () =>
       navigateToFacet(
         filters.filter(filter => filter.selected),
@@ -198,11 +199,10 @@ const FilterOptionTemplate = ({
     },
     isOpen
   )
-  const showClearButton =
+  const isClearButtonVisible =
     showClearByFilter &&
-    !selected &&
-    filters &&
-    filters.some(filter => filter.selected)
+    (id === 'priceRange' ||
+      (!selected && filters && filters.some(filter => filter.selected)))
 
   const handleKeyDown = useCallback(
     e => {
@@ -248,13 +248,14 @@ const FilterOptionTemplate = ({
           <div className={titleClassName}>
             <span className={`${handles.filterTitleSpan}`}>
               {title}
-              {showClearButton && (
+              {isClearButtonVisible && (
                 <span className="ml2">
                   <Tag
                     size="small"
                     onClick={e => {
                       e.stopPropagation()
-                      handleClear()
+
+                      handleClear ? handleClear() : onClear()
                     }}
                   >
                     <FormattedMessage id="store/search-result.filter-button.clear" />
@@ -356,6 +357,8 @@ FilterOptionTemplate.propTypes = {
   navigateToFacet: PropTypes.func,
   showClearByFilter: PropTypes.bool,
   preventRouteChange: PropTypes.bool,
+  /** Custom clear handler */
+  handleClear: PropTypes.func,
 }
 
 export default FilterOptionTemplate
