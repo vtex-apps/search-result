@@ -54,6 +54,9 @@ const Filter = ({
           priceRangeLayout={priceRangeLayout}
           scrollToTop={scrollToTop}
           showClearByFilter={showClearByFilter}
+          onChangePriceRange={newPriceRange =>
+            navigateToFacet([], preventRouteChange, false, newPriceRange)
+          }
         />
       )
 

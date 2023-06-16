@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Filters when changing price range on mobile.
+
 ## [3.123.1] - 2023-06-29
 ### Fixed
 - `search-products-count-per-page` block is written twice in the doc.
