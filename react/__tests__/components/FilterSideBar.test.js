@@ -155,9 +155,10 @@ describe('<FilterNavigator />', () => {
     })
 
     fireEvent.click(getByText('Clear'))
-    fireEvent.click(getByText('Apply'))
-
     expect(mockNavigate).toHaveBeenCalledTimes(1)
+    fireEvent.click(getByText('Apply'))
+    expect(mockNavigate).toHaveBeenCalledTimes(2)
+
     expect(mockNavigate).toHaveBeenCalledWith(
       expect.objectContaining({
         to: '/fulltextterm',
@@ -259,7 +260,7 @@ describe('<FilterNavigator />', () => {
     )
   })
 
-  it('should clear the selected options from a specification on Clear by specification button', () => {
+  it('2', () => {
     const filters = JSON.parse(JSON.stringify(specifications))
 
     filters
@@ -277,9 +278,10 @@ describe('<FilterNavigator />', () => {
     })
 
     fireEvent.click(getAllByText('Clear')[0])
-    fireEvent.click(getByText('Apply'))
-
     expect(mockNavigate).toHaveBeenCalledTimes(1)
+    fireEvent.click(getByText('Apply'))
+    expect(mockNavigate).toHaveBeenCalledTimes(2)
+
     expect(mockNavigate).toHaveBeenCalledWith(
       expect.objectContaining({
         to: '/fulltextterm',

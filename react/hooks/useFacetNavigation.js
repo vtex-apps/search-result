@@ -201,7 +201,7 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
   const mainSearches = getMainSearches(query, map)
 
   const navigateToFacet = useCallback(
-    (maybeFacets, preventRouteChange = false) => {
+    (maybeFacets, preventRouteChange = false, isReset = false) => {
       const facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
       const { query: currentQuery, map: currentMap } = buildNewQueryMap(
         mainSearches,
@@ -228,6 +228,7 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
           searchState: state,
           initialMap: runtimeQuery.initialMap ?? map,
           initialQuery: runtimeQuery.initialQuery ?? query,
+          ...(isReset ? { priceRange: undefined } : {}),
         }
 
         setQuery(queries)
@@ -279,6 +280,10 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
 
         newQuery = initialQuery
         urlParams.set('map', initialMap)
+      }
+
+      if (isReset) {
+        urlParams.delete('priceRange')
       }
 
       navigate({
