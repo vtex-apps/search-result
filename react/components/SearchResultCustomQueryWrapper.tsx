@@ -3,15 +3,16 @@ import type { RuntimeWithRoute } from 'vtex.render-runtime'
 import { canUseDOM, useRuntime, Helmet } from 'vtex.render-runtime'
 import queryString from 'query-string'
 
+import useDataPixel from '../hooks/useDataPixel'
+import { usePageView } from '../hooks/usePageView'
 import type { SearchQuery } from '../utils/searchMetadata'
 import {
   getCategoryMetadata,
   getDepartmentMetadata,
+  getPageEventName,
   getSearchMetadata,
   getTitleTag,
 } from '../utils/searchMetadata'
-import useDataPixel from '../hooks/useDataPixel'
-import { usePageView } from '../hooks/usePageView'
 
 interface GetHelmetLinkParams {
   canonicalLink: string | undefined
@@ -28,26 +29,6 @@ interface IsNotLastPageParams {
   products: any
   to: number | undefined
   recordsFiltered: number | undefined
-}
-
-type PageEventName =
-  | 'internalSiteSearchView'
-  | 'categoryView'
-  | 'departmentView'
-  | 'emptySearchView'
-
-const mapEvent = {
-  InternalSiteSearch: 'internalSiteSearchView',
-  Category: 'categoryView',
-  Department: 'departmentView',
-  EmptySearch: 'emptySearchView',
-}
-
-const fallbackView = 'otherView'
-
-interface Variables {
-  fullText?: string
-  category?: any
 }
 
 function getHelmetLink({ canonicalLink, page, rel }: GetHelmetLinkParams) {
@@ -140,29 +121,6 @@ const getSearchIdentifier = (
   const { query, map } = variables
 
   return query + map + (orderBy ?? '') + (page ?? '')
-}
-
-const pageCategory = (products: unknown[], variables: Variables) => {
-  if (!products || products.length === 0) {
-    return 'EmptySearch'
-  }
-
-  const { category, fullText } = variables
-
-  return fullText ? 'InternalSiteSearch' : category ? 'Category' : 'Department'
-}
-
-const getPageEventName = (
-  products: unknown[],
-  variables: Variables
-): PageEventName => {
-  if (!products) {
-    return fallbackView as PageEventName
-  }
-
-  const category = pageCategory(products, variables)
-
-  return (mapEvent[category] || fallbackView) as PageEventName
 }
 
 const SearchResultCustomQueryWrapper = (props: any) => {

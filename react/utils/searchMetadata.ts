@@ -67,6 +67,49 @@ interface GetTitleTagParams {
   removeStoreNameTitle?: boolean
 }
 
+type PageEventName =
+  | 'internalSiteSearchView'
+  | 'categoryView'
+  | 'departmentView'
+  | 'emptySearchView'
+
+const mapEvent = {
+  InternalSiteSearch: 'internalSiteSearchView',
+  Category: 'categoryView',
+  Department: 'departmentView',
+  EmptySearch: 'emptySearchView',
+}
+
+const fallbackView = 'otherView'
+
+interface Variables {
+  fullText?: string
+  category?: any
+}
+
+const pageCategory = (products: unknown[], variables: Variables) => {
+  if (!products || products.length === 0) {
+    return 'EmptySearch'
+  }
+
+  const { category, fullText } = variables
+
+  return fullText ? 'InternalSiteSearch' : category ? 'Category' : 'Department'
+}
+
+export const getPageEventName = (
+  products: unknown[],
+  variables: Variables
+): PageEventName => {
+  if (!products) {
+    return fallbackView as PageEventName
+  }
+
+  const category = pageCategory(products, variables)
+
+  return (mapEvent[category] || fallbackView) as PageEventName
+}
+
 const getDecodeURIComponent = (encodedURIComponent: string) => {
   try {
     return decodeURIComponent(encodedURIComponent)
@@ -88,9 +131,9 @@ export const getTitleTag = ({
   removeStoreNameTitle,
 }: GetTitleTagParams) => {
   /*
-  titleNumber and storeTitleFormatted depend on the value of enablePageNumberTitle and removeStoreNameTitle params,
+  titleNumber and storeTitleFormatted depend on the value of enablePageNumberTitle and removeStoreNameTitle params.
   by default, the value of enablePageNumberTitle and removeStoreNameTitle is false, only if the value of these
-  parameters is true, it will affect the value of titleNumber or storeTitleFormatted
+  parameters is true, it will affect the value of titleNumber or storeTitleFormatted.
   */
   const titleNumber = pageNumber > 0 ? ` #${pageNumber}` : ''
   const storeTitleFormatted = removeStoreNameTitle ? '' : ` - ${storeTitle}`
