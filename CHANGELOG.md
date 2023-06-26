@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - installmentCriteria not being passed down as a prop in customQueries
 
+## [3.122.6] - 2023-06-26
+
+### Changed
+- Updated documentation on readme.md
+
 ## [3.122.5] - 2023-06-15
 
 ### Fixed
