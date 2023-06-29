@@ -21,4 +21,5 @@ declare module 'vtex.render-runtime' {
 
   export function useRuntime(): Runtime
   export const Helmet
+  export const canUseDOM: boolean
 }
