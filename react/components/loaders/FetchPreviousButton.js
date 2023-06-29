@@ -3,6 +3,7 @@ import { Button } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { FormattedMessage } from 'react-intl'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
+import { useRuntime } from 'vtex.render-runtime'
 
 import { getMapQueryString } from './FetchMoreButton'
 
@@ -22,7 +23,7 @@ const useShowButton = (from, products, loading) => {
   return showButton
 }
 
-const FetchPreviousButton = (props) => {
+const FetchPreviousButton = props => {
   const {
     products,
     from,
@@ -36,8 +37,10 @@ const FetchPreviousButton = (props) => {
   const showButton = useShowButton(from, products, loading)
   const handles = useCssHandles(CSS_HANDLES)
   const { searchQuery } = useSearchPage()
+  const { query } = useRuntime()
+  const hideMap = !query?.map
 
-  const handleFetchMoreClick = (ev) => {
+  const handleFetchMoreClick = ev => {
     isAnchor && ev.preventDefault()
     onFetchPrevious()
   }
@@ -46,9 +49,10 @@ const FetchPreviousButton = (props) => {
     <div className={`${handles.buttonShowMore} w-100 flex justify-center`}>
       {showButton && (
         <Button
-          onClick={(ev) => handleFetchMoreClick(ev)}
+          onClick={ev => handleFetchMoreClick(ev)}
           href={
-            isAnchor && `?page=${previousPage}${getMapQueryString(searchQuery)}`
+            isAnchor &&
+            `?page=${previousPage}${getMapQueryString(searchQuery, hideMap)}`
           }
           rel={isAnchor && 'prev'}
           isLoading={loading}

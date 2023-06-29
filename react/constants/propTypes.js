@@ -212,9 +212,9 @@ export const searchResultPropTypes = {
   /** Mobile Layout Modes setup */
   mobileLayout: PropTypes.shape({
     /** First Layout Mode */
-    mode1: PropTypes.oneOf(LAYOUT_MODE.map((mode) => mode.value)),
+    mode1: PropTypes.oneOf(LAYOUT_MODE.map(mode => mode.value)),
     /** Second Layout Mode */
-    mode2: PropTypes.oneOf(LAYOUT_MODE.map((mode) => mode.value)),
+    mode2: PropTypes.oneOf(LAYOUT_MODE.map(mode => mode.value)),
   }),
 }
 

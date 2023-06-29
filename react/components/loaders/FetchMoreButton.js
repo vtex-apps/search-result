@@ -3,6 +3,7 @@ import { Button } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { FormattedMessage } from 'react-intl'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
+import { useRuntime } from 'vtex.render-runtime'
 
 const CSS_HANDLES = [
   'buttonShowMore',
@@ -27,7 +28,14 @@ const useShowButton = (to, products, loading, recordsFiltered) => {
 }
 
 function shouldNotIncludeMap(map) {
-  if (!map || map === 'b' || map === 'brand') {
+  if (
+    !map ||
+    map === 'b' ||
+    map === 'brand' ||
+    map === 'c' ||
+    map === 'category-1' ||
+    map === 'department'
+  ) {
     return true
   }
 
@@ -37,11 +45,12 @@ function shouldNotIncludeMap(map) {
     return false
   }
 
-  return mapTree.every((mapItem) => mapItem === 'c')
+  return mapTree.every(mapItem => mapItem === 'c')
 }
 
-export function getMapQueryString(searchQuery) {
+export function getMapQueryString(searchQuery, hideMap) {
   if (
+    hideMap ||
     !searchQuery ||
     !searchQuery.variables ||
     shouldNotIncludeMap(searchQuery.variables.map)
@@ -52,7 +61,7 @@ export function getMapQueryString(searchQuery) {
   return `&map=${searchQuery.variables.map}`
 }
 
-const FetchMoreButton = (props) => {
+const FetchMoreButton = props => {
   const {
     products,
     to,
@@ -68,8 +77,10 @@ const FetchMoreButton = (props) => {
   const showButton = useShowButton(to, products, loading, recordsFiltered)
   const handles = useCssHandles(CSS_HANDLES)
   const { searchQuery } = useSearchPage()
+  const { query } = useRuntime()
+  const hideMap = !query?.map
 
-  const handleFetchMoreClick = (ev) => {
+  const handleFetchMoreClick = ev => {
     isAnchor && ev.preventDefault()
     onFetchMore()
   }
@@ -79,9 +90,10 @@ const FetchMoreButton = (props) => {
       <div className={`${handles.buttonShowMore} w-100 flex justify-center`}>
         {showButton && (
           <Button
-            onClick={(ev) => handleFetchMoreClick(ev)}
+            onClick={ev => handleFetchMoreClick(ev)}
             href={
-              isAnchor && `?page=${nextPage}${getMapQueryString(searchQuery)}`
+              isAnchor &&
+              `?page=${nextPage}${getMapQueryString(searchQuery, hideMap)}`
             }
             rel={isAnchor && 'next'}
             isLoading={loading}

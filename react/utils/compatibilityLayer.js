@@ -53,18 +53,18 @@ export const buildSelectedFacetsAndFullText = (query, map, priceRange) => {
   return [selectedFacets, fullText]
 }
 
-const addMap = (facet) => {
+const addMap = facet => {
   facet.map = facet.key
 
   if (facet.children) {
-    facet.children.forEach((facetChild) => addMap(facetChild))
+    facet.children.forEach(facetChild => addMap(facetChild))
   }
 }
 
-export const detachFiltersByType = (facets) => {
-  facets.forEach((facet) => facet.facets.forEach((value) => addMap(value)))
+export const detachFiltersByType = facets => {
+  facets.forEach(facet => facet.facets.forEach(value => addMap(value)))
 
-  const byType = groupBy((filter) => filter.type)
+  const byType = groupBy(filter => filter.type)
 
   const groupedFilters = byType(facets)
 
@@ -91,7 +91,7 @@ export const detachFiltersByType = (facets) => {
     [],
     ['PRICERANGE', 0, 'facets'],
     groupedFilters
-  ).map((priceRange) => {
+  ).map(priceRange => {
     return {
       ...priceRange,
       slug: `de-${priceRange.range.from}-a-${priceRange.range.to}`,
@@ -107,7 +107,7 @@ export const detachFiltersByType = (facets) => {
   }
 }
 
-export const buildQueryArgsFromSelectedFacets = (selectedFacets) => {
+export const buildQueryArgsFromSelectedFacets = selectedFacets => {
   return selectedFacets.reduce(
     (queryArgs, facet, index) => {
       queryArgs.query += `${index > 0 ? '/' : ''}${facet.value}`

@@ -1,7 +1,6 @@
 import React from 'react'
 import { path } from 'ramda'
 import { FormattedMessage, defineMessages } from 'react-intl'
-
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { useCssHandles } from 'vtex.css-handles'
 
@@ -31,6 +30,7 @@ const ProductCountPerPage = () => {
   const handles = useCssHandles(CSS_HANDLES)
   const products =
     path(['data', 'productSearch', 'products'], searchQuery) || []
+
   const recordsFiltered = path(
     ['data', 'productSearch', 'recordsFiltered'],
     searchQuery

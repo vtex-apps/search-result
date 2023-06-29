@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useRuntime } from 'vtex.render-runtime'
 import { useIntl } from 'react-intl'
@@ -24,10 +24,8 @@ const PriceRange = ({
   priceRange,
   priceRangeLayout,
   scrollToTop,
-  clearPriceRange,
-  setClearPriceRange
+  showClearByFilter,
 }) => {
-  const [range, setRange] = useState()
   const { culture, setQuery, query: runtimeQuery } = useRuntime()
   const intl = useIntl()
   const navigateTimeoutId = useRef()
@@ -39,7 +37,6 @@ const PriceRange = ({
   const { fuzzy, operator, searchState } = useSearchState()
 
   const handleChange = ([left, right]) => {
-
     if (navigateTimeoutId.current) {
       clearTimeout(navigateTimeoutId.current)
     }
@@ -57,22 +54,22 @@ const PriceRange = ({
           ? sessionStorage.getItem('searchState') ?? searchState
           : searchState ?? undefined
 
-      setQuery({
-        priceRange: `${left} TO ${right}`,
-        page: undefined,
-        fuzzy: fuzzy || undefined,
-        operator: operator || undefined,
-        searchState: state,
-        initialMap: runtimeQuery.initialMap ?? map,
-        initialQuery: runtimeQuery.initialQuery ?? query,
-      })
+      // avoid page from reloading again after clear all button is clicked
+      if (runtimeQuery?.priceRange || left !== minValue || right !== maxValue) {
+        setQuery({
+          priceRange: `${left} TO ${right}`,
+          page: undefined,
+          fuzzy: fuzzy || undefined,
+          operator: operator || undefined,
+          searchState: state,
+          initialMap: runtimeQuery?.initialMap ?? map,
+          initialQuery: runtimeQuery?.initialQuery ?? query,
+        })
+      }
 
-      setRange([left, right])
-      
-      if(scrollToTop !== 'none'){
+      if (scrollToTop !== 'none') {
         window.scroll({ top: 0, left: 0, behavior: scrollToTop })
       }
-      
     }, DEBOUNCE_TIME)
   }
 
@@ -101,50 +98,39 @@ const PriceRange = ({
     }
   })
 
-  const defaultValues = [minValue, maxValue]
+  const values = [minValue, maxValue]
   const currentValuesRegex = /^(.*) TO (.*)$/
 
   if (priceRange && currentValuesRegex.test(priceRange)) {
     const [, currentMin, currentMax] = priceRange.match(currentValuesRegex)
 
-    defaultValues[0] = parseInt(currentMin, 10)
-    defaultValues[1] = parseInt(currentMax, 10)
+    values[0] = parseInt(currentMin, 10)
+    values[1] = parseInt(currentMax, 10)
   }
-
-  const resetOnClear = () => {
-    setQuery({
-      priceRange: `${minValue} TO ${maxValue}`
-    })
-    setRange([minValue, maxValue])
-    setClearPriceRange(false)
-  } 
-
-  useEffect(() => {
-    clearPriceRange && resetOnClear()
-  }, [clearPriceRange])
 
   return (
     <FilterOptionTemplate
       id="priceRange"
       title={getFilterTitle(title, intl)}
       collapsable={false}
+      handleClear={() => setQuery({ priceRange: undefined })}
+      showClearByFilter={priceRange && showClearByFilter}
     >
       {priceRangeLayout === 'inputAndSlider' && (
         <PriceRangeInput
-          defaultValues={defaultValues}
-          onSubmit={(newRange) => setRange(newRange)}
+          defaultValues={values}
+          onSubmit={newRange => handleChange(newRange)}
           max={maxValue}
           min={minValue}
         />
       )}
       <Slider
-        // It is impossible to change the slider value programmatically, so I need to reset the whole component
         min={minValue}
         max={maxValue}
         onChange={handleChange}
-        defaultValues={defaultValues}
-        formatValue={(value) => formatCurrency({ intl, culture, value })}
-        values={range}
+        formatValue={value => formatCurrency({ intl, culture, value })}
+        values={values}
+        defaultValues={values}
         range
       />
     </FilterOptionTemplate>
@@ -160,10 +146,14 @@ PriceRange.propTypes = {
   priceRange: PropTypes.string,
   /** Price range layout (default or inputAndSlider) */
   priceRangeLayout: PropTypes.string,
+  /** Scroll behavior */
+  scrollToTop: PropTypes.string,
   /** Defines whether the price range should be cleared or not */
   clearPriceRange: PropTypes.bool,
   /** Set the value of clearPriceRange prop */
   setClearPriceRange: PropTypes.func,
+  /** Whether a clear button that clear all options in a specific filter should appear beside the filter's name (true) or not (false). */
+  showClearByFilter: PropTypes.bool,
 }
 
 export default PriceRange

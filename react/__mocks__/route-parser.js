@@ -4,4 +4,4 @@ export default class RouteParser {
   }
 }
 
-export var __useDefault = true
+export const __useDefault = true

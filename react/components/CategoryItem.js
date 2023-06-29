@@ -22,13 +22,13 @@ const CategoryItem = ({
           'ph5 ph3-ns pv5 pv1-ns lh-copy pointer hover-bg-muted-5 c-muted-1 db no-underline',
           className
         )}
-        onClick={(e) => {
+        onClick={e => {
           e.preventDefault()
           onClick()
         }}
         href={href && href.toLowerCase()}
         title={label}
-        onKeyDown={(e) => e.key === 'Enter' && onClick(e)}
+        onKeyDown={e => e.key === 'Enter' && onClick(e)}
         data-testid={`categoryItem-${label}`}
       >
         {label}
@@ -46,7 +46,7 @@ const CategoryItem = ({
         className
       )}
       onClick={onClick}
-      onKeyDown={(e) => e.key === 'Enter' && onClick(e)}
+      onKeyDown={e => e.key === 'Enter' && onClick(e)}
       data-testid={`categoryItem-${label}`}
     >
       {label}

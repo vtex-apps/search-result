@@ -42,23 +42,26 @@ const getFilters = ({
         }))
     : []
 
-    return [
-    !hiddenFacets.categories && !isEmpty(categories) && {
-      type: CATEGORIES_TYPE,
-      title: CATEGORIES_TITLE,
-      facets: categories,
-    },
+  return [
+    !hiddenFacets.categories &&
+      !isEmpty(categories) && {
+        type: CATEGORIES_TYPE,
+        title: CATEGORIES_TITLE,
+        facets: categories,
+      },
     ...mappedSpecificationFilters,
-    !hiddenFacets.brands && !isEmpty(brands) && {
-      type: BRANDS_TYPE,
-      title: BRANDS_TITLE,
-      facets: brands,
-    },
-    !hiddenFacets.priceRange && !isEmpty(priceRanges) && {
-      type: PRICE_RANGES_TYPE,
-      title: PRICE_RANGES_TITLE,
-      facets: priceRanges,
-    },
+    !hiddenFacets.brands &&
+      !isEmpty(brands) && {
+        type: BRANDS_TYPE,
+        title: BRANDS_TITLE,
+        facets: brands,
+      },
+    !hiddenFacets.priceRange &&
+      !isEmpty(priceRanges) && {
+        type: PRICE_RANGES_TYPE,
+        title: PRICE_RANGES_TITLE,
+        facets: priceRanges,
+      },
   ].filter(Boolean)
 }
 

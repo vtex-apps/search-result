@@ -1,4 +1,5 @@
 import { zip } from 'ramda'
+
 import { useFilterNavigator } from '../components/FilterNavigatorContext'
 import { isSameMap } from '../utils/queryAndMapUtils'
 
@@ -9,15 +10,13 @@ import { isSameMap } from '../utils/queryAndMapUtils'
  */
 const useSelectedFilters = facets => {
   const { query, map } = useFilterNavigator()
+
   if (query == null && map == null) {
     return []
   }
 
   const queryAndMap = zip(
-    query
-      .toLowerCase()
-      .split('/')
-      .map(decodeURIComponent),
+    query.toLowerCase().split('/').map(decodeURIComponent),
     map.split(',')
   )
 

@@ -9,6 +9,249 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - `search-products-count-per-page` block is written twice in the doc.
 
+## [3.123.0] - 2023-06-29
+
+### Added
+- `pageInfo` event for custom search pages.
+
+## [3.122.6] - 2023-06-26
+
+### Changed
+- Updated documentation on readme.md
+
+## [3.122.5] - 2023-06-15
+
+### Fixed
+- Reset price slider when clearing all filters.
+
+## [3.122.4] - 2023-06-15
+
+### Fixed
+- Add `rootPath` prefix to Session API calls.
+
+## [3.122.3] - 2023-06-12
+
+### Fixed
+- Messages standardization to fit localization process.
+
+## [3.122.2] - 2023-05-31
+
+### Fixed
+- Not found pages crashing due to not having term in params
+
+## [3.122.1] - 2023-04-25
+### Fixed
+- Updated readme.md according to task LOC-10476.
+
+## [3.122.0] - 2023-04-18
+
+### Added
+- Shipping option filter from session.
+
+## [3.121.1] - 2023-04-17
+
+### Fixed
+
+- Updated readme
+
+## [3.121.0] - 2023-03-28
+
+### Fixed
+
+- Rollback v3.120.0 that caused issues with Custom Queries Search Result.
+
+## [3.120.1] - 2023-03-27
+
+### Fixed
+- Term is not passed as props to NotFoundSearch
+
+## [3.120.0] - 2023-03-22 [YANKED]
+
+### Added
+- Shipping option filter from session.
+
+## [3.119.2] - 2023-03-14
+
+### Fixed
+- CheckboxList to use the value from facets API as slug instead of calculate from name
+
+## [3.119.1] - 2023-02-15
+
+### Fixed
+- Since the `vtex.search-resolver@1.63.1` we use `productClusterNames` instead of `productClusterIds`. For this reason, we don't need to add the `productClusterIds` to the `selectedFacets` variable.
+
+## [3.119.0] - 2022-12-23
+
+### Added
+- Indonesian translation.
+
+## [3.118.22] - 2022-12-13
+
+### Added
+- `priceRange` to the `SearchResultLayoutCustomQuery` site editor schema.
+
+## [3.118.21] - 2022-10-31
+
+### Fixed
+
+- Remove `map` query parameter from `FetchMoreButton` / `FetchPreviousButton` href attribute if map is not part of current URL params
+
+## [3.118.20] - 2022-10-25
+
+### Fixed
+- Trigger documentation update
+
+## [3.118.19] - 2022-10-14
+
+### Fixed
+- Remove `map` query parameter from `ShowMoreFilterButton` href attribute when map is `department`
+
+## [3.118.18] - 2022-10-10
+
+### Changed
+
+- Export filter navigator context
+
+## [3.118.17] - 2022-10-07
+
+### Fixed
+
+- Render `prev` and `next` tags server side for pages using `SearchResultLayoutCustomQuery`
+
+## [3.118.16] - 2022-09-23
+
+### Added
+
+- `prev` and `next` tags to page when using `SearchResultLayoutCustomQuery`
+- `page` query parameter to `canonical` link in custom search result pages
+
+## [3.118.15] - 2022-09-15
+
+### Fixed
+- Romanian translations
+
+## [3.118.14] - 2022-08-04
+### Added
+- `json-schema`, `jsdom`, `jest-environment-jsdom` and `node-notifier` to resolutions yarn field
+
+## [3.118.13] - 2022-08-03
+
+## [3.118.12] - 2022-08-03
+
+## [3.118.11] - 2022-08-03
+
+## [3.118.10] - 2022-08-03
+
+## [3.118.9] - 2022-08-03
+
+## [3.118.8] - 2022-08-03
+
+## [3.118.7] - 2022-08-03
+
+## [3.118.6] - 2022-08-03
+
+## [3.118.5] - 2022-08-03
+
+## [3.118.4] - 2022-08-03
+
+## [3.118.3] - 2022-08-03
+
+## [3.118.2] - 2022-08-03
+### Fixed
+- Lint issues.
+
+## [3.118.1] - 2022-07-19
+
+### Fixed
+- Documentation for `order-by` block.
+
+## [3.118.0] - 2022-07-11
+
+### Added
+
+- Render `ProductList` component from `vtex.structured-data` in `Gallery` for SEO
+
+## [3.117.5] - 2022-06-21
+
+### Fixed
+- Clear filter behavior when the filter is not applied yet.
+
+## [3.117.4] - 2022-06-08
+
+### Fixed
+- Update README.md.
+
+## [3.117.3] - 2022-05-27
+
+### Fixed
+- French translations.
+
+## [3.117.2] - 2022-05-27
+
+### Fixed
+- Remove `priceRange` from the URL when clearing all filters.
+
+## [3.117.1] - 2022-05-02
+### Fixed
+- `searchTitle`s would always be `undefined` inside of gallery components when rendering the results of a full-text search.
+
+## [3.117.0] - 2022-04-07
+### Added
+- `showQuantityBadgeOnMobile` prop to the `FilterNavigator`.
+
+## [3.116.0] - 2022-03-23
+
+### Added
+- Thai translation.
+
+### Fixed
+- Arabic translation.
+
+## [3.115.1] - 2022-03-17
+
+### Fixed
+- Arabic translation.
+
+## [3.115.0] - 2022-03-11
+
+### Fixed
+- Arabic translation.
+
+### Added
+- Norwegian and Norwegian variant translation.
+
+## [3.114.0] - 2022-03-07
+- Mobile filters drawer open direction prop to filters.V3
+
+## [3.113.3] - 2022-02-03
+
+### Fixed
+- Price range that was disappearing when clearing filters on mobile.
+
+## [3.113.2] - 2022-02-01
+
+### Fixed
+- Clear the price range when clicking "Clear" button on mobile.
+
+## [3.113.1] - 2022-01-26
+
+### Fixed
+- Reset page when `priceRange` changes.
+
+## [3.113.0] - 2022-01-25
+
+### Changed
+
+- Send `initialAttributes` on first iteration.
+
+## [3.112.0] - 2022-01-12
+
+### Added
+
+- Arabic translation.
+
+## [3.111.1] - 2022-01-05
+
 ## [3.113.4] - 2022-02-09
 ### Fixed
 - search-title.v2 block is written twice in the doc.
@@ -145,7 +388,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.101.0] - 2021-06-24
 ## Fixed
 - `scrollToTop` prop not being passed down to `PriceRange` component
-
 
 ## [3.100.0] - 2021-06-10
 ### Fixed
@@ -297,7 +539,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.86.4] - 2020-12-02
 ### Fixed
-- `fetchMore` would not work correctly in some cases due to the `updateQuery` method being called with `prevResults` argument set to `undefined`. 
+- `fetchMore` would not work correctly in some cases due to the `updateQuery` method being called with `prevResults` argument set to `undefined`.
 
 ## [3.86.3] - 2020-12-02
 
@@ -834,7 +1076,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [3.42.0] - 2020-01-04
 
 ### Added
-- `showFacetQuantity` settings to `SearchResultFlexible` component. 
+- `showFacetQuantity` settings to `SearchResultFlexible` component.
 
 ## [3.41.1] - 2020-01-02
 ### Fixed
@@ -859,7 +1101,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.39.8] - 2019-12-04
 ### Added
-- New CSS handles and updated some of the old ones. 
+- New CSS handles and updated some of the old ones.
 
 ## [3.39.7] - 2019-12-04
 ### Fixed

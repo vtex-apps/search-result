@@ -27,15 +27,19 @@ const LayoutIcon = ({ mode }) => {
   switch (mode) {
     case 'small':
       return <IconSingleGrid size={20} />
+
     case 'inline':
       return <IconInlineGrid size={20} />
+
     case 'normal':
       return <IconGrid size={20} />
+
     default: {
       // eslint-disable-next-line no-undef
       if (process.env.NODE_ENV === 'development') {
         console.warn(`Unsupported icon ${mode} in LayoutIcon`)
       }
+
       return null
     }
   }
@@ -43,6 +47,7 @@ const LayoutIcon = ({ mode }) => {
 
 const LayoutModeSwitcher = ({ activeMode, onChange }) => {
   const handles = useCssHandles(CSS_HANDLES)
+
   return (
     <div
       className={`${handles.layoutSwitcher} h-100 flex justify-center items-center pl4`}

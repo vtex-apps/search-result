@@ -1,6 +1,8 @@
 import React from 'react'
 import { render } from '@vtex/test-tools/react'
+
 import AccordionFilterContainer from '../components/AccordionFilterContainer'
+// eslint-disable-next-line jest/no-mocks-import
 import { useRuntime } from '../__mocks__/vtex.render-runtime'
 
 const mockUseRuntime = useRuntime
@@ -42,6 +44,7 @@ describe('<AccordionFilterContainer />', () => {
 
   it('check if mobile price range exists', () => {
     const { getByText } = renderComponent()
+
     expect(getByText('price-range1')).toBeInTheDocument()
   })
 })

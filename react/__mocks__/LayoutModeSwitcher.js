@@ -17,7 +17,7 @@ export const LAYOUT_MODE = [
   },
 ]
 
-const LayoutModeSwitcher = ({ activeMode, onChange }) => {
+const LayoutModeSwitcher = () => {
   return <div>LayoutModeSwitcher</div>
 }
 

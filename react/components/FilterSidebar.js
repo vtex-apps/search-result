@@ -32,6 +32,7 @@ const CSS_HANDLES = [
   'filterClearButtonWrapper',
   'filterApplyButtonWrapper',
   'filterTotalProducts',
+  'filterQuantityBadge',
 ]
 
 const FilterSidebar = ({
@@ -54,6 +55,8 @@ const FilterSidebar = ({
   updateOnFilterSelectionOnMobile,
   showClearByFilter,
   priceRangeLayout,
+  filtersDrawerDirectionMobile,
+  showQuantityBadgeOnMobile,
 }) => {
   const { searchQuery } = useSearchPage()
   const filterContext = useFilterNavigator()
@@ -71,13 +74,27 @@ const FilterSidebar = ({
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const currentTree = useCategoryTree(tree, categoryTreeOperations)
 
+  /* Sometimes there are categories included in selectedFilters
+   * This useMemo extracts only filters that users can
+   * enable and disable directly */
+  const selectedFacetsLength = React.useMemo(() => {
+    const filterKeys = filters.map(filter => filter.key)
+
+    const selectedFacets =
+      selectedFilters.filter(
+        facet => filterKeys.includes(facet.key) && facet.selected
+      ) ?? []
+
+    return selectedFacets.length
+  }, [filters, selectedFilters])
+
   const isFilterSelected = (slectableFilters, filter) => {
     return slectableFilters.find(
-      (filterOperation) => filter.value === filterOperation.value
+      filterOperation => filter.value === filterOperation.value
     )
   }
 
-  const handleFilterCheck = (filter) => {
+  const handleFilterCheck = filter => {
     if (updateOnFilterSelectionOnMobile && preventRouteChange) {
       navigateToFacet(filter, preventRouteChange)
 
@@ -88,7 +105,7 @@ const FilterSidebar = ({
       setFilterOperations(filterOperations.concat(filter))
     } else {
       setFilterOperations(
-        filterOperations.filter((facet) => facet.value !== filter.value)
+        filterOperations.filter(facet => facet.value !== filter.value)
       )
     }
   }
@@ -113,10 +130,8 @@ const FilterSidebar = ({
   }
 
   const { push } = usePixel()
-  
-  const [clearPriceRange, setClearPriceRange] = useState()
 
-  const handleClearFilters = (key) => {
+  const handleClearFilters = key => {
     pushFilterManipulationPixelEvent({
       name: 'CleanFilters',
       value: true,
@@ -124,18 +139,26 @@ const FilterSidebar = ({
       push,
     })
 
+    const isClearByFacet = !!key
+
     shouldClear.current =
       !updateOnFilterSelectionOnMobile || !preventRouteChange
     // Gets the previously selected facets that should be cleared
     const selectedFacets = selectedFilters.filter(
-      (facet) =>
+      facet =>
         !isCategoryDepartmentCollectionOrFT(facet.key) &&
         facet.selected &&
         (!key || (key && key === facet.key))
     )
 
+    if (selectedFacets.length === 0 && key) {
+      setFilterOperations(filterOperations.filter(filter => filter.key !== key))
+
+      return
+    }
+
     // Should not clear categories, departments and clusterIds
-    const selectedRest = filterOperations.filter((facet) =>
+    const selectedRest = filterOperations.filter(facet =>
       isCategoryDepartmentCollectionOrFT(facet.key)
     )
 
@@ -143,16 +166,15 @@ const FilterSidebar = ({
 
     if (updateOnFilterSelectionOnMobile && preventRouteChange) {
       navigateToFacet(facetsToRemove, preventRouteChange)
-      setClearPriceRange(true)
 
       return
     }
 
-    setClearPriceRange(true)
     setFilterOperations(facetsToRemove)
+    navigateToFacet(facetsToRemove, preventRouteChange, !isClearByFacet)
   }
 
-  const handleUpdateCategories = (maybeCategories) => {
+  const handleUpdateCategories = maybeCategories => {
     const categories = Array.isArray(maybeCategories)
       ? maybeCategories
       : [maybeCategories]
@@ -160,7 +182,7 @@ const FilterSidebar = ({
     /* There is no need to compare with CATEGORY and DEPARTMENT since
      they are seen as a normal facet in the new VTEX search */
     const categoriesSelected = filterOperations.filter(
-      (op) => op.map === MAP_CATEGORY_CHAR
+      op => op.map === MAP_CATEGORY_CHAR
     )
 
     const newCategories = [...categoriesSelected, ...categories]
@@ -175,9 +197,9 @@ const FilterSidebar = ({
     setCategoryTreeOperations(categories)
 
     // Save all filters along with the new categories, appended to the old ones
-    setFilterOperations((selectableFilters) => {
+    setFilterOperations(selectableFilters => {
       return selectableFilters
-        .filter((operations) => operations.map !== MAP_CATEGORY_CHAR)
+        .filter(operations => operations.map !== MAP_CATEGORY_CHAR)
         .concat(newCategories)
     })
   }
@@ -209,7 +231,9 @@ const FilterSidebar = ({
     <Fragment>
       <button
         className={classNames(
-          `${styles.filterPopupButton} ph3 pv5 mv0 mv0 pointer flex justify-center items-center`,
+          `${styles.filterPopupButton} ${
+            showQuantityBadgeOnMobile ? 'relative' : ''
+          }  ph3 pv5 mv0 mv0 pointer flex justify-center items-center`,
           {
             'bb b--muted-1': open,
             bn: !open,
@@ -224,10 +248,23 @@ const FilterSidebar = ({
         </span>
         <span className={`${handles.filterPopupArrowIcon} ml-auto pl3 pt2`}>
           <IconFilter size={16} viewBox="0 0 17 17" />
+
+          {showQuantityBadgeOnMobile && selectedFacetsLength > 0 && (
+            <span
+              className={`${styles.filterQuantityBadgeDefault} ${handles.filterQuantityBadge} absolute t-mini bg-muted-2 c-on-muted-2 br4 w1 h1 pa1 flex justify-center items-center lh-solid`}
+            >
+              {selectedFacetsLength}
+            </span>
+          )}
         </span>
       </button>
 
-      <Sidebar onOutsideClick={handleClose} isOpen={open} fullWidth={fullWidth}>
+      <Sidebar
+        onOutsideClick={handleClose}
+        isOpen={open}
+        fullWidth={fullWidth}
+        filtersDrawerDirectionMobile={filtersDrawerDirectionMobile}
+      >
         <FilterNavigatorContext.Provider value={context}>
           <AccordionFilterContainer
             filters={filters}
@@ -244,8 +281,6 @@ const FilterSidebar = ({
             categoryFiltersMode={categoryFiltersMode}
             loading={loading}
             onClearFilter={handleClearFilters}
-            clearPriceRange={clearPriceRange}
-            setClearPriceRange={setClearPriceRange}
             showClearByFilter={showClearByFilter}
             updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
             priceRangeLayout={priceRangeLayout}
@@ -288,7 +323,7 @@ const FilterSidebar = ({
                 values={{
                   recordsFiltered,
                   // eslint-disable-next-line react/display-name
-                  span: (chunks) => <span>{chunks}</span>,
+                  span: chunks => <span>{chunks}</span>,
                 }}
               />
             </div>
@@ -299,8 +334,8 @@ const FilterSidebar = ({
   )
 }
 
-const updateTree = (categories) =>
-  produce((draft) => {
+const updateTree = categories =>
+  produce(draft => {
     if (!categories.length) {
       return
     }
@@ -309,21 +344,20 @@ const updateTree = (categories) =>
 
     while (
       !(
-        currentLevel.find(
-          (category) => category.value === categories[0].value
-        ) || currentLevel.every((category) => !category.selected)
+        currentLevel.find(category => category.value === categories[0].value) ||
+        currentLevel.every(category => !category.selected)
       )
     ) {
-      currentLevel = currentLevel.find((category) => category.selected).children
+      currentLevel = currentLevel.find(category => category.selected).children
     }
 
-    categories.forEach((category) => {
+    categories.forEach(category => {
       const selectedIndex = currentLevel.findIndex(
-        (cat) => cat.value === category.value
+        cat => cat.value === category.value
       )
 
-      currentLevel[selectedIndex].selected = !currentLevel[selectedIndex]
-        .selected
+      currentLevel[selectedIndex].selected =
+        !currentLevel[selectedIndex].selected
       currentLevel = currentLevel[selectedIndex].children
     })
   })

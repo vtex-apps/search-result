@@ -24,7 +24,7 @@ import { useRenderOnView } from '../hooks/useRenderOnView'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
 
 /** Returns true if elementRef has ever been scrolled */
-const useHasScrolled = (elementRef) => {
+const useHasScrolled = elementRef => {
   const [hasScrolled, setHasScrolled] = useState(false)
 
   useEffect(() => {
@@ -88,6 +88,7 @@ const FilterOptionTemplate = ({
   navigateToFacet,
   showClearByFilter,
   preventRouteChange,
+  handleClear,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
@@ -98,11 +99,11 @@ const FilterOptionTemplate = ({
   const [searchTerm, setSearchTerm] = useState('')
   const [truncated, setTruncated] = useState(true)
 
-  const isLazyRenderEnabled = getSettings('vtex.store')
-    ?.enableSearchRenderingOptimization
+  const isLazyRenderEnabled =
+    getSettings('vtex.store')?.enableSearchRenderingOptimization
 
-  const isLazyFacetsFetchEnabled = getSettings('vtex.store')
-    ?.enableFiltersFetchOptimization
+  const isLazyFacetsFetchEnabled =
+    getSettings('vtex.store')?.enableFiltersFetchOptimization
 
   const { hasBeenViewed, dummyElement } = useRenderOnView({
     lazyRender: isLazyRenderEnabled && lazyRender,
@@ -118,12 +119,11 @@ const FilterOptionTemplate = ({
     }
 
     return filters.filter(
-      (filter) =>
-        filter.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+      filter => filter.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
     )
   }, [filters, searchTerm, thresholdForFacetSearch])
 
-  const openTruncated = (value) => {
+  const openTruncated = value => {
     if (isLazyFacetsFetchEnabled && !truncatedFacetsFetched) {
       setTruncatedFacetsFetched(true)
     }
@@ -131,10 +131,10 @@ const FilterOptionTemplate = ({
     setTruncated(value)
   }
 
-  const handleClear = useCallback(
+  const onClear = useCallback(
     () =>
       navigateToFacet(
-        filters.filter((filter) => filter.selected),
+        filters.filter(filter => filter.selected),
         preventRouteChange
       ),
     [navigateToFacet, filters, preventRouteChange]
@@ -170,7 +170,7 @@ const FilterOptionTemplate = ({
           <ShowMoreFilterButton
             quantity={quantity - FACETS_RENDER_THRESHOLD}
             truncated={truncated}
-            toggleTruncate={() => openTruncated((isTruncated) => !isTruncated)}
+            toggleTruncate={() => openTruncated(isTruncated => !isTruncated)}
           />
         )}
       </>
@@ -199,14 +199,13 @@ const FilterOptionTemplate = ({
     },
     isOpen
   )
-  const showClearButton =
+  const isClearButtonVisible =
     showClearByFilter &&
-    !selected &&
-    filters &&
-    filters.some((filter) => filter.selected)
+    (id === 'priceRange' ||
+      (!selected && filters && filters.some(filter => filter.selected)))
 
   const handleKeyDown = useCallback(
-    (e) => {
+    e => {
       if (e.key === ' ' && collapsable) {
         e.preventDefault()
         handleCollapse()
@@ -249,13 +248,14 @@ const FilterOptionTemplate = ({
           <div className={titleClassName}>
             <span className={`${handles.filterTitleSpan}`}>
               {title}
-              {showClearButton && (
+              {isClearButtonVisible && (
                 <span className="ml2">
                   <Tag
                     size="small"
-                    onClick={(e) => {
+                    onClick={e => {
                       e.stopPropagation()
-                      handleClear()
+
+                      handleClear ? handleClear() : onClear()
                     }}
                   >
                     <FormattedMessage id="store/search-result.filter-button.clear" />
@@ -278,8 +278,8 @@ const FilterOptionTemplate = ({
         {appliedFiltersOverview === 'show' && filters && !selected && (
           <div className={classNames(handles.filterSelectedFilters, 'f6')}>
             {filters
-              .filter((facet) => facet.selected)
-              .map((facet) => facet.name)
+              .filter(facet => facet.selected)
+              .map(facet => facet.name)
               .join(', ')}
           </div>
         )}
@@ -357,6 +357,8 @@ FilterOptionTemplate.propTypes = {
   navigateToFacet: PropTypes.func,
   showClearByFilter: PropTypes.bool,
   preventRouteChange: PropTypes.bool,
+  /** Custom clear handler */
+  handleClear: PropTypes.func,
 }
 
 export default FilterOptionTemplate

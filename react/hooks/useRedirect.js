@@ -3,7 +3,7 @@ import { useRuntime } from 'vtex.render-runtime'
 const useRedirect = () => {
   const { navigate } = useRuntime()
 
-  const setRedirect = (redirect) => {
+  const setRedirect = redirect => {
     if (!redirect) {
       return
     }

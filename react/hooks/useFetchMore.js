@@ -120,7 +120,7 @@ const handleFetchMore = async (
         },
       }
     },
-  }).catch((error) => {
+  }).catch(error => {
     setLoading(false)
     fetchMoreLocked.current = false
     updateQueryError.current = true
@@ -134,7 +134,7 @@ const useFetchingMore = () => {
   const { isFetchingMore } = useSearchPageState()
   const dispatch = useSearchPageStateDispatch()
   const setFetchMore = useCallback(
-    (value) => {
+    value => {
       dispatch({ type: 'SET_FETCHING_MORE', args: { isFetchingMore: value } })
       localSetMore(value)
     },
@@ -146,7 +146,7 @@ const useFetchingMore = () => {
   return [stateValue, setFetchMore]
 }
 
-export const useFetchMore = (props) => {
+export const useFetchMore = props => {
   const {
     page,
     maxItemsPerPage,

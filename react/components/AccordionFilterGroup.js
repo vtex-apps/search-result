@@ -6,7 +6,6 @@ import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import AccordionFilterItem from './AccordionFilterItem'
 import FacetCheckboxList from './FacetCheckboxList'
 import useSelectedFilters from '../hooks/useSelectedFilters'
-
 import { getFilterTitle } from '../constants/SearchHelpers'
 import { searchSlugify } from '../utils/slug'
 

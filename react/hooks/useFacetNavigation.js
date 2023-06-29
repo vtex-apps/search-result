@@ -13,7 +13,6 @@ import {
   MAP_VALUES_SEP,
   PATH_SEPARATOR,
   FULLTEXT_QUERY_KEY,
-  PRODUCT_CLUSTER_IDS,
   SELLER_QUERY_KEY,
 } from '../constants'
 import useSearchState from './useSearchState'
@@ -29,7 +28,7 @@ const removeElementAtIndex = (strArray, index) =>
 
 const upsert = (array, item) => {
   const foundItemIndex = array.findIndex(
-    (e) => e.value === item.value && e.map === item.map
+    e => e.value === item.value && e.map === item.map
   )
 
   if (foundItemIndex === -1) {
@@ -59,7 +58,7 @@ const replaceQueryForNewQueryFormat = (
   const mapArray = mapString.split(MAP_VALUES_SEP)
   const newQueryFormatArray = zip(queryArray, mapArray).map(
     ([querySegment, mapSegment]) => {
-      const facetForQuery = selectedFacets.find((facet) => {
+      const facetForQuery = selectedFacets.find(facet => {
         return compareFacetWithQueryValues(querySegment, mapSegment, facet)
       })
 
@@ -85,11 +84,11 @@ const removeMapForNewURLFormat = (map, selectedFacets) => {
   }, [])
 
   return mapArray
-    .filter((mapItem) => !mapsToFilter.includes(mapItem))
+    .filter(mapItem => !mapsToFilter.includes(mapItem))
     .join(MAP_VALUES_SEP)
 }
 
-const getCleanUrlParams = (currentMap) => {
+const getCleanUrlParams = currentMap => {
   const urlParams = new URLSearchParams(window.location.search)
 
   urlParams.set(MAP_QUERY_KEY, currentMap)
@@ -120,7 +119,7 @@ const buildQueryAndMap = (
         )
 
         selectedFacets = selectedFacets.filter(
-          (selectedFacet) =>
+          selectedFacet =>
             selectedFacet.value !== facet.value &&
             selectedFacet.map !== facet.map
         )
@@ -174,25 +173,14 @@ export const buildNewQueryMap = (
   facets,
   selectedFacets
 ) => {
-  const querySegments = selectedFacets.map((facet) => facet.value)
-  const mapSegments = selectedFacets.map((facet) => facet.map)
+  const querySegments = selectedFacets.map(facet => facet.value)
+  const mapSegments = selectedFacets.map(facet => facet.map)
 
-  const {
-    ft: fullText,
-    productClusterIds: collection,
-    seller,
-  } = fullTextSellerAndCollection
+  const { ft: fullText, seller } = fullTextSellerAndCollection
 
   if (fullText) {
     querySegments.push(fullText)
     mapSegments.push(FULLTEXT_QUERY_KEY)
-  }
-
-  // In search-resolver@v1.x, the productClusterIds is sent as a hidden facet, but in 0.x it is not.
-  // This way, we only need to push the collection when it is not in the mapSegments.
-  if (collection && mapSegments.indexOf(PRODUCT_CLUSTER_IDS) === -1) {
-    querySegments.push(collection)
-    mapSegments.push(PRODUCT_CLUSTER_IDS)
   }
 
   if (seller && mapSegments.indexOf(SELLER_QUERY_KEY) === -1) {
@@ -213,7 +201,7 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
   const mainSearches = getMainSearches(query, map)
 
   const navigateToFacet = useCallback(
-    (maybeFacets, preventRouteChange = false) => {
+    (maybeFacets, preventRouteChange = false, isReset = false) => {
       const facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
       const { query: currentQuery, map: currentMap } = buildNewQueryMap(
         mainSearches,
@@ -240,6 +228,7 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
           searchState: state,
           initialMap: runtimeQuery.initialMap ?? map,
           initialQuery: runtimeQuery.initialQuery ?? query,
+          ...(isReset ? { priceRange: undefined } : {}),
         }
 
         setQuery(queries)
@@ -293,6 +282,10 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
         urlParams.set('map', initialMap)
       }
 
+      if (isReset) {
+        urlParams.delete('priceRange')
+      }
+
       navigate({
         to: `${PATH_SEPARATOR}${newQuery}`,
         query: urlParams.toString(),
@@ -301,7 +294,22 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
           LOWERCASE: false,
         },
       })
-    }
+    },
+    [
+      fullTextQuery,
+      fuzzy,
+      mainSearches,
+      map,
+      navigate,
+      operator,
+      query,
+      runtimeQuery,
+      scrollToTop,
+      searchQuery,
+      searchState,
+      selectedFacets,
+      setQuery,
+    ]
   )
 
   return navigateToFacet

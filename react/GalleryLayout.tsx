@@ -68,7 +68,7 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
   const searchPageStateDispatch = useSearchPageStateDispatch()
 
   const breadcrumb = useBreadcrumb()
-  const searchTitle = useSearchTitle(breadcrumb ?? []).trim()
+  const searchTitle = useSearchTitle(breadcrumb ?? [], { matchFt: true }).trim()
 
   // Not using ?? operator because trackingId and searchTitle can be ''
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
@@ -86,7 +86,7 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
 
     if (selectedGalleryLayout) {
       layoutOption = layouts.find(
-        (layout) => layout.name === selectedGalleryLayout
+        layout => layout.name === selectedGalleryLayout
       )
     } else {
       console.error(
@@ -148,8 +148,8 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
     }
   )
 
-  const isLazyRenderEnabled = getSettings('vtex.store')
-    ?.enableSearchRenderingOptimization
+  const isLazyRenderEnabled =
+    getSettings('vtex.store')?.enableSearchRenderingOptimization
 
   return (
     <ProductListProvider listName={listName as string}>

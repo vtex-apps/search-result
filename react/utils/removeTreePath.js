@@ -4,5 +4,6 @@ export const removeTreePath = props => {
   }
 
   const { treePath, ...rest } = props
+
   return rest
 }

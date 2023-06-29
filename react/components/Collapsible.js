@@ -41,7 +41,10 @@ const Collapsible = ({
             onClick={() => setOpen(o => !o)}
           >
             <span className="c-link">
-              <FormattedMessage id={!open ? openLabel : closedLabel} values={{ quantity: overflowQuantity }} />
+              <FormattedMessage
+                id={!open ? openLabel : closedLabel}
+                values={{ quantity: overflowQuantity }}
+              />
             </span>
           </button>
         </>

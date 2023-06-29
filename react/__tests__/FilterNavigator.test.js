@@ -87,13 +87,13 @@ describe('<FilterNavigator />', () => {
     const tree = JSON.parse(JSON.stringify(categoriesTree))
 
     const selectedDepartment = tree.find(
-      (department) => department.value === 'eletronicos'
+      department => department.value === 'eletronicos'
     )
 
     selectedDepartment.selected = true
 
     selectedDepartment.children.find(
-      (category) => category.value === 'smartphones'
+      category => category.value === 'smartphones'
     ).selected = true
 
     const { getByText } = renderComponent({
@@ -129,13 +129,13 @@ describe('<FilterNavigator />', () => {
     const tree = JSON.parse(JSON.stringify(categoriesTree))
 
     const selectedDepartment = tree.find(
-      (department) => department.value === 'eletronicos'
+      department => department.value === 'eletronicos'
     )
 
     selectedDepartment.selected = true
 
     selectedDepartment.children.find(
-      (category) => category.value === 'smartphones'
+      category => category.value === 'smartphones'
     ).selected = true
 
     const { getByText } = renderComponent({
@@ -152,7 +152,7 @@ describe('<FilterNavigator />', () => {
     const tree = JSON.parse(JSON.stringify(categoriesTree))
 
     const selectedDepartment = tree.find(
-      (department) => department.value === 'eletronicos'
+      department => department.value === 'eletronicos'
     )
 
     selectedDepartment.selected = true
@@ -195,9 +195,9 @@ describe('<FilterNavigator />', () => {
     const filters = JSON.parse(JSON.stringify(specifications))
 
     filters
-      .find((filter) => filter.title === 'store/search.filter.title.color')
+      .find(filter => filter.title === 'store/search.filter.title.color')
       .facets.find(
-        (filterOption) => filterOption.value === 'pink'
+        filterOption => filterOption.value === 'pink'
       ).selected = true
 
     const { getAllByTestId } = renderComponent({
@@ -239,7 +239,7 @@ describe('<FilterNavigator />', () => {
     const tree = JSON.parse(JSON.stringify(categoriesTree))
 
     const selectedDepartment = tree.find(
-      (department) => department.value === 'eletronicos'
+      department => department.value === 'eletronicos'
     )
 
     selectedDepartment.selected = true
@@ -267,7 +267,7 @@ describe('<FilterNavigator />', () => {
     const tree = JSON.parse(JSON.stringify(categoriesTree))
 
     const selectedDepartment = tree.find(
-      (department) => department.value === 'eletronicos'
+      department => department.value === 'eletronicos'
     )
 
     selectedDepartment.selected = true
@@ -296,11 +296,11 @@ describe('<FilterNavigator />', () => {
     const tree = JSON.parse(JSON.stringify(categoriesTree))
 
     const selectedDepartment = tree.find(
-      (department) => department.value === 'eletronicos'
+      department => department.value === 'eletronicos'
     )
 
     selectedDepartment.children.find(
-      (category) => category.value === 'smartphones'
+      category => category.value === 'smartphones'
     ).selected = true
 
     selectedDepartment.selected = true
@@ -345,22 +345,20 @@ describe('<FilterNavigator />', () => {
     const filters = JSON.parse(JSON.stringify(specifications))
 
     filters
-      .find((filter) => filter.title === 'store/search.filter.title.color')
+      .find(filter => filter.title === 'store/search.filter.title.color')
       .facets.find(
-        (filterOption) => filterOption.value === 'green'
+        filterOption => filterOption.value === 'green'
       ).selected = true
 
     filters
-      .find((filter) => filter.title === 'store/search.filter.title.color')
+      .find(filter => filter.title === 'store/search.filter.title.color')
       .facets.find(
-        (filterOption) => filterOption.value === 'white'
+        filterOption => filterOption.value === 'white'
       ).selected = true
 
     filters
-      .find((filter) => filter.title === 'Size')
-      .facets.find(
-        (filterOption) => filterOption.value === '40'
-      ).selected = true
+      .find(filter => filter.title === 'Size')
+      .facets.find(filterOption => filterOption.value === '40').selected = true
 
     const { getAllByText } = renderComponent({
       showClearByFilter: true,

@@ -17,6 +17,7 @@ const noRedirect = compose(isNil, path(['data', 'productSearch', 'redirect']))
 
 const foundNothing = searchQuery => {
   const { loading } = searchQuery || {}
+
   return isFtOnly(searchQuery) && !loading && noProducts(searchQuery)
 }
 

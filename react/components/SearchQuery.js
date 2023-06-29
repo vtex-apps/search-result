@@ -4,6 +4,7 @@ import { useRuntime } from 'vtex.render-runtime'
 import productSearchQuery from 'vtex.store-resources/QueryProductSearchV3'
 import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadataV2'
 import facetsQuery from 'vtex.store-resources/QueryFacetsV2'
+import { equals } from 'ramda'
 
 import {
   buildSelectedFacetsAndFullText,
@@ -12,6 +13,7 @@ import {
 } from '../utils/compatibilityLayer'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
 import useRedirect from '../hooks/useRedirect'
+import useSession from '../hooks/useSession'
 
 const DEFAULT_PAGE = 1
 
@@ -33,18 +35,13 @@ const includeFacets = (map, query) =>
 
 const useCombinedRefetch = (productRefetch, facetsRefetch) => {
   return useCallback(
-    async (refetchVariables) => {
+    async refetchVariables => {
       let productVariables
       let facetsVariables
 
       if (refetchVariables) {
-        const {
-          query,
-          map,
-          priceRange,
-          facetQuery,
-          facetMap,
-        } = refetchVariables
+        const { query, map, priceRange, facetQuery, facetMap } =
+          refetchVariables
 
         productVariables = {
           ...refetchVariables,
@@ -71,10 +68,8 @@ const useCombinedRefetch = (productRefetch, facetsRefetch) => {
         }
 
         if (facetQuery && facetMap) {
-          const [
-            facetSelectedFacets,
-            facetFullText,
-          ] = buildSelectedFacetsAndFullText(facetQuery, facetMap, priceRange)
+          const [facetSelectedFacets, facetFullText] =
+            buildSelectedFacetsAndFullText(facetQuery, facetMap, priceRange)
 
           facetsVariables = {
             ...facetsVariables,
@@ -148,10 +143,10 @@ const useCorrectSearchStateVariables = (
   return result
 }
 
-const useQueries = (variables, facetsArgs) => {
+const useQueries = (variables, facetsArgs, price) => {
   const { getSettings, query: runtimeQuery } = useRuntime()
-  const isLazyFacetsFetchEnabled = getSettings('vtex.store')
-    ?.enableFiltersFetchOptimization
+  const isLazyFacetsFetchEnabled =
+    getSettings('vtex.store')?.enableFiltersFetchOptimization
 
   const productSearchResult = useQuery(productSearchQuery, {
     variables,
@@ -170,6 +165,16 @@ const useQueries = (variables, facetsArgs) => {
       selectedFacets: variables.selectedFacets,
     },
   })
+
+  const getInitialAttributes = () => {
+    if (runtimeQuery && runtimeQuery.initialMap) return runtimeQuery.initialMap
+
+    if (price && facetsArgs.facetMap.indexOf('price') === -1) {
+      return `${facetsArgs.facetMap},price`
+    }
+
+    return facetsArgs.facetMap
+  }
 
   const {
     data: { facets } = {},
@@ -190,7 +195,7 @@ const useQueries = (variables, facetsArgs) => {
       operator: variables.operator,
       fuzzy: variables.fuzzy,
       searchState: variables.searchState || undefined,
-      initialAttributes: runtimeQuery?.initialMap || facetsArgs.facetMap,
+      initialAttributes: getInitialAttributes(),
     },
     skip: !facetsArgs.withFacets,
   })
@@ -270,6 +275,8 @@ const SearchQuery = ({
     priceRange
   )
 
+  const [facetsFromSession, setFacetsFromSession] = useState([])
+
   const { getSettings } = useRuntime()
   const lazyItemsQuerySetting = getSettings('vtex.store')?.enableLazySearchQuery
 
@@ -305,11 +312,26 @@ const SearchQuery = ({
   const from = (page - 1) * maxItemsPerPage
   const to = from + itemsLimit - 1
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const facetsArgs = {
     facetQuery: query,
     facetMap: map,
     withFacets: includeFacets(map, query),
   }
+
+  const { getSession } = useSession()
+
+  useEffect(() => {
+    async function getShippingFromSession() {
+      const result = await getSession()
+
+      if (result && !equals(result, facetsFromSession)) {
+        setFacetsFromSession(result)
+      }
+    }
+
+    getShippingFromSession()
+  }, [facetsFromSession, getSession, selectedFacets])
 
   const variables = useMemo(() => {
     return {
@@ -318,7 +340,7 @@ const SearchQuery = ({
       orderBy: orderBy || DEFAULT_QUERY_VALUES.orderBy,
       from,
       to,
-      selectedFacets,
+      selectedFacets: selectedFacets?.concat(facetsFromSession),
       fullText,
       operator,
       fuzzy,
@@ -349,6 +371,7 @@ const SearchQuery = ({
     simulationBehavior,
     installmentCriteria,
     selectedFacets,
+    facetsFromSession,
     fullText,
     operator,
     fuzzy,
@@ -365,7 +388,7 @@ const SearchQuery = ({
     productSearchResult,
     facetsLoading,
     fetchMore,
-  } = useQueries(variables, facetsArgs)
+  } = useQueries(variables, facetsArgs, priceRange)
 
   const redirectUrl = data && data.productSearch && data.productSearch.redirect
 

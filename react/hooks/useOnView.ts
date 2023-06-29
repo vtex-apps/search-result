@@ -1,5 +1,6 @@
 /** Code borrowed from vtex.render-runtime. Maybe it should export this in the future */
-import { useEffect, useRef, MutableRefObject } from 'react'
+import type { MutableRefObject } from 'react'
+import { useEffect, useRef } from 'react'
 
 interface IntersectionEvent {
   entry: IntersectionObserverEntry
@@ -49,6 +50,7 @@ const useOnView = ({
 
       const unobserve = () => {
         if (isObserving.current) {
+          // eslint-disable-next-line @typescript-eslint/no-use-before-define
           observer.unobserve(element)
           isObserving.current = false
         }
@@ -78,7 +80,9 @@ const useOnView = ({
 
     if (initializeOnInteraction) {
       const cleanUpEvents = () => {
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
         window?.document?.removeEventListener('scroll', handleInteraction)
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
         window?.document?.removeEventListener('mouseover', handleInteraction)
       }
 

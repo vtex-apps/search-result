@@ -25,7 +25,7 @@ beforeEach(() => {
 })
 
 describe('<FacetCheckBoxList />', () => {
-  const renderComponent = (customProps) => {
+  const renderComponent = customProps => {
     const props = { ...mockProps, ...customProps }
 
     return render(

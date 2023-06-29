@@ -1,5 +1,5 @@
 declare module 'vtex.styleguide' {
-  import { ComponentType } from 'react'
+  import type { ComponentType } from 'react'
 
   export const Spinner: ComponentType<Record<string, unknown>>
 }

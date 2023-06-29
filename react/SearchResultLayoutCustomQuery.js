@@ -4,9 +4,9 @@ import { useDevice } from 'vtex.device-detector'
 import { path, compose, equals, pathOr, isEmpty } from 'ramda'
 
 import LocalQuery from './components/LocalQuery'
-
 import OldSearchResult from './index'
 import { removeTreePath } from './utils/removeTreePath'
+import SearchResultCustomQueryWrapper from './components/SearchResultCustomQueryWrapper'
 
 const noProducts = compose(
   isEmpty,
@@ -19,22 +19,25 @@ const trimStartingSlash = value => value && value.replace(/^\//, '')
 
 const foundNothing = searchQuery => {
   const { loading } = searchQuery || {}
+
   return isFtOnly(searchQuery) && !loading && noProducts(searchQuery)
 }
 
 const ExtensionPointWithProps = ({ id, parentProps, localSearchQueryData }) => {
   return (
-    <ExtensionPoint
-      id={id}
-      {...removeTreePath(parentProps)}
-      searchQuery={localSearchQueryData.searchQuery}
-      maxItemsPerPage={localSearchQueryData.maxItemsPerPage}
-      map={localSearchQueryData.map}
-      params={localSearchQueryData.params}
-      priceRange={localSearchQueryData.priceRange}
-      orderBy={localSearchQueryData.orderBy}
-      page={localSearchQueryData.page}
-    />
+    <SearchResultCustomQueryWrapper localSearchQueryData={localSearchQueryData}>
+      <ExtensionPoint
+        id={id}
+        {...removeTreePath(parentProps)}
+        searchQuery={localSearchQueryData.searchQuery}
+        maxItemsPerPage={localSearchQueryData.maxItemsPerPage}
+        map={localSearchQueryData.map}
+        params={localSearchQueryData.params}
+        priceRange={localSearchQueryData.priceRange}
+        orderBy={localSearchQueryData.orderBy}
+        page={localSearchQueryData.page}
+      />
+    </SearchResultCustomQueryWrapper>
   )
 }
 
@@ -68,6 +71,7 @@ const SearchResultLayoutCustomQuery = props => {
             mapField: props.querySchema.mapField,
           })}
       orderByField={props.querySchema.orderByField}
+      priceRangeField={props.querySchema.priceRangeField}
       hideUnavailableItems={props.querySchema.hideUnavailableItems}
       facetsBehavior={props.querySchema.facetsBehavior}
       skusFilter={props.querySchema.skusFilter}
@@ -88,6 +92,7 @@ const SearchResultLayoutCustomQuery = props => {
             />
           )
         }
+
         if (hasMobileBlock && isMobile) {
           return (
             <ExtensionPointWithProps
@@ -97,6 +102,7 @@ const SearchResultLayoutCustomQuery = props => {
             />
           )
         }
+
         if (areFieldsFromQueryStringValid) {
           return (
             <ExtensionPointWithProps
@@ -112,6 +118,7 @@ const SearchResultLayoutCustomQuery = props => {
             />
           )
         }
+
         return (
           <ExtensionPointWithProps
             id="search-result-layout.desktop"
@@ -126,6 +133,7 @@ const SearchResultLayoutCustomQuery = props => {
 
 SearchResultLayoutCustomQuery.getSchema = () => {
   const { description, ...schema } = OldSearchResult.getSchema({})
+
   return {
     ...schema,
     title: 'admin/editor.search-result-layout-custom.title',

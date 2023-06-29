@@ -1,7 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export class Icon extends Component {
-  render() {
-    return <div>Icon</div>
-  }
+export const Icon = () => {
+  return <div>Icon</div>
 }

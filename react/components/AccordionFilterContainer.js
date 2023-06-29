@@ -42,17 +42,15 @@ const AccordionFilterContainer = ({
   showClearByFilter,
   updateOnFilterSelectionOnMobile,
   priceRangeLayout,
-  clearPriceRange,
-  setClearPriceRange
 }) => {
   const intl = useIntl()
-  const { getSettings } = useRuntime()
+  const { getSettings, setQuery } = useRuntime()
   const [openItem, setOpenItem] = useState(null)
   const handles = useCssHandles(CSS_HANDLES)
-  const isLazyFacetsFetchEnabled = getSettings('vtex.store')
-    ?.enableFiltersFetchOptimization
+  const isLazyFacetsFetchEnabled =
+    getSettings('vtex.store')?.enableFiltersFetchOptimization
 
-  const handleOpen = (id) => (e) => {
+  const handleOpen = id => e => {
     e.preventDefault()
 
     if (navigationType === 'collapsible') {
@@ -70,13 +68,13 @@ const AccordionFilterContainer = ({
     }
   }
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = e => {
     if (e.key === 'Enter') {
       setOpenItem(null)
     }
   }
 
-  const nonEmptyFilters = filters.filter((spec) => spec.facets.length > 0)
+  const nonEmptyFilters = filters.filter(spec => spec.facets.length > 0)
 
   const departmentsOpen = openItem === CATEGORIES_TITLE
 
@@ -158,7 +156,7 @@ const AccordionFilterContainer = ({
         </AccordionFilterItem>
       )}
 
-      {nonEmptyFilters.map((filter) => {
+      {nonEmptyFilters.map(filter => {
         const { type, title } = filter
         const isOpen = openItem === filter.title
 
@@ -178,8 +176,10 @@ const AccordionFilterContainer = ({
                 navigationType={navigationType}
                 initiallyCollapsed={initiallyCollapsed}
                 priceRangeLayout={priceRangeLayout}
-                clearPriceRange={clearPriceRange}
-                setClearPriceRange={setClearPriceRange}
+                onClearFilter={() => {
+                  setQuery({ priceRange: undefined })
+                }}
+                showClearByFilter={showClearByFilter}
               />
             )
 
@@ -255,6 +255,10 @@ AccordionFilterContainer.propTypes = {
   updateOnFilterSelectionOnMobile: PropTypes.bool,
   /** Price range layout (default or inputAndSlider) */
   priceRangeLayout: PropTypes.string,
+  /** Defines whether the price range should be cleared or not */
+  clearPriceRange: PropTypes.bool,
+  /** Set the value of clearPriceRange prop */
+  setClearPriceRange: PropTypes.func,
 }
 
 export default AccordionFilterContainer

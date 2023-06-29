@@ -72,7 +72,7 @@ const Gallery: React.FC<GalleryProps> = ({
   const { getSettings } = useRuntime()
   const responsiveMaxItemsPerRow = useResponsiveValue(maxItemsPerRow)
   const breadcrumb = useBreadcrumb()
-  const searchTitle = useSearchTitle(breadcrumb ?? []).trim()
+  const searchTitle = useSearchTitle(breadcrumb ?? [], { matchFt: true }).trim()
 
   // Not using ?? operator because trackingId and searchTitle can be ''
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
@@ -103,10 +103,10 @@ const Gallery: React.FC<GalleryProps> = ({
 
   const itemsPerRow = getItemsPerRow() || responsiveMaxItemsPerRow
 
-  const rows = useMemo(() => splitEvery(itemsPerRow, products), [
-    itemsPerRow,
-    products,
-  ])
+  const rows = useMemo(
+    () => splitEvery(itemsPerRow, products),
+    [itemsPerRow, products]
+  )
 
   const galleryClasses = classNames(
     handles.gallery,
@@ -117,8 +117,8 @@ const Gallery: React.FC<GalleryProps> = ({
     }
   )
 
-  const isLazyRenderEnabled = getSettings('vtex.store')
-    ?.enableSearchRenderingOptimization
+  const isLazyRenderEnabled =
+    getSettings('vtex.store')?.enableSearchRenderingOptimization
 
   return (
     <ProductListProvider listName={listName}>

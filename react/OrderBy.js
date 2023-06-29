@@ -49,14 +49,14 @@ const OrderBy = ({
   const intl = useIntl()
 
   const sortingOptions = useMemo(() => {
-    return SORT_OPTIONS.concat(specificationOptions).filter(
-      (option) => !hiddenOptions.includes(option.value) && option.label
-    ).map(({ value, label }) => {
-      return {
-        value,
-        label: intl.formatMessage({ id: label }),
-      }
-    })
+    return SORT_OPTIONS.concat(specificationOptions)
+      .filter(option => !hiddenOptions.includes(option.value) && option.label)
+      .map(({ value, label }) => {
+        return {
+          value,
+          label: intl.formatMessage({ id: label }),
+        }
+      })
   }, [intl, hiddenOptions, specificationOptions])
 
   return (

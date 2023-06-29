@@ -52,7 +52,7 @@ const SearchFilter = ({
       showClearByFilter={showClearByFilter}
       preventRouteChange={preventRouteChange}
     >
-      {(facet) => (
+      {facet => (
         <FacetItem
           key={facet.name}
           facetTitle={facetTitle}

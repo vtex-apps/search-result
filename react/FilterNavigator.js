@@ -40,7 +40,12 @@ const LAYOUT_TYPES = {
   phone: 'phone',
 }
 
-const getSelectedCategories = (tree) => {
+const DRAWER_DIRECTION_MOBILE = {
+  drawerRight: 'drawerRight',
+  drawerLeft: 'drawerLeft',
+}
+
+const getSelectedCategories = tree => {
   for (const node of tree) {
     if (!node.selected) {
       continue
@@ -56,7 +61,7 @@ const getSelectedCategories = (tree) => {
   return []
 }
 
-const newNamedFacet = (facet) => {
+const newNamedFacet = facet => {
   return { ...facet, newQuerySegment: newFacetPathName(facet) }
 }
 
@@ -90,9 +95,11 @@ const FilterNavigator = ({
   fullWidthOnMobile = false,
   navigationTypeOnMobile = 'page',
   updateOnFilterSelectionOnMobile = false,
+  drawerDirectionMobile = DRAWER_DIRECTION_MOBILE.drawerLeft,
   showClearByFilter = false,
   showClearAllFiltersOnDesktop = false,
   priceRangeLayout = 'slider',
+  showQuantityBadgeOnMobile = false,
 }) => {
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
@@ -103,10 +110,14 @@ const FilterNavigator = ({
     layout === LAYOUT_TYPES.mobile ||
     layout === LAYOUT_TYPES.phone
 
+  const filtersDrawerDirectionMobile =
+    DRAWER_DIRECTION_MOBILE[drawerDirectionMobile] ??
+    DRAWER_DIRECTION_MOBILE.drawerLeft
+
   useEffect(() => {
     // This condition confirms if there are facets that still need fetching
     const needsFetching = !!filters.find(
-      (filter) => filter.quantity > filter.facets.length
+      filter => filter.quantity > filter.facets.length
     )
 
     if (truncatedFacetsFetched && needsFetching && !loading) {
@@ -149,8 +160,8 @@ const FilterNavigator = ({
 
   const selectedFilters = useMemo(() => {
     const options = [
-      ...specificationFilters.map((filter) => {
-        return filter.facets.map((facet) => {
+      ...specificationFilters.map(filter => {
+        return filter.facets.map(facet => {
           return {
             ...newNamedFacet({ ...facet, title: filter.name }),
             hidden: filter.hidden,
@@ -163,14 +174,14 @@ const FilterNavigator = ({
 
     return flatten(options)
   }, [brands, priceRanges, specificationFilters]).filter(
-    (facet) => facet.selected
+    facet => facet.selected
   )
 
   const { searchQuery } = useSearchPage()
-  const hasFiltersApplied = searchQuery.variables?.selectedFacets?.length > 1
+  const hasFiltersApplied = searchQuery?.variables?.selectedFacets?.length > 1
 
   const handleResetFilters = () => {
-    navigateToFacet(selectedFilters, preventRouteChange)
+    navigateToFacet(selectedFilters, preventRouteChange, true)
   }
 
   const selectedCategories = getSelectedCategories(tree)
@@ -231,6 +242,8 @@ const FilterNavigator = ({
               updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
               showClearByFilter={showClearByFilter}
               priceRangeLayout={priceRangeLayout}
+              filtersDrawerDirectionMobile={filtersDrawerDirectionMobile}
+              showQuantityBadgeOnMobile={showQuantityBadgeOnMobile}
             />
           </div>
         </div>
@@ -319,6 +332,9 @@ FilterNavigator.propTypes = {
   /** Loading indicator */
   loading: PropTypes.bool,
   layout: PropTypes.oneOf(Object.values(LAYOUT_TYPES)),
+  filtersDrawerDirectionMobile: PropTypes.oneOf(
+    Object.values(DRAWER_DIRECTION_MOBILE)
+  ),
   initiallyCollapsed: PropTypes.bool,
   truncateFilters: PropTypes.bool,
   filtersTitleHtmlTag: PropTypes.string,

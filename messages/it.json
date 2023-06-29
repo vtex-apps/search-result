@@ -37,12 +37,12 @@
   "admin/editor.search-result.showTitle": "Mostra il titolo della categoria o il termine di ricerca sopra alla galleria",
   "admin/editor.search-result.gap.title": "Distanza tra gli articoli della galleria",
   "admin/editor.search-result.facet-quantity": "Mostra la quantità di filtri",
-  "admin.editor.search-result.advanced-settings.title": "Impostazioni avanzate",
-  "admin.editor.search-result.advanced-settings.trackingId.title": "Nome del risultato di ricerca nel GTM",
-  "admin.editor.search-result.advanced-settings.trackingId.description": "Nome da mostrare in Google Analytics. Nel caso non venga impostato, verrà visualizzato semplicemente \"Risultati di ricerca\"",
+  "admin/editor.search-result.advanced-settings.title": "Impostazioni avanzate",
+  "admin/editor.search-result.advanced-settings.trackingId.title": "Nome del risultato di ricerca nel GTM",
+  "admin/editor.search-result.advanced-settings.trackingId.description": "Nome da mostrare in Google Analytics. Nel caso non venga impostato, verrà visualizzato semplicemente \"Risultati di ricerca\"",
   "admin/editor.search-result.ordination.sort-by": "Ordina per",
   "admin/editor.search-result.total-products": "Totale prodotti",
-  
+
   "store/search-result.show-more-button": "Mostra di più",
   "store/search-result.show-previous-button": "Mostra precedenti",
   "store/search-result.showing-products": "Mostrando {value}",
