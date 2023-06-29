@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.123.2] - 2023-06-29
+
 ### Fixed
 - Filters when changing price range on mobile.
 
