@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useMemo } from 'react'
 import { Checkbox } from 'vtex.styleguide'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import classNames from 'classnames'
@@ -9,7 +9,7 @@ import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPix
 import SettingsContext from './SettingsContext'
 import useShouldDisableFacet from '../hooks/useShouldDisableFacet'
 
-const CSS_HANDLES = ['filterItem', 'productCount']
+const CSS_HANDLES = ['filterItem', 'productCount', 'filterItemTitle']
 
 // These are used to prevent creating a <Checkbox /> with id equal
 // to any of these words.
@@ -28,8 +28,10 @@ const FacetItem = ({
   facet,
   className,
   preventRouteChange,
+  showTitle = false,
 }) => {
   const { showFacetQuantity } = useContext(SettingsContext)
+
   const [selected, setSelected] = useState(facet.selected)
   const { push } = usePixel()
   const handles = useCssHandles(CSS_HANDLES)
@@ -61,20 +63,41 @@ const FacetItem = ({
 
   const shouldDisable = useShouldDisableFacet(facet)
 
-  const facetLabel =
-    showFacetQuantity && !sampling ? (
-      <>
-        {facet.name}{' '}
-        <span
-          data-testid={`facet-quantity-${facet.value}-${facet.quantity}`}
-          className={handles.productCount}
-        >
-          ({facet.quantity})
-        </span>
-      </>
-    ) : (
-      facet.name
-    )
+  const facetLabel = useMemo(() => {
+    const labelElement =
+      showFacetQuantity && !sampling ? (
+        <>
+          {facet.name}{' '}
+          <span
+            data-testid={`facet-quantity-${facet.value}-${facet.quantity}`}
+            className={handles.productCount}
+          >
+            ({facet.quantity})
+          </span>
+        </>
+      ) : (
+        facet.name
+      )
+
+    if (showTitle) {
+      return (
+        <>
+          <span className={handles.filterItemTitle}>{facetTitle}</span>:{' '}
+          {labelElement}
+        </>
+      )
+    }
+
+    return labelElement
+  }, [
+    facet,
+    handles.productCount,
+    handles.filterItemTitle,
+    facetTitle,
+    showTitle,
+    showFacetQuantity,
+    sampling,
+  ])
 
   return (
     <div

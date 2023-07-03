@@ -256,6 +256,7 @@ According to your store's scenario, structure the `search-result-layout` or the 
 | - | - | - | - |
 | `hiddenFacets` | `object` | Indicates which filters should be hidden. The possible values are in [this table](#the-hiddenfacets-object). | `undefined` |
 | `showFacetQuantity` | `boolean` | Determines whether the resulting amount in each filter should appear beside its name on the `filter-navigator.v3` block as (`true`) or (`false`) | `false` |
+| `showFacetTitle` | `boolean`      | Whether the facet title should appear on selected filters section on the `filter-navigator.v3` block as (`true`) or (`false`)      | `false`           |
 | `blockClass` | `string` | Unique block ID to be used in [CSS customization](https://developers.vtex.com/docs/guides/vtex-io-documentation-using-css-handles-for-store-customization#using-the-blockclass-property) | `undefined` |
 | `trackingId` | `string` | ID to be used in Google Analytics to track store metrics based on the Search Result block. | `Search result` |
 | `mobileLayout` | `object` | Controls how the search results page will be displayed to users using the mobile layout. The possible values are in [this table](#the-mobilelayout-object). | `undefined` |
