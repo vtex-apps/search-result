@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- "Clear all filters" button behavior when `preventRouteChange` is true
+
 ## [3.124.0] - 2023-07-03
 - Added `showFacetTitle` prop to toggle weather the facet title should appear on selected filters section
 

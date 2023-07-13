@@ -225,8 +225,8 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
             : searchState ?? undefined
 
         const queries = {
-          map: `${currentMap}`,
-          query: `/${currentQuery}`,
+          ...(currentMap && { map: `${currentMap}` }),
+          query: `/${isReset ? runtimeQuery.initialQuery : currentQuery}`,
           page: undefined,
           fuzzy: fullTextQuery ? fuzzy || undefined : undefined,
           operator: fullTextQuery ? operator || undefined : undefined,
@@ -251,8 +251,7 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
       )
 
       if (
-        searchQuery &&
-        searchQuery.variables &&
+        searchQuery?.variables &&
         (!urlParams.get('initialQuery') || !urlParams.get('initialMap'))
       ) {
         const { map: mapVariable, query: queryVariable } = searchQuery.variables
