@@ -4,6 +4,7 @@ import { useRuntime } from 'vtex.render-runtime'
 import productSearchQuery from 'vtex.store-resources/QueryProductSearchV3'
 import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadataV2'
 import facetsQuery from 'vtex.store-resources/QueryFacetsV2'
+import sponsoredProductsQuery from 'vtex.store-resources/QuerySponsoredProducts'
 import { equals } from 'ramda'
 
 import {
@@ -152,6 +153,13 @@ const useQueries = (variables, facetsArgs, price) => {
     variables,
   })
 
+  const { data: { sponsoredProducts } = [] } = useQuery(
+    sponsoredProductsQuery,
+    {
+      variables,
+    }
+  )
+
   const {
     refetch: searchRefetch,
     loading: searchLoading,
@@ -241,6 +249,7 @@ const useQueries = (variables, facetsArgs, price) => {
         sampling: facets?.sampling,
       },
       searchMetadata,
+      sponsoredProducts,
     },
     productSearchResult,
     refetch,
