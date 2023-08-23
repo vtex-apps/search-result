@@ -144,7 +144,12 @@ const useCorrectSearchStateVariables = (
   return result
 }
 
-const useQueries = (variables, facetsArgs, price) => {
+const useQueries = (
+  variables,
+  facetsArgs,
+  price,
+  sponsoredProductsBehavior = 'skip'
+) => {
   const { getSettings, query: runtimeQuery } = useRuntime()
   const isLazyFacetsFetchEnabled =
     getSettings('vtex.store')?.enableFiltersFetchOptimization
@@ -157,6 +162,7 @@ const useQueries = (variables, facetsArgs, price) => {
     sponsoredProductsQuery,
     {
       variables,
+      skip: sponsoredProductsBehavior === 'skip',
     }
   )
 
@@ -277,6 +283,7 @@ const SearchQuery = ({
   searchState: searchStateQuery,
   lazyItemsQuery: lazyItemsQueryProp,
   __unstableProductOriginVtex,
+  sponsoredProductsBehavior,
 }) => {
   const [selectedFacets, fullText] = buildSelectedFacetsAndFullText(
     query,
@@ -397,7 +404,7 @@ const SearchQuery = ({
     productSearchResult,
     facetsLoading,
     fetchMore,
-  } = useQueries(variables, facetsArgs, priceRange)
+  } = useQueries(variables, facetsArgs, priceRange, sponsoredProductsBehavior)
 
   const redirectUrl = data && data.productSearch && data.productSearch.redirect
 
