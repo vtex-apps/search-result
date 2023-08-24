@@ -9,7 +9,15 @@ import {
 const SearchContent = () => {
   const { searchQuery, showFacets, lazyItemsRemaining } = useSearchPage()
   const { mobileLayout, showContentLoader } = useSearchPageState()
-  const products = path(['data', 'productSearch', 'products'], searchQuery)
+
+  const searchProducts =
+    path(['data', 'productSearch', 'products'], searchQuery) || []
+
+  const sponsoredProducts =
+    path(['data', 'sponsoredProducts'], searchQuery) || []
+
+  const products = searchProducts.concat(sponsoredProducts)
+
   const redirect = path(['data', 'productSearch', 'redirect'], searchQuery)
 
   /* No need to show the spinner if it is loading because

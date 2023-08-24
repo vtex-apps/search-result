@@ -4,6 +4,7 @@ import { useRuntime } from 'vtex.render-runtime'
 import productSearchQuery from 'vtex.store-resources/QueryProductSearchV3'
 import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadataV2'
 import facetsQuery from 'vtex.store-resources/QueryFacetsV2'
+import sponsoredProductsQuery from 'vtex.store-resources/QuerySponsoredProducts'
 import { equals } from 'ramda'
 
 import {
@@ -143,7 +144,12 @@ const useCorrectSearchStateVariables = (
   return result
 }
 
-const useQueries = (variables, facetsArgs, price) => {
+const useQueries = (
+  variables,
+  facetsArgs,
+  price,
+  sponsoredProductsBehavior = 'skip'
+) => {
   const { getSettings, query: runtimeQuery } = useRuntime()
   const isLazyFacetsFetchEnabled =
     getSettings('vtex.store')?.enableFiltersFetchOptimization
@@ -151,6 +157,14 @@ const useQueries = (variables, facetsArgs, price) => {
   const productSearchResult = useQuery(productSearchQuery, {
     variables,
   })
+
+  const { data: { sponsoredProducts } = [] } = useQuery(
+    sponsoredProductsQuery,
+    {
+      variables,
+      skip: sponsoredProductsBehavior === 'skip',
+    }
+  )
 
   const {
     refetch: searchRefetch,
@@ -241,6 +255,7 @@ const useQueries = (variables, facetsArgs, price) => {
         sampling: facets?.sampling,
       },
       searchMetadata,
+      sponsoredProducts,
     },
     productSearchResult,
     refetch,
@@ -268,6 +283,7 @@ const SearchQuery = ({
   searchState: searchStateQuery,
   lazyItemsQuery: lazyItemsQueryProp,
   __unstableProductOriginVtex,
+  sponsoredProductsBehavior,
 }) => {
   const [selectedFacets, fullText] = buildSelectedFacetsAndFullText(
     query,
@@ -388,7 +404,7 @@ const SearchQuery = ({
     productSearchResult,
     facetsLoading,
     fetchMore,
-  } = useQueries(variables, facetsArgs, priceRange)
+  } = useQueries(variables, facetsArgs, priceRange, sponsoredProductsBehavior)
 
   const redirectUrl = data && data.productSearch && data.productSearch.redirect
 
