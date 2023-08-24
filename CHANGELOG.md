@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.125.0] - 2023-08-24
+
 ### Added
 - `sponsoredProducts` query to the PLP.
 
