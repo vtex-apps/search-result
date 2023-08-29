@@ -1,20 +1,20 @@
-import { useMemo, useRef, useCallback, useEffect, useState } from 'react'
+import { equals } from 'ramda'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
+import facetsQuery from 'vtex.store-resources/QueryFacetsV2'
 import productSearchQuery from 'vtex.store-resources/QueryProductSearchV3'
 import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadataV2'
-import facetsQuery from 'vtex.store-resources/QueryFacetsV2'
 import sponsoredProductsQuery from 'vtex.store-resources/QuerySponsoredProducts'
-import { equals } from 'ramda'
 
-import {
-  buildSelectedFacetsAndFullText,
-  detachFiltersByType,
-  buildQueryArgsFromSelectedFacets,
-} from '../utils/compatibilityLayer'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
 import useRedirect from '../hooks/useRedirect'
 import useSession from '../hooks/useSession'
+import {
+  buildQueryArgsFromSelectedFacets,
+  buildSelectedFacetsAndFullText,
+  detachFiltersByType,
+} from '../utils/compatibilityLayer'
 
 const DEFAULT_PAGE = 1
 
@@ -144,12 +144,7 @@ const useCorrectSearchStateVariables = (
   return result
 }
 
-const useQueries = (
-  variables,
-  facetsArgs,
-  price,
-  sponsoredProductsBehavior = 'skip'
-) => {
+const useQueries = (variables, facetsArgs, price) => {
   const { getSettings, query: runtimeQuery } = useRuntime()
   const isLazyFacetsFetchEnabled =
     getSettings('vtex.store')?.enableFiltersFetchOptimization
@@ -160,10 +155,7 @@ const useQueries = (
 
   const { data: { sponsoredProducts } = [] } = useQuery(
     sponsoredProductsQuery,
-    {
-      variables,
-      skip: sponsoredProductsBehavior === 'skip',
-    }
+    { variables }
   )
 
   const {

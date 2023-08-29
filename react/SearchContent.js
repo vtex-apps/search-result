@@ -1,6 +1,6 @@
+import { path } from 'ramda'
 import React from 'react'
 import { ExtensionPoint } from 'vtex.render-runtime'
-import { path } from 'ramda'
 import {
   useSearchPage,
   useSearchPageState,
@@ -16,7 +16,7 @@ const SearchContent = () => {
   const sponsoredProducts =
     path(['data', 'sponsoredProducts'], searchQuery) || []
 
-  const products = searchProducts.concat(sponsoredProducts)
+  const products = sponsoredProducts.concat(searchProducts)
 
   const redirect = path(['data', 'productSearch', 'redirect'], searchQuery)
 
