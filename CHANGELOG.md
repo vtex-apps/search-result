@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Enable ssr on search-result.
+
 ## [3.126.0] - 2023-09-15
 
 ### Added
