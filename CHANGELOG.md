@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.126.0] - 2023-09-15
+
 ### Added
 - `variant` to the search flow.
 
