@@ -180,6 +180,8 @@ const useQueries = (
     getSettings('vtex.store')?.enableFiltersFetchOptimization
 
   const productSearchResult = useQuery(productSearchQuery, {
+    ssr: false,
+    skip: !canUseDOM,
     variables: {
       ...variables,
       variant: getCookie('sp-variant'),
