@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [3.126.1] - 2023-09-15
+### Fixed
+- Yank `3.126.1` changes
+
+## [3.126.1] - 2023-09-15 [YANKED]
 
 ### Fixed
 - Enable ssr on search-result.
