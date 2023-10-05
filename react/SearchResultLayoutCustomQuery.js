@@ -75,6 +75,7 @@ const SearchResultLayoutCustomQuery = props => {
       hideUnavailableItems={props.querySchema.hideUnavailableItems}
       facetsBehavior={props.querySchema.facetsBehavior}
       skusFilter={props.querySchema.skusFilter}
+      installmentCriteria={props.querySchema.installmentCriteria}
       query={props.query}
       __unstableProductOriginVtex={
         props.querySchema.__unstableProductOriginVtex

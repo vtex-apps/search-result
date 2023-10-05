@@ -6,10 +6,12 @@ import SearchQuery from './SearchQuery'
 import { SORT_OPTIONS } from '../OrderBy'
 
 const DEFAULT_MAX_ITEMS_PER_PAGE = 10
+const DEFAULT_INSTALLMENT_CRITERIA = 'MAX_WITHOUT_INTEREST'
 
 const LocalQuery = props => {
   const {
     maxItemsPerPage = DEFAULT_MAX_ITEMS_PER_PAGE,
+    installmentCriteria = DEFAULT_INSTALLMENT_CRITERIA,
     queryField = '',
     mapField = '',
     priceRangeField = '',
@@ -43,6 +45,7 @@ const LocalQuery = props => {
       skusFilter={skusFilter}
       simulationBehavior={simulationBehavior}
       lazyItemsQuery={false}
+      installmentCriteria={installmentCriteria}
       __unstableProductOriginVtex={__unstableProductOriginVtex}
     >
       {(searchQuery, extraParams) => {
