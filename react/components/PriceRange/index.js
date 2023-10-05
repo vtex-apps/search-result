@@ -11,9 +11,7 @@ import { pushFilterManipulationPixelEvent } from '../../utils/filterManipulation
 import { facetOptionShape } from '../../constants/propTypes'
 import { getFilterTitle } from '../../constants/SearchHelpers'
 import FilterOptionTemplate from '../FilterOptionTemplate'
-import useSearchState from '../../hooks/useSearchState'
 import PriceRangeInput from './PriceRangeInput'
-import { useFilterNavigator } from '../FilterNavigatorContext'
 
 const DEBOUNCE_TIME = 500 // ms
 
@@ -25,16 +23,14 @@ const PriceRange = ({
   priceRangeLayout,
   scrollToTop,
   showClearByFilter,
+  onChangePriceRange,
 }) => {
   const { culture, setQuery, query: runtimeQuery } = useRuntime()
   const intl = useIntl()
   const navigateTimeoutId = useRef()
-  const { map, query } = useFilterNavigator()
 
   const { push } = usePixel()
   const { searchQuery } = useSearchPage()
-
-  const { fuzzy, operator, searchState } = useSearchState()
 
   const handleChange = ([left, right]) => {
     if (navigateTimeoutId.current) {
@@ -49,22 +45,9 @@ const PriceRange = ({
     })
 
     navigateTimeoutId.current = setTimeout(() => {
-      const state =
-        typeof sessionStorage !== 'undefined'
-          ? sessionStorage.getItem('searchState') ?? searchState
-          : searchState ?? undefined
-
       // avoid page from reloading again after clear all button is clicked
       if (runtimeQuery?.priceRange || left !== minValue || right !== maxValue) {
-        setQuery({
-          priceRange: `${left} TO ${right}`,
-          page: undefined,
-          fuzzy: fuzzy || undefined,
-          operator: operator || undefined,
-          searchState: state,
-          initialMap: runtimeQuery?.initialMap ?? map,
-          initialQuery: runtimeQuery?.initialQuery ?? query,
-        })
+        onChangePriceRange(`${left} TO ${right}`)
       }
 
       if (scrollToTop !== 'none') {
@@ -154,6 +137,7 @@ PriceRange.propTypes = {
   setClearPriceRange: PropTypes.func,
   /** Whether a clear button that clear all options in a specific filter should appear beside the filter's name (true) or not (false). */
   showClearByFilter: PropTypes.bool,
+  onChangePriceRange: PropTypes.func,
 }
 
 export default PriceRange

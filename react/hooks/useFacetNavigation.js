@@ -201,7 +201,12 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
   const mainSearches = getMainSearches(query, map)
 
   const navigateToFacet = useCallback(
-    (maybeFacets, preventRouteChange = false, isReset = false) => {
+    (
+      maybeFacets,
+      preventRouteChange = false,
+      isReset = false,
+      priceRange = undefined
+    ) => {
       const facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
       const { query: currentQuery, map: currentMap } = buildNewQueryMap(
         mainSearches,
@@ -220,15 +225,15 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
             : searchState ?? undefined
 
         const queries = {
-          map: `${currentMap}`,
-          query: `/${currentQuery}`,
+          ...(currentMap && { map: `${currentMap}` }),
+          query: `/${isReset ? runtimeQuery.initialQuery : currentQuery}`,
           page: undefined,
           fuzzy: fullTextQuery ? fuzzy || undefined : undefined,
           operator: fullTextQuery ? operator || undefined : undefined,
           searchState: state,
           initialMap: runtimeQuery.initialMap ?? map,
           initialQuery: runtimeQuery.initialQuery ?? query,
-          ...(isReset ? { priceRange: undefined } : {}),
+          ...(isReset ? { priceRange: undefined } : { priceRange }),
         }
 
         setQuery(queries)
@@ -246,8 +251,7 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
       )
 
       if (
-        searchQuery &&
-        searchQuery.variables &&
+        searchQuery?.variables &&
         (!urlParams.get('initialQuery') || !urlParams.get('initialMap'))
       ) {
         const { map: mapVariable, query: queryVariable } = searchQuery.variables
@@ -269,6 +273,10 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
           'searchState',
           sessionStorage.getItem('searchState') ?? searchState
         )
+      }
+
+      if (priceRange) {
+        urlParams.set('priceRange', priceRange)
       }
 
       if (!newQuery) {

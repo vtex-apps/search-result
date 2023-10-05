@@ -118,14 +118,18 @@ const FilterSidebar = ({
     setOpen(true)
   }
 
-  const handleApply = () => {
+  const handleApply = (newPriceRange = undefined) => {
     setOpen(false)
 
-    if (updateOnFilterSelectionOnMobile && preventRouteChange) {
+    if (
+      updateOnFilterSelectionOnMobile &&
+      preventRouteChange &&
+      !newPriceRange
+    ) {
       return
     }
 
-    navigateToFacet(filterOperations, preventRouteChange)
+    navigateToFacet(filterOperations, preventRouteChange, false, newPriceRange)
     setFilterOperations([])
   }
 
@@ -272,6 +276,7 @@ const FilterSidebar = ({
             onFilterCheck={handleFilterCheck}
             onCategorySelect={handleUpdateCategories}
             priceRange={priceRange}
+            onChangePriceRange={handleApply}
             appliedFiltersOverview={appliedFiltersOverview}
             navigationType={navigationType}
             initiallyCollapsed={initiallyCollapsed}
@@ -309,7 +314,7 @@ const FilterSidebar = ({
               block
               variation="secondary"
               size="regular"
-              onClick={handleApply}
+              onClick={() => handleApply()}
             >
               <FormattedMessage id="store/search-result.filter-button.apply" />
             </Button>

@@ -30,6 +30,7 @@ const AccordionFilterContainer = ({
   tree,
   onCategorySelect,
   priceRange,
+  onChangePriceRange,
   appliedFiltersOverview,
   navigationType,
   initiallyCollapsed,
@@ -179,6 +180,7 @@ const AccordionFilterContainer = ({
                 onClearFilter={() => {
                   setQuery({ priceRange: undefined })
                 }}
+                onChangePriceRange={onChangePriceRange}
                 showClearByFilter={showClearByFilter}
               />
             )
@@ -259,6 +261,7 @@ AccordionFilterContainer.propTypes = {
   clearPriceRange: PropTypes.bool,
   /** Set the value of clearPriceRange prop */
   setClearPriceRange: PropTypes.func,
+  onChangePriceRange: PropTypes.func,
 }
 
 export default AccordionFilterContainer

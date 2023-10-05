@@ -1,7 +1,18 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useMemo } from 'react'
 import type { RuntimeWithRoute } from 'vtex.render-runtime'
-import { useRuntime, Helmet } from 'vtex.render-runtime'
+import { canUseDOM, useRuntime, Helmet } from 'vtex.render-runtime'
 import queryString from 'query-string'
+
+import useDataPixel from '../hooks/useDataPixel'
+import { usePageView } from '../hooks/usePageView'
+import type { SearchQuery } from '../utils/searchMetadata'
+import {
+  getCategoryMetadata,
+  getDepartmentMetadata,
+  getPageEventName,
+  getSearchMetadata,
+  getTitleTag,
+} from '../utils/searchMetadata'
 
 interface GetHelmetLinkParams {
   canonicalLink: string | undefined
@@ -96,29 +107,120 @@ function isNotLastPage({ products, to, recordsFiltered }: IsNotLastPageParams) {
   return to + 1 < recordsFiltered
 }
 
+const getSearchIdentifier = (
+  searchQuery: SearchQuery,
+  orderBy?: string,
+  page?: string
+) => {
+  const { variables } = searchQuery
+
+  if (!variables) {
+    return
+  }
+
+  const { query, map } = variables
+
+  return query + map + (orderBy ?? '') + (page ?? '')
+}
+
 const SearchResultCustomQueryWrapper = (props: any) => {
   const { localSearchQueryData, children } = props
 
   const {
     maxItemsPerPage,
+    searchQuery,
     searchQuery: {
       data: {
+        searchMetadata: { titleTag = '' } = {},
         productSearch: {
           products: currProducts = undefined,
           recordsFiltered: currRecords = undefined,
         } = {},
-        facets: { recordsFiltered: legacyRecords },
+        facets: { recordsFiltered: legacyRecords, queryArgs },
         products: legacyProducts,
       },
+      variables: { fullText },
     },
+    orderBy,
+    facetsLoading,
   } = localSearchQueryData
 
+  const loading = searchQuery ? searchQuery.loading : undefined
   const products = currProducts ?? legacyProducts
   const recordsFiltered = currRecords ?? legacyRecords
 
   const {
-    query: { page: pageFromQuery = 1 },
+    getSettings,
+    account,
+    query: { page: pageFromQuery = '1' },
+    route: { title: pageTitle },
   } = useRuntime() as RuntimeWithRoute
+
+  const settings = getSettings('vtex.store') || {}
+  const {
+    titleTag: defaultStoreTitle,
+    storeName,
+    enablePageNumberTitle = false,
+    removeStoreNameTitle = false,
+  } = settings
+
+  const title = getTitleTag({
+    titleTag,
+    storeTitle: storeName || defaultStoreTitle,
+    term: fullText,
+    pageTitle,
+    pageNumber: enablePageNumberTitle ? Number(pageFromQuery) : 0,
+    removeStoreNameTitle,
+  })
+
+  const pixelEvents = useMemo(() => {
+    if (!canUseDOM || !currProducts || !queryArgs || facetsLoading) {
+      return null
+    }
+
+    const event = getPageEventName(
+      currProducts,
+      localSearchQueryData.searchQuery.variables
+    )
+
+    const pageInfoEvent = {
+      event: 'pageInfo',
+      eventType: event,
+      accountName: account,
+      pageUrl: window.location.href,
+      orderBy,
+      page: pageFromQuery,
+      category: searchQuery?.data
+        ? getCategoryMetadata(searchQuery.data)
+        : null,
+      department: searchQuery?.data
+        ? getDepartmentMetadata(searchQuery.data)
+        : null,
+      search: searchQuery?.data ? getSearchMetadata(searchQuery.data) : null,
+    }
+
+    return [
+      pageInfoEvent,
+      {
+        event,
+        products: currProducts,
+      },
+    ]
+  }, [
+    currProducts,
+    queryArgs,
+    facetsLoading,
+    localSearchQueryData.searchQuery.variables,
+    account,
+    orderBy,
+    pageFromQuery,
+    searchQuery.data,
+  ])
+
+  const pixelCacheKey = getSearchIdentifier(searchQuery, orderBy, pageFromQuery)
+
+  usePageView({ title, cacheKey: pixelCacheKey })
+  useDataPixel(pixelEvents, pixelCacheKey, loading)
 
   const canonicalLink = useCanonicalLink()
   const pageNumber = Number(pageFromQuery)

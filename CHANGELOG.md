@@ -10,6 +10,49 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - installmentCriteria not being passed down as a prop in customQueries
 
+## [3.126.2] - 2023-09-29
+
+### Fixed
+- Yank `3.126.1` changes
+
+## [3.126.1] - 2023-09-15 [YANKED]
+
+### Fixed
+- Enable ssr on search-result.
+
+## [3.126.0] - 2023-09-15
+
+### Added
+- `variant` to the search flow.
+
+## [3.125.0] - 2023-08-24
+
+### Added
+- `sponsoredProducts` query to the PLP.
+
+## [3.124.1] - 2023-07-21
+
+### Fixed
+
+- "Clear all filters" button behavior when `preventRouteChange` is true
+
+## [3.124.0] - 2023-07-03
+- Added `showFacetTitle` prop to toggle weather the facet title should appear on selected filters section
+
+## [3.123.2] - 2023-06-29
+
+### Fixed
+- Filters when changing price range on mobile.
+
+## [3.123.1] - 2023-06-29
+### Fixed
+- `search-products-count-per-page` block is written twice in the doc.
+
+## [3.123.0] - 2023-06-29
+
+### Added
+- `pageInfo` event for custom search pages.
+
 ## [3.122.6] - 2023-06-26
 
 ### Changed

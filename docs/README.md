@@ -30,33 +30,30 @@ Now, you can use all the blocks exported by the `search-result` app. Check out t
 
 #### `search-result` blocks
 
-| Block name | Description |
-| - | - |
-| `search-result-layout` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Enables you to build the search results page using its three children blocks: `search-result-layout desktop`, `search-result-layout.mobile`, and `search-not-found-layout` . It must be used in the `store.search` template since it uses the context provided by the VTEX Search API. |
-| `search-result-layout.customQuery` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) This block is used instead of `search-result-layout` in scenarios in which the search results will be declared in a template that doesn't fetch Search context, such as Home. It accepts a `querySchema` prop that runs custom search queries. It also supports three children blocks: `search-result-layout.desktop`, `search-result-layout.mobile` and `search-not-found-layout`. |
-| `search-result-layout.desktop` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Builds the search results page structure for desktop mode. |
-| `search-result-layout.mobile` | Builds the search results page structure for mobile mode. If the `search-result-layout.mobile` is not provided, the `search-result-layout.desktop` will be used instead. |
-| `search-layout-switcher` | Enables mobile users to switch between the available layout modes. |
-| `search-not-found-layout` | Builds the whole search results page structure for scenarios in which no results was returned. It is rendered whenever users search for a term that doesn't return any product. |
-| `gallery` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Displays a gallery with all the products found in the search. |
-| `gallery-layout-switcher` | Logical block that allows users to switch between the available `gallery` layouts. To know how to build your search results with multiple layouts, access the [documentation](https://developers.vtex.com/docs/guides/vtex-io-documentation-building-a-search-results-page-with-multiple-layouts). |
-| `gallery-layout-option` | Defines how each layout option should be rendered for users. To know how to build your search results with multiple layouts, access the [documentation](https://developers.vtex.com/docs/guides/vtex-io-documentation-building-a-search-results-page-with-multiple-layouts). |
-| `not-found` | Contains a text and a description for the page that was not found in the search. It must be declared as a child of `search-not-found-layout`. |
-| `search-content` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Determines, behind the scenes, which block will be displayed: either the `gallery` block (if products are found) or the `not-found` block (if the selected filters lead to an empty search results page). This means that both `gallery` and `not-found` must be declared as `search-content` children. |
-| `store.not-found#search` | When configured, it displays a `404` error message whenever the server can't return the browser request or when it is configured not to handle that request. |
-| `search-products-count-per-page` | Displays the total number of products being displayed on the search results page. |
+| Block name   | Description  |
+| -------- | ------------------------ |
+| `search-result-layout`     |  ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Enables you to build the search result page using its three children blocks: `search-result-layout desktop`, `search-result-layout.mobile`, and `search-not-found-layout` . It must be used in the `store.search` template since it uses the context provided by the VTEX Search API.                                                                                 |
+| `search-result-layout.customQuery` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Used instead of `search-result-layout` in scenarios in which the search result will be declared in a template that doesn't fetch Search context, such as Home. It accepts a `querySchema` prop that executes search custom queries. It also supports three children blocks: `search-result-layout.desktop`, `search-result-layout.mobile` and `search-not-found-layout` .
+| `search-result-layout.desktop`   | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Builds the search result page structure for desktop mode.                                                                                                             |
+| `search-result-layout.mobile`   | Builds the search result page structure for mobile mode.  If the `search-result-layout.mobile` is not provided, the `search-result-layout.desktop` will be used instead.                                                                                                            |
+| `search-layout-switcher`       | Enables mobile users to switch between the available layout modes.                                                                                              |
+| `search-not-found-layout`   | Builds the whole search result page structure for scenarios in which no result was fetched. It is rendered whenever users search for a term that doesn't return a product. |                                                      |
+| `gallery`  | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Displays the gallery with all the products found in the search.  |                    |                                         
+| `gallery-layout-switcher` | Logical block that allows users to switch between the available `gallery`'s layouts. To know how to build your search results with multiple layouts, access the [documentation](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-building-a-search-results-page-with-multiple-layouts).  |                           |                                     
+| `gallery-layout-option` | Defines how each layout option should be rendered for users. To know how to build your search results with multiple layouts, access the [documentation](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-building-a-search-results-page-with-multiple-layouts).  | 
+| `not-found` | Contains a text and a description for the page that was not found in the search. It must be declared as a child of `search-not-found-layout`.  | 
+| `search-content`          | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Decides, behind the scenes, which block will be displayed: either the `gallery` block (if products are found) or the `not-found` block (if the selected filters lead to an empty search results page). This means that both `gallery` and `not-found` must be declared as `search-content` children.                    |
+| `store.not-found#search`    | When configured, it displays a `404` error message whenever the server cannot return what the browser request was or when it is configured not to handle that request.  |  
+| `search-products-count-per-page` | Displays the total number of products being displayed on the search results page. | 
 | `search-products-progress-bar` | Displays a progress bar of products being displayed on the search results page. |
-| `order-by.v2` | Allows users to choose the order of products on the search results page. |
-| `filter-navigator.v3` | Allows users to apply different filters to the search. On mobile, renders a button that, when clicked on, displays all available filters in a sidebar. |
-| `total-products.v2` | Displays the total amount of products found for that search. |
-| `search-title.v2` | Displays a title for the search that was done. |
-| `search-fetch-more` | Displays the **Show More** button. This button is not rendered when the user is on the last page. |
-| `search-fetch-previous` | Displays the **Show Previous** button. This button is not rendered when the user is on the first page. |
-| `search-products-count-per-page` | Displays the number of products currently on the page. |
-| `sidebar-close-button` | Displays an `X` button on the filter sidebar on mobile. |
-| `search-fetch-previous` | Displays the **Show Previous** button. This button is not rendered when the user is on the first page. |
-| `search-products-count-per-page` | Displays the number of products currently on the page. |
-| `sidebar-close-button` | Displays an `X` button on the filter sidebar on mobile. |
+| `order-by.v2`            | Allows users to choose the product ordination on the search results page.  | 
+| `filter-navigator.v3`        | Allows users to apply different filters to the search. On mobile, renders a button that, when clicked on, displays all available filters in a sidebar. | 
+| `total-products.v2`        | Displays the total amount of products found for that search. | 
+| `search-title.v2`         | Displays a title for the search that was done. |                                                                                              |
+| `search-fetch-more`         | Displays the **Show More** button. This button is not rendered when the user is on the last page. |                                                                                              |
+| `search-fetch-previous`         | Displays the **Show Previous** button. This button is not rendered when the user is on the first page. |                                   
+| `sidebar-close-button`         | Displays an `X` button on the filter sidebar on mobile. |                                                                                       
+
 
 ## Adding the Search Result to page templates
 
@@ -259,6 +256,7 @@ According to your store's scenario, structure the `search-result-layout` or the 
 | - | - | - | - |
 | `hiddenFacets` | `object` | Indicates which filters should be hidden. The possible values are in [this table](#the-hiddenfacets-object). | `undefined` |
 | `showFacetQuantity` | `boolean` | Determines whether the resulting amount in each filter should appear beside its name on the `filter-navigator.v3` block as (`true`) or (`false`) | `false` |
+| `showFacetTitle` | `boolean`      | Whether the facet title should appear on selected filters section on the `filter-navigator.v3` block as (`true`) or (`false`)      | `false`           |
 | `blockClass` | `string` | Unique block ID to be used in [CSS customization](https://developers.vtex.com/docs/guides/vtex-io-documentation-using-css-handles-for-store-customization#using-the-blockclass-property) | `undefined` |
 | `trackingId` | `string` | ID to be used in Google Analytics to track store metrics based on the Search Result block. | `Search result` |
 | `mobileLayout` | `object` | Controls how the search results page will be displayed to users using the mobile layout. The possible values are in [this table](#the-mobilelayout-object). | `undefined` |
