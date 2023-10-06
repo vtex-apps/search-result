@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Sponsored products are now first in the search result list.
+
 ## [3.127.0] - 2023-10-05
 
 ### Fixed
