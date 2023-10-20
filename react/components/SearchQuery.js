@@ -188,13 +188,21 @@ const useQueries = (
     },
   })
 
-  const { data: { sponsoredProducts } = [] } = useQuery(
+  const { data: { sponsoredProducts } = [], loading: sponsoredProductLoading } = useQuery(
     sponsoredProductsQuery,
     {
       variables,
       skip: sponsoredProductsBehavior === 'skip',
     }
   )
+
+  const sponsoredProductReturn = () => {
+    if(sponsoredProductLoading) {
+      return []
+    }
+
+    return sponsoredProducts
+  }
 
   const {
     refetch: searchRefetch,
@@ -285,7 +293,7 @@ const useQueries = (
         sampling: facets?.sampling,
       },
       searchMetadata,
-      sponsoredProducts,
+      sponsoredProducts: sponsoredProductReturn(),
     },
     productSearchResult,
     refetch,
