@@ -169,6 +169,21 @@ const useCorrectSearchStateVariables = (
   return result
 }
 
+const sponsoredProductsResult = (
+  sponsoredProductsLoading,
+  sponsoredProductsError,
+  sponsoredProducts
+) => {
+  const showSponsoredProducts =
+    !sponsoredProductsLoading && !sponsoredProductsError
+
+  const sponsoredProductsResponse = showSponsoredProducts
+    ? sponsoredProducts
+    : []
+
+  return sponsoredProductsResponse
+}
+
 const useQueries = (
   variables,
   facetsArgs,
@@ -188,21 +203,20 @@ const useQueries = (
     },
   })
 
-  const { data: { sponsoredProducts } = [], loading: sponsoredProductLoading } = useQuery(
-    sponsoredProductsQuery,
-    {
-      variables,
-      skip: sponsoredProductsBehavior === 'skip',
-    }
+  const {
+    data: { sponsoredProducts } = [],
+    loading: sponsoredProductLoading,
+    error: sponsoredProductsError,
+  } = useQuery(sponsoredProductsQuery, {
+    variables,
+    skip: sponsoredProductsBehavior === 'skip',
+  })
+
+  const sponsoredProductsReturn = sponsoredProductsResult(
+    sponsoredProductLoading,
+    sponsoredProductsError,
+    sponsoredProducts
   )
-
-  const sponsoredProductReturn = () => {
-    if(sponsoredProductLoading) {
-      return []
-    }
-
-    return sponsoredProducts
-  }
 
   const {
     refetch: searchRefetch,
@@ -293,7 +307,7 @@ const useQueries = (
         sampling: facets?.sampling,
       },
       searchMetadata,
-      sponsoredProducts: sponsoredProductReturn(),
+      sponsoredProducts: sponsoredProductsReturn,
     },
     productSearchResult,
     refetch,
