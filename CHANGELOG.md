@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- Bump `vtex.store-resources` version.
+
+### Fixed
+
+- Sponsored products are now first in the search result list.
+- While the sponsored products request is loading or returns an error, returns an empty list.
+
 ## [3.127.0] - 2023-10-05
 
 ### Fixed

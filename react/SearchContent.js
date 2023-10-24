@@ -16,7 +16,7 @@ const SearchContent = () => {
   const sponsoredProducts =
     path(['data', 'sponsoredProducts'], searchQuery) || []
 
-  const products = searchProducts.concat(sponsoredProducts)
+  const products = sponsoredProducts.concat(searchProducts)
 
   const redirect = path(['data', 'productSearch', 'redirect'], searchQuery)
 
