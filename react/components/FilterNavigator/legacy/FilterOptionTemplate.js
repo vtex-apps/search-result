@@ -87,7 +87,7 @@ const FilterOptionTemplate = ({
             isOpened={open}
             theme={{ content: searchResult.filterContent }}
           >
-            {renderChildren()}
+            {open && renderChildren()}
           </Collapse>
         ) : (
           renderChildren()

@@ -311,7 +311,7 @@ const FilterOptionTemplate = ({
             thresholdForFacetSearch < filters.length ? (
               <SearchFilterBar name={title} handleChange={setSearchTerm} />
             ) : null}
-            {renderChildren()}
+            {isOpen && renderChildren()}
           </Collapse>
         ) : (
           renderChildren()
