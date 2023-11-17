@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.127.1] - 2023-10-24
 
+### changed
+- Behavior `scrollToElement` added to Gallery component for PLP.
+- `lazyItemsRemaining` removed in Gallery component and GalleryLayout. `lazyRender` removed in GalleryLayoutRow component.
+
 ### Changed
 - Bump `vtex.store-resources` version.
 

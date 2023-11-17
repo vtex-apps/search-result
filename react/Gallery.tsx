@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { ProductList as ProductListStructuredData } from 'vtex.structured-data'
 
 import GalleryLayout from './GalleryLayout'
@@ -16,23 +16,56 @@ type GalleryLayoutPropsWithSlots = Omit<GalleryLayoutProps, 'slots'> & Slots
 const Gallery: React.FC<
   GalleryLegacyProps | GalleryLayoutPropsWithSlots
 > = props => {
-  if ('layouts' in props && props.layouts.length > 0) {
-    const {
-      layouts,
-      lazyItemsRemaining,
-      products,
-      showingFacets,
-      summary,
-      preferredSKU,
-      ...slots
-    } = props as GalleryLayoutPropsWithSlots
+  const { layouts, products, showingFacets, summary, preferredSKU, ...slots } =
+    props as GalleryLayoutPropsWithSlots
 
+  useEffect(() => {
+    const lastClickedProductId = localStorage.getItem('lastClickedProductId')
+    const isMobile = window.innerWidth <= 768
+
+    const delayedExecution = setTimeout(() => {
+      const scrollToElement = (elementId: string, offset: number) => {
+        const elementToScrollTo = document.getElementById(elementId)
+
+        if (elementToScrollTo) {
+          const rect = elementToScrollTo.getBoundingClientRect()
+          const isElementVisible =
+            rect.top >= 0 &&
+            rect.bottom <=
+              (window.innerHeight || document.documentElement.clientHeight)
+
+          if (!isElementVisible) {
+            elementToScrollTo.scrollIntoView({
+              behavior: 'auto',
+              block: 'center',
+              inline: 'nearest',
+            })
+
+            setTimeout(() => {
+              scrollToElement(elementId, offset)
+            }, 500)
+          }
+        }
+      }
+
+      const recursiveScroll = () => {
+        if (lastClickedProductId) {
+          scrollToElement(lastClickedProductId, isMobile ? -200 : -200)
+        }
+      }
+
+      recursiveScroll()
+    }, 1000)
+
+    return () => clearTimeout(delayedExecution)
+  }, [])
+
+  if ('layouts' in props && props.layouts.length > 0) {
     return (
       <Fragment>
         <ProductListStructuredData products={products} />
         <GalleryLayout
           layouts={layouts}
-          lazyItemsRemaining={lazyItemsRemaining}
           products={products}
           showingFacets={showingFacets}
           summary={summary}

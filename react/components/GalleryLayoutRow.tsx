@@ -15,7 +15,6 @@ interface GalleryLayoutRowProps {
   displayMode: string
   GalleryItemComponent: ComponentType
   itemsPerRow: number
-  lazyRender: boolean
   products: Product[]
   summary: unknown
   rowIndex: number
@@ -28,7 +27,6 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
   GalleryItemComponent,
   displayMode,
   itemsPerRow,
-  lazyRender,
   products,
   summary,
   currentLayoutName,
@@ -44,7 +42,6 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
   }
 
   const { hasBeenViewed, dummyElement } = useRenderOnView({
-    lazyRender,
     offset: 900,
   })
 
@@ -68,6 +65,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
               ]),
               'pa4'
             )}
+            id={product.productId}
           >
             <GalleryItem
               GalleryItemComponent={GalleryItemComponent}
