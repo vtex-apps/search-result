@@ -169,6 +169,12 @@ const useCorrectSearchStateVariables = (
   return result
 }
 
+const skipSponsoredProducts = ({ sponsoredProductsBehavior, settings }) => {
+  const fetchSponsoredProductsConfig = settings?.fetchSponsoredProductsOnSearch
+
+  return !fetchSponsoredProductsConfig && sponsoredProductsBehavior === 'skip'
+}
+
 const sponsoredProductsResult = (
   sponsoredProductsLoading,
   sponsoredProductsError,
@@ -191,8 +197,9 @@ const useQueries = (
   sponsoredProductsBehavior = 'skip'
 ) => {
   const { getSettings, query: runtimeQuery } = useRuntime()
-  const isLazyFacetsFetchEnabled =
-    getSettings('vtex.store')?.enableFiltersFetchOptimization
+  const settings = getSettings('vtex.store')
+
+  const isLazyFacetsFetchEnabled = settings?.enableFiltersFetchOptimization
 
   const productSearchResult = useQuery(productSearchQuery, {
     ssr: false,
@@ -209,7 +216,7 @@ const useQueries = (
     error: sponsoredProductsError,
   } = useQuery(sponsoredProductsQuery, {
     variables,
-    skip: sponsoredProductsBehavior === 'skip',
+    skip: skipSponsoredProducts({ sponsoredProductsBehavior, settings }),
   })
 
   const sponsoredProductsReturn = sponsoredProductsResult(
