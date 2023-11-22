@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Use the advanced setting `fetchSponsoredProductsOnSearch` to determine whether or not to fetch sponsored products.
+
 ## [3.127.1] - 2023-10-24
 
 ### Changed
