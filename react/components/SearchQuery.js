@@ -13,6 +13,7 @@ import {
   detachFiltersByType,
   buildQueryArgsFromSelectedFacets,
 } from '../utils/compatibilityLayer'
+import shouldSkipSponsoredProducts from '../utils/shouldSkipSponsoredProducts'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
 import useRedirect from '../hooks/useRedirect'
 import useSession from '../hooks/useSession'
@@ -169,12 +170,6 @@ const useCorrectSearchStateVariables = (
   return result
 }
 
-const skipSponsoredProducts = ({ sponsoredProductsBehavior, settings }) => {
-  const fetchSponsoredProductsConfig = settings?.fetchSponsoredProductsOnSearch
-
-  return !fetchSponsoredProductsConfig && sponsoredProductsBehavior === 'skip'
-}
-
 const sponsoredProductsResult = (
   sponsoredProductsLoading,
   sponsoredProductsError,
@@ -216,7 +211,7 @@ const useQueries = (
     error: sponsoredProductsError,
   } = useQuery(sponsoredProductsQuery, {
     variables,
-    skip: skipSponsoredProducts({ sponsoredProductsBehavior, settings }),
+    skip: shouldSkipSponsoredProducts(sponsoredProductsBehavior, settings),
   })
 
   const sponsoredProductsReturn = sponsoredProductsResult(
