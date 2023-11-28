@@ -13,6 +13,7 @@ import {
   detachFiltersByType,
   buildQueryArgsFromSelectedFacets,
 } from '../utils/compatibilityLayer'
+import shouldSkipSponsoredProducts from '../utils/shouldSkipSponsoredProducts'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
 import useRedirect from '../hooks/useRedirect'
 import useSession from '../hooks/useSession'
@@ -191,8 +192,9 @@ const useQueries = (
   sponsoredProductsBehavior = 'skip'
 ) => {
   const { getSettings, query: runtimeQuery } = useRuntime()
-  const isLazyFacetsFetchEnabled =
-    getSettings('vtex.store')?.enableFiltersFetchOptimization
+  const settings = getSettings('vtex.store')
+
+  const isLazyFacetsFetchEnabled = settings?.enableFiltersFetchOptimization
 
   const productSearchResult = useQuery(productSearchQuery, {
     ssr: false,
@@ -209,7 +211,7 @@ const useQueries = (
     error: sponsoredProductsError,
   } = useQuery(sponsoredProductsQuery, {
     variables,
-    skip: sponsoredProductsBehavior === 'skip',
+    skip: shouldSkipSponsoredProducts(sponsoredProductsBehavior, settings),
   })
 
   const sponsoredProductsReturn = sponsoredProductsResult(
