@@ -20,7 +20,7 @@ import useSession from '../hooks/useSession'
 
 function getCookie(cname) {
   if (!canUseDOM) {
-    return null
+    return undefined
   }
 
   const name = `${cname}=`
@@ -39,7 +39,7 @@ function getCookie(cname) {
     }
   }
 
-  return ''
+  return undefined
 }
 
 const DEFAULT_PAGE = 1
@@ -197,8 +197,6 @@ const useQueries = (
   const isLazyFacetsFetchEnabled = settings?.enableFiltersFetchOptimization
 
   const productSearchResult = useQuery(productSearchQuery, {
-    ssr: false,
-    skip: !canUseDOM,
     variables: {
       ...variables,
       variant: getCookie('sp-variant'),
