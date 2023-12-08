@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.129.0] - 2023-12-08
+
 ### Added
 
 - Created query parameter `anonymousId` for `sponsoredProducts` used on A/B testing.
