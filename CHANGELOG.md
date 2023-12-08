@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.129.1] - 2023-12-08
+
 ### Changed
 
 - Bump `vtex.store-resources` version.
