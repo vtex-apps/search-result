@@ -208,7 +208,10 @@ const useQueries = (
     loading: sponsoredProductLoading,
     error: sponsoredProductsError,
   } = useQuery(sponsoredProductsQuery, {
-    variables,
+    variables: {
+      ...variables,
+      anonymousId: getCookie('biggy-anonymous'),
+    },
     skip: shouldSkipSponsoredProducts(sponsoredProductsBehavior, settings),
   })
 
