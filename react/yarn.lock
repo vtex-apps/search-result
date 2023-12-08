@@ -5626,9 +5626,9 @@ validate-npm-package-license@^3.0.1:
   version "0.18.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-icons@0.18.0/public/@types/vtex.store-icons#0ee94d549aa283ce3a13ab987c13eac4fdfd1bba"
 
-"vtex.store-resources@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-resources@0.93.0/public/@types/vtex.store-resources":
-  version "0.93.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-resources@0.93.0/public/@types/vtex.store-resources#f7d82498aa2871d25df89c54f8fff2f5a7ac22f7"
+"vtex.store-resources@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-resources@0.95.0/public/@types/vtex.store-resources":
+  version "0.95.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-resources@0.95.0/public/@types/vtex.store-resources#74a95451b866ad56d7032e78298eba2174e5e2a0"
 
 "vtex.structured-data@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.structured-data@0.9.1/public/@types/vtex.structured-data":
   version "0.9.1"

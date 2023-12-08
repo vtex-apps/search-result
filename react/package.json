@@ -63,7 +63,7 @@
     "vtex.store-drawer": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-drawer@0.16.2/public/@types/vtex.store-drawer",
     "vtex.store-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.156.1/public/@types/vtex.store-graphql",
     "vtex.store-icons": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-icons@0.18.0/public/@types/vtex.store-icons",
-    "vtex.store-resources": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-resources@0.93.0/public/@types/vtex.store-resources",
+    "vtex.store-resources": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-resources@0.95.0/public/@types/vtex.store-resources",
     "vtex.structured-data": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.structured-data@0.9.1/public/@types/vtex.structured-data",
     "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.3/public/@types/vtex.styleguide",
     "vtex.tab-layout": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.tab-layout@0.4.3/public/@types/vtex.tab-layout"
