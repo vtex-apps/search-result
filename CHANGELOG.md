@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- OrderByScoreDESC description on `README.md`
+
 ## [3.129.1] - 2023-12-08
 
 ### Changed
