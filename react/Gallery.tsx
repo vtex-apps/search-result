@@ -16,8 +16,15 @@ type GalleryLayoutPropsWithSlots = Omit<GalleryLayoutProps, 'slots'> & Slots
 const Gallery: React.FC<
   GalleryLegacyProps | GalleryLayoutPropsWithSlots
 > = props => {
-  const { layouts, products, showingFacets, summary, preferredSKU, ...slots } =
-    props as GalleryLayoutPropsWithSlots
+  const {
+    layouts,
+    lazyItemsRemaining,
+    products,
+    showingFacets,
+    summary,
+    preferredSKU,
+    ...slots
+  } = props as GalleryLayoutPropsWithSlots
 
   useEffect(() => {
     const lastClickedProductId = localStorage.getItem('lastClickedProductId')
@@ -66,6 +73,7 @@ const Gallery: React.FC<
         <ProductListStructuredData products={products} />
         <GalleryLayout
           layouts={layouts}
+          lazyItemsRemaining={lazyItemsRemaining}
           products={products}
           showingFacets={showingFacets}
           summary={summary}

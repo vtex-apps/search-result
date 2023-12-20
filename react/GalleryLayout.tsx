@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useMemo } from 'react'
 import type { ComponentType } from 'react'
 import classNames from 'classnames'
 import { ProductListContext } from 'vtex.product-list-context'
+import { Spinner } from 'vtex.styleguide'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import { useResponsiveValue } from 'vtex.responsive-values'
 import type { MaybeResponsiveInput } from 'vtex.responsive-values'
+import { useRuntime } from 'vtex.render-runtime'
 import { SearchPageContext } from 'vtex.search-page-context'
 
 import GalleryLayoutRow from './components/GalleryLayoutRow'
@@ -17,6 +19,8 @@ import {
 } from './constants'
 import { useBreadcrumb } from './hooks/useBreadcrumb'
 import { useSearchTitle } from './hooks/useSearchTitle'
+
+const LAZY_RENDER_THRESHOLD = 2
 
 const CSS_HANDLES = ['gallery'] as const
 
@@ -33,6 +37,7 @@ export type Slots = Record<string, ComponentType>
 
 export interface GalleryLayoutProps {
   layouts: LayoutOption[]
+  lazyItemsRemaining: number
   products: Product[]
   showingFacets: boolean
   summary: unknown
@@ -49,6 +54,7 @@ export type PreferredSKU =
 
 const GalleryLayout: React.FC<GalleryLayoutProps> = ({
   layouts,
+  lazyItemsRemaining,
   products,
   showingFacets,
   summary,
@@ -57,6 +63,7 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
 }) => {
   const { trackingId } = useContext(SettingsContext) || {}
   const handles = useCssHandles(CSS_HANDLES)
+  const { getSettings } = useRuntime()
   const { selectedGalleryLayout } = useSearchPageState()
   const searchPageStateDispatch = useSearchPageStateDispatch()
 
@@ -141,6 +148,9 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
     }
   )
 
+  const isLazyRenderEnabled =
+    getSettings('vtex.store')?.enableSearchRenderingOptimization
+
   return (
     <ProductListProvider listName={listName as string}>
       <div id="gallery-layout-container" className={galleryClasses}>
@@ -148,6 +158,7 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
           <GalleryLayoutRow
             key={`${currentLayoutOption.name}-${index}`}
             products={rowProducts}
+            lazyRender={!!isLazyRenderEnabled && index >= LAZY_RENDER_THRESHOLD}
             summary={summary}
             displayMode="normal"
             itemsPerRow={itemsPerRow}
@@ -158,6 +169,18 @@ const GalleryLayout: React.FC<GalleryLayoutProps> = ({
             GalleryItemComponent={slots[currentLayoutOption.component]}
           />
         ))}
+        {typeof lazyItemsRemaining === 'number' && lazyItemsRemaining > 0 && (
+          <div
+            style={{
+              width: '100%',
+              // Approximate number, just to add scroll leeway
+              height: 300 * Math.ceil(lazyItemsRemaining / itemsPerRow),
+            }}
+            className="flex justify-center pt10"
+          >
+            <Spinner />
+          </div>
+        )}
       </div>
       <ProductListEventCaller />
     </ProductListProvider>
