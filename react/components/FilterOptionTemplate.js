@@ -306,6 +306,19 @@ const FilterOptionTemplate = ({
           <Collapse
             isOpened={isOpen}
             theme={{ content: handles.filterContent }}
+            initialStyle={
+              isOpen
+                ? {
+                    height: 'auto',
+                    overflow: 'initial',
+                    transition: 'height 500ms',
+                  }
+                : {
+                    height: '0px',
+                    overflow: 'hidden',
+                    transition: 'height 500ms',
+                  }
+            }
           >
             {thresholdForFacetSearch !== undefined &&
             thresholdForFacetSearch < filters.length ? (
