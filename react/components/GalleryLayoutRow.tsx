@@ -68,6 +68,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
               ]),
               'pa4'
             )}
+            id={product.productId}
           >
             <GalleryItem
               GalleryItemComponent={GalleryItemComponent}
