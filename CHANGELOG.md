@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.129.3] - 2024-01-02
+
 ### Changed
 
 - Update from `react-collapse@4` to `react-collapse@5`
