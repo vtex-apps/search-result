@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect } from 'react'
 import { ProductList as ProductListStructuredData } from 'vtex.structured-data'
 
-import GalleryLayout from './GalleryLayout'
 import type { GalleryLayoutProps, Slots } from './GalleryLayout'
+import GalleryLayout from './GalleryLayout'
 import type { GalleryProps as GalleryLegacyProps } from './GalleryLegacy'
 import GalleryLegacy from './GalleryLegacy'
 
@@ -50,7 +50,7 @@ const Gallery: React.FC<
 
             setTimeout(() => {
               scrollToElement(elementId, offset)
-            }, 500)
+            }, 50)
           }
         }
       }
@@ -62,7 +62,7 @@ const Gallery: React.FC<
       }
 
       recursiveScroll()
-    }, 1000)
+    }, 50)
 
     return () => clearTimeout(delayedExecution)
   }, [])
