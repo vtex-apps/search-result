@@ -28,10 +28,9 @@ const Gallery: React.FC<
 
   useEffect(() => {
     const lastClickedProductId = localStorage.getItem('lastClickedProductId')
-    const isMobile = window.innerWidth <= 768
 
     const delayedExecution = setTimeout(() => {
-      const scrollToElement = (elementId: string, offset: number) => {
+      const scrollToElement = (elementId: string, _: number) => {
         const elementToScrollTo = document.getElementById(elementId)
 
         if (elementToScrollTo) {
@@ -47,17 +46,13 @@ const Gallery: React.FC<
               block: 'center',
               inline: 'nearest',
             })
-
-            setTimeout(() => {
-              scrollToElement(elementId, offset)
-            }, 50)
           }
         }
       }
 
       const recursiveScroll = () => {
         if (lastClickedProductId) {
-          scrollToElement(lastClickedProductId, isMobile ? -200 : -200)
+          scrollToElement(lastClickedProductId, -200)
         }
       }
 
