@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- orderByField description on README.md, removing OrderByScoreDESC and adding ASCII table information.
+
 ## [3.129.5] - 2024-02-02
 
 ### Added
