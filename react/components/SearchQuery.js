@@ -189,7 +189,7 @@ const useQueries = (
   variables,
   facetsArgs,
   price,
-  sponsoredProductsBehavior = 'skip'
+  sponsoredProductsBehavior = 'sync'
 ) => {
   const { getSettings, query: runtimeQuery } = useRuntime()
   const settings = getSettings('vtex.store')
@@ -199,6 +199,9 @@ const useQueries = (
   const productSearchResult = useQuery(productSearchQuery, {
     variables: {
       ...variables,
+      showSponsored:
+        settings?.fetchSponsoredProductsOnSearch &&
+        sponsoredProductsBehavior === 'sync',
       variant: getCookie('sp-variant'),
     },
   })
