@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Yank `3.127.1` changes.
+
 ## [3.129.7] - 2024-03-05
 
 ### Fixed
@@ -65,7 +69,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Use the advanced setting `fetchSponsoredProductsOnSearch` to determine whether or not to fetch sponsored products.
 
-## [3.127.1] - 2023-10-24
+## [3.127.1] - 2023-10-24 [YANKED]
 
 ### changed
 - Behavior `scrollToElement` added to Gallery component for PLP.
