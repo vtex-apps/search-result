@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.129.7] - 2024-03-05
+
 ### Fixed
 - Returning the original function to map facets but now using dynamic key to avoid the "reserved words" error
 
