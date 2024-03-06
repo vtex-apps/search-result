@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.129.8] - 2024-03-06
+
 ### Fixed
 
 - Yank `3.127.1` changes.
