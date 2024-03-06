@@ -44,7 +44,6 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
       position,
       list: listName,
     })
-    localStorage.setItem('lastClickedProductId', product.productId)
   }, [
     product,
     push,
