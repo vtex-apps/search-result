@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Get sponsored products within the `productSearch` query
+
 ## [3.129.8] - 2024-03-06
 
 ### Fixed
