@@ -54,7 +54,7 @@ export const buildSelectedFacetsAndFullText = (query, map, priceRange) => {
 }
 
 const addMap = facet => {
-  facet.map = facet.key
+  facet['map'] = facet.key
 
   if (facet.children) {
     facet.children.forEach(facetChild => addMap(facetChild))
@@ -65,9 +65,7 @@ export const detachFiltersByType = facets => {
   facets.forEach(facet => facet.facets.forEach(value => addMap(value)))
 
   const byType = groupBy(filter => filter.type)
-
   const groupedFilters = byType(facets)
-
   const brands = pathOr([], ['BRAND', 0, 'facets'], groupedFilters)
   const brandsQuantity =
     groupedFilters &&

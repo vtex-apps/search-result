@@ -1,4 +1,4 @@
-type SponsoredProductsBehavior = 'skip' | string
+type SponsoredProductsBehavior = 'skip' | 'sync' | 'async'
 
 type Settings = {
   fetchSponsoredProductsOnSearch: boolean
@@ -17,7 +17,10 @@ const shouldSkipSponsoredProducts = (
 ) => {
   const fetchSponsoredProductsConfig = settings?.fetchSponsoredProductsOnSearch
 
-  return !fetchSponsoredProductsConfig && sponsoredProductsBehavior === 'skip'
+  return (
+    (!fetchSponsoredProductsConfig && sponsoredProductsBehavior === 'skip') ||
+    sponsoredProductsBehavior === 'sync'
+  )
 }
 
 export default shouldSkipSponsoredProducts

@@ -10,6 +10,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - orderByField description on README.md, removing OrderByScoreDESC and adding ASCII table information.
 
+## [3.130.0] - 2024-03-07
+
+### Changed
+
+- Get sponsored products within the `productSearch` query
+
+## [3.129.8] - 2024-03-06
+
+### Fixed
+
+- Yank `3.127.1` changes.
+
+## [3.129.7] - 2024-03-05
+
+### Fixed
+- Returning the original function to map facets but now using dynamic key to avoid the "reserved words" error
+
+## [3.129.6] - 2024-02-23
+
+### Fixed
+- Removing invalid function from compatibilityLAyer
+
 ## [3.129.5] - 2024-02-02
 
 ### Added
@@ -58,7 +80,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Use the advanced setting `fetchSponsoredProductsOnSearch` to determine whether or not to fetch sponsored products.
 
-## [3.127.1] - 2023-10-24
+## [3.127.1] - 2023-10-24 [YANKED]
 
 ### changed
 - Behavior `scrollToElement` added to Gallery component for PLP.
