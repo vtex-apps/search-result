@@ -10,13 +10,8 @@ const SearchContent = () => {
   const { searchQuery, showFacets, lazyItemsRemaining } = useSearchPage()
   const { mobileLayout, showContentLoader } = useSearchPageState()
 
-  const searchProducts =
+  const products =
     path(['data', 'productSearch', 'products'], searchQuery) || []
-
-  const sponsoredProducts =
-    path(['data', 'sponsoredProducts'], searchQuery) || []
-
-  const products = sponsoredProducts.concat(searchProducts)
 
   const redirect = path(['data', 'productSearch', 'redirect'], searchQuery)
 

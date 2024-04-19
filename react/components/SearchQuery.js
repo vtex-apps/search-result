@@ -4,7 +4,6 @@ import { useRuntime } from 'vtex.render-runtime'
 import productSearchQuery from 'vtex.store-resources/QueryProductSearchV3'
 import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadataV2'
 import facetsQuery from 'vtex.store-resources/QueryFacetsV2'
-import sponsoredProductsQuery from 'vtex.store-resources/QuerySponsoredProducts'
 import { equals } from 'ramda'
 import { canUseDOM } from 'exenv'
 
@@ -13,7 +12,6 @@ import {
   detachFiltersByType,
   buildQueryArgsFromSelectedFacets,
 } from '../utils/compatibilityLayer'
-import shouldSkipSponsoredProducts from '../utils/shouldSkipSponsoredProducts'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
 import useRedirect from '../hooks/useRedirect'
 import useSession from '../hooks/useSession'
@@ -170,27 +168,7 @@ const useCorrectSearchStateVariables = (
   return result
 }
 
-const sponsoredProductsResult = (
-  sponsoredProductsLoading,
-  sponsoredProductsError,
-  sponsoredProducts
-) => {
-  const showSponsoredProducts =
-    !sponsoredProductsLoading && !sponsoredProductsError
-
-  const sponsoredProductsResponse = showSponsoredProducts
-    ? sponsoredProducts
-    : []
-
-  return sponsoredProductsResponse
-}
-
-const useQueries = (
-  variables,
-  facetsArgs,
-  price,
-  sponsoredProductsBehavior = 'sync'
-) => {
+const useQueries = (variables, facetsArgs, price) => {
   const { getSettings, query: runtimeQuery } = useRuntime()
   const settings = getSettings('vtex.store')
 
@@ -199,30 +177,10 @@ const useQueries = (
   const productSearchResult = useQuery(productSearchQuery, {
     variables: {
       ...variables,
-      showSponsored:
-        settings?.fetchSponsoredProductsOnSearch &&
-        sponsoredProductsBehavior === 'sync',
+      showSponsored: true,
       variant: getCookie('sp-variant'),
     },
   })
-
-  const {
-    data: { sponsoredProducts } = [],
-    loading: sponsoredProductLoading,
-    error: sponsoredProductsError,
-  } = useQuery(sponsoredProductsQuery, {
-    variables: {
-      ...variables,
-      anonymousId: getCookie('biggy-anonymous'),
-    },
-    skip: shouldSkipSponsoredProducts(sponsoredProductsBehavior, settings),
-  })
-
-  const sponsoredProductsReturn = sponsoredProductsResult(
-    sponsoredProductLoading,
-    sponsoredProductsError,
-    sponsoredProducts
-  )
 
   const {
     refetch: searchRefetch,
@@ -313,7 +271,6 @@ const useQueries = (
         sampling: facets?.sampling,
       },
       searchMetadata,
-      sponsoredProducts: sponsoredProductsReturn,
     },
     productSearchResult,
     refetch,
