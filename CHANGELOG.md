@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Always send `showSponsored` as true to the backend.
+- Remove explicit call for `sponsoredProduct`, always relying on the backend return value.
+
 ## [3.130.2] - 2024-03-08
 
 ## [3.130.1] - 2024-03-08
