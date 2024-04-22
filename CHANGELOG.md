@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- If a custom search-resolver needs to send HTML to the facet filter label, it will render the HTML
+
 ## [3.130.2] - 2024-03-08
 
 ## [3.130.1] - 2024-03-08

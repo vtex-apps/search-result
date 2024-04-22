@@ -9,7 +9,7 @@ import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPix
 import SettingsContext from './SettingsContext'
 import useShouldDisableFacet from '../hooks/useShouldDisableFacet'
 
-const CSS_HANDLES = ['filterItem', 'productCount', 'filterItemTitle']
+const CSS_HANDLES = ['filterItem', 'productCount', 'filterItemCustom', 'filterItemTitle']
 
 // These are used to prevent creating a <Checkbox /> with id equal
 // to any of these words.
@@ -21,6 +21,10 @@ const reservedVariableNames = [
   'screen',
   'parent',
 ]
+function containsHTML(str) {
+  const doc = new DOMParser().parseFromString(str, "text/html");
+  return Array.from(doc.body.childNodes).some(node => node.nodeType === 1);
+}
 
 const FacetItem = ({
   navigateToFacet,
@@ -62,12 +66,15 @@ const FacetItem = ({
   }, [facet.selected])
 
   const shouldDisable = useShouldDisableFacet(facet)
+  
 
   const facetLabel = useMemo(() => {
+    const hasHTML = containsHTML(facet.name);
+    const secureName = hasHTML ? (<span className={handles.filterItemCustom} dangerouslySetInnerHTML={{ __html: facet.name }} />) : facet.name
     const labelElement =
       showFacetQuantity && !sampling ? (
         <>
-          {facet.name}{' '}
+          {secureName}{' '}
           <span
             data-testid={`facet-quantity-${facet.value}-${facet.quantity}`}
             className={handles.productCount}
