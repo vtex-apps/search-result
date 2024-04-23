@@ -221,6 +221,13 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
         selectedFacets
       )
 
+      console.log('fullTextQuery => ', fullTextQuery)
+      console.log('searchQuery => ', searchQuery)
+      console.log('maybeFacets => ', maybeFacets)
+      console.log('mainSearches => ', mainSearches)
+      console.log('selectedFacets => ', selectedFacets)
+      console.log('preventRouteChange => ', preventRouteChange)
+
       if (scrollToTop !== 'none') {
         window.scroll({ top: 0, left: 0, behavior: scrollToTop })
       }
@@ -250,9 +257,13 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
         ...facets,
       ])
 
+      console.log('newQuery => ', newQuery)
+
       const urlParams = getCleanUrlParams(
         removeMapForNewURLFormat(currentMap, [...selectedFacets, ...facets])
       )
+
+      console.log('urlParams => ', urlParams)
 
       if (
         searchQuery &&
@@ -260,6 +271,9 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
         (!urlParams.get('initialQuery') || !urlParams.get('initialMap'))
       ) {
         const { map: mapVariable, query: queryVariable } = searchQuery.variables
+
+        console.log('initialQuery => ', queryVariable)
+        console.log('initialMap => ', mapVariable)
 
         urlParams.set('initialQuery', queryVariable)
         urlParams.set('initialMap', mapVariable)
@@ -280,6 +294,9 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
         )
       }
 
+      console.log('searchState => ', searchState)
+
+      console.log('!newQuery => ', !newQuery)
       if (!newQuery) {
         const { initialQuery, initialMap } = runtimeQuery
 
@@ -291,6 +308,15 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
         urlParams.set('map', initialMap)
       }
 
+      console.log('navigate => ', {
+        to: `${PATH_SEPARATOR}${newQuery}`,
+        query: urlParams.toString(),
+        scrollOptions,
+        modifiersOptions: {
+          LOWERCASE: false,
+        },
+      })
+      
       navigate({
         to: `${PATH_SEPARATOR}${newQuery}`,
         query: urlParams.toString(),
