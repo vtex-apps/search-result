@@ -213,6 +213,12 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
         facets,
         selectedFacets
       )
+      console.log('fullTextQuery => ', fullTextQuery)
+      console.log('searchQuery => ', searchQuery)
+      console.log('maybeFacets => ', maybeFacets)
+      console.log('mainSearches => ', mainSearches)
+      console.log('selectedFacets => ', selectedFacets)
+      console.log('preventRouteChange => ', preventRouteChange)
 
       if (scrollToTop !== 'none') {
         window.scroll({ top: 0, left: 0, behavior: scrollToTop })
@@ -246,9 +252,13 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
         ...facets,
       ])
 
+      console.log('newQuery => ', newQuery)
+
       const urlParams = getCleanUrlParams(
         removeMapForNewURLFormat(currentMap, [...selectedFacets, ...facets])
       )
+
+      console.log('urlParams => ', urlParams)
 
       if (
         searchQuery?.variables &&
@@ -279,6 +289,10 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
         urlParams.set('priceRange', priceRange)
       }
 
+      console.log('searchState => ', searchState)
+
+      console.log('!newQuery => ', !newQuery)
+
       if (!newQuery) {
         const { initialQuery, initialMap } = runtimeQuery
 
@@ -293,6 +307,15 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
       if (isReset) {
         urlParams.delete('priceRange')
       }
+
+      console.log('navigate => ', {
+        to: `${PATH_SEPARATOR}${newQuery}`,
+        query: urlParams.toString(),
+        scrollOptions,
+        modifiersOptions: {
+          LOWERCASE: false,
+        },
+      })
 
       navigate({
         to: `${PATH_SEPARATOR}${newQuery}`,
