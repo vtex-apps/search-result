@@ -14,6 +14,7 @@ import {
   PATH_SEPARATOR,
   FULLTEXT_QUERY_KEY,
   SELLER_QUERY_KEY,
+  PRODUCT_CLUSTER_IDS,
 } from '../constants'
 import useSearchState from './useSearchState'
 import { getMainSearches } from '../utils/compatibilityLayer'
@@ -54,8 +55,14 @@ const replaceQueryForNewQueryFormat = (
   mapString,
   selectedFacets
 ) => {
+  console.log('replaceQueryForNewQueryFormat => ', queryString,
+  mapString,
+  selectedFacets)
   const queryArray = queryString.split(PATH_SEPARATOR)
   const mapArray = mapString.split(MAP_VALUES_SEP)
+  console.log('queryArray => ', queryArray)
+  console.log('mapArray => ', mapArray)
+  
   const newQueryFormatArray = zip(queryArray, mapArray).map(
     ([querySegment, mapSegment]) => {
       const facetForQuery = selectedFacets.find(facet => {
@@ -69,7 +76,7 @@ const replaceQueryForNewQueryFormat = (
       return newFacetPathName(facetForQuery)
     }
   )
-
+  
   return newQueryFormatArray.join(PATH_SEPARATOR)
 }
 
@@ -107,6 +114,11 @@ const buildQueryAndMap = (
   facets,
   selectedFacets
 ) => {
+  console.log('buildQueryAndMap => ', querySegments,
+  mapSegments,
+  facets,
+  selectedFacets)
+
   const queryAndMap = facets.reduce(
     // The spread on facet is important so we can assign facet.newQuerySegment
     ({ query, map }, { ...facet }) => {
@@ -165,6 +177,8 @@ const buildQueryAndMap = (
     map: queryAndMap.map.join(MAP_VALUES_SEP),
   }
 
+  console.log('newQueryMap => ', newQueryMap)
+
   return newQueryMap
 }
 
@@ -173,14 +187,27 @@ export const buildNewQueryMap = (
   facets,
   selectedFacets
 ) => {
+  console.log('buildNewQueryMap => ', fullTextSellerAndCollection,
+  facets,
+  selectedFacets)
   const querySegments = selectedFacets.map(facet => facet.value)
   const mapSegments = selectedFacets.map(facet => facet.map)
 
-  const { ft: fullText, seller } = fullTextSellerAndCollection
+  const { ft: fullText, seller, productClusterIds: collection } = fullTextSellerAndCollection
+
+  console.log('querySegments =>', querySegments)
+  console.log('mapSegments =>', mapSegments)
+  console.log('fullText =>', fullText)
+  console.log('seller =>', seller)
 
   if (fullText) {
     querySegments.push(fullText)
     mapSegments.push(FULLTEXT_QUERY_KEY)
+  }
+
+  if (collection && mapSegments.indexOf(PRODUCT_CLUSTER_IDS === -1)) {
+    querySegments.push(collection)
+    mapSegments.push(PRODUCT_CLUSTER_IDS)
   }
 
   if (seller && mapSegments.indexOf(SELLER_QUERY_KEY) === -1) {
@@ -219,6 +246,9 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
       console.log('mainSearches => ', mainSearches)
       console.log('selectedFacets => ', selectedFacets)
       console.log('preventRouteChange => ', preventRouteChange)
+      console.log('currentQuery => ', currentQuery)
+      console.log('currentMap => ', currentMap)
+      console.log('runtimeQuery => ', runtimeQuery)
 
       if (scrollToTop !== 'none') {
         window.scroll({ top: 0, left: 0, behavior: scrollToTop })
@@ -242,6 +272,8 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
           ...(isReset ? { priceRange: undefined } : { priceRange }),
         }
 
+        console.log('Queries => ', queries)
+
         setQuery(queries)
 
         return
@@ -249,7 +281,7 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
 
       let newQuery = replaceQueryForNewQueryFormat(currentQuery, currentMap, [
         ...selectedFacets,
-        ...facets,
+        // ...facets,
       ])
 
       console.log('newQuery => ', newQuery)
@@ -301,8 +333,11 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
         }
 
         newQuery = initialQuery
-        urlParams.set('map', initialMap)
+        // urlParams.set('map', initialMap)
       }
+
+
+      urlParams.set('map', currentMap)
 
       if (isReset) {
         urlParams.delete('priceRange')
