@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed `preferredSKU` prop on README.md.
+
 ## [3.132.1] - 2024-05-06
 
 ### Fixed
