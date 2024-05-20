@@ -6,7 +6,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-The Search Result app handles the results returned by the [VTEX Search API](https://developers.vtex.com/docs/api-reference/search-api#overview) and displaying them to users.
+The Search Result app handles the results returned by the [VTEX Search API](https://developers.vtex.com/docs/guides/search-overview) and displaying them to users.
 
 The app exports all store blocks expected in a search results page, such as the filters and the product gallery.
 
@@ -267,7 +267,7 @@ According to your store's scenario, structure the `search-result-layout` or the 
 #### The `mobileLayout` object
 
 | Prop name | Type | Description | Default value |
-| - | - | - |
+| - | - | - | - |
 | `mode1` | `enum` | Defines the default layout for the mobile search results page. Possible values are: `normal`, `small` or `inline`. | `normal` |
 | `mode2` | `enum` | Defines which layout will be set for the mobile search results page when users click on the layout selector button. Possible values also are `normal`, `small`, or `inline`. | `small` |
 
@@ -319,6 +319,18 @@ To understand how to build your search results with multiple layouts using the `
 | `undefined` | `block` | Defines which blocks should be rendered per layout. The prop name is not `undefined`, you must include the value passed on the `component` prop. This prop's value must match the block name of your choosing to be rendered in that specific layout. | `undefined` |
 | `customSummaryInterval` | `number` | Defines the item interval at which the **Gallery** should render a custom `product-summary` block. For example, declaring `5` would render a custom block at every four items rendered, as shown [on this image](https://user-images.githubusercontent.com/1207017/101687291-0cff1780-3a49-11eb-9c00-678b70001c8a.jpg). It is important to know that this prop doesn't support `layouts` yet. | `undefined` |
 | `CustomSummary` | `block` | Defines a block to be rendered according to the interval defined by the `customSummaryInterval` prop. | `undefined` |
+| `preferredSKU` | `PreferredSKUEnum` | Controls which SKU will be initially selected in the product summary. | `"FIRST_AVAILABLE"` |
+
+For `PreferredSKUEnum`:
+
+| Name | Value | Description |
+| - | - | - |
+| First Available | `FIRST_AVAILABLE` | First available SKU in stock found or first SKU without stock. |
+| Last Available | `LAST_AVAILABLE` | Last available SKU in stock found or last SKU without stock. |
+| Cheapest | `PRICE_ASC` | Cheapest SKU in stock found or first SKU without stock. |
+| Most Expensive | `PRICE_DESC` | Most expensive SKU in stock found or first SKU without stock. |
+
+> ⚠️ There's a way to select which SKU should take preference over this prop. You can create a product specification (field) and per product assign the value of the desired SKU to be initially selected. Keep in mind that if the specification doesn't exist or if the value is empty, it will use the `preferredSKU` prop as fallback. You can read more about it, and how to implement it in [Recipes](https://developers.vtex.com/docs/guides/storefront-implementation)
 
 ##### The `layouts` object
 
@@ -327,18 +339,6 @@ To understand how to build your search results with multiple layouts using the `
 | `name` | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Layout name. This value must be unique i.e. not equal to other layout names declared in the `gallery` block. | `undefined` |
 | `component` | `string` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Names the `undefined` prop from the `gallery` block, which is responsible for declaring the block to be rendered in this layout. This prop's value can be any of your choosing as long as it is PascalCased i.e. has the first letter of each word in its name capitalized. **Caution**: For this to work, the chosen value must be named after the `gallery` block's `undefined` prop. _Do not use the `component` prop's value to directly pass the desired block name itself_. Check out the example below in order to understand the underlying logic behind this prop. | `undefined` |
 | `itemsPerRow` | `number` / `object` | ![https://img.shields.io/badge/-Mandatory-red](https://img.shields.io/badge/-Mandatory-red) Number of items to be displayed in each row of this layout. This prop works with [responsive values](https://developers.vtex.com/docs/apps/vtex.responsive-values/), therefore it also accepts an object with different numbers for desktop, tablet or phone screen sizes (_see the table below_). | `undefined` |
-| `preferredSKU` | `PreferredSKUEnum` | Controls which SKU will be initially selected in the product summary. | `"FIRST_AVAILABLE"` |
-
-For `PreferredSKUEnum`:
-
-| Name | Value | Description |
-| - | - | - | - |
-| First Available | `FIRST_AVAILABLE` | First available SKU in stock found or first SKU without stock. |
-| Last Available | `LAST_AVAILABLE` | Last available SKU in stock found or last SKU without stock. |
-| Cheapest | `PRICE_ASC` | Cheapest SKU in stock found or first SKU without stock. |
-| Most Expensive | `PRICE_DESC` | Most expensive SKU in stock found or first SKU without stock. |
-
-> ⚠️ There's a way to select which SKU should take preference over this prop. You can create a product specification (field) and per product assign the value of the desired SKU to be initially selected. Keep in mind that if the specification doesn't exist or if the value is empty, it will use the `preferredSKU` prop as fallback. You can read more about it, and how to implement it in [Recipes](https://developers.vtex.com/docs/guides/storefront-implementation)
 
 ##### The `itemsPerRow` object
 
