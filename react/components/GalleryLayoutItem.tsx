@@ -1,8 +1,9 @@
 import type { ComponentType } from 'react'
-import React, { useMemo, useCallback, memo } from 'react'
-import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
+import React, { memo, useCallback, useMemo } from 'react'
 import { usePixel } from 'vtex.pixel-manager'
+import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
+import { useRuntime } from 'vtex.render-runtime'
 
 import type { Product } from '../Gallery'
 import type { PreferredSKU } from '../GalleryLayout'
@@ -29,6 +30,9 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
 }) => {
   const { push } = usePixel()
   const { searchQuery } = useSearchPage()
+  const {
+    route: { routeId },
+  } = useRuntime()
 
   const product = useMemo(
     () => ProductSummary.mapCatalogProductToProductSummary(item, preferredSKU),
@@ -61,6 +65,7 @@ const GalleryLayoutItem: React.FC<GalleryLayoutItemProps> = ({
       actionOnClick={handleClick}
       listName={listName}
       position={position}
+      placement={routeId}
     />
   )
 }
