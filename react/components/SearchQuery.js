@@ -169,11 +169,7 @@ const useCorrectSearchStateVariables = (
 }
 
 const useQueries = (variables, facetsArgs, price) => {
-  const {
-    getSettings,
-    query: runtimeQuery,
-    route: { routeId },
-  } = useRuntime()
+  const { getSettings, query: runtimeQuery } = useRuntime()
 
   const settings = getSettings('vtex.store')
 
@@ -186,7 +182,7 @@ const useQueries = (variables, facetsArgs, price) => {
       advertisementOptions: {
         showSponsored: true,
         sponsoredCount: 3,
-        advertisementPlacement: routeId,
+        advertisementPlacement: 'top_search',
         repeatSponsoredProducts: true,
       },
     },
