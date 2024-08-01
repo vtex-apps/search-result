@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Pass `placement` to product search query and product-summary.
+
 ## [3.132.2] - 2024-05-20
 
 ### Fixed

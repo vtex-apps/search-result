@@ -1,20 +1,20 @@
-import { useMemo, useRef, useCallback, useEffect, useState } from 'react'
+import { canUseDOM } from 'exenv'
+import { equals } from 'ramda'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
+import facetsQuery from 'vtex.store-resources/QueryFacetsV2'
 import productSearchQuery from 'vtex.store-resources/QueryProductSearchV3'
 import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadataV2'
-import facetsQuery from 'vtex.store-resources/QueryFacetsV2'
-import { equals } from 'ramda'
-import { canUseDOM } from 'exenv'
 
-import {
-  buildSelectedFacetsAndFullText,
-  detachFiltersByType,
-  buildQueryArgsFromSelectedFacets,
-} from '../utils/compatibilityLayer'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
 import useRedirect from '../hooks/useRedirect'
 import useSession from '../hooks/useSession'
+import {
+  buildQueryArgsFromSelectedFacets,
+  buildSelectedFacetsAndFullText,
+  detachFiltersByType,
+} from '../utils/compatibilityLayer'
 
 function getCookie(cname) {
   if (!canUseDOM) {
@@ -170,6 +170,7 @@ const useCorrectSearchStateVariables = (
 
 const useQueries = (variables, facetsArgs, price) => {
   const { getSettings, query: runtimeQuery } = useRuntime()
+
   const settings = getSettings('vtex.store')
 
   const isLazyFacetsFetchEnabled = settings?.enableFiltersFetchOptimization
@@ -177,8 +178,13 @@ const useQueries = (variables, facetsArgs, price) => {
   const productSearchResult = useQuery(productSearchQuery, {
     variables: {
       ...variables,
-      showSponsored: true,
       variant: getCookie('sp-variant'),
+      advertisementOptions: {
+        showSponsored: true,
+        sponsoredCount: 3,
+        advertisementPlacement: 'top_search',
+        repeatSponsoredProducts: true,
+      },
     },
   })
 

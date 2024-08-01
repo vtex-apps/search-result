@@ -1,7 +1,7 @@
 import type { ComponentType } from 'react'
-import React, { useMemo, useCallback, memo } from 'react'
-import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
+import React, { memo, useCallback, useMemo } from 'react'
 import { usePixel } from 'vtex.pixel-manager'
+import ProductSummary from 'vtex.product-summary/ProductSummaryCustom'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import type { Product } from '../Gallery'
