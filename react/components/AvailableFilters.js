@@ -60,6 +60,31 @@ const Filter = ({
         />
       )
 
+    case 'DELIVERY':
+      return (
+        <SearchFilter
+          key={title}
+          title="Shipping"
+          facets={facets}
+          quantity={quantity}
+          oneSelectedCollapse={oneSelectedCollapse}
+          preventRouteChange={preventRouteChange}
+          initiallyCollapsed={initiallyCollapsed}
+          navigateToFacet={navigateToFacet}
+          lazyRender={lazyRender}
+          truncateFilters={truncateFilters}
+          lastOpenFilter={lastOpenFilter}
+          setLastOpenFilter={setLastOpenFilter}
+          openFiltersMode={openFiltersMode}
+          truncatedFacetsFetched={truncatedFacetsFetched}
+          setTruncatedFacetsFetched={setTruncatedFacetsFetched}
+          closeOnOutsideClick={closeOnOutsideClick}
+          appliedFiltersOverview={appliedFiltersOverview}
+          showClearByFilter={showClearByFilter}
+          type="DELIVERY"
+        />
+      )
+
     default:
       return (
         <SearchFilter

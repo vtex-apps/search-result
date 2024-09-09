@@ -63,6 +63,7 @@ const withSearchPageContextProps =
       specificationFilters,
       categoriesTrees,
       queryArgs,
+      deliveries,
     } = facets
 
     const sortedFilters = useMemo(
@@ -113,6 +114,7 @@ const withSearchPageContextProps =
             priceRangeLayout={priceRangeLayout}
             drawerDirectionMobile={drawerDirectionMobile}
             showQuantityBadgeOnMobile={showQuantityBadgeOnMobile}
+            deliveries={deliveries}
           />
         </FilterNavigatorContext.Provider>
       </div>

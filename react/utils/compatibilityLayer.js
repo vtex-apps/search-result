@@ -54,7 +54,7 @@ export const buildSelectedFacetsAndFullText = (query, map, priceRange) => {
 }
 
 const addMap = facet => {
-  facet['map'] = facet.key
+  facet.map = facet.key
 
   if (facet.children) {
     facet.children.forEach(facetChild => addMap(facetChild))
@@ -79,6 +79,8 @@ export const detachFiltersByType = facets => {
     groupedFilters.TEXT || []
   )
 
+  const deliveries = groupedFilters.DELIVERY || []
+
   const categoriesTrees = pathOr(
     [],
     ['CATEGORYTREE', 0, 'facets'],
@@ -102,6 +104,7 @@ export const detachFiltersByType = facets => {
     specificationFilters,
     categoriesTrees,
     priceRanges,
+    deliveries,
   }
 }
 

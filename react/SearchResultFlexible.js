@@ -82,6 +82,7 @@ const SearchResultFlexible = ({
     priceRanges,
     specificationFilters,
     categoriesTrees,
+    deliveries,
   } = facets
 
   const filters = useMemo(
@@ -92,8 +93,16 @@ const SearchResultFlexible = ({
         brands,
         brandsQuantity,
         hiddenFacets,
+        deliveries,
       }),
-    [brands, hiddenFacets, priceRanges, specificationFilters, brandsQuantity]
+    [
+      brands,
+      hiddenFacets,
+      priceRanges,
+      specificationFilters,
+      brandsQuantity,
+      deliveries,
+    ]
   )
 
   const handles = useCssHandles(CSS_HANDLES)

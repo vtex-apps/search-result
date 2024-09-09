@@ -27,6 +27,7 @@ const SearchFilter = ({
   closeOnOutsideClick,
   appliedFiltersOverview,
   showClearByFilter,
+  type = 'TEXT',
 }) => {
   const intl = useIntl()
   const sampleFacet = facets && facets.length > 0 ? facets[0] : null
@@ -59,6 +60,7 @@ const SearchFilter = ({
           facet={facet}
           preventRouteChange={preventRouteChange}
           navigateToFacet={navigateToFacet}
+          showActionButton={type === 'DELIVERY'}
         />
       )}
     </FilterOptionTemplate>
@@ -93,6 +95,7 @@ SearchFilter.propTypes = {
   /** Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). */
   appliedFiltersOverview: PropTypes.string,
   showClearByFilter: PropTypes.bool,
+  type: PropTypes.string,
 }
 
 export default SearchFilter
