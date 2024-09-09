@@ -1,13 +1,21 @@
-import React, { useContext, useState, useEffect, useMemo } from 'react'
+import React, {
+  useContext,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+} from 'react'
 import { Checkbox } from 'vtex.styleguide'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import classNames from 'classnames'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
-import { usePixel } from 'vtex.pixel-manager'
+import { usePixel, usePixelEventCallback } from 'vtex.pixel-manager'
+import { useSSR } from 'vtex.render-runtime/react/components/NoSSR'
 
 import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
 import SettingsContext from './SettingsContext'
 import useShouldDisableFacet from '../hooks/useShouldDisableFacet'
+import ShippingActionButton from './ShippingActionButton'
 
 const CSS_HANDLES = ['filterItem', 'productCount', 'filterItemTitle']
 
@@ -22,6 +30,27 @@ const reservedVariableNames = [
   'parent',
 ]
 
+const shippingActionTypes = {
+  delivery: 'DELIVERY',
+  'pickup-nearby': 'DELIVERY',
+  'pickup-in-point': 'PICKUP_POINT',
+}
+
+const eventIdentifiers = {
+  DELIVERY: 'addressLabel',
+  PICKUP_POINT: 'pickupPointLabel',
+}
+
+const placeHolders = {
+  DELIVERY: 'Enter location',
+  PICKUP_POINT: 'Enter store',
+}
+
+const drawerEvent = {
+  DELIVERY: 'shipping-option-deliver-to',
+  PICKUP_POINT: 'shipping-option-store',
+}
+
 const FacetItem = ({
   navigateToFacet,
   facetTitle,
@@ -29,11 +58,84 @@ const FacetItem = ({
   className,
   preventRouteChange,
   showTitle = false,
+  showActionButton,
 }) => {
+  const isSSR = useSSR()
+  const { push } = usePixel()
+
+  const actionType = shippingActionTypes[facet.value]
+  const eventIdentifier = eventIdentifiers[actionType]
+
+  const [actionLabel, setActionLabel] = useState(placeHolders[actionType])
+  const [isAddressSet, setIsAddressSet] = useState(false)
+  const [isPickupSet, setIsPickupSet] = useState(false)
+
+  usePixelEventCallback({
+    eventId: `shipping-option-${eventIdentifier}`,
+    handler: e => {
+      if (e?.data?.label) {
+        setActionLabel(e.data.label)
+
+        if (eventIdentifier === 'addressLabel') {
+          setIsAddressSet(true)
+        }
+
+        if (eventIdentifier === 'pickupPointLabel') {
+          setIsPickupSet(true)
+        }
+      } else {
+        setActionLabel(placeHolders[actionType])
+
+        if (eventIdentifier === 'addressLabel') {
+          setIsAddressSet(false)
+        }
+
+        if (eventIdentifier === 'pickupPointLabel') {
+          setIsPickupSet(false)
+        }
+      }
+    },
+  })
+
+  useEffect(() => {
+    if (!isSSR) {
+      return
+    }
+
+    const windowLabel = window[eventIdentifier]
+
+    if (windowLabel) {
+      setActionLabel(windowLabel)
+
+      if (eventIdentifier === 'addressLabel') {
+        setIsAddressSet(true)
+      }
+
+      if (eventIdentifier === 'pickupPointLabel') {
+        setIsPickupSet(true)
+      }
+    } else {
+      setActionLabel(placeHolders[actionType])
+
+      if (eventIdentifier === 'addressLabel') {
+        setIsAddressSet(false)
+      }
+
+      if (eventIdentifier === 'pickupPointLabel') {
+        setIsPickupSet(false)
+      }
+    }
+  }, [actionType, eventIdentifier, isSSR])
+
+  const openDrawer = useCallback(() => {
+    push({
+      id: drawerEvent[actionType],
+    })
+  }, [actionType, push])
+
   const { showFacetQuantity } = useContext(SettingsContext)
 
   const [selected, setSelected] = useState(facet.selected)
-  const { push } = usePixel()
   const handles = useCssHandles(CSS_HANDLES)
   const classes = classNames(
     applyModifiers(handles.filterItem, facet.value),
@@ -61,7 +163,7 @@ const FacetItem = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [facet.selected])
 
-  const shouldDisable = useShouldDisableFacet(facet)
+  const shouldDisable = useShouldDisableFacet(facet, isAddressSet, isPickupSet)
 
   const facetLabel = useMemo(() => {
     const labelElement =
@@ -75,6 +177,11 @@ const FacetItem = ({
             ({facet.quantity})
           </span>
         </>
+      ) : showActionButton && actionType && facet.value !== 'pickup-nearby' ? (
+        <div className="flex flex-column">
+          <span>{facet.name}</span>
+          <ShippingActionButton label={actionLabel} openDrawer={openDrawer} />
+        </div>
       ) : (
         facet.name
       )
@@ -90,13 +197,19 @@ const FacetItem = ({
 
     return labelElement
   }, [
-    facet,
-    handles.productCount,
-    handles.filterItemTitle,
-    facetTitle,
-    showTitle,
     showFacetQuantity,
     sampling,
+    facet.name,
+    facet.value,
+    facet.quantity,
+    handles.productCount,
+    handles.filterItemTitle,
+    showActionButton,
+    actionType,
+    actionLabel,
+    openDrawer,
+    showTitle,
+    facetTitle,
   ])
 
   return (

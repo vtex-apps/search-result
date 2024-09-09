@@ -12,6 +12,7 @@ const getFilters = ({
   specificationFilters = [],
   priceRanges = [],
   brands = [],
+  deliveries = [],
   brandsQuantity = 0,
   hiddenFacets = {},
 }) => {
@@ -35,6 +36,7 @@ const getFilters = ({
     : []
 
   return [
+    ...deliveries,
     ...mappedSpecificationFilters,
     !hiddenFacets.brands &&
       !isEmpty(brands) && {

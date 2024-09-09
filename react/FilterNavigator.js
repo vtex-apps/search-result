@@ -73,6 +73,7 @@ const FilterNavigator = ({
   priceRange,
   tree = [],
   specificationFilters = [],
+  deliveries = [],
   priceRanges = [],
   brands = [],
   loading = false,
@@ -160,7 +161,7 @@ const FilterNavigator = ({
 
   const selectedFilters = useMemo(() => {
     const options = [
-      ...specificationFilters.map(filter => {
+      ...specificationFilters.concat(deliveries).map(filter => {
         return filter.facets.map(facet => {
           return {
             ...newNamedFacet({ ...facet, title: filter.name }),
@@ -173,7 +174,7 @@ const FilterNavigator = ({
     ]
 
     return flatten(options)
-  }, [brands, priceRanges, specificationFilters]).filter(
+  }, [brands, priceRanges, specificationFilters, deliveries]).filter(
     facet => facet.selected
   )
 

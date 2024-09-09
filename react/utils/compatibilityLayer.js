@@ -79,6 +79,8 @@ export const detachFiltersByType = facets => {
     groupedFilters.TEXT || []
   )
 
+  const deliveries = groupedFilters.DELIVERY || []
+
   const categoriesTrees = pathOr(
     [],
     ['CATEGORYTREE', 0, 'facets'],
@@ -102,6 +104,7 @@ export const detachFiltersByType = facets => {
     specificationFilters,
     categoriesTrees,
     priceRanges,
+    deliveries,
   }
 }
 
