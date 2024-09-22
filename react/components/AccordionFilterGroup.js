@@ -28,6 +28,7 @@ const AccordionFilterGroup = ({
   setTruncatedFacetsFetched,
   onClearFilter,
   showClearByFilter,
+  type = 'TEXT',
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const filters = useSelectedFilters(facets)
@@ -67,6 +68,7 @@ const AccordionFilterGroup = ({
           navigationType={navigationType}
           truncatedFacetsFetched={truncatedFacetsFetched}
           setTruncatedFacetsFetched={setTruncatedFacetsFetched}
+          showActionButton={type === 'DELIVERY'}
         />
       </div>
     </AccordionFilterItem>
