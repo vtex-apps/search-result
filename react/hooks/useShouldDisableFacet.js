@@ -10,7 +10,9 @@ export default function useShouldDisableFacet(
   const { map } = useSearchPage()
 
   if (
-    (facet.value === 'delivery' || facet.value === 'pickup-nearby') &&
+    (facet.value === 'delivery' ||
+      facet.value === 'pickup-nearby' ||
+      facet.value === 'pickup') &&
     !isAddressSet
   ) {
     return true
