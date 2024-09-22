@@ -269,3 +269,7 @@
   font-weight: 500;
   color: #134CD8;
 }
+
+.scrim, .sidebar {
+  z-index: 999;
+}
