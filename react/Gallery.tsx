@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { ProductList as ProductListStructuredData } from 'vtex.structured-data'
+import { useRuntime } from 'vtex.render-runtime'
 
 import GalleryLayout from './GalleryLayout'
 import type { GalleryLayoutProps, Slots } from './GalleryLayout'
@@ -16,6 +17,10 @@ type GalleryLayoutPropsWithSlots = Omit<GalleryLayoutProps, 'slots'> & Slots
 const Gallery: React.FC<
   GalleryLegacyProps | GalleryLayoutPropsWithSlots
 > = props => {
+  const {
+    route: { routeId },
+  } = useRuntime()
+
   if ('layouts' in props && props.layouts.length > 0) {
     const {
       layouts,
@@ -29,7 +34,9 @@ const Gallery: React.FC<
 
     return (
       <Fragment>
-        <ProductListStructuredData products={products} />
+        {!routeId.includes('store.search') && (
+          <ProductListStructuredData products={products} />
+        )}
         <GalleryLayout
           layouts={layouts}
           lazyItemsRemaining={lazyItemsRemaining}
