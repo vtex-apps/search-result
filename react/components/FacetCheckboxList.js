@@ -19,7 +19,6 @@ const FacetCheckboxList = ({
   navigationType,
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
-  showActionButton,
 }) => {
   const { searchQuery } = useSearchPage()
   const { showFacetQuantity } = useContext(SettingsContext)
@@ -80,7 +79,6 @@ const FacetCheckboxList = ({
             searchQuery={searchQuery}
             showFacetQuantity={showFacetQuantity}
             key={facet.name}
-            showActionButton={showActionButton}
           />
         )
       })}
