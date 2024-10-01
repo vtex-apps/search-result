@@ -185,30 +185,6 @@ const AccordionFilterContainer = ({
               />
             )
 
-          case 'DELIVERY':
-            return (
-              <AccordionFilterGroup
-                title="Shipping"
-                facets={filter.facets}
-                quantity={filter.quantity}
-                key={title}
-                className={itemClassName}
-                open={isOpen}
-                show={!openItem || isOpen}
-                onOpen={handleOpen(title)}
-                onFilterCheck={onFilterCheck}
-                appliedFiltersOverview={appliedFiltersOverview}
-                navigationType={navigationType}
-                initiallyCollapsed={initiallyCollapsed}
-                truncateFilters={truncateFilters}
-                truncatedFacetsFetched={truncatedFacetsFetched}
-                setTruncatedFacetsFetched={setTruncatedFacetsFetched}
-                onClearFilter={onClearFilter}
-                showClearByFilter={showClearByFilter}
-                type="DELIVERY"
-              />
-            )
-
           default:
             return (
               <AccordionFilterGroup

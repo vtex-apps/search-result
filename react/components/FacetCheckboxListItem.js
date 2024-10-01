@@ -16,12 +16,12 @@ const FacetCheckboxListItem = ({
   facetTitle,
   searchQuery,
   onFilterCheck,
-  showActionButton,
 }) => {
   const { push } = usePixel()
 
   const { actionLabel, actionType, openDrawer, shouldDisable } =
     useShippingActions(facet)
+  const showActionButton = !!actionType
 
   const { name, value: slugifiedName } = facet
 
