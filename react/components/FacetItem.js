@@ -68,10 +68,12 @@ const FacetItem = ({
   }, [facet.selected])
 
   const facetLabel = useMemo(() => {
-    const labelElement =
-      showFacetQuantity && !sampling ? (
+    let labelElement = facet.name
+
+    if (showFacetQuantity && !sampling) {
+      labelElement = (
         <>
-          {facet.name}{' '}
+          {labelElement}{' '}
           <span
             data-testid={`facet-quantity-${facet.value}-${facet.quantity}`}
             className={handles.productCount}
@@ -79,20 +81,22 @@ const FacetItem = ({
             ({facet.quantity})
           </span>
         </>
-      ) : showActionButton && actionType ? (
-        <div className="flex flex-column">
-          <span>{facet.name}</span>
+      ) 
+    }
+      
+    if (showActionButton) {
+      labelElement = (
+        <div>
+          <span>{labelElement}</span>
           <ShippingActionButton label={actionLabel} openDrawer={openDrawer} />
         </div>
-      ) : (
-        facet.name
       )
+    } 
 
     if (showTitle) {
-      return (
+      labelElement = (
         <>
-          <span className={handles.filterItemTitle}>{facetTitle}</span>:{' '}
-          {labelElement}
+          <span className={handles.filterItemTitle}>{facetTitle}</span>: {labelElement}
         </>
       )
     }
@@ -107,7 +111,6 @@ const FacetItem = ({
     handles.productCount,
     handles.filterItemTitle,
     showActionButton,
-    actionType,
     actionLabel,
     openDrawer,
     showTitle,
