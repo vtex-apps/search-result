@@ -1,5 +1,7 @@
 import { path, contains, isEmpty } from 'ramda'
+import { useIntl } from 'react-intl'
 
+export const SHIPPING_TITLE = 'store/search.filter.title.shipping'
 export const CATEGORIES_TITLE = 'store/search.filter.title.categories'
 export const BRANDS_TITLE = 'store/search.filter.title.brands'
 export const PRICE_RANGES_TITLE = 'store/search.filter.title.price-ranges'
@@ -7,6 +9,13 @@ export const PRICE_RANGES_TITLE = 'store/search.filter.title.price-ranges'
 const BRANDS_TYPE = 'Brands'
 const PRICE_RANGES_TYPE = 'PriceRanges'
 const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
+
+const SHIPPING_OPTIONS = {
+  delivery: 'store/search.filter.shipping.name.delivery',
+  'pickup-in-point': 'store/search.filter.shipping.name.pickup-in-point',
+  'pickup-nearby': 'store/search.filter.shipping.name.pickup-nearby',
+  'pickup-all': 'store/search.filter.shipping.name.pickup-all',
+}
 
 const getFilters = ({
   specificationFilters = [],
@@ -16,6 +25,17 @@ const getFilters = ({
   brandsQuantity = 0,
   hiddenFacets = {},
 }) => {
+  const intl = useIntl()
+
+  const shipping = deliveries.map((delivery) => ({
+    ...delivery,
+    title: SHIPPING_TITLE,
+    facets: delivery.facets.map((facet) => ({
+      ...facet,
+      name: intl.formatMessage({ id: SHIPPING_OPTIONS[facet.name] }) ,
+    }))
+  }))
+
   const hiddenFacetsNames = (
     path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
   ).map(filter => filter.name)
@@ -36,7 +56,7 @@ const getFilters = ({
     : []
 
   return [
-    ...deliveries,
+    ...shipping,
     ...mappedSpecificationFilters,
     !hiddenFacets.brands &&
       !isEmpty(brands) && {
