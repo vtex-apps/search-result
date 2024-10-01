@@ -30,12 +30,12 @@ const FacetItem = ({
   className,
   preventRouteChange,
   showTitle = false,
-  showActionButton,
 }) => {
   const { push } = usePixel()
 
   const { actionLabel, actionType, openDrawer, shouldDisable } =
     useShippingActions(facet)
+  const showActionButton = !!actionType
 
   const { showFacetQuantity } = useContext(SettingsContext)
 

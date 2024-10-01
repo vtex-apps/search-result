@@ -27,7 +27,6 @@ const SearchFilter = ({
   closeOnOutsideClick,
   appliedFiltersOverview,
   showClearByFilter,
-  type = 'TEXT',
 }) => {
   const intl = useIntl()
   const sampleFacet = facets && facets.length > 0 ? facets[0] : null
@@ -60,7 +59,6 @@ const SearchFilter = ({
           facet={facet}
           preventRouteChange={preventRouteChange}
           navigateToFacet={navigateToFacet}
-          showActionButton={type === 'DELIVERY'}
         />
       )}
     </FilterOptionTemplate>
