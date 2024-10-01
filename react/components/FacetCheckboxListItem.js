@@ -25,6 +25,36 @@ const FacetCheckboxListItem = ({
 
   const { name, value: slugifiedName } = facet
 
+  const facetLabel = useMemo(() => {
+    let labelElement = facet.name
+
+    if (showFacetQuantity && !sampling) {
+      labelElement = (`${labelElement} (${facet.quantity})`) 
+    }
+      
+    if (showActionButton) {
+      labelElement = (
+        <div className="flex flex-column">
+          <span>{labelElement}</span>
+          <ShippingActionButton
+            label={actionLabel}
+            openDrawer={openDrawer}
+          />
+        </div>
+      )
+    } 
+
+    return labelElement
+  }, [
+    showFacetQuantity,
+    sampling,
+    facet.name,
+    facet.quantity,
+    showActionButton,
+    actionLabel,
+    openDrawer,
+  ])
+
   return (
     <div
       className={classNames(
@@ -38,21 +68,7 @@ const FacetCheckboxListItem = ({
         className="mb0"
         checked={facet.selected}
         id={name}
-        label={
-          showFacetQuantity && !sampling ? (
-            `${facet.name} (${facet.quantity})`
-          ) : showActionButton && actionType ? (
-            <div className="flex flex-column">
-              <span>{facet.name}</span>
-              <ShippingActionButton
-                label={actionLabel}
-                openDrawer={openDrawer}
-              />
-            </div>
-          ) : (
-            facet.name
-          )
-        }
+        label={facetLabel}
         name={name}
         onChange={() => {
           pushFilterManipulationPixelEvent({
