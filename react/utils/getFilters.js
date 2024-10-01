@@ -6,16 +6,16 @@ export const CATEGORIES_TITLE = 'store/search.filter.title.categories'
 export const BRANDS_TITLE = 'store/search.filter.title.brands'
 export const PRICE_RANGES_TITLE = 'store/search.filter.title.price-ranges'
 
-const BRANDS_TYPE = 'Brands'
-const PRICE_RANGES_TYPE = 'PriceRanges'
-const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
-
-const SHIPPING_OPTIONS = {
+export const SHIPPING_OPTIONS = {
   delivery: 'store/search.filter.shipping.name.delivery',
   'pickup-in-point': 'store/search.filter.shipping.name.pickup-in-point',
   'pickup-nearby': 'store/search.filter.shipping.name.pickup-nearby',
   'pickup-all': 'store/search.filter.shipping.name.pickup-all',
 }
+
+const BRANDS_TYPE = 'Brands'
+const PRICE_RANGES_TYPE = 'PriceRanges'
+const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
 
 const getFilters = ({
   specificationFilters = [],
