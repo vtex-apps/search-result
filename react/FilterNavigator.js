@@ -8,7 +8,7 @@ import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 // eslint-disable-next-line no-restricted-imports
 import { flatten } from 'ramda'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 
 import FilterSidebar from './components/FilterSidebar'
@@ -23,7 +23,7 @@ import {
 import useFacetNavigation from './hooks/useFacetNavigation'
 import FilterNavigatorTitleTag from './components/FilterNavigatorTitleTag'
 import styles from './searchResult.css'
-import { CATEGORIES_TITLE } from './utils/getFilters'
+import { CATEGORIES_TITLE, SHIPPING_OPTIONS } from './utils/getFilters'
 import { newFacetPathName } from './utils/slug'
 import { FACETS_RENDER_THRESHOLD } from './constants/filterConstants'
 
@@ -102,6 +102,7 @@ const FilterNavigator = ({
   priceRangeLayout = 'slider',
   showQuantityBadgeOnMobile = false,
 }) => {
+  const intl = useIntl()
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
   const [truncatedFacetsFetched, setTruncatedFacetsFetched] = useState(false)
@@ -159,9 +160,17 @@ const FilterNavigator = ({
     }
   }, [filters, filtersFetchMore, truncatedFacetsFetched, loading])
 
+  const shipping = deliveries.map((delivery) => ({
+    ...delivery,
+    facets: delivery.facets.map((facet) => ({
+      ...facet,
+      name: intl.formatMessage({ id: SHIPPING_OPTIONS[facet.name] }) ,
+    }))
+  }))
+
   const selectedFilters = useMemo(() => {
     const options = [
-      ...specificationFilters.concat(deliveries).map(filter => {
+      ...specificationFilters.concat(shipping).map(filter => {
         return filter.facets.map(facet => {
           return {
             ...newNamedFacet({ ...facet, title: filter.name }),
@@ -174,7 +183,7 @@ const FilterNavigator = ({
     ]
 
     return flatten(options)
-  }, [brands, priceRanges, specificationFilters, deliveries]).filter(
+  }, [brands, priceRanges, specificationFilters, shipping]).filter(
     facet => facet.selected
   )
 
