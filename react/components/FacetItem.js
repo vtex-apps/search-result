@@ -87,7 +87,7 @@ const FacetItem = ({
     if (showActionButton) {
       labelElement = (
         <div>
-          <span>{labelElement}</span>
+          <div>{labelElement}</div>
           <ShippingActionButton label={actionLabel} openDrawer={openDrawer} />
         </div>
       )
@@ -120,7 +120,7 @@ const FacetItem = ({
   return (
     <div
       className={classes}
-      style={{ hyphens: 'auto', wordBreak: 'break-word' }}
+      style={{ hyphens: 'auto', wordBreak: 'break-word', alignSelf: 'center' }}
       alt={facet.name}
       title={facet.name}
     >
