@@ -50,6 +50,7 @@ const SearchResultFlexible = ({
   preventRouteChange = false,
   showFacetQuantity = false,
   showFacetTitle = false,
+  showShippingFacet = false,
   // Below are set by SearchContext
   searchQuery,
   maxItemsPerPage,
@@ -94,6 +95,7 @@ const SearchResultFlexible = ({
         brandsQuantity,
         hiddenFacets,
         deliveries,
+        showShippingFacet
       }),
     [
       brands,
