@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { applyModifiers } from 'vtex.css-handles'
 import { Checkbox } from 'vtex.styleguide'
 import { usePixel } from 'vtex.pixel-manager'
@@ -21,6 +21,7 @@ const FacetCheckboxListItem = ({
 
   const { actionLabel, actionType, openDrawer, shouldDisable } =
     useShippingActions(facet)
+
   const showActionButton = !!actionType
 
   const { name, value: slugifiedName } = facet
@@ -29,20 +30,17 @@ const FacetCheckboxListItem = ({
     let labelElement = facet.name
 
     if (showFacetQuantity && !sampling) {
-      labelElement = (`${labelElement} (${facet.quantity})`) 
+      labelElement = `${labelElement} (${facet.quantity})`
     }
-      
+
     if (showActionButton) {
       labelElement = (
         <div className="flex flex-column">
           <span>{labelElement}</span>
-          <ShippingActionButton
-            label={actionLabel}
-            openDrawer={openDrawer}
-          />
+          <ShippingActionButton label={actionLabel} openDrawer={openDrawer} />
         </div>
       )
-    } 
+    }
 
     return labelElement
   }, [

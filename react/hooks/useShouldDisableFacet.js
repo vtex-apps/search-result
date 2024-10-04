@@ -8,7 +8,7 @@ export default function useShouldDisableFacet(
   isPickupSet
 ) {
   const { map } = useSearchPage()
-
+  
   if (
     (facet.value === 'delivery' ||
       facet.value === 'pickup-nearby' ||
@@ -22,6 +22,10 @@ export default function useShouldDisableFacet(
     return true
   }
 
+  if(facet.quantity === 0) {
+    return true
+  }
+  
   if (!facet.selected || !map) {
     return false
   }
