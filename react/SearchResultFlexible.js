@@ -95,7 +95,7 @@ const SearchResultFlexible = ({
         brandsQuantity,
         hiddenFacets,
         deliveries,
-        showShippingFacet
+        showShippingFacet,
       }),
     [
       brands,
@@ -104,6 +104,7 @@ const SearchResultFlexible = ({
       specificationFilters,
       brandsQuantity,
       deliveries,
+      showShippingFacet,
     ]
   )
 

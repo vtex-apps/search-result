@@ -96,7 +96,7 @@ export const detachFiltersByType = facets => {
     groupedFilters.TEXT || []
   )
 
-  const deliveries = getFormattedDeliveries(groupedFilters.DELIVERY || [], true)
+  const deliveries = getFormattedDeliveries(groupedFilters.DELIVERY || [])
 
   const categoriesTrees = pathOr(
     [],
@@ -137,11 +137,7 @@ export const buildQueryArgsFromSelectedFacets = selectedFacets => {
   )
 }
 
-const getFormattedDeliveries = (deliveries, showShippingFacet) => {
-  if (!showShippingFacet) {
-    return deliveries.filter(d => d.name !== SHIPPING_KEY)
-  }
-
+const getFormattedDeliveries = deliveries => {
   const shippingFacet = deliveries.find(d => d.name === SHIPPING_KEY)
 
   if (!shippingFacet) {

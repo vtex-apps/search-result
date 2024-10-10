@@ -26,7 +26,7 @@ const getFilters = ({
   deliveries = [],
   brandsQuantity = 0,
   hiddenFacets = {},
-  // showShippingFacet = false,
+  showShippingFacet = false,
 }) => {
   const intl = useIntl()
 
@@ -46,6 +46,12 @@ const getFilters = ({
 
     deliveriesFormatted = deliveries.map(facet =>
       facet.name === SHIPPING_KEY ? shippingFacet : facet
+    )
+  }
+
+  if (!showShippingFacet) {
+    deliveriesFormatted = deliveriesFormatted.filter(
+      d => d.name !== SHIPPING_KEY
     )
   }
 
