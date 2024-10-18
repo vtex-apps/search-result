@@ -66,6 +66,11 @@
   "store/search.filter.title.brands": "العلامات التجارية",
   "store/search.filter.title.price-ranges": "نطاقات السعر",
   "store/search.text": "عرض {from}-{to} من {recordsFiltered} نتائج",
+  "store/search.filter.title.shipping": "الشحن",
+  "store/search.filter.shipping.name.delivery": "توصيل الى",
+  "store/search.filter.shipping.name.pickup-in-point": "الاستلام في",
+  "store/search.filter.shipping.name.pickup-nearby": "استلام بقرب",
+  "store/search.filter.shipping.name.pickup-all": "الإستلام",
   "store/search.selected-filters": "تصفية حسب:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {منتج} other {منتجات}}</span>",
   "store/search.total-products-2": "{recordsFiltered} <span>{recordsFiltered, plural, one {منتج} other {منتجات}}</span>",
@@ -104,4 +109,3 @@
   "admin/editor.search-result.fetch-button.button-behavior.button": "الزر",
   "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "الرابط إلى الصفحة - تحسين SEO، قد يغير تصميم الزر"
 }
-

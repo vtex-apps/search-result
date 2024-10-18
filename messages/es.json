@@ -69,7 +69,7 @@
   "store/search.filter.title.shipping": "Envío",
   "store/search.filter.shipping.name.delivery": "Entregar a",
   "store/search.filter.shipping.name.pickup-in-point": "Recogida en",
-  "store/search.filter.shipping.name.pickup-nearby": "Recogida cerca de",
+  "store/search.filter.shipping.name.pickup-nearby": "Recogida en tiendas cercanas",
   "store/search.filter.shipping.name.pickup-all": "Recogida",
   "store/search.selected-filters": "Filtrado por:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {producto} other {productos}}</span>",
