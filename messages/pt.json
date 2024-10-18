@@ -68,7 +68,7 @@
   "store/search.filter.title.shipping": "Entrega",
   "store/search.filter.shipping.name.delivery": "Entregar em",
   "store/search.filter.shipping.name.pickup-in-point": "Retirada em",
-  "store/search.filter.shipping.name.pickup-nearby": "Retirada perto de",
+  "store/search.filter.shipping.name.pickup-nearby": "Retirada em lojas próximas",
   "store/search.filter.shipping.name.pickup-all": "Retirada",
   "store/search.text": "Exibindo {from}-{to} de {recordsFiltered} resultados",
   "store/search.selected-filters": "Filtrado por:",

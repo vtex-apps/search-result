@@ -42,7 +42,6 @@
   "admin/editor.search-result.advanced-settings.trackingId.description": "A Google Analyticsben megjelenítendő név. Ha semmit sem adnak át, akkor csak a \"Keresési eredmény\" elemet fogja használni",
   "admin/editor.search-result.ordination.sort-by": "Rendezés",
   "admin/editor.search-result.total-products": "Összes termék",
-    
   "store/search-result.show-more-button": "Mutass többet",
   "store/search-result.show-previous-button": "Előző megjelenítése",
   "store/search-result.showing-products": "{value} megjelenítése",
@@ -58,14 +57,19 @@
   "store/search-result.clear-filters.title": "Törlés",
   "store/search-result.filter-action.title": "Szűrő",
   "store/search.filter.title.categories": "Osztályok",
-  "store/filter.more-departments": "További {quantity} részleg megtekintése",
   "store/search.filter.title.color": "Szín",
+  "store/filter.more-departments": "További {quantity} részleg megtekintése",
   "store/filter.more-categories": "További {quantity} kategória megtekintése",
   "store/filter.more-items": "További {quantity} megtekintése",
   "store/filter.less-items": "Láss kevesebbet",
   "store/search.filter.placeholder": "Keresés a következő szerint {filterName}",
   "store/search.filter.title.brands": "Márkák",
   "store/search.filter.title.price-ranges": "Ártartományok",
+  "store/search.filter.title.shipping": "Shipping",
+  "store/search.filter.shipping.name.delivery": "Deliver to",
+  "store/search.filter.shipping.name.pickup-in-point": "Pickup at",
+  "store/search.filter.shipping.name.pickup-nearby": "Pickup nearby",
+  "store/search.filter.shipping.name.pickup-all": "Pickup",
   "store/search.text": "{from}-{to} megjelenítése {recordsFiltered} rekordból",
   "store/search.selected-filters": "Szűrés:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {Product} other {Products}}</span>",
@@ -104,5 +108,4 @@
   "admin/editor.search-result.fetch-button.button-behavior": "Gomb viselkedése",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Gomb",
   "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link az oldalra – Javítja a SEO-t, megváltoztathatja a gomb megjelenését"
-  }
-  
+}
