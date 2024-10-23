@@ -4,6 +4,7 @@ import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import classNames from 'classnames'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { usePixel } from 'vtex.pixel-manager'
+import { useIntl } from 'react-intl'
 
 import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
 import SettingsContext from './SettingsContext'
@@ -31,10 +32,12 @@ const FacetItem = ({
   preventRouteChange,
   showTitle = false,
 }) => {
+  const intl = useIntl()
   const { push } = usePixel()
 
   const { actionLabel, actionType, openDrawer, shouldDisable } =
     useShippingActions(facet)
+
   const showActionButton = !!actionType
 
   const { showFacetQuantity } = useContext(SettingsContext)
@@ -81,22 +84,26 @@ const FacetItem = ({
             ({facet.quantity})
           </span>
         </>
-      ) 
+      )
     }
-      
+
     if (showActionButton) {
       labelElement = (
         <div>
           <div>{labelElement}</div>
-          <ShippingActionButton label={actionLabel} openDrawer={openDrawer} />
+          <ShippingActionButton
+            label={intl.formatMessage({ id: actionLabel })}
+            openDrawer={openDrawer}
+          />
         </div>
       )
-    } 
+    }
 
     if (showTitle) {
       labelElement = (
         <>
-          <span className={handles.filterItemTitle}>{facetTitle}</span>: {labelElement}
+          <span className={handles.filterItemTitle}>{facetTitle}</span>:{' '}
+          {labelElement}
         </>
       )
     }
@@ -115,6 +122,7 @@ const FacetItem = ({
     openDrawer,
     showTitle,
     facetTitle,
+    intl,
   ])
 
   return (

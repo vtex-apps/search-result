@@ -17,8 +17,8 @@ const eventIdentifiers = {
 }
 
 const placeHolders = {
-  DELIVERY: 'Enter location',
-  PICKUP_POINT: 'Enter store',
+  DELIVERY: 'store/search.filter.shipping.action-button.delivery',
+  PICKUP_POINT: 'store/search.filter.shipping.action-button.pickup-in-point',
 }
 
 const drawerEvent = {
