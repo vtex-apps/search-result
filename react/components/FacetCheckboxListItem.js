@@ -3,6 +3,7 @@ import React, { useMemo } from 'react'
 import { applyModifiers } from 'vtex.css-handles'
 import { Checkbox } from 'vtex.styleguide'
 import { usePixel } from 'vtex.pixel-manager'
+import { useIntl } from 'react-intl'
 
 import styles from '../searchResult.css'
 import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
@@ -17,6 +18,8 @@ const FacetCheckboxListItem = ({
   searchQuery,
   onFilterCheck,
 }) => {
+  const intl = useIntl()
+
   const { push } = usePixel()
 
   const { actionLabel, actionType, openDrawer, shouldDisable } =
@@ -37,7 +40,10 @@ const FacetCheckboxListItem = ({
       labelElement = (
         <div className="flex flex-column">
           <span>{labelElement}</span>
-          <ShippingActionButton label={actionLabel} openDrawer={openDrawer} />
+          <ShippingActionButton
+            label={intl.formatMessage({ id: actionLabel })}
+            openDrawer={openDrawer}
+          />
         </div>
       )
     }
@@ -51,6 +57,7 @@ const FacetCheckboxListItem = ({
     showActionButton,
     actionLabel,
     openDrawer,
+    intl,
   ])
 
   return (
