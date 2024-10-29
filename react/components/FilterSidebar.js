@@ -23,6 +23,7 @@ import {
   filterCategoryDepartmentCollectionAndFT,
 } from '../utils/queryAndMapUtils'
 import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
+import isShippingOptionsComponent from '../utils/isShippingOptionsComponent'
 
 const CSS_HANDLES = [
   'filterPopupButton',
@@ -110,7 +111,11 @@ const FilterSidebar = ({
     }
   }
 
-  const handleClose = () => {
+  const handleClose = e => {
+    if (isShippingOptionsComponent(e)) {
+      return
+    }
+
     setOpen(false)
   }
 
