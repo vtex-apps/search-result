@@ -5,13 +5,17 @@ import { useRuntime } from 'vtex.render-runtime'
 import PriceRange from '../../components/PriceRange'
 
 const mockUseRuntime = useRuntime
-const mockSetQuery = jest.fn()
+const mockOnChangePriceRange = jest.fn()
+
+jest.spyOn(window, 'scroll').mockImplementation(jest.fn())
 
 beforeEach(() => {
   jest.clearAllMocks()
 
   mockUseRuntime.mockImplementation(() => ({
-    setQuery: mockSetQuery,
+    query: {
+      priceRange: {},
+    },
     getSettings: () => ({}),
     culture: { country: 'USA', currency: 'USD' },
   }))
@@ -62,6 +66,7 @@ const mockProps = {
     },
   ],
   preventRouteChange: false,
+  onChangePriceRange: mockOnChangePriceRange,
 }
 
 describe('<PriceRange />', () => {
@@ -78,11 +83,11 @@ describe('<PriceRange />', () => {
 
     fireEvent.click(getByText('$1.00 $10.00'))
 
-    expect(mockSetQuery).not.toBeCalled()
+    expect(mockOnChangePriceRange).not.toBeCalled()
 
     jest.runAllTimers()
 
-    expect(mockSetQuery).toHaveBeenCalledTimes(1)
+    expect(mockOnChangePriceRange).toHaveBeenCalledTimes(1)
   })
 
   it('should call setQuery on Slider change only once after multiple interactions', () => {
@@ -93,11 +98,11 @@ describe('<PriceRange />', () => {
     fireEvent.click(getByText('$1.00 $10.00'))
     fireEvent.click(getByText('$1.00 $10.00'))
 
-    expect(mockSetQuery).not.toBeCalled()
+    expect(mockOnChangePriceRange).not.toBeCalled()
 
     jest.runAllTimers()
 
-    expect(mockSetQuery).toHaveBeenCalledTimes(1)
+    expect(mockOnChangePriceRange).toHaveBeenCalledTimes(1)
   })
 
   it('should render defaultValues', () => {
