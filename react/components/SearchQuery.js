@@ -232,6 +232,7 @@ const useQueries = (variables, facetsArgs, price) => {
       fuzzy: variables.fuzzy,
       searchState: variables.searchState || undefined,
       initialAttributes: getInitialAttributes(),
+      variant: getCookie('sp-variant'),
     },
     skip: !facetsArgs.withFacets,
   })
