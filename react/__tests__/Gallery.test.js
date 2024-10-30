@@ -19,6 +19,7 @@ beforeEach(() => {
   jest.clearAllMocks()
 
   mockUseRuntime.mockImplementation(() => ({
+    route: { routeId: 'routeId' },
     getSettings: () => ({}),
   }))
 
