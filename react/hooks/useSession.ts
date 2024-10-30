@@ -27,7 +27,7 @@ const useSession = () => {
     }
 
     return JSON.parse(data.namespaces.public.shippingOption.value)
-  }, [])
+  }, [rootPath])
 
   return { getSession }
 }

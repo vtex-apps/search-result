@@ -54,7 +54,7 @@ export const buildSelectedFacetsAndFullText = (query, map, priceRange) => {
 }
 
 const addMap = facet => {
-  facet['map'] = facet.key
+  facet.map = facet.key
 
   if (facet.children) {
     facet.children.forEach(facetChild => addMap(facetChild))
