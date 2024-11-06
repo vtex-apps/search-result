@@ -99,7 +99,7 @@
   "admin/editor.search-result-desktop.title": "Search result flexible layout - Desktop",
   "store/search-result.price-ranges.submit": "Search",
   "admin/editor.search-result.fetch-more": "Load more",
-  "admin/editor.search-result.fetch-previous": "Retrieve previous",
+  "admin/editor.search-result.fetch-previous": "Load previous",
   "admin/editor.search-result.fetch-button.button-behavior": "Button behavior",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Button",
   "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link to page - Improves SEO, may change how the button looks"
