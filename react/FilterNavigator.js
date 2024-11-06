@@ -23,7 +23,7 @@ import {
 import useFacetNavigation from './hooks/useFacetNavigation'
 import FilterNavigatorTitleTag from './components/FilterNavigatorTitleTag'
 import styles from './searchResult.css'
-import { CATEGORIES_TITLE, SHIPPING_OPTIONS } from './utils/getFilters'
+import { CATEGORIES_TITLE, shippingOptions } from './utils/getFilters'
 import { newFacetPathName } from './utils/slug'
 import { FACETS_RENDER_THRESHOLD } from './constants/filterConstants'
 
@@ -160,12 +160,12 @@ const FilterNavigator = ({
     }
   }, [filters, filtersFetchMore, truncatedFacetsFetched, loading])
 
-  const shipping = deliveries.map((delivery) => ({
+  const shipping = deliveries.map(delivery => ({
     ...delivery,
-    facets: delivery.facets.map((facet) => ({
+    facets: delivery.facets.map(facet => ({
       ...facet,
-      name: intl.formatMessage({ id: SHIPPING_OPTIONS[facet.name] }) ,
-    }))
+      name: intl.formatMessage({ id: shippingOptions[facet.name] }),
+    })),
   }))
 
   const selectedFilters = useMemo(() => {

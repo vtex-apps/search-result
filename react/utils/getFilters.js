@@ -6,7 +6,7 @@ export const CATEGORIES_TITLE = 'store/search.filter.title.categories'
 export const BRANDS_TITLE = 'store/search.filter.title.brands'
 export const PRICE_RANGES_TITLE = 'store/search.filter.title.price-ranges'
 
-export const SHIPPING_OPTIONS = {
+export const shippingOptions = {
   delivery: 'store/search.filter.shipping.name.delivery',
   'pickup-in-point': 'store/search.filter.shipping.name.pickup-in-point',
   'pickup-nearby': 'store/search.filter.shipping.name.pickup-nearby',
@@ -40,7 +40,7 @@ const getFilters = ({
       title: SHIPPING_TITLE,
       facets: shipping.facets.map(facet => ({
         ...facet,
-        name: intl.formatMessage({ id: SHIPPING_OPTIONS[facet.name] }),
+        name: intl.formatMessage({ id: shippingOptions[facet.name] }),
       })),
     }
 

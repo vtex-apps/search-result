@@ -2,14 +2,14 @@
 import { groupBy, pathOr, zipObj } from 'ramda'
 
 import { PATH_SEPARATOR, MAP_VALUES_SEP } from '../constants'
-import { SHIPPING_OPTIONS, SHIPPING_KEY } from './getFilters'
+import { shippingOptions, SHIPPING_KEY } from './getFilters'
 
 const shippingFacetDefault = {
   name: SHIPPING_KEY,
   type: 'DELIVERY',
   hidden: false,
   quantity: 0,
-  facets: Object.keys(SHIPPING_OPTIONS).map(option => ({
+  facets: Object.keys(shippingOptions).map(option => ({
     id: null,
     quantity: 0,
     name: option,
