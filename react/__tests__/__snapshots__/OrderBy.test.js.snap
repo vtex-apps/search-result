@@ -42,7 +42,7 @@ exports[`<OrderBy /> should match snapshot in mobile 1`] = `
       <button
         class="hover-bg-muted-5 bg-base orderByOptionItem orderByOptionItem--  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
       >
-        Release Date
+        Release date
       </button>
       <button
         class="hover-bg-muted-5 bg-base orderByOptionItem orderByOptionItem--  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
@@ -52,12 +52,12 @@ exports[`<OrderBy /> should match snapshot in mobile 1`] = `
       <button
         class="hover-bg-muted-5 bg-base orderByOptionItem orderByOptionItem--  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
       >
-        Price: High to Low
+        Price: High to low
       </button>
       <button
         class="hover-bg-muted-5 bg-base orderByOptionItem orderByOptionItem--  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
       >
-        Price: Low to High
+        Price: Low to high
       </button>
       <button
         class="hover-bg-muted-5 bg-base orderByOptionItem orderByOptionItem--  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
@@ -116,7 +116,7 @@ exports[`<OrderBy /> should match snapshot in web mod 1`] = `
       <button
         class="hover-bg-muted-5 bg-base orderByOptionItem orderByOptionItem--  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
       >
-        Release Date
+        Release date
       </button>
       <button
         class="hover-bg-muted-5 bg-base orderByOptionItem orderByOptionItem--  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
@@ -126,12 +126,12 @@ exports[`<OrderBy /> should match snapshot in web mod 1`] = `
       <button
         class="hover-bg-muted-5 bg-base orderByOptionItem orderByOptionItem--  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
       >
-        Price: High to Low
+        Price: High to low
       </button>
       <button
         class="hover-bg-muted-5 bg-base orderByOptionItem orderByOptionItem--  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
       >
-        Price: Low to High
+        Price: Low to high
       </button>
       <button
         class="hover-bg-muted-5 bg-base orderByOptionItem orderByOptionItem--  c-on-base f5 ml-auto db no-underline pointer tl bn pv4 ph5 w-100 right-0-ns"
