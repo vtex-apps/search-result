@@ -28,6 +28,7 @@ const getFilters = ({
   hiddenFacets = {},
   showShippingFacet = false,
 }) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const intl = useIntl()
 
   let deliveriesFormatted = deliveries
