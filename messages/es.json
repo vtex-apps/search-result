@@ -71,6 +71,8 @@
   "store/search.filter.shipping.name.pickup-in-point": "Recogida en",
   "store/search.filter.shipping.name.pickup-nearby": "Recogida en tiendas cercanas",
   "store/search.filter.shipping.name.pickup-all": "Recogida",
+  "store/search.filter.shipping.action-button.delivery": "Ingresa tu ubicación",
+  "store/search.filter.shipping.action-button.pickup-in-point": "Ingresa la tienda",
   "store/search.selected-filters": "Filtrado por:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {producto} other {productos}}</span>",
   "store/search.total-products-2": "{recordsFiltered} <span>{recordsFiltered, plural, one {producto} other {productos}}</span>",

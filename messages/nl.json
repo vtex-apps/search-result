@@ -75,6 +75,8 @@
   "store/search.filter.shipping.name.pickup-in-point": "Afhalen op",
   "store/search.filter.shipping.name.pickup-nearby": "Afhalen in de buurt van",
   "store/search.filter.shipping.name.pickup-all": "Afhalen",
+  "store/search.filter.shipping.action-button.delivery": "Voer locatie in",
+  "store/search.filter.shipping.action-button.pickup-in-point": "Winkel invoeren",
   "store/search.what-do-i-do": "Wat moet ik doen?",
   "store/search.what-to-do.1": "Controleer de termen die u hebt getypt.",
   "store/search.what-to-do.2": "Probeer een enkel woord te gebruiken.",

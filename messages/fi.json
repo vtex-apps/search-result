@@ -71,6 +71,8 @@
   "store/search.filter.shipping.name.pickup-in-point": "Nouto myymälästä",
   "store/search.filter.shipping.name.pickup-nearby": "Nouto läheltä",
   "store/search.filter.shipping.name.pickup-all": "Nouto",
+  "store/search.filter.shipping.action-button.delivery": "Enter location",
+  "store/search.filter.shipping.action-button.pickup-in-point": "Enter store",
   "store/search.selected-filters": "Suodatus:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {tuote} other {tuotetta}}</span>",
   "store/search.total-products-2": "{recordsFiltered} <span>{recordsFiltered, plural, one {tuote} other {tuotetta}}</span>",

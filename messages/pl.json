@@ -70,6 +70,8 @@
   "store/search.filter.shipping.name.pickup-in-point": "Odbiór w",
   "store/search.filter.shipping.name.pickup-nearby": "Odbiór w pobliżu",
   "store/search.filter.shipping.name.pickup-all": "Odbiór",
+  "store/search.filter.shipping.action-button.delivery": "Wprowadź lokalizację",
+  "store/search.filter.shipping.action-button.pickup-in-point": "Wprowadź sklep",
   "store/search.text": "Pokazuję {from}-{to} od {recordsFiltered} wpisów",
   "store/search.selected-filters": "Filtrowane według:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {produkt} few {produkty} many {produkty} other {produkty}}</span>",

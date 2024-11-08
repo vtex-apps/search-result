@@ -71,6 +71,8 @@
   "store/search.filter.shipping.name.pickup-in-point": "Prevzemi pri",
   "store/search.filter.shipping.name.pickup-nearby": "Prevzemite blizu",
   "store/search.filter.shipping.name.pickup-all": "Prevzemi",
+  "store/search.filter.shipping.action-button.delivery": "Enter location",
+  "store/search.filter.shipping.action-button.pickup-in-point": "Enter store",
   "store/search.selected-filters": "Filtrirano po:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {izdelek} two {izdelka} few {izdelkov} other {izdelki}}</span>",
   "store/search.total-products-2": "{recordsFiltered} <span>{recordsFiltered, plural, one {izdelek} two {izdelka} few {izdelkov} other {izdelki}}</span>",

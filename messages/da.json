@@ -70,6 +70,8 @@
   "store/search.filter.shipping.name.pickup-in-point": "Afhentning ved",
   "store/search.filter.shipping.name.pickup-nearby": "Afhentning i nærheden",
   "store/search.filter.shipping.name.pickup-all": "Afhentning",
+  "store/search.filter.shipping.action-button.delivery": "Enter location",
+  "store/search.filter.shipping.action-button.pickup-in-point": "Enter store",
   "store/search.text": "Viser {from}-{to} fra {recordsFiltered} optegnelser",
   "store/search.selected-filters": "Filtreret efter:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {produkt} other {produkter}}</span>",

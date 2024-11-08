@@ -71,6 +71,8 @@
   "store/search.filter.shipping.name.pickup-in-point": "Вземане от",
   "store/search.filter.shipping.name.pickup-nearby": "Вземане наблизо",
   "store/search.filter.shipping.name.pickup-all": "Вземане",
+  "store/search.filter.shipping.action-button.delivery": "Въвеждане на местоположение",
+  "store/search.filter.shipping.action-button.pickup-in-point": "Въвеждане на магазин",
   "store/search.selected-filters": "Филтрирани по:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {продукт} other {продукта}}</span>",
   "store/search.total-products-2": "{recordsFiltered} <span>{recordsFiltered, plural, one {продукт} other {продукта}}</span>",

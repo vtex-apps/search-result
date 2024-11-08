@@ -70,6 +70,8 @@
   "store/search.filter.shipping.name.pickup-in-point": "集荷場所",
   "store/search.filter.shipping.name.pickup-nearby": "近くの集荷場所",
   "store/search.filter.shipping.name.pickup-all": "集荷",
+  "store/search.filter.shipping.action-button.delivery": "場所を入力",
+  "store/search.filter.shipping.action-button.pickup-in-point": "ストアを入力",
   "store/search.text": "{from}-{to} に該当する {recordsFiltered} の記録を表示中",
   "store/search.selected-filters": "検索条件：",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, other {製品}}</span>",

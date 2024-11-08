@@ -81,6 +81,8 @@
   "store/search.filter.shipping.name.pickup-in-point": "Місце самовивозу",
   "store/search.filter.shipping.name.pickup-nearby": "Самовивіз поблизу",
   "store/search.filter.shipping.name.pickup-all": "Самовивіз",
+  "store/search.filter.shipping.action-button.delivery": "Enter location",
+  "store/search.filter.shipping.action-button.pickup-in-point": "Enter store",
   "store/ordenation.button": "Сортувати",
   "store/ordenation.sort-by": "Критерій сортування",
   "store/ordenation.relevance": "Релевантність",
