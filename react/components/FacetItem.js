@@ -4,10 +4,12 @@ import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import classNames from 'classnames'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { usePixel } from 'vtex.pixel-manager'
+import { useIntl } from 'react-intl'
 
 import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
 import SettingsContext from './SettingsContext'
-import useShouldDisableFacet from '../hooks/useShouldDisableFacet'
+import ShippingActionButton from './ShippingActionButton'
+import useShippingActions from '../hooks/useShippingActions'
 
 const CSS_HANDLES = ['filterItem', 'productCount', 'filterItemTitle']
 
@@ -30,10 +32,17 @@ const FacetItem = ({
   preventRouteChange,
   showTitle = false,
 }) => {
+  const intl = useIntl()
+  const { push } = usePixel()
+
+  const { actionLabel, actionType, openDrawer, shouldDisable } =
+    useShippingActions(facet)
+
+  const showActionButton = !!actionType
+
   const { showFacetQuantity } = useContext(SettingsContext)
 
   const [selected, setSelected] = useState(facet.selected)
-  const { push } = usePixel()
   const handles = useCssHandles(CSS_HANDLES)
   const classes = classNames(
     applyModifiers(handles.filterItem, facet.value),
@@ -61,13 +70,13 @@ const FacetItem = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [facet.selected])
 
-  const shouldDisable = useShouldDisableFacet(facet)
-
   const facetLabel = useMemo(() => {
-    const labelElement =
-      showFacetQuantity && !sampling ? (
+    let labelElement = facet.name
+
+    if (showFacetQuantity && !sampling) {
+      labelElement = (
         <>
-          {facet.name}{' '}
+          {labelElement}{' '}
           <span
             data-testid={`facet-quantity-${facet.value}-${facet.quantity}`}
             className={handles.productCount}
@@ -75,12 +84,23 @@ const FacetItem = ({
             ({facet.quantity})
           </span>
         </>
-      ) : (
-        facet.name
       )
+    }
+
+    if (showActionButton) {
+      labelElement = (
+        <div>
+          <div>{labelElement}</div>
+          <ShippingActionButton
+            label={intl.formatMessage({ id: actionLabel })}
+            openDrawer={openDrawer}
+          />
+        </div>
+      )
+    }
 
     if (showTitle) {
-      return (
+      labelElement = (
         <>
           <span className={handles.filterItemTitle}>{facetTitle}</span>:{' '}
           {labelElement}
@@ -90,19 +110,25 @@ const FacetItem = ({
 
     return labelElement
   }, [
-    facet,
-    handles.productCount,
-    handles.filterItemTitle,
-    facetTitle,
-    showTitle,
     showFacetQuantity,
     sampling,
+    facet.name,
+    facet.value,
+    facet.quantity,
+    handles.productCount,
+    handles.filterItemTitle,
+    showActionButton,
+    actionLabel,
+    openDrawer,
+    showTitle,
+    facetTitle,
+    intl,
   ])
 
   return (
     <div
       className={classes}
-      style={{ hyphens: 'auto', wordBreak: 'break-word' }}
+      style={{ hyphens: 'auto', wordBreak: 'break-word', alignSelf: 'center' }}
       alt={facet.name}
       title={facet.name}
     >

@@ -1,17 +1,12 @@
-import classNames from 'classnames'
 import React, { useContext, useState, useMemo } from 'react'
-import { Checkbox } from 'vtex.styleguide'
-import { applyModifiers } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
-import { usePixel } from 'vtex.pixel-manager'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
-import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
-import styles from '../searchResult.css'
 import SettingsContext from './SettingsContext'
 import { SearchFilterBar } from './SearchFilterBar'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
 import ShowMoreFilterButton from './ShowMoreFilterButton'
+import FacetCheckboxListItem from './FacetCheckboxListItem'
 
 const useSettings = () => useContext(SettingsContext)
 
@@ -25,7 +20,6 @@ const FacetCheckboxList = ({
   truncatedFacetsFetched,
   setTruncatedFacetsFetched,
 }) => {
-  const { push } = usePixel()
   const { searchQuery } = useSearchPage()
   const { showFacetQuantity } = useContext(SettingsContext)
   const { getSettings } = useRuntime()
@@ -76,40 +70,16 @@ const FacetCheckboxList = ({
         <SearchFilterBar name={facetTitle} handleChange={setSearchTerm} />
       ) : null}
       {filteredFacets.slice(0, endSlice).map(facet => {
-        const { name, value: slugifiedName } = facet
-
         return (
-          <div
-            className={classNames(
-              applyModifiers(styles.filterAccordionItemBox, slugifiedName),
-              'pr4 pt3 items-center flex bb b--muted-5'
-            )}
-            key={name}
-            style={{ hyphens: 'auto', wordBreak: 'break-word' }}
-          >
-            <Checkbox
-              className="mb0"
-              checked={facet.selected}
-              id={name}
-              label={
-                showFacetQuantity && !sampling
-                  ? `${facet.name} (${facet.quantity})`
-                  : facet.name
-              }
-              name={name}
-              onChange={() => {
-                pushFilterManipulationPixelEvent({
-                  name: facetTitle,
-                  value: name,
-                  products: searchQuery?.products ?? [],
-                  push,
-                })
-
-                onFilterCheck({ ...facet, title: facetTitle })
-              }}
-              value={name}
-            />
-          </div>
+          <FacetCheckboxListItem
+            facet={facet}
+            facetTitle={facetTitle}
+            onFilterCheck={onFilterCheck}
+            sampling={sampling}
+            searchQuery={searchQuery}
+            showFacetQuantity={showFacetQuantity}
+            key={facet.name}
+          />
         )
       })}
       {shouldTruncate && (

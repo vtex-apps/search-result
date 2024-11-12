@@ -214,7 +214,7 @@ const AccordionFilterContainer = ({
           style={{ background: 'rgba(3, 4, 78, 0.4)' }}
           className={classNames(
             handles.filterLoadingOverlay,
-            'fixed dim top-0 w-100 vh-100 left-0 z-9999 justify-center items-center justify-center items-center flex'
+            'fixed dim top-0 w-100 vh-100 left-0 z-999 justify-center items-center justify-center items-center flex'
           )}
         >
           <Spinner />

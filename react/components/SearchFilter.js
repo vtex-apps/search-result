@@ -93,6 +93,7 @@ SearchFilter.propTypes = {
   /** Whether an overview of the applied filters should be displayed (`"show"`) or not (`"hide"`). */
   appliedFiltersOverview: PropTypes.string,
   showClearByFilter: PropTypes.bool,
+  type: PropTypes.string,
 }
 
 export default SearchFilter

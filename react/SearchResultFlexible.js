@@ -50,6 +50,7 @@ const SearchResultFlexible = ({
   preventRouteChange = false,
   showFacetQuantity = false,
   showFacetTitle = false,
+  showShippingFacet = false,
   // Below are set by SearchContext
   searchQuery,
   maxItemsPerPage,
@@ -82,6 +83,7 @@ const SearchResultFlexible = ({
     priceRanges,
     specificationFilters,
     categoriesTrees,
+    deliveries,
   } = facets
 
   const filters = useMemo(
@@ -92,8 +94,18 @@ const SearchResultFlexible = ({
         brands,
         brandsQuantity,
         hiddenFacets,
+        deliveries,
+        showShippingFacet,
       }),
-    [brands, hiddenFacets, priceRanges, specificationFilters, brandsQuantity]
+    [
+      brands,
+      hiddenFacets,
+      priceRanges,
+      specificationFilters,
+      brandsQuantity,
+      deliveries,
+      showShippingFacet,
+    ]
   )
 
   const handles = useCssHandles(CSS_HANDLES)

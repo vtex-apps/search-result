@@ -66,6 +66,13 @@
   "store/search.filter.title.brands": "Márkák",
   "store/search.filter.title.price-ranges": "Ártartományok",
   "store/search.text": "{from}-{to} eredmény megjelenítése a(z) {recordsFiltered} eredményből",
+  "store/search.filter.title.shipping": "Shipping",
+  "store/search.filter.shipping.name.delivery": "Deliver to",
+  "store/search.filter.shipping.name.pickup-in-point": "Pickup at",
+  "store/search.filter.shipping.name.pickup-nearby": "Pickup nearby",
+  "store/search.filter.shipping.name.pickup-all": "Pickup",
+  "store/search.filter.shipping.action-button.delivery": "Enter location",
+  "store/search.filter.shipping.action-button.pickup-in-point": "Enter store",
   "store/search.selected-filters": "Szűrés:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {termék} other {termék}}</span>",
   "store/search.total-products-2": "{recordsFiltered} <span>{recordsFiltered, plural, one {termék} other {termék}}</span>",
@@ -104,4 +111,3 @@
   "admin/editor.search-result.fetch-button.button-behavior.button": "Gomb",
   "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link az oldalra – Javítja a SEO-t, megváltoztathatja a gomb megjelenését"
 }
-  

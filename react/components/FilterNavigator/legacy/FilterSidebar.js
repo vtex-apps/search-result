@@ -13,6 +13,7 @@ import { facetOptionShape } from '../../../constants/propTypes'
 import useSelectedFilters from './hooks/useSelectedFilters'
 import searchResult from './searchResult.css'
 import QueryContext from '../../QueryContext'
+import isShippingOptionsComponent from '../../../utils/isShippingOptionsComponent'
 
 const FilterSidebar = ({ filters, preventRouteChange = false }) => {
   const { navigate, setQuery } = useRuntime()
@@ -49,7 +50,11 @@ const FilterSidebar = ({ filters, preventRouteChange = false }) => {
     }
   }
 
-  const handleClose = () => {
+  const handleClose = e => {
+    if (isShippingOptionsComponent(e)) {
+      return
+    }
+
     setOpen(false)
   }
 

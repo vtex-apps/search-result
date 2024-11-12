@@ -248,6 +248,7 @@ const useQueries = (variables, facetsArgs, price) => {
           specificationFilters: [],
           categoriesTrees: [],
           priceRanges: [],
+          deliveries: [],
         }
 
   const selectedFacetsOutput =

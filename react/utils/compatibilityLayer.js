@@ -2,6 +2,23 @@
 import { groupBy, pathOr, zipObj } from 'ramda'
 
 import { PATH_SEPARATOR, MAP_VALUES_SEP } from '../constants'
+import { shippingOptions, SHIPPING_KEY } from './getFilters'
+
+const shippingFacetDefault = {
+  name: SHIPPING_KEY,
+  type: 'DELIVERY',
+  hidden: false,
+  quantity: 0,
+  facets: Object.keys(shippingOptions).map(option => ({
+    id: null,
+    quantity: 0,
+    name: option,
+    key: SHIPPING_KEY,
+    selected: false,
+    map: SHIPPING_KEY,
+    value: option,
+  })),
+}
 
 export const getMainSearches = (query, map) => {
   const querySegments = (query && query.split(PATH_SEPARATOR)) || []
@@ -79,6 +96,8 @@ export const detachFiltersByType = facets => {
     groupedFilters.TEXT || []
   )
 
+  const deliveries = getFormattedDeliveries(groupedFilters.DELIVERY || [])
+
   const categoriesTrees = pathOr(
     [],
     ['CATEGORYTREE', 0, 'facets'],
@@ -102,6 +121,7 @@ export const detachFiltersByType = facets => {
     specificationFilters,
     categoriesTrees,
     priceRanges,
+    deliveries,
   }
 }
 
@@ -114,5 +134,23 @@ export const buildQueryArgsFromSelectedFacets = selectedFacets => {
       return queryArgs
     },
     { query: '', map: '' }
+  )
+}
+
+const getFormattedDeliveries = deliveries => {
+  const shippingFacet = deliveries.find(d => d.name === SHIPPING_KEY)
+
+  if (!shippingFacet) {
+    return [...deliveries, shippingFacetDefault]
+  }
+
+  const facetsNotIncluded = shippingFacetDefault.facets.filter(facet =>
+    shippingFacet.facets.every(f => f.value !== facet.value)
+  )
+
+  shippingFacet.facets = [...shippingFacet.facets, ...facetsNotIncluded]
+
+  return deliveries.map(facet =>
+    facet.name === SHIPPING_KEY ? shippingFacet : facet
   )
 }

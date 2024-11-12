@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Shipping filter on filters section
+
+### Fixed
+
+- Updated English, Spanish and Portuguese translations.
+- Added new strings to remaining languages.
+
 ## [3.134.1] - 2024-11-07
 
 ### Fixed
