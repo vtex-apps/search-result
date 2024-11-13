@@ -86,6 +86,8 @@ const SearchResultFlexible = ({
     deliveries,
   } = facets
 
+  const { query: runtimeQuery, production } = useRuntime()
+
   const filters = useMemo(
     () =>
       getFilters({
@@ -96,6 +98,7 @@ const SearchResultFlexible = ({
         hiddenFacets,
         deliveries,
         showShippingFacet,
+        production,
       }),
     [
       brands,
@@ -105,6 +108,7 @@ const SearchResultFlexible = ({
       brandsQuantity,
       deliveries,
       showShippingFacet,
+      production,
     ]
   )
 
@@ -118,7 +122,6 @@ const SearchResultFlexible = ({
     categoriesTrees.length > 0
 
   const showFacets = showCategories || (!hideFacets && !isEmpty(filters))
-  const { query: runtimeQuery } = useRuntime()
   const [state, dispatch] = useSearchPageStateReducer({
     mobileLayout: mobileLayout.mode1,
     showContentLoader: searchQuery.loading,
