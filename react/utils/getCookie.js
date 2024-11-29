@@ -1,4 +1,4 @@
-import { canUseDOM } from 'exenv'
+import { canUseDOM } from 'vtex.render-runtime'
 
 function getCookie(cname) {
   if (!canUseDOM) {
