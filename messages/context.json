@@ -72,6 +72,8 @@
   "store/search.filter.shipping.name.pickup-all": "Pickup",
   "store/search.filter.shipping.action-button.delivery": "Enter location",
   "store/search.filter.shipping.action-button.pickup-in-point": "Enter store",
+  "store/search.filter.shipping.action-button.pickup-in-point.choose-another": "Choose another store",
+  "store/search.filter.shipping.action-button.pickup-in-point.pickup-unavailable": "Pickup unavailable at {store}",
   "store/search.text": "Showing {from}-{to} from {recordsFiltered} records",
   "store/search.selected-filters": "Filtered by:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {Product} other {Products}}</span>",

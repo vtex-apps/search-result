@@ -24,6 +24,9 @@ const reservedVariableNames = [
   'parent',
 ]
 
+const PICKUP_UNAVAILABLE_LABEL_ID =
+  'store/search.filter.shipping.action-button.pickup-in-point.pickup-unavailable'
+
 const FacetItem = ({
   navigateToFacet,
   facetTitle,
@@ -35,8 +38,13 @@ const FacetItem = ({
   const intl = useIntl()
   const { push } = usePixel()
 
-  const { actionLabel, actionType, openDrawer, shouldDisable } =
-    useShippingActions(facet)
+  const {
+    actionLabel,
+    actionType,
+    openDrawer,
+    shouldDisable,
+    storePickupUnavailable,
+  } = useShippingActions(facet)
 
   const showActionButton = !!actionType
 
@@ -72,6 +80,17 @@ const FacetItem = ({
 
   const facetLabel = useMemo(() => {
     let labelElement = facet.name
+
+    if (storePickupUnavailable) {
+      labelElement = intl.formatMessage(
+        {
+          id: PICKUP_UNAVAILABLE_LABEL_ID,
+        },
+        {
+          store: storePickupUnavailable,
+        }
+      )
+    }
 
     if (showFacetQuantity && !sampling) {
       labelElement = (
@@ -115,6 +134,7 @@ const FacetItem = ({
     facet.name,
     facet.value,
     facet.quantity,
+    storePickupUnavailable,
     handles.productCount,
     handles.filterItemTitle,
     showActionButton,

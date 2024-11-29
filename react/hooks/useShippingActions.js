@@ -33,11 +33,15 @@ const addressDependentValues = [
   'pickup',
 ]
 
+const CHOOSE_ANOTTHER_STORE_LABEL =
+  'store/search.filter.shipping.action-button.pickup-in-point.choose-another'
+
 const useShippingActions = facet => {
   const actionType = shippingActionTypes[facet.value]
   const eventIdentifier = actionType ? eventIdentifiers[actionType] : null
 
   const [actionLabel, setActionLabel] = useState(placeHolders[actionType])
+  const [storePickupUnavailable, setStorePickupUnavailable] = useState(null)
   const [isAddressSet, setIsAddressSet] = useState(false)
   const [isPickupSet, setIsPickupSet] = useState(false)
 
@@ -53,6 +57,11 @@ const useShippingActions = facet => {
       if (e?.data?.label) {
         setActionLabel(e.data.label)
 
+        if (eventIdentifier === 'pickupPointLabel' && facet.quantity === 0) {
+          setStorePickupUnavailable(e.data.label)
+          setActionLabel(CHOOSE_ANOTTHER_STORE_LABEL)
+        }
+
         if (isAddressDependent) {
           setIsAddressSet(true)
         }
@@ -62,6 +71,7 @@ const useShippingActions = facet => {
         }
       } else {
         setActionLabel(placeHolders[actionType])
+        setStorePickupUnavailable(null)
 
         if (isAddressDependent) {
           setIsAddressSet(false)
@@ -84,6 +94,11 @@ const useShippingActions = facet => {
     if (windowLabel) {
       setActionLabel(windowLabel)
 
+      if (eventIdentifier === 'pickupPointLabel' && facet.quantity === 0) {
+        setStorePickupUnavailable(windowLabel)
+        setActionLabel(CHOOSE_ANOTTHER_STORE_LABEL)
+      }
+
       if (isAddressDependent) {
         setIsAddressSet(true)
       }
@@ -93,6 +108,7 @@ const useShippingActions = facet => {
       }
     } else {
       setActionLabel(placeHolders[actionType])
+      setStorePickupUnavailable(null)
 
       if (isAddressDependent) {
         setIsAddressSet(false)
@@ -102,7 +118,7 @@ const useShippingActions = facet => {
         setIsPickupSet(false)
       }
     }
-  }, [actionType, eventIdentifier, isSSR, isAddressDependent])
+  }, [actionType, eventIdentifier, isSSR, isAddressDependent, facet.quantity])
 
   const openDrawer = useCallback(() => {
     push({
@@ -117,6 +133,7 @@ const useShippingActions = facet => {
       actionLabel: null,
       actionType: null,
       openDrawer: null,
+      storePickupUnavailable: null,
       shouldDisable,
     }
   }
@@ -125,6 +142,7 @@ const useShippingActions = facet => {
     actionType,
     actionLabel,
     openDrawer,
+    storePickupUnavailable,
     shouldDisable,
   }
 }

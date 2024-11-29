@@ -22,8 +22,13 @@ const FacetCheckboxListItem = ({
 
   const { push } = usePixel()
 
-  const { actionLabel, actionType, openDrawer, shouldDisable } =
-    useShippingActions(facet)
+  const {
+    actionLabel,
+    actionType,
+    openDrawer,
+    shouldDisable,
+    storePickupUnavailable,
+  } = useShippingActions(facet)
 
   const showActionButton = !!actionType
 
@@ -31,6 +36,17 @@ const FacetCheckboxListItem = ({
 
   const facetLabel = useMemo(() => {
     let labelElement = facet.name
+
+    if (storePickupUnavailable) {
+      labelElement = intl.formatMessage(
+        {
+          id: 'store/search.filter.shipping.action-button.pickup-in-point.pickup-unavailable',
+        },
+        {
+          store: storePickupUnavailable,
+        }
+      )
+    }
 
     if (showFacetQuantity && !sampling) {
       labelElement = `${labelElement} (${facet.quantity})`
@@ -54,6 +70,7 @@ const FacetCheckboxListItem = ({
     sampling,
     facet.name,
     facet.quantity,
+    storePickupUnavailable,
     showActionButton,
     actionLabel,
     openDrawer,
