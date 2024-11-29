@@ -148,6 +148,7 @@ Check all props to configure your search data in the table below:
 | `installmentCriteria` | `enum` | Defines which price should be displayed when different installments are available. Possible values are: `MAX_WITHOUT_INTEREST` (displays the maximum installment option with no interest attached to it) or `MAX_WITH_INTEREST` (displays the maximum installment option whether it has interest attached to it or not). | `"MAX_WITHOUT_INTEREST"` |
 | `excludedPaymentSystems` | `string` | List of payment systems that should not be considered when displaying the installment options to users. This prop configuration only works if the `installmentCriteria` prop was also declared. In case it was not, all available payment systems will be displayed regardless. | `undefined` |
 | `includedPaymentSystems` | `string` | List of payment systems that should be considered when displaying the installment options to users. This prop configuration only works if the `installmentCriteria` prop was also declared. In case it was not, all available payment systems will be displayed regardless.| `undefined` |
+| `sponsoredCount` | `number` | Maximum amount of sponsored products.| `3` |
 
 > ℹ️ Pagination does not display results after page 50. You can configure it to display more products per page using the prop `maxItemsPerPage` by increasing the quantity of products on each page.
 

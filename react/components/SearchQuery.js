@@ -144,7 +144,7 @@ const useCorrectSearchStateVariables = (
   return result
 }
 
-const useQueries = (variables, facetsArgs, price) => {
+const useQueries = (variables, facetsArgs, price, sponsoredCount) => {
   const { getSettings, query: runtimeQuery } = useRuntime()
 
   const settings = getSettings('vtex.store')
@@ -157,7 +157,7 @@ const useQueries = (variables, facetsArgs, price) => {
       variant: getCookie('sp-variant'),
       advertisementOptions: {
         showSponsored: true,
-        sponsoredCount: 3,
+        sponsoredCount,
         advertisementPlacement: 'top_search',
         repeatSponsoredProducts: true,
       },
@@ -282,7 +282,7 @@ const SearchQuery = ({
   searchState: searchStateQuery,
   lazyItemsQuery: lazyItemsQueryProp,
   __unstableProductOriginVtex,
-  sponsoredProductsBehavior,
+  sponsoredCount = 3,
 }) => {
   const [selectedFacets, fullText] = buildSelectedFacetsAndFullText(
     query,
@@ -403,7 +403,7 @@ const SearchQuery = ({
     productSearchResult,
     facetsLoading,
     fetchMore,
-  } = useQueries(variables, facetsArgs, priceRange, sponsoredProductsBehavior)
+  } = useQueries(variables, facetsArgs, priceRange, sponsoredCount)
 
   const redirectUrl = data && data.productSearch && data.productSearch.redirect
 
