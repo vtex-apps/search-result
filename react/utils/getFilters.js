@@ -13,6 +13,7 @@ export const shippingOptions = {
   'pickup-in-point': 'store/search.filter.shipping.name.pickup-in-point',
   'pickup-nearby': 'store/search.filter.shipping.name.pickup-nearby',
   'pickup-all': 'store/search.filter.shipping.name.pickup-all',
+  'no-pickup': 'store/search.filter.shipping.name.no-pickup',
 }
 
 export const SHIPPING_KEY = 'shipping'

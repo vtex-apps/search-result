@@ -4,20 +4,28 @@ import { groupBy, pathOr, zipObj } from 'ramda'
 import { PATH_SEPARATOR, MAP_VALUES_SEP } from '../constants'
 import { shippingOptions, SHIPPING_KEY } from './getFilters'
 
+const NO_PICKUP_FACET_KEY = 'no-pickup'
+
+const shippingOptionsFacets = Object.keys(shippingOptions).filter(
+  facet => facet !== NO_PICKUP_FACET_KEY
+)
+
+const getShippingFacet = option => ({
+  id: null,
+  quantity: 0,
+  name: option,
+  key: SHIPPING_KEY,
+  selected: false,
+  map: SHIPPING_KEY,
+  value: option,
+})
+
 const shippingFacetDefault = {
   name: SHIPPING_KEY,
   type: 'DELIVERY',
   hidden: false,
   quantity: 0,
-  facets: Object.keys(shippingOptions).map(option => ({
-    id: null,
-    quantity: 0,
-    name: option,
-    key: SHIPPING_KEY,
-    selected: false,
-    map: SHIPPING_KEY,
-    value: option,
-  })),
+  facets: shippingOptionsFacets.map(getShippingFacet),
 }
 
 export const getMainSearches = (query, map) => {
@@ -148,9 +156,29 @@ const getFormattedDeliveries = deliveries => {
     shippingFacet.facets.every(f => f.value !== facet.value)
   )
 
-  shippingFacet.facets = [...shippingFacet.facets, ...facetsNotIncluded]
+  const haveSomePickupFacet = shippingFacet.facets.some(facet =>
+    facet.value.includes('pickup')
+  )
+
+  let facetsToInclude = facetsNotIncluded
+
+  if (!haveSomePickupFacet) {
+    const pickupFacetsRemoved = facetsNotIncluded.filter(
+      facet => !facet.value.includes('pickup-')
+    )
+
+    facetsToInclude = [
+      ...pickupFacetsRemoved,
+      getShippingFacet(NO_PICKUP_FACET_KEY),
+    ]
+  }
+
+  const newShipping = {
+    ...shippingFacet,
+    facets: [...shippingFacet.facets, ...facetsToInclude],
+  }
 
   return deliveries.map(facet =>
-    facet.name === SHIPPING_KEY ? shippingFacet : facet
+    facet.name === SHIPPING_KEY ? newShipping : facet
   )
 }

@@ -70,6 +70,7 @@
   "store/search.filter.shipping.name.pickup-in-point": "Pickup at",
   "store/search.filter.shipping.name.pickup-nearby": "Pickup nearby",
   "store/search.filter.shipping.name.pickup-all": "Pickup",
+  "store/search.filter.shipping.name.no-pickup": "Pickup unavailable",
   "store/search.filter.shipping.action-button.delivery": "Enter location",
   "store/search.filter.shipping.action-button.pickup-in-point": "Enter store",
   "store/search.filter.shipping.action-button.pickup-in-point.choose-another": "Choose another store",
