@@ -39,7 +39,7 @@ const getFilters = ({
 
   let shipping = deliveries.find(d => d.name === SHIPPING_KEY)
 
-  if (availableShippingValues.length !== 0) {
+  if (shipping && availableShippingValues.length !== 0) {
     shipping = {
       ...shipping,
       facets: shipping.facets.filter(facet =>
@@ -67,7 +67,7 @@ const getFilters = ({
 
   if (
     !showShippingFacet ||
-    (production && variant && variant.indexOf('delivery_promises') === -1)
+    !(production && variant && variant.indexOf('delivery_promises') !== -1)
   ) {
     deliveriesFormatted = deliveriesFormatted.filter(
       d => d.name !== SHIPPING_KEY
