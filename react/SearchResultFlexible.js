@@ -51,6 +51,7 @@ const SearchResultFlexible = ({
   showFacetQuantity = false,
   showFacetTitle = false,
   showShippingFacet = false,
+  availableShippingValues = [],
   // Below are set by SearchContext
   searchQuery,
   maxItemsPerPage,
@@ -98,6 +99,7 @@ const SearchResultFlexible = ({
         hiddenFacets,
         deliveries,
         showShippingFacet,
+        availableShippingValues,
         production,
       }),
     [
@@ -108,6 +110,7 @@ const SearchResultFlexible = ({
       brandsQuantity,
       deliveries,
       showShippingFacet,
+      availableShippingValues,
       production,
     ]
   )
