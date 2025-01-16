@@ -67,7 +67,7 @@ const getFilters = ({
 
   if (
     !showShippingFacet ||
-    !(production && variant && variant.indexOf('delivery_promises') !== -1)
+    (production && variant && variant.indexOf('delivery_promises') === -1)
   ) {
     deliveriesFormatted = deliveriesFormatted.filter(
       d => d.name !== SHIPPING_KEY
