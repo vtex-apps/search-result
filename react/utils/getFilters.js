@@ -29,6 +29,7 @@ const getFilters = ({
   brandsQuantity = 0,
   hiddenFacets = {},
   showShippingFacet = false,
+  availableShippingValues = [],
   production = true,
 }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -36,10 +37,19 @@ const getFilters = ({
 
   let deliveriesFormatted = deliveries
 
-  const shipping = deliveries.find(d => d.name === SHIPPING_KEY)
+  let shipping = deliveries.find(d => d.name === SHIPPING_KEY)
+
+  if (shipping && availableShippingValues.length !== 0) {
+    shipping = {
+      ...shipping,
+      facets: shipping.facets.filter(facet =>
+        availableShippingValues.includes(facet.name)
+      ),
+    }
+  }
 
   if (shipping) {
-    const shippingFacet = {
+    const shippingFormattedFacetsName = {
       ...shipping,
       title: SHIPPING_TITLE,
       facets: shipping.facets.map(facet => ({
@@ -49,7 +59,7 @@ const getFilters = ({
     }
 
     deliveriesFormatted = deliveries.map(facet =>
-      facet.name === SHIPPING_KEY ? shippingFacet : facet
+      facet.name === SHIPPING_KEY ? shippingFormattedFacetsName : facet
     )
   }
 
