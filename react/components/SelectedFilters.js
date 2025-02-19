@@ -23,7 +23,9 @@ const SelectedFilters = ({
   const handles = useCssHandles(CSS_HANDLES)
   const { showFacetTitle } = useContext(SettingsContext)
 
-  const visibleFilters = filters.filter(filter => !filter.hidden)
+  const visibleFilters = filters
+    .filter(filter => !filter.hidden)
+    .filter(filter => filter.key !== 'shipping')
 
   if (!visibleFilters.length) {
     return null
