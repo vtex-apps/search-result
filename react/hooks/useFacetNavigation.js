@@ -173,6 +173,11 @@ export const buildNewQueryMap = (
   facets,
   selectedFacets
 ) => {
+  // RadioGroup behavior
+  if (facets.some(facet => facet.key === 'shipping')) {
+    selectedFacets = selectedFacets.filter(facet => facet.key !== 'shipping')
+  }
+
   const querySegments = selectedFacets.map(facet => facet.value)
   const mapSegments = selectedFacets.map(facet => facet.map)
 
