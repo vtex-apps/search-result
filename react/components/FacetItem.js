@@ -125,6 +125,9 @@ const FacetItem = ({
     intl,
   ])
 
+  console.log(searchQuery)
+
+  let text = (searchQuery.variables.query === searchQuery.variables.fullText ? null : searchQuery.variables.query)
   return (
     <div
       className={classes}
@@ -148,8 +151,12 @@ const FacetItem = ({
           setSelected(!selected)
           navigateToFacet({ ...facet, title: facetTitle }, preventRouteChange)
         }}
-        value={facet.name}
         disabled={shouldDisable}
+        value={facet.value}
+        facetKey={facet.key}
+        isClicked={selected.toString()}
+        queryText={searchQuery.variables.fullText}
+        queryCategory={text}
       />
     </div>
   )
