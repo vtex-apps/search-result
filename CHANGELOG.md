@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.136.1] - 2025-02-20
+
+### Changed
+
+- Add attributes to the checkbox component to be able to collect data through activity flow
+
 ## [3.136.0] - 2025-01-16
 
 ### Added

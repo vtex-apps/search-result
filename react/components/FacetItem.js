@@ -152,7 +152,7 @@ const FacetItem = ({
         value={facet.value}
         facetKey={facet.key}
         isClicked={selected.toString()}
-        queryText={searchQuery.variables.query}
+        queryText={searchQuery.variables?.query}
         />
     </div>
   )
