@@ -126,8 +126,6 @@ const FacetItem = ({
   ])
 
   console.log(searchQuery)
-
-  let text = (searchQuery.variables.query === searchQuery.variables.fullText ? null : searchQuery.variables.query)
   return (
     <div
       className={classes}
@@ -155,9 +153,8 @@ const FacetItem = ({
         value={facet.value}
         facetKey={facet.key}
         isClicked={selected.toString()}
-        queryText={searchQuery.variables.fullText}
-        queryCategory={text}
-      />
+        queryText={searchQuery.variables.query}
+        />
     </div>
   )
 }
