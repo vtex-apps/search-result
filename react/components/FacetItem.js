@@ -125,7 +125,6 @@ const FacetItem = ({
     intl,
   ])
 
-  console.log(searchQuery)
   return (
     <div
       className={classes}
