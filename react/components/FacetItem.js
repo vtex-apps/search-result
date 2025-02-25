@@ -5,8 +5,8 @@ import classNames from 'classnames'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { usePixel } from 'vtex.pixel-manager'
 import { useIntl } from 'react-intl'
-
 import { useRuntime } from 'vtex.render-runtime'
+
 import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
 import SettingsContext from './SettingsContext'
 import ShippingActionButton from './ShippingActionButton'
@@ -133,8 +133,8 @@ const FacetItem = ({
 
   if (searchQuery?.variables?.fullText === undefined) {
     initialquery = runtimeQuery?.initialQuery ?? searchQuery?.facets?.queryArgs.query
-    initialmap =
-      runtimeQuery?.initialMap ?? searchQuery?.facets?.queryArgs?.map
+    
+    initialmap = runtimeQuery?.initialMap ?? searchQuery?.facets?.queryArgs?.map
   }
 
   return (
