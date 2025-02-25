@@ -5,11 +5,11 @@ import classNames from 'classnames'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { usePixel } from 'vtex.pixel-manager'
 import { useIntl } from 'react-intl'
+import { useRuntime } from 'vtex.render-runtime'
 import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
 import SettingsContext from './SettingsContext'
 import ShippingActionButton from './ShippingActionButton'
 import useShippingActions from '../hooks/useShippingActions'
-import { useRuntime } from 'vtex.render-runtime'
 
 const CSS_HANDLES = ['filterItem', 'productCount', 'filterItemTitle']
 
@@ -107,7 +107,7 @@ const FacetItem = ({
         </>
       )
     }
-    
+
     return labelElement
   }, [
     showFacetQuantity,
@@ -125,14 +125,16 @@ const FacetItem = ({
     intl,
   ])
 
-  const { query: runtimeQuery } = useRuntime()
+  const runtimeQuery = useRuntime()?.query
 
-  let initialquery = undefined;
-  let initialmap = undefined;
+  let initialmap
+  let initialquery
 
-  if(searchQuery?.variables?.fullText === undefined){
-    initialquery = runtimeQuery?.initialQuery ?? searchQuery?.facets?.queryArgs.query;
-    initialmap = runtimeQuery?.initialMap ?? searchQuery?.facets?.queryArgs?.map;
+  if (searchQuery?.variables?.fullText === undefined) {
+    initialquery = 
+      runtimeQuery?.initialQuery ?? searchQuery?.facets?.queryArgs.query
+    initialmap = 
+      runtimeQuery?.initialMap ?? searchQuery?.facets?.queryArgs?.map
   }
 
   return (
