@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { usePixel } from 'vtex.pixel-manager'
 import { useIntl } from 'react-intl'
+import { useRuntime } from 'vtex.render-runtime'
 
 import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
 import SettingsContext from './SettingsContext'
@@ -125,6 +126,17 @@ const FacetItem = ({
     intl,
   ])
 
+  const runtimeQuery = useRuntime()?.query
+
+  let initialmap
+  let initialquery
+
+  if (searchQuery?.variables?.fullText === undefined) {
+    initialquery = runtimeQuery?.initialQuery ?? searchQuery?.facets?.queryArgs.query
+    
+    initialmap = runtimeQuery?.initialMap ?? searchQuery?.facets?.queryArgs?.map
+  }
+
   return (
     <div
       className={classes}
@@ -148,8 +160,13 @@ const FacetItem = ({
           setSelected(!selected)
           navigateToFacet({ ...facet, title: facetTitle }, preventRouteChange)
         }}
-        value={facet.name}
         disabled={shouldDisable}
+        value={facet.value}
+        facetKey={facet.key}
+        isClicked={selected.toString()}
+        fullText={searchQuery?.variables?.fullText}
+        initialMap={initialmap}
+        initialQuery={initialquery}
       />
     </div>
   )
