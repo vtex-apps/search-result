@@ -131,9 +131,9 @@ const FacetItem = ({
   let initialquery
 
   if (searchQuery?.variables?.fullText === undefined) {
-    initialquery = 
+    initialquery =
       runtimeQuery?.initialQuery ?? searchQuery?.facets?.queryArgs.query
-    initialmap = 
+    initialmap =
       runtimeQuery?.initialMap ?? searchQuery?.facets?.queryArgs?.map
   }
 
