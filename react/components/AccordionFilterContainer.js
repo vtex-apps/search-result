@@ -43,6 +43,7 @@ const AccordionFilterContainer = ({
   showClearByFilter,
   updateOnFilterSelectionOnMobile,
   priceRangeLayout,
+  scrollToTop,
 }) => {
   const intl = useIntl()
   const { getSettings, setQuery } = useRuntime()
@@ -182,6 +183,7 @@ const AccordionFilterContainer = ({
                 }}
                 onChangePriceRange={onChangePriceRange}
                 showClearByFilter={showClearByFilter}
+                scrollToTop={scrollToTop}
               />
             )
 
@@ -262,6 +264,8 @@ AccordionFilterContainer.propTypes = {
   /** Set the value of clearPriceRange prop */
   setClearPriceRange: PropTypes.func,
   onChangePriceRange: PropTypes.func,
+  /** Defines the scroll behavior after applying any filter */
+  scrollToTop: PropTypes.oneOf(['auto', 'smooth', 'none']),
 }
 
 export default AccordionFilterContainer
