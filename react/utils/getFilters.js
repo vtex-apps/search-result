@@ -1,8 +1,6 @@
 import { path, contains, isEmpty } from 'ramda'
 import { useIntl } from 'react-intl'
 
-import getCookie from './getCookie'
-
 export const SHIPPING_TITLE = 'store/search.filter.title.shipping'
 export const CATEGORIES_TITLE = 'store/search.filter.title.categories'
 export const BRANDS_TITLE = 'store/search.filter.title.brands'
@@ -30,7 +28,6 @@ const getFilters = ({
   hiddenFacets = {},
   showShippingFacet = false,
   availableShippingValues = [],
-  production = true,
 }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const intl = useIntl()
@@ -63,12 +60,7 @@ const getFilters = ({
     )
   }
 
-  const variant = getCookie('sp-variant')
-
-  if (
-    !showShippingFacet ||
-    (production && variant && variant.indexOf('delivery_promises') === -1)
-  ) {
+  if (!showShippingFacet) {
     deliveriesFormatted = deliveriesFormatted.filter(
       d => d.name !== SHIPPING_KEY
     )
