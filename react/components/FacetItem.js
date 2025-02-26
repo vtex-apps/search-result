@@ -161,8 +161,9 @@ const FacetItem = ({
           navigateToFacet({ ...facet, title: facetTitle }, preventRouteChange)
         }}
         disabled={shouldDisable}
-        value={facet.value}
+        value={facet.name}
         facetKey={facet.key}
+        facetValue={facet.value}
         isClicked={selected.toString()}
         fullText={searchQuery?.variables?.fullText}
         initialMap={initialmap}
