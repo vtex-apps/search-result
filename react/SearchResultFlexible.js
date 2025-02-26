@@ -87,7 +87,7 @@ const SearchResultFlexible = ({
     deliveries,
   } = facets
 
-  const { query: runtimeQuery, production } = useRuntime()
+  const { query: runtimeQuery } = useRuntime()
 
   const filters = useMemo(
     () =>
@@ -100,7 +100,6 @@ const SearchResultFlexible = ({
         deliveries,
         showShippingFacet,
         availableShippingValues,
-        production,
       }),
     [
       brands,
@@ -111,7 +110,6 @@ const SearchResultFlexible = ({
       deliveries,
       showShippingFacet,
       availableShippingValues,
-      production,
     ]
   )
 
