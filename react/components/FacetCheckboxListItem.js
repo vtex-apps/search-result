@@ -4,6 +4,7 @@ import { applyModifiers } from 'vtex.css-handles'
 import { Checkbox } from 'vtex.styleguide'
 import { usePixel } from 'vtex.pixel-manager'
 import { useIntl } from 'react-intl'
+import { useRuntime } from 'vtex.render-runtime'
 
 import styles from '../searchResult.css'
 import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
@@ -60,6 +61,18 @@ const FacetCheckboxListItem = ({
     intl,
   ])
 
+  const runtimeQuery = useRuntime()?.query
+
+  let initialmap
+  let initialquery
+
+  if (searchQuery?.variables?.fullText === undefined) {
+    initialquery =
+      runtimeQuery?.initialQuery ?? searchQuery?.facets?.queryArgs.query
+
+    initialmap = runtimeQuery?.initialMap ?? searchQuery?.facets?.queryArgs?.map
+  }
+
   return (
     <div
       className={classNames(
@@ -86,6 +99,12 @@ const FacetCheckboxListItem = ({
           onFilterCheck({ ...facet, title: facetTitle })
         }}
         value={name}
+        data-full-text={searchQuery?.variables?.fullText}
+        data-initial-query={initialquery}
+        data-initial-map={initialmap}
+        data-is-clicked={facet.selected.toString()}
+        data-facet-key={facet.key}
+        data-facet-value={facet.value}
       />
     </div>
   )
