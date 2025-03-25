@@ -95,9 +95,19 @@ const FilterSidebar = ({
     )
   }
 
-  const handleFilterCheck = filter => {
+  const handleFilterCheck = (filter, isRadio = false) => {
     if (updateOnFilterSelectionOnMobile && preventRouteChange) {
       navigateToFacet(filter, preventRouteChange)
+
+      return
+    }
+
+    if (isRadio) {
+      setFilterOperations(
+        filterOperations
+          .filter(facet => facet.key !== filter.key)
+          .concat(filter)
+      )
 
       return
     }
