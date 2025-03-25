@@ -8,6 +8,7 @@ import FacetCheckboxList from './FacetCheckboxList'
 import useSelectedFilters from '../hooks/useSelectedFilters'
 import { getFilterTitle } from '../constants/SearchHelpers'
 import { searchSlugify } from '../utils/slug'
+import RadioFilters from './RadioFilters'
 
 const CSS_HANDLES = ['accordionFilterOpen']
 
@@ -37,6 +38,8 @@ const AccordionFilterGroup = ({
   const slugifiedFacetTitle = searchSlugify(facetTitle)
   const facetKey = filters.length > 0 ? filters[0].key : null
 
+  const isRadio = filters.some(filter => filter.key === 'shipping')
+
   return (
     <AccordionFilterItem
       facetKey={facetKey}
@@ -58,16 +61,25 @@ const AccordionFilterGroup = ({
           className
         )}
       >
-        <FacetCheckboxList
-          onFilterCheck={onFilterCheck}
-          facets={filters}
-          quantity={quantity}
-          facetTitle={facetTitle}
-          truncateFilters={truncateFilters}
-          navigationType={navigationType}
-          truncatedFacetsFetched={truncatedFacetsFetched}
-          setTruncatedFacetsFetched={setTruncatedFacetsFetched}
-        />
+        {isRadio ? (
+          <RadioFilters
+            facets={filters}
+            onChange={facet => {
+              onFilterCheck({ ...facet, title: facetTitle }, true)
+            }}
+          />
+        ) : (
+          <FacetCheckboxList
+            onFilterCheck={onFilterCheck}
+            facets={filters}
+            quantity={quantity}
+            facetTitle={facetTitle}
+            truncateFilters={truncateFilters}
+            navigationType={navigationType}
+            truncatedFacetsFetched={truncatedFacetsFetched}
+            setTruncatedFacetsFetched={setTruncatedFacetsFetched}
+          />
+        )}
       </div>
     </AccordionFilterItem>
   )
