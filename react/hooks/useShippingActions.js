@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import { usePixel, usePixelEventCallback } from 'vtex.pixel-manager'
-import { useSSR } from 'vtex.render-runtime/react/components/NoSSR'
+import { usePixel } from 'vtex.pixel-manager'
+import { useShippingOptionState } from 'vtex.shipping-option-components/ShippingOptionContext'
 
 import useShouldDisableFacet from './useShouldDisableFacet'
 
@@ -44,45 +44,21 @@ const useShippingActions = facet => {
   const isAddressDependent =
     addressDependentValues.findIndex(value => facet.value === value) > -1
 
-  const isSSR = useSSR()
   const { push } = usePixel()
 
-  usePixelEventCallback({
-    eventId: `shipping-option-${eventIdentifier}`,
-    handler: e => {
-      if (e?.data?.label) {
-        setActionLabel(e.data.label)
-
-        if (isAddressDependent) {
-          setIsAddressSet(true)
-        }
-
-        if (eventIdentifier === 'pickupPointLabel') {
-          setIsPickupSet(true)
-        }
-      } else {
-        setActionLabel(placeHolders[actionType])
-
-        if (isAddressDependent) {
-          setIsAddressSet(false)
-        }
-
-        if (eventIdentifier === 'pickupPointLabel') {
-          setIsPickupSet(false)
-        }
-      }
-    },
-  })
+  const { zipcode, selectedPickup, city } = useShippingOptionState()
 
   useEffect(() => {
-    if (!isSSR) {
-      return
-    }
+    const addressLabel = city ? `${city}, ${zipcode}` : zipcode
+    const pickupPointLabel = selectedPickup
+      ? selectedPickup.pickupPoint.friendlyName
+      : ''
 
-    const windowLabel = window[eventIdentifier]
+    const label =
+      eventIdentifier === 'pickupPointLabel' ? pickupPointLabel : addressLabel
 
-    if (windowLabel) {
-      setActionLabel(windowLabel)
+    if (label) {
+      setActionLabel(label)
 
       if (isAddressDependent) {
         setIsAddressSet(true)
@@ -102,7 +78,14 @@ const useShippingActions = facet => {
         setIsPickupSet(false)
       }
     }
-  }, [actionType, eventIdentifier, isSSR, isAddressDependent])
+  }, [
+    actionType,
+    city,
+    eventIdentifier,
+    isAddressDependent,
+    zipcode,
+    selectedPickup,
+  ])
 
   const openDrawer = useCallback(() => {
     push({
