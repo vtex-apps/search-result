@@ -17,6 +17,7 @@ const AccordionFilterPriceRange = ({
   onClearFilter,
   showClearByFilter,
   onChangePriceRange,
+  scrollToTop,
 }) => {
   const priceRangeRegex = /^(.*) TO (.*)$/
   const isPriceRangeSelected = priceRange && priceRangeRegex.test(priceRange)
@@ -40,6 +41,7 @@ const AccordionFilterPriceRange = ({
           priceRange={priceRange}
           priceRangeLayout={priceRangeLayout}
           onChangePriceRange={onChangePriceRange}
+          scrollToTop={scrollToTop}
         />
       </div>
     </AccordionFilterItem>
