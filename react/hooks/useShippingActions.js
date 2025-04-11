@@ -46,10 +46,10 @@ const useShippingActions = facet => {
 
   const { push } = usePixel()
 
-  const { zipcode, selectedPickup, city } = useShippingOptionState()
+  const { zipcode, selectedPickup, city, addressLabel } =
+    useShippingOptionState()
 
   useEffect(() => {
-    const addressLabel = city ? `${city}, ${zipcode}` : zipcode
     const pickupPointLabel = selectedPickup
       ? selectedPickup.pickupPoint.friendlyName
       : ''
@@ -85,6 +85,7 @@ const useShippingActions = facet => {
     isAddressDependent,
     zipcode,
     selectedPickup,
+    addressLabel,
   ])
 
   const openDrawer = useCallback(() => {
