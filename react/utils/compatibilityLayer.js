@@ -78,7 +78,10 @@ const addMap = facet => {
   }
 }
 
-export const detachFiltersByType = facets => {
+export const detachFiltersByType = (
+  facets,
+  deliveryPromisesEnabled = false
+) => {
   facets.forEach(facet => facet.facets.forEach(value => addMap(value)))
 
   const byType = groupBy(filter => filter.type)
@@ -96,7 +99,9 @@ export const detachFiltersByType = facets => {
     groupedFilters.TEXT || []
   )
 
-  const deliveries = getFormattedDeliveries(groupedFilters.DELIVERY || [])
+  const deliveries = deliveryPromisesEnabled
+    ? getFormattedDeliveries(groupedFilters.DELIVERY || [])
+    : []
 
   const categoriesTrees = pathOr(
     [],
