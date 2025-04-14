@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { RadioGroup } from 'vtex.styleguide'
+import PostalCodeModal from 'vtex.shipping-option-components/PostalCodeModal'
+import PickupModal from 'vtex.shipping-option-components/PickupModal'
 
 import ShippingActionButton from './ShippingActionButton'
 import useShippingActions from '../hooks/useShippingActions'
 
-const RadioItem = ({ facet }) => {
+const RadioItem = ({ facet, onOpenPostalCodeModal, onOpenPickupModal }) => {
   const intl = useIntl()
 
-  const { actionLabel, actionType, openDrawer } = useShippingActions(facet)
+  const { actionLabel, actionType } = useShippingActions(facet)
 
   return (
     <div>
@@ -16,7 +18,11 @@ const RadioItem = ({ facet }) => {
       {actionType ? (
         <ShippingActionButton
           label={intl.formatMessage({ id: actionLabel ?? 'none' })}
-          openDrawer={openDrawer}
+          openDrawer={
+            actionType === 'DELIVERY'
+              ? onOpenPostalCodeModal
+              : onOpenPickupModal
+          }
         />
       ) : undefined}
     </div>
@@ -26,6 +32,8 @@ const RadioItem = ({ facet }) => {
 const RadioFilters = ({ facets, onChange }) => {
   const selectedOption = facets.find(facet => facet.selected)
   const lastValue = selectedOption ? selectedOption.value : undefined
+  const [isPostalCodeModalOpen, setIsPostalCodeModalOpen] = useState(false)
+  const [isPickupModalOpen, setisPickupModalOpen] = useState(false)
 
   const [selectedValue, setSelectedValue] = useState(lastValue)
 
@@ -48,19 +56,35 @@ const RadioFilters = ({ facets, onChange }) => {
   }
 
   return (
-    <RadioGroup
-      hideBorder
-      size="small"
-      name="shipping"
-      options={facets.map(facet => ({
-        id: facet.value,
-        value: facet.value,
-        label: <RadioItem facet={facet} />,
-        disabled: facet.quantity === 0,
-      }))}
-      value={selectedValue}
-      onChange={onRadioSelect}
-    />
+    <>
+      <RadioGroup
+        hideBorder
+        size="small"
+        name="shipping"
+        options={facets.map(facet => ({
+          id: facet.value,
+          value: facet.value,
+          label: (
+            <RadioItem
+              facet={facet}
+              onOpenPostalCodeModal={() => setIsPostalCodeModalOpen(true)}
+              onOpenPickupModal={() => setisPickupModalOpen(true)}
+            />
+          ),
+          disabled: facet.quantity === 0,
+        }))}
+        value={selectedValue}
+        onChange={onRadioSelect}
+      />
+      <PostalCodeModal
+        isOpen={isPostalCodeModalOpen}
+        onClose={() => setIsPostalCodeModalOpen(false)}
+      />
+      <PickupModal
+        isOpen={isPickupModalOpen}
+        onClose={() => setisPickupModalOpen(false)}
+      />
+    </>
   )
 }
 
