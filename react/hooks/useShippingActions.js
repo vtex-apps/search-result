@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
-import { usePixel } from 'vtex.pixel-manager'
+import { useEffect, useState } from 'react'
 import { useShippingOptionState } from 'vtex.shipping-option-components/ShippingOptionContext'
 
 import useShouldDisableFacet from './useShouldDisableFacet'
@@ -21,11 +20,6 @@ const placeHolders = {
   PICKUP_POINT: 'store/search.filter.shipping.action-button.pickup-in-point',
 }
 
-const drawerEvent = {
-  DELIVERY: 'shipping-option-deliver-to',
-  PICKUP_POINT: 'shipping-option-store',
-}
-
 const addressDependentValues = [
   'delivery',
   'pickup-in-point',
@@ -43,8 +37,6 @@ const useShippingActions = facet => {
 
   const isAddressDependent =
     addressDependentValues.findIndex(value => facet.value === value) > -1
-
-  const { push } = usePixel()
 
   const { zipcode, selectedPickup, city, addressLabel } =
     useShippingOptionState()
@@ -88,19 +80,12 @@ const useShippingActions = facet => {
     addressLabel,
   ])
 
-  const openDrawer = useCallback(() => {
-    push({
-      id: drawerEvent[actionType],
-    })
-  }, [actionType, push])
-
   const shouldDisable = useShouldDisableFacet(facet, isAddressSet, isPickupSet)
 
   if (facet.value === 'pickup-nearby' || facet.value === 'pickup') {
     return {
       actionLabel: null,
       actionType: null,
-      openDrawer: null,
       shouldDisable,
     }
   }
@@ -108,7 +93,6 @@ const useShippingActions = facet => {
   return {
     actionType,
     actionLabel,
-    openDrawer,
     shouldDisable,
   }
 }

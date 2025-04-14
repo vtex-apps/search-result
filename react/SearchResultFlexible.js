@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useRef, useState } from 'react'
+import React, { useMemo, useEffect, useRef } from 'react'
 import {
   SearchPageContext,
   SearchPageStateContext,
@@ -9,9 +9,6 @@ import { useCssHandles } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
 import { generateBlockClass } from '@vtex/css-handles'
 import { pathOr, isEmpty } from 'ramda'
-import PostalCodeModal from 'vtex.shipping-option-components/PostalCodeModal'
-import PickupModal from 'vtex.shipping-option-components/PickupModal'
-import { usePixelEventCallback } from 'vtex.pixel-manager'
 
 import SearchResultContainer from './components/SearchResultContainer'
 import ContextProviders from './components/ContextProviders'
@@ -19,9 +16,6 @@ import getFilters from './utils/getFilters'
 import LoadingOverlay from './components/LoadingOverlay'
 import { PAGINATION_TYPE } from './constants/paginationType'
 import styles from './searchResult.css'
-
-const DELIVER_DRAWER_PIXEL_EVENT_ID = 'shipping-option-deliver-to'
-const STORE_DRAWER_PIXEL_EVENT_ID = 'shipping-option-store'
 
 const emptyFacets = {
   brands: [],
@@ -71,21 +65,6 @@ const SearchResultFlexible = ({
   thresholdForFacetSearch,
   lazyItemsRemaining,
 }) => {
-  const [isPostalCodeModalOpen, setIsPostalCodeModalOpen] = useState(false)
-  const [isPickupModalOpen, setisPickupModalOpen] = useState(false)
-
-  usePixelEventCallback({
-    eventId: DELIVER_DRAWER_PIXEL_EVENT_ID,
-    handler: () => setIsPostalCodeModalOpen(true),
-  })
-
-  usePixelEventCallback({
-    eventId: STORE_DRAWER_PIXEL_EVENT_ID,
-    handler: () => {
-      setisPickupModalOpen(true)
-    },
-  })
-
   // This makes infinite scroll unavailable.
   // Infinite scroll was deprecated and we have
   // removed it since the flexible search release
@@ -251,14 +230,6 @@ const SearchResultFlexible = ({
                 >
                   {children}
                 </div>
-                <PostalCodeModal
-                  isOpen={isPostalCodeModalOpen}
-                  onClose={() => setIsPostalCodeModalOpen(false)}
-                />
-                <PickupModal
-                  isOpen={isPickupModalOpen}
-                  onClose={() => setisPickupModalOpen(false)}
-                />
               </LoadingOverlay>
             </SearchResultContainer>
           </ContextProviders>
