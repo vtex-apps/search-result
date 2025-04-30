@@ -23,9 +23,7 @@ const SelectedFilters = ({
   const handles = useCssHandles(CSS_HANDLES)
   const { showFacetTitle } = useContext(SettingsContext)
 
-  const visibleFilters = filters
-    .filter(filter => !filter.hidden)
-    .filter(filter => filter.key !== 'shipping')
+  const visibleFilters = filters.filter(filter => !filter.hidden)
 
   if (!visibleFilters.length) {
     return null
@@ -40,6 +38,7 @@ const SelectedFilters = ({
       filters={visibleFilters}
       collapsable={false}
       selected
+      isSelectedFiltersSection
     >
       {facet => {
         return (

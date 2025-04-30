@@ -90,6 +90,7 @@ const FilterOptionTemplate = ({
   showClearByFilter,
   preventRouteChange,
   handleClear,
+  isSelectedFiltersSection = false,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
@@ -163,7 +164,9 @@ const FilterOptionTemplate = ({
         ? FACETS_RENDER_THRESHOLD
         : filteredFacets.length
 
-    const isRadio = filters.some(filter => filter.key === 'shipping')
+    const isRadio =
+      !isSelectedFiltersSection &&
+      filters.some(filter => filter.key === 'shipping')
 
     return (
       <>
@@ -384,6 +387,7 @@ FilterOptionTemplate.propTypes = {
   preventRouteChange: PropTypes.bool,
   /** Custom clear handler */
   handleClear: PropTypes.func,
+  isSelectedFiltersSection: PropTypes.bool,
 }
 
 export default FilterOptionTemplate
