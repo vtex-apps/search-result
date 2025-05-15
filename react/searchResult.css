@@ -273,3 +273,7 @@
 .scrim, .sidebar {
   z-index: 999;
 }
+
+.filterContent {
+  padding-right: 2px;
+}

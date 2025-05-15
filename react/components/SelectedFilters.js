@@ -38,6 +38,7 @@ const SelectedFilters = ({
       filters={visibleFilters}
       collapsable={false}
       selected
+      isSelectedFiltersSection
     >
       {facet => {
         return (
