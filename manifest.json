@@ -39,7 +39,7 @@
     "vtex.store-drawer": "0.x",
     "vtex.product-list-context": "0.x",
     "vtex.structured-data": "0.x",
-    "vtex.shipping-option-components": "0.x"
+    "vtex.shipping-option-components": "1.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
