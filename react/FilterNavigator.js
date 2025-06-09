@@ -10,6 +10,8 @@ import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import { flatten } from 'ramda'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { Button } from 'vtex.styleguide'
+import PostalCodeModal from 'vtex.shipping-option-components/PostalCodeModal'
+import PickupModal from 'vtex.shipping-option-components/PickupModal'
 
 import FilterSidebar from './components/FilterSidebar'
 import SelectedFilters from './components/SelectedFilters'
@@ -106,6 +108,8 @@ const FilterNavigator = ({
   const { isMobile } = useDevice()
   const handles = useCssHandles(CSS_HANDLES)
   const [truncatedFacetsFetched, setTruncatedFacetsFetched] = useState(false)
+  const [isPostalCodeModalOpen, setIsPostalCodeModalOpen] = useState(false)
+  const [isPickupModalOpen, setisPickupModalOpen] = useState(false)
 
   const mobileLayout =
     (isMobile && layout === LAYOUT_TYPES.responsive) ||
@@ -274,6 +278,8 @@ const FilterNavigator = ({
               filters={selectedFilters}
               preventRouteChange={preventRouteChange}
               navigateToFacet={navigateToFacet}
+              onOpenPostalCodeModal={() => setIsPostalCodeModalOpen(true)}
+              onOpenPickupModal={() => setisPickupModalOpen(true)}
             />
             <DepartmentFilters
               title={CATEGORIES_TITLE}
@@ -300,6 +306,8 @@ const FilterNavigator = ({
               showClearByFilter={showClearByFilter}
               priceRangeLayout={priceRangeLayout}
               scrollToTop={scrollToTop}
+              onOpenPostalCodeModal={() => setIsPostalCodeModalOpen(true)}
+              onOpenPickupModal={() => setisPickupModalOpen(true)}
             />
             {showClearAllFiltersOnDesktop && hasFiltersApplied && (
               <div
@@ -317,6 +325,14 @@ const FilterNavigator = ({
           <ExtensionPoint id="shop-review-summary" />
         </Fragment>
       )}
+      <PostalCodeModal
+        isOpen={isPostalCodeModalOpen}
+        onClose={() => setIsPostalCodeModalOpen(false)}
+      />
+      <PickupModal
+        isOpen={isPickupModalOpen}
+        onClose={() => setisPickupModalOpen(false)}
+      />
     </Fragment>
   )
 }

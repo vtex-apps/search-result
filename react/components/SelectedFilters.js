@@ -18,6 +18,8 @@ const SelectedFilters = ({
   filters = [],
   preventRouteChange = false,
   navigateToFacet,
+  onOpenPostalCodeModal,
+  onOpenPickupModal,
 }) => {
   const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
@@ -39,6 +41,8 @@ const SelectedFilters = ({
       collapsable={false}
       selected
       isSelectedFiltersSection
+      onOpenPostalCodeModal={onOpenPostalCodeModal}
+      onOpenPickupModal={onOpenPickupModal}
     >
       {facet => {
         return (
@@ -51,6 +55,8 @@ const SelectedFilters = ({
             className={handles.selectedFilterItem}
             preventRouteChange={preventRouteChange}
             navigateToFacet={navigateToFacet}
+            onOpenPostalCodeModal={onOpenPostalCodeModal}
+            onOpenPickupModal={onOpenPickupModal}
           />
         )
       }}
@@ -67,6 +73,8 @@ SelectedFilters.propTypes = {
   /** Prevent route changes */
   preventRouteChange: PropTypes.bool,
   navigateToFacet: PropTypes.func,
+  onOpenPostalCodeModal: PropTypes.func,
+  onOpenPickupModal: PropTypes.func,
 }
 
 export default SelectedFilters

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { RadioGroup } from 'vtex.styleguide'
-import PostalCodeModal from 'vtex.shipping-option-components/PostalCodeModal'
-import PickupModal from 'vtex.shipping-option-components/PickupModal'
 
 import ShippingActionButton from './ShippingActionButton'
 import useShippingActions from '../hooks/useShippingActions'
@@ -29,11 +27,14 @@ const RadioItem = ({ facet, onOpenPostalCodeModal, onOpenPickupModal }) => {
   )
 }
 
-const RadioFilters = ({ facets, onChange }) => {
+const RadioFilters = ({
+  facets,
+  onChange,
+  onOpenPostalCodeModal,
+  onOpenPickupModal,
+}) => {
   const selectedOption = facets.find(facet => facet.selected)
   const lastValue = selectedOption ? selectedOption.value : undefined
-  const [isPostalCodeModalOpen, setIsPostalCodeModalOpen] = useState(false)
-  const [isPickupModalOpen, setisPickupModalOpen] = useState(false)
 
   const [selectedValue, setSelectedValue] = useState(lastValue)
 
@@ -56,35 +57,25 @@ const RadioFilters = ({ facets, onChange }) => {
   }
 
   return (
-    <>
-      <RadioGroup
-        hideBorder
-        size="small"
-        name="shipping"
-        options={facets.map(facet => ({
-          id: facet.value,
-          value: facet.value,
-          label: (
-            <RadioItem
-              facet={facet}
-              onOpenPostalCodeModal={() => setIsPostalCodeModalOpen(true)}
-              onOpenPickupModal={() => setisPickupModalOpen(true)}
-            />
-          ),
-          disabled: facet.quantity === 0,
-        }))}
-        value={selectedValue}
-        onChange={onRadioSelect}
-      />
-      <PostalCodeModal
-        isOpen={isPostalCodeModalOpen}
-        onClose={() => setIsPostalCodeModalOpen(false)}
-      />
-      <PickupModal
-        isOpen={isPickupModalOpen}
-        onClose={() => setisPickupModalOpen(false)}
-      />
-    </>
+    <RadioGroup
+      hideBorder
+      size="small"
+      name="shipping"
+      options={facets.map(facet => ({
+        id: facet.value,
+        value: facet.value,
+        label: (
+          <RadioItem
+            facet={facet}
+            onOpenPostalCodeModal={onOpenPostalCodeModal}
+            onOpenPickupModal={onOpenPickupModal}
+          />
+        ),
+        disabled: facet.quantity === 0,
+      }))}
+      value={selectedValue}
+      onChange={onRadioSelect}
+    />
   )
 }
 

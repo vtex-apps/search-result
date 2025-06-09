@@ -91,6 +91,8 @@ const FilterOptionTemplate = ({
   preventRouteChange,
   handleClear,
   isSelectedFiltersSection = false,
+  onOpenPostalCodeModal,
+  onOpenPickupModal,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
@@ -176,6 +178,8 @@ const FilterOptionTemplate = ({
             onChange={facet =>
               navigateToFacet({ ...facet, title }, preventRouteChange)
             }
+            onOpenPostalCodeModal={onOpenPostalCodeModal}
+            onOpenPickupModal={onOpenPickupModal}
           />
         ) : (
           filteredFacets.slice(0, endSlice).map(children)
@@ -388,6 +392,8 @@ FilterOptionTemplate.propTypes = {
   /** Custom clear handler */
   handleClear: PropTypes.func,
   isSelectedFiltersSection: PropTypes.bool,
+  onOpenPostalCodeModal: PropTypes.func,
+  onOpenPickupModal: PropTypes.func,
 }
 
 export default FilterOptionTemplate

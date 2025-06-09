@@ -27,6 +27,8 @@ const SearchFilter = ({
   closeOnOutsideClick,
   appliedFiltersOverview,
   showClearByFilter,
+  onOpenPostalCodeModal,
+  onOpenPickupModal,
 }) => {
   const intl = useIntl()
   const sampleFacet = facets && facets.length > 0 ? facets[0] : null
@@ -51,6 +53,8 @@ const SearchFilter = ({
       navigateToFacet={navigateToFacet}
       showClearByFilter={showClearByFilter}
       preventRouteChange={preventRouteChange}
+      onOpenPostalCodeModal={onOpenPostalCodeModal}
+      onOpenPickupModal={onOpenPickupModal}
     >
       {facet => (
         <FacetItem
@@ -59,6 +63,8 @@ const SearchFilter = ({
           facet={facet}
           preventRouteChange={preventRouteChange}
           navigateToFacet={navigateToFacet}
+          onOpenPostalCodeModal={onOpenPostalCodeModal}
+          onOpenPickupModal={onOpenPickupModal}
         />
       )}
     </FilterOptionTemplate>
@@ -94,6 +100,8 @@ SearchFilter.propTypes = {
   appliedFiltersOverview: PropTypes.string,
   showClearByFilter: PropTypes.bool,
   type: PropTypes.string,
+  onOpenPostalCodeModal: PropTypes.func,
+  onOpenPickupModal: PropTypes.func,
 }
 
 export default SearchFilter
