@@ -50,7 +50,7 @@ const SearchResultFlexible = ({
   preventRouteChange = false,
   showFacetQuantity = false,
   showFacetTitle = false,
-  showShippingFacet = false,
+  showShippingFacet = true,
   availableShippingValues = [],
   // Below are set by SearchContext
   searchQuery,
