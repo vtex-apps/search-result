@@ -20,12 +20,15 @@ const SelectedFilters = ({
   navigateToFacet,
   onOpenPostalCodeModal,
   onOpenPickupModal,
+  showShippingFacet,
 }) => {
   const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
   const { showFacetTitle } = useContext(SettingsContext)
 
-  const visibleFilters = filters.filter(filter => !filter.hidden)
+  const visibleFilters = filters
+    .filter(filter => !filter.hidden)
+    .filter(filter => showShippingFacet || filter.key !== 'shipping')
 
   if (!visibleFilters.length) {
     return null
@@ -75,6 +78,7 @@ SelectedFilters.propTypes = {
   navigateToFacet: PropTypes.func,
   onOpenPostalCodeModal: PropTypes.func,
   onOpenPickupModal: PropTypes.func,
+  showShippingFacet: PropTypes.bool,
 }
 
 export default SelectedFilters
