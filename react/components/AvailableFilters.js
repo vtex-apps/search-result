@@ -39,6 +39,8 @@ const Filter = ({
   showClearByFilter,
   priceRangeLayout,
   scrollToTop,
+  onOpenPostalCodeModal,
+  onOpenPickupModal,
 }) => {
   const { type, title, facets, quantity, oneSelectedCollapse = false } = filter
 
@@ -81,6 +83,8 @@ const Filter = ({
           closeOnOutsideClick={closeOnOutsideClick}
           appliedFiltersOverview={appliedFiltersOverview}
           showClearByFilter={showClearByFilter}
+          onOpenPostalCodeModal={onOpenPostalCodeModal}
+          onOpenPickupModal={onOpenPickupModal}
         />
       )
   }

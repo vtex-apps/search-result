@@ -22,6 +22,7 @@ import useOutsideClick from '../hooks/useOutsideClick'
 import ShowMoreFilterButton from './ShowMoreFilterButton'
 import { useRenderOnView } from '../hooks/useRenderOnView'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
+import RadioFilters from './RadioFilters'
 
 /** Returns true if elementRef has ever been scrolled */
 const useHasScrolled = elementRef => {
@@ -89,6 +90,9 @@ const FilterOptionTemplate = ({
   showClearByFilter,
   preventRouteChange,
   handleClear,
+  isSelectedFiltersSection = false,
+  onOpenPostalCodeModal,
+  onOpenPickupModal,
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
@@ -162,9 +166,24 @@ const FilterOptionTemplate = ({
         ? FACETS_RENDER_THRESHOLD
         : filteredFacets.length
 
+    const isRadio =
+      !isSelectedFiltersSection &&
+      filters.some(filter => filter.key === 'shipping')
+
     return (
       <>
-        {filteredFacets.slice(0, endSlice).map(children)}
+        {isRadio ? (
+          <RadioFilters
+            facets={filteredFacets}
+            onChange={facet =>
+              navigateToFacet({ ...facet, title }, preventRouteChange)
+            }
+            onOpenPostalCodeModal={onOpenPostalCodeModal}
+            onOpenPickupModal={onOpenPickupModal}
+          />
+        ) : (
+          filteredFacets.slice(0, endSlice).map(children)
+        )}
         {placeholderSize > 0 && <div style={{ height: placeholderSize }} />}
         {shouldTruncate && (
           <ShowMoreFilterButton
@@ -372,6 +391,9 @@ FilterOptionTemplate.propTypes = {
   preventRouteChange: PropTypes.bool,
   /** Custom clear handler */
   handleClear: PropTypes.func,
+  isSelectedFiltersSection: PropTypes.bool,
+  onOpenPostalCodeModal: PropTypes.func,
+  onOpenPickupModal: PropTypes.func,
 }
 
 export default FilterOptionTemplate

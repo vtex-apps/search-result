@@ -31,12 +31,13 @@ const FacetItem = ({
   className,
   preventRouteChange,
   showTitle = false,
+  onOpenPostalCodeModal,
+  onOpenPickupModal,
 }) => {
   const intl = useIntl()
   const { push } = usePixel()
 
-  const { actionLabel, actionType, openDrawer, shouldDisable } =
-    useShippingActions(facet)
+  const { actionLabel, actionType, shouldDisable } = useShippingActions(facet)
 
   const showActionButton = !!actionType
 
@@ -92,8 +93,12 @@ const FacetItem = ({
         <div>
           <div>{labelElement}</div>
           <ShippingActionButton
-            label={intl.formatMessage({ id: actionLabel })}
-            openDrawer={openDrawer}
+            label={intl.formatMessage({ id: actionLabel ?? 'none' })}
+            openDrawer={
+              actionType === 'DELIVERY'
+                ? onOpenPostalCodeModal
+                : onOpenPickupModal
+            }
           />
         </div>
       )
@@ -119,10 +124,12 @@ const FacetItem = ({
     handles.filterItemTitle,
     showActionButton,
     actionLabel,
-    openDrawer,
     showTitle,
     facetTitle,
     intl,
+    actionType,
+    onOpenPostalCodeModal,
+    onOpenPickupModal,
   ])
 
   return (
