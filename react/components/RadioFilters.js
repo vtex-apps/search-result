@@ -1,14 +1,9 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { RadioGroup } from 'vtex.styleguide'
-import { useShippingOptionState } from 'vtex.shipping-option-components/ShippingOptionContext'
 
 import ShippingActionButton from './ShippingActionButton'
 import useShippingActions from '../hooks/useShippingActions'
-import setCookie from '../utils/setCookie'
-import getCookie from '../utils/getCookie'
-
-const LAST_SHIPPING_FACET_SELECTED = 'lastShippingFacetSelected'
 
 const RadioItem = ({ facet, onOpenPostalCodeModal, onOpenPickupModal }) => {
   const intl = useIntl()
@@ -43,49 +38,23 @@ const RadioFilters = ({
 
   const [selectedValue, setSelectedValue] = useState(lastValue)
 
-  const { zipcode, selectedPickup } = useShippingOptionState()
-
   useEffect(() => {
     setSelectedValue(lastValue)
-    if (lastValue) {
-      setCookie(LAST_SHIPPING_FACET_SELECTED, lastValue)
-    }
   }, [lastValue])
 
-  useEffect(() => {
-    const lastSelected = getCookie(LAST_SHIPPING_FACET_SELECTED)
+  const onRadioSelect = e => {
+    const { value } = e.currentTarget
 
-    if (lastSelected) {
+    setSelectedValue(value)
+
+    const clickedFacet = facets.find(facet => facet.value === value)
+
+    if (clickedFacet.selected) {
       return
     }
 
-    let globalValue
-
-    if (zipcode) {
-      globalValue = 'delivery'
-    }
-
-    if (selectedPickup) {
-      globalValue = 'pickup-in-point'
-    }
-
-    onSelectFacet(globalValue)
-  }, [onSelectFacet, selectedPickup, zipcode])
-
-  const onSelectFacet = useCallback(
-    value => {
-      setSelectedValue(value)
-
-      const clickedFacet = facets.find(facet => facet.value === value)
-
-      if (clickedFacet?.selected) {
-        return
-      }
-
-      onChange(clickedFacet)
-    },
-    [facets, onChange]
-  )
+    onChange(clickedFacet)
+  }
 
   return (
     <RadioGroup
@@ -105,9 +74,7 @@ const RadioFilters = ({
         disabled: facet.quantity === 0,
       }))}
       value={selectedValue}
-      onChange={({ currentTarget }) => {
-        onSelectFacet(currentTarget.value)
-      }}
+      onChange={onRadioSelect}
     />
   )
 }
