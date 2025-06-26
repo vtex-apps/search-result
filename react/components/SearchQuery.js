@@ -172,7 +172,7 @@ const useQueries = (variables, facetsArgs, price) => {
 
   const { data: { searchMetadata } = {} } = useQuery(searchMetadataQuery, {
     variables: {
-      query: variables.query,
+      query: encodeURIComponent(variables.query),
       fullText: variables.fullText,
       selectedFacets: variables.selectedFacets,
     },
