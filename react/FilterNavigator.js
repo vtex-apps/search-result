@@ -258,6 +258,7 @@ const FilterNavigator = ({
               priceRangeLayout={priceRangeLayout}
               filtersDrawerDirectionMobile={filtersDrawerDirectionMobile}
               showQuantityBadgeOnMobile={showQuantityBadgeOnMobile}
+              scrollToTop={scrollToTop}
             />
           </div>
         </div>

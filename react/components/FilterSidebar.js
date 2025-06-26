@@ -58,6 +58,7 @@ const FilterSidebar = ({
   priceRangeLayout,
   filtersDrawerDirectionMobile,
   showQuantityBadgeOnMobile,
+  scrollToTop,
 }) => {
   const { searchQuery } = useSearchPage()
   const filterContext = useFilterNavigator()
@@ -304,6 +305,7 @@ const FilterSidebar = ({
             showClearByFilter={showClearByFilter}
             updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
             priceRangeLayout={priceRangeLayout}
+            scrollToTop={scrollToTop}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>
