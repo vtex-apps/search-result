@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-restricted-imports
 import { zip } from 'ramda'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { useRuntime } from 'vtex.render-runtime'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
@@ -171,10 +171,30 @@ const buildQueryAndMap = (
 export const buildNewQueryMap = (
   fullTextSellerAndCollection,
   facets,
-  selectedFacets
+  selectedFacets,
+  ignoreGlobalShipping,
+  onShouldIgnore
 ) => {
+  // RadioGroup behavior
+  let shouldIgnore = ignoreGlobalShipping
+  const selectedShippingFacet = facets.find(facet => facet.key === 'shipping')
+
+  if (selectedShippingFacet && !selectedShippingFacet.selected) {
+    selectedFacets = selectedFacets.filter(facet => facet.key !== 'shipping')
+    shouldIgnore = false
+    onShouldIgnore(false)
+  } else if (selectedShippingFacet && selectedShippingFacet.selected) {
+    shouldIgnore = true
+    onShouldIgnore(true)
+  }
+
   const querySegments = selectedFacets.map(facet => facet.value)
   const mapSegments = selectedFacets.map(facet => facet.map)
+
+  if (shouldIgnore) {
+    querySegments.push('ignore')
+    mapSegments.push('shipping')
+  }
 
   const { ft: fullText, seller } = fullTextSellerAndCollection
 
@@ -196,6 +216,7 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
   const { map, query } = useFilterNavigator()
   const { fuzzy, operator, searchState } = useSearchState()
   const { searchQuery } = useSearchPage()
+  const [ignoreGlobalShipping, setIgnoreGlobalShipping] = useState(false)
   const fullTextQuery = map.split(',').includes('ft')
 
   const mainSearches = getMainSearches(query, map)
@@ -211,7 +232,9 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
       const { query: currentQuery, map: currentMap } = buildNewQueryMap(
         mainSearches,
         facets,
-        selectedFacets
+        selectedFacets,
+        ignoreGlobalShipping,
+        should => setIgnoreGlobalShipping(should)
       )
 
       if (scrollToTop !== 'none') {
@@ -317,6 +340,7 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
       searchState,
       selectedFacets,
       setQuery,
+      ignoreGlobalShipping,
     ]
   )
 

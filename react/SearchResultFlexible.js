@@ -50,7 +50,7 @@ const SearchResultFlexible = ({
   preventRouteChange = false,
   showFacetQuantity = false,
   showFacetTitle = false,
-  showShippingFacet = false,
+  showShippingFacet = true,
   availableShippingValues = [],
   // Below are set by SearchContext
   searchQuery,
@@ -175,6 +175,7 @@ const SearchResultFlexible = ({
       facetsLoading,
       lazyItemsRemaining,
       selectedFacets,
+      showShippingFacet,
     }
   }, [
     hiddenFacets,
@@ -193,6 +194,7 @@ const SearchResultFlexible = ({
     preventRouteChange,
     facetsLoading,
     lazyItemsRemaining,
+    showShippingFacet,
   ])
 
   const showLoading = searchQuery.loading && !state.isFetchingMore

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Radio button to delivery filter
+- `PickupModal` and `PostalCodeModal` to open in shipping facets action buttons
+- Use `deliveryPromisesEnabled` value to show or hide delivery filters
+
 ### Changed
 
 - Update GitHub actions/cache to v4
