@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.138.0] - 2025-07-10
+
 ### Changed
 
 -  `showShippingFacet` as `false` by default.
