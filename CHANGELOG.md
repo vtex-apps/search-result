@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fix
+
+- Fix table format and review content on README.md
+
 ## [3.138.0] - 2025-07-10
 
 ### Changed
