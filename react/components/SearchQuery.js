@@ -217,11 +217,7 @@ const useQueries = (variables, facetsArgs, price) => {
 
   const detachedFilters =
     facets && facets.facets
-      ? detachFiltersByType(
-          facets.facets,
-          !!productSearchResult.data?.productSearch?.options
-            ?.deliveryPromisesEnabled
-        )
+      ? detachFiltersByType(facets.facets)
       : {
           brands: [],
           brandsQuantity: 0,
