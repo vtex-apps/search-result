@@ -32,6 +32,8 @@ const AccordionFilterGroup = ({
   setTruncatedFacetsFetched,
   onClearFilter,
   showClearByFilter,
+  onOpenPostalCodeModal,
+  onOpenPickupModal,
 }) => {
   const { searchQuery } = useSearchPage()
   const handles = useCssHandles(CSS_HANDLES)
@@ -78,6 +80,8 @@ const AccordionFilterGroup = ({
               })
               onFilterCheck({ ...facet, title: facetTitle }, true)
             }}
+            onOpenPostalCodeModal={onOpenPostalCodeModal}
+            onOpenPickupModal={onOpenPickupModal}
           />
         ) : (
           <FacetCheckboxList

@@ -58,6 +58,8 @@ const FilterSidebar = ({
   priceRangeLayout,
   filtersDrawerDirectionMobile,
   showQuantityBadgeOnMobile,
+  onOpenPostalCodeModal,
+  onOpenPickupModal,
 }) => {
   const { searchQuery } = useSearchPage()
   const filterContext = useFilterNavigator()
@@ -304,6 +306,8 @@ const FilterSidebar = ({
             showClearByFilter={showClearByFilter}
             updateOnFilterSelectionOnMobile={updateOnFilterSelectionOnMobile}
             priceRangeLayout={priceRangeLayout}
+            onOpenPostalCodeModal={onOpenPostalCodeModal}
+            onOpenPickupModal={onOpenPickupModal}
           />
           <ExtensionPoint id="sidebar-close-button" onClose={handleClose} />
         </FilterNavigatorContext.Provider>

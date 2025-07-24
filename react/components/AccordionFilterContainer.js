@@ -43,6 +43,8 @@ const AccordionFilterContainer = ({
   showClearByFilter,
   updateOnFilterSelectionOnMobile,
   priceRangeLayout,
+  onOpenPostalCodeModal,
+  onOpenPickupModal,
 }) => {
   const intl = useIntl()
   const { getSettings, setQuery } = useRuntime()
@@ -205,6 +207,8 @@ const AccordionFilterContainer = ({
                 setTruncatedFacetsFetched={setTruncatedFacetsFetched}
                 onClearFilter={onClearFilter}
                 showClearByFilter={showClearByFilter}
+                onOpenPostalCodeModal={onOpenPostalCodeModal}
+                onOpenPickupModal={onOpenPickupModal}
               />
             )
         }
@@ -262,6 +266,8 @@ AccordionFilterContainer.propTypes = {
   /** Set the value of clearPriceRange prop */
   setClearPriceRange: PropTypes.func,
   onChangePriceRange: PropTypes.func,
+  onOpenPostalCodeModal: PropTypes.func,
+  onOpenPickupModal: PropTypes.func,
 }
 
 export default AccordionFilterContainer
