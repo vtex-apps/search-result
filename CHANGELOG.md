@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Remove `InitialQuery` facets to ensure the `ignore` path is added correctly.
+
 ## [3.138.2] - 2025-07-17
 
 ### Fixed
