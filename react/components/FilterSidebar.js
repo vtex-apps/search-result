@@ -70,6 +70,7 @@ const FilterSidebar = ({
     searchQuery.data.productSearch &&
     searchQuery.data.productSearch.recordsFiltered
 
+  const [ignoreGlobalShipping, setIgnoreGlobalShipping] = useState(false)
   const [filterOperations, setFilterOperations] = useState([])
   const [categoryTreeOperations, setCategoryTreeOperations] = useState([])
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
@@ -240,11 +241,15 @@ const FilterSidebar = ({
      changes the object but we do not want that on mobile */
     return {
       ...filterContext,
-      ...buildNewQueryMap(fullTextAndCollection, filterOperations, [
-        ...selectedFilters,
-      ]),
+      ...buildNewQueryMap(
+        fullTextAndCollection,
+        filterOperations,
+        [...selectedFilters],
+        ignoreGlobalShipping,
+        should => setIgnoreGlobalShipping(should)
+      ),
     }
-  }, [filterOperations, filterContext, selectedFilters])
+  }, [filterContext, filterOperations, selectedFilters, ignoreGlobalShipping])
 
   return (
     <Fragment>
