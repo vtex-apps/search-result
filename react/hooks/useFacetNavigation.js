@@ -229,6 +229,7 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
       priceRange = undefined
     ) => {
       const facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
+
       const { query: currentQuery, map: currentMap } = buildNewQueryMap(
         mainSearches,
         facets,
