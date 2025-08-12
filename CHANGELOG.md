@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.138.3] - 2025-08-12
+
 ### Fixed
 
 - Enables to open the zip code and pickup modals from the shipping filter also in mobile view
