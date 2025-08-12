@@ -228,15 +228,7 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
       isReset = false,
       priceRange = undefined
     ) => {
-      const { initialQuery, initialMap } = runtimeQuery
-
-      let facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
-
-      if (initialQuery) {
-        facets = facets.filter(
-          facet => !initialQuery.split('/').includes(facet.value)
-        )
-      }
+      const facets = Array.isArray(maybeFacets) ? maybeFacets : [maybeFacets]
 
       const { query: currentQuery, map: currentMap } = buildNewQueryMap(
         mainSearches,
@@ -312,6 +304,8 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
       }
 
       if (!newQuery) {
+        const { initialQuery, initialMap } = runtimeQuery
+
         if (!initialQuery || !initialMap) {
           return
         }
