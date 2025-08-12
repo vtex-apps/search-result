@@ -258,6 +258,8 @@ const FilterNavigator = ({
               priceRangeLayout={priceRangeLayout}
               filtersDrawerDirectionMobile={filtersDrawerDirectionMobile}
               showQuantityBadgeOnMobile={showQuantityBadgeOnMobile}
+              onOpenPostalCodeModal={() => setIsPostalCodeModalOpen(true)}
+              onOpenPickupModal={() => setisPickupModalOpen(true)}
             />
           </div>
         </div>
