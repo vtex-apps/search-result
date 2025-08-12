@@ -8,6 +8,8 @@
   "author": "VTEX",
   "license": "ISC",
   "dependencies": {
+    "@vtex/ads-core": "0.2.3-beta.0",
+    "@vtex/ads-react": "0.2.4-beta.7",
     "@vtex/css-handles": "^1.1.3",
     "classnames": "^2.2.6",
     "immer": "^9.0.6",
