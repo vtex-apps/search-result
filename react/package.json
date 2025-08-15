@@ -9,6 +9,7 @@
   "license": "ISC",
   "dependencies": {
     "@vtex/css-handles": "^1.1.3",
+    "btoa": "^1.2.1",
     "classnames": "^2.2.6",
     "immer": "^9.0.6",
     "query-string": "^7.0.1",

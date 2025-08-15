@@ -9,6 +9,7 @@ import { useCssHandles } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
 import { generateBlockClass } from '@vtex/css-handles'
 import { pathOr, isEmpty } from 'ramda'
+import btoa from 'btoa'
 
 import SearchResultContainer from './components/SearchResultContainer'
 import ContextProviders from './components/ContextProviders'
@@ -230,7 +231,14 @@ const SearchResultFlexible = ({
                     blockClass
                   )}`}
                 >
-                  {children}
+                  <div
+                    data-af-onimpression
+                    data-af-search-id={`${btoa(
+                      JSON.stringify(searchQuery.variables)
+                    )}`}
+                  >
+                    {children}
+                  </div>
                 </div>
               </LoadingOverlay>
             </SearchResultContainer>
