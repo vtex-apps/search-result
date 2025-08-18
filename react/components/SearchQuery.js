@@ -1,11 +1,10 @@
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { equals } from 'ramda'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import facetsQuery from 'vtex.store-resources/QueryFacetsV2'
 import productSearchQuery from 'vtex.store-resources/QueryProductSearchV3'
 import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadataV2'
-import { useAds } from '@vtex/ads-react'
 
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
 import useRedirect from '../hooks/useRedirect'
@@ -159,39 +158,6 @@ const useQueries = (variables, facetsArgs, price) => {
     },
   })
 
-  const sponsoredSearchResult = useAds({
-    placement: 'top_search',
-    type: 'product',
-    amount: 3,
-    term: variables.query,
-    selectedFacets: variables.selectedFacets,
-  })
-
-  const mergedResults = useMemo(() => {
-    const result = [
-      ...(sponsoredSearchResult?.ads?.map(ad => ({
-        ...ad.product,
-        advertisement: ad.advertisement,
-      })) || []),
-      ...(productSearchResult?.data?.productSearch?.products || []),
-    ]
-
-    if (result.length === 0) {
-      return productSearchResult
-    }
-
-    return {
-      ...productSearchResult,
-      data: {
-        ...productSearchResult?.data,
-        productSearch: {
-          ...productSearchResult?.data?.productSearch,
-          products: result,
-        },
-      },
-    }
-  }, [productSearchResult, sponsoredSearchResult])
-
   const {
     refetch: searchRefetch,
     loading: searchLoading,
@@ -273,7 +239,8 @@ const useQueries = (variables, facetsArgs, price) => {
     facetsLoading,
     fetchMore,
     data: {
-      productSearch: mergedResults.data && mergedResults.data.productSearch,
+      productSearch:
+        productSearchResult.data && productSearchResult.data.productSearch,
       facets: {
         ...detachedFilters,
         queryArgs,
@@ -283,7 +250,7 @@ const useQueries = (variables, facetsArgs, price) => {
       },
       searchMetadata,
     },
-    productSearchResult: mergedResults,
+    productSearchResult,
     refetch,
   }
 }
@@ -528,7 +495,7 @@ const SearchQuery = ({
     [data, loading, productSearchResult, refetch, variables]
   )
 
-  return children(searchInfo, extraParams)
+  return <div>SearchQuery{children(searchInfo, extraParams)}</div>
 }
 
 export default SearchQuery
