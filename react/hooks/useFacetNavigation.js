@@ -237,6 +237,10 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
         should => setIgnoreGlobalShipping(should)
       )
 
+      if (isReset) {
+        setIgnoreGlobalShipping(false)
+      }
+
       if (scrollToTop !== 'none') {
         window.scroll({ top: 0, left: 0, behavior: scrollToTop })
       }
@@ -302,7 +306,7 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
         urlParams.set('priceRange', priceRange)
       }
 
-      if (!newQuery) {
+      if (!newQuery || newQuery === 'ignore') {
         const { initialQuery, initialMap } = runtimeQuery
 
         if (!initialQuery || !initialMap) {
