@@ -7,6 +7,7 @@ import { useRenderOnView } from '../hooks/useRenderOnView'
 import GalleryItem from './GalleryLayoutItem'
 import type { Product } from '../Gallery'
 import type { PreferredSKU } from '../GalleryLayout'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 const CSS_HANDLES = ['galleryItem'] as const
 
@@ -52,6 +53,9 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
     return dummyElement
   }
 
+  const { searchQuery } = useSearchPage()
+  const searchId = searchQuery?.data?.productSearch?.searchId
+  
   return (
     <>
       {products.map((product, index) => {
@@ -59,6 +63,8 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
 
         return (
           <div
+            data-af-onclick={searchId ? true : undefined}
+            data-af-search-id={searchId}
             key={product.cacheId}
             style={style}
             className={classNames(
