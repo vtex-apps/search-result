@@ -2,12 +2,12 @@ import type { ComponentType } from 'react'
 import React, { memo } from 'react'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
 import classNames from 'classnames'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import { useRenderOnView } from '../hooks/useRenderOnView'
 import GalleryItem from './GalleryLayoutItem'
 import type { Product } from '../Gallery'
 import type { PreferredSKU } from '../GalleryLayout'
-import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 const CSS_HANDLES = ['galleryItem'] as const
 
@@ -37,6 +37,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
   listName,
   preferredSKU,
 }) => {
+  const { searchQuery } = useSearchPage()
   const handles = useCssHandles(CSS_HANDLES)
 
   const style = {
@@ -53,9 +54,8 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
     return dummyElement
   }
 
-  const { searchQuery } = useSearchPage()
   const searchId = searchQuery?.data?.productSearch?.searchId
-  
+
   return (
     <>
       {products.map((product, index) => {
