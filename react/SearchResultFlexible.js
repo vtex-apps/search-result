@@ -199,6 +199,8 @@ const SearchResultFlexible = ({
 
   const showLoading = searchQuery.loading && !state.isFetchingMore
 
+  const searchId = searchQuery?.data?.productSearch?.searchId
+
   return (
     <SearchPageContext.Provider value={context}>
       <SearchPageStateContext.Provider value={state}>
@@ -230,7 +232,12 @@ const SearchResultFlexible = ({
                     blockClass
                   )}`}
                 >
-                  {children}
+                  <div
+                    data-af-onimpression={searchId ? true : undefined}
+                    data-af-search-id={searchId}
+                  >
+                    {children}
+                  </div>
                 </div>
               </LoadingOverlay>
             </SearchResultContainer>
