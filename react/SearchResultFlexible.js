@@ -225,6 +225,8 @@ const SearchResultFlexible = ({
             >
               <LoadingOverlay loading={showLoading}>
                 <div
+                  data-af-onimpression={searchId ? true : undefined}
+                  data-af-search-id={searchId}
                   className={`${
                     handles.loadingOverlay
                   } w-100 flex flex-column flex-grow-1 ${generateBlockClass(
@@ -232,12 +234,7 @@ const SearchResultFlexible = ({
                     blockClass
                   )}`}
                 >
-                  <div
-                    data-af-onimpression={searchId ? true : undefined}
-                    data-af-search-id={searchId}
-                  >
-                    {children}
-                  </div>
+                  {children}
                 </div>
               </LoadingOverlay>
             </SearchResultContainer>
