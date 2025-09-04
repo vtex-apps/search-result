@@ -65,6 +65,8 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
           <div
             data-af-onclick={searchId ? true : undefined}
             data-af-search-id={searchId}
+            data-af-product-link={product?.link}
+            data-af-product-id={product?.productId}
             key={product.cacheId}
             style={style}
             className={classNames(
