@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.138.8] - 2025-09-04
+
 ### Fixed
 
 - Fix bug where reset doesn't work when dp is enabled
