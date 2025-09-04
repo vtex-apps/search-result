@@ -77,6 +77,8 @@ const FilterSidebar = ({
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const currentTree = useCategoryTree(tree, categoryTreeOperations)
 
+  const [ignoreGlobalShipping, setIgnoreGlobalShipping] = useState(false)
+
   /* Sometimes there are categories included in selectedFilters
    * This useMemo extracts only filters that users can
    * enable and disable directly */
@@ -160,6 +162,10 @@ const FilterSidebar = ({
       push,
     })
 
+    if (!key) {
+      setOpen(false)
+    }
+
     const isClearByFacet = !!key
 
     shouldClear.current =
@@ -191,7 +197,12 @@ const FilterSidebar = ({
       return
     }
 
-    setFilterOperations(facetsToRemove)
+    if (!key) {
+      setFilterOperations([])
+    } else {
+      setFilterOperations(facetsToRemove)
+    }
+
     navigateToFacet(facetsToRemove, preventRouteChange, !isClearByFacet)
   }
 
@@ -242,11 +253,15 @@ const FilterSidebar = ({
      changes the object but we do not want that on mobile */
     return {
       ...filterContext,
-      ...buildNewQueryMap(fullTextAndCollection, filterOperations, [
-        ...selectedFilters,
-      ]),
+      ...buildNewQueryMap(
+        fullTextAndCollection,
+        filterOperations,
+        [...selectedFilters],
+        ignoreGlobalShipping,
+        should => setIgnoreGlobalShipping(should)
+      ),
     }
-  }, [filterOperations, filterContext, selectedFilters])
+  }, [filterOperations, filterContext, selectedFilters, ignoreGlobalShipping])
 
   return (
     <Fragment>
