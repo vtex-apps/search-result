@@ -1,0 +1,22 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: search-result
+  description: The Search Result app handles the results returned by the VTEX
+    Search API and displays them to users.
+  tags:
+    - typescript
+    - react
+  annotations:
+    vtex.com/janus-acronym: ""
+    vtex.com/o11y-os-index: ""
+    grafana/dashboard-selector: ""
+    github.com/project-slug: vtex-apps/search-result
+    vtex.com/platform-flow-id: ""
+    backstage.io/techdocs-ref: dir:../
+    vtex.com/application-id: UWERS1CF
+spec:
+  lifecycle: stable
+  owner: te-0016
+  type: frontend-ui
+  dependsOn: []
