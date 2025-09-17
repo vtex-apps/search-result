@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+ - Fallback to facet name when not founding shipping translation
+
 ## [3.140.0] - 2025-09-12
 
 ## [3.139.1] - 2025-09-11
