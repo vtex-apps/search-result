@@ -108,15 +108,10 @@ const buildQueryAndMap = (
   facets,
   selectedFacets
 ) => {
-  const facetsToProcess = Array.isArray(facets) ? facets : []
-  const queryAndMap = facetsToProcess.reduce(
+  const queryAndMap = facets.reduce(
     // The spread on facet is important so we can assign facet.newQuerySegment
     ({ query, map }, { ...facet }) => {
-      if (!facet) {
-        return { query, map }
-      }
-
-      const facetValue = facet.value || ''
+      const facetValue = facet.value
 
       facet.newQuerySegment = newFacetPathName(facet)
       if (facet.selected) {
@@ -140,25 +135,21 @@ const buildQueryAndMap = (
 
       if (facet.map === MAP_CATEGORY_CHAR) {
         const lastCategoryIndex = map.lastIndexOf(MAP_CATEGORY_CHAR)
-        const insertionPoint =
-          lastCategoryIndex >= 0 ? lastCategoryIndex + 1 : map.length
 
-        // Insert at the correct position while maintaining other segments
-        const newQuery = [
-          ...query.slice(0, insertionPoint),
-          facetValue,
-          ...query.slice(insertionPoint),
-        ]
-
-        const newMap = [
-          ...map.slice(0, insertionPoint),
-          facet.map,
-          ...map.slice(insertionPoint),
-        ]
-
-        return {
-          query: newQuery,
-          map: newMap,
+        if (lastCategoryIndex >= 0 && lastCategoryIndex !== map.length - 1) {
+          // Corner case: if we are adding a category but there are other filter other than category applied. Add the new category filter to the right of the other categories.
+          return {
+            query: [
+              ...query.slice(0, lastCategoryIndex + 1),
+              facetValue,
+              ...query.slice(lastCategoryIndex + 1),
+            ],
+            map: [
+              ...map.slice(0, lastCategoryIndex + 1),
+              facet.map,
+              ...map.slice(lastCategoryIndex + 1),
+            ],
+          }
         }
       }
 
