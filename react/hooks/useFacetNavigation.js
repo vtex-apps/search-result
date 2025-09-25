@@ -178,14 +178,10 @@ export const buildNewQueryMap = (
 ) => {
   // RadioGroup behavior
   let shouldIgnore = ignoreGlobalShipping
-  const selectedShippingFacet = facets
-    ? facets.find(facet => facet && facet.key && isRadioFilter(facet.key))
-    : undefined
+  const selectedShippingFacet = facets?.find(facet => isRadioFilter(facet.key))
 
   if (selectedShippingFacet && !selectedShippingFacet.selected) {
-    selectedFacets = selectedFacets.filter(
-      facet => facet && facet.key && !isRadioFilter(facet.key)
-    )
+    selectedFacets = selectedFacets.filter(facet => !isRadioFilter(facet.key))
     shouldIgnore = false
     onShouldIgnore(false)
   } else if (selectedShippingFacet && selectedShippingFacet.selected) {
@@ -193,13 +189,9 @@ export const buildNewQueryMap = (
     onShouldIgnore(true)
   }
 
-  const querySegments = (selectedFacets || [])
-    .filter(facet => facet && facet.value && !facet.disabled)
-    .map(facet => facet.value)
+  const querySegments = selectedFacets.map(facet => facet.value)
 
-  const mapSegments = (selectedFacets || [])
-    .filter(facet => facet && facet.map && !facet.disabled)
-    .map(facet => facet.map)
+  const mapSegments = selectedFacets.map(facet => facet.map)
 
   if (shouldIgnore && selectedShippingFacet && selectedShippingFacet.key) {
     querySegments.push('ignore')
@@ -214,11 +206,7 @@ export const buildNewQueryMap = (
     mapSegments.push(FULLTEXT_QUERY_KEY)
   }
 
-  if (
-    typeof seller === 'string' &&
-    seller.length > 0 &&
-    mapSegments.indexOf(SELLER_QUERY_KEY) === -1
-  ) {
+  if (seller && mapSegments.indexOf(SELLER_QUERY_KEY) === -1) {
     querySegments.push(seller)
     mapSegments.push(SELLER_QUERY_KEY)
   }
