@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `delivery-options` to be rendered as radio
+- Bunch of new tests for radio implementation
+
+### Changed
+
+- Logic to display a radio button instead of checkbox
+
 ## [3.140.0] - 2025-09-12
 
 ## [3.139.1] - 2025-09-11

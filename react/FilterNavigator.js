@@ -168,7 +168,11 @@ const FilterNavigator = ({
     ...delivery,
     facets: delivery.facets.map(facet => ({
       ...facet,
-      name: intl.formatMessage({ id: shippingOptions[facet.name] }),
+      name: shippingOptions[facet.name]
+        ? intl.formatMessage({
+            id: shippingOptions[facet.name],
+          })
+        : facet.name,
     })),
   }))
 

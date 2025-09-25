@@ -58,9 +58,10 @@ const RadioFilters = ({
 
   return (
     <RadioGroup
+      data-testid="radio-filters"
       hideBorder
       size="small"
-      name="shipping"
+      name={facets[0]?.key || 'radio-group'}
       options={facets.map(facet => ({
         id: facet.value,
         value: facet.value,

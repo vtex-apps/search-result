@@ -12,6 +12,7 @@ import { getFilterTitle } from '../constants/SearchHelpers'
 import { searchSlugify } from '../utils/slug'
 import RadioFilters from './RadioFilters'
 import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
+import { isRadioFilter } from '../constants/filterTypes'
 
 const CSS_HANDLES = ['accordionFilterOpen']
 
@@ -45,7 +46,7 @@ const AccordionFilterGroup = ({
   const facetKey = filters.length > 0 ? filters[0].key : null
   const { push } = usePixel()
 
-  const isRadio = filters.some(filter => filter.key === 'shipping')
+  const isRadio = filters.some(filter => isRadioFilter(filter.key))
 
   return (
     <AccordionFilterItem

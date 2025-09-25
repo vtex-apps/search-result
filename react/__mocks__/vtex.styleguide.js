@@ -30,6 +30,24 @@ export class Checkbox extends Component {
   }
 }
 
+export const RadioGroup = ({ options = [], value, onChange, ...props }) => (
+  <div data-testid={props['data-testid'] || 'radio-group'}>
+    {options.map(option => (
+      <label key={option.id}>
+        <input
+          type="radio"
+          name={props.name}
+          value={option.value}
+          checked={value === option.value}
+          disabled={option.disabled}
+          onChange={e => onChange && onChange({ currentTarget: e.target })}
+        />
+        {option.label}
+      </label>
+    ))}
+  </div>
+)
+
 export function IconCaret() {
   return <div>IconCaretLeft</div>
 }

@@ -255,6 +255,104 @@ describe('<FilterOptionTemplate />', () => {
     )
   }
 
+  const radioFiltersMock = [
+    {
+      key: 'shipping',
+      name: 'Delivery',
+      value: 'shipping',
+      selected: false,
+      quantity: 1,
+      map: 'shipping',
+    },
+    {
+      key: 'shipping',
+      name: 'Pickup',
+      value: 'pickup',
+      selected: false,
+      quantity: 1,
+      map: 'shipping',
+    },
+  ]
+
+  const deliveryOptionsFiltersMock = [
+    {
+      key: 'delivery-options',
+      name: 'Express',
+      value: 'express',
+      selected: false,
+      quantity: 1,
+      map: 'delivery-options',
+    },
+    {
+      key: 'delivery-options',
+      name: 'Standard',
+      value: 'standard',
+      selected: false,
+      quantity: 1,
+      map: 'delivery-options',
+    },
+  ]
+
+  it('should render RadioFilters and handle radio selection', () => {
+    const mockNavigateRadio = jest.fn()
+    const radioProps = {
+      ...mockProps,
+      filters: radioFiltersMock,
+      title: 'Shipping',
+      navigateToFacet: mockNavigateRadio,
+      isSelectedFiltersSection: false,
+    }
+
+    const { getByLabelText, getByTestId } = render(
+      <SettingsContext.Provider value={{ thresholdForFacetSearch: 10 }}>
+        <FilterOptionTemplate {...radioProps}>
+          {/* children required */}
+          {() => null}
+        </FilterOptionTemplate>
+      </SettingsContext.Provider>
+    )
+
+    expect(getByTestId('radio-filters')).toBeInTheDocument()
+
+    const deliveryRadio = getByLabelText('Delivery')
+    const pickupRadio = getByLabelText('Pickup')
+
+    fireEvent.click(deliveryRadio)
+    expect(mockNavigateRadio).toHaveBeenCalled()
+
+    fireEvent.click(pickupRadio)
+    expect(mockNavigateRadio).toHaveBeenCalled()
+  })
+
+  it('should render RadioButton for shipping filter', () => {
+    const shippingProps = {
+      ...mockProps,
+      filters: radioFiltersMock,
+      title: 'Shipping',
+    }
+
+    const { getByText, getByTestId } = renderComponent(shippingProps)
+
+    expect(getByTestId('radio-filters')).toBeInTheDocument()
+
+    expect(getByText('Delivery')).toBeInTheDocument()
+    expect(getByText('Pickup')).toBeInTheDocument()
+  })
+
+  it('should render RadioButton for delivery-options filter', () => {
+    const deliveryOptionsProps = {
+      ...mockProps,
+      filters: deliveryOptionsFiltersMock,
+      title: 'Delivery Options',
+    }
+
+    const { getByText, getByTestId } = renderComponent(deliveryOptionsProps)
+
+    expect(getByTestId('radio-filters')).toBeInTheDocument()
+    expect(getByText('Express')).toBeInTheDocument()
+    expect(getByText('Standard')).toBeInTheDocument()
+  })
+
   it('should lazy render items', () => {
     useRuntime.mockImplementation(() => ({
       getSettings: () => {
