@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react'
 import { useRuntime } from 'vtex.render-runtime'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
+import { isRadioFilter } from '../constants/filterTypes'
 import { useFilterNavigator } from '../components/FilterNavigatorContext'
 import { newFacetPathName } from '../utils/slug'
 import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
@@ -43,6 +44,8 @@ export const compareFacetWithQueryValues = (
   mapSegment,
   facet
 ) => {
+  if (!facet || !facet.value) return false
+
   return (
     decodeURIComponent(querySegment).toLowerCase() ===
       decodeURIComponent(facet.value).toLowerCase() && mapSegment === facet.map
@@ -54,11 +57,11 @@ const replaceQueryForNewQueryFormat = (
   mapString,
   selectedFacets
 ) => {
-  const queryArray = queryString.split(PATH_SEPARATOR)
-  const mapArray = mapString.split(MAP_VALUES_SEP)
+  const queryArray = (queryString || '').split(PATH_SEPARATOR)
+  const mapArray = (mapString || '').split(MAP_VALUES_SEP)
   const newQueryFormatArray = zip(queryArray, mapArray).map(
     ([querySegment, mapSegment]) => {
-      const facetForQuery = selectedFacets.find(facet => {
+      const facetForQuery = (selectedFacets || []).find(facet => {
         return compareFacetWithQueryValues(querySegment, mapSegment, facet)
       })
 
@@ -74,8 +77,10 @@ const replaceQueryForNewQueryFormat = (
 }
 
 const removeMapForNewURLFormat = (map, selectedFacets) => {
-  const mapArray = map.split(MAP_VALUES_SEP)
-  const mapsToFilter = selectedFacets.reduce((acc, facet) => {
+  const mapArray = (map || '').split(MAP_VALUES_SEP)
+  const mapsToFilter = (selectedFacets || []).reduce((acc, facet) => {
+    if (!facet || !facet.map || !facet.value) return acc
+
     return facet.map === MAP_CATEGORY_CHAR ||
       (facet.newQuerySegment &&
         facet.newQuerySegment.toLowerCase() !== facet.value.toLowerCase())
@@ -107,10 +112,15 @@ const buildQueryAndMap = (
   facets,
   selectedFacets
 ) => {
-  const queryAndMap = facets.reduce(
+  const facetsToProcess = Array.isArray(facets) ? facets : []
+  const queryAndMap = facetsToProcess.reduce(
     // The spread on facet is important so we can assign facet.newQuerySegment
     ({ query, map }, { ...facet }) => {
-      const facetValue = facet.value
+      if (!facet) {
+        return { query, map }
+      }
+
+      const facetValue = facet.value || ''
 
       facet.newQuerySegment = newFacetPathName(facet)
       if (facet.selected) {
@@ -134,21 +144,25 @@ const buildQueryAndMap = (
 
       if (facet.map === MAP_CATEGORY_CHAR) {
         const lastCategoryIndex = map.lastIndexOf(MAP_CATEGORY_CHAR)
+        const insertionPoint =
+          lastCategoryIndex >= 0 ? lastCategoryIndex + 1 : map.length
 
-        if (lastCategoryIndex >= 0 && lastCategoryIndex !== map.length - 1) {
-          // Corner case: if we are adding a category but there are other filter other than category applied. Add the new category filter to the right of the other categories.
-          return {
-            query: [
-              ...query.slice(0, lastCategoryIndex + 1),
-              facetValue,
-              ...query.slice(lastCategoryIndex + 1),
-            ],
-            map: [
-              ...map.slice(0, lastCategoryIndex + 1),
-              facet.map,
-              ...map.slice(lastCategoryIndex + 1),
-            ],
-          }
+        // Insert at the correct position while maintaining other segments
+        const newQuery = [
+          ...query.slice(0, insertionPoint),
+          facetValue,
+          ...query.slice(insertionPoint),
+        ]
+
+        const newMap = [
+          ...map.slice(0, insertionPoint),
+          facet.map,
+          ...map.slice(insertionPoint),
+        ]
+
+        return {
+          query: newQuery,
+          map: newMap,
         }
       }
 
@@ -177,10 +191,14 @@ export const buildNewQueryMap = (
 ) => {
   // RadioGroup behavior
   let shouldIgnore = ignoreGlobalShipping
-  const selectedShippingFacet = facets.find(facet => facet.key === 'shipping')
+  const selectedShippingFacet = facets
+    ? facets.find(facet => facet && facet.key && isRadioFilter(facet.key))
+    : undefined
 
   if (selectedShippingFacet && !selectedShippingFacet.selected) {
-    selectedFacets = selectedFacets.filter(facet => facet.key !== 'shipping')
+    selectedFacets = selectedFacets.filter(
+      facet => facet && facet.key && !isRadioFilter(facet.key)
+    )
     shouldIgnore = false
     onShouldIgnore(false)
   } else if (selectedShippingFacet && selectedShippingFacet.selected) {
@@ -188,22 +206,32 @@ export const buildNewQueryMap = (
     onShouldIgnore(true)
   }
 
-  const querySegments = selectedFacets.map(facet => facet.value)
-  const mapSegments = selectedFacets.map(facet => facet.map)
+  const querySegments = (selectedFacets || [])
+    .filter(facet => facet && facet.value && !facet.disabled)
+    .map(facet => facet.value)
 
-  if (shouldIgnore) {
+  const mapSegments = (selectedFacets || [])
+    .filter(facet => facet && facet.map && !facet.disabled)
+    .map(facet => facet.map)
+
+  if (shouldIgnore && selectedShippingFacet && selectedShippingFacet.key) {
     querySegments.push('ignore')
-    mapSegments.push('shipping')
+    mapSegments.push(selectedShippingFacet.key)
   }
 
-  const { ft: fullText, seller } = fullTextSellerAndCollection
+  const { ft: fullText, seller } = fullTextSellerAndCollection || {}
+  const hasFullTextSearch = typeof fullText === 'string' && fullText.length > 0
 
-  if (fullText) {
+  if (hasFullTextSearch) {
     querySegments.push(fullText)
     mapSegments.push(FULLTEXT_QUERY_KEY)
   }
 
-  if (seller && mapSegments.indexOf(SELLER_QUERY_KEY) === -1) {
+  if (
+    typeof seller === 'string' &&
+    seller.length > 0 &&
+    mapSegments.indexOf(SELLER_QUERY_KEY) === -1
+  ) {
     querySegments.push(seller)
     mapSegments.push(SELLER_QUERY_KEY)
   }

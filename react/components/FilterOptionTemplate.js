@@ -22,6 +22,7 @@ import useOutsideClick from '../hooks/useOutsideClick'
 import ShowMoreFilterButton from './ShowMoreFilterButton'
 import { useRenderOnView } from '../hooks/useRenderOnView'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
+import { isRadioFilter } from '../constants/filterTypes'
 import RadioFilters from './RadioFilters'
 
 /** Returns true if elementRef has ever been scrolled */
@@ -168,7 +169,7 @@ const FilterOptionTemplate = ({
 
     const isRadio =
       !isSelectedFiltersSection &&
-      filters.some(filter => filter.key === 'shipping')
+      filters.some(filter => isRadioFilter(filter.key))
 
     return (
       <>
