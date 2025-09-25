@@ -190,10 +190,10 @@ export const buildNewQueryMap = (
   }
 
   const querySegments = selectedFacets.map(facet => facet.value)
-
   const mapSegments = selectedFacets.map(facet => facet.map)
+  const shouldAddIgnoreSegment = shouldIgnore && selectedShippingFacet
 
-  if (shouldIgnore && selectedShippingFacet && selectedShippingFacet.key) {
+  if (shouldAddIgnoreSegment) {
     querySegments.push('ignore')
     mapSegments.push(selectedShippingFacet.key)
   }
