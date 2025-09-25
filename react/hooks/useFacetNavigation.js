@@ -44,8 +44,6 @@ export const compareFacetWithQueryValues = (
   mapSegment,
   facet
 ) => {
-  if (!facet || !facet.value) return false
-
   return (
     decodeURIComponent(querySegment).toLowerCase() ===
       decodeURIComponent(facet.value).toLowerCase() && mapSegment === facet.map
@@ -57,11 +55,11 @@ const replaceQueryForNewQueryFormat = (
   mapString,
   selectedFacets
 ) => {
-  const queryArray = (queryString || '').split(PATH_SEPARATOR)
-  const mapArray = (mapString || '').split(MAP_VALUES_SEP)
+  const queryArray = queryString.split(PATH_SEPARATOR)
+  const mapArray = mapString.split(MAP_VALUES_SEP)
   const newQueryFormatArray = zip(queryArray, mapArray).map(
     ([querySegment, mapSegment]) => {
-      const facetForQuery = (selectedFacets || []).find(facet => {
+      const facetForQuery = selectedFacets.find(facet => {
         return compareFacetWithQueryValues(querySegment, mapSegment, facet)
       })
 
@@ -77,10 +75,8 @@ const replaceQueryForNewQueryFormat = (
 }
 
 const removeMapForNewURLFormat = (map, selectedFacets) => {
-  const mapArray = (map || '').split(MAP_VALUES_SEP)
-  const mapsToFilter = (selectedFacets || []).reduce((acc, facet) => {
-    if (!facet || !facet.map || !facet.value) return acc
-
+  const mapArray = map.split(MAP_VALUES_SEP)
+  const mapsToFilter = selectedFacets.reduce((acc, facet) => {
     return facet.map === MAP_CATEGORY_CHAR ||
       (facet.newQuerySegment &&
         facet.newQuerySegment.toLowerCase() !== facet.value.toLowerCase())
