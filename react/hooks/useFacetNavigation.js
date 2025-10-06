@@ -176,17 +176,23 @@ export const buildNewQueryMap = (
   ignoreGlobalShipping,
   onShouldIgnore
 ) => {
-  // RadioGroup behavior
+    // RadioGroup behavior - only apply radio logic when radio filters are actually involved
   let shouldIgnore = ignoreGlobalShipping
   const selectedShippingFacet = facets?.find(facet => isRadioFilter(facet.key))
 
-  if (selectedShippingFacet && !selectedShippingFacet.selected) {
-    selectedFacets = selectedFacets.filter(facet => !isRadioFilter(facet.key))
+  // Only use radio filter logic if there's actually a radio filter being processed
+  if (selectedShippingFacet) {
+    if (!selectedShippingFacet.selected) {
+      selectedFacets = selectedFacets.filter(facet => !isRadioFilter(facet.key))
+      shouldIgnore = false
+      onShouldIgnore(false)
+    } else if (selectedShippingFacet.selected) {
+      shouldIgnore = true
+      onShouldIgnore(true)
+    }
+  } else {
+    // No radio filters involved - reset shouldIgnore to prevent contamination
     shouldIgnore = false
-    onShouldIgnore(false)
-  } else if (selectedShippingFacet && selectedShippingFacet.selected) {
-    shouldIgnore = true
-    onShouldIgnore(true)
   }
 
   const querySegments = selectedFacets.map(facet => facet.value)
