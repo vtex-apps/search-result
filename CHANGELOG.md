@@ -16,6 +16,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Logic to display a radio button instead of checkbox
 
+### Fixed
+
+- CHeckbox behavior acting as radio in some scenarios
+
+## [3.140.1] - 2025-09-29
+
+### Added
+ - Fallback to facet name when not founding shipping translation
+
 ## [3.140.0] - 2025-09-12
 
 ## [3.139.1] - 2025-09-11
