@@ -495,7 +495,7 @@ const SearchQuery = ({
     [data, loading, productSearchResult, refetch, variables]
   )
 
-  return <div>SearchQuery{children(searchInfo, extraParams)}</div>
+  return children(searchInfo, extraParams)
 }
 
 export default SearchQuery
