@@ -1,5 +1,5 @@
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { equals } from 'ramda'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useQuery } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 import facetsQuery from 'vtex.store-resources/QueryFacetsV2'
@@ -155,12 +155,6 @@ const useQueries = (variables, facetsArgs, price) => {
     variables: {
       ...variables,
       variant: getCookie('sp-variant'),
-      advertisementOptions: {
-        showSponsored: true,
-        sponsoredCount: 3,
-        advertisementPlacement: 'top_search',
-        repeatSponsoredProducts: true,
-      },
     },
   })
 
