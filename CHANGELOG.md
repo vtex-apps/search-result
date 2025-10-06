@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.140.2] - 2025-10-06
+
 ### Added
 
 - `delivery-options` to be rendered as radio
