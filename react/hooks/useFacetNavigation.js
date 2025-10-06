@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react'
 import { useRuntime } from 'vtex.render-runtime'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
+import { isRadioFilter } from '../constants/filterTypes'
 import { useFilterNavigator } from '../components/FilterNavigatorContext'
 import { newFacetPathName } from '../utils/slug'
 import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
@@ -175,30 +176,38 @@ export const buildNewQueryMap = (
   ignoreGlobalShipping,
   onShouldIgnore
 ) => {
-  // RadioGroup behavior
+  // RadioGroup behavior - only apply radio logic when radio filters are actually involved
   let shouldIgnore = ignoreGlobalShipping
-  const selectedShippingFacet = facets.find(facet => facet.key === 'shipping')
+  const selectedShippingFacet = facets?.find(facet => isRadioFilter(facet.key))
 
-  if (selectedShippingFacet && !selectedShippingFacet.selected) {
-    selectedFacets = selectedFacets.filter(facet => facet.key !== 'shipping')
+  // Only use radio filter logic if there's actually a radio filter being processed
+  if (selectedShippingFacet) {
+    if (!selectedShippingFacet.selected) {
+      selectedFacets = selectedFacets.filter(facet => !isRadioFilter(facet.key))
+      shouldIgnore = false
+      onShouldIgnore(false)
+    } else if (selectedShippingFacet.selected) {
+      shouldIgnore = true
+      onShouldIgnore(true)
+    }
+  } else {
+    // No radio filters involved - reset shouldIgnore to prevent contamination
     shouldIgnore = false
-    onShouldIgnore(false)
-  } else if (selectedShippingFacet && selectedShippingFacet.selected) {
-    shouldIgnore = true
-    onShouldIgnore(true)
   }
 
   const querySegments = selectedFacets.map(facet => facet.value)
   const mapSegments = selectedFacets.map(facet => facet.map)
+  const shouldAddIgnoreSegment = shouldIgnore && selectedShippingFacet
 
-  if (shouldIgnore) {
+  if (shouldAddIgnoreSegment) {
     querySegments.push('ignore')
-    mapSegments.push('shipping')
+    mapSegments.push(selectedShippingFacet.key)
   }
 
-  const { ft: fullText, seller } = fullTextSellerAndCollection
+  const { ft: fullText, seller } = fullTextSellerAndCollection || {}
+  const hasFullTextSearch = typeof fullText === 'string' && fullText.length > 0
 
-  if (fullText) {
+  if (hasFullTextSearch) {
     querySegments.push(fullText)
     mapSegments.push(FULLTEXT_QUERY_KEY)
   }
