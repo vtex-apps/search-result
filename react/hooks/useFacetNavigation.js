@@ -176,7 +176,7 @@ export const buildNewQueryMap = (
   ignoreGlobalShipping,
   onShouldIgnore
 ) => {
-    // RadioGroup behavior - only apply radio logic when radio filters are actually involved
+  // RadioGroup behavior - only apply radio logic when radio filters are actually involved
   let shouldIgnore = ignoreGlobalShipping
   const selectedShippingFacet = facets?.find(facet => isRadioFilter(facet.key))
 
