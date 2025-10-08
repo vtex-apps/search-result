@@ -199,7 +199,8 @@ const SearchResultFlexible = ({
 
   const showLoading = searchQuery.loading && !state.isFetchingMore
 
-  const searchId = searchQuery?.data?.productSearch?.searchId
+  const { searchId, redirect } = searchQuery?.data?.productSearch || {}
+  const shouldAddAFAttr = searchId && !redirect
 
   return (
     <SearchPageContext.Provider value={context}>
@@ -225,8 +226,11 @@ const SearchResultFlexible = ({
             >
               <LoadingOverlay loading={showLoading}>
                 <div
-                  data-af-onimpression={searchId ? true : undefined}
-                  data-af-search-id={searchId}
+                  data-af-element={
+                    shouldAddAFAttr ? 'search-result' : undefined
+                  }
+                  data-af-onimpression={shouldAddAFAttr ? true : undefined}
+                  data-af-search-id={shouldAddAFAttr ? searchId : undefined}
                   className={`${
                     handles.loadingOverlay
                   } w-100 flex flex-column flex-grow-1 ${generateBlockClass(
