@@ -54,18 +54,23 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
     return dummyElement
   }
 
-  const searchId = searchQuery?.data?.productSearch?.searchId
+  const { searchId, redirect } = searchQuery?.data?.productSearch || {}
 
   return (
     <>
       {products.map((product, index) => {
         const absoluteProductIndex = rowIndex * itemsPerRow + index + 1
+        const shouldAddAFAttr = searchId && !redirect && product.productId
 
         return (
           <div
-            data-af-onclick={searchId ? true : undefined}
-            data-af-search-id={searchId}
-            data-af-product-position={absoluteProductIndex}
+            data-af-element={shouldAddAFAttr ? 'search-result' : undefined}
+            data-af-onclick={shouldAddAFAttr ? true : undefined}
+            data-af-search-id={shouldAddAFAttr ? searchId : undefined}
+            data-af-product-position={
+              shouldAddAFAttr ? absoluteProductIndex : undefined
+            }
+            data-af-product-id={shouldAddAFAttr ? product.productId : undefined}
             key={product.cacheId}
             style={style}
             className={classNames(

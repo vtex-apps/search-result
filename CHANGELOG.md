@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Changed logic to add ActivityFlow attributes on HTML
+
 ## [3.140.2] - 2025-10-06
 
 ### Added
