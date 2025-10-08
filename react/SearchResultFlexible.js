@@ -206,7 +206,6 @@ const SearchResultFlexible = ({
 
   return (
     <SearchPageContext.Provider value={context}>
-      SearchResultFlexible
       <SearchPageStateContext.Provider value={state}>
         <SearchPageStateDispatch.Provider value={dispatch}>
           <ContextProviders
