@@ -293,6 +293,25 @@ describe('<FilterOptionTemplate />', () => {
     },
   ]
 
+  const toggleFiltersMock = [
+    {
+      key: 'delivery-estimate',
+      name: 'Same Day',
+      value: 'same-day',
+      selected: false,
+      quantity: 1,
+      map: 'delivery-estimate',
+    },
+    {
+      key: 'delivery-estimate',
+      name: 'Next Day',
+      value: 'next-day',
+      selected: false,
+      quantity: 1,
+      map: 'delivery-estimate',
+    },
+  ]
+
   it('should render RadioFilters and handle radio selection', () => {
     const mockNavigateRadio = jest.fn()
     const radioProps = {
@@ -351,6 +370,50 @@ describe('<FilterOptionTemplate />', () => {
     expect(getByTestId('radio-filters')).toBeInTheDocument()
     expect(getByText('Express')).toBeInTheDocument()
     expect(getByText('Standard')).toBeInTheDocument()
+  })
+
+  it('should render ToggleFilters for dynamic-estimate filter', () => {
+    const toggleProps = {
+      ...mockProps,
+      filters: toggleFiltersMock,
+      title: 'Delivery Estimate',
+    }
+
+    const { getByText, getByTestId } = renderComponent(toggleProps)
+
+    expect(getByTestId('toggle-filters')).toBeInTheDocument()
+    expect(getByText('Same Day')).toBeInTheDocument()
+    expect(getByText('Next Day')).toBeInTheDocument()
+  })
+
+  it('should handle toggle interactions', () => {
+    const mockNavigateToggle = jest.fn()
+    const toggleProps = {
+      ...mockProps,
+      filters: toggleFiltersMock,
+      title: 'Delivery Estimate',
+      navigateToFacet: mockNavigateToggle,
+      isSelectedFiltersSection: false,
+    }
+
+    const { getByLabelText, getByTestId } = render(
+      <SettingsContext.Provider value={{ thresholdForFacetSearch: 10 }}>
+        <FilterOptionTemplate {...toggleProps}>
+          {() => null}
+        </FilterOptionTemplate>
+      </SettingsContext.Provider>
+    )
+
+    expect(getByTestId('toggle-filters')).toBeInTheDocument()
+
+    const sameDayToggle = getByLabelText('Same Day')
+    const nextDayToggle = getByLabelText('Next Day')
+
+    fireEvent.click(sameDayToggle)
+    expect(mockNavigateToggle).toHaveBeenCalled()
+
+    fireEvent.click(nextDayToggle)
+    expect(mockNavigateToggle).toHaveBeenCalled()
   })
 
   it('should lazy render items', () => {

@@ -11,8 +11,9 @@ import useSelectedFilters from '../hooks/useSelectedFilters'
 import { getFilterTitle } from '../constants/SearchHelpers'
 import { searchSlugify } from '../utils/slug'
 import RadioFilters from './RadioFilters'
+import ToggleFilters from './ToggleFilters'
 import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
-import { isRadioFilter } from '../constants/filterTypes'
+import { isRadioFilter, isToggleFilter } from '../constants/filterTypes'
 
 const CSS_HANDLES = ['accordionFilterOpen']
 
@@ -47,6 +48,7 @@ const AccordionFilterGroup = ({
   const { push } = usePixel()
 
   const isRadio = filters.some(filter => isRadioFilter(filter.key))
+  const isToggle = filters.some(filter => isToggleFilter(filter.key))
 
   return (
     <AccordionFilterItem
@@ -79,6 +81,22 @@ const AccordionFilterGroup = ({
                 products: searchQuery?.products ?? [],
                 push,
               })
+              onFilterCheck({ ...facet, title: facetTitle }, true)
+            }}
+            onOpenPostalCodeModal={onOpenPostalCodeModal}
+            onOpenPickupModal={onOpenPickupModal}
+          />
+        ) : isToggle ? (
+          <ToggleFilters
+            facets={filters}
+            onChange={facet => {
+              pushFilterManipulationPixelEvent({
+                name: facetTitle,
+                value: facet.name,
+                products: searchQuery?.products ?? [],
+                push,
+              })
+              // Para toggle, usar comportamento similar ao radio (excludente)
               onFilterCheck({ ...facet, title: facetTitle }, true)
             }}
             onOpenPostalCodeModal={onOpenPostalCodeModal}

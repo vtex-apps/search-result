@@ -22,8 +22,9 @@ import useOutsideClick from '../hooks/useOutsideClick'
 import ShowMoreFilterButton from './ShowMoreFilterButton'
 import { useRenderOnView } from '../hooks/useRenderOnView'
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
-import { isRadioFilter } from '../constants/filterTypes'
+import { isRadioFilter, isToggleFilter } from '../constants/filterTypes'
 import RadioFilters from './RadioFilters'
+import ToggleFilters from './ToggleFilters'
 
 /** Returns true if elementRef has ever been scrolled */
 const useHasScrolled = elementRef => {
@@ -171,10 +172,23 @@ const FilterOptionTemplate = ({
       !isSelectedFiltersSection &&
       filters.some(filter => isRadioFilter(filter.key))
 
+    const isToggle =
+      !isSelectedFiltersSection &&
+      filters.some(filter => isToggleFilter(filter.key))
+
     return (
       <>
         {isRadio ? (
           <RadioFilters
+            facets={filteredFacets}
+            onChange={facet =>
+              navigateToFacet({ ...facet, title }, preventRouteChange)
+            }
+            onOpenPostalCodeModal={onOpenPostalCodeModal}
+            onOpenPickupModal={onOpenPickupModal}
+          />
+        ) : isToggle ? (
+          <ToggleFilters
             facets={filteredFacets}
             onChange={facet =>
               navigateToFacet({ ...facet, title }, preventRouteChange)

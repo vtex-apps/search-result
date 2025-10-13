@@ -199,6 +199,7 @@ const FilterNavigator = ({
   const hasFiltersApplied = searchQuery?.variables?.selectedFacets?.length > 1
 
   const handleResetFilters = () => {
+    // Debugging removed: Ensure selectedFilters and selectedCategories are updated correctly
     navigateToFacet(selectedFilters, preventRouteChange, true)
   }
 
