@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - `dynamic-estimate` to be rendered as toggle
 
+## [3.140.3] - 2025-10-08
+
+### Fixed
+
+- Changed logic to add ActivityFlow attributes on HTML
+
 ## [3.140.2] - 2025-10-06
 
 ### Added
