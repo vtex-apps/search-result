@@ -107,14 +107,14 @@ const getCleanUrlParams = currentMap => {
 }
 
 /**
- * Remove outros facets do mesmo grupo (key) dos selectedFacets
+ * Removes other facets from the same group (key) from selectedFacets
  */
 const removeOtherFacetsFromSameGroup = (selectedFacets, facetKey) => {
   return selectedFacets.filter(selectedFacet => selectedFacet.key !== facetKey)
 }
 
 /**
- * Remove facet específico dos selectedFacets por value e map
+ * Removes a specific facet from selectedFacets by value and map
  */
 const removeSpecificFacet = (selectedFacets, facetValue, facetMap) => {
   return selectedFacets.filter(
@@ -124,7 +124,7 @@ const removeSpecificFacet = (selectedFacets, facetValue, facetMap) => {
 }
 
 /**
- * Encontra índices na query/map que correspondem a facets do mesmo grupo
+ * Finds indices in query/map that match facets from the same group
  */
 const findIndicesOfSameGroupFacets = (query, map, facet) => {
   const indicesToRemove = []
@@ -144,13 +144,13 @@ const findIndicesOfSameGroupFacets = (query, map, facet) => {
 }
 
 /**
- * Remove múltiplos índices de arrays de query e map
+ * Removes multiple indices from query and map arrays
  */
 const removeMultipleIndices = (query, map, indices) => {
   let updatedQuery = query
   let updatedMap = map
 
-  // Remover em ordem decrescente para não afetar índices subsequentes
+  // Remove in descending order to avoid affecting subsequent indices
   indices.reverse().forEach(index => {
     updatedQuery = removeElementAtIndex(updatedQuery, index)
     updatedMap = removeElementAtIndex(updatedMap, index)
@@ -160,7 +160,7 @@ const removeMultipleIndices = (query, map, indices) => {
 }
 
 /**
- * Encontra índice de um facet específico na query/map
+ * Finds the index of a specific facet in query/map
  */
 const findFacetIndex = (query, map, facet) => {
   return zip(query, map).findIndex(([value, valueMap]) =>
@@ -169,24 +169,38 @@ const findFacetIndex = (query, map, facet) => {
 }
 
 /**
- * Processa toggle filter selecionado
+ * Generic handler for facet selection (adding to URL)
+ * Handles both toggle and radio filters with their specific exclusion logic
  */
-const handleSelectedToggleFilter = (query, map, facet, selectedFacets) => {
-  // Remover outros toggles do mesmo grupo
-  const updatedSelectedFacets = removeOtherFacetsFromSameGroup(
-    selectedFacets,
-    facet.key
-  )
+const handleFacetSelection = (query, map, facet, selectedFacets) => {
+  const isToggle = isToggleFilter(facet.key)
+  const isRadio = isRadioFilter(facet.key)
 
-  // Remover outros toggles do mesmo grupo da query e map atual
-  const indicesToRemove = findIndicesOfSameGroupFacets(query, map, facet)
-  const { query: updatedQuery, map: updatedMap } = removeMultipleIndices(
-    query,
-    map,
-    indicesToRemove
-  )
+  // Remove other facets from the same group for exclusive filters (toggle/radio)
+  let updatedSelectedFacets = selectedFacets
+  let updatedQuery = query
+  let updatedMap = map
 
-  // Adicionar o novo toggle selecionado
+  if (isToggle || isRadio) {
+    // Remove other facets from the same group
+    updatedSelectedFacets = removeOtherFacetsFromSameGroup(
+      selectedFacets,
+      facet.key
+    )
+
+    // Remove indices from query/map
+    if (isToggle) {
+      // Toggle: remove multiple indices (all from same group)
+      const indicesToRemove = findIndicesOfSameGroupFacets(query, map, facet)
+      const result = removeMultipleIndices(query, map, indicesToRemove)
+
+      updatedQuery = result.query
+      updatedMap = result.map
+    }
+    // Radio doesn't remove from query/map during selection, only during deselection
+  }
+
+  // Add the new selected facet
   upsert(updatedSelectedFacets, facet)
 
   return {
@@ -197,51 +211,18 @@ const handleSelectedToggleFilter = (query, map, facet, selectedFacets) => {
 }
 
 /**
- * Processa toggle filter desmarcado
+ * Generic handler for facet deselection (removing from URL)
  */
-const handleDeselectedToggleFilter = (query, map, facet, selectedFacets) => {
-  const updatedSelectedFacets = removeSpecificFacet(
-    selectedFacets,
-    facet.value,
-    facet.map
-  )
+const handleFacetDeselection = (query, map, facet, selectedFacets) => {
+  const isRadio = isRadioFilter(facet.key)
 
+  // Remove facet from selectedFacets
+  const updatedSelectedFacets = isRadio
+    ? removeOtherFacetsFromSameGroup(selectedFacets, facet.key)
+    : removeSpecificFacet(selectedFacets, facet.value, facet.map)
+
+  // Find and remove from query/map
   const facetIndex = findFacetIndex(query, map, facet)
-
-  return {
-    query: removeElementAtIndex(query, facetIndex),
-    map: removeElementAtIndex(map, facetIndex),
-    selectedFacets: updatedSelectedFacets,
-  }
-}
-
-/**
- * Processa radio filter ou outro tipo de filter selecionado
- */
-const handleSelectedRadioOrOtherFilter = (
-  query,
-  map,
-  facet,
-  selectedFacets
-) => {
-  const facetIndex = findFacetIndex(query, map, facet)
-
-  // Para radio filters, remover outros do mesmo key (comportamento excludente)
-  let updatedSelectedFacets
-
-  if (isRadioFilter(facet.key)) {
-    updatedSelectedFacets = removeOtherFacetsFromSameGroup(
-      selectedFacets,
-      facet.key
-    )
-  } else {
-    // Para outros tipos, remover apenas o facet específico
-    updatedSelectedFacets = removeSpecificFacet(
-      selectedFacets,
-      facet.value,
-      facet.map
-    )
-  }
 
   return {
     query: removeElementAtIndex(query, facetIndex),
@@ -262,53 +243,39 @@ const buildQueryAndMap = (
     // The spread on facet is important so we can assign facet.newQuerySegment
     ({ query, map }, { ...facet }) => {
       const facetValue = facet.value
+      const isToggle = isToggleFilter(facet.key)
 
       facet.newQuerySegment = newFacetPathName(facet)
 
-      // Para toggle filters, lógica diferente: selected=true significa ADICIONAR na URL
-      if (isToggleFilter(facet.key)) {
-        if (facet.selected) {
-          const result = handleSelectedToggleFilter(
-            query,
-            map,
-            facet,
-            selectedFacets
-          )
+      // Handle deselection for toggle filters (selected=false means removing from URL)
+      if (isToggle && !facet.selected) {
+        return handleFacetDeselection(query, map, facet, selectedFacets)
+      }
 
-          query = result.query
-          map = result.map
-          selectedFacets = result.selectedFacets
-        } else {
-          const result = handleDeselectedToggleFilter(
-            query,
-            map,
-            facet,
-            selectedFacets
-          )
+      // Handle deselection for radio/other filters (selected=true means removing from URL)
+      if (!isToggle && facet.selected) {
+        return handleFacetDeselection(query, map, facet, selectedFacets)
+      }
 
-          return result
-        }
-      } else {
-        // Lógica para radio filters e outros tipos
-        if (facet.selected) {
-          const result = handleSelectedRadioOrOtherFilter(
-            query,
-            map,
-            facet,
-            selectedFacets
-          )
+      // Handle selection for toggle filters (selected=true means adding to URL)
+      if (isToggle && facet.selected) {
+        const result = handleFacetSelection(query, map, facet, selectedFacets)
 
-          return result
-        }
-
+        query = result.query
+        map = result.map
+        selectedFacets = result.selectedFacets
+      } else if (!isToggle && !facet.selected) {
+        // Handle selection for radio/other filters (selected=false or undefined means adding to URL)
         upsert(selectedFacets, facet)
       }
 
+      // Handle category positioning when category needs insertion in the middle
       if (facet.map === MAP_CATEGORY_CHAR) {
         const lastCategoryIndex = map.lastIndexOf(MAP_CATEGORY_CHAR)
 
         if (lastCategoryIndex >= 0 && lastCategoryIndex !== map.length - 1) {
-          // Corner case: if we are adding a category but there are other filter other than category applied. Add the new category filter to the right of the other categories.
+          // Corner case: if we are adding a category but there are other filters other than category applied.
+          // Add the new category filter to the right of the other categories.
           return {
             query: [
               ...query.slice(0, lastCategoryIndex + 1),
@@ -324,6 +291,7 @@ const buildQueryAndMap = (
         }
       }
 
+      // Default: append to the end
       return {
         query: [...query, facetValue],
         map: [...map, facet.map],

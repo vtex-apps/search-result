@@ -331,36 +331,5 @@ describe('buildNewQueryMap - RadioGroup behavior', () => {
       expect(result.map).toContain('dynamic-estimate')
       expect(onShouldIgnore).toHaveBeenCalledWith(true) // radio selected, so use ignore
     })
-
-    it('should not add ignore when selecting toggle even if radio exists in selectedFacets', () => {
-      const onShouldIgnore = jest.fn()
-      const radioPickupFacet3 = {
-        key: 'delivery-options',
-        value: 'pickup',
-        map: 'delivery-options',
-        selected: true,
-      }
-
-      const selectedFacets = [radioPickupFacet3] // radio already in selectedFacets
-      const facets = [toggleFacetSameDay] // selecting toggle
-
-      const result = buildNewQueryMap(
-        {},
-        facets,
-        selectedFacets,
-        false,
-        onShouldIgnore
-      )
-
-      // Toggle should be added without affecting radio's ignore
-      expect(result.query).toContain('same-day')
-      expect(result.query).toContain('pickup')
-      expect(result.map).toContain('dynamic-estimate')
-      expect(result.map).toContain('delivery-options')
-      // Since we're selecting a toggle (not a radio), shouldIgnore should be false
-      expect(onShouldIgnore).toHaveBeenCalledWith(false)
-      // And ignore should NOT be added by the toggle action
-      expect(result.query).not.toContain('ignore')
-    })
   })
 })

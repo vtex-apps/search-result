@@ -79,10 +79,3 @@ const ToggleFilters = ({ facets, onChange }) => {
 }
 
 export default ToggleFilters
-
-// TO-DO:
-// - Testar em ambiente mobile
-// - Verificar acessibilidade
-// - Verificar performance com muitos itens
-// - Refatorar o que foi feito se necessário (parece ter mtas regras de negócio aqui que não deveriam estar)
-// - Achar um jeito de talvez agrupar a lógica do radio com toggle por que são bem parecidas
