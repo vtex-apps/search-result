@@ -1,39 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { useIntl } from 'react-intl'
 import { Toggle } from 'vtex.styleguide'
+import { useIntl } from 'react-intl'
 
-import ShippingActionButton from './ShippingActionButton'
-import useShippingActions from '../hooks/useShippingActions'
-
-const ToggleItem = ({ facet, onOpenPostalCodeModal, onOpenPickupModal }) => {
-  const intl = useIntl()
-
-  const { actionLabel, actionType } = useShippingActions(facet)
-
-  return (
-    <div>
-      <div>{facet.name}</div>
-      {actionType ? (
-        <ShippingActionButton
-          label={intl.formatMessage({ id: actionLabel ?? 'none' })}
-          openDrawer={
-            actionType === 'DELIVERY'
-              ? onOpenPostalCodeModal
-              : onOpenPickupModal
-          }
-        />
-      ) : undefined}
-    </div>
-  )
+export const toggleFiltersValue = {
+  'next-day': 'store/search.filter.dynamic-estimate.next-day.name',
+  'same-day': 'store/search.filter.dynamic-estimate.same-day.name',
 }
 
-const ToggleFilters = ({
-  facets,
-  onChange,
-  onOpenPostalCodeModal,
-  onOpenPickupModal,
-}) => {
+const ToggleFilters = ({ facets, onChange }) => {
   const [toggleStates, setToggleStates] = useState({})
+  const intl = useIntl()
 
   useEffect(() => {
     const initialStates = {}
@@ -82,11 +58,9 @@ const ToggleFilters = ({
             checked={toggleStates[facet.value] || false}
             disabled={facet.quantity === 0}
             label={
-              <ToggleItem
-                facet={facet}
-                onOpenPostalCodeModal={onOpenPostalCodeModal}
-                onOpenPickupModal={onOpenPickupModal}
-              />
+              toggleFiltersValue[facet.name]
+                ? intl.formatMessage({ id: toggleFiltersValue[facet.name] })
+                : facet.name
             }
             onChange={eventOrValue => {
               const isChecked =
@@ -110,9 +84,5 @@ export default ToggleFilters
 // - Testar em ambiente mobile
 // - Verificar acessibilidade
 // - Verificar performance com muitos itens
-// - Documentação será necessário?
 // - Refatorar o que foi feito se necessário (parece ter mtas regras de negócio aqui que não deveriam estar)
-// - Revisar os testes unitários
-// - Essa parte de forçar booleano ainda é necessário?
 // - Achar um jeito de talvez agrupar a lógica do radio com toggle por que são bem parecidas
-// - Criar labels para same-day e next-day por que essas strings não existem no intl (?)

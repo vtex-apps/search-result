@@ -106,6 +106,150 @@ const getCleanUrlParams = currentMap => {
   return urlParams
 }
 
+/**
+ * Remove outros facets do mesmo grupo (key) dos selectedFacets
+ */
+const removeOtherFacetsFromSameGroup = (selectedFacets, facetKey) => {
+  return selectedFacets.filter(selectedFacet => selectedFacet.key !== facetKey)
+}
+
+/**
+ * Remove facet específico dos selectedFacets por value e map
+ */
+const removeSpecificFacet = (selectedFacets, facetValue, facetMap) => {
+  return selectedFacets.filter(
+    selectedFacet =>
+      selectedFacet.value !== facetValue && selectedFacet.map !== facetMap
+  )
+}
+
+/**
+ * Encontra índices na query/map que correspondem a facets do mesmo grupo
+ */
+const findIndicesOfSameGroupFacets = (query, map, facet) => {
+  const indicesToRemove = []
+
+  zip(query, map).forEach(([value, valueMap], index) => {
+    const existingFacet = { value, map: valueMap, key: facet.key }
+
+    if (
+      compareFacetWithQueryValues(value, valueMap, existingFacet) &&
+      valueMap === facet.map
+    ) {
+      indicesToRemove.push(index)
+    }
+  })
+
+  return indicesToRemove
+}
+
+/**
+ * Remove múltiplos índices de arrays de query e map
+ */
+const removeMultipleIndices = (query, map, indices) => {
+  let updatedQuery = query
+  let updatedMap = map
+
+  // Remover em ordem decrescente para não afetar índices subsequentes
+  indices.reverse().forEach(index => {
+    updatedQuery = removeElementAtIndex(updatedQuery, index)
+    updatedMap = removeElementAtIndex(updatedMap, index)
+  })
+
+  return { query: updatedQuery, map: updatedMap }
+}
+
+/**
+ * Encontra índice de um facet específico na query/map
+ */
+const findFacetIndex = (query, map, facet) => {
+  return zip(query, map).findIndex(([value, valueMap]) =>
+    compareFacetWithQueryValues(value, valueMap, facet)
+  )
+}
+
+/**
+ * Processa toggle filter selecionado
+ */
+const handleSelectedToggleFilter = (query, map, facet, selectedFacets) => {
+  // Remover outros toggles do mesmo grupo
+  const updatedSelectedFacets = removeOtherFacetsFromSameGroup(
+    selectedFacets,
+    facet.key
+  )
+
+  // Remover outros toggles do mesmo grupo da query e map atual
+  const indicesToRemove = findIndicesOfSameGroupFacets(query, map, facet)
+  const { query: updatedQuery, map: updatedMap } = removeMultipleIndices(
+    query,
+    map,
+    indicesToRemove
+  )
+
+  // Adicionar o novo toggle selecionado
+  upsert(updatedSelectedFacets, facet)
+
+  return {
+    query: updatedQuery,
+    map: updatedMap,
+    selectedFacets: updatedSelectedFacets,
+  }
+}
+
+/**
+ * Processa toggle filter desmarcado
+ */
+const handleDeselectedToggleFilter = (query, map, facet, selectedFacets) => {
+  const updatedSelectedFacets = removeSpecificFacet(
+    selectedFacets,
+    facet.value,
+    facet.map
+  )
+
+  const facetIndex = findFacetIndex(query, map, facet)
+
+  return {
+    query: removeElementAtIndex(query, facetIndex),
+    map: removeElementAtIndex(map, facetIndex),
+    selectedFacets: updatedSelectedFacets,
+  }
+}
+
+/**
+ * Processa radio filter ou outro tipo de filter selecionado
+ */
+const handleSelectedRadioOrOtherFilter = (
+  query,
+  map,
+  facet,
+  selectedFacets
+) => {
+  const facetIndex = findFacetIndex(query, map, facet)
+
+  // Para radio filters, remover outros do mesmo key (comportamento excludente)
+  let updatedSelectedFacets
+
+  if (isRadioFilter(facet.key)) {
+    updatedSelectedFacets = removeOtherFacetsFromSameGroup(
+      selectedFacets,
+      facet.key
+    )
+  } else {
+    // Para outros tipos, remover apenas o facet específico
+    updatedSelectedFacets = removeSpecificFacet(
+      selectedFacets,
+      facet.value,
+      facet.map
+    )
+  }
+
+  return {
+    query: removeElementAtIndex(query, facetIndex),
+    map: removeElementAtIndex(map, facetIndex),
+    selectedFacets: updatedSelectedFacets,
+  }
+}
+
 // eslint-disable-next-line max-params
 const buildQueryAndMap = (
   querySegments,
@@ -120,78 +264,41 @@ const buildQueryAndMap = (
       const facetValue = facet.value
 
       facet.newQuerySegment = newFacetPathName(facet)
+
       // Para toggle filters, lógica diferente: selected=true significa ADICIONAR na URL
       if (isToggleFilter(facet.key)) {
         if (facet.selected) {
-          // Toggle selecionado: primeiro remover outros toggles do mesmo tipo
-          // Filtrar selectedFacets para remover outros toggles do mesmo grupo (mesmo key)
-          selectedFacets = selectedFacets.filter(
-            selectedFacet => selectedFacet.key !== facet.key
+          const result = handleSelectedToggleFilter(
+            query,
+            map,
+            facet,
+            selectedFacets
           )
 
-          // Remover outros toggles do mesmo grupo da query e map atual
-          const indicesToRemove = []
-
-          zip(query, map).forEach(([value, valueMap], index) => {
-            const existingFacet = { value, map: valueMap, key: facet.key }
-
-            if (
-              compareFacetWithQueryValues(value, valueMap, existingFacet) &&
-              valueMap === facet.map
-            ) {
-              indicesToRemove.push(index)
-            }
-          })
-
-          // Remover índices em ordem decrescente para não afetar os índices subsequentes
-          indicesToRemove.reverse().forEach(index => {
-            query = removeElementAtIndex(query, index)
-            map = removeElementAtIndex(map, index)
-          })
-
-          // Agora adicionar o novo toggle selecionado
-          upsert(selectedFacets, facet)
+          query = result.query
+          map = result.map
+          selectedFacets = result.selectedFacets
         } else {
-          // Toggle não selecionado: remover da URL se existir
-          selectedFacets = selectedFacets.filter(
-            selectedFacet =>
-              selectedFacet.value !== facet.value &&
-              selectedFacet.map !== facet.map
-          )
-          const facetIndex = zip(query, map).findIndex(([value, valueMap]) =>
-            compareFacetWithQueryValues(value, valueMap, facet)
+          const result = handleDeselectedToggleFilter(
+            query,
+            map,
+            facet,
+            selectedFacets
           )
 
-          return {
-            query: removeElementAtIndex(query, facetIndex),
-            map: removeElementAtIndex(map, facetIndex),
-          }
+          return result
         }
       } else {
         // Lógica para radio filters e outros tipos
         if (facet.selected) {
-          const facetIndex = zip(query, map).findIndex(([value, valueMap]) =>
-            compareFacetWithQueryValues(value, valueMap, facet)
+          const result = handleSelectedRadioOrOtherFilter(
+            query,
+            map,
+            facet,
+            selectedFacets
           )
 
-          // Para radio filters, remover outros do mesmo key (comportamento excludente)
-          if (isRadioFilter(facet.key)) {
-            selectedFacets = selectedFacets.filter(
-              selectedFacet => selectedFacet.key !== facet.key
-            )
-          } else {
-            // Para outros tipos, remover apenas o facet específico
-            selectedFacets = selectedFacets.filter(
-              selectedFacet =>
-                selectedFacet.value !== facet.value &&
-                selectedFacet.map !== facet.map
-            )
-          }
-
-          return {
-            query: removeElementAtIndex(query, facetIndex),
-            map: removeElementAtIndex(map, facetIndex),
-          }
+          return result
         }
 
         upsert(selectedFacets, facet)

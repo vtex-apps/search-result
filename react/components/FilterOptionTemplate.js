@@ -193,8 +193,6 @@ const FilterOptionTemplate = ({
             onChange={facet =>
               navigateToFacet({ ...facet, title }, preventRouteChange)
             }
-            onOpenPostalCodeModal={onOpenPostalCodeModal}
-            onOpenPickupModal={onOpenPickupModal}
           />
         ) : (
           filteredFacets.slice(0, endSlice).map(children)

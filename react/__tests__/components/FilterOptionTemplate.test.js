@@ -295,20 +295,20 @@ describe('<FilterOptionTemplate />', () => {
 
   const toggleFiltersMock = [
     {
-      key: 'delivery-estimate',
+      key: 'dynamic-estimate',
       name: 'Same Day',
       value: 'same-day',
       selected: false,
       quantity: 1,
-      map: 'delivery-estimate',
+      map: 'dynamic-estimate',
     },
     {
-      key: 'delivery-estimate',
+      key: 'dynamic-estimate',
       name: 'Next Day',
       value: 'next-day',
       selected: false,
       quantity: 1,
-      map: 'delivery-estimate',
+      map: 'dynamic-estimate',
     },
   ]
 

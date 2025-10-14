@@ -109,5 +109,7 @@
   "admin/editor.search-result.fetch-previous": "Cargar anterior",
   "admin/editor.search-result.fetch-button.button-behavior": "Comportamiento del botón",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Botón",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link a la página (mejora el SEO; puede cambiar el aspecto del botón)"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link a la página (mejora el SEO; puede cambiar el aspecto del botón)",
+  "store/search.filter.dynamic-estimate.next-day.name": "Siguiente día hábil",
+  "store/search.filter.dynamic-estimate.same-day.name": "Mismo día"
 }

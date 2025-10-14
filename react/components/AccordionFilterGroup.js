@@ -99,8 +99,6 @@ const AccordionFilterGroup = ({
               // Para toggle, usar comportamento similar ao radio (excludente)
               onFilterCheck({ ...facet, title: facetTitle }, true)
             }}
-            onOpenPostalCodeModal={onOpenPostalCodeModal}
-            onOpenPickupModal={onOpenPickupModal}
           />
         ) : (
           <FacetCheckboxList
