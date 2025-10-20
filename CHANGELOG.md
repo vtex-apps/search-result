@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+ - Ads SDK integration to fetch sponsored ads.
+
 ## [3.140.1] - 2025-09-29
 
 ### Added
