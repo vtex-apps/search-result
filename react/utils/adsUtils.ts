@@ -24,7 +24,7 @@ export const mergeWithSponsoredProducts = (
   if (!sponsoredProducts?.length) return productSearchResult
 
   const sponsoredIds = new Set(
-    (sponsoredProducts.map(p => p.id).filter(Boolean) as string[]) ?? []
+    sponsoredProducts.map(p => p.id).filter(Boolean) as string[]
   )
 
   const filteredOriginalProducts = originalProducts.filter(
