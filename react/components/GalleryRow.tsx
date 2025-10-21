@@ -1,6 +1,7 @@
 import React, { memo } from 'react'
 import type { ComponentType } from 'react'
 import { useCssHandles, applyModifiers } from 'vtex.css-handles'
+import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import classNames from 'classnames'
 
 import { useRenderOnView } from '../hooks/useRenderOnView'
@@ -41,6 +42,7 @@ function GalleryRow({
   CustomSummary,
   preferredSKU,
 }: GalleryRowProps) {
+  const { searchQuery } = useSearchPage()
   const handles = useCssHandles(CSS_HANDLES)
 
   const style = {
@@ -57,6 +59,8 @@ function GalleryRow({
     return dummyElement
   }
 
+  const { searchId, redirect } = searchQuery?.data?.productSearch || {}
+
   return (
     <>
       {products.map((product, index) => {
@@ -68,8 +72,17 @@ function GalleryRow({
           absoluteProductIndex % customSummaryInterval === 0
         )
 
+        const shouldAddAFAttr = searchId && !redirect && product.productId
+
         return (
           <div
+            data-af-element={shouldAddAFAttr ? 'search-result' : undefined}
+            data-af-onclick={shouldAddAFAttr ? true : undefined}
+            data-af-search-id={shouldAddAFAttr ? searchId : undefined}
+            data-af-product-position={
+              shouldAddAFAttr ? absoluteProductIndex : undefined
+            }
+            data-af-product-id={shouldAddAFAttr ? product.productId : undefined}
             key={product.cacheId}
             style={style}
             className={classNames(
