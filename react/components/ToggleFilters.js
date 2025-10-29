@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Toggle } from 'vtex.styleguide'
-import { useIntl } from 'react-intl'
-
-export const toggleFiltersValue = {
-  'next-day': 'store/search.filter.dynamic-estimate.next-day.name',
-  'same-day': 'store/search.filter.dynamic-estimate.same-day.name',
-}
 
 const ToggleFilters = ({ facets, onChange }) => {
   const [toggleStates, setToggleStates] = useState({})
-  const intl = useIntl()
 
   useEffect(() => {
     const initialStates = {}
@@ -57,11 +50,7 @@ const ToggleFilters = ({ facets, onChange }) => {
           <Toggle
             checked={toggleStates[facet.value] || false}
             disabled={facet.quantity === 0}
-            label={
-              toggleFiltersValue[facet.name]
-                ? intl.formatMessage({ id: toggleFiltersValue[facet.name] })
-                : facet.name
-            }
+            label={facet.name}
             onChange={eventOrValue => {
               const isChecked =
                 typeof eventOrValue === 'boolean'
