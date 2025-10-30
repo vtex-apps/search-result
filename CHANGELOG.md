@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `dynamic-estimate` to be rendered as toggle
+
 ## [3.140.4] - 2025-10-30
 
 ### Added

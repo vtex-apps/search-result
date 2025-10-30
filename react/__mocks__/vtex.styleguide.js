@@ -78,3 +78,17 @@ export function Slider({ onChange, formatValue, defaultValues }) {
 export const Button = ({ children, onClick }) => (
   <button onClick={onClick}>{children}</button>
 )
+
+export const Toggle = ({ checked, disabled, label, onChange, ...props }) => (
+  <div data-testid={props['data-testid'] || 'toggle'}>
+    <label>
+      <input
+        type="checkbox"
+        checked={checked}
+        disabled={disabled}
+        onChange={e => onChange && onChange(e.target.checked)}
+      />
+      {label}
+    </label>
+  </div>
+)

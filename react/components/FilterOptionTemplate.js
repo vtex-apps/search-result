@@ -7,7 +7,7 @@ import React, {
   useEffect,
   useContext,
 } from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
 import { useRuntime } from 'vtex.render-runtime'
@@ -21,9 +21,13 @@ import SettingsContext from './SettingsContext'
 import useOutsideClick from '../hooks/useOutsideClick'
 import ShowMoreFilterButton from './ShowMoreFilterButton'
 import { useRenderOnView } from '../hooks/useRenderOnView'
-import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
-import { isRadioFilter } from '../constants/filterTypes'
+import {
+  FACETS_RENDER_THRESHOLD,
+  toggleFiltersValue,
+} from '../constants/filterConstants'
+import { isRadioFilter, isToggleFilter } from '../constants/filterTypes'
 import RadioFilters from './RadioFilters'
+import ToggleFilters from './ToggleFilters'
 
 /** Returns true if elementRef has ever been scrolled */
 const useHasScrolled = elementRef => {
@@ -97,6 +101,37 @@ const FilterOptionTemplate = ({
 }) => {
   const [open, setOpen] = useState(!initiallyCollapsed)
   const { getSettings } = useRuntime()
+  const intl = useIntl()
+
+  // Function to apply translation to toggle filter facets only
+  const applyToggleFilterTranslation = useCallback(
+    facets => {
+      // Safety check: ensure facets is an array
+      if (!Array.isArray(facets)) {
+        return []
+      }
+
+      return facets.map(facet => {
+        // Only apply translation for facets that:
+        // 1. Belong to a toggle filter (check filter.key)
+        // 2. Have a mapping in toggleFiltersValue (check facet.name)
+        const belongsToToggleFilter = filters.some(
+          filter => filter.key === facet.key && isToggleFilter(filter.key)
+        )
+
+        if (belongsToToggleFilter && toggleFiltersValue[facet.name]) {
+          return {
+            ...facet,
+            name: intl.formatMessage({ id: toggleFiltersValue[facet.name] }),
+          }
+        }
+
+        return facet
+      })
+    },
+    [intl, filters]
+  )
+
   const scrollable = useRef()
   const filterRef = useRef()
   const handles = useCssHandles(CSS_HANDLES)
@@ -127,6 +162,12 @@ const FilterOptionTemplate = ({
       filter => filter.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
     )
   }, [filters, searchTerm, thresholdForFacetSearch])
+
+  // Apply translation to all filtered facets regardless of section type
+  const translatedFacets = useMemo(
+    () => applyToggleFilterTranslation(filteredFacets),
+    [applyToggleFilterTranslation, filteredFacets]
+  )
 
   const openTruncated = value => {
     if (isLazyFacetsFetchEnabled && !truncatedFacetsFetched) {
@@ -165,25 +206,36 @@ const FilterOptionTemplate = ({
     const endSlice =
       shouldLazyRender || (shouldTruncate && truncated)
         ? FACETS_RENDER_THRESHOLD
-        : filteredFacets.length
+        : translatedFacets.length
 
     const isRadio =
       !isSelectedFiltersSection &&
       filters.some(filter => isRadioFilter(filter.key))
 
+    const isToggle =
+      !isSelectedFiltersSection &&
+      filters.some(filter => isToggleFilter(filter.key))
+
     return (
       <>
         {isRadio ? (
           <RadioFilters
-            facets={filteredFacets}
+            facets={translatedFacets}
             onChange={facet =>
               navigateToFacet({ ...facet, title }, preventRouteChange)
             }
             onOpenPostalCodeModal={onOpenPostalCodeModal}
             onOpenPickupModal={onOpenPickupModal}
           />
+        ) : isToggle ? (
+          <ToggleFilters
+            facets={translatedFacets}
+            onChange={facet =>
+              navigateToFacet({ ...facet, title }, preventRouteChange)
+            }
+          />
         ) : (
-          filteredFacets.slice(0, endSlice).map(children)
+          translatedFacets.slice(0, endSlice).map(children)
         )}
         {placeholderSize > 0 && <div style={{ height: placeholderSize }} />}
         {shouldTruncate && (

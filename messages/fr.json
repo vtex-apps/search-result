@@ -109,5 +109,7 @@
   "admin/editor.search-result.fetch-previous": "Récupérer le précédent",
   "admin/editor.search-result.fetch-button.button-behavior": "Comportement du bouton",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Bouton",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Lien vers la page - Améliore le référencement SEO, peut changer l’apparence du bouton"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Lien vers la page - Améliore le référencement SEO, peut changer l’apparence du bouton",
+  "store/search.filter.dynamic-estimate.next-day.name": "Jour ouvrable suivant",
+  "store/search.filter.dynamic-estimate.same-day.name": "Même jour"
 }

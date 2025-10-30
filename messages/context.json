@@ -109,5 +109,7 @@
   "admin/editor.search-result.fetch-previous": "Load previous",
   "admin/editor.search-result.fetch-button.button-behavior": "Button behavior",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Button",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link to page - Improves SEO, may change how the button looks"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link to page - Improves SEO, may change how the button looks",
+  "store/search.filter.dynamic-estimate.next-day.name": "Next day",
+  "store/search.filter.dynamic-estimate.same-day.name": "Same day"
 }

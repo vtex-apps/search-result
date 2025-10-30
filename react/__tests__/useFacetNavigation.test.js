@@ -198,4 +198,138 @@ describe('buildNewQueryMap - RadioGroup behavior', () => {
     expect(result.query).toContain('ignore')
     expect(result.map).toContain('shipping')
   })
+
+  describe('ToggleGroup behavior', () => {
+    const toggleFacetSameDay = {
+      key: 'dynamic-estimate',
+      value: 'same-day',
+      map: 'dynamic-estimate',
+      selected: true,
+    }
+
+    const toggleFacetNextDay = {
+      key: 'dynamic-estimate',
+      value: 'next-day',
+      map: 'dynamic-estimate',
+      selected: true,
+    }
+
+    const toggleFacetNotSelected = {
+      key: 'dynamic-estimate',
+      value: 'same-day',
+      map: 'dynamic-estimate',
+      selected: false,
+    }
+
+    it('should remove other toggle filters of same group when selecting a new one', () => {
+      const onShouldIgnore = jest.fn()
+      const selectedFacets = [toggleFacetSameDay] // same-day already selected
+      const facets = [toggleFacetNextDay] // selecting next-day
+
+      const result = buildNewQueryMap(
+        {},
+        facets,
+        selectedFacets,
+        false,
+        onShouldIgnore
+      )
+
+      // Should contain only next-day, not same-day
+      expect(result.query).toContain('next-day')
+      expect(result.query).not.toContain('same-day')
+      expect(result.map).toContain('dynamic-estimate')
+      expect(onShouldIgnore).toHaveBeenCalledWith(false) // toggles don't use ignore
+    })
+
+    it('should not use ignore pattern for toggle filters', () => {
+      const onShouldIgnore = jest.fn()
+      const selectedFacets = []
+      const facets = [toggleFacetSameDay]
+
+      const result = buildNewQueryMap(
+        {},
+        facets,
+        selectedFacets,
+        false,
+        onShouldIgnore
+      )
+
+      expect(result.query).not.toContain('ignore')
+      expect(result.query).toContain('same-day')
+      expect(onShouldIgnore).toHaveBeenCalledWith(false)
+    })
+
+    it('should remove toggle filter when deselected', () => {
+      const onShouldIgnore = jest.fn()
+      const selectedFacets = [toggleFacetSameDay] // same-day already selected
+      const facets = [toggleFacetNotSelected] // deselecting same-day
+
+      const result = buildNewQueryMap(
+        {},
+        facets,
+        selectedFacets,
+        false,
+        onShouldIgnore
+      )
+
+      expect(result.query).not.toContain('same-day')
+      expect(onShouldIgnore).toHaveBeenCalledWith(false)
+    })
+
+    it('should allow radio and toggle filters to coexist', () => {
+      const onShouldIgnore = jest.fn()
+      const radioPickupFacet = {
+        key: 'delivery-options',
+        value: 'pickup',
+        map: 'delivery-options',
+        selected: true,
+      }
+
+      const selectedFacets = [radioPickupFacet] // radio already selected
+      const facets = [toggleFacetSameDay] // selecting toggle
+
+      const result = buildNewQueryMap(
+        {},
+        facets,
+        selectedFacets,
+        false,
+        onShouldIgnore
+      )
+
+      // Both should be present
+      expect(result.query).toContain('pickup')
+      expect(result.query).toContain('same-day')
+      expect(result.map).toContain('delivery-options')
+      expect(result.map).toContain('dynamic-estimate')
+      expect(onShouldIgnore).toHaveBeenCalledWith(false) // toggle selected, so no ignore
+    })
+
+    it('should select radio when toggle is already selected', () => {
+      const onShouldIgnore = jest.fn()
+      const radioPickupFacet2 = {
+        key: 'delivery-options',
+        value: 'pickup',
+        map: 'delivery-options',
+        selected: true,
+      }
+
+      const selectedFacets = [toggleFacetSameDay] // toggle already selected
+      const facets = [radioPickupFacet2] // selecting radio
+
+      const result = buildNewQueryMap(
+        {},
+        facets,
+        selectedFacets,
+        false,
+        onShouldIgnore
+      )
+
+      // Both should be present but with ignore for radio
+      expect(result.query).toContain('ignore')
+      expect(result.query).toContain('same-day')
+      expect(result.map).toContain('delivery-options')
+      expect(result.map).toContain('dynamic-estimate')
+      expect(onShouldIgnore).toHaveBeenCalledWith(true) // radio selected, so use ignore
+    })
+  })
 })

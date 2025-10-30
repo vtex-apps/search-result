@@ -4,7 +4,11 @@ import { useCallback, useState } from 'react'
 import { useRuntime } from 'vtex.render-runtime'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
-import { isRadioFilter } from '../constants/filterTypes'
+import {
+  isSingleOptionFilter,
+  isRadioFilter,
+  isToggleFilter,
+} from '../constants/filterTypes'
 import { useFilterNavigator } from '../components/FilterNavigatorContext'
 import { newFacetPathName } from '../utils/slug'
 import { HEADER_SCROLL_OFFSET } from '../constants/SearchHelpers'
@@ -102,6 +106,132 @@ const getCleanUrlParams = currentMap => {
   return urlParams
 }
 
+/**
+ * Removes other facets from the same group (key) from selectedFacets
+ */
+const removeOtherFacetsFromSameGroup = (selectedFacets, facetKey) => {
+  return selectedFacets.filter(selectedFacet => selectedFacet.key !== facetKey)
+}
+
+/**
+ * Removes a specific facet from selectedFacets by value and map
+ */
+const removeSpecificFacet = (selectedFacets, facetValue, facetMap) => {
+  return selectedFacets.filter(
+    selectedFacet =>
+      selectedFacet.value !== facetValue && selectedFacet.map !== facetMap
+  )
+}
+
+/**
+ * Finds indices in query/map that match facets from the same group
+ */
+const findIndicesOfSameGroupFacets = (query, map, facet) => {
+  const indicesToRemove = []
+
+  zip(query, map).forEach(([value, valueMap], index) => {
+    const existingFacet = { value, map: valueMap, key: facet.key }
+
+    if (
+      compareFacetWithQueryValues(value, valueMap, existingFacet) &&
+      valueMap === facet.map
+    ) {
+      indicesToRemove.push(index)
+    }
+  })
+
+  return indicesToRemove
+}
+
+/**
+ * Removes multiple indices from query and map arrays
+ */
+const removeMultipleIndices = (query, map, indices) => {
+  let updatedQuery = query
+  let updatedMap = map
+
+  // Remove in descending order to avoid affecting subsequent indices
+  indices.reverse().forEach(index => {
+    updatedQuery = removeElementAtIndex(updatedQuery, index)
+    updatedMap = removeElementAtIndex(updatedMap, index)
+  })
+
+  return { query: updatedQuery, map: updatedMap }
+}
+
+/**
+ * Finds the index of a specific facet in query/map
+ */
+const findFacetIndex = (query, map, facet) => {
+  return zip(query, map).findIndex(([value, valueMap]) =>
+    compareFacetWithQueryValues(value, valueMap, facet)
+  )
+}
+
+/**
+ * Generic handler for facet selection (adding to URL)
+ * Handles both toggle and radio filters with their specific exclusion logic
+ */
+const handleFacetSelection = (query, map, facet, selectedFacets) => {
+  const isToggle = isToggleFilter(facet.key)
+  const isRadio = isRadioFilter(facet.key)
+
+  // Remove other facets from the same group for exclusive filters (toggle/radio)
+  let updatedSelectedFacets = selectedFacets
+  let updatedQuery = query
+  let updatedMap = map
+
+  if (isToggle || isRadio) {
+    // Remove other facets from the same group
+    updatedSelectedFacets = removeOtherFacetsFromSameGroup(
+      selectedFacets,
+      facet.key
+    )
+
+    // Remove indices from query/map
+    if (isToggle) {
+      // Toggle: remove multiple indices (all from same group)
+      const indicesToRemove = findIndicesOfSameGroupFacets(query, map, facet)
+      const result = removeMultipleIndices(query, map, indicesToRemove)
+
+      updatedQuery = result.query
+      updatedMap = result.map
+    }
+    // Radio doesn't remove from query/map during selection, only during deselection
+  }
+
+  // Add the new selected facet
+  upsert(updatedSelectedFacets, facet)
+
+  return {
+    query: updatedQuery,
+    map: updatedMap,
+    selectedFacets: updatedSelectedFacets,
+  }
+}
+
+/**
+ * Generic handler for facet deselection (removing from URL)
+ */
+const handleFacetDeselection = (query, map, facet, selectedFacets) => {
+  const isRadio = isRadioFilter(facet.key)
+
+  // Remove facet from selectedFacets
+  const updatedSelectedFacets = isRadio
+    ? removeOtherFacetsFromSameGroup(selectedFacets, facet.key)
+    : removeSpecificFacet(selectedFacets, facet.value, facet.map)
+
+  // Find and remove from query/map
+  const facetIndex = findFacetIndex(query, map, facet)
+
+  return {
+    query: removeElementAtIndex(query, facetIndex),
+    map: removeElementAtIndex(map, facetIndex),
+    selectedFacets: updatedSelectedFacets,
+  }
+}
+
+// eslint-disable-next-line max-params
 const buildQueryAndMap = (
   querySegments,
   mapSegments,
@@ -109,35 +239,43 @@ const buildQueryAndMap = (
   selectedFacets
 ) => {
   const queryAndMap = facets.reduce(
+    // eslint-disable-next-line max-params
     // The spread on facet is important so we can assign facet.newQuerySegment
     ({ query, map }, { ...facet }) => {
       const facetValue = facet.value
+      const isToggle = isToggleFilter(facet.key)
 
       facet.newQuerySegment = newFacetPathName(facet)
-      if (facet.selected) {
-        const facetIndex = zip(query, map).findIndex(([value, valueMap]) =>
-          compareFacetWithQueryValues(value, valueMap, facet)
-        )
 
-        selectedFacets = selectedFacets.filter(
-          selectedFacet =>
-            selectedFacet.value !== facet.value &&
-            selectedFacet.map !== facet.map
-        )
-
-        return {
-          query: removeElementAtIndex(query, facetIndex),
-          map: removeElementAtIndex(map, facetIndex),
-        }
+      // Handle deselection for toggle filters (selected=false means removing from URL)
+      if (isToggle && !facet.selected) {
+        return handleFacetDeselection(query, map, facet, selectedFacets)
       }
 
-      upsert(selectedFacets, facet)
+      // Handle deselection for radio/other filters (selected=true means removing from URL)
+      if (!isToggle && facet.selected) {
+        return handleFacetDeselection(query, map, facet, selectedFacets)
+      }
 
+      // Handle selection for toggle filters (selected=true means adding to URL)
+      if (isToggle && facet.selected) {
+        const result = handleFacetSelection(query, map, facet, selectedFacets)
+
+        query = result.query
+        map = result.map
+        selectedFacets = result.selectedFacets
+      } else if (!isToggle && !facet.selected) {
+        // Handle selection for radio/other filters (selected=false or undefined means adding to URL)
+        upsert(selectedFacets, facet)
+      }
+
+      // Handle category positioning when category needs insertion in the middle
       if (facet.map === MAP_CATEGORY_CHAR) {
         const lastCategoryIndex = map.lastIndexOf(MAP_CATEGORY_CHAR)
 
         if (lastCategoryIndex >= 0 && lastCategoryIndex !== map.length - 1) {
-          // Corner case: if we are adding a category but there are other filter other than category applied. Add the new category filter to the right of the other categories.
+          // Corner case: if we are adding a category but there are other filters other than category applied.
+          // Add the new category filter to the right of the other categories.
           return {
             query: [
               ...query.slice(0, lastCategoryIndex + 1),
@@ -153,6 +291,7 @@ const buildQueryAndMap = (
         }
       }
 
+      // Default: append to the end
       return {
         query: [...query, facetValue],
         map: [...map, facet.map],
@@ -169,6 +308,7 @@ const buildQueryAndMap = (
   return newQueryMap
 }
 
+// eslint-disable-next-line max-params
 export const buildNewQueryMap = (
   fullTextSellerAndCollection,
   facets,
@@ -178,21 +318,29 @@ export const buildNewQueryMap = (
 ) => {
   // RadioGroup behavior - only apply radio logic when radio filters are actually involved
   let shouldIgnore = ignoreGlobalShipping
-  const selectedShippingFacet = facets?.find(facet => isRadioFilter(facet.key))
+  const selectedShippingFacet = facets?.find(facet =>
+    isSingleOptionFilter(facet.key)
+  )
 
-  // Only use radio filter logic if there's actually a radio filter being processed
+  // Handle single option filters (radio and toggle) with unified logic
   if (selectedShippingFacet) {
     if (!selectedShippingFacet.selected) {
-      selectedFacets = selectedFacets.filter(facet => !isRadioFilter(facet.key))
+      // Remove only single option filters of the same key/type when deselecting
+      selectedFacets = selectedFacets.filter(
+        facet => facet.key !== selectedShippingFacet.key
+      )
       shouldIgnore = false
       onShouldIgnore(false)
-    } else if (selectedShippingFacet.selected) {
-      shouldIgnore = true
-      onShouldIgnore(true)
+    } else {
+      // Only radio filters use the "ignore" URL pattern
+      // Toggle filters are included normally in the URL
+      shouldIgnore = isRadioFilter(selectedShippingFacet.key)
+      onShouldIgnore(shouldIgnore)
     }
   } else {
-    // No radio filters involved - reset shouldIgnore to prevent contamination
+    // No single option filters involved - reset shouldIgnore
     shouldIgnore = false
+    onShouldIgnore(false)
   }
 
   const querySegments = selectedFacets.map(facet => facet.value)
@@ -231,6 +379,7 @@ const useFacetNavigation = (selectedFacets, scrollToTop = 'none') => {
   const mainSearches = getMainSearches(query, map)
 
   const navigateToFacet = useCallback(
+    // eslint-disable-next-line max-params
     (
       maybeFacets,
       preventRouteChange = false,
