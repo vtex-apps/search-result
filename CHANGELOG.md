@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.140.4] - 2025-10-30
+
 ### Added
 
 - ActivityFlow attributes to GalleryRow based on search query
