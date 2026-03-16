@@ -8,6 +8,7 @@ import {
   isSingleOptionFilter,
   isRadioFilter,
   isToggleFilter,
+  isPersistedFilter,
 } from '../constants/filterTypes'
 import { useFilterNavigator } from '../components/FilterNavigatorContext'
 import { newFacetPathName } from '../utils/slug'
@@ -332,9 +333,9 @@ export const buildNewQueryMap = (
       shouldIgnore = false
       onShouldIgnore(false)
     } else {
-      // Only radio filters use the "ignore" URL pattern
+      // Only filters that might be persisted in the `vtex_segment` cookie use the "ignore" URL pattern
       // Toggle filters are included normally in the URL
-      shouldIgnore = isRadioFilter(selectedShippingFacet.key)
+      shouldIgnore = isPersistedFilter(selectedShippingFacet.key)
       onShouldIgnore(shouldIgnore)
     }
   } else {

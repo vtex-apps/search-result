@@ -306,15 +306,15 @@ describe('buildNewQueryMap - RadioGroup behavior', () => {
 
     it('should select radio when toggle is already selected', () => {
       const onShouldIgnore = jest.fn()
-      const radioPickupFacet2 = {
-        key: 'delivery-options',
-        value: 'pickup',
-        map: 'delivery-options',
+      const radioShippingFacet = {
+        key: 'shipping',
+        value: 'delivery',
+        map: 'shipping',
         selected: true,
       }
 
       const selectedFacets = [toggleFacetSameDay] // toggle already selected
-      const facets = [radioPickupFacet2] // selecting radio
+      const facets = [radioShippingFacet] // selecting radio
 
       const result = buildNewQueryMap(
         {},
@@ -324,12 +324,12 @@ describe('buildNewQueryMap - RadioGroup behavior', () => {
         onShouldIgnore
       )
 
-      // Both should be present but with ignore for radio
+      // Both should be present but with ignore for shipping (because it might be persisted in the vtex_segment)
       expect(result.query).toContain('ignore')
       expect(result.query).toContain('same-day')
-      expect(result.map).toContain('delivery-options')
+      expect(result.map).toContain('shipping')
       expect(result.map).toContain('dynamic-estimate')
-      expect(onShouldIgnore).toHaveBeenCalledWith(true) // radio selected, so use ignore
+      expect(onShouldIgnore).toHaveBeenCalledWith(true) // the filter shipping might be persisted and was already selected, so use ignore
     })
   })
 })

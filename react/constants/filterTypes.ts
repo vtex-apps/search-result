@@ -6,6 +6,15 @@ const RADIO_FILTER_TYPES = {
   DELIVERY_OPTIONS: 'delivery-options',
 }
 
+
+/**
+ * Types of persisted filters
+ * Persisted filters are filters that are persisted via vtex_segment cookie
+ */
+const PERSISTED_FILTER_TYPES = {
+  SHIPPING: 'shipping'
+}
+
 /**
  * Types of toggle filters available in the application
  */
@@ -20,6 +29,15 @@ const TOGGLE_FILTER_TYPES = {
  */
 export const isRadioFilter = (key: string): boolean =>
   Object.values(RADIO_FILTER_TYPES).includes(key)
+
+/**
+ * Checks if a filter key is a persisted filter.
+ * @param {string} key - Filter key to check
+ * @returns {boolean} True if the key corresponds to a persisted filter 
+ */
+export const isPersistedFilter = (key: string): boolean =>
+  Object.values(PERSISTED_FILTER_TYPES).includes(key)
+
 
 /**
  * Checks if a filter key corresponds to a toggle filter type
