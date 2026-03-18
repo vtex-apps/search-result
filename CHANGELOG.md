@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.143.5] - 2026-03-18
+
 ### Fixed
 
 - Use `isPersistedFilter` instead of `isRadioFilter` for determining URL ignore pattern. Only filters persisted via `vtex_segment` cookie (like `shipping`) now use the ignore URL pattern.
