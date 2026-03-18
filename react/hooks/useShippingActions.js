@@ -42,9 +42,7 @@ const useShippingActions = facet => {
     useShippingOptionState()
 
   useEffect(() => {
-    const pickupPointLabel = selectedPickup
-      ? selectedPickup.pickupPoint.friendlyName
-      : ''
+    const pickupPointLabel = selectedPickup ? selectedPickup.pickupName : ''
 
     const label =
       eventIdentifier === 'pickupPointLabel' ? pickupPointLabel : addressLabel
