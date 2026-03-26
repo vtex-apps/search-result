@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.143.5] - 2026-03-18
 
+### Changed
+
+- Replace `vtex.shipping-option-components` by `vtex.delivery-promise-components`
+
 ### Fixed
 
 - Use `isPersistedFilter` instead of `isRadioFilter` for determining URL ignore pattern. Only filters persisted via `vtex_segment` cookie (like `shipping`) now use the ignore URL pattern.
