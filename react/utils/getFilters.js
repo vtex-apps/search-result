@@ -19,6 +19,46 @@ const BRANDS_TYPE = 'Brands'
 const PRICE_RANGES_TYPE = 'PriceRanges'
 const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
 
+const defaultShippingValues = ['delivery', 'pickup-in-point', 'pickup-nearby']
+
+const getDeliveriesFormatted = (
+  deliveries,
+  availableShippingValues,
+  showShippingFacet
+) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const intl = useIntl()
+  const shipping = deliveries.find(d => d.name === SHIPPING_KEY)
+
+  if (!shipping) {
+    return deliveries
+  }
+
+  if (!showShippingFacet) {
+    return deliveries.filter(d => d.name !== SHIPPING_KEY)
+  }
+
+  const shippingValues =
+    availableShippingValues.length !== 0
+      ? availableShippingValues
+      : defaultShippingValues
+
+  const shippingFormatted = {
+    ...shipping,
+    title: SHIPPING_TITLE,
+    facets: shipping.facets
+      .filter(facet => shippingValues.includes(facet.name))
+      .map(facet => ({
+        ...facet,
+        name: intl.formatMessage({ id: shippingOptions[facet.name] }),
+      })),
+  }
+
+  return deliveries.map(facet =>
+    facet.name === SHIPPING_KEY ? shippingFormatted : facet
+  )
+}
+
 const getFilters = ({
   specificationFilters = [],
   priceRanges = [],
@@ -29,42 +69,11 @@ const getFilters = ({
   showShippingFacet = false,
   availableShippingValues = [],
 }) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const intl = useIntl()
-
-  let deliveriesFormatted = deliveries
-
-  let shipping = deliveries.find(d => d.name === SHIPPING_KEY)
-
-  if (shipping && availableShippingValues.length !== 0) {
-    shipping = {
-      ...shipping,
-      facets: shipping.facets.filter(facet =>
-        availableShippingValues.includes(facet.name)
-      ),
-    }
-  }
-
-  if (shipping) {
-    const shippingFormattedFacetsName = {
-      ...shipping,
-      title: SHIPPING_TITLE,
-      facets: shipping.facets.map(facet => ({
-        ...facet,
-        name: intl.formatMessage({ id: shippingOptions[facet.name] }),
-      })),
-    }
-
-    deliveriesFormatted = deliveries.map(facet =>
-      facet.name === SHIPPING_KEY ? shippingFormattedFacetsName : facet
-    )
-  }
-
-  if (!showShippingFacet) {
-    deliveriesFormatted = deliveriesFormatted.filter(
-      d => d.name !== SHIPPING_KEY
-    )
-  }
+  const deliveriesFormatted = getDeliveriesFormatted(
+    deliveries,
+    availableShippingValues,
+    showShippingFacet
+  )
 
   const hiddenFacetsNames = (
     path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []
