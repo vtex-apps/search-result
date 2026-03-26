@@ -1,8 +1,8 @@
 const SHIPPING_OPTION_COMPONENT_DRAWER_CLASS =
-  'vtex-shipping-option-components-0-x-drawer'
+  'vtex-delivery-promise-components-0-x-drawer'
 
 const SHIPPING_OPTION_COMPONENT_OVERLAY_CLASS =
-  'vtex-shipping-option-components-0-x-overlay'
+  'vtex-delivery-promise-components-0-x-overlay'
 
 const isShippingOptionsComponent = e => {
   if (!e.target) {

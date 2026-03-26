@@ -7,7 +7,7 @@ import React, {
   useEffect,
   useContext,
 } from 'react'
-import { useShippingOptionState } from 'vtex.shipping-option-components/ShippingOptionContext'
+import { useDeliveryPromiseState } from 'vtex.delivery-promise-components/DeliveryPromiseContext'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { Collapse } from 'react-collapse'
 import classNames from 'classnames'
@@ -104,10 +104,10 @@ const FilterOptionTemplate = ({
   const { getSettings } = useRuntime()
   const intl = useIntl()
 
-  const { shippingOption } = useShippingOptionState()
+  const { deliveryPromiseMethod } = useDeliveryPromiseState()
 
-  const isDeliverySelected = shippingOption === 'delivery'
-  const isPickupSelected = shippingOption === 'pickup-in-point'
+  const isDeliverySelected = deliveryPromiseMethod === 'delivery'
+  const isPickupSelected = deliveryPromiseMethod === 'pickup-in-point'
 
   // Function to apply translation to toggle filter facets only
   const applyToggleFilterTranslation = useCallback(

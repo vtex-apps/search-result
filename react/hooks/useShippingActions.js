@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useShippingOptionState } from 'vtex.shipping-option-components/ShippingOptionContext'
+import { useDeliveryPromiseState } from 'vtex.delivery-promise-components/DeliveryPromiseContext'
 
 import useShouldDisableFacet from './useShouldDisableFacet'
 
@@ -39,7 +39,7 @@ const useShippingActions = facet => {
     addressDependentValues.findIndex(value => facet.value === value) > -1
 
   const { zipcode, selectedPickup, city, addressLabel } =
-    useShippingOptionState()
+    useDeliveryPromiseState()
 
   useEffect(() => {
     const pickupPointLabel = selectedPickup
