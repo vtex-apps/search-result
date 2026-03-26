@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Align with `delivery-promise-components` API: imports use `vtex.delivery-promise-components` (`PostalCodeModal`, `PickupModal`, `DeliveryPromiseContext` with `useDeliveryPromiseState`); filter UI reads `deliveryPromiseMethod` instead of `shippingOption`; drawer/overlay detection uses `vtex-delivery-promise-components-0-x-*` class prefixes.
+
 ## [3.144.0] - 2026-04-01
 
 ### Changed
