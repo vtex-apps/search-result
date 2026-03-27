@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Shipping facet: when `availableShippingValues` is an empty array, only `delivery`, `pickup-in-point`, and `pickup-nearby` are shown; a non-empty array replaces that list (e.g. add `pickup-all`).
+- Refactored shipping formatting in `getFilters` by extracting `getDeliveriesFormatted`.
+
 ## [3.143.5] - 2026-03-18
 
 ### Fixed
