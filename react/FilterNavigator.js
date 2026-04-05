@@ -11,7 +11,6 @@ import { flatten } from 'ramda'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 import PostalCodeModal from 'vtex.delivery-promise-components/PostalCodeModal'
-import PickupModal from 'vtex.delivery-promise-components/PickupModal'
 
 import FilterSidebar from './components/FilterSidebar'
 import SelectedFilters from './components/SelectedFilters'
@@ -23,9 +22,14 @@ import {
   hiddenFacetsSchema,
 } from './constants/propTypes'
 import useFacetNavigation from './hooks/useFacetNavigation'
+import useSearchPickupModal from './hooks/useSearchPickupModal'
 import FilterNavigatorTitleTag from './components/FilterNavigatorTitleTag'
 import styles from './searchResult.css'
-import { CATEGORIES_TITLE, shippingOptions } from './utils/getFilters'
+import {
+  CATEGORIES_TITLE,
+  shippingOptions,
+  buildDeliveryShippingFacetForNavigation,
+} from './utils/getFilters'
 import { newFacetPathName } from './utils/slug'
 import { FACETS_RENDER_THRESHOLD } from './constants/filterConstants'
 
@@ -195,7 +199,7 @@ const FilterNavigator = ({
     facet => facet.selected
   )
 
-  const { searchQuery, showShippingFacet } = useSearchPage()
+  const { searchQuery, showShippingMethodFacet } = useSearchPage()
   const hasFiltersApplied = searchQuery?.variables?.selectedFacets?.length > 1
 
   const handleResetFilters = () => {
@@ -209,6 +213,17 @@ const FilterNavigator = ({
     }, [selectedFilters, selectedCategories]),
     scrollToTop
   )
+
+  const deliveryFacetForNav = useMemo(
+    () => buildDeliveryShippingFacetForNavigation(deliveries, intl),
+    [deliveries, intl]
+  )
+
+  const { pickupModal } = useSearchPickupModal({
+    navigateToFacet,
+    isOpen: isPickupModalOpen,
+    onClose: () => setisPickupModalOpen(false),
+  })
 
   const filterClasses = classNames({
     'flex items-center justify-center flex-auto h-100': mobileLayout,
@@ -286,7 +301,7 @@ const FilterNavigator = ({
               navigateToFacet={navigateToFacet}
               onOpenPostalCodeModal={() => setIsPostalCodeModalOpen(true)}
               onOpenPickupModal={() => setisPickupModalOpen(true)}
-              showShippingFacet={showShippingFacet}
+              showShippingMethodFacet={showShippingMethodFacet}
             />
             <DepartmentFilters
               title={CATEGORIES_TITLE}
@@ -335,11 +350,16 @@ const FilterNavigator = ({
       <PostalCodeModal
         isOpen={isPostalCodeModalOpen}
         onClose={() => setIsPostalCodeModalOpen(false)}
+        onSuccessfulZipSubmit={
+          deliveryFacetForNav
+            ? () => {
+                navigateToFacet(deliveryFacetForNav)
+                setIsPostalCodeModalOpen(false)
+              }
+            : undefined
+        }
       />
-      <PickupModal
-        isOpen={isPickupModalOpen}
-        onClose={() => setisPickupModalOpen(false)}
-      />
+      {pickupModal}
     </Fragment>
   )
 }

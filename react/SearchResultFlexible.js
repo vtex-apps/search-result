@@ -50,7 +50,7 @@ const SearchResultFlexible = ({
   preventRouteChange = false,
   showFacetQuantity = false,
   showFacetTitle = false,
-  showShippingFacet = false,
+  showShippingMethodFacet = false,
   availableShippingValues = [],
   // Below are set by SearchContext
   searchQuery,
@@ -99,7 +99,7 @@ const SearchResultFlexible = ({
         brandsQuantity,
         hiddenFacets,
         deliveries,
-        showShippingFacet,
+        showShippingMethodFacet,
         availableShippingValues,
       }),
     [
@@ -109,7 +109,7 @@ const SearchResultFlexible = ({
       specificationFilters,
       brandsQuantity,
       deliveries,
-      showShippingFacet,
+      showShippingMethodFacet,
       availableShippingValues,
     ]
   )
@@ -178,7 +178,7 @@ const SearchResultFlexible = ({
       facetsLoading,
       lazyItemsRemaining,
       selectedFacets,
-      showShippingFacet,
+      showShippingMethodFacet,
     }
   }, [
     hiddenFacets,
@@ -197,7 +197,7 @@ const SearchResultFlexible = ({
     preventRouteChange,
     facetsLoading,
     lazyItemsRemaining,
-    showShippingFacet,
+    showShippingMethodFacet,
   ])
 
   const showLoading = searchQuery.loading && !state.isFetchingMore

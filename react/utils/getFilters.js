@@ -15,6 +15,26 @@ export const shippingOptions = {
 
 export const SHIPPING_KEY = 'shipping'
 
+/** Delivery option facet for PLP URL after postal modal (shipping group from API). */
+export function buildDeliveryShippingFacetForNavigation(deliveries, intl) {
+  const shipping = deliveries?.find(d => d.name === SHIPPING_KEY)
+  const raw = shipping?.facets?.find(f => f.value === 'delivery')
+
+  if (!raw) {
+    return null
+  }
+
+  return {
+    ...raw,
+    key: 'shipping',
+    map: 'shipping',
+    name: intl.formatMessage({ id: shippingOptions.delivery }),
+    selected: false,
+    quantity: raw.quantity ?? 1,
+    title: intl.formatMessage({ id: SHIPPING_TITLE }),
+  }
+}
+
 const BRANDS_TYPE = 'Brands'
 const PRICE_RANGES_TYPE = 'PriceRanges'
 const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
@@ -66,13 +86,13 @@ const getFilters = ({
   deliveries = [],
   brandsQuantity = 0,
   hiddenFacets = {},
-  showShippingFacet = false,
+  showShippingMethodFacet = false,
   availableShippingValues = [],
 }) => {
   const deliveriesFormatted = getDeliveriesFormatted(
     deliveries,
     availableShippingValues,
-    showShippingFacet
+    showShippingMethodFacet
   )
 
   const hiddenFacetsNames = (

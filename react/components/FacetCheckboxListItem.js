@@ -7,7 +7,9 @@ import { useIntl } from 'react-intl'
 
 import styles from '../searchResult.css'
 import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
-import useShippingActions from '../hooks/useShippingActions'
+import useShippingActions, {
+  isShippingActionPlaceholder,
+} from '../hooks/useShippingActions'
 import ShippingActionButton from './ShippingActionButton'
 
 const FacetCheckboxListItem = ({
@@ -41,7 +43,11 @@ const FacetCheckboxListItem = ({
         <div className="flex flex-column">
           <span>{labelElement}</span>
           <ShippingActionButton
-            label={intl.formatMessage({ id: actionLabel })}
+            label={
+              isShippingActionPlaceholder(actionLabel)
+                ? intl.formatMessage({ id: actionLabel })
+                : actionLabel ?? ''
+            }
             openDrawer={openDrawer}
           />
         </div>

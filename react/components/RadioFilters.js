@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { RadioGroup } from 'vtex.styleguide'
+import { useDeliveryPromiseState } from 'vtex.delivery-promise-components/DeliveryPromiseContext'
 
 import ShippingActionButton from './ShippingActionButton'
-import useShippingActions from '../hooks/useShippingActions'
+import useShippingActions, {
+  isShippingActionPlaceholder,
+} from '../hooks/useShippingActions'
+import {
+  isPickupInPointShippingValue,
+  resolvePickupInPointFacetForNavigation,
+} from '../utils/pickupInPointLabel'
 
 const RadioItem = ({ facet, onOpenPostalCodeModal, onOpenPickupModal }) => {
   const intl = useIntl()
@@ -15,7 +22,11 @@ const RadioItem = ({ facet, onOpenPostalCodeModal, onOpenPickupModal }) => {
       <div>{facet.name}</div>
       {actionType ? (
         <ShippingActionButton
-          label={intl.formatMessage({ id: actionLabel ?? 'none' })}
+          label={
+            isShippingActionPlaceholder(actionLabel)
+              ? intl.formatMessage({ id: actionLabel })
+              : actionLabel ?? ''
+          }
           openDrawer={
             actionType === 'DELIVERY'
               ? onOpenPostalCodeModal
@@ -33,6 +44,13 @@ const RadioFilters = ({
   onOpenPostalCodeModal,
   onOpenPickupModal,
 }) => {
+  const {
+    selectedPickup,
+    pickupSuggestion,
+    zipcode,
+    pickups = [],
+  } = useDeliveryPromiseState()
+
   const selectedOption = facets.find(facet => facet.selected)
   const lastValue = selectedOption ? selectedOption.value : undefined
 
@@ -45,15 +63,26 @@ const RadioFilters = ({
   const onRadioSelect = e => {
     const { value } = e.currentTarget
 
-    setSelectedValue(value)
-
     const clickedFacet = facets.find(facet => facet.value === value)
 
     if (clickedFacet.selected) {
       return
     }
 
-    onChange(clickedFacet)
+    const resolved = resolvePickupInPointFacetForNavigation(
+      clickedFacet,
+      selectedPickup,
+      { pickupSuggestion, zipcode }
+    )
+
+    if (resolved.modal) {
+      onOpenPickupModal?.()
+
+      return
+    }
+
+    setSelectedValue(value)
+    onChange(resolved.facet)
   }
 
   return (
@@ -72,7 +101,9 @@ const RadioFilters = ({
             onOpenPickupModal={onOpenPickupModal}
           />
         ),
-        disabled: facet.quantity === 0,
+        disabled: isPickupInPointShippingValue(facet.value)
+          ? pickups.length === 0
+          : facet.quantity === 0,
       }))}
       value={selectedValue}
       onChange={onRadioSelect}

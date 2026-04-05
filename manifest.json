@@ -39,7 +39,8 @@
     "vtex.store-drawer": "0.x",
     "vtex.product-list-context": "0.x",
     "vtex.structured-data": "0.x",
-    "vtex.delivery-promise-components": "0.x"
+    "vtex.delivery-promise-components": "0.x",
+    "vtex.session-client": "1.x"
   },
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
