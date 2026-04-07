@@ -350,6 +350,7 @@ const FilterNavigator = ({
       <PostalCodeModal
         isOpen={isPostalCodeModalOpen}
         onClose={() => setIsPostalCodeModalOpen(false)}
+        cartAvailability="delivery"
         onSuccessfulZipSubmit={
           deliveryFacetForNav
             ? () => {
