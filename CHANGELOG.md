@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.145.0] - 2026-04-08
+
 ### Added
 
 - PLP pickup modal uses presentational `PickupModalPresentational` with local state: postal submit loads pickup points via client APIs without updating session; pickup selection persists to `localStorage` and navigates the `shipping` facet to `pickup-in-point-{id}` (no full-page reload).
