@@ -1,6 +1,8 @@
+import { useDeliveryPromiseState } from 'vtex.delivery-promise-components/DeliveryPromiseContext'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import { MAP_VALUES_SEP } from '../constants'
+import { isPickupInPointShippingValue } from '../utils/pickupInPointLabel'
 
 export default function useShouldDisableFacet(
   facet,
@@ -8,6 +10,7 @@ export default function useShouldDisableFacet(
   isPickupSet
 ) {
   const { map } = useSearchPage()
+  const { pickups } = useDeliveryPromiseState()
 
   if (
     (facet.value === 'delivery' ||
@@ -18,11 +21,15 @@ export default function useShouldDisableFacet(
     return true
   }
 
-  if (facet.value === 'pickup-in-point' && !isPickupSet) {
+  if (isPickupInPointShippingValue(facet.value) && !isPickupSet) {
     return true
   }
 
-  if (facet.quantity === 0) {
+  if (isPickupInPointShippingValue(facet.value)) {
+    if (!pickups || pickups.length === 0) {
+      return true
+    }
+  } else if (facet.quantity === 0) {
     return true
   }
 

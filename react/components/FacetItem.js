@@ -9,7 +9,9 @@ import { useIntl } from 'react-intl'
 import { pushFilterManipulationPixelEvent } from '../utils/filterManipulationPixelEvents'
 import SettingsContext from './SettingsContext'
 import ShippingActionButton from './ShippingActionButton'
-import useShippingActions from '../hooks/useShippingActions'
+import useShippingActions, {
+  isShippingActionPlaceholder,
+} from '../hooks/useShippingActions'
 
 const CSS_HANDLES = ['filterItem', 'productCount', 'filterItemTitle']
 
@@ -93,7 +95,11 @@ const FacetItem = ({
         <div>
           <div>{labelElement}</div>
           <ShippingActionButton
-            label={intl.formatMessage({ id: actionLabel ?? 'none' })}
+            label={
+              isShippingActionPlaceholder(actionLabel)
+                ? intl.formatMessage({ id: actionLabel })
+                : actionLabel ?? ''
+            }
             openDrawer={
               actionType === 'DELIVERY'
                 ? onOpenPostalCodeModal

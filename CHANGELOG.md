@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- PLP pickup modal uses presentational `PickupModalPresentational` with local state: postal submit loads pickup points via client APIs without updating session; pickup selection persists to `localStorage` and navigates the `shipping` facet to `pickup-in-point-{id}` (no full-page reload).
+
+### Changed
+
+- Rename block prop `showShippingFacet` to `showShippingMethodFacet` on `search-result-layout.desktop` and `search-result-layout.mobile`.
+- Align with `delivery-promise-components` API: imports use `vtex.delivery-promise-components` (`PostalCodeModal`, `PickupModal`, `DeliveryPromiseContext` with `useDeliveryPromiseState`); filter UI reads `deliveryPromiseMethod` instead of `shippingOption`; drawer/overlay detection uses `vtex-delivery-promise-components-0-x-*` class prefixes.
+- Shipping action label for pickup-in-point prefers URL facet / `localStorage` when present, with fallback to `useDeliveryPromiseState().selectedPickup`.
+
 ## [3.144.0] - 2026-04-01
 
 ### Changed
@@ -15,6 +25,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Refactored shipping formatting in `getFilters` by extracting `getDeliveriesFormatted`.
 
 ## [3.143.5] - 2026-03-18
+
+### Changed
+
+- Replace `vtex.shipping-option-components` by `vtex.delivery-promise-components`
 
 ### Fixed
 
