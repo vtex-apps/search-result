@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Bump `vtex.delivery-promise-components` major to `1.x`.
+
 ## [3.145.0] - 2026-04-08
 
 ### Added
