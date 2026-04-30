@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- `SearchQuery`: pass `hideUnavailableItems` through to search variables without boolean coercion so omitted props stay `undefined` for GraphQL; lazy `fetchMore` effect now depends on `hideUnavailableItems` when it changes.
+
 ## [3.145.1] - 2026-04-09
 
 ### Changed

@@ -357,7 +357,7 @@ const SearchQuery = ({
       excludedPaymentSystems,
       includedPaymentSystems,
       productOriginVtex: !!__unstableProductOriginVtex,
-      hideUnavailableItems: !!hideUnavailableItems,
+      hideUnavailableItems,
       facetsBehavior: facetsBehavior || DEFAULT_QUERY_VALUES.facetsBehavior,
       categoryTreeBehavior,
       withFacets: false,
@@ -464,6 +464,7 @@ const SearchQuery = ({
     maxItemsPerPage,
     lazyItemsRemaining,
     itemsLimit,
+    variables.hideUnavailableItems,
   ])
 
   const extraParams = useMemo(() => {
