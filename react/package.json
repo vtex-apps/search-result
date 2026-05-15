@@ -75,5 +75,15 @@
     "jest-environment-jsdom": "^26.0.0",
     "node-notifier": "^8.0.1"
   },
+  "jest": {
+    "_comment": "managed-by: golden-path v1 — coverage threshold for the react builder",
+    "coverageThreshold": {
+      "global": {
+        "lines": 60,
+        "functions": 60,
+        "statements": 60
+      }
+    }
+  },
   "version": "3.145.1"
 }

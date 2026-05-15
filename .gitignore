@@ -37,3 +37,9 @@ lib
 package-lock.json
 
 *.orig
+
+# managed-by: golden-path v1
+# spec-kit: SpecKit artifacts live at the parent `is-io-specs/.specify/` (multi-repo).
+# This repo intentionally does not host `.specify/` locally.
+.claude/
+.specify/
