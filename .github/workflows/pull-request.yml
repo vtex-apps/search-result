@@ -20,7 +20,7 @@ jobs:
         env:
           RUNNER_TEMP: /tmp
       - name: Danger CI
-        uses: vtex/danger@v1
+        uses: vtex/danger@v0.2.9
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           REQUIRE_CHANGELOG_VERSION: false
@@ -36,7 +36,7 @@ jobs:
         env:
           RUNNER_TEMP: /tmp
       - name: Run test on every builder directory
-        uses: vtex/action-io-app-test@v1
+        uses: vtex/action-io-app-test@v1.0.1
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -49,4 +49,4 @@ jobs:
         env:
           RUNNER_TEMP: /tmp
       - name: Lint project
-        uses: vtex/action-lint@v1
+        uses: vtex/action-lint@v1.1.1
