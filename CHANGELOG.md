@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `Makefile` with canonical Golden Path targets (`help`, `dev`, `build`, `test`, `coverage`, `lint`, `format-check`, `check`, `link`, `run`, `clean`).
+- `README.md` with Prerequisites / How to run / How to test / How to publish / Documentation sections.
+- `AGENTS.md` with project-specific context (Store Framework block topology, `SearchQuery` / fetch-more patterns, controlled query state), Sources of Truth, Verified Commands, Expected Skills, Expected MCPs, Autonomy Limits, and a Multi-repo Specs pointer. `CLAUDE.md` symlinked to it.
+- `SECURITY.md` with the VTEX vulnerability reporting policy.
+- `docs/glossary.md`, `docs/data-model.md`, `docs/sdd/model-guide.md`.
+- `.editorconfig` (with `[Makefile]` section).
+- `.nvmrc` pinning Node 12 (legacy version intentionally kept; a Node 20 bump will land in its own PR).
+- `.github/dependabot.yml` for npm + GitHub Actions weekly updates.
+- `.mcp.json` declaring the GitHub MCP server.
+- 60% Jest coverage threshold (lines / functions / statements) in `react/package.json`.
+
+### Changed
+
+- `.github/workflows/pull-request.yml`: rewrote with `actions/checkout` / `actions/setup-node` pinned to `@v4` and separate lint + test jobs. Kept Node 12.x in CI on purpose.
+- `.gitignore`: added the spec-kit canonical ignore block (multi-repo: `.specify/` lives in the parent `is-io-specs` aggregator, not here).
+
 ## [3.145.1] - 2026-04-09
 
 ### Changed
