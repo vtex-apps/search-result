@@ -20,7 +20,7 @@ jobs:
         env:
           RUNNER_TEMP: /tmp
       - name: Danger CI
-        uses: vtex/danger@v0.2.9
+        uses: vtex/danger@master
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           REQUIRE_CHANGELOG_VERSION: false
