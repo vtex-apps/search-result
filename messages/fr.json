@@ -112,8 +112,8 @@
   "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Lien vers la page - Améliore le référencement SEO, peut changer l’apparence du bouton",
   "store/search.filter.dynamic-estimate.next-day.name": "Jour ouvrable suivant",
   "store/search.filter.dynamic-estimate.same-day.name": "Même jour",
-  "store/search.filter.dynamic-estimate.delivery-next-day.name": "Livraison le jour ouvrable suivant",
-  "store/search.filter.dynamic-estimate.pickup-next-day.name": "Retrait le jour ouvrable suivant",
-  "store/search.filter.dynamic-estimate.delivery-same-day.name": "Livraison le même jour",
-  "store/search.filter.dynamic-estimate.pickup-same-day.name": "Retrait le même jour"
+  "store/search.filter.dynamic-estimate.delivery-next-day.name": "Recevoir demain",
+  "store/search.filter.dynamic-estimate.pickup-next-day.name": "Retirer demain",
+  "store/search.filter.dynamic-estimate.delivery-same-day.name": "Recevoir aujourd'hui",
+  "store/search.filter.dynamic-estimate.pickup-same-day.name": "Retirer aujourd'hui"
 }

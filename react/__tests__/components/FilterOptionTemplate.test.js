@@ -2,6 +2,7 @@
 import React from 'react'
 import { fireEvent, render } from '@vtex/test-tools/react'
 import { useRuntime } from 'vtex.render-runtime'
+import { useDeliveryPromiseState } from 'vtex.delivery-promise-components/DeliveryPromiseContext'
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils'
 
 import FilterOptionTemplate from '../../components/FilterOptionTemplate'
@@ -16,6 +17,8 @@ beforeEach(() => {
   useRuntime.mockImplementation(() => ({
     getSettings: () => ({}),
   }))
+
+  useDeliveryPromiseState.mockReturnValue({ deliveryPromiseMethod: null })
 })
 
 const mockNavigate = jest.fn()
@@ -519,6 +522,181 @@ describe('<FilterOptionTemplate />', () => {
     )
 
     expect(getByText('Child component')).toBeInTheDocument()
+  })
+
+  describe('dynamic-estimate toggle filter translation (FR-006 precedence)', () => {
+    const makeDynamicEstimateFilter = keys =>
+      keys.map(key => ({
+        key: 'dynamic-estimate',
+        name: key,
+        value: key,
+        selected: false,
+        quantity: 1,
+        map: 'dynamic-estimate',
+      }))
+
+    const renderToggleFilter = (keys, deliveryPromiseMethod = null) => {
+      useDeliveryPromiseState.mockReturnValue({ deliveryPromiseMethod })
+      const filters = makeDynamicEstimateFilter(keys)
+
+      return render(
+        <SettingsContext.Provider value={{ thresholdForFacetSearch: 10 }}>
+          <FilterOptionTemplate
+            {...mockProps}
+            filters={filters}
+            title="Delivery Estimate"
+          >
+            {() => null}
+          </FilterOptionTemplate>
+        </SettingsContext.Provider>
+      )
+    }
+
+    // FR-001 – FR-004: new prefixed values render as humanized copy
+    it('renders delivery-same-day as "Receive Today" regardless of shipping method', () => {
+      const methods = [null, 'delivery', 'pickup-in-point']
+
+      methods.forEach(method => {
+        const { getByLabelText, unmount } = renderToggleFilter(
+          ['delivery-same-day'],
+          method
+        )
+
+        expect(getByLabelText('Receive Today')).toBeInTheDocument()
+        unmount()
+      })
+    })
+
+    it('renders delivery-next-day as "Receive Tomorrow" regardless of shipping method', () => {
+      const methods = [null, 'delivery', 'pickup-in-point']
+
+      methods.forEach(method => {
+        const { getByLabelText, unmount } = renderToggleFilter(
+          ['delivery-next-day'],
+          method
+        )
+
+        expect(getByLabelText('Receive Tomorrow')).toBeInTheDocument()
+        unmount()
+      })
+    })
+
+    it('renders pickup-same-day as "Pickup Today" regardless of shipping method', () => {
+      const methods = [null, 'delivery', 'pickup-in-point']
+
+      methods.forEach(method => {
+        const { getByLabelText, unmount } = renderToggleFilter(
+          ['pickup-same-day'],
+          method
+        )
+
+        expect(getByLabelText('Pickup Today')).toBeInTheDocument()
+        unmount()
+      })
+    })
+
+    it('renders pickup-next-day as "Pickup Tomorrow" regardless of shipping method', () => {
+      const methods = [null, 'delivery', 'pickup-in-point']
+
+      methods.forEach(method => {
+        const { getByLabelText, unmount } = renderToggleFilter(
+          ['pickup-next-day'],
+          method
+        )
+
+        expect(getByLabelText('Pickup Tomorrow')).toBeInTheDocument()
+        unmount()
+      })
+    })
+
+    // FR-006 step 2: legacy synthesis with shipping method selected
+    it('synthesizes same-day to "Receive Today" when delivery is selected', () => {
+      const { getByLabelText } = renderToggleFilter(['same-day'], 'delivery')
+
+      expect(getByLabelText('Receive Today')).toBeInTheDocument()
+    })
+
+    it('synthesizes next-day to "Receive Tomorrow" when delivery is selected', () => {
+      const { getByLabelText } = renderToggleFilter(['next-day'], 'delivery')
+
+      expect(getByLabelText('Receive Tomorrow')).toBeInTheDocument()
+    })
+
+    it('synthesizes same-day to "Pickup Today" when pickup-in-point is selected', () => {
+      const { getByLabelText } = renderToggleFilter(
+        ['same-day'],
+        'pickup-in-point'
+      )
+
+      expect(getByLabelText('Pickup Today')).toBeInTheDocument()
+    })
+
+    it('synthesizes next-day to "Pickup Tomorrow" when pickup-in-point is selected', () => {
+      const { getByLabelText } = renderToggleFilter(
+        ['next-day'],
+        'pickup-in-point'
+      )
+
+      expect(getByLabelText('Pickup Tomorrow')).toBeInTheDocument()
+    })
+
+    // FR-006 step 3: legacy bare fallback when no method is selected
+    it('falls back to "Same day" for same-day when no shipping method is selected', () => {
+      const { getByLabelText } = renderToggleFilter(['same-day'], null)
+
+      expect(getByLabelText('Same day')).toBeInTheDocument()
+    })
+
+    it('falls back to "Next day" for next-day when no shipping method is selected', () => {
+      const { getByLabelText } = renderToggleFilter(['next-day'], null)
+
+      expect(getByLabelText('Next day')).toBeInTheDocument()
+    })
+
+    // FR-007: unknown key falls back to raw facet.name
+    it('renders raw facet name for unknown keys', () => {
+      const { getByLabelText } = renderToggleFilter(
+        ['delivery-2-days'],
+        'delivery'
+      )
+
+      expect(getByLabelText('delivery-2-days')).toBeInTheDocument()
+    })
+
+    // Edge case: no double-prefixing of new API values
+    it('does not double-prefix delivery-same-day when delivery is selected', () => {
+      const { queryByLabelText, getByLabelText } = renderToggleFilter(
+        ['delivery-same-day'],
+        'delivery'
+      )
+
+      expect(getByLabelText('Receive Today')).toBeInTheDocument()
+      expect(
+        queryByLabelText('delivery-delivery-same-day')
+      ).not.toBeInTheDocument()
+    })
+
+    it('does not double-prefix pickup-next-day when pickup-in-point is selected', () => {
+      const { queryByLabelText, getByLabelText } = renderToggleFilter(
+        ['pickup-next-day'],
+        'pickup-in-point'
+      )
+
+      expect(getByLabelText('Pickup Tomorrow')).toBeInTheDocument()
+      expect(queryByLabelText('pickup-pickup-next-day')).not.toBeInTheDocument()
+    })
+
+    // US2-AC4: mixed legacy + new values render correctly together
+    it('handles mixed legacy and new API values in the same filter', () => {
+      renderToggleFilter(['same-day', 'delivery-same-day'], 'delivery')
+
+      // legacy same-day synthesized to delivery → "Receive Today"
+      // delivery-same-day also resolves to "Receive Today" — both render as the same text
+      const labels = document.querySelectorAll('label')
+      const texts = Array.from(labels).map(l => l.textContent)
+
+      expect(texts.filter(t => t === 'Receive Today')).toHaveLength(2)
+    })
   })
 
   it('should call setTruncatedFacetsFetched', () => {
