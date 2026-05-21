@@ -357,7 +357,7 @@ const SearchQuery = ({
       excludedPaymentSystems,
       includedPaymentSystems,
       productOriginVtex: !!__unstableProductOriginVtex,
-      hideUnavailableItems: !!hideUnavailableItems,
+      hideUnavailableItems,
       facetsBehavior: facetsBehavior || DEFAULT_QUERY_VALUES.facetsBehavior,
       categoryTreeBehavior,
       withFacets: false,
@@ -412,7 +412,15 @@ const SearchQuery = ({
 
   useEffect(() => {
     setLazyItemsRemaining(shouldLimitItems ? maxItemsPerPage - itemsLimit : 0)
-  }, [map, query, from, shouldLimitItems, maxItemsPerPage, itemsLimit])
+  }, [
+    map,
+    query,
+    from,
+    shouldLimitItems,
+    maxItemsPerPage,
+    itemsLimit,
+    variables.hideUnavailableItems,
+  ])
 
   useEffect(() => {
     if (!shouldLimitItems) {
@@ -464,6 +472,7 @@ const SearchQuery = ({
     maxItemsPerPage,
     lazyItemsRemaining,
     itemsLimit,
+    variables.hideUnavailableItems,
   ])
 
   const extraParams = useMemo(() => {
