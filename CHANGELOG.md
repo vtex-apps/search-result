@@ -9,7 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
-- `SearchQuery`: pass `hideUnavailableItems` through to search variables without boolean coercion so omitted props stay `undefined` for GraphQL; lazy `fetchMore` effect now depends on `hideUnavailableItems` when it changes.
+- `SearchQuery`: pass `hideUnavailableItems` through to search variables without boolean coercion so omitted props stay `undefined` for GraphQL; lazy `fetchMore` effect depends on `hideUnavailableItems` when it changes, and `lazyItemsRemaining` is reset when `hideUnavailableItems` changes so remaining items are still fetched after toggling.
+
+## [3.146.0] - 2026-05-21
+
+### Changed
+
+- Update `dynamic-estimate` filter copy for the four new prefixed values (`delivery/pickup` × `same/next-day`): "Receive Today", "Receive Tomorrow", "Pickup Today", "Pickup Tomorrow". Draft translations shipped for pt, it, fr, es (pending Localization-team review via Crowdin). Legacy `same-day` / `next-day` values keep rendering via the existing shipping-method synthesis as a rollout fallback.
+
+### Fixed
+
+- Prevent double-prefixing when the IS API emits the new `delivery-*` / `pickup-*` values: prefix synthesis is now gated to the bare legacy values only (see `applyToggleFilterTranslation` in `FilterOptionTemplate.js`).
 
 ## [3.145.1] - 2026-04-09
 
