@@ -412,7 +412,15 @@ const SearchQuery = ({
 
   useEffect(() => {
     setLazyItemsRemaining(shouldLimitItems ? maxItemsPerPage - itemsLimit : 0)
-  }, [map, query, from, shouldLimitItems, maxItemsPerPage, itemsLimit])
+  }, [
+    map,
+    query,
+    from,
+    shouldLimitItems,
+    maxItemsPerPage,
+    itemsLimit,
+    variables.hideUnavailableItems,
+  ])
 
   useEffect(() => {
     if (!shouldLimitItems) {
