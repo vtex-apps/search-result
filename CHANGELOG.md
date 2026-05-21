@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.146.0] - 2026-05-21
+
 ### Changed
 
 - Update `dynamic-estimate` filter copy for the four new prefixed values (`delivery/pickup` × `same/next-day`): "Receive Today", "Receive Tomorrow", "Pickup Today", "Pickup Tomorrow". Draft translations shipped for pt, it, fr, es (pending Localization-team review via Crowdin). Legacy `same-day` / `next-day` values keep rendering via the existing shipping-method synthesis as a rollout fallback.
