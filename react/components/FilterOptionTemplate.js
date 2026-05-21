@@ -126,24 +126,29 @@ const FilterOptionTemplate = ({
         )
 
         if (belongsToToggleFilter) {
-          // Build translation key based on shipping state (for shipping filters)
-          const getTranslationKey = () => {
-            if (isDeliverySelected) {
-              return `delivery-${facet.name}`
-            }
+          // FR-006 precedence:
+          // 1. Legacy synthesis — bare legacy values (same-day, next-day) are prefixed when a
+          //    shipping method is selected. Remove this branch once the IS API stops emitting them.
+          // 2. Direct lookup — new API values (delivery-same-day, etc.) pass through verbatim,
+          //    and bare legacy values with no shipping method selected resolve here.
+          // 3. Terminal fallback — unknown keys render as raw facet.name.
+          const LEGACY_BARE_VALUES = ['same-day', 'next-day']
+          const isLegacyBare = LEGACY_BARE_VALUES.includes(facet.name)
 
-            if (isPickupSelected) {
-              return `pickup-${facet.name}`
-            }
+          let translationId
 
-            // Default fallback (non-shipping filters or nothing selected)
-            return facet.name
+          if (isLegacyBare && (isDeliverySelected || isPickupSelected)) {
+            const synthesizedKey = isDeliverySelected
+              ? `delivery-${facet.name}`
+              : `pickup-${facet.name}`
+
+            translationId = toggleFiltersValue[synthesizedKey]
           }
 
-          const translationKey = getTranslationKey()
-          const translationId = toggleFiltersValue[translationKey]
+          if (!translationId) {
+            translationId = toggleFiltersValue[facet.name]
+          }
 
-          // Single unified return - only the translation key changes
           return {
             ...facet,
             name: translationId
