@@ -553,7 +553,7 @@ describe('<FilterOptionTemplate />', () => {
     }
 
     // FR-001 – FR-004: new prefixed values render as humanized copy
-    it('renders delivery-same-day as "Receive Today" regardless of shipping method', () => {
+    it('renders delivery-same-day as "Arriving today" regardless of shipping method', () => {
       const methods = [null, 'delivery', 'pickup-in-point']
 
       methods.forEach(method => {
@@ -562,12 +562,12 @@ describe('<FilterOptionTemplate />', () => {
           method
         )
 
-        expect(getByLabelText('Receive Today')).toBeInTheDocument()
+        expect(getByLabelText('Arriving today')).toBeInTheDocument()
         unmount()
       })
     })
 
-    it('renders delivery-next-day as "Receive Tomorrow" regardless of shipping method', () => {
+    it('renders delivery-next-day as "Arriving tomorrow" regardless of shipping method', () => {
       const methods = [null, 'delivery', 'pickup-in-point']
 
       methods.forEach(method => {
@@ -576,12 +576,12 @@ describe('<FilterOptionTemplate />', () => {
           method
         )
 
-        expect(getByLabelText('Receive Tomorrow')).toBeInTheDocument()
+        expect(getByLabelText('Arriving tomorrow')).toBeInTheDocument()
         unmount()
       })
     })
 
-    it('renders pickup-same-day as "Pickup Today" regardless of shipping method', () => {
+    it('renders pickup-same-day as "Pick up today" regardless of shipping method', () => {
       const methods = [null, 'delivery', 'pickup-in-point']
 
       methods.forEach(method => {
@@ -590,12 +590,12 @@ describe('<FilterOptionTemplate />', () => {
           method
         )
 
-        expect(getByLabelText('Pickup Today')).toBeInTheDocument()
+        expect(getByLabelText('Pick up today')).toBeInTheDocument()
         unmount()
       })
     })
 
-    it('renders pickup-next-day as "Pickup Tomorrow" regardless of shipping method', () => {
+    it('renders pickup-next-day as "Pick up tomorrow" regardless of shipping method', () => {
       const methods = [null, 'delivery', 'pickup-in-point']
 
       methods.forEach(method => {
@@ -604,40 +604,40 @@ describe('<FilterOptionTemplate />', () => {
           method
         )
 
-        expect(getByLabelText('Pickup Tomorrow')).toBeInTheDocument()
+        expect(getByLabelText('Pick up tomorrow')).toBeInTheDocument()
         unmount()
       })
     })
 
     // FR-006 step 2: legacy synthesis with shipping method selected
-    it('synthesizes same-day to "Receive Today" when delivery is selected', () => {
+    it('synthesizes same-day to "Arriving today" when delivery is selected', () => {
       const { getByLabelText } = renderToggleFilter(['same-day'], 'delivery')
 
-      expect(getByLabelText('Receive Today')).toBeInTheDocument()
+      expect(getByLabelText('Arriving today')).toBeInTheDocument()
     })
 
-    it('synthesizes next-day to "Receive Tomorrow" when delivery is selected', () => {
+    it('synthesizes next-day to "Arriving tomorrow" when delivery is selected', () => {
       const { getByLabelText } = renderToggleFilter(['next-day'], 'delivery')
 
-      expect(getByLabelText('Receive Tomorrow')).toBeInTheDocument()
+      expect(getByLabelText('Arriving tomorrow')).toBeInTheDocument()
     })
 
-    it('synthesizes same-day to "Pickup Today" when pickup-in-point is selected', () => {
+    it('synthesizes same-day to "Pick up today" when pickup-in-point is selected', () => {
       const { getByLabelText } = renderToggleFilter(
         ['same-day'],
         'pickup-in-point'
       )
 
-      expect(getByLabelText('Pickup Today')).toBeInTheDocument()
+      expect(getByLabelText('Pick up today')).toBeInTheDocument()
     })
 
-    it('synthesizes next-day to "Pickup Tomorrow" when pickup-in-point is selected', () => {
+    it('synthesizes next-day to "Pick up tomorrow" when pickup-in-point is selected', () => {
       const { getByLabelText } = renderToggleFilter(
         ['next-day'],
         'pickup-in-point'
       )
 
-      expect(getByLabelText('Pickup Tomorrow')).toBeInTheDocument()
+      expect(getByLabelText('Pick up tomorrow')).toBeInTheDocument()
     })
 
     // FR-006 step 3: legacy bare fallback when no method is selected
@@ -670,7 +670,7 @@ describe('<FilterOptionTemplate />', () => {
         'delivery'
       )
 
-      expect(getByLabelText('Receive Today')).toBeInTheDocument()
+      expect(getByLabelText('Arriving today')).toBeInTheDocument()
       expect(
         queryByLabelText('delivery-delivery-same-day')
       ).not.toBeInTheDocument()
@@ -682,7 +682,7 @@ describe('<FilterOptionTemplate />', () => {
         'pickup-in-point'
       )
 
-      expect(getByLabelText('Pickup Tomorrow')).toBeInTheDocument()
+      expect(getByLabelText('Pick up tomorrow')).toBeInTheDocument()
       expect(queryByLabelText('pickup-pickup-next-day')).not.toBeInTheDocument()
     })
 
@@ -690,12 +690,12 @@ describe('<FilterOptionTemplate />', () => {
     it('handles mixed legacy and new API values in the same filter', () => {
       renderToggleFilter(['same-day', 'delivery-same-day'], 'delivery')
 
-      // legacy same-day synthesized to delivery → "Receive Today"
-      // delivery-same-day also resolves to "Receive Today" — both render as the same text
+      // legacy same-day synthesized to delivery → "Arriving today"
+      // delivery-same-day also resolves to "Arriving today" — both render as the same text
       const labels = document.querySelectorAll('label')
       const texts = Array.from(labels).map(l => l.textContent)
 
-      expect(texts.filter(t => t === 'Receive Today')).toHaveLength(2)
+      expect(texts.filter(t => t === 'Arriving today')).toHaveLength(2)
     })
   })
 
