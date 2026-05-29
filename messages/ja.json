@@ -65,6 +65,7 @@
   "store/search.filter.placeholder": "{filterName} で検索",
   "store/search.filter.title.brands": "ブランド",
   "store/search.filter.title.price-ranges": "価格帯",
+  "store/search.text": "{from}-{to} に該当する {recordsFiltered} の記録を表示中",
   "store/search.filter.title.shipping": "発送方法",
   "store/search.filter.shipping.name.delivery": "宛先",
   "store/search.filter.shipping.name.pickup-in-point": "集荷場所",
@@ -72,7 +73,6 @@
   "store/search.filter.shipping.name.pickup-all": "集荷",
   "store/search.filter.shipping.action-button.delivery": "場所を入力",
   "store/search.filter.shipping.action-button.pickup-in-point": "ストアを入力",
-  "store/search.text": "{from}-{to} に該当する {recordsFiltered} の記録を表示中",
   "store/search.selected-filters": "検索条件：",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, other {製品}}</span>",
   "store/search.total-products-2": "{recordsFiltered} <span>{recordsFiltered, plural, other {製品}}</span>",
@@ -109,5 +109,11 @@
   "admin/editor.search-result.fetch-previous": "前のを取得",
   "admin/editor.search-result.fetch-button.button-behavior": "ボタンの動作",
   "admin/editor.search-result.fetch-button.button-behavior.button": "ボタン",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "ページへのリンク - SEO を改善します。ボタンの見た目が変わることがあります。"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "ページへのリンク - SEO を改善します。ボタンの見た目が変わることがあります。",
+  "store/search.filter.dynamic-estimate.next-day.name": "翌日",
+  "store/search.filter.dynamic-estimate.same-day.name": "当日",
+  "store/search.filter.dynamic-estimate.delivery-next-day.name": "明日到着します",
+  "store/search.filter.dynamic-estimate.pickup-next-day.name": "明日受け取り",
+  "store/search.filter.dynamic-estimate.delivery-same-day.name": "本日到着します",
+  "store/search.filter.dynamic-estimate.pickup-same-day.name": "本日受け取り"
 }

@@ -65,6 +65,7 @@
   "store/search.filter.placeholder": "Søg efter {filterName}",
   "store/search.filter.title.brands": "Brands",
   "store/search.filter.title.price-ranges": "Prisintervaller",
+  "store/search.text": "Viser {from}-{to} fra {recordsFiltered} optegnelser",
   "store/search.filter.title.shipping": "Forsendelse",
   "store/search.filter.shipping.name.delivery": "Lever til",
   "store/search.filter.shipping.name.pickup-in-point": "Afhentning ved",
@@ -72,7 +73,6 @@
   "store/search.filter.shipping.name.pickup-all": "Afhentning",
   "store/search.filter.shipping.action-button.delivery": "Indtast lokation",
   "store/search.filter.shipping.action-button.pickup-in-point": "Indtast butik",
-  "store/search.text": "Viser {from}-{to} fra {recordsFiltered} optegnelser",
   "store/search.selected-filters": "Filtreret efter:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {produkt} other {produkter}}</span>",
   "store/search.total-products-2": "{recordsFiltered} <span>{recordsFiltered, plural, one {produkt} other {produkter}}</span>",
@@ -109,5 +109,11 @@
   "admin/editor.search-result.fetch-previous": "Hent tidligere",
   "admin/editor.search-result.fetch-button.button-behavior": "Knapadfærd",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Knap",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link til side - Forbedrer SEO, kan ændre knapens udseende"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link til side - Forbedrer SEO, kan ændre knapens udseende",
+  "store/search.filter.dynamic-estimate.next-day.name": "Næste dag",
+  "store/search.filter.dynamic-estimate.same-day.name": "Samme dag",
+  "store/search.filter.dynamic-estimate.delivery-next-day.name": "Ankommer i morgen",
+  "store/search.filter.dynamic-estimate.pickup-next-day.name": "Afhent i morgen",
+  "store/search.filter.dynamic-estimate.delivery-same-day.name": "Ankommer i dag",
+  "store/search.filter.dynamic-estimate.pickup-same-day.name": "Afhent i dag"
 }

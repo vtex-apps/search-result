@@ -109,5 +109,11 @@
   "admin/editor.search-result.fetch-previous": "Vorherige Informationen abrufen",
   "admin/editor.search-result.fetch-button.button-behavior": "Tastenverhalten",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Taste",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link zur Seite - Verbessert SEO, kann das Aussehen der Schaltfläche verändern"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link zur Seite - Verbessert SEO, kann das Aussehen der Schaltfläche verändern",
+  "store/search.filter.dynamic-estimate.next-day.name": "Nächster Tag",
+  "store/search.filter.dynamic-estimate.same-day.name": "Gleicher Tag",
+  "store/search.filter.dynamic-estimate.delivery-next-day.name": "Kommt morgen an",
+  "store/search.filter.dynamic-estimate.pickup-next-day.name": "Abholung morgen",
+  "store/search.filter.dynamic-estimate.delivery-same-day.name": "Kommt heute an",
+  "store/search.filter.dynamic-estimate.pickup-same-day.name": "Abholung heute"
 }

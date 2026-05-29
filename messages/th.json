@@ -109,5 +109,11 @@
   "admin/editor.search-result.fetch-previous": "เรียกดูก่อนหน้า",
   "admin/editor.search-result.fetch-button.button-behavior": "ลักษณะปุ่ม",
   "admin/editor.search-result.fetch-button.button-behavior.button": "ปุ่ม",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "เชื่อมโยงไปหน้าเพจ - ปรับปรุง SEO, อาจเปลี่ยนวิธีแสดงปุ่ม"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "เชื่อมโยงไปหน้าเพจ - ปรับปรุง SEO, อาจเปลี่ยนวิธีแสดงปุ่ม",
+  "store/search.filter.dynamic-estimate.next-day.name": "วันถัดไป",
+  "store/search.filter.dynamic-estimate.same-day.name": "วันเดียวกัน",
+  "store/search.filter.dynamic-estimate.delivery-next-day.name": "มาถึงพรุ่งนี้",
+  "store/search.filter.dynamic-estimate.pickup-next-day.name": "รับพรุ่งนี้",
+  "store/search.filter.dynamic-estimate.delivery-same-day.name": "มาถึงวันนี้",
+  "store/search.filter.dynamic-estimate.pickup-same-day.name": "รับวันนี้"
 }

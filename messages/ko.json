@@ -109,5 +109,11 @@
   "admin/editor.search-result.fetch-previous": "이전 항목 불러오기",
   "admin/editor.search-result.fetch-button.button-behavior": "버튼 동작",
   "admin/editor.search-result.fetch-button.button-behavior.button": "버튼",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "페이지로 연결 - SEO를 개선하며 버튼의 모양이 변경될 수 있습니다"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "페이지로 연결 - SEO를 개선하며 버튼의 모양이 변경될 수 있습니다",
+  "store/search.filter.dynamic-estimate.next-day.name": "다음 날",
+  "store/search.filter.dynamic-estimate.same-day.name": "당일",
+  "store/search.filter.dynamic-estimate.delivery-next-day.name": "내일 도착합니다",
+  "store/search.filter.dynamic-estimate.pickup-next-day.name": "내일 픽업",
+  "store/search.filter.dynamic-estimate.delivery-same-day.name": "오늘 도착합니다",
+  "store/search.filter.dynamic-estimate.pickup-same-day.name": "오늘 픽업"
 }
