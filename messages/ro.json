@@ -65,6 +65,7 @@
   "store/search.filter.placeholder": "Caută după {filterName}",
   "store/search.filter.title.brands": "Branduri",
   "store/search.filter.title.price-ranges": "Intervale de prețuri",
+  "store/search.text": "Afișează {from}-{to} de la {recordsFiltered} înregistrări",
   "store/search.filter.title.shipping": "Transport",
   "store/search.filter.shipping.name.delivery": "Livrează la",
   "store/search.filter.shipping.name.pickup-in-point": "Ridicare la",
@@ -72,7 +73,6 @@
   "store/search.filter.shipping.name.pickup-all": "Ridicare",
   "store/search.filter.shipping.action-button.delivery": "Introdu locația",
   "store/search.filter.shipping.action-button.pickup-in-point": "Introdu magazinul",
-  "store/search.text": "Afișează {from}-{to} de la {recordsFiltered} înregistrări",
   "store/search.selected-filters": "Filtru după:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {produs} few {produse} other {de produse}}</span>",
   "store/search.total-products-2": "{recordsFiltered} <span>{recordsFiltered, plural, one {produs} few {produse} other {de produse}}</span>",
@@ -109,5 +109,11 @@
   "admin/editor.search-result.fetch-previous": "Preia anterioarele",
   "admin/editor.search-result.fetch-button.button-behavior": "Comportament buton",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Buton",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link către pagină - Îmbunătățește SEO, poate schimba modul în care arată butonul"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link către pagină - Îmbunătățește SEO, poate schimba modul în care arată butonul",
+  "store/search.filter.dynamic-estimate.next-day.name": "Ziua următoare",
+  "store/search.filter.dynamic-estimate.same-day.name": "Aceeași zi",
+  "store/search.filter.dynamic-estimate.delivery-next-day.name": "Ajunge mâine",
+  "store/search.filter.dynamic-estimate.pickup-next-day.name": "Ridică mâine",
+  "store/search.filter.dynamic-estimate.delivery-same-day.name": "Ajunge astăzi",
+  "store/search.filter.dynamic-estimate.pickup-same-day.name": "Ridică astăzi"
 }

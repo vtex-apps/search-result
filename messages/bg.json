@@ -109,5 +109,11 @@
   "admin/editor.search-result.fetch-previous": "Извличане на предишно",
   "admin/editor.search-result.fetch-button.button-behavior": "Поведение на бутона",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Бутон",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Връзка към страница – Подобрява SEO оптимизацията, може да промени начина, по който изглежда бутонът"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Връзка към страница – Подобрява SEO оптимизацията, може да промени начина, по който изглежда бутонът",
+  "store/search.filter.dynamic-estimate.next-day.name": "Следващия ден",
+  "store/search.filter.dynamic-estimate.same-day.name": "Същия ден",
+  "store/search.filter.dynamic-estimate.delivery-next-day.name": "Пристига утре",
+  "store/search.filter.dynamic-estimate.pickup-next-day.name": "Вземане утре",
+  "store/search.filter.dynamic-estimate.delivery-same-day.name": "Пристига днес",
+  "store/search.filter.dynamic-estimate.pickup-same-day.name": "Вземане днес"
 }

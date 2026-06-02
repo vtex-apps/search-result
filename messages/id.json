@@ -109,5 +109,11 @@
   "admin/editor.search-result.fetch-previous": "Ambil sebelumnya",
   "admin/editor.search-result.fetch-button.button-behavior": "Tombol perilaku",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Tombol",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Tautkan ke halaman - Meningkatkan SEO, dapat mengubah tampilan tombol"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Tautkan ke halaman - Meningkatkan SEO, dapat mengubah tampilan tombol",
+  "store/search.filter.dynamic-estimate.next-day.name": "Hari berikutnya",
+  "store/search.filter.dynamic-estimate.same-day.name": "Hari yang sama",
+  "store/search.filter.dynamic-estimate.delivery-next-day.name": "Tiba besok",
+  "store/search.filter.dynamic-estimate.pickup-next-day.name": "Pengambilan besok",
+  "store/search.filter.dynamic-estimate.delivery-same-day.name": "Tiba hari ini",
+  "store/search.filter.dynamic-estimate.pickup-same-day.name": "Pengambilan hari ini"
 }

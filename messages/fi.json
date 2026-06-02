@@ -109,5 +109,11 @@
   "admin/editor.search-result.fetch-previous": "Hae edellinen",
   "admin/editor.search-result.fetch-button.button-behavior": "Painikkeen käyttäytyminen",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Painike",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Linkki sivulle – Parantaa hakukoneoptimointia, voi muuttaa painikkeen ulkonäköä"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Linkki sivulle – Parantaa hakukoneoptimointia, voi muuttaa painikkeen ulkonäköä",
+  "store/search.filter.dynamic-estimate.next-day.name": "Seuraavana päivänä",
+  "store/search.filter.dynamic-estimate.same-day.name": "Samana päivänä",
+  "store/search.filter.dynamic-estimate.delivery-next-day.name": "Saapuu huomenna",
+  "store/search.filter.dynamic-estimate.pickup-next-day.name": "Nouto huomenna",
+  "store/search.filter.dynamic-estimate.delivery-same-day.name": "Saapuu tänään",
+  "store/search.filter.dynamic-estimate.pickup-same-day.name": "Nouto tänään"
 }

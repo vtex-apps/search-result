@@ -109,5 +109,11 @@
   "admin/editor.search-result.fetch-previous": "Hent forrige",
   "admin/editor.search-result.fetch-button.button-behavior": "Oppførsel for knapp",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Knapp",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link til side – Forbedrer SEO, kan endre hvordan knappen ser ut"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Link til side – Forbedrer SEO, kan endre hvordan knappen ser ut",
+  "store/search.filter.dynamic-estimate.next-day.name": "Neste dag",
+  "store/search.filter.dynamic-estimate.same-day.name": "Samme dag",
+  "store/search.filter.dynamic-estimate.delivery-next-day.name": "Ankommer i morgen",
+  "store/search.filter.dynamic-estimate.pickup-next-day.name": "Hent i morgen",
+  "store/search.filter.dynamic-estimate.delivery-same-day.name": "Ankommer i dag",
+  "store/search.filter.dynamic-estimate.pickup-same-day.name": "Hent i dag"
 }

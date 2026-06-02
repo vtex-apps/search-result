@@ -109,5 +109,11 @@
   "admin/editor.search-result.fetch-previous": "Recupera l'anterior",
   "admin/editor.search-result.fetch-button.button-behavior": "Comportament del botó",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Botó",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Enllaç a la pàgina: millora la SEO i pot ser que canviï l'aspecte del botó"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Enllaç a la pàgina: millora la SEO i pot ser que canviï l'aspecte del botó",
+  "store/search.filter.dynamic-estimate.next-day.name": "Dia següent",
+  "store/search.filter.dynamic-estimate.same-day.name": "Mateix dia",
+  "store/search.filter.dynamic-estimate.delivery-next-day.name": "Arriba demà",
+  "store/search.filter.dynamic-estimate.pickup-next-day.name": "Recollida demà",
+  "store/search.filter.dynamic-estimate.delivery-same-day.name": "Arriba avui",
+  "store/search.filter.dynamic-estimate.pickup-same-day.name": "Recollida avui"
 }
