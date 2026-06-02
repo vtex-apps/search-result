@@ -30,6 +30,8 @@ export const setMobileState = isMobile => {
 
 export const useRuntime = jest.fn()
 
+export const useChildBlock = jest.fn(() => null)
+
 export const ExtensionPoint = ({ id }) => <div> Extension Point: {id} </div>
 
 // eslint-disable-next-line jsx-a11y/anchor-is-valid

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useChildBlock, ExtensionPoint } from 'vtex.render-runtime'
+import { useChildBlock, ExtensionPoint, useRuntime } from 'vtex.render-runtime'
 import { useDevice } from 'vtex.device-detector'
 import { path, compose, equals, pathOr, isEmpty, isNil } from 'ramda'
 import { useAds } from '@vtex/ads-react'
@@ -28,12 +28,13 @@ const SearchResultLayout = props => {
   const hasMobileBlock = !!useChildBlock({ id: 'search-result-layout.mobile' })
   const hasCustomNotFound = !!useChildBlock({ id: 'search-not-found-layout' })
   const { isMobile } = useDevice()
+  const { route } = useRuntime()
 
   const sponsoredSearchResult = useAds({
     placement: 'top_search',
     type: 'product',
     amount: props?.sponsoredCount ?? 3,
-    term: searchQuery?.variables?.fullText,
+    term: searchQuery?.variables?.fullText ?? route?.params?.term,
     selectedFacets: searchQuery?.variables?.selectedFacets ?? [],
   })
 

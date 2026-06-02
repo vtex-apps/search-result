@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- `SearchResultLayout`: use `route.params.term` as fallback when `searchQuery.variables.fullText` is undefined, ensuring the sponsored products ads request uses `context: "search"` with the correct term on seller pages (`map=sellerName`, `map=seller`). See `specs/seller-page-sponsored-products-term.md` for details.
+
 ## [3.147.2] - 2026-06-05
 
 ### Fixed
