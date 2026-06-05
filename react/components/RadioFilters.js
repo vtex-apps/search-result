@@ -102,7 +102,7 @@ const RadioFilters = ({
           />
         ),
         disabled: isPickupInPointShippingValue(facet.value)
-          ? pickups.length === 0
+          ? pickups.length === 0 || facet.quantity === 0
           : facet.quantity === 0,
       }))}
       value={selectedValue}
