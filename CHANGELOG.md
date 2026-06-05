@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.147.2] - 2026-06-05
+
 ### Fixed
 
 - `RadioFilters`: `pickup-in-point` option is now disabled when the facets API returns `quantity: 0`, even if pickup points exist in the delivery-promise context. Previously the disabled check only looked at `pickups.length`, causing the filter to appear active when it had no actual results (e.g. when injected as a default placeholder by `compatibilityLayer`). Now matches the same contract as all other filters: disabled when either `quantity === 0` OR (for pickup-in-point specifically) `pickups.length === 0`.
