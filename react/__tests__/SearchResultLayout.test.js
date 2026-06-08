@@ -3,14 +3,13 @@ import React from 'react'
 import { render } from '@vtex/test-tools/react'
 import { useDevice } from 'vtex.device-detector'
 import { useRuntime } from 'vtex.render-runtime'
+import SearchResultLayout from '../SearchResultLayout'
 
 jest.mock('../index', () => ({
   default: {
     getSchema: () => ({ properties: {} }),
   },
 }))
-
-import SearchResultLayout from '../SearchResultLayout'
 
 const mockUseAds = jest.fn(() => ({
   ads: [],
@@ -50,14 +49,17 @@ beforeEach(() => {
 })
 
 describe('SearchResultLayout — sponsored products term', () => {
-  test.each([
+  it.each([
     ['sellerName', 'ofertec'],
     ['seller', 'shpseller382'],
   ])(
     'uses route.params.term when fullText is undefined (map=%s)',
     (mapValue, term) => {
       mockUseRuntime.mockImplementation(() => ({
-        route: { params: { term }, pageContext: { type: 'search' } },
+        route: {
+          params: { term },
+          pageContext: { type: 'search' },
+        },
         getSettings: () => ({}),
       }))
 
@@ -74,15 +76,16 @@ describe('SearchResultLayout — sponsored products term', () => {
         />
       )
 
-      expect(mockUseAds).toHaveBeenCalledWith(
-        expect.objectContaining({ term })
-      )
+      expect(mockUseAds).toHaveBeenCalledWith(expect.objectContaining({ term }))
     }
   )
 
   it('uses fullText over route.params.term on regular search', () => {
     mockUseRuntime.mockImplementation(() => ({
-      route: { params: { term: 'different-term' }, pageContext: { type: 'search' } },
+      route: {
+        params: { term: 'different-term' },
+        pageContext: { type: 'search' },
+      },
       getSettings: () => ({}),
     }))
 
