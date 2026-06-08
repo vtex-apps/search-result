@@ -3,6 +3,7 @@ import React from 'react'
 import { render } from '@vtex/test-tools/react'
 import { useDevice } from 'vtex.device-detector'
 import { useRuntime } from 'vtex.render-runtime'
+
 import SearchResultLayout from '../SearchResultLayout'
 
 jest.mock('../index', () => ({
