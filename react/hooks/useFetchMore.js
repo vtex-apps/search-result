@@ -14,6 +14,8 @@ export const FETCH_TYPE = {
   PREVIOUS: 'previous',
 }
 
+const DEFAULT_PAGE = 1
+
 function reducer(state, action) {
   const { maxItemsPerPage, to, from, rollbackState } = action.args
 
@@ -184,6 +186,31 @@ export const useFetchMore = props => {
 
     isFirstRender.current = false
   }, [maxItemsPerPage, query, map, orderBy, priceRange])
+
+  /* A location/segment change (e.g. vtex.delivery-promise-components updating the
+  zipcode or pickup point) resets the PLP to the first page by clearing the `page`
+  query param through render-runtime. The reducer is seeded once at mount and is not
+  re-read from the URL afterwards, so without this it would keep paginating from the
+  stale page (a shopper on page 5 would "load more" into page 6). Snap the reducer
+  back to page 1 only on an *external* transition to the first page while we are past
+  it — the shopper's own "load more"/"fetch previous" moves `currentPage` in lockstep
+  with the reducer, so this never fires for normal navigation or on initial mount. */
+  const urlPage = runtimeQuery.page ? Number(runtimeQuery.page) : DEFAULT_PAGE
+  const previousUrlPageRef = useRef(urlPage)
+
+  useEffect(() => {
+    const wasExternallyResetToFirstPage =
+      urlPage === DEFAULT_PAGE && previousUrlPageRef.current !== DEFAULT_PAGE
+
+    previousUrlPageRef.current = urlPage
+
+    if (wasExternallyResetToFirstPage && pageState.page !== DEFAULT_PAGE) {
+      pageDispatch({ type: 'RESET', args: { maxItemsPerPage } })
+    }
+    // pageState.page is read as a guard only; depending on it would re-run this
+    // effect on every paginate and is unnecessary for the external-reset signal.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlPage, maxItemsPerPage])
 
   const handleFetchMoreNext = async () => {
     const rollbackState = pageState
