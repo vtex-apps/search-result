@@ -7,6 +7,8 @@ export const BRANDS_TITLE = 'store/search.filter.title.brands'
 export const PRICE_RANGES_TITLE = 'store/search.filter.title.price-ranges'
 export const DELIVERY_OPTION_TITLE =
   'store/search.filter.title.delivery-options'
+export const DYNAMIC_ESTIMATE_TITLE =
+  'store/search.filter.title.dynamic-estimate'
 
 export const shippingOptions = {
   delivery: 'store/search.filter.shipping.name.delivery',
@@ -21,12 +23,16 @@ export const DYNAMIC_ESTIMATE_KEY = 'dynamic-estimate'
 const DELIVERY_GROUP_TITLES = {
   [SHIPPING_KEY]: SHIPPING_TITLE,
   'delivery-options': DELIVERY_OPTION_TITLE,
+  [DYNAMIC_ESTIMATE_KEY]: DYNAMIC_ESTIMATE_TITLE,
 }
 
 /** Maps a delivery group name to its heading message id; unknown groups fall back to the raw name. */
 export const getDeliveryGroupTitle = name => DELIVERY_GROUP_TITLES[name] ?? name
 
-/** The dynamic-estimate group renders its options with no title and no collapsible header. */
+/**
+ * On desktop the dynamic-estimate group renders its options with no title and
+ * no collapsible header. On mobile it keeps the regular titled, collapsible header.
+ */
 export const shouldHideDeliveryGroupHeader = name =>
   name === DYNAMIC_ESTIMATE_KEY
 
@@ -135,7 +141,7 @@ const getFilters = ({
         }))
     : []
 
-  return [
+  const filters = [
     ...deliveriesFormatted,
     ...mappedSpecificationFilters,
     !hiddenFacets.brands &&
@@ -152,6 +158,19 @@ const getFilters = ({
         facets: priceRanges,
       },
   ].filter(Boolean)
+
+  // The dynamic-estimate group must be the first filter to show up over all others.
+  const estimateIndex = filters.findIndex(
+    filter => filter.name === DYNAMIC_ESTIMATE_KEY
+  )
+
+  if (estimateIndex > 0) {
+    const [estimate] = filters.splice(estimateIndex, 1)
+
+    filters.unshift(estimate)
+  }
+
+  return filters
 }
 
 export default getFilters

@@ -7,6 +7,7 @@ import getFilters, {
   shouldHideDeliveryGroupHeader,
   SHIPPING_TITLE,
   DELIVERY_OPTION_TITLE,
+  DYNAMIC_ESTIMATE_TITLE,
 } from '../../utils/getFilters'
 
 describe('getDeliveryGroupTitle', () => {
@@ -20,6 +21,12 @@ describe('getDeliveryGroupTitle', () => {
     )
   })
 
+  it('maps the dynamic-estimate group to the Estimate title id (used on mobile)', () => {
+    expect(getDeliveryGroupTitle('dynamic-estimate')).toBe(
+      DYNAMIC_ESTIMATE_TITLE
+    )
+  })
+
   it('falls back to the raw group name for unknown groups (never "Default Title")', () => {
     expect(getDeliveryGroupTitle('delivery-window')).toBe('delivery-window')
     expect(getDeliveryGroupTitle('delivery-window')).not.toBe('Default Title')
@@ -27,7 +34,7 @@ describe('getDeliveryGroupTitle', () => {
 })
 
 describe('shouldHideDeliveryGroupHeader', () => {
-  it('hides the header only for the dynamic-estimate group', () => {
+  it('flags only the dynamic-estimate group as headerless (hidden on desktop)', () => {
     expect(shouldHideDeliveryGroupHeader('dynamic-estimate')).toBe(true)
     expect(shouldHideDeliveryGroupHeader('delivery-options')).toBe(false)
     expect(shouldHideDeliveryGroupHeader('shipping')).toBe(false)
@@ -52,11 +59,11 @@ describe('getFilters delivery group titles', () => {
     facets: [{ key: name, name: 'option', value: 'option', map: name }],
   })
 
-  it('hides the header for dynamic-estimate and titles delivery-options even when no shipping group is present', () => {
+  it('flags dynamic-estimate as headerless with the Estimate title and titles delivery-options even when no shipping group is present', () => {
     const filters = renderGetFilters({
       deliveries: [
-        makeGroup('dynamic-estimate'),
         makeGroup('delivery-options'),
+        makeGroup('dynamic-estimate'),
       ],
     })
 
@@ -66,9 +73,30 @@ describe('getFilters delivery group titles', () => {
     )
 
     expect(estimate.hideHeader).toBe(true)
+    expect(estimate.title).toBe(DYNAMIC_ESTIMATE_TITLE)
     expect(deliveryOption.hideHeader).toBe(false)
     expect(deliveryOption.title).toBe(DELIVERY_OPTION_TITLE)
     expect(deliveryOption.title).not.toBe('Default Title')
+  })
+
+  it('orders the dynamic-estimate group first over all other filters', () => {
+    const filters = renderGetFilters({
+      deliveries: [
+        makeGroup('delivery-options'),
+        makeGroup('dynamic-estimate'),
+      ],
+      brands: [{ name: 'Samsung', value: 'samsung', selected: false }],
+      brandsQuantity: 1,
+      specificationFilters: [
+        {
+          name: 'Color',
+          quantity: 1,
+          facets: [{ key: 'color', name: 'Blue', value: 'blue' }],
+        },
+      ],
+    })
+
+    expect(filters[0].name).toBe('dynamic-estimate')
   })
 
   it('titles the shipping group with the shipping title id and keeps its header', () => {

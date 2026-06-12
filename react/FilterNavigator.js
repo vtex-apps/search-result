@@ -27,6 +27,7 @@ import FilterNavigatorTitleTag from './components/FilterNavigatorTitleTag'
 import styles from './searchResult.css'
 import {
   CATEGORIES_TITLE,
+  DYNAMIC_ESTIMATE_KEY,
   shippingOptions,
   buildDeliveryShippingFacetForNavigation,
 } from './utils/getFilters'
@@ -219,6 +220,22 @@ const FilterNavigator = ({
     [deliveries, intl]
   )
 
+  // On desktop the dynamic-estimate filter renders headerless as the first
+  // filter, right below the "Filters" title. The title's bottom border is
+  // dropped while it is present, so the estimate shows no divider at its top.
+  const estimateFilter = useMemo(
+    () => filters.find(filter => filter.name === DYNAMIC_ESTIMATE_KEY),
+    [filters]
+  )
+
+  const availableFilters = useMemo(
+    () =>
+      estimateFilter
+        ? filters.filter(filter => filter !== estimateFilter)
+        : filters,
+    [filters, estimateFilter]
+  )
+
   const { pickupModal } = useSearchPickupModal({
     navigateToFacet,
     isOpen: isPickupModalOpen,
@@ -289,12 +306,32 @@ const FilterNavigator = ({
               className={`${applyModifiers(
                 handles.filter__container,
                 'title'
-              )} bb b--muted-4`}
+              )}${estimateFilter ? '' : ' bb b--muted-4'}`}
             >
               <FilterNavigatorTitleTag
                 filtersTitleHtmlTag={filtersTitleHtmlTag}
               />
             </div>
+            {estimateFilter && (
+              <AvailableFilters
+                filters={[estimateFilter]}
+                priceRange={priceRange}
+                preventRouteChange={preventRouteChange}
+                initiallyCollapsed={initiallyCollapsed}
+                navigateToFacet={navigateToFacet}
+                truncatedFacetsFetched={truncatedFacetsFetched}
+                setTruncatedFacetsFetched={setTruncatedFacetsFetched}
+                truncateFilters={truncateFilters}
+                openFiltersMode={openFiltersMode}
+                closeOnOutsideClick={closeOnOutsideClick}
+                appliedFiltersOverview={appliedFiltersOverview}
+                showClearByFilter={showClearByFilter}
+                priceRangeLayout={priceRangeLayout}
+                scrollToTop={scrollToTop}
+                onOpenPostalCodeModal={() => setIsPostalCodeModalOpen(true)}
+                onOpenPickupModal={() => setisPickupModalOpen(true)}
+              />
+            )}
             <SelectedFilters
               filters={selectedFilters}
               preventRouteChange={preventRouteChange}
@@ -314,7 +351,7 @@ const FilterNavigator = ({
               categoryFiltersMode={categoryFiltersMode}
             />
             <AvailableFilters
-              filters={filters}
+              filters={availableFilters}
               priceRange={priceRange}
               preventRouteChange={preventRouteChange}
               initiallyCollapsed={initiallyCollapsed}

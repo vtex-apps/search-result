@@ -37,7 +37,6 @@ const AccordionFilterItem = ({
   facetKey,
   showClearByFilter,
   quantity,
-  hideHeader = false,
 }) => {
   const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
@@ -65,7 +64,7 @@ const AccordionFilterItem = ({
 
   return (
     <Fragment>
-      {!hideHeader && (!open || isNavigationCollapsible) && (
+      {(!open || isNavigationCollapsible) && (
         <div
           className={`${applyModifiers(
             handles.accordionFilterContainer,
@@ -151,9 +150,7 @@ const AccordionFilterItem = ({
         </div>
       )}
       {!isNavigationCollapsible ? (
-        (hideHeader ? show : open) && children
-      ) : hideHeader ? (
-        <div className="pl8">{children}</div>
+        open && children
       ) : (
         <Collapse isOpened={!isCollapsed && isNavigationCollapsible}>
           <div className="pl8">{children}</div>
@@ -190,8 +187,6 @@ AccordionFilterItem.propTypes = {
   facetKey: PropTypes.string,
   /** Whether a clear button that clear all options in a specific filter should appear beside the filter's name (true) or not (false). */
   showClearByFilter: PropTypes.bool,
-  /** When `true`, renders the options with no title and no collapsible header. */
-  hideHeader: PropTypes.bool,
 }
 
 export default AccordionFilterItem
