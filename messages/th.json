@@ -67,7 +67,6 @@
   "store/search.filter.title.price-ranges": "ช่วงราคา",
   "store/search.text": "กำลังแสดงผล {from}–{to} ของ {recordsFiltered}",
   "store/search.filter.title.shipping": "การส่ง",
-  "store/search.filter.title.dynamic-estimate": "ประมาณการ",
   "store/search.filter.title.delivery-options": "ตัวเลือกการจัดส่ง",
   "store/search.filter.shipping.name.delivery": "จัดส่งไปยัง",
   "store/search.filter.shipping.name.pickup-in-point": "จุดรับสินค้าเอง",

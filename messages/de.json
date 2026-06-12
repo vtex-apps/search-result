@@ -67,7 +67,6 @@
   "store/search.filter.title.price-ranges": "Preisspannen",
   "store/search.text": "Anzeigen {from}-{to} aus {recordsFiltered}-Ergebnissen",
   "store/search.filter.title.shipping": "Versand",
-  "store/search.filter.title.dynamic-estimate": "Schätzung",
   "store/search.filter.title.delivery-options": "Lieferoption",
   "store/search.filter.shipping.name.delivery": "Liefern an",
   "store/search.filter.shipping.name.pickup-in-point": "Abholung bei",

@@ -66,7 +66,6 @@
   "store/search.filter.title.brands": "Brands",
   "store/search.filter.title.price-ranges": "Price Ranges",
   "store/search.filter.title.shipping": "Shipping",
-  "store/search.filter.title.dynamic-estimate": "Heading for the Dynamic Estimate delivery filter group on the PLP: 'Estimate'",
   "store/search.filter.title.delivery-options": "Heading for the Delivery Option filter group on the PLP: 'Delivery Option'",
   "store/search.filter.shipping.name.delivery": "Deliver to",
   "store/search.filter.shipping.name.pickup-in-point": "Pickup at",

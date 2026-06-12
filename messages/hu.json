@@ -67,7 +67,6 @@
   "store/search.filter.title.price-ranges": "Ártartományok",
   "store/search.text": "{from}-{to} eredmény megjelenítése a(z) {recordsFiltered} eredményből",
   "store/search.filter.title.shipping": "Szállítás",
-  "store/search.filter.title.dynamic-estimate": "Becslés",
   "store/search.filter.title.delivery-options": "Szállítási lehetőség",
   "store/search.filter.shipping.name.delivery": "Szállítás ide",
   "store/search.filter.shipping.name.pickup-in-point": "Átvétel",

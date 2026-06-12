@@ -67,7 +67,6 @@
   "store/search.filter.title.price-ranges": "Диапазоны цен",
   "store/search.text": "Показаны результаты {from}—{to} из {recordsFiltered}",
   "store/search.filter.title.shipping": "Отправка",
-  "store/search.filter.title.dynamic-estimate": "Оценка",
   "store/search.filter.title.delivery-options": "Вариант доставки",
   "store/search.filter.shipping.name.delivery": "Место доставки",
   "store/search.filter.shipping.name.pickup-in-point": "Место самовывоза",

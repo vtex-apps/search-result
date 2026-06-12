@@ -67,7 +67,6 @@
   "store/search.filter.title.price-ranges": "Prisintervaller",
   "store/search.text": "Viser {from}-{to} fra {recordsFiltered} optegnelser",
   "store/search.filter.title.shipping": "Forsendelse",
-  "store/search.filter.title.dynamic-estimate": "Estimat",
   "store/search.filter.title.delivery-options": "Leveringsmulighed",
   "store/search.filter.shipping.name.delivery": "Lever til",
   "store/search.filter.shipping.name.pickup-in-point": "Afhentning ved",

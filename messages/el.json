@@ -67,7 +67,6 @@
   "store/search.filter.title.price-ranges": "Εύρος τιμών",
   "store/search.text": "Γίνεται εμφάνιση {from}–{to} από {recordsFiltered} αποτελέσματα",
   "store/search.filter.title.shipping": "Μεταφορά",
-  "store/search.filter.title.dynamic-estimate": "Εκτίμηση",
   "store/search.filter.title.delivery-options": "Επιλογή παράδοσης",
   "store/search.filter.shipping.name.delivery": "Παράδοση προς",
   "store/search.filter.shipping.name.pickup-in-point": "Παραλαβή σε",

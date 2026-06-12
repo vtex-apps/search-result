@@ -34,6 +34,7 @@ const AccordionFilterGroup = ({
   setTruncatedFacetsFetched,
   onClearFilter,
   showClearByFilter,
+  hideHeader,
   onOpenPostalCodeModal,
   onOpenPickupModal,
 }) => {
@@ -56,6 +57,7 @@ const AccordionFilterGroup = ({
       title={title}
       open={open}
       show={show}
+      hideHeader={hideHeader}
       onOpen={onOpen}
       selectedFilters={selectedFilters}
       appliedFiltersOverview={appliedFiltersOverview}

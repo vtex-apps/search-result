@@ -4,8 +4,8 @@ import { renderHook } from '@testing-library/react-hooks'
 
 import getFilters, {
   getDeliveryGroupTitle,
+  shouldHideDeliveryGroupHeader,
   SHIPPING_TITLE,
-  DYNAMIC_ESTIMATE_TITLE,
   DELIVERY_OPTION_TITLE,
 } from '../../utils/getFilters'
 
@@ -20,15 +20,18 @@ describe('getDeliveryGroupTitle', () => {
     )
   })
 
-  it('maps the dynamic-estimate group to the Estimate title id', () => {
-    expect(getDeliveryGroupTitle('dynamic-estimate')).toBe(
-      DYNAMIC_ESTIMATE_TITLE
-    )
-  })
-
   it('falls back to the raw group name for unknown groups (never "Default Title")', () => {
     expect(getDeliveryGroupTitle('delivery-window')).toBe('delivery-window')
     expect(getDeliveryGroupTitle('delivery-window')).not.toBe('Default Title')
+  })
+})
+
+describe('shouldHideDeliveryGroupHeader', () => {
+  it('hides the header only for the dynamic-estimate group', () => {
+    expect(shouldHideDeliveryGroupHeader('dynamic-estimate')).toBe(true)
+    expect(shouldHideDeliveryGroupHeader('delivery-options')).toBe(false)
+    expect(shouldHideDeliveryGroupHeader('shipping')).toBe(false)
+    expect(shouldHideDeliveryGroupHeader('delivery-window')).toBe(false)
   })
 })
 
@@ -49,7 +52,7 @@ describe('getFilters delivery group titles', () => {
     facets: [{ key: name, name: 'option', value: 'option', map: name }],
   })
 
-  it('titles dynamic-estimate and delivery-options even when no shipping group is present', () => {
+  it('hides the header for dynamic-estimate and titles delivery-options even when no shipping group is present', () => {
     const filters = renderGetFilters({
       deliveries: [
         makeGroup('dynamic-estimate'),
@@ -62,13 +65,13 @@ describe('getFilters delivery group titles', () => {
       filter => filter.name === 'delivery-options'
     )
 
-    expect(estimate.title).toBe(DYNAMIC_ESTIMATE_TITLE)
+    expect(estimate.hideHeader).toBe(true)
+    expect(deliveryOption.hideHeader).toBe(false)
     expect(deliveryOption.title).toBe(DELIVERY_OPTION_TITLE)
-    expect(estimate.title).not.toBe('Default Title')
     expect(deliveryOption.title).not.toBe('Default Title')
   })
 
-  it('titles the shipping group with the shipping title id', () => {
+  it('titles the shipping group with the shipping title id and keeps its header', () => {
     const filters = renderGetFilters({
       deliveries: [
         {
@@ -91,9 +94,10 @@ describe('getFilters delivery group titles', () => {
     const shipping = filters.find(filter => filter.name === 'shipping')
 
     expect(shipping.title).toBe(SHIPPING_TITLE)
+    expect(shipping.hideHeader).toBe(false)
   })
 
-  it('falls back to the raw name for an unknown delivery group', () => {
+  it('falls back to the raw name for an unknown delivery group and keeps its header', () => {
     const filters = renderGetFilters({
       deliveries: [makeGroup('delivery-window')],
     })
@@ -102,5 +106,6 @@ describe('getFilters delivery group titles', () => {
 
     expect(unknown.title).toBe('delivery-window')
     expect(unknown.title).not.toBe('Default Title')
+    expect(unknown.hideHeader).toBe(false)
   })
 })

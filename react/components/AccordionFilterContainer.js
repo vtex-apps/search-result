@@ -193,6 +193,7 @@ const AccordionFilterContainer = ({
                 title={filter.title}
                 facets={filter.facets}
                 quantity={filter.quantity}
+                hideHeader={filter.hideHeader}
                 key={title}
                 className={itemClassName}
                 open={isOpen}

@@ -67,7 +67,6 @@
   "store/search.filter.title.price-ranges": "Prijsklasse",
   "store/search.text": "Toont {from}-{to} van {recordsFiltered} resultaten",
   "store/search.filter.title.shipping": "Verzending",
-  "store/search.filter.title.dynamic-estimate": "Schatting",
   "store/search.filter.title.delivery-options": "Bezorgoptie",
   "store/search.filter.shipping.name.delivery": "Leveren aan",
   "store/search.filter.shipping.name.pickup-in-point": "Afhalen op",

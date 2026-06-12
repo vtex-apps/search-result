@@ -67,7 +67,6 @@
   "store/search.filter.title.price-ranges": "Rentang harga",
   "store/search.text": "Menampilka {from}–{to} dari {recordsFiltered} hasil",
   "store/search.filter.title.shipping": "Pengiriman",
-  "store/search.filter.title.dynamic-estimate": "Perkiraan",
   "store/search.filter.title.delivery-options": "Opsi pengiriman",
   "store/search.filter.shipping.name.delivery": "Kirim ke",
   "store/search.filter.shipping.name.pickup-in-point": "Ambil di",

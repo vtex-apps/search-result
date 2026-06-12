@@ -5,8 +5,6 @@ export const SHIPPING_TITLE = 'store/search.filter.title.shipping'
 export const CATEGORIES_TITLE = 'store/search.filter.title.categories'
 export const BRANDS_TITLE = 'store/search.filter.title.brands'
 export const PRICE_RANGES_TITLE = 'store/search.filter.title.price-ranges'
-export const DYNAMIC_ESTIMATE_TITLE =
-  'store/search.filter.title.dynamic-estimate'
 export const DELIVERY_OPTION_TITLE =
   'store/search.filter.title.delivery-options'
 
@@ -18,15 +16,19 @@ export const shippingOptions = {
 }
 
 export const SHIPPING_KEY = 'shipping'
+export const DYNAMIC_ESTIMATE_KEY = 'dynamic-estimate'
 
 const DELIVERY_GROUP_TITLES = {
   [SHIPPING_KEY]: SHIPPING_TITLE,
   'delivery-options': DELIVERY_OPTION_TITLE,
-  'dynamic-estimate': DYNAMIC_ESTIMATE_TITLE,
 }
 
 /** Maps a delivery group name to its heading message id; unknown groups fall back to the raw name. */
 export const getDeliveryGroupTitle = name => DELIVERY_GROUP_TITLES[name] ?? name
+
+/** The dynamic-estimate group renders its options with no title and no collapsible header. */
+export const shouldHideDeliveryGroupHeader = name =>
+  name === DYNAMIC_ESTIMATE_KEY
 
 /** Delivery option facet for PLP URL after postal modal (shipping group from API). */
 export function buildDeliveryShippingFacetForNavigation(deliveries, intl) {
@@ -55,7 +57,11 @@ const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
 const defaultShippingValues = ['delivery', 'pickup-in-point', 'pickup-nearby']
 
 const formatDeliveryGroup = (group, intl, availableShippingValues) => {
-  const titled = { ...group, title: getDeliveryGroupTitle(group.name) }
+  const titled = {
+    ...group,
+    title: getDeliveryGroupTitle(group.name),
+    hideHeader: shouldHideDeliveryGroupHeader(group.name),
+  }
 
   if (group.name !== SHIPPING_KEY) {
     return titled
