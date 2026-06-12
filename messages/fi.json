@@ -67,6 +67,8 @@
   "store/search.filter.title.price-ranges": "Hintaluokat",
   "store/search.text": "Näytetään {from}–{to} {recordsFiltered} tuloksesta",
   "store/search.filter.title.shipping": "Toimitus",
+  "store/search.filter.title.dynamic-estimate": "Arvio",
+  "store/search.filter.title.delivery-options": "Toimitusvaihtoehto",
   "store/search.filter.shipping.name.delivery": "Toimitus osoitteeseen",
   "store/search.filter.shipping.name.pickup-in-point": "Nouto myymälästä",
   "store/search.filter.shipping.name.pickup-nearby": "Nouto läheltä",

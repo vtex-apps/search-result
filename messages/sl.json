@@ -67,6 +67,8 @@
   "store/search.filter.title.price-ranges": "Cenovni razponi",
   "store/search.text": "Kažem {from}-{to} od {recordsFiltered} rezultatov",
   "store/search.filter.title.shipping": "Odpošiljanje",
+  "store/search.filter.title.dynamic-estimate": "Ocena",
+  "store/search.filter.title.delivery-options": "Možnost dostave",
   "store/search.filter.shipping.name.delivery": "Dostavi v",
   "store/search.filter.shipping.name.pickup-in-point": "Prevzemi pri",
   "store/search.filter.shipping.name.pickup-nearby": "Prevzemite blizu",

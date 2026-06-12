@@ -67,6 +67,8 @@
   "store/search.filter.title.price-ranges": "가격 범위",
   "store/search.text": "{recordsFiltered} 결과 중 {from}–{to} 표시",
   "store/search.filter.title.shipping": "배송",
+  "store/search.filter.title.dynamic-estimate": "예상",
+  "store/search.filter.title.delivery-options": "배송 옵션",
   "store/search.filter.shipping.name.delivery": "배송 대상",
   "store/search.filter.shipping.name.pickup-in-point": "픽업 장소",
   "store/search.filter.shipping.name.pickup-nearby": "근처 픽업",

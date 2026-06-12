@@ -5,6 +5,10 @@ export const SHIPPING_TITLE = 'store/search.filter.title.shipping'
 export const CATEGORIES_TITLE = 'store/search.filter.title.categories'
 export const BRANDS_TITLE = 'store/search.filter.title.brands'
 export const PRICE_RANGES_TITLE = 'store/search.filter.title.price-ranges'
+export const DYNAMIC_ESTIMATE_TITLE =
+  'store/search.filter.title.dynamic-estimate'
+export const DELIVERY_OPTION_TITLE =
+  'store/search.filter.title.delivery-options'
 
 export const shippingOptions = {
   delivery: 'store/search.filter.shipping.name.delivery',
@@ -14,6 +18,15 @@ export const shippingOptions = {
 }
 
 export const SHIPPING_KEY = 'shipping'
+
+const DELIVERY_GROUP_TITLES = {
+  [SHIPPING_KEY]: SHIPPING_TITLE,
+  'delivery-options': DELIVERY_OPTION_TITLE,
+  'dynamic-estimate': DYNAMIC_ESTIMATE_TITLE,
+}
+
+/** Maps a delivery group name to its heading message id; unknown groups fall back to the raw name. */
+export const getDeliveryGroupTitle = name => DELIVERY_GROUP_TITLES[name] ?? name
 
 /** Delivery option facet for PLP URL after postal modal (shipping group from API). */
 export function buildDeliveryShippingFacetForNavigation(deliveries, intl) {
@@ -41,21 +54,11 @@ const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
 
 const defaultShippingValues = ['delivery', 'pickup-in-point', 'pickup-nearby']
 
-const getDeliveriesFormatted = (
-  deliveries,
-  availableShippingValues,
-  showShippingFacet
-) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const intl = useIntl()
-  const shipping = deliveries.find(d => d.name === SHIPPING_KEY)
+const formatDeliveryGroup = (group, intl, availableShippingValues) => {
+  const titled = { ...group, title: getDeliveryGroupTitle(group.name) }
 
-  if (!shipping) {
-    return deliveries
-  }
-
-  if (!showShippingFacet) {
-    return deliveries.filter(d => d.name !== SHIPPING_KEY)
+  if (group.name !== SHIPPING_KEY) {
+    return titled
   }
 
   const shippingValues =
@@ -63,19 +66,31 @@ const getDeliveriesFormatted = (
       ? availableShippingValues
       : defaultShippingValues
 
-  const shippingFormatted = {
-    ...shipping,
-    title: SHIPPING_TITLE,
-    facets: shipping.facets
+  return {
+    ...titled,
+    facets: group.facets
       .filter(facet => shippingValues.includes(facet.name))
       .map(facet => ({
         ...facet,
         name: intl.formatMessage({ id: shippingOptions[facet.name] }),
       })),
   }
+}
 
-  return deliveries.map(facet =>
-    facet.name === SHIPPING_KEY ? shippingFormatted : facet
+const getDeliveriesFormatted = (
+  deliveries,
+  availableShippingValues,
+  showShippingFacet
+) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const intl = useIntl()
+
+  const visibleDeliveries = showShippingFacet
+    ? deliveries
+    : deliveries.filter(d => d.name !== SHIPPING_KEY)
+
+  return visibleDeliveries.map(group =>
+    formatDeliveryGroup(group, intl, availableShippingValues)
   )
 }
 

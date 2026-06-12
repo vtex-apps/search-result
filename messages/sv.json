@@ -67,6 +67,8 @@
   "store/search.filter.title.price-ranges": "Prisklasser",
   "store/search.text": "Visar {from}–{to} av {recordsFiltered} resultat",
   "store/search.filter.title.shipping": "Frakt",
+  "store/search.filter.title.dynamic-estimate": "Uppskattning",
+  "store/search.filter.title.delivery-options": "Leveransalternativ",
   "store/search.filter.shipping.name.delivery": "Leverera till",
   "store/search.filter.shipping.name.pickup-in-point": "Hämta vid",
   "store/search.filter.shipping.name.pickup-nearby": "Hämtning i närheten",

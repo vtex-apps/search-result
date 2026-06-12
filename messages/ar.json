@@ -67,6 +67,8 @@
   "store/search.filter.title.price-ranges": "نطاقات السعر",
   "store/search.text": "عرض {from}-{to} من {recordsFiltered} نتائج",
   "store/search.filter.title.shipping": "الشحن",
+  "store/search.filter.title.dynamic-estimate": "التقدير",
+  "store/search.filter.title.delivery-options": "خيار التوصيل",
   "store/search.filter.shipping.name.delivery": "توصيل الى",
   "store/search.filter.shipping.name.pickup-in-point": "الاستلام في",
   "store/search.filter.shipping.name.pickup-nearby": "استلام بقرب",

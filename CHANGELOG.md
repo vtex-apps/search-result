@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Delivery filter groups `dynamic-estimate` and `delivery-options` no longer render the placeholder "Default Title" as their heading. They are now titled "Estimate" and "Delivery Option" respectively. Titles are assigned to every delivery group in `getFilters`, including the code path where no `shipping` group is present.
+
+### Added
+
+- New filter title keys `store/search.filter.title.dynamic-estimate` ("Estimate") and `store/search.filter.title.delivery-options` ("Delivery Option") across all locales (non-EN copy is a best-effort draft for the Localization team). The `shipping` group keeps its existing "Shipping" title.
+
 ## [3.147.2] - 2026-06-05
 
 ### Fixed

@@ -67,6 +67,8 @@
   "store/search.filter.title.price-ranges": "Intervale de prețuri",
   "store/search.text": "Afișează {from}-{to} de la {recordsFiltered} înregistrări",
   "store/search.filter.title.shipping": "Transport",
+  "store/search.filter.title.dynamic-estimate": "Estimare",
+  "store/search.filter.title.delivery-options": "Opțiune de livrare",
   "store/search.filter.shipping.name.delivery": "Livrează la",
   "store/search.filter.shipping.name.pickup-in-point": "Ridicare la",
   "store/search.filter.shipping.name.pickup-nearby": "Ridicare în apropiere",

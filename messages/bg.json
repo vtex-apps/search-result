@@ -67,6 +67,8 @@
   "store/search.filter.title.price-ranges": "Ценови диапазони",
   "store/search.text": "Показване на {from}–{to} от {recordsFiltered} резултата",
   "store/search.filter.title.shipping": "Доставка",
+  "store/search.filter.title.dynamic-estimate": "Прогноза",
+  "store/search.filter.title.delivery-options": "Опция за доставка",
   "store/search.filter.shipping.name.delivery": "Доставка до",
   "store/search.filter.shipping.name.pickup-in-point": "Вземане от",
   "store/search.filter.shipping.name.pickup-nearby": "Вземане наблизо",

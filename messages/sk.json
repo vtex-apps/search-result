@@ -67,6 +67,8 @@
   "store/search.filter.title.price-ranges": "Rozsahy cien",
   "store/search.text": "Zobrazuje sa {from} – {to} z/zo {recordsFiltered} záznamov",
   "store/search.filter.title.shipping": "Doprava",
+  "store/search.filter.title.dynamic-estimate": "Odhad",
+  "store/search.filter.title.delivery-options": "Možnosť doručenia",
   "store/search.filter.shipping.name.delivery": "Doručiť na",
   "store/search.filter.shipping.name.pickup-in-point": "Vyzdvihnúť na",
   "store/search.filter.shipping.name.pickup-nearby": "Vyzdvihnúť v blízosti",

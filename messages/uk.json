@@ -67,6 +67,8 @@
   "store/search.filter.title.price-ranges": "Цінові діапазони",
   "store/search.text": "Показано результатів: {from}—{to} з {recordsFiltered}",
   "store/search.filter.title.shipping": "Відправлення",
+  "store/search.filter.title.dynamic-estimate": "Оцінка",
+  "store/search.filter.title.delivery-options": "Варіант доставки",
   "store/search.filter.shipping.name.delivery": "Місце доставки",
   "store/search.filter.shipping.name.pickup-in-point": "Місце самовивозу",
   "store/search.filter.shipping.name.pickup-nearby": "Самовивіз поблизу",
