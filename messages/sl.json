@@ -109,5 +109,11 @@
   "admin/editor.search-result.fetch-previous": "Pridobi prejšnjo",
   "admin/editor.search-result.fetch-button.button-behavior": "Obnašanje gumba",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Gumb",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Povezava na stran - Izboljša SEO, lahko spremeni videz gumba"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Povezava na stran - Izboljša SEO, lahko spremeni videz gumba",
+  "store/search.filter.dynamic-estimate.next-day.name": "Naslednji dan",
+  "store/search.filter.dynamic-estimate.same-day.name": "Isti dan",
+  "store/search.filter.dynamic-estimate.delivery-next-day.name": "Prispe jutri",
+  "store/search.filter.dynamic-estimate.pickup-next-day.name": "Prevzem jutri",
+  "store/search.filter.dynamic-estimate.delivery-same-day.name": "Prispe danes",
+  "store/search.filter.dynamic-estimate.pickup-same-day.name": "Prevzem danes"
 }

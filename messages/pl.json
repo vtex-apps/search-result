@@ -65,6 +65,7 @@
   "store/search.filter.placeholder": "Wyszukaj według {filterName}",
   "store/search.filter.title.brands": "Marki",
   "store/search.filter.title.price-ranges": "Zakresy cenowe",
+  "store/search.text": "Pokazuję {from}-{to} od {recordsFiltered} wpisów",
   "store/search.filter.title.shipping": "Wysyłka",
   "store/search.filter.shipping.name.delivery": "Dostarcz do",
   "store/search.filter.shipping.name.pickup-in-point": "Odbiór w",
@@ -72,7 +73,6 @@
   "store/search.filter.shipping.name.pickup-all": "Odbiór",
   "store/search.filter.shipping.action-button.delivery": "Wprowadź lokalizację",
   "store/search.filter.shipping.action-button.pickup-in-point": "Wprowadź sklep",
-  "store/search.text": "Pokazuję {from}-{to} od {recordsFiltered} wpisów",
   "store/search.selected-filters": "Filtrowane według:",
   "store/search.total-products": "{recordsFiltered} <span class=\"c-muted-2\">{recordsFiltered, plural, one {produkt} few {produkty} many {produkty} other {produkty}}</span>",
   "store/search.total-products-2": "{recordsFiltered} <span>{recordsFiltered, plural, one {produkt} few {produkty} many {produkty} other {produkty}}</span>",
@@ -109,5 +109,11 @@
   "admin/editor.search-result.fetch-previous": "Pobierz poprzedni",
   "admin/editor.search-result.fetch-button.button-behavior": "Zachowanie przycisku",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Przycisk",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Łącze do strony – poprawia SEO, może zmienić wygląd przycisku"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Łącze do strony – poprawia SEO, może zmienić wygląd przycisku",
+  "store/search.filter.dynamic-estimate.next-day.name": "Następny dzień",
+  "store/search.filter.dynamic-estimate.same-day.name": "Ten sam dzień",
+  "store/search.filter.dynamic-estimate.delivery-next-day.name": "Przyjdzie jutro",
+  "store/search.filter.dynamic-estimate.pickup-next-day.name": "Odbiór jutro",
+  "store/search.filter.dynamic-estimate.delivery-same-day.name": "Przyjdzie dzisiaj",
+  "store/search.filter.dynamic-estimate.pickup-same-day.name": "Odbiór dzisiaj"
 }

@@ -109,5 +109,11 @@
   "admin/editor.search-result.fetch-previous": "Ανάκτηση προηγούμενου",
   "admin/editor.search-result.fetch-button.button-behavior": "Συμπεριφορά κουμπιού",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Κουμπί",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Σύνδεσμος για τη σελίδα - Βελτιώνει τη μηχανή αναζήτησης, μπορεί να αλλάξει την εμφάνιση του κουμπιού"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Σύνδεσμος για τη σελίδα - Βελτιώνει τη μηχανή αναζήτησης, μπορεί να αλλάξει την εμφάνιση του κουμπιού",
+  "store/search.filter.dynamic-estimate.next-day.name": "Επόμενη μέρα",
+  "store/search.filter.dynamic-estimate.same-day.name": "Ίδια μέρα",
+  "store/search.filter.dynamic-estimate.delivery-next-day.name": "Παράδοση αύριο",
+  "store/search.filter.dynamic-estimate.pickup-next-day.name": "Παραλαβή αύριο",
+  "store/search.filter.dynamic-estimate.delivery-same-day.name": "Παράδοση σήμερα",
+  "store/search.filter.dynamic-estimate.pickup-same-day.name": "Παραλαβή σήμερα"
 }

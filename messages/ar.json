@@ -109,5 +109,11 @@
   "admin/editor.search-result.fetch-previous": "استرجاع السابق",
   "admin/editor.search-result.fetch-button.button-behavior": "وظيفة الزر",
   "admin/editor.search-result.fetch-button.button-behavior.button": "الزر",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "الرابط إلى الصفحة - تحسين SEO، قد يغير تصميم الزر"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "الرابط إلى الصفحة - تحسين SEO، قد يغير تصميم الزر",
+  "store/search.filter.dynamic-estimate.next-day.name": "اليوم التالي",
+  "store/search.filter.dynamic-estimate.same-day.name": "في نفس اليوم",
+  "store/search.filter.dynamic-estimate.delivery-next-day.name": "يصل غداً",
+  "store/search.filter.dynamic-estimate.pickup-next-day.name": "الاستلام غداً",
+  "store/search.filter.dynamic-estimate.delivery-same-day.name": "يصل اليوم",
+  "store/search.filter.dynamic-estimate.pickup-same-day.name": "الاستلام اليوم"
 }

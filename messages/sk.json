@@ -109,5 +109,11 @@
   "admin/editor.search-result.fetch-previous": "Získať predchádzajúce",
   "admin/editor.search-result.fetch-button.button-behavior": "Správanie tlačidla",
   "admin/editor.search-result.fetch-button.button-behavior.button": "Tlačidlo",
-  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Odkaz na stránku – zlepšuje SEO, môže zmeniť vzhľad tlačidla"
+  "admin/editor.search-result.fetch-button.button-behavior.link-to-page": "Odkaz na stránku – zlepšuje SEO, môže zmeniť vzhľad tlačidla",
+  "store/search.filter.dynamic-estimate.next-day.name": "Nasledujúci deň",
+  "store/search.filter.dynamic-estimate.same-day.name": "Ten istý deň",
+  "store/search.filter.dynamic-estimate.delivery-next-day.name": "Doručenie zajtra",
+  "store/search.filter.dynamic-estimate.pickup-next-day.name": "Vyzdvihnutie zajtra",
+  "store/search.filter.dynamic-estimate.delivery-same-day.name": "Doručenie dnes",
+  "store/search.filter.dynamic-estimate.pickup-same-day.name": "Vyzdvihnutie dnes"
 }
