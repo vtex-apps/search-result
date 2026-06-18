@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.147.3] - 2026-06-18
+
 ### Fixed
 
 - Delivery filter group `delivery-options` no longer renders the placeholder "Default Title" as its heading. It is now titled "Delivery Option". Titles are assigned to every titled delivery group in `getFilters`, including the code path where no `shipping` group is present.
