@@ -14,6 +14,7 @@ const SearchFilter = ({
   title = 'Default Title',
   facets = [],
   quantity = 0,
+  hideHeader = false,
   preventRouteChange = false,
   initiallyCollapsed = false,
   navigateToFacet,
@@ -40,6 +41,8 @@ const SearchFilter = ({
       title={facetTitle}
       filters={facets}
       quantity={quantity}
+      hideHeader={hideHeader}
+      collapsable={!hideHeader}
       initiallyCollapsed={initiallyCollapsed}
       lazyRender={lazyRender}
       truncateFilters={truncateFilters}
@@ -76,6 +79,8 @@ SearchFilter.propTypes = {
   title: PropTypes.string.isRequired,
   /** SearchFilter's options. */
   facets: PropTypes.arrayOf(facetOptionShape),
+  /** When `true`, renders the options with no title and no collapsible header. */
+  hideHeader: PropTypes.bool,
   /** Prevent route changes */
   preventRouteChange: PropTypes.bool,
   initiallyCollapsed: PropTypes.bool,

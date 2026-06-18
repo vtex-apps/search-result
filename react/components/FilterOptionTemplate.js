@@ -80,6 +80,7 @@ const FilterOptionTemplate = ({
   title,
   quantity,
   collapsable = true,
+  hideHeader = false,
   children,
   filters,
   initiallyCollapsed = false,
@@ -182,7 +183,11 @@ const FilterOptionTemplate = ({
   })
 
   const hasScrolled = useHasScrolled(scrollable)
-  const isOpen = openFiltersMode === 'many' ? open : lastOpenFilter === title
+  const isOpen = hideHeader
+    ? true
+    : openFiltersMode === 'many'
+    ? open
+    : lastOpenFilter === title
 
   const filteredFacets = useMemo(() => {
     if (thresholdForFacetSearch === undefined || searchTerm === '') {
@@ -339,54 +344,56 @@ const FilterOptionTemplate = ({
 
   return (
     <div className={containerClassName} ref={filterRef}>
-      <div className={titleContainerClassName}>
-        <div
-          role="button"
-          tabIndex={collapsable ? 0 : undefined}
-          className={collapsable ? 'pointer' : ''}
-          onClick={() => collapsable && handleCollapse()}
-          onKeyDown={handleKeyDown}
-          aria-disabled={!collapsable}
-        >
-          <div className={titleClassName}>
-            <span className={`${handles.filterTitleSpan}`}>
-              {title}
-              {isClearButtonVisible && (
-                <span className="ml2">
-                  <Tag
-                    size="small"
-                    onClick={e => {
-                      e.stopPropagation()
+      {!hideHeader && (
+        <div className={titleContainerClassName}>
+          <div
+            role="button"
+            tabIndex={collapsable ? 0 : undefined}
+            className={collapsable ? 'pointer' : ''}
+            onClick={() => collapsable && handleCollapse()}
+            onKeyDown={handleKeyDown}
+            aria-disabled={!collapsable}
+          >
+            <div className={titleClassName}>
+              <span className={`${handles.filterTitleSpan}`}>
+                {title}
+                {isClearButtonVisible && (
+                  <span className="ml2">
+                    <Tag
+                      size="small"
+                      onClick={e => {
+                        e.stopPropagation()
 
-                      handleClear ? handleClear() : onClear()
-                    }}
-                  >
-                    <FormattedMessage id="store/search-result.filter-button.clear" />
-                  </Tag>
+                        handleClear ? handleClear() : onClear()
+                      }}
+                    >
+                      <FormattedMessage id="store/search-result.filter-button.clear" />
+                    </Tag>
+                  </span>
+                )}
+              </span>
+              {collapsable && (
+                <span
+                  className={classNames(
+                    handles.filterIcon,
+                    'flex items-center ph5 c-muted-3'
+                  )}
+                >
+                  <IconCaret orientation={isOpen ? 'up' : 'down'} size={14} />
                 </span>
               )}
-            </span>
-            {collapsable && (
-              <span
-                className={classNames(
-                  handles.filterIcon,
-                  'flex items-center ph5 c-muted-3'
-                )}
-              >
-                <IconCaret orientation={isOpen ? 'up' : 'down'} size={14} />
-              </span>
-            )}
+            </div>
           </div>
+          {appliedFiltersOverview === 'show' && filters && !selected && (
+            <div className={classNames(handles.filterSelectedFilters, 'f6')}>
+              {filters
+                .filter(facet => facet.selected)
+                .map(facet => facet.name)
+                .join(', ')}
+            </div>
+          )}
         </div>
-        {appliedFiltersOverview === 'show' && filters && !selected && (
-          <div className={classNames(handles.filterSelectedFilters, 'f6')}>
-            {filters
-              .filter(facet => facet.selected)
-              .map(facet => facet.name)
-              .join(', ')}
-          </div>
-        )}
-      </div>
+      )}
       <div
         className={classNames(handles.filterTemplateOverflow, {
           'overflow-y-auto': collapsable,
@@ -448,6 +455,8 @@ FilterOptionTemplate.propTypes = {
   title: PropTypes.node,
   /** Whether collapsing is enabled */
   collapsable: PropTypes.bool,
+  /** When `true`, renders the options with no title and no collapsible header. */
+  hideHeader: PropTypes.bool,
   /** Whether it represents the selected filters */
   selected: PropTypes.bool,
   initiallyCollapsed: PropTypes.bool,
