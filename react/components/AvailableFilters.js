@@ -42,7 +42,14 @@ const Filter = ({
   onOpenPostalCodeModal,
   onOpenPickupModal,
 }) => {
-  const { type, title, facets, quantity, oneSelectedCollapse = false } = filter
+  const {
+    type,
+    title,
+    facets,
+    quantity,
+    oneSelectedCollapse = false,
+    hideHeader = false,
+  } = filter
 
   switch (type) {
     case 'PriceRanges':
@@ -69,6 +76,7 @@ const Filter = ({
           title={title}
           facets={facets}
           quantity={quantity}
+          hideHeader={hideHeader}
           oneSelectedCollapse={oneSelectedCollapse}
           preventRouteChange={preventRouteChange}
           initiallyCollapsed={initiallyCollapsed}
