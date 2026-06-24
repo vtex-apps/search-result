@@ -7,6 +7,7 @@ import productSearchQuery from 'vtex.store-resources/QueryProductSearchV3'
 import searchMetadataQuery from 'vtex.store-resources/QuerySearchMetadataV2'
 
 import { FACETS_RENDER_THRESHOLD } from '../constants/filterConstants'
+import { useLazyItemsRearm } from '../hooks/useLazyItemsRearm'
 import useRedirect from '../hooks/useRedirect'
 import useSession from '../hooks/useSession'
 import {
@@ -421,6 +422,25 @@ const SearchQuery = ({
     itemsLimit,
     variables.hideUnavailableItems,
   ])
+
+  const lazyProductsCount =
+    (data &&
+      data.productSearch &&
+      data.productSearch.products &&
+      data.productSearch.products.length) ||
+    0
+
+  // An external refetch (e.g. delivery-promise location change) resets the
+  // cached list back to the initial lazy window; re-arm the refill below so
+  // items `itemsLimit..maxItemsPerPage - 1` are fetched again.
+  useLazyItemsRearm({
+    productsCount: lazyProductsCount,
+    itemsLimit,
+    maxItemsPerPage,
+    from,
+    shouldLimitItems,
+    setLazyItemsRemaining,
+  })
 
   useEffect(() => {
     if (!shouldLimitItems) {
