@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.147.5] - 2026-06-24
+
 ### Fixed
 
 - `useFetchMore` (gallery "load more"): the in-memory pagination reducer now resets to the first page when the `page` query param is externally brought back to page 1. The reset fires only on an external transition to the first page while the reducer is past it, so the shopper's own "load more"/"fetch previous" navigation and initial mount are unaffected.
