@@ -4,6 +4,15 @@ import { Toggle } from 'vtex.styleguide'
 const ToggleFilters = ({ facets, onChange }) => {
   const [toggleStates, setToggleStates] = useState({})
 
+  // `facets` is a new array reference on every render, so we sync the local
+  // (optimistic) state only when the actual selected state of the facets
+  // changes. Depending on `facets` directly would re-run this effect on every
+  // render and clobber the optimistic update with stale data while a
+  // navigation/refetch is still in flight, making the toggle flicker off.
+  const facetsSelectionSignature = facets
+    .map(facet => `${facet.value}:${facet.selected ? 1 : 0}`)
+    .join('|')
+
   useEffect(() => {
     const initialStates = {}
 
@@ -11,7 +20,8 @@ const ToggleFilters = ({ facets, onChange }) => {
       initialStates[facet.value] = Boolean(facet.selected)
     })
     setToggleStates(initialStates)
-  }, [facets])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [facetsSelectionSignature])
 
   const onToggleChange = (facetValue, isChecked) => {
     const clickedFacet = facets.find(facet => facet.value === facetValue)

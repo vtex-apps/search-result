@@ -142,6 +142,29 @@ describe('<ToggleFilters />', () => {
     )
   })
 
+  it('keeps the optimistic selection while a re-render delivers stale facets', () => {
+    // Regression: clicking a toggle optimistically selects it, then onChange
+    // triggers navigation. Until the refetch lands, the component re-renders
+    // with a brand new `facets` array reference that still reports the old
+    // (unselected) state. The toggle must NOT flicker back to off.
+    const { getByLabelText, rerender } = render(
+      <ToggleFilters facets={toggleFacetsMock} onChange={() => {}} />
+    )
+
+    fireEvent.click(getByLabelText('Same Day'))
+    expect(getByLabelText('Same Day')).toBeChecked()
+
+    // New array reference, same (stale) selected state.
+    rerender(
+      <ToggleFilters
+        facets={toggleFacetsMock.map(facet => ({ ...facet }))}
+        onChange={() => {}}
+      />
+    )
+
+    expect(getByLabelText('Same Day')).toBeChecked()
+  })
+
   it('should handle SyntheticEvent from Toggle onChange correctly', () => {
     const mockOnChange = jest.fn()
     const { getByLabelText } = render(
