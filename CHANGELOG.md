@@ -9,8 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
-- `useFetchMore` (gallery "load more"): the in-memory pagination reducer now resets to the first page when the `page` query param is **externally** brought back to page 1 (e.g. `vtex.delivery-promise-components` clearing it through render-runtime after a zipcode / pickup-point change). Previously, because the reducer is seeded once at mount and only resets on `query`/`map`/`orderBy`/`priceRange` changes, a location change left it on the stale page: a shopper on page 5 would see page-1 results but the next "load more" fetched page 6 (and the URL showed `page=6`). The reset fires only on an external transition to the first page while the reducer is past it, so the shopper's own "load more"/"fetch previous" navigation and initial mount are unaffected.
-- `SearchQuery` (lazy search query): the lazy-items refill is re-armed when an external refetch (e.g. `vtex.delivery-promise-components` after a zipcode / pickup-point change) replaces the cached product list with only the initial lazy window. Previously, with `enableLazySearchQuery` on and `maxItemsPerPage` above the initial limit (18), `lazyItemsRemaining` was already consumed at mount, so items 19–24 were never fetched again after a soft refresh — leaving a permanent gap before the next "load more" page. The new `useLazyItemsRearm` hook detects the list shrinking back to the initial window (first page only) and re-arms the existing refill effect.
+- `useFetchMore` (gallery "load more"): the in-memory pagination reducer now resets to the first page when the `page` query param is externally brought back to page 1. The reset fires only on an external transition to the first page while the reducer is past it, so the shopper's own "load more"/"fetch previous" navigation and initial mount are unaffected.
 
 ## [3.147.2] - 2026-06-05
 
