@@ -244,29 +244,26 @@ const buildQueryAndMap = (
     // The spread on facet is important so we can assign facet.newQuerySegment
     ({ query, map }, { ...facet }) => {
       const facetValue = facet.value
-      const isToggle = isToggleFilter(facet.key)
 
       facet.newQuerySegment = newFacetPathName(facet)
 
-      // Handle deselection for toggle filters (selected=false means removing from URL)
-      if (isToggle && !facet.selected) {
+      // Single, unified convention: `facet.selected` is always the CURRENT
+      // applied state, for every filter type. A selected facet is being removed
+      // from the URL; a non-selected facet is being added to it.
+      if (facet.selected) {
         return handleFacetDeselection(query, map, facet, selectedFacets)
       }
 
-      // Handle deselection for radio/other filters (selected=true means removing from URL)
-      if (!isToggle && facet.selected) {
-        return handleFacetDeselection(query, map, facet, selectedFacets)
-      }
-
-      // Handle selection for toggle filters (selected=true means adding to URL)
-      if (isToggle && facet.selected) {
+      // Single-option filters (radio + toggle) keep at most one applied member
+      // per group, so selecting one drops the others of the same group. Every
+      // other filter (category, brand, specification, price) is just appended.
+      if (isSingleOptionFilter(facet.key)) {
         const result = handleFacetSelection(query, map, facet, selectedFacets)
 
         query = result.query
         map = result.map
         selectedFacets = result.selectedFacets
-      } else if (!isToggle && !facet.selected) {
-        // Handle selection for radio/other filters (selected=false or undefined means adding to URL)
+      } else {
         upsert(selectedFacets, facet)
       }
 

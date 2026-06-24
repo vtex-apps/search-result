@@ -40,10 +40,12 @@ describe('<ToggleFilters />', () => {
 
     fireEvent.click(getByLabelText('Same Day'))
 
+    // The toggle passes the facet with its CURRENT state (off). The navigation
+    // layer flips it (not selected => add).
     expect(onChangeMock).toHaveBeenCalledWith(
       expect.objectContaining({
         value: 'same-day',
-        selected: true,
+        selected: false,
       })
     )
   })
@@ -90,12 +92,12 @@ describe('<ToggleFilters />', () => {
       <ToggleFilters facets={toggleFacetsMock} onChange={mockOnChange} />
     )
 
-    // Primeiro, seleciona 'Same Day'
+    // Primeiro, seleciona 'Same Day' (estado atual: off)
     fireEvent.click(getByLabelText('Same Day'))
     expect(mockOnChange).toHaveBeenCalledWith(
       expect.objectContaining({
         value: 'same-day',
-        selected: true,
+        selected: false,
       })
     )
 
@@ -107,7 +109,7 @@ describe('<ToggleFilters />', () => {
     expect(mockOnChange).toHaveBeenCalledWith(
       expect.objectContaining({
         value: 'next-day',
-        selected: true,
+        selected: false,
       })
     )
   })
@@ -130,12 +132,12 @@ describe('<ToggleFilters />', () => {
     expect(getByLabelText('Same Day')).toBeChecked()
     expect(getByLabelText('Next Day')).not.toBeChecked()
 
-    // Clique deve funcionar normalmente
+    // Clique deve funcionar normalmente; o payload carrega o estado atual (off)
     fireEvent.click(getByLabelText('Next Day'))
     expect(mockOnChange).toHaveBeenCalledWith(
       expect.objectContaining({
         value: 'next-day',
-        selected: true, // Deve ser booleano true
+        selected: false,
       })
     )
   })
@@ -152,7 +154,7 @@ describe('<ToggleFilters />', () => {
     expect(mockOnChange).toHaveBeenCalledWith(
       expect.objectContaining({
         value: 'same-day',
-        selected: true, // Deve extrair corretamente o boolean
+        selected: false,
       })
     )
   })

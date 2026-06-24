@@ -38,9 +38,10 @@ const ToggleFilters = ({ facets, onChange }) => {
       }))
     }
 
-    const updatedFacet = { ...clickedFacet, selected: isChecked }
-
-    onChange(updatedFacet)
+    // Pass the facet with its CURRENT selected state. The navigation layer
+    // uses a single convention (selected => remove, not selected => add), so
+    // toggles must not pre-invert here like they used to.
+    onChange({ ...clickedFacet })
   }
 
   return (
