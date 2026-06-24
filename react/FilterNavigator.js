@@ -312,6 +312,14 @@ const FilterNavigator = ({
                 filtersTitleHtmlTag={filtersTitleHtmlTag}
               />
             </div>
+            <SelectedFilters
+              filters={selectedFilters}
+              preventRouteChange={preventRouteChange}
+              navigateToFacet={navigateToFacet}
+              onOpenPostalCodeModal={() => setIsPostalCodeModalOpen(true)}
+              onOpenPickupModal={() => setisPickupModalOpen(true)}
+              showShippingMethodFacet={showShippingMethodFacet}
+            />
             {estimateFilter && (
               <AvailableFilters
                 filters={[estimateFilter]}
@@ -332,14 +340,6 @@ const FilterNavigator = ({
                 onOpenPickupModal={() => setisPickupModalOpen(true)}
               />
             )}
-            <SelectedFilters
-              filters={selectedFilters}
-              preventRouteChange={preventRouteChange}
-              navigateToFacet={navigateToFacet}
-              onOpenPostalCodeModal={() => setIsPostalCodeModalOpen(true)}
-              onOpenPickupModal={() => setisPickupModalOpen(true)}
-              showShippingMethodFacet={showShippingMethodFacet}
-            />
             <DepartmentFilters
               title={CATEGORIES_TITLE}
               tree={tree}
