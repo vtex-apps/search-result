@@ -11,6 +11,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - `useFetchMore` (gallery "load more"): the in-memory pagination reducer now resets to the first page when the `page` query param is externally brought back to page 1. The reset fires only on an external transition to the first page while the reducer is past it, so the shopper's own "load more"/"fetch previous" navigation and initial mount are unaffected.
 
+## [3.147.4] - 2026-06-22
+
+### Changed
+
+- Bump `@vtex/ads-react` from `0.3.1` to `0.5.4`
+
+## [3.147.3] - 2026-06-18
+
+### Fixed
+
+- Delivery filter group `delivery-options` no longer renders the placeholder "Default Title" as its heading. It is now titled "Delivery Option". Titles are assigned to every titled delivery group in `getFilters`, including the code path where no `shipping` group is present.
+
+### Changed
+
+- The default shipping-method filter group (`shipping`) heading copy changed from "Shipping" to **"Shipping method"** across all locales (`store/search.filter.title.shipping`; non-EN copy is a best-effort draft for the Localization team).
+- The `dynamic-estimate` (Estimate) delivery filter group is now the **first filter shown, over all other filters**. On **desktop** it renders **headerless** (no title, no collapsible header) directly below the "Filters" heading, with **no divider line at its top** (the heading's bottom border is dropped while it is present). On **mobile** it keeps its regular "Estimate" title and collapsible header.
+
+### Added
+
+- New filter title key `store/search.filter.title.delivery-options` ("Delivery Option") across all locales (non-EN copy is a best-effort draft for the Localization team). The `dynamic-estimate` group keeps its "Estimate" title (shown on mobile).
+
 ## [3.147.2] - 2026-06-05
 
 ### Fixed
