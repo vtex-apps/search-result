@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fixed `dynamic-estimate` showing above the "Filtrado Por" (Selected Filters) group on desktop. The filter now renders after Selected Filters, as intended.
 - Fixed `dynamic-estimate` toggle buttons appearing too close to the previous filter group after its title was removed. Added top padding to the headerless content area to match the spacing the title previously provided.
 - Fixed toggle filters flickering off right after being selected. The optimistic UI state was being reset by stale `facets` during the in-flight navigation/refetch; it now only re-syncs when the facets' selected state actually changes.
+- Fixed selected toggle filters rendering as unselected on the initial (server-side) render. The toggle state is now seeded from the facets on the first render instead of only after mount.
 
 ## [3.147.5] - 2026-06-24
 

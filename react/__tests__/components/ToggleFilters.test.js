@@ -142,6 +142,22 @@ describe('<ToggleFilters />', () => {
     )
   })
 
+  it('reflects the selected facet on the initial render (no flash from SSR)', () => {
+    // The selected state must be correct on the very first render, before any
+    // effect runs, so a page refresh does not momentarily show it unselected.
+    const selectedFacets = [
+      { ...toggleFacetsMock[0], selected: true },
+      { ...toggleFacetsMock[1], selected: false },
+    ]
+
+    const { getByLabelText } = render(
+      <ToggleFilters facets={selectedFacets} onChange={() => {}} />
+    )
+
+    expect(getByLabelText('Same Day')).toBeChecked()
+    expect(getByLabelText('Next Day')).not.toBeChecked()
+  })
+
   it('keeps the optimistic selection while a re-render delivers stale facets', () => {
     // Regression: clicking a toggle optimistically selects it, then onChange
     // triggers navigation. Until the refetch lands, the component re-renders

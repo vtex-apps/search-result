@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { Toggle } from 'vtex.styleguide'
 
+const buildToggleStates = facets =>
+  facets.reduce(
+    (states, facet) => ({ ...states, [facet.value]: Boolean(facet.selected) }),
+    {}
+  )
+
 const ToggleFilters = ({ facets, onChange }) => {
-  const [toggleStates, setToggleStates] = useState({})
+  // Seed from the facets on the first render (lazy initializer) so the
+  // server-side render and the initial client render already reflect the
+  // selected state. Otherwise the toggle renders unselected until the effect
+  // below runs after mount.
+  const [toggleStates, setToggleStates] = useState(() =>
+    buildToggleStates(facets)
+  )
 
   // `facets` is a new array reference on every render, so we sync the local
   // (optimistic) state only when the actual selected state of the facets
@@ -14,12 +26,7 @@ const ToggleFilters = ({ facets, onChange }) => {
     .join('|')
 
   useEffect(() => {
-    const initialStates = {}
-
-    facets.forEach(facet => {
-      initialStates[facet.value] = Boolean(facet.selected)
-    })
-    setToggleStates(initialStates)
+    setToggleStates(buildToggleStates(facets))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [facetsSelectionSignature])
 
