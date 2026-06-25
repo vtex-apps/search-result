@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- `data-af-product-position` on gallery items now reflects the product's rank in the search result set (accounting for the current pagination window) instead of restarting from 1 when the PLP is loaded directly at a page greater than 1.
+
 ## [3.147.5] - 2026-06-24
 
 ### Fixed
