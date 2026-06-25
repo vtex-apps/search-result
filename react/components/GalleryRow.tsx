@@ -5,6 +5,7 @@ import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 import classNames from 'classnames'
 
 import { useRenderOnView } from '../hooks/useRenderOnView'
+import { useProductsPositionOffset } from './ProductsPositionOffsetContext'
 import GalleryItem from './GalleryItem'
 import type { Product } from '../Gallery'
 import type { MobileLayoutMode } from '../GalleryLegacy'
@@ -43,6 +44,7 @@ function GalleryRow({
   preferredSKU,
 }: GalleryRowProps) {
   const { searchQuery } = useSearchPage()
+  const productsPositionOffset = useProductsPositionOffset()
   const handles = useCssHandles(CSS_HANDLES)
 
   const style = {
@@ -64,7 +66,8 @@ function GalleryRow({
   return (
     <>
       {products.map((product, index) => {
-        const absoluteProductIndex = rowIndex * itemsPerRow + index + 1
+        const absoluteProductIndex =
+          productsPositionOffset + rowIndex * itemsPerRow + index + 1
 
         const shouldRenderCustom = !!(
           CustomSummary &&
