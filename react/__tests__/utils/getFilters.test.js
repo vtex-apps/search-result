@@ -5,6 +5,7 @@ import { renderHook } from '@testing-library/react-hooks'
 import getFilters, {
   getDeliveryGroupTitle,
   shouldHideDeliveryGroupHeader,
+  filterHiddenDeliveryGroups,
   SHIPPING_TITLE,
   DELIVERY_OPTION_TITLE,
   DYNAMIC_ESTIMATE_TITLE,
@@ -135,5 +136,111 @@ describe('getFilters delivery group titles', () => {
     expect(unknown.title).toBe('delivery-window')
     expect(unknown.title).not.toBe('Default Title')
     expect(unknown.hideHeader).toBe(false)
+  })
+})
+
+describe('filterHiddenDeliveryGroups', () => {
+  const groups = [
+    { name: 'shipping', facets: [] },
+    { name: 'dynamic-estimate', facets: [] },
+    { name: 'delivery-options', facets: [] },
+  ]
+
+  it('returns the input when hiddenFacets has no deliveries setting', () => {
+    expect(filterHiddenDeliveryGroups(groups, {})).toEqual(groups)
+    expect(filterHiddenDeliveryGroups(groups, undefined)).toEqual(groups)
+  })
+
+  it('returns an empty array when deliveries.hideAll is true', () => {
+    expect(
+      filterHiddenDeliveryGroups(groups, { deliveries: { hideAll: true } })
+    ).toEqual([])
+  })
+
+  it('drops only the groups whose name matches hiddenGroups', () => {
+    const filtered = filterHiddenDeliveryGroups(groups, {
+      deliveries: {
+        hiddenGroups: [{ name: 'dynamic-estimate' }, { name: 'shipping' }],
+      },
+    })
+
+    expect(filtered).toEqual([{ name: 'delivery-options', facets: [] }])
+  })
+
+  it('handles empty / missing inputs without throwing', () => {
+    expect(filterHiddenDeliveryGroups(undefined, undefined)).toEqual([])
+    expect(
+      filterHiddenDeliveryGroups([], { deliveries: { hideAll: true } })
+    ).toEqual([])
+  })
+})
+
+describe('getFilters hiddenFacets.deliveries', () => {
+  const wrapper = ({ children }) => (
+    <IntlProvider locale="en" messages={{}} onError={() => {}}>
+      {children}
+    </IntlProvider>
+  )
+
+  const renderGetFilters = args =>
+    renderHook(() => getFilters(args), { wrapper }).result.current
+
+  const makeGroup = name => ({
+    name,
+    type: 'DELIVERY',
+    quantity: 1,
+    facets: [{ key: name, name: 'option', value: 'option', map: name }],
+  })
+
+  it('hides the dynamic-estimate group when listed in hiddenFacets.deliveries.hiddenGroups', () => {
+    const filters = renderGetFilters({
+      deliveries: [
+        makeGroup('delivery-options'),
+        makeGroup('dynamic-estimate'),
+      ],
+      hiddenFacets: {
+        deliveries: { hiddenGroups: [{ name: 'dynamic-estimate' }] },
+      },
+    })
+
+    expect(filters.find(f => f.name === 'dynamic-estimate')).toBeUndefined()
+    expect(filters.find(f => f.name === 'delivery-options')).toBeDefined()
+  })
+
+  it('hides every delivery group when hiddenFacets.deliveries.hideAll is true', () => {
+    const filters = renderGetFilters({
+      deliveries: [
+        makeGroup('shipping'),
+        makeGroup('delivery-options'),
+        makeGroup('dynamic-estimate'),
+      ],
+      showShippingMethodFacet: true,
+      hiddenFacets: { deliveries: { hideAll: true } },
+    })
+
+    expect(filters.some(f => f.type === 'DELIVERY')).toBe(false)
+  })
+
+  it('hides shipping via hiddenFacets even when showShippingMethodFacet is true', () => {
+    const filters = renderGetFilters({
+      deliveries: [makeGroup('shipping'), makeGroup('delivery-options')],
+      showShippingMethodFacet: true,
+      hiddenFacets: {
+        deliveries: { hiddenGroups: [{ name: 'shipping' }] },
+      },
+    })
+
+    expect(filters.find(f => f.name === 'shipping')).toBeUndefined()
+    expect(filters.find(f => f.name === 'delivery-options')).toBeDefined()
+  })
+
+  it('keeps the existing showShippingMethodFacet gate when hiddenFacets.deliveries is absent', () => {
+    const filters = renderGetFilters({
+      deliveries: [makeGroup('shipping'), makeGroup('dynamic-estimate')],
+      showShippingMethodFacet: false,
+    })
+
+    expect(filters.find(f => f.name === 'shipping')).toBeUndefined()
+    expect(filters.find(f => f.name === 'dynamic-estimate')).toBeDefined()
   })
 })

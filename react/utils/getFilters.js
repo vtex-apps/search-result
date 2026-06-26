@@ -62,6 +62,40 @@ const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
 
 const defaultShippingValues = ['delivery', 'pickup-in-point', 'pickup-nearby']
 
+/**
+ * Applies the `hiddenFacets.deliveries` setting to a `deliveries` array,
+ * removing groups whose `name` is hidden. Supports:
+ *   - `hideAll: true` — strips every delivery group.
+ *   - `hiddenGroups: [{ name }]` — strips only the named groups
+ *     (e.g. `shipping`, `dynamic-estimate`, `delivery-options`).
+ * Falls back to the original array when the setting is absent.
+ */
+export const filterHiddenDeliveryGroups = (deliveries, hiddenFacets) => {
+  if (!deliveries || deliveries.length === 0) {
+    return deliveries || []
+  }
+
+  const setting = hiddenFacets && hiddenFacets.deliveries
+
+  if (!setting) {
+    return deliveries
+  }
+
+  if (setting.hideAll) {
+    return []
+  }
+
+  const hiddenNames = (setting.hiddenGroups || [])
+    .map(group => group && group.name)
+    .filter(Boolean)
+
+  if (hiddenNames.length === 0) {
+    return deliveries
+  }
+
+  return deliveries.filter(group => !hiddenNames.includes(group.name))
+}
+
 const formatDeliveryGroup = (group, intl, availableShippingValues) => {
   const titled = {
     ...group,
@@ -91,15 +125,16 @@ const formatDeliveryGroup = (group, intl, availableShippingValues) => {
 
 const getDeliveriesFormatted = (
   deliveries,
-  availableShippingValues,
-  showShippingFacet
+  { availableShippingValues, showShippingFacet, hiddenFacets }
 ) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const intl = useIntl()
 
+  const allowedDeliveries = filterHiddenDeliveryGroups(deliveries, hiddenFacets)
+
   const visibleDeliveries = showShippingFacet
-    ? deliveries
-    : deliveries.filter(d => d.name !== SHIPPING_KEY)
+    ? allowedDeliveries
+    : allowedDeliveries.filter(d => d.name !== SHIPPING_KEY)
 
   return visibleDeliveries.map(group =>
     formatDeliveryGroup(group, intl, availableShippingValues)
@@ -116,11 +151,11 @@ const getFilters = ({
   showShippingMethodFacet = false,
   availableShippingValues = [],
 }) => {
-  const deliveriesFormatted = getDeliveriesFormatted(
-    deliveries,
+  const deliveriesFormatted = getDeliveriesFormatted(deliveries, {
     availableShippingValues,
-    showShippingMethodFacet
-  )
+    showShippingFacet: showShippingMethodFacet,
+    hiddenFacets,
+  })
 
   const hiddenFacetsNames = (
     path(['specificationFilters', 'hiddenFilters'], hiddenFacets) || []

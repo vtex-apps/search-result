@@ -253,6 +253,7 @@ Depending on your store's scenario, structure the `search-result-layout` or the 
 | `thresholdForFacetSearch` | `number`  | Specifies the minimum number of facets that must be displayed for the search bar to appear. If you declare `0`, the search bar always displays.                                                                                                                                                     | `undefined`     |
 | `preventRouteChange`      | `boolean` | Keeps page customizations even when the user applies new filters. This prop only changes the URL's query string rather than the entire URL, preventing a full page reload when filters are applied.                                                                                                        | `false`         |
 | `showShippingMethodFacet` | `boolean` | Determines whether Shipping filters should display (`true`) or not (`false`).                                                                                                                                                                                                         | `false`         |
+| `availableShippingValues` | `array`   | Controls which options appear inside the Shipping facet when `showShippingMethodFacet` is `true`. Accepts an array of `string` values from `delivery`, `pickup-in-point`, `pickup-nearby`, and `pickup-all`. When the array is empty, the default set `['delivery', 'pickup-in-point', 'pickup-nearby']` is used; passing a non-empty array replaces that list (e.g. add `'pickup-all'` to expose the combined pickup option). | `[]`            |
 
 #### The `mobileLayout` object
 
@@ -269,6 +270,7 @@ Depending on your store's scenario, structure the `search-result-layout` or the 
 | `categories`           | `boolean` | Determines whether Category filters should be hidden (`true`) or not (`false`).                                                    | `false`       |
 | `priceRange`           | `boolean` | Determines whether Price filters should be hidden (`true`) or not (`false`).                                                       | `false`       |
 | `specificationFilters` | `object`  | Indicates which specification filters should be hidden. Possible values are in [this table](#the-specificationfilters-object). | `undefined`   |
+| `deliveries`           | `object`  | Indicates which delivery-promise facet groups should be hidden (e.g. shipping method, dynamic estimate, delivery options). Possible values are in [this table](#the-deliveries-object). | `undefined`   |
 
 #### The `specificationFilters` object
 
@@ -282,6 +284,21 @@ Depending on your store's scenario, structure the `search-result-layout` or the 
 | Prop name | Type     | Description                                             | Default value |
 | --------- | -------- | ------------------------------------------------------- | ------------- |
 | `name`    | `string` | Defines the name of the specification filter that you want to hide. | `undefined`   |
+
+#### The `deliveries` object
+
+| Prop name      | Type      | Description                                                                                                                                                                                                                                                                                                            | Default value |
+| -------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `hideAll`      | `boolean` | Determines whether every delivery-promise facet group should be hidden (`true`) or not (`false`).                                                                                                                                                                                                                      | `false`       |
+| `hiddenGroups` | `object`  | Object array of delivery-promise facet groups that should be hidden. Each entry matches a delivery group `name` returned by the search API (e.g. `shipping`, `dynamic-estimate`, `delivery-options`). Possible values are in [this table](#the-hiddengroups-object).                                                  | `undefined`   |
+
+> The Shipping method group (`shipping`) is already hidden by default because `showShippingMethodFacet` defaults to `false`. Use `hiddenFacets.deliveries.hiddenGroups: [{ "name": "shipping" }]` to keep it hidden even when `showShippingMethodFacet` is set to `true`.
+
+#### The `hiddenGroups` object
+
+| Prop name | Type     | Description                                                                                                                                                | Default value |
+| --------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `name`    | `string` | Defines the `name` of the delivery group to hide. Valid values today are `shipping` (Shipping method), `dynamic-estimate`, and `delivery-options`. | `undefined`   |
 
 ### Using the Flex Layout to build your search results page
 
