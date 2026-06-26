@@ -146,20 +146,22 @@ describe('filterHiddenDeliveryGroups', () => {
     { name: 'delivery-options', facets: [] },
   ]
 
-  it('returns the input when hiddenFacets has no deliveries setting', () => {
+  it('returns the input when hiddenFacets has no delivery-promise setting', () => {
     expect(filterHiddenDeliveryGroups(groups, {})).toEqual(groups)
     expect(filterHiddenDeliveryGroups(groups, undefined)).toEqual(groups)
   })
 
-  it('returns an empty array when deliveries.hideAll is true', () => {
+  it('returns an empty array when delivery-promise.hideAll is true', () => {
     expect(
-      filterHiddenDeliveryGroups(groups, { deliveries: { hideAll: true } })
+      filterHiddenDeliveryGroups(groups, {
+        'delivery-promise': { hideAll: true },
+      })
     ).toEqual([])
   })
 
   it('drops only the groups whose name matches hiddenGroups', () => {
     const filtered = filterHiddenDeliveryGroups(groups, {
-      deliveries: {
+      'delivery-promise': {
         hiddenGroups: [{ name: 'dynamic-estimate' }, { name: 'shipping' }],
       },
     })
@@ -170,12 +172,12 @@ describe('filterHiddenDeliveryGroups', () => {
   it('handles empty / missing inputs without throwing', () => {
     expect(filterHiddenDeliveryGroups(undefined, undefined)).toEqual([])
     expect(
-      filterHiddenDeliveryGroups([], { deliveries: { hideAll: true } })
+      filterHiddenDeliveryGroups([], { 'delivery-promise': { hideAll: true } })
     ).toEqual([])
   })
 })
 
-describe('getFilters hiddenFacets.deliveries', () => {
+describe('getFilters hiddenFacets delivery-promise', () => {
   const wrapper = ({ children }) => (
     <IntlProvider locale="en" messages={{}} onError={() => {}}>
       {children}
@@ -192,14 +194,14 @@ describe('getFilters hiddenFacets.deliveries', () => {
     facets: [{ key: name, name: 'option', value: 'option', map: name }],
   })
 
-  it('hides the dynamic-estimate group when listed in hiddenFacets.deliveries.hiddenGroups', () => {
+  it("hides the dynamic-estimate group when listed in hiddenFacets['delivery-promise'].hiddenGroups", () => {
     const filters = renderGetFilters({
       deliveries: [
         makeGroup('delivery-options'),
         makeGroup('dynamic-estimate'),
       ],
       hiddenFacets: {
-        deliveries: { hiddenGroups: [{ name: 'dynamic-estimate' }] },
+        'delivery-promise': { hiddenGroups: [{ name: 'dynamic-estimate' }] },
       },
     })
 
@@ -207,7 +209,7 @@ describe('getFilters hiddenFacets.deliveries', () => {
     expect(filters.find(f => f.name === 'delivery-options')).toBeDefined()
   })
 
-  it('hides every delivery group when hiddenFacets.deliveries.hideAll is true', () => {
+  it("hides every delivery group when hiddenFacets['delivery-promise'].hideAll is true", () => {
     const filters = renderGetFilters({
       deliveries: [
         makeGroup('shipping'),
@@ -215,7 +217,7 @@ describe('getFilters hiddenFacets.deliveries', () => {
         makeGroup('dynamic-estimate'),
       ],
       showShippingMethodFacet: true,
-      hiddenFacets: { deliveries: { hideAll: true } },
+      hiddenFacets: { 'delivery-promise': { hideAll: true } },
     })
 
     expect(filters.some(f => f.type === 'DELIVERY')).toBe(false)
@@ -226,7 +228,7 @@ describe('getFilters hiddenFacets.deliveries', () => {
       deliveries: [makeGroup('shipping'), makeGroup('delivery-options')],
       showShippingMethodFacet: true,
       hiddenFacets: {
-        deliveries: { hiddenGroups: [{ name: 'shipping' }] },
+        'delivery-promise': { hiddenGroups: [{ name: 'shipping' }] },
       },
     })
 
@@ -234,7 +236,7 @@ describe('getFilters hiddenFacets.deliveries', () => {
     expect(filters.find(f => f.name === 'delivery-options')).toBeDefined()
   })
 
-  it('keeps the existing showShippingMethodFacet gate when hiddenFacets.deliveries is absent', () => {
+  it("keeps the existing showShippingMethodFacet gate when hiddenFacets['delivery-promise'] is absent", () => {
     const filters = renderGetFilters({
       deliveries: [makeGroup('shipping'), makeGroup('dynamic-estimate')],
       showShippingMethodFacet: false,

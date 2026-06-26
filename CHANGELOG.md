@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- `hiddenFacets.deliveries` setting on `search-result-layout.desktop`, `search-result-layout.mobile`, and `search-not-found-layout`. Themes can hide delivery-promise facet groups (`shipping`, `dynamic-estimate`, `delivery-options`) either entirely (`hideAll: true`) or by name (`hiddenGroups: [{ name }]`). Hiding `shipping` via `hiddenFacets` overrides `showShippingMethodFacet: true`. Selected-facet badges and the post-postal-code delivery navigation honor the same setting.
+- `hiddenFacets["delivery-promise"]` setting on `search-result-layout.desktop`, `search-result-layout.mobile`, and `search-not-found-layout`. Themes can hide delivery-promise facet groups (`shipping`, `dynamic-estimate`, `delivery-options`) either entirely (`hideAll: true`) or by name (`hiddenGroups: [{ name }]`). Hiding `shipping` via `hiddenFacets` overrides `showShippingMethodFacet: true`. Selected-facet badges and the post-postal-code delivery navigation honor the same setting.
 
 ### Changed
 

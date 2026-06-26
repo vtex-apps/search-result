@@ -150,7 +150,7 @@ export const hiddenFacetsSchema = {
     /** Hidden delivery-promise facet groups configuration. Matches the
      *  `name` of each delivery group returned by the search API
      *  (e.g. `shipping`, `dynamic-estimate`, `delivery-options`). */
-    deliveries: PropTypes.shape({
+    'delivery-promise': PropTypes.shape({
       /** Determines if all delivery-promise facet groups will be hidden */
       hideAll: PropTypes.bool,
       /** Array of specific hidden delivery groups by `name` */

@@ -63,8 +63,8 @@ const SPECIFICATION_FILTERS_TYPE = 'SpecificationFilters'
 const defaultShippingValues = ['delivery', 'pickup-in-point', 'pickup-nearby']
 
 /**
- * Applies the `hiddenFacets.deliveries` setting to a `deliveries` array,
- * removing groups whose `name` is hidden. Supports:
+ * Applies the `hiddenFacets['delivery-promise']` setting to a `deliveries`
+ * array, removing groups whose `name` is hidden. Supports:
  *   - `hideAll: true` — strips every delivery group.
  *   - `hiddenGroups: [{ name }]` — strips only the named groups
  *     (e.g. `shipping`, `dynamic-estimate`, `delivery-options`).
@@ -75,7 +75,7 @@ export const filterHiddenDeliveryGroups = (deliveries, hiddenFacets) => {
     return deliveries || []
   }
 
-  const setting = hiddenFacets && hiddenFacets.deliveries
+  const setting = hiddenFacets && hiddenFacets['delivery-promise']
 
   if (!setting) {
     return deliveries
