@@ -214,17 +214,11 @@ describe('buildNewQueryMap - RadioGroup behavior', () => {
       selected: true,
     }
 
-    const toggleFacetNotSelected = {
-      key: 'dynamic-estimate',
-      value: 'same-day',
-      map: 'dynamic-estimate',
-      selected: false,
-    }
-
     it('should remove other toggle filters of same group when selecting a new one', () => {
       const onShouldIgnore = jest.fn()
       const selectedFacets = [toggleFacetSameDay] // same-day already selected
-      const facets = [toggleFacetNextDay] // selecting next-day
+      // selecting next-day: it is not applied yet, so its current state is false
+      const facets = [{ ...toggleFacetNextDay, selected: false }]
 
       const result = buildNewQueryMap(
         {},
@@ -244,7 +238,8 @@ describe('buildNewQueryMap - RadioGroup behavior', () => {
     it('should not use ignore pattern for toggle filters', () => {
       const onShouldIgnore = jest.fn()
       const selectedFacets = []
-      const facets = [toggleFacetSameDay]
+      // selecting same-day: not applied yet, current state is false
+      const facets = [{ ...toggleFacetSameDay, selected: false }]
 
       const result = buildNewQueryMap(
         {},
@@ -262,7 +257,8 @@ describe('buildNewQueryMap - RadioGroup behavior', () => {
     it('should remove toggle filter when deselected', () => {
       const onShouldIgnore = jest.fn()
       const selectedFacets = [toggleFacetSameDay] // same-day already selected
-      const facets = [toggleFacetNotSelected] // deselecting same-day
+      // deselecting same-day: its current state is selected (true)
+      const facets = [toggleFacetSameDay]
 
       const result = buildNewQueryMap(
         {},
@@ -286,7 +282,8 @@ describe('buildNewQueryMap - RadioGroup behavior', () => {
       }
 
       const selectedFacets = [radioPickupFacet] // radio already selected
-      const facets = [toggleFacetSameDay] // selecting toggle
+      // selecting toggle: not applied yet, current state is false
+      const facets = [{ ...toggleFacetSameDay, selected: false }]
 
       const result = buildNewQueryMap(
         {},
@@ -302,6 +299,28 @@ describe('buildNewQueryMap - RadioGroup behavior', () => {
       expect(result.map).toContain('delivery-options')
       expect(result.map).toContain('dynamic-estimate')
       expect(onShouldIgnore).toHaveBeenCalledWith(false) // toggle selected, so no ignore
+    })
+
+    // Regression: deselecting an applied toggle through the Selected Filters
+    // checkbox. That checkbox (FacetItem) passes the facet with its CURRENT
+    // state (`selected: true` for an applied filter), unlike the Toggle control
+    // which passes the desired next state. The navigation must remove the toggle
+    // from the URL when it is clicked while currently selected.
+    it('removes an already-selected toggle when clicked with its current state (Selected Filters checkbox)', () => {
+      const onShouldIgnore = jest.fn()
+      const selectedFacets = [toggleFacetSameDay] // currently applied
+      const facets = [{ ...toggleFacetSameDay, selected: true }] // clicked as-is
+
+      const result = buildNewQueryMap(
+        {},
+        facets,
+        selectedFacets,
+        false,
+        onShouldIgnore
+      )
+
+      expect(result.query).not.toContain('same-day')
+      expect(onShouldIgnore).toHaveBeenCalledWith(false)
     })
 
     it('should select radio when toggle is already selected', () => {

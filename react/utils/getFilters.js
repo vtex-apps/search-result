@@ -159,17 +159,6 @@ const getFilters = ({
       },
   ].filter(Boolean)
 
-  // The dynamic-estimate group must be the first filter to show up over all others.
-  const estimateIndex = filters.findIndex(
-    filter => filter.name === DYNAMIC_ESTIMATE_KEY
-  )
-
-  if (estimateIndex > 0) {
-    const [estimate] = filters.splice(estimateIndex, 1)
-
-    filters.unshift(estimate)
-  }
-
   return filters
 }
 
