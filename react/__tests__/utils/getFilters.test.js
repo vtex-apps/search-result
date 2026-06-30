@@ -80,7 +80,9 @@ describe('getFilters delivery group titles', () => {
     expect(deliveryOption.title).not.toBe('Default Title')
   })
 
-  it('orders the dynamic-estimate group first over all other filters', () => {
+  it('includes the dynamic-estimate group in filters without reordering it', () => {
+    // getFilters no longer hoists dynamic-estimate to position 0;
+    // the FilterNavigator renders it after SelectedFilters ("Filtrado Por").
     const filters = renderGetFilters({
       deliveries: [
         makeGroup('delivery-options'),
@@ -97,7 +99,7 @@ describe('getFilters delivery group titles', () => {
       ],
     })
 
-    expect(filters[0].name).toBe('dynamic-estimate')
+    expect(filters.some(f => f.name === 'dynamic-estimate')).toBe(true)
   })
 
   it('titles the shipping group with the shipping title id and keeps its header', () => {

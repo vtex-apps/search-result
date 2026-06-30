@@ -40,10 +40,12 @@ describe('<ToggleFilters />', () => {
 
     fireEvent.click(getByLabelText('Same Day'))
 
+    // The toggle passes the facet with its CURRENT state (off). The navigation
+    // layer flips it (not selected => add).
     expect(onChangeMock).toHaveBeenCalledWith(
       expect.objectContaining({
         value: 'same-day',
-        selected: true,
+        selected: false,
       })
     )
   })
@@ -90,12 +92,12 @@ describe('<ToggleFilters />', () => {
       <ToggleFilters facets={toggleFacetsMock} onChange={mockOnChange} />
     )
 
-    // Primeiro, seleciona 'Same Day'
+    // Primeiro, seleciona 'Same Day' (estado atual: off)
     fireEvent.click(getByLabelText('Same Day'))
     expect(mockOnChange).toHaveBeenCalledWith(
       expect.objectContaining({
         value: 'same-day',
-        selected: true,
+        selected: false,
       })
     )
 
@@ -107,7 +109,7 @@ describe('<ToggleFilters />', () => {
     expect(mockOnChange).toHaveBeenCalledWith(
       expect.objectContaining({
         value: 'next-day',
-        selected: true,
+        selected: false,
       })
     )
   })
@@ -130,14 +132,53 @@ describe('<ToggleFilters />', () => {
     expect(getByLabelText('Same Day')).toBeChecked()
     expect(getByLabelText('Next Day')).not.toBeChecked()
 
-    // Clique deve funcionar normalmente
+    // Clique deve funcionar normalmente; o payload carrega o estado atual (off)
     fireEvent.click(getByLabelText('Next Day'))
     expect(mockOnChange).toHaveBeenCalledWith(
       expect.objectContaining({
         value: 'next-day',
-        selected: true, // Deve ser booleano true
+        selected: false,
       })
     )
+  })
+
+  it('reflects the selected facet on the initial render (no flash from SSR)', () => {
+    // The selected state must be correct on the very first render, before any
+    // effect runs, so a page refresh does not momentarily show it unselected.
+    const selectedFacets = [
+      { ...toggleFacetsMock[0], selected: true },
+      { ...toggleFacetsMock[1], selected: false },
+    ]
+
+    const { getByLabelText } = render(
+      <ToggleFilters facets={selectedFacets} onChange={() => {}} />
+    )
+
+    expect(getByLabelText('Same Day')).toBeChecked()
+    expect(getByLabelText('Next Day')).not.toBeChecked()
+  })
+
+  it('keeps the optimistic selection while a re-render delivers stale facets', () => {
+    // Regression: clicking a toggle optimistically selects it, then onChange
+    // triggers navigation. Until the refetch lands, the component re-renders
+    // with a brand new `facets` array reference that still reports the old
+    // (unselected) state. The toggle must NOT flicker back to off.
+    const { getByLabelText, rerender } = render(
+      <ToggleFilters facets={toggleFacetsMock} onChange={() => {}} />
+    )
+
+    fireEvent.click(getByLabelText('Same Day'))
+    expect(getByLabelText('Same Day')).toBeChecked()
+
+    // New array reference, same (stale) selected state.
+    rerender(
+      <ToggleFilters
+        facets={toggleFacetsMock.map(facet => ({ ...facet }))}
+        onChange={() => {}}
+      />
+    )
+
+    expect(getByLabelText('Same Day')).toBeChecked()
   })
 
   it('should handle SyntheticEvent from Toggle onChange correctly', () => {
@@ -152,7 +193,7 @@ describe('<ToggleFilters />', () => {
     expect(mockOnChange).toHaveBeenCalledWith(
       expect.objectContaining({
         value: 'same-day',
-        selected: true, // Deve extrair corretamente o boolean
+        selected: false,
       })
     )
   })
