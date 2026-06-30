@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.147.6] - 2026-06-30
+
 ### Fixed
 
 - Deselecting a `dynamic-estimate` toggle filter from the Selected Filters list now correctly removes it from the URL. The facet navigation logic (`useFacetNavigation`) was unified to use a single convention for all filter types: `facet.selected` always reflects the current applied state, so selected means remove and unselected means add. `ToggleFilters` was updated to pass the current state instead of the desired next state.
