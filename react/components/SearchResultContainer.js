@@ -4,6 +4,7 @@ import { Container } from 'vtex.store-components'
 import { useCssHandles } from 'vtex.css-handles'
 
 import { PopupProvider } from './Popup'
+import { ProductsPositionOffsetProvider } from './ProductsPositionOffsetContext'
 import SearchResult from './SearchResult'
 import { searchResultContainerPropTypes } from '../constants/propTypes'
 import { useFetchMore } from '../hooks/useFetchMore'
@@ -108,8 +109,10 @@ const SearchResultContainer = props => {
   return (
     <Container className={`${handles.searchResultContainer} pt3-m pt5-l`}>
       <PopupProvider>
-        <div id="search-result-anchor" />
-        {isInfiniteScroll ? infiniteScrollComponent : resultComponent}
+        <ProductsPositionOffsetProvider value={from}>
+          <div id="search-result-anchor" />
+          {isInfiniteScroll ? infiniteScrollComponent : resultComponent}
+        </ProductsPositionOffsetProvider>
       </PopupProvider>
     </Container>
   )

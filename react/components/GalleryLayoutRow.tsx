@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import { useSearchPage } from 'vtex.search-page-context/SearchPageContext'
 
 import { useRenderOnView } from '../hooks/useRenderOnView'
+import { useProductsPositionOffset } from './ProductsPositionOffsetContext'
 import GalleryItem from './GalleryLayoutItem'
 import type { Product } from '../Gallery'
 import type { PreferredSKU } from '../GalleryLayout'
@@ -38,6 +39,7 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
   preferredSKU,
 }) => {
   const { searchQuery } = useSearchPage()
+  const productsPositionOffset = useProductsPositionOffset()
   const handles = useCssHandles(CSS_HANDLES)
 
   const style = {
@@ -59,7 +61,9 @@ const GalleryLayoutRow: React.FC<GalleryLayoutRowProps> = ({
   return (
     <>
       {products.map((product, index) => {
-        const absoluteProductIndex = rowIndex * itemsPerRow + index + 1
+        const absoluteProductIndex =
+          productsPositionOffset + rowIndex * itemsPerRow + index + 1
+
         const shouldAddAFAttr = searchId && !redirect && product.productId
 
         return (
