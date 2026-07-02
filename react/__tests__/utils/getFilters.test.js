@@ -6,6 +6,8 @@ import getFilters, {
   getDeliveryGroupTitle,
   shouldHideDeliveryGroupHeader,
   filterHiddenDeliveryGroups,
+  sortDeliveryGroups,
+  DELIVERY_GROUP_ORDER,
   SHIPPING_TITLE,
   DELIVERY_OPTION_TITLE,
   DYNAMIC_ESTIMATE_TITLE,
@@ -80,9 +82,7 @@ describe('getFilters delivery group titles', () => {
     expect(deliveryOption.title).not.toBe('Default Title')
   })
 
-  it('includes the dynamic-estimate group in filters without reordering it', () => {
-    // getFilters no longer hoists dynamic-estimate to position 0;
-    // the FilterNavigator renders it after SelectedFilters ("Filtrado Por").
+  it('includes the dynamic-estimate group in filters', () => {
     const filters = renderGetFilters({
       deliveries: [
         makeGroup('delivery-options'),
@@ -100,6 +100,40 @@ describe('getFilters delivery group titles', () => {
     })
 
     expect(filters.some(f => f.name === 'dynamic-estimate')).toBe(true)
+  })
+
+  it('sorts the delivery groups as Dynamic Estimate → Shipping Method → Delivery Option regardless of API order, keeping them ahead of specs / brands / price', () => {
+    const filters = renderGetFilters({
+      deliveries: [
+        makeGroup('delivery-options'),
+        makeGroup('shipping'),
+        makeGroup('dynamic-estimate'),
+      ],
+      showShippingMethodFacet: true,
+      brands: [{ name: 'Samsung', value: 'samsung', selected: false }],
+      brandsQuantity: 1,
+      specificationFilters: [
+        {
+          name: 'Color',
+          quantity: 1,
+          facets: [{ key: 'color', name: 'Blue', value: 'blue' }],
+        },
+      ],
+    })
+
+    const deliveryNames = filters
+      .filter(f => DELIVERY_GROUP_ORDER.includes(f.name))
+      .map(f => f.name)
+
+    expect(deliveryNames).toEqual([
+      'dynamic-estimate',
+      'shipping',
+      'delivery-options',
+    ])
+
+    expect(filters[0].name).toBe('dynamic-estimate')
+    expect(filters[1].name).toBe('shipping')
+    expect(filters[2].name).toBe('delivery-options')
   })
 
   it('titles the shipping group with the shipping title id and keeps its header', () => {
@@ -138,6 +172,47 @@ describe('getFilters delivery group titles', () => {
     expect(unknown.title).toBe('delivery-window')
     expect(unknown.title).not.toBe('Default Title')
     expect(unknown.hideHeader).toBe(false)
+  })
+})
+
+describe('sortDeliveryGroups', () => {
+  it('orders known groups as dynamic-estimate → shipping → delivery-options', () => {
+    const sorted = sortDeliveryGroups([
+      { name: 'delivery-options', facets: [] },
+      { name: 'shipping', facets: [] },
+      { name: 'dynamic-estimate', facets: [] },
+    ])
+
+    expect(sorted.map(group => group.name)).toEqual([
+      'dynamic-estimate',
+      'shipping',
+      'delivery-options',
+    ])
+  })
+
+  it('keeps unknown delivery groups after the known ones, preserving their input order (stable)', () => {
+    const sorted = sortDeliveryGroups([
+      { name: 'delivery-window-b', facets: [] },
+      { name: 'delivery-options', facets: [] },
+      { name: 'delivery-window-a', facets: [] },
+      { name: 'dynamic-estimate', facets: [] },
+    ])
+
+    expect(sorted.map(group => group.name)).toEqual([
+      'dynamic-estimate',
+      'delivery-options',
+      'delivery-window-b',
+      'delivery-window-a',
+    ])
+  })
+
+  it('handles empty / single-item / missing inputs without throwing', () => {
+    expect(sortDeliveryGroups(undefined)).toEqual([])
+    expect(sortDeliveryGroups([])).toEqual([])
+
+    const single = [{ name: 'shipping', facets: [] }]
+
+    expect(sortDeliveryGroups(single)).toEqual(single)
   })
 })
 
