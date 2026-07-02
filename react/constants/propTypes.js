@@ -147,6 +147,20 @@ export const hiddenFacetsSchema = {
         })
       ),
     }),
+    /** Hidden delivery-promise facet groups configuration. Matches the
+     *  `name` of each delivery group returned by the search API
+     *  (e.g. `shipping`, `dynamic-estimate`, `delivery-options`). */
+    'delivery-promise': PropTypes.shape({
+      /** Determines if all delivery-promise facet groups will be hidden */
+      hideAll: PropTypes.bool,
+      /** Array of specific hidden delivery groups by `name` */
+      hiddenGroups: PropTypes.arrayOf(
+        PropTypes.shape({
+          /** Name of the delivery group to hide */
+          name: PropTypes.string,
+        })
+      ),
+    }),
   }),
 }
 

@@ -30,6 +30,7 @@ import {
   DYNAMIC_ESTIMATE_KEY,
   shippingOptions,
   buildDeliveryShippingFacetForNavigation,
+  filterHiddenDeliveryGroups,
 } from './utils/getFilters'
 import { newFacetPathName } from './utils/slug'
 import { FACETS_RENDER_THRESHOLD } from './constants/filterConstants'
@@ -169,7 +170,12 @@ const FilterNavigator = ({
     }
   }, [filters, filtersFetchMore, truncatedFacetsFetched, loading])
 
-  const shipping = deliveries.map(delivery => ({
+  const visibleDeliveries = useMemo(
+    () => filterHiddenDeliveryGroups(deliveries, hiddenFacets),
+    [deliveries, hiddenFacets]
+  )
+
+  const shipping = visibleDeliveries.map(delivery => ({
     ...delivery,
     facets: delivery.facets.map(facet => ({
       ...facet,
@@ -216,8 +222,8 @@ const FilterNavigator = ({
   )
 
   const deliveryFacetForNav = useMemo(
-    () => buildDeliveryShippingFacetForNavigation(deliveries, intl),
-    [deliveries, intl]
+    () => buildDeliveryShippingFacetForNavigation(visibleDeliveries, intl),
+    [visibleDeliveries, intl]
   )
 
   // On desktop the dynamic-estimate filter renders headerless as the first
@@ -312,6 +318,14 @@ const FilterNavigator = ({
                 filtersTitleHtmlTag={filtersTitleHtmlTag}
               />
             </div>
+            <SelectedFilters
+              filters={selectedFilters}
+              preventRouteChange={preventRouteChange}
+              navigateToFacet={navigateToFacet}
+              onOpenPostalCodeModal={() => setIsPostalCodeModalOpen(true)}
+              onOpenPickupModal={() => setisPickupModalOpen(true)}
+              showShippingMethodFacet={showShippingMethodFacet}
+            />
             {estimateFilter && (
               <AvailableFilters
                 filters={[estimateFilter]}
@@ -332,14 +346,6 @@ const FilterNavigator = ({
                 onOpenPickupModal={() => setisPickupModalOpen(true)}
               />
             )}
-            <SelectedFilters
-              filters={selectedFilters}
-              preventRouteChange={preventRouteChange}
-              navigateToFacet={navigateToFacet}
-              onOpenPostalCodeModal={() => setIsPostalCodeModalOpen(true)}
-              onOpenPickupModal={() => setisPickupModalOpen(true)}
-              showShippingMethodFacet={showShippingMethodFacet}
-            />
             <DepartmentFilters
               title={CATEGORIES_TITLE}
               tree={tree}

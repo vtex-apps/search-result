@@ -398,6 +398,7 @@ const FilterOptionTemplate = ({
         className={classNames(handles.filterTemplateOverflow, {
           'overflow-y-auto': collapsable,
           pb5: !collapsable || isOpen,
+          pt5: hideHeader,
         })}
         ref={scrollable}
         data-testid="scrollable-element"
