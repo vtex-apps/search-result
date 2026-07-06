@@ -89,3 +89,14 @@ test('does not reset on initial mount on the first page', () => {
   expect(result.current.nextPage).toBe(2)
   expect(result.current.from).toBe(0)
 })
+
+test('seeds from using the URL page when the page prop is missing', () => {
+  setRuntimePage(2)
+
+  const { result } = renderHook(props => useFetchMore(props), {
+    initialProps: { ...baseProps, page: undefined },
+  })
+
+  expect(result.current.from).toBe(24)
+  expect(result.current.to).toBe(47)
+})

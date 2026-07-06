@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
-- `data-af-product-position` on gallery items now reflects the product's rank in the search result set (accounting for the current pagination window) instead of restarting from 1 when the PLP is loaded directly at a page greater than 1.
+- `data-af-product-position` on gallery items now reflects the product's rank in the search result set (accounting for the current pagination window) instead of restarting from 1 when the PLP is loaded directly at a page greater than 1. The offset now reads from the URL/`searchQuery.variables.from` when the pagination reducer has not yet caught up.
 
 ## [3.148.0] - 2026-06-30
 
