@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.149.0] - 2026-07-08
+
 ### Fixed
 
 - `data-af-product-position` on direct `?page=N` PLP loads: gallery items now resolve their rank offset from the URL and `searchQuery.variables.from` when the pagination reducer has not yet caught up, fixing positions restarting at 1 on page 2+ reloads.
