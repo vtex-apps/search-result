@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Container } from 'vtex.store-components'
 import { useCssHandles } from 'vtex.css-handles'
+import { useRuntime } from 'vtex.render-runtime'
 
 import { PopupProvider } from './Popup'
+import { ProductsPositionOffsetProvider } from './ProductsPositionOffsetContext'
 import SearchResult from './SearchResult'
 import { searchResultContainerPropTypes } from '../constants/propTypes'
 import { useFetchMore } from '../hooks/useFetchMore'
 import { PAGINATION_TYPE } from '../constants/paginationType'
+import { getProductsPositionOffset } from '../utils/getProductsPositionOffset'
 
 const CSS_HANDLES = ['searchResultContainer']
 /**
@@ -33,7 +36,7 @@ const SearchResultContainer = props => {
         } = {},
       } = {},
       loading,
-      variables: { query, map, orderBy, priceRange },
+      variables: { query, map, orderBy, priceRange, from: queryFrom = 0 },
     },
     pagination,
     page,
@@ -63,6 +66,21 @@ const SearchResultContainer = props => {
     products: products.filter(p => !p?.advertisement) || products,
     queryData,
   })
+
+  const { query: runtimeQuery } = useRuntime()
+  const urlPage = runtimeQuery.page ? Number(runtimeQuery.page) : page || 1
+
+  const productsPositionOffset = useMemo(
+    () =>
+      getProductsPositionOffset({
+        from,
+        queryFrom,
+        maxItemsPerPage,
+        productsCount: products.length,
+        urlPage,
+      }),
+    [from, queryFrom, maxItemsPerPage, products.length, urlPage]
+  )
 
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -108,8 +126,10 @@ const SearchResultContainer = props => {
   return (
     <Container className={`${handles.searchResultContainer} pt3-m pt5-l`}>
       <PopupProvider>
-        <div id="search-result-anchor" />
-        {isInfiniteScroll ? infiniteScrollComponent : resultComponent}
+        <ProductsPositionOffsetProvider value={productsPositionOffset}>
+          <div id="search-result-anchor" />
+          {isInfiniteScroll ? infiniteScrollComponent : resultComponent}
+        </ProductsPositionOffsetProvider>
       </PopupProvider>
     </Container>
   )

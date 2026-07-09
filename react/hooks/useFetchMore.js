@@ -159,13 +159,14 @@ export const useFetchMore = props => {
 
   const { setQuery, query: runtimeQuery } = useRuntime()
   const { fuzzy, operator, searchState } = useSearchState()
-  const currentPage = (runtimeQuery.page && Number(runtimeQuery.page)) || page
+  const currentPage =
+    (runtimeQuery.page && Number(runtimeQuery.page)) || page || DEFAULT_PAGE
 
   const initialState = {
     page: currentPage,
     nextPage: currentPage + 1,
     previousPage: currentPage - 1,
-    from: (page - 1) * maxItemsPerPage,
+    from: (currentPage - 1) * maxItemsPerPage,
     to: currentPage * maxItemsPerPage - 1,
   }
 

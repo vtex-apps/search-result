@@ -11,6 +11,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - The three delivery-promise filter groups now always render at the top of the `filter-navigator.v2` / `.v3` in a fixed sequence: **Dynamic Estimate → Shipping Method → Delivery Option**. Ordering is enforced once in `getFilters` (`sortDeliveryGroups`) regardless of the order returned by the Intelligent Search API, so the flat filter list leads with the delivery groups on both desktop and mobile; unknown delivery groups keep their API-relative order after the three known ones. `dynamic-estimate` still renders headerless on desktop, and the title's bottom border is dropped while it is the first group. (Accounts that surface delivery filters do not surface a category tree, so `DepartmentFilters` renders null and the delivery groups stay at the top; the previous desktop-only hoist was removed as redundant.)
 
+## [3.149.0] - 2026-07-08
+
+### Fixed
+
+- `data-af-product-position` on direct `?page=N` PLP loads: gallery items now resolve their rank offset from the URL and `searchQuery.variables.from` when the pagination reducer has not yet caught up, fixing positions restarting at 1 on page 2+ reloads.
+
+## [3.148.1] - 2026-07-02
+
+### Fixed
+
+- `data-af-product-position` on gallery items now reflects the product's rank in the search result set (accounting for the current pagination window) instead of restarting from 1 when the PLP is loaded directly at a page greater than 1.
+
 ## [3.148.0] - 2026-06-30
 
 ### Added
