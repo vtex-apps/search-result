@@ -19,11 +19,43 @@ export const shippingOptions = {
 
 export const SHIPPING_KEY = 'shipping'
 export const DYNAMIC_ESTIMATE_KEY = 'dynamic-estimate'
+export const DELIVERY_OPTIONS_KEY = 'delivery-options'
 
 const DELIVERY_GROUP_TITLES = {
   [SHIPPING_KEY]: SHIPPING_TITLE,
-  'delivery-options': DELIVERY_OPTION_TITLE,
+  [DELIVERY_OPTIONS_KEY]: DELIVERY_OPTION_TITLE,
   [DYNAMIC_ESTIMATE_KEY]: DYNAMIC_ESTIMATE_TITLE,
+}
+
+/**
+ * Required render order for the delivery-promise groups. Kept in sync with the
+ * top-of-navigator hoist in `FilterNavigator.js` so mobile (flat list) and
+ * desktop (hoist above the categories tree) agree on the sequence:
+ * Dynamic Estimate → Shipping Method → Delivery Option.
+ * Unknown delivery groups keep their API-relative order after the three known
+ * ones (sort is stable).
+ */
+export const DELIVERY_GROUP_ORDER = [
+  DYNAMIC_ESTIMATE_KEY,
+  SHIPPING_KEY,
+  DELIVERY_OPTIONS_KEY,
+]
+
+export const sortDeliveryGroups = deliveries => {
+  if (!deliveries || deliveries.length <= 1) {
+    return deliveries || []
+  }
+
+  const indexByName = new Map(
+    DELIVERY_GROUP_ORDER.map((name, index) => [name, index])
+  )
+
+  const priority = group =>
+    indexByName.has(group.name)
+      ? indexByName.get(group.name)
+      : Number.MAX_SAFE_INTEGER
+
+  return [...deliveries].sort((a, b) => priority(a) - priority(b))
 }
 
 /** Maps a delivery group name to its heading message id; unknown groups fall back to the raw name. */
@@ -136,7 +168,9 @@ const getDeliveriesFormatted = (
     ? allowedDeliveries
     : allowedDeliveries.filter(d => d.name !== SHIPPING_KEY)
 
-  return visibleDeliveries.map(group =>
+  const orderedDeliveries = sortDeliveryGroups(visibleDeliveries)
+
+  return orderedDeliveries.map(group =>
     formatDeliveryGroup(group, intl, availableShippingValues)
   )
 }

@@ -226,21 +226,15 @@ const FilterNavigator = ({
     [visibleDeliveries, intl]
   )
 
-  // On desktop the dynamic-estimate filter renders headerless as the first
-  // filter, right below the "Filters" title. The title's bottom border is
-  // dropped while it is present, so the estimate shows no divider at its top.
-  const estimateFilter = useMemo(
-    () => filters.find(filter => filter.name === DYNAMIC_ESTIMATE_KEY),
-    [filters]
-  )
-
-  const availableFilters = useMemo(
-    () =>
-      estimateFilter
-        ? filters.filter(filter => filter !== estimateFilter)
-        : filters,
-    [filters, estimateFilter]
-  )
+  // The delivery-promise groups are already ordered first (Dynamic Estimate →
+  // Shipping Method → Delivery Option) by `getFilters` (`sortDeliveryGroups`),
+  // so the flat `filters` list renders them at the top on both desktop and
+  // mobile. On desktop `dynamic-estimate` renders headerless; when it is the
+  // first group the title's bottom border is dropped so no divider shows at
+  // its top. Accounts that surface delivery filters do not surface a category
+  // tree, so `DepartmentFilters` renders null and does not sit between the
+  // title and the estimate.
+  const hasEstimateAtTop = filters[0]?.name === DYNAMIC_ESTIMATE_KEY
 
   const { pickupModal } = useSearchPickupModal({
     navigateToFacet,
@@ -312,7 +306,7 @@ const FilterNavigator = ({
               className={`${applyModifiers(
                 handles.filter__container,
                 'title'
-              )}${estimateFilter ? '' : ' bb b--muted-4'}`}
+              )}${hasEstimateAtTop ? '' : ' bb b--muted-4'}`}
             >
               <FilterNavigatorTitleTag
                 filtersTitleHtmlTag={filtersTitleHtmlTag}
@@ -326,26 +320,6 @@ const FilterNavigator = ({
               onOpenPickupModal={() => setisPickupModalOpen(true)}
               showShippingMethodFacet={showShippingMethodFacet}
             />
-            {estimateFilter && (
-              <AvailableFilters
-                filters={[estimateFilter]}
-                priceRange={priceRange}
-                preventRouteChange={preventRouteChange}
-                initiallyCollapsed={initiallyCollapsed}
-                navigateToFacet={navigateToFacet}
-                truncatedFacetsFetched={truncatedFacetsFetched}
-                setTruncatedFacetsFetched={setTruncatedFacetsFetched}
-                truncateFilters={truncateFilters}
-                openFiltersMode={openFiltersMode}
-                closeOnOutsideClick={closeOnOutsideClick}
-                appliedFiltersOverview={appliedFiltersOverview}
-                showClearByFilter={showClearByFilter}
-                priceRangeLayout={priceRangeLayout}
-                scrollToTop={scrollToTop}
-                onOpenPostalCodeModal={() => setIsPostalCodeModalOpen(true)}
-                onOpenPickupModal={() => setisPickupModalOpen(true)}
-              />
-            )}
             <DepartmentFilters
               title={CATEGORIES_TITLE}
               tree={tree}
@@ -357,7 +331,7 @@ const FilterNavigator = ({
               categoryFiltersMode={categoryFiltersMode}
             />
             <AvailableFilters
-              filters={availableFilters}
+              filters={filters}
               priceRange={priceRange}
               preventRouteChange={preventRouteChange}
               initiallyCollapsed={initiallyCollapsed}
