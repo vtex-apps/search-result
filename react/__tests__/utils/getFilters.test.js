@@ -68,6 +68,7 @@ describe('getFilters delivery group titles', () => {
         makeGroup('delivery-options'),
         makeGroup('dynamic-estimate'),
       ],
+      showDeliveryPromiseFacets: true,
     })
 
     const estimate = filters.find(filter => filter.name === 'dynamic-estimate')
@@ -88,6 +89,7 @@ describe('getFilters delivery group titles', () => {
         makeGroup('delivery-options'),
         makeGroup('dynamic-estimate'),
       ],
+      showDeliveryPromiseFacets: true,
       brands: [{ name: 'Samsung', value: 'samsung', selected: false }],
       brandsQuantity: 1,
       specificationFilters: [
@@ -109,7 +111,7 @@ describe('getFilters delivery group titles', () => {
         makeGroup('shipping'),
         makeGroup('dynamic-estimate'),
       ],
-      showShippingMethodFacet: true,
+      showDeliveryPromiseFacets: true,
       brands: [{ name: 'Samsung', value: 'samsung', selected: false }],
       brandsQuantity: 1,
       specificationFilters: [
@@ -153,7 +155,7 @@ describe('getFilters delivery group titles', () => {
           ],
         },
       ],
-      showShippingMethodFacet: true,
+      showDeliveryPromiseFacets: true,
     })
 
     const shipping = filters.find(filter => filter.name === 'shipping')
@@ -165,6 +167,7 @@ describe('getFilters delivery group titles', () => {
   it('falls back to the raw name for an unknown delivery group and keeps its header', () => {
     const filters = renderGetFilters({
       deliveries: [makeGroup('delivery-window')],
+      showDeliveryPromiseFacets: true,
     })
 
     const unknown = filters.find(filter => filter.name === 'delivery-window')
@@ -277,6 +280,7 @@ describe('getFilters hiddenFacets delivery-promise', () => {
         makeGroup('delivery-options'),
         makeGroup('dynamic-estimate'),
       ],
+      showDeliveryPromiseFacets: true,
       hiddenFacets: {
         'delivery-promise': { hiddenGroups: [{ name: 'dynamic-estimate' }] },
       },
@@ -293,17 +297,17 @@ describe('getFilters hiddenFacets delivery-promise', () => {
         makeGroup('delivery-options'),
         makeGroup('dynamic-estimate'),
       ],
-      showShippingMethodFacet: true,
+      showDeliveryPromiseFacets: true,
       hiddenFacets: { 'delivery-promise': { hideAll: true } },
     })
 
     expect(filters.some(f => f.type === 'DELIVERY')).toBe(false)
   })
 
-  it('hides shipping via hiddenFacets even when showShippingMethodFacet is true', () => {
+  it('hides shipping via hiddenFacets even when showDeliveryPromiseFacets is true', () => {
     const filters = renderGetFilters({
       deliveries: [makeGroup('shipping'), makeGroup('delivery-options')],
-      showShippingMethodFacet: true,
+      showDeliveryPromiseFacets: true,
       hiddenFacets: {
         'delivery-promise': { hiddenGroups: [{ name: 'shipping' }] },
       },
@@ -312,14 +316,59 @@ describe('getFilters hiddenFacets delivery-promise', () => {
     expect(filters.find(f => f.name === 'shipping')).toBeUndefined()
     expect(filters.find(f => f.name === 'delivery-options')).toBeDefined()
   })
+})
 
-  it("keeps the existing showShippingMethodFacet gate when hiddenFacets['delivery-promise'] is absent", () => {
+describe('getFilters delivery-promise unified gate', () => {
+  const wrapper = ({ children }) => (
+    <IntlProvider locale="en" messages={{}} onError={() => {}}>
+      {children}
+    </IntlProvider>
+  )
+
+  const renderGetFilters = args =>
+    renderHook(() => getFilters(args), { wrapper }).result.current
+
+  const makeGroup = name => ({
+    name,
+    type: 'DELIVERY',
+    quantity: 1,
+    facets: [{ key: name, name: 'delivery', value: 'delivery', map: name }],
+  })
+
+  const allThreeGroups = [
+    makeGroup('shipping'),
+    makeGroup('dynamic-estimate'),
+    makeGroup('delivery-options'),
+  ]
+
+  it('shows every delivery-promise group when the gate is true', () => {
     const filters = renderGetFilters({
-      deliveries: [makeGroup('shipping'), makeGroup('dynamic-estimate')],
-      showShippingMethodFacet: false,
+      deliveries: allThreeGroups,
+      showDeliveryPromiseFacets: true,
     })
 
-    expect(filters.find(f => f.name === 'shipping')).toBeUndefined()
+    expect(filters.find(f => f.name === 'shipping')).toBeDefined()
     expect(filters.find(f => f.name === 'dynamic-estimate')).toBeDefined()
+    expect(filters.find(f => f.name === 'delivery-options')).toBeDefined()
+  })
+
+  it('hides every delivery-promise group when the gate is false', () => {
+    const filters = renderGetFilters({
+      deliveries: allThreeGroups,
+      showDeliveryPromiseFacets: false,
+    })
+
+    expect(filters.some(f => f.type === 'DELIVERY')).toBe(false)
+    expect(filters.find(f => f.name === 'shipping')).toBeUndefined()
+    expect(filters.find(f => f.name === 'dynamic-estimate')).toBeUndefined()
+    expect(filters.find(f => f.name === 'delivery-options')).toBeUndefined()
+  })
+
+  it('hides every delivery-promise group when the gate is omitted (defaults to hidden)', () => {
+    const filters = renderGetFilters({
+      deliveries: allThreeGroups,
+    })
+
+    expect(filters.some(f => f.type === 'DELIVERY')).toBe(false)
   })
 })
