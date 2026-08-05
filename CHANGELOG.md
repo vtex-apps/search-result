@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- PLP no longer goes back to the loading state after the results are rendered when the ads request is refired, which made the page flicker. The organic result still waits up to 2s for sponsored products, but only while the search itself is loading.
+
 ## [3.150.1] - 2026-08-10
 
 ## [3.150.0] - 2026-08-10
