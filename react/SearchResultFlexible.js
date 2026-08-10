@@ -55,9 +55,11 @@ const SearchResultFlexible = ({
   preventRouteChange = false,
   showFacetQuantity = false,
   showFacetTitle = false,
-  // Deprecated: prefer `showDeliveryPromiseFacets`. Kept as a fallback for
-  // themes that still set it. No default so an explicit `false` is
-  // distinguishable from "not provided".
+  // Deprecated: prefer `showDeliveryPromiseFacets`. Kept as fallbacks for
+  // themes that still set them. `showShippingFacet` is the legacy name from
+  // before the rename to `showShippingMethodFacet`. No defaults so an explicit
+  // `false` is distinguishable from "not provided".
+  showShippingFacet,
   showShippingMethodFacet,
   showDeliveryPromiseFacets,
   availableShippingValues = [],
@@ -102,12 +104,13 @@ const SearchResultFlexible = ({
   const { uiRegistry } = useDeliveryPromiseState()
 
   // Single gate for all delivery-promise facet groups: an explicit boolean
-  // wins (`showDeliveryPromiseFacets` over the deprecated
-  // `showShippingMethodFacet`); when unset, presence of any delivery-promise
-  // block drives visibility.
+  // wins, with `showDeliveryPromiseFacets` taking precedence over the
+  // deprecated `showShippingMethodFacet` and the legacy `showShippingFacet`;
+  // when unset, presence of any delivery-promise block drives visibility.
   const shouldShowDeliveryPromiseFacets = resolveShowDeliveryPromiseFacets({
     showDeliveryPromiseFacets,
     showShippingMethodFacet,
+    showShippingFacet,
     hasBlock: hasDeliveryPromiseBlock(uiRegistry),
   })
 

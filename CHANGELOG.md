@@ -13,11 +13,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
-- The visibility of the delivery-promise facet groups (and their selected-filter badges) is now decided by a single resolved gate. `showDeliveryPromiseFacets` takes precedence over the deprecated `showShippingMethodFacet`, which is kept as a fallback for backward compatibility. When neither prop is set, the presence of a delivery-promise block drives visibility.
+- The visibility of the delivery-promise facet groups (and their selected-filter badges) is now decided by a single resolved gate. `showDeliveryPromiseFacets` takes precedence over the deprecated `showShippingMethodFacet` and the legacy `showShippingFacet`, which are kept as fallbacks for backward compatibility. Precedence is `showDeliveryPromiseFacets` > `showShippingMethodFacet` > `showShippingFacet`. When none is set, the presence of a delivery-promise block drives visibility.
 
 ### Deprecated
 
-- `showShippingMethodFacet` is deprecated in favor of `showDeliveryPromiseFacets`. It still works (as the fallback for the unified gate) but now gates all three delivery-promise groups rather than just Shipping method.
+- `showShippingMethodFacet` is deprecated in favor of `showDeliveryPromiseFacets`. It still works (as a fallback for the unified gate) but now gates all three delivery-promise groups rather than just Shipping method.
+- `showShippingFacet` (the legacy name from before the rename to `showShippingMethodFacet`) is deprecated in favor of `showDeliveryPromiseFacets`. It is still honored as the lowest-precedence fallback for the unified gate so themes that were not updated to the renamed prop keep working.
 
 ## [3.149.1] - 2026-07-09
 
