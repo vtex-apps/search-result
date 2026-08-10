@@ -157,18 +157,21 @@ const formatDeliveryGroup = (group, intl, availableShippingValues) => {
 
 const getDeliveriesFormatted = (
   deliveries,
-  { availableShippingValues, showShippingFacet, hiddenFacets }
+  { availableShippingValues, showDeliveryPromiseFacets, hiddenFacets }
 ) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const intl = useIntl()
 
+  // Single gate for every delivery-promise group (shipping, dynamic-estimate,
+  // delivery-options). When off, none of them render; the per-group
+  // `hiddenFacets['delivery-promise']` setting is applied on top when on.
+  if (!showDeliveryPromiseFacets) {
+    return []
+  }
+
   const allowedDeliveries = filterHiddenDeliveryGroups(deliveries, hiddenFacets)
 
-  const visibleDeliveries = showShippingFacet
-    ? allowedDeliveries
-    : allowedDeliveries.filter(d => d.name !== SHIPPING_KEY)
-
-  const orderedDeliveries = sortDeliveryGroups(visibleDeliveries)
+  const orderedDeliveries = sortDeliveryGroups(allowedDeliveries)
 
   return orderedDeliveries.map(group =>
     formatDeliveryGroup(group, intl, availableShippingValues)
@@ -182,12 +185,12 @@ const getFilters = ({
   deliveries = [],
   brandsQuantity = 0,
   hiddenFacets = {},
-  showShippingMethodFacet = false,
+  showDeliveryPromiseFacets = false,
   availableShippingValues = [],
 }) => {
   const deliveriesFormatted = getDeliveriesFormatted(deliveries, {
     availableShippingValues,
-    showShippingFacet: showShippingMethodFacet,
+    showDeliveryPromiseFacets,
     hiddenFacets,
   })
 

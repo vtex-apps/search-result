@@ -206,7 +206,7 @@ const FilterNavigator = ({
     facet => facet.selected
   )
 
-  const { searchQuery, showShippingMethodFacet } = useSearchPage()
+  const { searchQuery, showDeliveryPromiseFacets } = useSearchPage()
   const hasFiltersApplied = searchQuery?.variables?.selectedFacets?.length > 1
 
   const handleResetFilters = () => {
@@ -318,7 +318,7 @@ const FilterNavigator = ({
               navigateToFacet={navigateToFacet}
               onOpenPostalCodeModal={() => setIsPostalCodeModalOpen(true)}
               onOpenPickupModal={() => setisPickupModalOpen(true)}
-              showShippingMethodFacet={showShippingMethodFacet}
+              showDeliveryPromiseFacets={showDeliveryPromiseFacets}
             />
             <DepartmentFilters
               title={CATEGORIES_TITLE}

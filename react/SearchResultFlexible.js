@@ -8,11 +8,16 @@ import {
 import { useCssHandles } from 'vtex.css-handles'
 import { useRuntime } from 'vtex.render-runtime'
 import { generateBlockClass } from '@vtex/css-handles'
+import { useDeliveryPromiseState } from 'vtex.delivery-promise-components/DeliveryPromiseContext'
 import { pathOr, isEmpty } from 'ramda'
 
 import SearchResultContainer from './components/SearchResultContainer'
 import ContextProviders from './components/ContextProviders'
 import getFilters from './utils/getFilters'
+import {
+  hasDeliveryPromiseBlock,
+  resolveShowDeliveryPromiseFacets,
+} from './utils/deliveryPromiseFacets'
 import LoadingOverlay from './components/LoadingOverlay'
 import { PAGINATION_TYPE } from './constants/paginationType'
 import styles from './searchResult.css'
@@ -50,7 +55,11 @@ const SearchResultFlexible = ({
   preventRouteChange = false,
   showFacetQuantity = false,
   showFacetTitle = false,
-  showShippingMethodFacet = false,
+  // Deprecated: prefer `showDeliveryPromiseFacets`. Kept as a fallback for
+  // themes that still set it. No default so an explicit `false` is
+  // distinguishable from "not provided".
+  showShippingMethodFacet,
+  showDeliveryPromiseFacets,
   availableShippingValues = [],
   // Below are set by SearchContext
   searchQuery,
@@ -90,6 +99,18 @@ const SearchResultFlexible = ({
 
   const { query: runtimeQuery } = useRuntime()
 
+  const { uiRegistry } = useDeliveryPromiseState()
+
+  // Single gate for all delivery-promise facet groups: an explicit boolean
+  // wins (`showDeliveryPromiseFacets` over the deprecated
+  // `showShippingMethodFacet`); when unset, presence of any delivery-promise
+  // block drives visibility.
+  const shouldShowDeliveryPromiseFacets = resolveShowDeliveryPromiseFacets({
+    showDeliveryPromiseFacets,
+    showShippingMethodFacet,
+    hasBlock: hasDeliveryPromiseBlock(uiRegistry),
+  })
+
   const filters = useMemo(
     () =>
       getFilters({
@@ -99,7 +120,7 @@ const SearchResultFlexible = ({
         brandsQuantity,
         hiddenFacets,
         deliveries,
-        showShippingMethodFacet,
+        showDeliveryPromiseFacets: shouldShowDeliveryPromiseFacets,
         availableShippingValues,
       }),
     [
@@ -109,7 +130,7 @@ const SearchResultFlexible = ({
       specificationFilters,
       brandsQuantity,
       deliveries,
-      showShippingMethodFacet,
+      shouldShowDeliveryPromiseFacets,
       availableShippingValues,
     ]
   )
@@ -178,7 +199,7 @@ const SearchResultFlexible = ({
       facetsLoading,
       lazyItemsRemaining,
       selectedFacets,
-      showShippingMethodFacet,
+      showDeliveryPromiseFacets: shouldShowDeliveryPromiseFacets,
     }
   }, [
     hiddenFacets,
@@ -197,7 +218,7 @@ const SearchResultFlexible = ({
     preventRouteChange,
     facetsLoading,
     lazyItemsRemaining,
-    showShippingMethodFacet,
+    shouldShowDeliveryPromiseFacets,
   ])
 
   const showLoading = searchQuery.loading && !state.isFetchingMore

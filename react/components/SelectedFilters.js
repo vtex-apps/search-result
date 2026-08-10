@@ -7,8 +7,19 @@ import FacetItem from './FacetItem'
 import FilterOptionTemplate from './FilterOptionTemplate'
 import { facetOptionShape } from '../constants/propTypes'
 import SettingsContext from './SettingsContext'
+import {
+  SHIPPING_KEY,
+  DYNAMIC_ESTIMATE_KEY,
+  DELIVERY_OPTIONS_KEY,
+} from '../utils/getFilters'
 
 const CSS_HANDLES = ['selectedFilterItem']
+
+const DELIVERY_PROMISE_FACET_KEYS = [
+  SHIPPING_KEY,
+  DYNAMIC_ESTIMATE_KEY,
+  DELIVERY_OPTIONS_KEY,
+]
 
 /**
  * Search Filter Component.
@@ -20,7 +31,7 @@ const SelectedFilters = ({
   navigateToFacet,
   onOpenPostalCodeModal,
   onOpenPickupModal,
-  showShippingMethodFacet,
+  showDeliveryPromiseFacets,
 }) => {
   const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
@@ -28,7 +39,11 @@ const SelectedFilters = ({
 
   const visibleFilters = filters
     .filter(filter => !filter.hidden)
-    .filter(filter => showShippingMethodFacet || filter.key !== 'shipping')
+    .filter(
+      filter =>
+        showDeliveryPromiseFacets ||
+        !DELIVERY_PROMISE_FACET_KEYS.includes(filter.key)
+    )
 
   if (!visibleFilters.length) {
     return null
@@ -78,7 +93,7 @@ SelectedFilters.propTypes = {
   navigateToFacet: PropTypes.func,
   onOpenPostalCodeModal: PropTypes.func,
   onOpenPickupModal: PropTypes.func,
-  showShippingMethodFacet: PropTypes.bool,
+  showDeliveryPromiseFacets: PropTypes.bool,
 }
 
 export default SelectedFilters
