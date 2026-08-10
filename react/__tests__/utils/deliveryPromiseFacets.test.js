@@ -63,11 +63,17 @@ describe('resolveShowDeliveryPromiseFacets truth table', () => {
     )
   })
 
-  it('lets showDeliveryPromiseFacets win over the deprecated prop', () => {
+  it('uses the legacy showShippingFacet when the newer props are unset', () => {
+    expect(resolve({ showShippingFacet: true, hasBlock: false })).toBe(true)
+    expect(resolve({ showShippingFacet: false, hasBlock: true })).toBe(false)
+  })
+
+  it('lets showDeliveryPromiseFacets win over the deprecated props', () => {
     expect(
       resolve({
         showDeliveryPromiseFacets: true,
         showShippingMethodFacet: false,
+        showShippingFacet: false,
         hasBlock: false,
       })
     ).toBe(true)
@@ -75,6 +81,24 @@ describe('resolveShowDeliveryPromiseFacets truth table', () => {
       resolve({
         showDeliveryPromiseFacets: false,
         showShippingMethodFacet: true,
+        showShippingFacet: true,
+        hasBlock: true,
+      })
+    ).toBe(false)
+  })
+
+  it('lets showShippingMethodFacet win over the legacy showShippingFacet', () => {
+    expect(
+      resolve({
+        showShippingMethodFacet: true,
+        showShippingFacet: false,
+        hasBlock: false,
+      })
+    ).toBe(true)
+    expect(
+      resolve({
+        showShippingMethodFacet: false,
+        showShippingFacet: true,
         hasBlock: true,
       })
     ).toBe(false)

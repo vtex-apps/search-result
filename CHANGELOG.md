@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+- `showShippingFacet` is now honored as the lowest-precedence legacy fallback in the delivery-promise facets visibility gate. Themes that were never updated from the original prop name (before the rename to `showShippingMethodFacet`) will keep working without any changes on their side. Precedence is `showDeliveryPromiseFacets` > `showShippingMethodFacet` > `showShippingFacet` > block presence.
+
+### Deprecated
+
+- `showShippingFacet` (the legacy name from before the rename to `showShippingMethodFacet`) is deprecated in favor of `showDeliveryPromiseFacets`. It is still honored as the lowest-precedence fallback for the unified gate so themes that were not updated to the renamed prop keep working.
+
+## [3.150.0] - 2026-08-10
+
+### Added
+
 - `showDeliveryPromiseFacets` prop on `search-result-layout.desktop` / `.mobile`: a single switch that controls the visibility of **all** delivery-promise facet groups (`shipping`, `dynamic-estimate`, `delivery-options`). When unset, the groups are shown automatically if at least one delivery-promise block (`shopper-location-setter`, `shipping-method-selector`, or `pickup-point-selector`) is rendered.
 
 ### Changed

@@ -16,23 +16,27 @@ export const hasDeliveryPromiseBlock = uiRegistry =>
  * Resolve the single visibility gate shared by every delivery-promise facet
  * group (`shipping`, `dynamic-estimate`, `delivery-options`).
  *
- * Precedence:
- * 1. `showDeliveryPromiseFacets` wins when provided.
- * 2. Otherwise the deprecated `showShippingMethodFacet` acts as the fallback.
- * 3. When neither is provided, presence of any delivery-promise block drives
+ * Precedence (first defined prop wins):
+ * 1. `showDeliveryPromiseFacets` — the current prop.
+ * 2. `showShippingMethodFacet` — deprecated alias.
+ * 3. `showShippingFacet` — legacy alias (name before the rename to
+ *    `showShippingMethodFacet`), kept for backward compatibility.
+ * 4. When none is provided, presence of any delivery-promise block drives
  *    visibility.
  *
- * An explicit `false` (from either prop) always hides the groups.
+ * An explicit `false` (from any prop) always hides the groups.
  */
 export const resolveShowDeliveryPromiseFacets = ({
   showDeliveryPromiseFacets,
   showShippingMethodFacet,
+  showShippingFacet,
   hasBlock,
 }) => {
-  const resolved =
-    showDeliveryPromiseFacets !== undefined
-      ? showDeliveryPromiseFacets
-      : showShippingMethodFacet
+  const resolved = [
+    showDeliveryPromiseFacets,
+    showShippingMethodFacet,
+    showShippingFacet,
+  ].find(value => value !== undefined)
 
   if (resolved === undefined) {
     return hasBlock
