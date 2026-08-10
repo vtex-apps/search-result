@@ -9,16 +9,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+- `showShippingFacet` is now honored as the lowest-precedence legacy fallback in the delivery-promise facets visibility gate. Themes that were never updated from the original prop name (before the rename to `showShippingMethodFacet`) will keep working without any changes on their side. Precedence is `showDeliveryPromiseFacets` > `showShippingMethodFacet` > `showShippingFacet` > block presence.
+
+### Deprecated
+
+- `showShippingFacet` (the legacy name from before the rename to `showShippingMethodFacet`) is deprecated in favor of `showDeliveryPromiseFacets`. It is still honored as the lowest-precedence fallback for the unified gate so themes that were not updated to the renamed prop keep working.
+
+## [3.150.0] - 2026-08-10
+
+### Added
+
 - `showDeliveryPromiseFacets` prop on `search-result-layout.desktop` / `.mobile`: a single switch that controls the visibility of **all** delivery-promise facet groups (`shipping`, `dynamic-estimate`, `delivery-options`). When unset, the groups are shown automatically if at least one delivery-promise block (`shopper-location-setter`, `shipping-method-selector`, or `pickup-point-selector`) is rendered.
 
 ### Changed
 
-- The visibility of the delivery-promise facet groups (and their selected-filter badges) is now decided by a single resolved gate. `showDeliveryPromiseFacets` takes precedence over the deprecated `showShippingMethodFacet` and the legacy `showShippingFacet`, which are kept as fallbacks for backward compatibility. Precedence is `showDeliveryPromiseFacets` > `showShippingMethodFacet` > `showShippingFacet`. When none is set, the presence of a delivery-promise block drives visibility.
+- The visibility of the delivery-promise facet groups (and their selected-filter badges) is now decided by a single resolved gate. `showDeliveryPromiseFacets` takes precedence over the deprecated `showShippingMethodFacet`, which is kept as a fallback for backward compatibility. When neither prop is set, the presence of a delivery-promise block drives visibility.
 
 ### Deprecated
 
-- `showShippingMethodFacet` is deprecated in favor of `showDeliveryPromiseFacets`. It still works (as a fallback for the unified gate) but now gates all three delivery-promise groups rather than just Shipping method.
-- `showShippingFacet` (the legacy name from before the rename to `showShippingMethodFacet`) is deprecated in favor of `showDeliveryPromiseFacets`. It is still honored as the lowest-precedence fallback for the unified gate so themes that were not updated to the renamed prop keep working.
+- `showShippingMethodFacet` is deprecated in favor of `showDeliveryPromiseFacets`. It still works (as the fallback for the unified gate) but now gates all three delivery-promise groups rather than just Shipping method.
 
 ## [3.149.1] - 2026-07-09
 
