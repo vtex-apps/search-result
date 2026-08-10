@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.150.0] - 2026-08-10
+
 ### Added
 
 - `showDeliveryPromiseFacets` prop on `search-result-layout.desktop` / `.mobile`: a single switch that controls the visibility of **all** delivery-promise facet groups (`shipping`, `dynamic-estimate`, `delivery-options`). When unset, the groups are shown automatically if at least one delivery-promise block (`shopper-location-setter`, `shipping-method-selector`, or `pickup-point-selector`) is rendered.
