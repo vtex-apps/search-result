@@ -8,61 +8,75 @@ interface UseMergeResultsProps {
   sponsoredSearchResult: UseAdsReturn<any>
 }
 
+const ADS_MAX_WAIT_MS = 2000
+
 const useMergeResults = ({
   props,
   sponsoredSearchResult,
 }: UseMergeResultsProps) => {
-  const [holdOrganic, setHoldOrganic] = useState(false)
-
   const isFirstPage = Boolean(
     (props as unknown as { from?: number })?.from === 0 ||
       (props as unknown as { page?: number })?.page === 1
   )
 
   const isAdsLoading = sponsoredSearchResult?.isLoading ?? false
+  const isSearchLoading = props?.searchQuery?.loading ?? false
+  const searchVariables = props?.searchQuery?.variables
+
+  // Armed only while the search is loading, so the wait can extend an existing
+  // loader but never turn a rendered result back into one.
+  const [isWaitingForAds, setIsWaitingForAds] = useState(
+    () => isFirstPage && isSearchLoading
+  )
 
   useEffect(() => {
-    if (!isFirstPage) {
-      setHoldOrganic(false)
+    if (isFirstPage && isSearchLoading) {
+      setIsWaitingForAds(true)
+    }
+  }, [searchVariables, isFirstPage, isSearchLoading])
 
+  // Hard limit for the wait.
+  useEffect(() => {
+    if (!isWaitingForAds) {
       return
     }
 
-    if (!isAdsLoading) {
-      setHoldOrganic(false)
-
-      return
-    }
-
-    setHoldOrganic(true)
-
-    const ADS_WAIT_MS = 2000
     const timeoutId = setTimeout(() => {
-      setHoldOrganic(false)
-    }, ADS_WAIT_MS)
+      setIsWaitingForAds(false)
+    }, ADS_MAX_WAIT_MS)
 
     return () => {
       clearTimeout(timeoutId)
     }
-  }, [isAdsLoading, isFirstPage])
+  }, [isWaitingForAds])
+
+  useEffect(() => {
+    // Ads settled and search resolved: nothing left to wait for.
+    if (isWaitingForAds && !isAdsLoading && !isSearchLoading) {
+      setIsWaitingForAds(false)
+    }
+  }, [isWaitingForAds, isAdsLoading, isSearchLoading])
 
   const mergedProps = useMemo(() => {
     const newProps = { ...props }
 
-    // While ads are loading (and within wait window), hide organic products to avoid flicker
-    if (isFirstPage && holdOrganic && newProps.searchQuery) {
+    if (isFirstPage && isWaitingForAds && newProps.searchQuery) {
+      // Hold the organic result so sponsored products enter in the same paint.
       newProps.searchQuery = {
         ...newProps.searchQuery,
         loading: true,
-        data: {
+        products: [],
+      }
+
+      if (newProps.searchQuery.data) {
+        newProps.searchQuery.data = {
           ...newProps.searchQuery.data,
           products: [],
           productSearch: {
             ...newProps.searchQuery.data.productSearch,
             products: [],
           },
-        },
-        products: [],
+        }
       }
     } else if (
       isFirstPage &&
@@ -89,7 +103,7 @@ const useMergeResults = ({
           ...newProps.searchQuery.data,
           products: mergedProducts,
           productSearch: {
-            ...newProps.searchQuery.data.productSearch,
+            ...newProps.searchQuery.data?.productSearch,
             products: mergedProducts,
           },
         },
@@ -98,7 +112,7 @@ const useMergeResults = ({
     }
 
     return newProps
-  }, [props, sponsoredSearchResult, holdOrganic, isFirstPage])
+  }, [props, sponsoredSearchResult, isFirstPage, isWaitingForAds])
 
   return mergedProps
 }
