@@ -312,10 +312,10 @@
     "@typescript-eslint/types" "5.62.0"
     eslint-visitor-keys "^3.3.0"
 
-"@vtex/prettier-config@^0.1.3":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@vtex/prettier-config/-/prettier-config-0.1.4.tgz#dc7633c5b511e42673830503d88adde7da17f40a"
-  integrity sha512-/rNzJ7R7KZmmcrCS3GFbVhfQRKFYFsDvCyO3Mv+atyILi0dkiELLVHUrbeAV/VaCgEMAGgWB9rdCQRasI3Yy/w==
+"@vtex/prettier-config@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@vtex/prettier-config/-/prettier-config-1.0.0.tgz#a7a7091ecff1da340d398000f4855dc9910aa9c9"
+  integrity sha512-4Uv67bK2eORhzWg/11J5/+fxPUWY6b0sYdhcqMzIgo0zluXlYqbZU6iueKZ48SxG4ODw8ZaqMRfpNsLd3Gw5+Q==
 
 acorn-jsx@^5.3.1:
   version "5.3.2"
