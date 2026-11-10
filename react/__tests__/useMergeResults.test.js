@@ -1,4 +1,6 @@
+import React from 'react'
 import { renderHook, act } from '@testing-library/react-hooks'
+import TestRenderer from 'react-test-renderer'
 
 import useMergeResults from '../hooks/useMergeResults'
 
@@ -190,5 +192,50 @@ describe('useMergeResults', () => {
     })
 
     expect(result.current.searchQuery.loading).toBe(true)
+  })
+
+  // react-test-renderer outside act() exposes the first render, before effects.
+  it('does not blank already-available data on the first synchronous render', () => {
+    const props = searched()
+
+    props.searchQuery.loading = true
+
+    const renders = []
+
+    const HookProbe = ({ hookProps, sponsoredSearchResult }) => {
+      const merged = useMergeResults({
+        props: hookProps,
+        sponsoredSearchResult,
+      })
+
+      renders.push(merged)
+
+      return null
+    }
+
+    TestRenderer.create(
+      <HookProbe hookProps={props} sponsoredSearchResult={adsLoading} />
+    )
+
+    expect(renders[0].searchQuery.products).toEqual(ORGANIC)
+  })
+
+  it('does not re-arm the wait for a search whose products are already on screen', () => {
+    const props = searched()
+
+    const { result, rerender } = renderMergeResults({
+      props,
+      sponsoredSearchResult: adsEmpty,
+    })
+
+    expect(result.current.searchQuery.products).toEqual(ORGANIC)
+
+    // Same variables, loading flips back to true (e.g. a refetch in flight).
+    rerender({
+      props: { ...props, searchQuery: { ...props.searchQuery, loading: true } },
+      sponsoredSearchResult: adsEmpty,
+    })
+
+    expect(result.current.searchQuery.products).toEqual(ORGANIC)
   })
 })
