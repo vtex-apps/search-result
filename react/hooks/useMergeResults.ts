@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { UseAdsReturn } from '@vtex/ads-react'
 
 interface UseMergeResultsProps {
@@ -21,19 +21,20 @@ const useMergeResults = ({
 
   const isAdsLoading = sponsoredSearchResult?.isLoading ?? false
   const isSearchLoading = props?.searchQuery?.loading ?? false
-  const searchVariables = props?.searchQuery?.variables
+  const searchVariablesKey = JSON.stringify(props?.searchQuery?.variables)
 
-  // Armed only while the search is loading, so the wait can extend an existing
-  // loader but never turn a rendered result back into one.
-  const [isWaitingForAds, setIsWaitingForAds] = useState(
-    () => isFirstPage && isSearchLoading
-  )
+  // Armed by the effect below, never on the first render.
+  const [isWaitingForAds, setIsWaitingForAds] = useState(false)
+
+  // Search whose products are already on screen; it is never held again.
+  const shownForSearchRef = useRef<string | undefined>(undefined)
+  const alreadyShown = shownForSearchRef.current === searchVariablesKey
 
   useEffect(() => {
-    if (isFirstPage && isSearchLoading) {
+    if (isFirstPage && isSearchLoading && !alreadyShown) {
       setIsWaitingForAds(true)
     }
-  }, [searchVariables, isFirstPage, isSearchLoading])
+  }, [searchVariablesKey, isFirstPage, isSearchLoading, alreadyShown])
 
   // Hard limit for the wait.
   useEffect(() => {
@@ -60,7 +61,12 @@ const useMergeResults = ({
   const mergedProps = useMemo(() => {
     const newProps = { ...props }
 
-    if (isFirstPage && isWaitingForAds && newProps.searchQuery) {
+    if (
+      isFirstPage &&
+      isWaitingForAds &&
+      !alreadyShown &&
+      newProps.searchQuery
+    ) {
       // Hold the organic result so sponsored products enter in the same paint.
       newProps.searchQuery = {
         ...newProps.searchQuery,
@@ -112,7 +118,16 @@ const useMergeResults = ({
     }
 
     return newProps
-  }, [props, sponsoredSearchResult, isFirstPage, isWaitingForAds])
+  }, [props, sponsoredSearchResult, isFirstPage, isWaitingForAds, alreadyShown])
+
+  const hasProductsOnScreen =
+    (mergedProps?.searchQuery?.products?.length ?? 0) > 0
+
+  useEffect(() => {
+    if (hasProductsOnScreen) {
+      shownForSearchRef.current = searchVariablesKey
+    }
+  }, [hasProductsOnScreen, searchVariablesKey])
 
   return mergedProps
 }
