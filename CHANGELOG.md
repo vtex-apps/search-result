@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Product grid no longer goes blank for an instant on reload or direct navigation to a PLP. The ads wait is not re-armed for a search whose products are already on screen (`searchQuery.loading` flips back to `true` while a `fetchMore` or `refetch` is in flight), and the first render of `useMergeResults` always passes the incoming props through as-is.
+
 ## [3.150.2] - 2026-08-11
 
 ### Fixed
